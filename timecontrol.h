@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: timecontrol.h,v 1.5 2003/09/26 16:51:19 Superfly_Jon Exp $
+ * $Id: timecontrol.h,v 1.6 2004/02/12 10:42:56 uid68519 Exp $
  */
 
 #ifndef _TIMECONTROL_H_
@@ -96,5 +96,5 @@ extern void SetDefaultTC ();
 extern void SaveTimeControlSettings( FILE *pf );
 extern void CommandShowTCTutorial ();
 
-#endif // USE_TIMECONTROL
+#endif /* USE_TIMECONTROL */
 #endif /* _TIMECONTROL_H_ */
