@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.255 2003/09/12 13:35:22 steink Exp $
+ * $Id: backgammon.h,v 1.256 2003/09/12 14:42:17 Superfly_Jon Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -52,6 +52,9 @@
 extern GtkWidget* pwBoard;
 extern int fX, nDelay, fNeedPrompt;
 extern guint nNextTurn; /* GTK idle function */
+#if USE_TIMECONTROL
+extern void GTKUpdateClock(void);
+#endif
 #elif USE_EXT
 #include <ext.h>
 #include <event.h>
@@ -223,7 +226,7 @@ typedef struct _playerclock {
     struct timeval tvStamp; 
     struct timeval tvTimeleft;
     timecontrol tc;
-   //  int nTimeouts;
+   /*  int nTimeouts; */
 } playerclock;
    
 typedef struct _gameclock {
