@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.121 2003/07/28 18:22:44 ace Exp $
+ * $Id: analysis.c,v 1.122 2003/08/07 17:32:05 thyssen Exp $
  */
 
 #include "config.h"
@@ -1940,7 +1940,7 @@ extern void CommandAnalyseMove ( char *sz ) {
 
 
 static void
-updateStatisticsMove ( moverecord *pmr, matchstate *pms, list *plGame,
+updateStatisticsMove ( moverecord *pmr, matchstate *pms, const list* plGame,
                        statcontext *psc ) {
 
   FixMatchState ( pms, pmr );
@@ -1992,7 +1992,7 @@ updateStatisticsMove ( moverecord *pmr, matchstate *pms, list *plGame,
 
 
 extern void
-updateStatisticsGame ( list *plGame ) {
+updateStatisticsGame ( const list* plGame ) {
 
   list *pl;
   moverecord *pmr;
