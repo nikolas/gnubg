@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.23 2003/01/22 18:29:43 gtw Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -662,8 +662,11 @@ static void HintSelect( GtkWidget *pw, int y, int x, GdkEventButton *peb,
 	gtk_selection_owner_set( pw, GDK_SELECTION_PRIMARY, peb->time );
 
     /* Double clicking a row makes that move. */
-    if( c == 1 && peb && peb->type == GDK_2BUTTON_PRESS && phd->fButtonsValid )
+    if( c == 1 && peb && peb->type == GDK_2BUTTON_PRESS && 
+        phd->fButtonsValid ) {
       gtk_button_clicked( GTK_BUTTON( phd->pwMove ) );
+      return;
+    }
 
     /* show moves */
 
