@@ -18,11 +18,20 @@
 /* Define if the X Window System is missing or not being used.  */
 #undef X_DISPLAY_MISSING
 
+/* Define if you have the getlogin function.  */
+#undef HAVE_GETLOGIN
+
 /* Define if you have the getpagesize function.  */
 #undef HAVE_GETPAGESIZE
 
+/* Define if you have the getpwuid function.  */
+#undef HAVE_GETPWUID
+
 /* Define if you have the gettimeofday function.  */
 #undef HAVE_GETTIMEOFDAY
+
+/* Define if you have the rand_r function.  */
+#undef HAVE_RAND_R
 
 /* Define if you have the random function.  */
 #undef HAVE_RANDOM
@@ -36,6 +45,9 @@
 /* Define if you have the <fcntl.h> header file.  */
 #undef HAVE_FCNTL_H
 
+/* Define if you have the <pwd.h> header file.  */
+#undef HAVE_PWD_H
+
 /* Define if you have the <sys/mman.h> header file.  */
 #undef HAVE_SYS_MMAN_H
 
@@ -44,6 +56,9 @@
 
 /* Define if you have the <unistd.h> header file.  */
 #undef HAVE_UNISTD_H
+
+/* Define if you have the dl library (-ldl).  */
+#undef HAVE_LIBDL
 
 /* Define if you have the gdbm library (-lgdbm).  */
 #undef HAVE_LIBGDBM

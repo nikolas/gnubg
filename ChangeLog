@@ -1,3 +1,183 @@
+2000-01-09  Joern Thyssen  <jth@localhost.localdomain>
+
+	* play.c (ComputerTurn): Call Utility for calculation of equity
+	when determining whether to accept resignation or not.
+
+2000-01-09  Joern Thyssen  <jth@localhost.localdomain>
+
+	* eval.c (DumpPosition): Call Utility for calculation of equity. 
+
+Sat Jan  8 14:16:08 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* xgame.c (StatsMove, StatsConfirm): Keep a list of legal
+	moves from the current position.  Display whether the user's
+	move is incomplete, complete, or illegal.
+	* xgame.h, xgame.c (GameSet, GameSetBoard): Old GameSetBoard
+	renamed to GameSet; old GameSet deleted.
+	* eval.c (SaveMoves, GenerateMovesSub, GenerateMoves): added
+	parameter fPartial, and include incomplete moves in the list
+	if set.
+	* positionid.c, positionid.h (EqualBoards): New function.
+	* set.c (CommandSetCubeCentre, CommandSetCubeOwner,
+	CommandSetCubeValue): New functions.
+	* set.c (CommandSetCubeUse): If the cube had been offered and
+	cube use is being disabled, go back to the player on roll.
+	* gnubg.c (main): Initialise the players' names to "gnubg" and
+	the user's login name.
+	* gnubg.c (ShowBoard): Label the players' names with X or O in the
+	ASCII board.
+
+Fri Jan  7 21:14:19 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* xgame.c (GameHandler): Forward keyboard input in the board window
+	on to the window specified by $WINDOWID (if any), so that the user
+	can type data into the controlling xterm (or similar) while focus
+	is on the board window.
+
+Thu Jan  6 22:07:28 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* makeweights.c: New file.
+	* eval.c (EvalInitialise): read binary weights if available.
+	* gnubg.c (main): attempt reading binary weights `gnubg.wd';
+	don't read any weights if -n (--no-weights) specified.
+
+Wed Jan  5 22:20:09 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* play.c (NextTurn): ignore gammons when appropriate under the
+	Jacoby rule.
+	* gnubg.c (ShowBoard): when no game is in progress under X, display
+	an empty board window.
+	* set.c (CommandSetCubeUse): New function.
+	* gnubg.c (SetToggle): Add "enabled" and "disabled" (along with
+	yes/no, on/off, true/false).
+	* play.c (NextTurn): Don't autoroll if the opponent has just
+	doubled.
+	* set.c (CommandSetAutoDoubles): New function.
+	* play.c (NewGame): Apply automatic doubles when appropriate.
+
+Mon Jan  3 21:13:22 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* dice.c (InitRNG): Use /dev/random for initial seed if possible.
+
+Mon Jan  3 20:15:46 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* set.c (SetRNG): Don't call CommandSetSeed() when changing
+	to manual dice.
+
+Mon Jan  3 03:13:02 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* xgame.c (StatsMove): call StatsUpdateBoardID earlier, so that the
+	position ID will still be updated even if more than 4 moves are
+	made.  (This is only temporary -- a better move routine should
+	be written anyway.)
+
+Sun Jan  2 11:35:41 2000  Gary Wong  <gary@cs.arizona.edu>
+
+	* eval.c (EvalCacheResize): New function.
+
+Fri Dec 24 01:12:54 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* gnubg.c (CommandRollout): use Rollout()'s equity standard
+	deviation, rather than (incorrectly) trying to calculate it.
+	* rollout.c (Rollout): calculate equity standard deviation.
+	Also fix bug which would sometimes return NaN standard deviation.
+
+Thu Dec 23 18:45:31 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* play.c (CommandNewGame): fix bug in assert() -- the game is at
+	lMatch.plPrev->p, not lMatch.plPrev.  Also, do not free plGame
+	after calling FreeGame(); FreeGame() already does it.
+
+Mon Dec 20 17:33:06 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* play.c (TryBearoff): New function.
+	* set.c (CommandSetAutoBearoff): New function.
+
+Mon Dec 20 15:05:19 1999  Joseph Heled  <pepe@internet.co.nz>
+
+	* eval.c (SanityCheck): Insure gammons rate is less than win rate
+	This is rare, but can happen:
+	
+	(gnubg) eval wQhBvjEW/2MAAA
+        Win     W(g)    W(bg)   L(g)    L(bg)   Equity
+        static: 0.896   0.918   0.026   0.021   0.005   (+1.711)
+         1 ply: 0.853   0.888   0.024   0.028   0.005   (+1.585)
+
+Sun Dec 19 22:57:49 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* gnubg.c (SaveGame, CommandSaveMatch): finished saving.
+	* eval.c (SaveMoves): store all bearoff moves as destination
+	point 0 (previous patch to do this was incomplete).
+	* play.c (FreeGame): New function.
+	* play.c (FreeMatch): New function.
+
+Sun Dec 19 19:52:09 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* gnubg.c (HandleCommand): Allow "b" and "ba" as abbreviations
+	for "bar".
+
+Mon Dec 20 16:19:21 1999  Joern Thyssen  <joern@thyssen.nu>
+
+	* xgame.c (StatsSet): nMatchTo == 0 is now money session.
+	* gnubg.c (ShowBoard): nMatchTo == 0 is now money session.
+	Added variables and set- and show-functions for 
+	Crawford game, post-Crawford play, and Jacoby play.
+	* set.c (CommandSetJacoby, CommandSetCrawford, 
+	CommandSetPostCrawford): New functions.
+	* show.c (CommandShowJacoby, CommandShowCrawford, 
+	CommandShowPostCrawford): New functions.
+	* play.c (CommandNewMatch, CommandNewSession): initialize 
+	new variables.
+	(Nextturn): changed code used if fAutoGame.
+
+Sat Dec 18 20:37:32 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* set.c (CommandSetPrompt): New function.
+	* gnubg.c (FormatPrompt): New function.
+	* eval.c (PipCount): New function.
+
+Sat Dec 18 15:02:32 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* xgame.c (StatsUpdateBoardID): New function.  Display board
+	ID in window.
+
+Fri Dec 17 09:14:13 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* gnubg.c (usage): "--help" option now mentions "help" command
+	within gnubg.
+
+Thu Dec 16 18:11:41 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* xboard.c (BoardPointer): Fixed bug which prevented bearing off
+	with Button2 or Button3 with exactly the right number.
+
+Wed Dec 15 19:48:10 1999  Gary Wong  <gary@cs.arizona.edu>
+
+	* xboard.c (BoardPointer): Allow clicking Button2 or Button3 on
+	chequers to move pieces the number of pips showing on the dice,
+	and clicking Button2 or Button3 on the dice to swap the dice.
+
+Wed Dec 15 15:25:23 1999  Joern Thyssen  <joern@thyssen.nu>
+
+        * userrng.c: New file. Template for a user supplied RNG,
+        includes code for fetching random numbers from www.random.org.
+
+        * gnubg.c: Added support for user and manual RNG.
+	Added function CommandShowRNG.
+	Fixed missing options to getopt_long
+	(option --tty did not work).
+
+	* dice.c: Added support for user and manual RNG.
+
+	* show.c: Added function CommandShowRNG.
+
+	* set.c: Added support for user and manual RNG.
+
+	* configure.in: Search for library 'dl' used for dynamic linking
+	of user RNG.
+
+	* config.h.in: Define HAVE_LIBDL
+
 Fri Dec 10 18:19:16 1999  Gary Wong  <gary@cs.arizona.edu>
 
 	* gnubg.c: Added lMatch and lGame data structures, and started

@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1997-1999
  *
- * $Id: xgame.c,v 1.3 1999/12/04 00:11:11 gary Exp $
+ * $Id: xgame.c,v 1.6 2000/01/08 04:17:28 gtw Exp $
  */
 
 #include "config.h"
@@ -14,26 +14,29 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef HAVE_RAND_R
+#include <rand_r.h>
+#endif
+
 #include "xboard.h"
 #include "xgame.h"
 #include "backgammon.h"
+#include "drawboard.h"
+#include "positionid.h"
 
 typedef enum _statsid {
     STATS_LNAME, STATS_XNAME, STATS_ONAME,
     STATS_LSCORE, STATS_XSCORE, STATS_OSCORE,
     STATS_LMATCH, STATS_MATCH,
-    STATS_MOVE
+    STATS_MOVE, STATS_BOARD
 } statsid;
-
-typedef struct _statsmove {
-    int nSource, nDest, fHit;
-} statsmove;
 
 typedef struct _statsdata {
     gamedata *pgd;
     extwindow *paewnd;
-    statsmove asmv[ 4 ];
-    int csmv;
+    movelist ml; /* list of all legal moves (including incomplete ones), for
+		    visual feedback if the user attempts to move */
+    move *amMoves, *pm;
 } statsdata;
 
 static extquark eq_justification = { "justification", 0 };
@@ -78,6 +81,14 @@ static extdefault aedStatsTextC[] = {
     { NULL, NULL }
 };
 
+static extdefault aedStatsTextPlainC[] = {
+    { &eq_font, "-Misc-Fixed-Medium-R-Normal--12-*-*-*-*-*-iso8859-1" },
+    { &eq_background, "#000" },
+    { &eq_foreground, "#FFF" },
+    { &eq_justification, "c" },
+    { NULL, NULL }
+};
+
 extwindowspec aewsStats[] = {
     { "lname", &ewcText, aedStatsTitleL, "Name", STATS_LNAME },
     { "xname", &ewcText, aedStatsTextL, NULL, STATS_XNAME },
@@ -87,8 +98,12 @@ extwindowspec aewsStats[] = {
     { "oscore", &ewcText, aedStatsTextR, NULL, STATS_OSCORE },
     { "lmatch", &ewcText, aedStatsTitleR, "Match", STATS_LMATCH },
     { "match", &ewcText, aedStatsTextL, NULL, STATS_MATCH },
-    { "move", &ewcText, aedStatsTextC, NULL, STATS_MOVE }
+    { "move", &ewcText, aedStatsTextC, NULL, STATS_MOVE },
+    { "board", &ewcText, aedStatsTextPlainC, NULL, STATS_BOARD }
 };
+
+static unsigned int nSeed = 1; /* for rand_r */
+#define RAND ( ( (unsigned int) rand_r( &nSeed ) ) & RAND_MAX )
 
 static int StatsRedraw( extwindow *pewnd, statsdata *psd, int fClear ) {
 
@@ -132,7 +147,10 @@ static int StatsConfigure( extwindow *pewnd, statsdata *psd,
 		       76, cxyChequer * 2 + 24, 100, 12 );
 
     XMoveResizeWindow( pewnd->pdsp, psd->paewnd[ STATS_MOVE ].wnd,
-		       0, cxyChequer * 2 + 42, pewnd->cx, 12 );
+		       0, cxyChequer * 2 + 42, pewnd->cx >> 1, 12 );
+    XMoveResizeWindow( pewnd->pdsp, psd->paewnd[ STATS_BOARD ].wnd,
+		       pewnd->cx >> 1, cxyChequer * 2 + 42,
+		       pewnd->cx >> 1, 12 );
     
     StatsRedraw( pewnd, pewnd->pv, True );
     
@@ -146,8 +164,8 @@ static void StatsPreCreate( extwindow *pewnd ) {
     psd->pgd = pewnd->pv;
     pewnd->pv = psd;
 
-    psd->csmv = 0;
     psd->paewnd = NULL;
+    psd->amMoves = NULL;
 }
 
 static void StatsCreate( extwindow *pewnd, statsdata *psd ) {
@@ -184,110 +202,81 @@ static int StatsHandler( extwindow *pewnd, XEvent *pxev ) {
 
 extern int StatsConfirm( extwindow *pewnd ) {
 
-    int i;
-    char sz[ 40 ], *pch;
+    char sz[ 40 ];
     statsdata *psd = pewnd->pv;
+
+    if( psd->pm && psd->pm->cMoves == psd->ml.cMaxMoves &&
+	psd->pm->cPips == psd->ml.cMaxPips ) {
+	FormatMove( sz, NULL, psd->pm->anMove );
     
-    /* FIXME this is a bit grotty... should send message maybe? */
-
-    *( pch = sz ) = 0;
+	CommandMove( sz ); /* FIXME output from this command (if any) looks a
+			      bit grotty, because no linefeed was typed after
+			      the prompt */
+    } else
+	/* Illegal move */
+	XBell( pewnd->pdsp, 100 );
     
-    for( i = 0; i < psd->csmv; i++ ) {
-	if( !psd->asmv[ i ].nSource || psd->asmv[ i ].nSource == 25 )
-	    strcpy( pch, "bar" );
-	else
-	    sprintf( pch, "%d", psd->asmv[ i ].nSource );
+    return 0;
+}
 
-	while( *pch )
-	    pch++;
-
-	*pch++ = ' ';
-
-	if( psd->asmv[ i ].nDest > 25 )
-	    strcpy( pch, "off" );
-	else
-	    sprintf( pch, "%d", psd->asmv[ i ].nDest );
-
-	while( *pch )
-	    pch++;
-
-	*pch++ = ' ';
+static void StatsReadBoard( extwindow *pewnd, statsdata *psd,
+			    int anBoard[ 2 ][ 25 ] ) {
+    gamedata *pgd = psd->pgd;
+    int i;
+    
+    for( i = 0; i < 24; i++ ) {
+	anBoard[ pgd->fTurn <= 0 ][ i ] = pgd->anBoard[ 24 - i ] < 0 ?
+	    abs( pgd->anBoard[ 24 - i ] ) : 0;
+	anBoard[ pgd->fTurn > 0 ][ i ] = pgd->anBoard[ i + 1 ] > 0 ?
+	    abs( pgd->anBoard[ i + 1 ] ) : 0;
     }
 
-    *pch = 0;
+    anBoard[ pgd->fTurn <= 0 ][ 24 ] = abs( pgd->anBoard[ 0 ] );
+    anBoard[ pgd->fTurn > 0 ][ 24 ] = abs( pgd->anBoard[ 25 ] );
+}
 
-    CommandMove( sz ); /* FIXME output from this command (if any) looks a
-			  bit grotty, because no linefeed was typed after
-			  the prompt */
-/*
-    psd->csmv = 0;
-    ExtChangePropertyHandler( psd->paewnd + STATS_MOVE, TP_TEXT, 8, "", 0 );
-    */    
-    return 0;
+static void StatsUpdateBoardID( extwindow *pewnd, statsdata *psd,
+				int anBoard[ 2 ][ 25 ] ) {
+
+    ExtChangePropertyHandler( psd->paewnd + STATS_BOARD, TP_TEXT, 8,
+			      PositionID( anBoard ), 15 );
 }
 
 extern int StatsMove( extwindow *pewnd, int nSource, int nDest, int fHit ) {
 
-    char sz[ 40 ], *pch;
+    char sz[ 40 ], *pch = "Illegal move";
     statsdata *psd = pewnd->pv;
-    int i;
-
-    if( psd->pgd->fTurn < 0 ) {
-	nSource = 25 - nSource;
-	if( nDest < 25 )
-	    nDest = 25 - nDest;
-    }
+    int i, anBoard[ 2 ][ 25 ];
+    unsigned char auch[ 10 ];
     
-    if( psd->csmv && nSource == psd->asmv[ psd->csmv - 1 ].nDest &&
-	nDest == psd->asmv[ psd->csmv - 1 ].nSource ) {
-	/* FIXME allow undoing earlier move than last one */
-	/* FIXME undo hit */
+    StatsReadBoard( pewnd, psd, anBoard );
+    StatsUpdateBoardID( pewnd, psd, anBoard );
 
-	psd->csmv--;
-    } else if( psd->csmv >= 4 )
-	return -1;
+    psd->pm = NULL;
+    
+    if( EqualBoards( anBoard, psd->pgd->anBoardOld ) )
+	/* no move has been made */
+	pch = "";
     else {
-	psd->asmv[ psd->csmv ].nSource = nSource;
-	psd->asmv[ psd->csmv ].nDest = nDest;
-	psd->asmv[ psd->csmv++ ].fHit = fHit;
+	PositionKey( anBoard, auch );
+
+	for( i = 0; i < psd->ml.cMoves; i++ )
+	    if( EqualKeys( psd->ml.amMoves[ i ].auch, auch ) ) {
+		/* FIXME do something different if the move is complete */
+		psd->pm = psd->ml.amMoves + i;
+		FormatMove( pch = sz, psd->pgd->anBoardOld, psd->pm->anMove );
+		break;
+	    }
     }
-
-    *( pch = sz ) = 0;
-
-    for( i = 0; i < psd->csmv; i++ ) {
-	if( !psd->asmv[ i ].nSource || psd->asmv[ i ].nSource == 25 )
-	    strcpy( pch, "bar" );
-	else
-	    sprintf( pch, "%d", psd->asmv[ i ].nSource );
-
-	while( *pch )
-	    pch++;
-
-	*pch++ = '/';
-
-	if( psd->asmv[ i ].nDest > 25 )
-	    strcpy( pch, "off" );
-	else
-	    sprintf( pch, "%d", psd->asmv[ i ].nDest );
-
-	while( *pch )
-	    pch++;
-
-	if( psd->asmv[ i ].fHit )
-	    *pch++ = '*';
-
-	*pch++ = ' ';
-    }
-
-    *--pch = 0;
     
-    ExtChangePropertyHandler( psd->paewnd + STATS_MOVE, TP_TEXT, 8, sz,
-			      strlen( sz ) + 1 );    
-    
+    ExtChangePropertyHandler( psd->paewnd + STATS_MOVE, TP_TEXT, 8, pch,
+			      strlen( pch ) + 1 );
+
     return 0;
 }
 
-extern int StatsSet( extwindow *pewnd, char *sz ) {
+extern int StatsSet( extwindow *pewnd, int anBoard[ 2 ][ 25 ], int nDice0,
+		     int nDice1 ) {
 
     statsdata *psd = pewnd->pv;
     gamedata *pgd = psd->pgd;
@@ -316,7 +305,7 @@ extern int StatsSet( extwindow *pewnd, char *sz ) {
 				    STATS_OSCORE ), TP_TEXT, 8,
 				  szScore, strlen( szScore ) );
 
-	if( pgd->nMatchTo == 9999 )
+	if( pgd->nMatchTo == 0 )
 	    strcpy( szScore, "unlimited" );
 	else
 	    sprintf( szScore, "%d", pgd->nMatchTo );
@@ -324,9 +313,24 @@ extern int StatsSet( extwindow *pewnd, char *sz ) {
 	ExtChangePropertyHandler( psd->paewnd + STATS_MATCH, TP_TEXT, 8,
 				  szScore, strlen( szScore ) );
 	
-	psd->csmv = 0;
 	ExtChangePropertyHandler( psd->paewnd + STATS_MOVE, TP_TEXT, 8, "",
 				  0 );
+	
+	StatsUpdateBoardID( pewnd, psd, anBoard );
+
+	if( pgd->anDice[ 0 ] || pgd->anDiceOpponent[ 0 ] ) {
+	    GenerateMoves( &psd->ml, anBoard, nDice0, nDice1, TRUE );
+
+	    /* psd->ml contains pointers to static data, so we need to
+	       copy the actual moves into private storage. */
+	    psd->amMoves = realloc( psd->amMoves,
+				    psd->ml.cMoves * sizeof( move ) );
+
+	    psd->ml.amMoves = memcpy( psd->amMoves, psd->ml.amMoves,
+				      psd->ml.cMoves * sizeof( move ) );
+
+	    psd->pm = NULL;
+	}
     }
     
     return 0;
@@ -363,8 +367,8 @@ static int DiceRedraw( extwindow *pewnd, dicedata *pdd ) {
 
 static int DiceUnmapNotify( extwindow *pewnd, dicedata *pdd ) {
 
-    pdd->an[ 0 ] = ( random() % 6 ) + 1;
-    pdd->an[ 1 ] = ( random() % 6 ) + 1;
+    pdd->an[ 0 ] = ( RAND % 6 ) + 1;
+    pdd->an[ 1 ] = ( RAND % 6 ) + 1;
     
     return 0;
 }
@@ -467,10 +471,14 @@ static int GameConfigure( extwindow *pewnd, gamedata *pgd,
 static int GamePreCreate( extwindow *pewnd ) {
 
     gamedata *pgd = malloc( sizeof( *pgd ) );
-
+    char *pchWindowID;
+    
     pewnd->pv = pgd;
     
     pgd->fDirection = -1;
+
+    pchWindowID = getenv( "WINDOWID" );
+    pgd->wndKey = pchWindowID ? atoi( pchWindowID ) : None;
     
     ExtWndCreate( &pgd->ewndBoard, &pewnd->eres, "main",
 		  &ewcBoard, pewnd->eres.rdb, NULL, pgd );
@@ -510,27 +518,45 @@ static int GameCreate( extwindow *pewnd, gamedata *pgd ) {
 
 static int GameHandler( extwindow *pewnd, XEvent *pxev ) {
 
+    gamedata *pgd = pewnd->pv;
+    
     switch( pxev->type ) {
     case ClientMessage:
+#if 0
+	/* Let xterm (or other client) know it should accept the focus
+	   on our behalf.  NB: seems to crash xterm! */
 	if( ( pxev->xclient.message_type ==
 	      XInternAtom( pewnd->pdsp, "WM_PROTOCOLS", False ) ) &&
 	    ( pxev->xclient.data.l[ 0 ] ==
-	      XInternAtom( pewnd->pdsp, "WM_TAKE_FOCUS", False ) ) )
-/*	    ExtSendEventHandler( &ewndTerm, pxev ); */ /* FIXME */
-	/* when starting, if $WINDOWID is set, try setting focus to
-	   that window (i.e. xterm) */
-	    
+	      XInternAtom( pewnd->pdsp, "WM_TAKE_FOCUS", False ) ) &&
+	      pgd->wndKey ) {
+	    pxev->xclient.window = pgd->wndKey;
+	    XSendEvent( pewnd->pdsp, pgd->wndKey, False, 0, pxev );
+	}
+#endif
 	break;
 
     case ConfigureNotify:
 	ExtHandler( pewnd, pxev );
-	return GameConfigure( pewnd, pewnd->pv, &pxev->xconfigure );
+	return GameConfigure( pewnd, pgd, &pxev->xconfigure );
 
     case KeyPress:
+    case KeyRelease:
 	/* FIXME handle undo/double/roll keys somewhere */
-/*	ExtSendEventHandler( &ewndTerm, pxev ); */ /* FIXME */
-	/* when starting, if $WINDOWID is set, try sending character to
-	   that window (i.e. xterm) */
+
+	if( pgd->wndKey ) {
+	    /* We're running under an xterm (or similar); forward keyboard
+	       input we can't process ourselves onto it.  Note that xterm
+	       by default will ignore `SendEvent's; other terminals
+	       (e.g. gnome-terminal) may accept them.  Ignore errors
+	       from XSendEvent (we could get `BadWindow's if the user
+	       has a bad $WINDOWID lying around). */
+	    ExtDspHandleNextError( ExtDspFind( pewnd->pdsp ), NULL );
+	    pxev->xkey.window = pgd->wndKey;
+	    pxev->xkey.subwindow = None;
+	    XSendEvent( pewnd->pdsp, pgd->wndKey, False, KeyPressMask |
+			KeyReleaseMask, pxev );
+	}
 	break;
 	
     case ExtPreCreateNotify:
@@ -538,38 +564,23 @@ static int GameHandler( extwindow *pewnd, XEvent *pxev ) {
 	break;
 
     case ExtCreateNotify:
-	GameCreate( pewnd, pewnd->pv );
+	GameCreate( pewnd, pgd );
 	break;
     }
 
     return ExtHandler( pewnd, pxev );
 }
 
-extern int GameSet( extwindow *pewnd, char *sz ) {
-
-    gamedata *pgd = pewnd->pv;
-
-    BoardSet( &pgd->ewndBoard, sz );
-    StatsSet( &pgd->ewndStats, sz );
-
-    if( !pewnd->pdsp )
-	return 0;
-    
-    if( pgd->anDice[ 0 ] )
-	XUnmapWindow( pewnd->pdsp, pgd->ewndDice.wnd );
-    else
-	XMapWindow( pewnd->pdsp, pgd->ewndDice.wnd );
-    
-    return 0;
-}
-
-extern int GameSetBoard( extwindow *pewnd, int anBoard[ 2 ][ 25 ], int fRoll,
-			 char *szPlayer, char *szOpp, int nMatchTo,
-			 int nScore, int nOpponent, int nDice0, int nDice1 ) {
+extern int GameSet( extwindow *pewnd, int anBoard[ 2 ][ 25 ], int fRoll,
+		    char *szPlayer, char *szOpp, int nMatchTo,
+		    int nScore, int nOpponent, int nDice0, int nDice1 ) {
 
     char sz[ 256 ];
     int i, anOff[ 2 ];
+    gamedata *pgd = pewnd->pv;
 
+    memcpy( pgd->anBoardOld, anBoard, sizeof( pgd->anBoardOld ) );
+    
     /* Names and match length/score */
     sprintf( sz, "board:%s:%s:%d:%d:%d:", szPlayer, szOpp, nMatchTo, nScore,
 	     nOpponent );
@@ -598,7 +609,18 @@ extern int GameSetBoard( extwindow *pewnd, int anBoard[ 2 ][ 25 ], int fRoll,
 	     "0:0:0", nDice0, nDice1, nDice0, nDice1, nCube, fCubeOwner != 0,
 	     fCubeOwner != 1, fDoubled, anOff[ 1 ], anOff[ 0 ] );
     
-    return GameSet( pewnd, sz );
+    BoardSet( &pgd->ewndBoard, sz );
+    StatsSet( &pgd->ewndStats, anBoard, nDice0, nDice1 );
+
+    if( !pewnd->pdsp )
+	return 0;
+    
+    if( pgd->anDice[ 0 ] )
+	XUnmapWindow( pewnd->pdsp, pgd->ewndDice.wnd );
+    else
+	XMapWindow( pewnd->pdsp, pgd->ewndDice.wnd );
+    
+    return 0;
 }
 
 extern void GameRedrawDice( extwindow *pewnd, gamedata *pgd, int x, int y,
@@ -643,7 +665,7 @@ extdefault aedGame[] = {
 };
 
 extwindowclass ewcGame = {
-    StructureNotifyMask, /* button? key? */
+    StructureNotifyMask | KeyPressMask | KeyReleaseMask,
     1, 1, 124, 96,
     GameHandler,
     "Game",

@@ -7,6 +7,7 @@
 
 #include "config.h"
 
+#include <assert.h>
 #include <string.h>
 
 #include "drawboard.h"
@@ -240,6 +241,8 @@ extern char *DrawBoard( char *sz, int anBoard[ 2 ][ 25 ], int fRoll,
 
 static char *FormatPoint( char *pch, int n ) {
 
+    assert( n >= 0 );
+    
     if( !n ) {
 	strcpy( pch, "off" );
 	return pch + 3;
@@ -264,14 +267,16 @@ extern char *FormatMove( char *sz, int anBoard[ 2 ][ 25 ], int anMove[ 8 ] ) {
 	*pch++ = '/';
 	pch = FormatPoint( pch, anMove[ i + 1 ] + 1 );
 
-	if( anMove[ i + 1 ] >= 0 && anBoard[ 0 ][ 23 - anMove[ i + 1 ] ] )
+	if( anBoard && anMove[ i + 1 ] >= 0 &&
+	    anBoard[ 0 ][ 23 - anMove[ i + 1 ] ] ) {
 	    for( j = 1; ; j += 2 )
 		if( j > i ) {
 		    *pch++ = '*';
 		    break;
 		} else if( anMove[ i + 1 ] == anMove[ j ] )
 		    break;
-
+	}
+	
 	if( i < 6 )
 	    *pch++ = ' ';
     }

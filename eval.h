@@ -1,7 +1,7 @@
 /*
  * eval.h
  *
- * by Gary Wong <gary@cs.arizona.edu>, 1998-1999.
+ * by Gary Wong <gary@cs.arizona.edu>, 1998-2000.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 2 of the GNU General Public License as
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.5 1999/12/14 01:30:35 gary Exp $
+ * $Id: eval.h,v 1.5 2000/01/08 21:30:17 gtw Exp $
  */
 
 #ifndef _EVAL_H_
@@ -31,8 +31,11 @@
 #endif
 
 #define WEIGHTS_VERSION "0.0"
+#define WEIGHTS_VERSION_BINARY 0.0f
+#define WEIGHTS_MAGIC_BINARY 472.3782f
 
 #define NUM_OUTPUTS 5
+#define NUM_ROLLOUT_OUTPUTS 6 /* Includes equity */
 
 #define BETA_HIDDEN 0.1
 #define BETA_OUTPUT 1.0
@@ -43,7 +46,11 @@
 #define OUTPUT_LOSEGAMMON 3
 #define OUTPUT_LOSEBACKGAMMON 4
 
+#define OUTPUT_EQUITY 5 /* NB: neural nets do not output equity, only
+			   rollouts do. */
+			   
 #define GNUBG_WEIGHTS "gnubg.weights"
+#define GNUBG_WEIGHTS_BINARY "gnubg.wd"
 #define GNUBG_BEAROFF "gnubg.bd"
 
 typedef struct _move {
@@ -73,7 +80,8 @@ typedef enum _positionclass {
 
 #define CLASS_PERFECT CLASS_BEAROFF2
 
-extern int EvalInitialise( char *szWeights, char *szDatabase );
+extern int EvalInitialise( char *szWeights, char *szWeightsBinary,
+			   char *szDatabase );
 extern int EvalSave( char *szWeights );
 
 extern void SetGammonPrice( float rGammon, float rLoseGammon,
@@ -87,19 +95,24 @@ extern int FindPubevalMove( int nDice0, int nDice1, int anBoard[ 2 ][ 25 ] );
 
 extern int TrainPosition( int anBoard[ 2 ][ 25 ], float arDesired[] );
 
+extern int PipCount( int anBoard[ 2 ][ 25 ], int anPips[ 2 ] );
+
 extern int DumpPosition( int anBoard[ 2 ][ 25 ], char *szOutput, int nPlies );
 
 extern void SwapSides( int anBoard[ 2 ][ 25 ] );
 extern int GameStatus( int anBoard[ 2 ][ 25 ] );
 
+extern int EvalCacheResize( int cNew );
 extern int EvalCacheStats( int *pc, int *pcLookup, int *pcHit );
 
 extern int GenerateMoves( movelist *pml, int anBoard[ 2 ][ 25 ],
-			  int n0, int n1 );
+			  int n0, int n1, int fPartial );
 extern int FindBestMoves( movelist *pml, float ar[][ NUM_OUTPUTS ], int nPlies,
 			  int nDice0, int nDice1, int anBoard[ 2 ][ 25 ],
 			  int c, float d );
 extern int ApplyMove( int anBoard[ 2 ][ 25 ], int anMove[ 8 ] );
+extern int
+EvaluateDouble ( int nPlies, int anBoard[ 2 ][ 25 ], float arDouble[ 4 ] );
 
 /* internal use only */
 extern unsigned long EvalBearoff1Full( int anBoard[ 2 ][ 25 ],

@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1999
  *
- * $Id: show.c,v 1.4 1999/12/01 00:34:13 gary Exp $
+ * $Id: show.c,v 1.5 2000/01/03 17:52:23 gtw Exp $
  */
 
 #include "config.h"
@@ -13,6 +13,7 @@
 #include "backgammon.h"
 #include "drawboard.h"
 #include "eval.h"
+#include "dice.h"
 
 #if !X_DISPLAY_MISSING
 #include "xgame.h"
@@ -41,11 +42,10 @@ extern void CommandShowBoard( char *sz ) {
 
 #if !X_DISPLAY_MISSING
     if( fX )
-	GameSetBoard( &ewnd, an, TRUE, "", "", 0, 0, 0, 0, 0 );
+	GameSet( &ewnd, an, TRUE, "", "", 0, 0, 0, -1, -1 );
     else
 #endif
 	puts( DrawBoard( szOut, an, TRUE, ap ) );
-
 }
 
 extern void CommandShowCache( char *sz ) {
@@ -82,7 +82,7 @@ extern void CommandShowDice( char *sz ) {
 
 extern void CommandShowPipCount( char *sz ) {
 
-    int an[ 2 ], i;
+    int an[ 2 ];
 
     /* FIXME take a board argument */
     
@@ -91,15 +91,9 @@ extern void CommandShowPipCount( char *sz ) {
 
 	return;
     }
-    
-    an[ 0 ] = 0;
-    an[ 1 ] = 0;
-    
-    for( i = 0; i < 25; i++ ) {
-	an[ 0 ] += anBoard[ 0 ][ i ] * ( i + 1 );
-	an[ 1 ] += anBoard[ 1 ][ i ] * ( i + 1 );
-    }
 
+    PipCount( anBoard, an );
+    
     printf( "The pip counts are: %s %d, %s %d.\n", ap[ fMove ].szName,
 	    an[ 1 ], ap[ !fMove ].szName, an[ 0 ] );
 }
@@ -129,10 +123,27 @@ extern void CommandShowPlayer( char *sz ) {
 
 extern void CommandShowScore( char *sz ) {
 
-    printf( "The score (after %d game%s) is: %s %d, %s %d.\n",
+    printf( "The score (after %d game%s) is: %s %d, %s %d",
 	    cGames, cGames == 1 ? "" : "s",
 	    ap[ 0 ].szName, anScore[ 0 ],
 	    ap[ 1 ].szName, anScore[ 1 ] );
+
+    if ( nMatchTo > 0 ) {
+        printf ( nMatchTo == 1 ? 
+	         " (match to %d point%s)\n" :
+	         " (match to %d points%s)\n",
+                 nMatchTo,
+		 fCrawford ? 
+		 ", (Crawford game)" : ( fPostCrawford ?
+					 ", (post-Crawford play)" : ""));
+    } 
+    else {
+        if ( fJacoby )
+	    puts ( " (money session (with Jacoby rule))\n" );
+        else
+	    puts ( " (money session (without Jacoby rule))\n" );
+    }
+
 }
 
 extern void CommandShowTurn( char *sz ) {
@@ -150,3 +161,54 @@ extern void CommandShowTurn( char *sz ) {
 	printf( "%s has offered to resign a %s.\n", ap[ fMove ].szName,
 		aszGameResult[ fResigned - 1 ] );
 }
+
+extern void CommandShowRNG( char *sz ) {
+
+  static char *aszRNG[] = {
+    "ANSI", "BSD", "ISAAC", "manual", "Mersenne Twister",
+    "user supplied"
+  };
+
+  printf( "You are using the %s generator.\n",
+	  aszRNG[ rngCurrent ] );
+    
+}
+
+
+extern void CommandShowJacoby( char *sz ) {
+
+    if ( fJacoby ) 
+      puts( "Money sessions is played with the Jacoby rule." );
+    else
+      puts( "Money sessions is played without the Jacoby rule." );
+
+}
+
+
+extern void CommandShowCrawford( char *sz ) {
+
+  if( nMatchTo > 0 ) 
+    puts( fCrawford ?
+	  "This game is the Crawford game." :
+	  "This game is not the Crawford game" );
+  else if ( ! nMatchTo )
+    puts( "Crawford rule is not used in money sessions." );
+  else
+    puts( "No match is being played." );
+
+}
+
+
+extern void CommandShowPostCrawford( char *sz ) {
+
+  if( nMatchTo > 0 ) 
+    puts( fPostCrawford ?
+	  "This is post-Crawford play." :
+	  "This is not post-Crawford play." );
+  else if ( ! nMatchTo )
+    puts( "Crawford rule is not used in money sessions." );
+  else
+    puts( "No match is being played." );
+
+}
+

@@ -1,3 +1,24 @@
+/*
+ * set.c
+ *
+ * by Gary Wong <gary@cs.arizona.edu>, 1999-2000.
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * $Id: set.c,v 1.9 2000/01/08 21:28:54 gtw Exp $
+ */
+
 #include "config.h"
 
 #include <stdio.h>
@@ -24,9 +45,12 @@ static command acSetPlayer[] = {
 static void SetRNG( rng rngNew, char *szSeed ) {
 
     static char *aszRNG[] = {
-	"ANSI", "BSD", "ISAAC", "manual", "Mersenne Twister"
+	"ANSI", "BSD", "ISAAC", "manual", "Mersenne Twister",
+	"user supplied"
     };
     
+    /* FIXME: read name of file with user RNG */
+
     if( rngCurrent == rngNew ) {
 	printf( "You are already using the %s generator.\n",
 		aszRNG[ rngNew ] );
@@ -35,8 +59,73 @@ static void SetRNG( rng rngNew, char *szSeed ) {
     } else {
 	printf( "GNU Backgammon will now use the %s generator.\n",
 		aszRNG[ rngNew ] );
-	rngCurrent = rngNew;
-	CommandSetSeed( szSeed );
+
+        /* Dispose dynamically linked user module if necesary */
+
+        if ( rngCurrent == RNG_USER )
+	  UserRNGClose();
+
+	/* Load dynamic library with user RNG */
+
+        if ( rngNew == RNG_USER ) {
+	  
+	  if ( !UserRNGOpen() ) {
+
+	    printf ( "Error loading shared library.\n" );
+	    printf ( "You are still using the %s generator.\n",
+		     aszRNG[ rngCurrent ] );
+            return;
+	  }
+
+	}
+	    
+	if( ( rngCurrent = rngNew ) != RNG_MANUAL )
+	    CommandSetSeed( szSeed );
+    }
+}
+
+extern void CommandSetAutoBearoff( char *sz ) {
+
+    SetToggle( "autobearoff", &fAutoBearoff, sz, "Will automatically bear "
+	       "off as many chequers as possible.", "Will not automatically "
+	       "bear off chequers." );
+}
+
+extern void CommandSetAutoCrawford( char *sz ) {
+
+    SetToggle( "autocrawford", &fAutoCrawford, sz, "Will enable the "
+	       "Crawford game according to match score.", "Will not "
+	       "enable the Crawford game according to match score." );
+}
+
+extern void CommandSetAutoDoubles( char *sz ) {
+
+    int n;
+    
+    if( ( n = ParseNumber( &sz ) ) < 0 ) {
+	puts( "You must specify how many automatic doubles to use "
+	      "(try `help set autodouble')." );
+	return;
+    }
+
+    if( n > 16 ) {
+	puts( "Please specify a smaller limit (up to 16 automatic "
+	      "doubles." );
+	return;
+    }
+	
+    if( ( cAutoDoubles = n ) > 1 )
+	printf( "Automatic doubles will be used (up to a limit of %d).\n", n );
+    else
+	puts( "A single automatic double will be permitted." );
+
+    if( cAutoDoubles ) {
+	if( nMatchTo > 0 )
+	    puts( "(Note that automatic doubles will have no effect until you "
+		  "start session play.)" );
+	else if( !fCubeUse )
+	    puts( "(Note that automatic doubles will have no effect until you "
+		  "enable cube use --\nsee `help set cube use'.)" );
     }
 }
 
@@ -81,6 +170,157 @@ extern void CommandSetBoard( char *sz ) {
     ShowBoard();
 }
 
+extern void CommandSetCache( char *sz ) {
+
+    int n;
+
+    if( ( n = ParseNumber( &sz ) ) < 0 ) {
+	puts( "You must specify the number of cache entries to use." );
+
+	return;
+    }
+
+    if( EvalCacheResize( n ) )
+	perror( "EvalCacheResize" );
+    else
+	printf( "The position cache has been sized to %d entr%s.\n", n,
+		n == 1 ? "y" : "ies" );
+}
+
+static int CheckCubeAllowed( void ) {
+    
+    if( fTurn < 0 ) {
+	puts( "There must be a game in progress to set the cube." );
+	return -1;
+    }
+
+    if( fCrawford ) {
+	puts( "The cube is disabled during the Crawford game." );
+	return -1;
+    }
+    
+    if( !fCubeUse ) {
+	puts( "The cube is disabled (see `help set cube use')." );
+	return -1;
+    }
+
+    return 0;
+}
+
+extern void CommandSetCubeCentre( char *sz ) {
+
+    if( CheckCubeAllowed() )
+	return;
+    
+    fCubeOwner = -1;
+
+    puts( "The cube has been centred (either player may double)." );
+    
+#if !X_DISPLAY_MISSING
+    if( fX )
+	ShowBoard();
+#endif
+
+    if( fDoubled ) {
+	printf( "(%s's double has been cancelled.)\n", ap[ fMove ].szName );
+	fDoubled = FALSE;
+	NextTurn();
+    }
+}
+
+extern void CommandSetCubeOwner( char *sz ) {
+
+    int i;
+    
+    if( CheckCubeAllowed() )
+	return;
+
+    switch( i = ParsePlayer( sz ) ) {
+    case 0:
+    case 1:
+	fCubeOwner = i;
+	break;
+	
+    case 2:
+	/* "set cube owner both" is the same as "set cube centre" */
+	CommandSetCubeCentre( NULL );
+	return;
+
+    default:
+	puts( "You must specify which player owns the cube (see `help set "
+	      "cube owner')." );
+	return;
+    }
+
+    printf( "%s now owns the cube.\n", ap[ fCubeOwner ].szName );
+
+#if !X_DISPLAY_MISSING
+    if( fX )
+	ShowBoard();
+#endif    
+    
+    if( fDoubled ) {
+	printf( "(%s's double has been cancelled.)\n", ap[ fMove ].szName );
+	fDoubled = FALSE;
+	NextTurn();
+    }
+}
+
+extern void CommandSetCubeUse( char *sz ) {
+
+    if( SetToggle( "cube use", &fCubeUse, sz, "Use of the doubling cube is "
+		   "permitted.",
+		   "Use of the doubling cube is disabled." ) < 0 )
+	return;
+
+    if( fCrawford && fCubeUse )
+	puts( "(But the Crawford rule is in effect, so you won't be able to "
+	      "use it during\nthis game.)" );
+    else if( fTurn >= 0 && !fCubeUse ) {
+	/* The cube was being used and now it isn't; reset it to 1,
+	   centred. */
+	nCube = 1;
+	fCubeOwner = -1;
+	CalcGammonPrice ();
+	
+#if !X_DISPLAY_MISSING
+	if( fX )
+	    ShowBoard();
+#endif
+
+	if( fDoubled ) {
+	    printf( "(%s's double has been cancelled.)\n",
+		    ap[ fMove ].szName );
+	    fDoubled = FALSE;
+	    NextTurn();
+	}
+    }
+}
+
+extern void CommandSetCubeValue( char *sz ) {
+
+    int i, n;
+
+    if( CheckCubeAllowed() )
+	return;
+    
+    n = ParseNumber( &sz );
+
+    for( i = fDoubled ? MAX_CUBE >> 1 : MAX_CUBE; i; i >>= 1 )
+	if( n == i ) {
+	    printf( "The cube has been set to %d.\n", nCube = n );
+	    CalcGammonPrice ();
+	    
+#if !X_DISPLAY_MISSING
+	    if( fX )
+		ShowBoard();
+#endif
+	    return;
+	}
+
+    puts( "You must specify a legal cube value (see `help set cube value')." );
+}
+
 extern void CommandSetDice( char *sz ) {
 
     int n0, n1;
@@ -100,6 +340,11 @@ extern void CommandSetDice( char *sz ) {
 
     printf( "The dice have been set to %d and %d.\n", anDice[ 0 ] = n0,
 	    anDice[ 1 ] = n1 );
+
+#if !X_DISPLAY_MISSING
+    if( fX )
+	ShowBoard();
+#endif
 }
 
 extern void CommandSetDisplay( char *sz ) {
@@ -251,6 +496,16 @@ extern void CommandSetPlies( char *sz ) {
     printf( "`eval' and `hint' will use %d ply evaluation.\n", nPliesEval );
 }
 
+extern void CommandSetPrompt( char *szParam ) {
+
+    static char sz[ 128 ]; /* FIXME check overflow */
+
+    szPrompt = ( szParam && *szParam ) ? strcpy( sz, szParam ) :
+	szDefaultPrompt;
+    
+    printf( "The prompt has been set to `%s'.\n", szPrompt );
+}
+
 extern void CommandSetRNGAnsi( char *sz ) {
 
     SetRNG( RNG_ANSI, sz );
@@ -272,12 +527,53 @@ extern void CommandSetRNGIsaac( char *sz ) {
 
 extern void CommandSetRNGManual( char *sz ) {
 
-    CommandNotImplemented( sz );
+    SetRNG ( RNG_MANUAL, sz );
 }
 
 extern void CommandSetRNGMersenne( char *sz ) {
 
     SetRNG( RNG_MERSENNE, sz );
+}
+
+extern void CommandSetRNGUser( char *sz ) {
+
+#if HAVE_LIBDL
+    SetRNG( RNG_USER, sz );
+#else
+    puts( "This installation of GNU Backgammon was compiled without the" );
+    puts( "dynamic linking library needed for user RNG's." );
+#endif
+
+}
+
+extern void CommandSetScore( char *sz ) {
+
+    int n0, n1;
+
+    /* FIXME allow setting the score in `n-away' notation, e.g.
+     "set score -3 -4".  Also allow specifying Crawford here, e.g.
+    "set score crawford -3". */
+    
+    if( ( n0 = ParseNumber( &sz ) ) < 0 ||
+	( n1 = ParseNumber( &sz ) ) < 0 ) {
+	puts( "You must specify the score for both players -- try `help set "
+	      "score'." );
+	return;
+    }
+
+    if( nMatchTo && ( n0 >= nMatchTo || n1 >= nMatchTo ) ) {
+	printf( "Each player's score must be below %d point%s.\n", nMatchTo,
+		nMatchTo == 1 ? "" : "s" );
+	return;
+    }
+
+    anScore[ 0 ] = n0;
+    anScore[ 1 ] = n1;
+
+    fCrawford = ( n0 == nMatchTo - 1 ) || ( n1 == nMatchTo - 1 );
+    fPostCrawford = FALSE;
+    
+    CommandShowScore( NULL );
 }
 
 extern void CommandSetSeed( char *sz ) {
@@ -301,10 +597,9 @@ extern void CommandSetSeed( char *sz ) {
 
 	InitRNGSeed( n );
 	printf( "Seed set to %d.\n", n );
-    } else {
-	InitRNG();
-	puts( "Seed initialised by system clock." );
-    }
+    } else
+	puts( InitRNG() ? "Seed initialised from system random data." :
+	      "Seed initialised by system clock." );
 }
 
 extern void CommandSetTurn( char *sz ) {
@@ -346,3 +641,79 @@ extern void CommandSetTurn( char *sz ) {
 
     printf( "`%s' is now on roll.\n", ap[ i ].szName );
 }
+
+
+extern void CommandSetJacoby( char *sz ) {
+
+  SetToggle( "jacoby", &fJacoby, sz, 
+	     "Will use the Jacoby rule for money sessions.",
+	     "Will not use the Jacoby rule for money sessions." );
+}
+
+
+extern void CommandSetCrawford( char *sz ) {
+
+  if ( nMatchTo > 0 ) {
+    if ( ( nMatchTo - anScore[ 0 ] == 1 ) || 
+	 ( nMatchTo - anScore[ 1 ] == 1 ) ) {
+
+      if( SetToggle( "crawford", &fCrawford, sz, 
+		 "This game is the Crawford game (no doubling allowed).",
+		 "This game is not the Crawford game." ) < 0 )
+	  return;
+
+      /* sanity check */
+
+      if ( fCrawford && fPostCrawford )
+	CommandSetPostCrawford ( "off" );
+
+      if ( !fCrawford && !fPostCrawford )
+	CommandSetPostCrawford ( "on" );
+
+      if( fCrawford && fDoubled ) {
+	  fDoubled = FALSE;
+	  NextTurn();
+      }
+    }
+    else {
+      puts( "Cannot set whether this is the Crawford game\n"
+	    "as none of the players are 1-away from winning." );
+    }
+  }
+  else if ( ! nMatchTo ) 
+    puts ( "Cannot set Crawford play for money sessions." );
+  else
+    puts ( "No match in progress (type `new match n' to start one)." );
+}
+
+extern void CommandSetPostCrawford( char *sz ) {
+
+  if ( nMatchTo > 0 ) {
+    if ( ( nMatchTo - anScore[ 0 ] == 1 ) || 
+	 ( nMatchTo - anScore[ 1 ] == 1 ) ) {
+
+      SetToggle( "postcrawford", &fPostCrawford, sz, 
+		 "This is post-Crawford play (doubling allowed).",
+		 "This is not post-Crawford play." );
+
+      /* sanity check */
+
+      if ( fPostCrawford && fCrawford )
+	CommandSetCrawford ( "off" );
+
+      if ( !fPostCrawford && !fCrawford )
+	CommandSetCrawford ( "on" );
+
+    }
+    else {
+      puts( "Cannot set whether this is post-Crawford play\n"
+	    "as none of the players are 1-away from winning." );
+    }
+  }
+  else if ( ! nMatchTo ) 
+    puts ( "Cannot set post-Crawford play for money sessions." );
+  else
+    puts ( "No match in progress (type `new match n' to start one)." );
+
+}
+

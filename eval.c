@@ -1,7 +1,7 @@
 /*
  * eval.c
  *
- * by Gary Wong <gary@cs.arizona.edu>, 1998-1999.
+ * by Gary Wong <gary@cs.arizona.edu>, 1998-2000.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 2 of the GNU General Public License as
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.9 1999/12/14 01:30:35 gary Exp $
+ * $Id: eval.c,v 1.7 2000/01/08 21:30:17 gtw Exp $
  */
 
 #include "config.h"
@@ -43,6 +43,7 @@
 #include "dice.h"
 #include "eval.h"
 #include "positionid.h"
+#include "backgammon.h"
 
 /* From pub_eval.c: */
 extern float pubeval( int race, int pos[] );
@@ -65,6 +66,17 @@ enum { I_BREAK_CONTACT = HALF_RACE_INPUTS, I_BACK_CHEQUER, I_BACK_ANCHOR,
 
 #define SEARCH_CANDIDATES 8
 #define SEARCH_TOLERANCE 0.16
+
+/* A trivial upper bound on the number of (complete or incomplete)
+ * legal moves of a single roll: if all 15 chequers are spread out,
+ * then there are 18 C 4 + 17 C 3 + 16 C 2 + 15 C 1 = 3875
+ * combinations in which a roll of 11 could be played (up to 4 choices from
+ * 15 chequers, and a chequer may be chosen more than once).  The true
+ * bound will be lower than this (because there are only 26 points,
+ * some plays of 15 chequers must "overlap" and map to the same
+ * resulting position), but that would be more difficult to
+ * compute. */
+#define MAX_MOVES 3875
 
 static int anEscapes[ 0x1000 ];
 static neuralnet nnContact, nnRace;
@@ -114,12 +126,14 @@ static long EvalCacheHash( evalcache *pec ) {
     return l;    
 }
 
-extern int EvalInitialise( char *szWeights, char *szDatabase ) {
+extern int EvalInitialise( char *szWeights, char *szWeightsBinary,
+			   char *szDatabase ) {
 
     FILE *pfWeights;
-    int h;
+    int h, fReadWeights = FALSE;
     char szFileVersion[ 16 ];
     char szPath[ PATH_MAX ];
+    float r;
     
     /* FIXME allow starting without bearoff database (to generate it later!) */
 
@@ -160,42 +174,75 @@ extern int EvalInitialise( char *szWeights, char *szDatabase ) {
 	    
 	ComputeTable();
     }
-    
-    if( szWeights ) {
-	if( !( pfWeights = fopen( szWeights, "r" ) ) ) {
-	    sprintf( szPath, PKGDATADIR "/%s", szWeights );
-	    if( !( pfWeights = fopen( szPath, "r" ) ) ) {
-		perror( szWeights );
-		return -1;
+
+    if( szWeightsBinary ) {
+	if( !( pfWeights = fopen( szWeightsBinary, "r" ) ) ) {
+	    sprintf( szPath, PKGDATADIR "/%s", szWeightsBinary );
+	    pfWeights = fopen( szPath, "r" );
+	}
+
+	if( pfWeights ) {
+	    if( fread( &r, sizeof r, 1, pfWeights ) < 1 ||
+		r != WEIGHTS_MAGIC_BINARY ||
+		fread( &r, sizeof r, 1, pfWeights ) < 1 ||
+		r != WEIGHTS_VERSION_BINARY )
+		fprintf( stderr, "%s: Invalid weights file\n",
+			 szWeightsBinary );
+	    else {
+		if( !( fReadWeights = !NeuralNetLoadBinary( &nnContact,
+							    pfWeights ) &&
+		       !NeuralNetLoadBinary( &nnRace, pfWeights ) ) )
+		    perror( szWeightsBinary );
+	
+		fclose( pfWeights );
 	    }
 	}
-    
-	if( fscanf( pfWeights, "GNU Backgammon %15s\n", szFileVersion ) != 1 ||
-	    strcmp( szFileVersion, WEIGHTS_VERSION ) ) {
-	    fprintf( stderr, "%s: invalid weights file\n", szWeights );
-	    return EINVAL;
-	}
-    
-	NeuralNetLoad( &nnContact, pfWeights );
-	NeuralNetLoad( &nnRace, pfWeights );
+    }
 
+    if( !fReadWeights && szWeights ) {
+	if( !( pfWeights = fopen( szWeights, "r" ) ) ) {
+	    sprintf( szPath, PKGDATADIR "/%s", szWeights );
+	    if( !( pfWeights = fopen( szPath, "r" ) ) )
+		/* FIXME both fopen()s have failed; report the error of the
+		   `more serious' (e.g. if one is an EPERM and the other
+		   a ENOENT, then report EPERM) */
+		perror( szWeights );
+	}
+
+	if( pfWeights ) {
+	    if( fscanf( pfWeights, "GNU Backgammon %15s\n",
+			szFileVersion ) != 1 ||
+		strcmp( szFileVersion, WEIGHTS_VERSION ) )
+		fprintf( stderr, "%s: Invalid weights file\n", szWeights );
+	    else {
+		if( !( fReadWeights = !NeuralNetLoad( &nnContact,
+						      pfWeights ) &&
+		       !NeuralNetLoad( &nnRace, pfWeights ) ) )
+		    perror( szWeights );
+	
+		fclose( pfWeights );
+	    }
+	}
+    }
+
+    if( fReadWeights ) {
 	if( nnContact.cInput != NUM_INPUTS ||
 	    nnContact.cOutput != NUM_OUTPUTS )
 	    NeuralNetResize( &nnContact, NUM_INPUTS, nnContact.cHidden,
 			     NUM_OUTPUTS );
-
-	if( nnRace.cInput != NUM_RACE_INPUTS || nnRace.cOutput != NUM_OUTPUTS )
+	
+	if( nnRace.cInput != NUM_RACE_INPUTS ||
+	    nnRace.cOutput != NUM_OUTPUTS )
 	    NeuralNetResize( &nnRace, NUM_RACE_INPUTS, nnRace.cHidden,
-			     NUM_OUTPUTS );
-		
-	fclose( pfWeights );
+			     NUM_OUTPUTS );	
     } else {
+	puts( "Creating random neural net weights..." );
 	NeuralNetCreate( &nnContact, NUM_INPUTS, 128 /* FIXME */,
 			 NUM_OUTPUTS, 0.1, 1.0 );
 	NeuralNetCreate( &nnRace, NUM_RACE_INPUTS, 128 /* FIXME */,
 			 NUM_OUTPUTS, 0.1, 1.0 );
     }
-
+    
     return 0;
 }
 
@@ -758,6 +805,19 @@ extern void SanityCheck( int anBoard[ 2 ][ 25 ], float arOutput[] ) {
     else if( !fContact && anBack[ 1 ] < 18 )
 	/* Player is out of home board; no backgammons possible */
 	arOutput[ OUTPUT_LOSEBACKGAMMON ] = 0.0;
+
+    /* gammons must be less than wins */
+    
+    if( arOutput[ OUTPUT_WINGAMMON ] > arOutput[ OUTPUT_WIN ] ) {
+      arOutput[ OUTPUT_WINGAMMON ] = arOutput[ OUTPUT_WIN ];
+    }
+
+    {
+      float lose = 1.0 - arOutput[ OUTPUT_WIN ];
+      if( arOutput[ OUTPUT_LOSEGAMMON ] > lose ) {
+	arOutput[ OUTPUT_LOSEGAMMON ] = lose;
+      }
+    }
 }
 
 extern positionclass ClassifyPosition( int anBoard[ 2 ][ 25 ] ) {
@@ -1095,6 +1155,7 @@ extern void SetGammonPrice( float rGammon, float rLoseGammon,
     arGammonPrice[ 1 ] = rLoseGammon;
     arGammonPrice[ 2 ] = rBackgammon;
     arGammonPrice[ 3 ] = rLoseBackgammon;
+
 }
 
 extern float Utility( float ar[ NUM_OUTPUTS ] ) {
@@ -1151,33 +1212,48 @@ extern int ApplyMove( int anBoard[ 2 ][ 25 ], int anMove[ 8 ] ) {
 }
 
 static void SaveMoves( movelist *pml, int cMoves, int cPip, int anMoves[],
-		       int anBoard[ 2 ][ 25 ] ) {
+		       int anBoard[ 2 ][ 25 ], int fPartial ) {
     int i, j;
     move *pm;
     unsigned char auch[ 10 ];
 
-    if( cMoves < pml->cMaxMoves || cPip < pml->cMaxPips )
-	return;
+    if( fPartial ) {
+	/* Save all moves, even incomplete ones */
+	if( cMoves > pml->cMaxMoves )
+	    pml->cMaxMoves = cMoves;
+	
+	if( cPip > pml->cMaxPips )
+	    pml->cMaxPips = cPip;
+    } else {
+	/* Save only legal moves: if the current move moves plays less
+	   chequers or pips than those already found, it is illegal; if
+	   it plays more, the old moves are illegal. */
+	if( cMoves < pml->cMaxMoves || cPip < pml->cMaxPips )
+	    return;
 
-    if( cMoves > pml->cMaxMoves || cPip > pml->cMaxPips )
-	pml->cMoves = 0;
-
-    pm = pml->amMoves + pml->cMoves;
+	if( cMoves > pml->cMaxMoves || cPip > pml->cMaxPips )
+	    pml->cMoves = 0;
+	
+	pml->cMaxMoves = cMoves;
+	pml->cMaxPips = cPip;
+    }
     
-    pml->cMaxMoves = cMoves;
-    pml->cMaxPips = cPip;
+    pm = pml->amMoves + pml->cMoves;
     
     PositionKey( anBoard, auch );
     
     for( i = 0; i < pml->cMoves; i++ )
 	if( EqualKeys( auch, pml->amMoves[ i ].auch ) ) {
-	    /* update moves, just in case cMoves or cPip has increased */
-	    for( j = 0; j < cMoves * 2; j++ )
-		pml->amMoves[ i ].anMove[ j ] = anMoves[ j ];
+	    if( cMoves > pml->amMoves[ i ].cMoves ||
+		cPip > pml->amMoves[ i ].cPips ) {
+		for( j = 0; j < cMoves * 2; j++ )
+		    pml->amMoves[ i ].anMove[ j ] = anMoves[ j ] > -1 ?
+			anMoves[ j ] : -1;
     
-	    if( cMoves < 4 )
-		pml->amMoves[ i ].anMove[ cMoves * 2 ] = -1;
-    
+		if( cMoves < 4 )
+		    pml->amMoves[ i ].anMove[ cMoves * 2 ] = -1;
+	    }
+	    
 	    return;
 	}
     
@@ -1197,7 +1273,7 @@ static void SaveMoves( movelist *pml, int cMoves, int cPip, int anMoves[],
     
     pml->cMoves++;
 
-    assert( pml->cMoves < 3060 );
+    assert( pml->cMoves < MAX_MOVES );
 }
 
 static int LegalMove( int anBoard[ 2 ][ 25 ], int iSrc, int nPips ) {
@@ -1218,16 +1294,16 @@ static int LegalMove( int anBoard[ 2 ][ 25 ], int iSrc, int nPips ) {
 
 static int GenerateMovesSub( movelist *pml, int anRoll[], int nMoveDepth,
 			     int iPip, int cPip, int anBoard[ 2 ][ 25 ],
-			     int anMoves[] ) {
+			     int anMoves[], int fPartial ) {
     int i, iCopy, fUsed = 0;
     int anBoardNew[ 2 ][ 25 ];
 
     if( nMoveDepth > 3 || !anRoll[ nMoveDepth ] )
-	return -1;
+	return TRUE;
 
     if( anBoard[ 1 ][ 24 ] ) { /* on bar */
 	if( anBoard[ 0 ][ anRoll[ nMoveDepth ] - 1 ] >= 2 )
-	    return -1;
+	    return TRUE;
 
 	anMoves[ nMoveDepth * 2 ] = 24;
 	anMoves[ nMoveDepth * 2 + 1 ] = 24 - anRoll[ nMoveDepth ];
@@ -1240,11 +1316,12 @@ static int GenerateMovesSub( movelist *pml, int anRoll[], int nMoveDepth,
 	ApplySubMove( anBoardNew, 24, anRoll[ nMoveDepth ] );
 	
 	if( GenerateMovesSub( pml, anRoll, nMoveDepth + 1, 23, cPip +
-			      anRoll[ nMoveDepth ], anBoardNew, anMoves ) < 0 )
+			      anRoll[ nMoveDepth ], anBoardNew, anMoves,
+			      fPartial ) )
 	    SaveMoves( pml, nMoveDepth + 1, cPip + anRoll[ nMoveDepth ],
-		       anMoves, anBoardNew );
+		       anMoves, anBoardNew, fPartial );
 
-	return 0;
+	return fPartial;
     } else {
 	for( i = iPip; i >= 0; i-- )
 	    if( anBoard[ 1 ][ i ] && LegalMove( anBoard, i,
@@ -1263,16 +1340,16 @@ static int GenerateMovesSub( movelist *pml, int anRoll[], int nMoveDepth,
 		if( GenerateMovesSub( pml, anRoll, nMoveDepth + 1,
 				   anRoll[ 0 ] == anRoll[ 1 ] ? i : 23,
 				   cPip + anRoll[ nMoveDepth ],
-				   anBoardNew, anMoves ) < 0 ) {
+				   anBoardNew, anMoves, fPartial ) )
 		    SaveMoves( pml, nMoveDepth + 1, cPip +
-			       anRoll[ nMoveDepth ], anMoves, anBoardNew );
-		}
+			       anRoll[ nMoveDepth ], anMoves, anBoardNew,
+			       fPartial );
 		
 		fUsed = 1;
 	    }
     }
 
-    return fUsed ? 0 : -1;
+    return !fUsed || fPartial;
 }
 
 static int CompareMoves( const move *pm0, const move *pm1 ) {
@@ -1313,9 +1390,9 @@ static int ScoreMoves( movelist *pml, int nPlies ) {
 }
 
 extern int GenerateMoves( movelist *pml, int anBoard[ 2 ][ 25 ],
-			  int n0, int n1 ) {
+			  int n0, int n1, int fPartial ) {
     int anRoll[ 4 ], anMoves[ 8 ];
-    static move amMoves[ 3060 ];
+    static move amMoves[ MAX_MOVES ];
 
     anRoll[ 0 ] = n0;
     anRoll[ 1 ] = n1;
@@ -1326,12 +1403,12 @@ extern int GenerateMoves( movelist *pml, int anBoard[ 2 ][ 25 ],
     pml->amMoves = amMoves; /* use static array for top-level search, since
 			       it doesn't need to be re-entrant */
     
-    GenerateMovesSub( pml, anRoll, 0, 23, 0, anBoard, anMoves );
+    GenerateMovesSub( pml, anRoll, 0, 23, 0, anBoard, anMoves,fPartial );
 
     if( anRoll[ 0 ] != anRoll[ 1 ] ) {
 	swap( anRoll, anRoll + 1 );
 
-	GenerateMovesSub( pml, anRoll, 0, 23, 0, anBoard, anMoves );
+	GenerateMovesSub( pml, anRoll, 0, 23, 0, anBoard, anMoves, fPartial );
     }
 
     return pml->cMoves;
@@ -1350,7 +1427,7 @@ extern int FindBestMove( int nPlies, int anMove[ 8 ], int nDice0, int nDice1,
 	for( i = 0; i < 8; i++ )
 	    anMove[ i ] = -1;
 
-    GenerateMoves( &ml, anBoard, nDice0, nDice1 );
+    GenerateMoves( &ml, anBoard, nDice0, nDice1, FALSE );
     
     if( !ml.cMoves )
 	/* no legal moves */
@@ -1418,7 +1495,7 @@ extern int FindBestMoves( movelist *pml, float ar[][ NUM_OUTPUTS ], int nPlies,
        data, so we can't call GenerateMoves again (or anything that calls
        it, such as ScoreMoves at more than 0 plies) until we have saved
        the moves we want to keep in amCandidates. */
-    GenerateMoves( pml, anBoard, nDice0, nDice1 );
+    GenerateMoves( pml, anBoard, nDice0, nDice1, FALSE );
 
     if( ScoreMoves( pml, 0 ) )
 	return -1;
@@ -1459,6 +1536,21 @@ extern int FindBestMoves( movelist *pml, float ar[][ NUM_OUTPUTS ], int nPlies,
     if( nPlies )
 	qsort( pml->amMoves, pml->cMoves, sizeof( move ),
 	       (cfunc) CompareMoves );
+
+    return 0;
+}
+
+extern int PipCount( int anBoard[ 2 ][ 25 ], int anPips[ 2 ] ) {
+
+    int i;
+    
+    anPips[ 0 ] = 0;
+    anPips[ 1 ] = 0;
+    
+    for( i = 0; i < 25; i++ ) {
+	anPips[ 0 ] += anBoard[ 0 ][ i ] * ( i + 1 );
+	anPips[ 1 ] += anBoard[ 1 ][ i ] * ( i + 1 );
+    }
 
     return 0;
 }
@@ -1554,6 +1646,7 @@ extern int DumpPosition( int anBoard[ 2 ][ 25 ], char *szOutput,
     float arOutput[ NUM_OUTPUTS ];
     positionclass pc = ClassifyPosition( anBoard );
     int i;
+    float arDouble[ 4 ];
     
     strcpy( szOutput, "Evaluator: \t" );
     
@@ -1605,11 +1698,57 @@ extern int DumpPosition( int anBoard[ 2 ][ 25 ], char *szOutput,
 	
 	sprintf( szOutput, ":\t%5.3f\t%5.3f\t%5.3f\t%5.3f\t%5.3f\t(%+6.3f)\n",
 	     arOutput[ 0 ], arOutput[ 1 ], arOutput[ 2 ], arOutput[ 3 ],
-	     arOutput[ 4 ], arOutput[ 0 ] * 2.0 - 1.0 + arOutput[ 1 ] +
-	     arOutput[ 2 ] - arOutput[ 3 ] - arOutput[ 4 ] );
+	     arOutput[ 4 ], Utility ( arOutput ) );
     }
 
+    /*
+     * Get cube action
+     */
+
+    if ( (fCubeOwner != -1) && (fCubeOwner != fMove) ) return 0;
+    szOutput = strchr( szOutput, 0 );
+
+    if ( ! nPlies )
+      strcpy ( szOutput, "\nCube action (static):\n\n" );
+    else if ( nPlies == 1 )
+      sprintf ( szOutput, "\nCube action (%1d ply):\n\n", nPlies );
+    else
+      sprintf ( szOutput, "\nCube action (%2d plies):\n\n", nPlies );
+    szOutput = strchr( szOutput, 0 );
+
+    EvaluateDouble( nPlies, anBoard, arDouble );
+
+    sprintf ( szOutput, 
+	      "(1) No double         %+6.3f\n"
+	      "(2) Double, take      %+6.3f\n" 
+	      "(3) Double, pass      %+6.3f\n\n",
+	      arDouble[ 0 ], arDouble[ 1 ], -1.0 );
+    szOutput = strchr( szOutput, 0 );
+    
+    sprintf ( szOutput,
+	      "# of market loosers   %4.0f/1296\n"
+	      "# of redouble/pass    %4.0f/1296\n\n",
+	      arDouble[ 2 ], arDouble[ 3 ] );
+    szOutput = strchr( szOutput, 0 );
+
+    strcpy ( szOutput, "Proper cube action: "  );
+    szOutput = strchr( szOutput, 0 );
+
+    strcpy ( szOutput,
+	     ( arDouble[ 0 ] > 1.0 ) ? "Too good to double, " :
+	     ( arDouble[ 1 ] > arDouble[ 0 ] ) ? "Double, " : 
+	     "No double, " );
+    szOutput = strchr( szOutput, 0 );
+
+    strcpy ( szOutput,
+	     ( arDouble[ 1 ] <= 1.0 ) ? "take.\n" : "pass.\n" );
+
     return 0;
+}
+
+extern int EvalCacheResize( int cNew ) {
+
+    return CacheResize( &cEval, cNew );
 }
 
 extern int EvalCacheStats( int *pc, int *pcLookup, int *pcHit ) {
@@ -1626,7 +1765,7 @@ extern int FindPubevalMove( int nDice0, int nDice1, int anBoard[ 2 ][ 25 ] ) {
 
     fRace = ClassifyPosition( anBoard ) <= CLASS_RACE;
     
-    GenerateMoves( &ml, anBoard, nDice0, nDice1 );
+    GenerateMoves( &ml, anBoard, nDice0, nDice1, FALSE );
     
     if( !ml.cMoves )
 	/* no legal moves */
@@ -1667,4 +1806,258 @@ extern int FindPubevalMove( int nDice0, int nDice1, int anBoard[ 2 ][ 25 ] ) {
     PositionFromKey( anBoard, ml.amMoves[ ml.iMoveBest ].auch );
 
     return 0;
+}
+
+
+extern int
+EvaluateDouble ( int nPlies, int anBoard[ 2 ][ 25 ], float arDouble[ 4 ] ) {
+
+  int anBoardNew0[ 2 ][ 25 ], anBoardNew1[ 2 ][ 25 ];
+  int anMove[ 8 ];
+  int i;
+  int nSaveCube;
+  int nDice0, nDice1, nDice2, nDice3;
+  int nMarketLoosers, nDoubledOut;
+
+  int fOldCubeOwner;
+
+  float rDropPoint, rEqDouble, rEqNoDouble;
+  float rDoubleLate, rDoubleEarly;
+  float rMyDropPoint, rMyDropPointRecube;
+  float arOutput[ NUM_OUTPUTS ];
+  float rEq, rFactor, rEqD, rEqND, rEqCubeless;
+
+  char auch[ 10 ];
+    char szMove[100];
+
+  /* Get drop point */
+
+  if ( ! nMatchTo ) {
+
+    /*
+     * Money game:
+     * - centered cube: drop point is 25%
+     * - recube: drop point is 20%
+     * FIXME: is this too simplified?
+     */
+
+    if ( fCubeOwner < 0 ) {
+      rDropPoint = 0.5;
+      rMyDropPointRecube = -0.6;
+      rMyDropPoint = -0.5;
+    }
+    else {
+      rDropPoint = 0.6;
+      rMyDropPointRecube = -0.6;
+      rMyDropPoint = -0.6;
+    }
+
+  }
+  else {
+
+    /*
+     * Match play:
+     * FIXME: calculate or get drop point
+     * from match equity table.
+     */
+
+  }
+
+
+
+  /* 
+   * Get equity assuming I double next turn
+   *
+   * Loop over my dice rolls
+   *    Find my best move
+   *    Loop over opp dice rolls
+   *       Find his best move
+   *       If eq > opp drop point
+   *          new-eq += 1
+   *       else if eq < my drop point
+   *          new-eq -= 1
+   *       else [too-good-to-double or take]
+   *          neq-eq += eq
+   *       endif
+   *    endloop
+   * endloop
+   *
+   */
+
+  rEqNoDouble = 0.0;
+  rEqDouble = 0.0;
+
+  nMarketLoosers = nDoubledOut = 0;
+
+  for ( nDice0 = 1; nDice0 <= 6; nDice0++ ) {
+    for ( nDice1 = 1; nDice1 <= nDice0; nDice1++ ) {
+
+      /*
+	printf ("dice0,dice1 = %1i %1i\n",nDice0,nDice1);
+      */
+
+      memcpy( anBoardNew0, anBoard, sizeof ( anBoardNew0 ) );
+
+      FindBestMove ( 0, anMove, nDice0, nDice1, anBoardNew0 );
+
+      SwapSides ( anBoardNew0 );
+
+      EvaluatePosition ( anBoardNew0, arOutput, 
+			 (nPlies > 0) ? nPlies-1 : 0 );
+
+      InvertEvaluation ( arOutput );
+
+      rEq = Utility ( arOutput );
+
+      if ( ClassifyPosition ( anBoardNew0 ) == CLASS_OVER ) {
+
+	/*
+	 * Yahoo, I won the game!
+	 * Add equity for winning game
+	 */
+
+	if ( nDice0 == nDice1 ) {
+	  rEqDouble += 72.0 * rEq;
+	  rEqNoDouble += 36.0 * rEq;
+	  nMarketLoosers += 36;
+	}
+	else {
+	  rEqDouble += 144.0 * rEq;
+	  rEqNoDouble += 72.0 * rEq;
+	  nMarketLoosers += 72;
+	}
+
+	/* next die */
+	continue;
+
+      }
+
+      if ( rEq < rMyDropPoint ) {
+
+	/* 
+	 * If opponent can double me out subtract an
+	 * equity of -1.
+	 */
+
+    	if ( nDice0 == nDice1 ) {
+    	  rEqDouble -= 72.0;
+    	  rEqNoDouble -= 36.0;
+	  nDoubledOut += 36;
+    	}
+    	else {
+    	  rEqDouble -= 144.0;
+    	  rEqNoDouble -= 72.0;
+	  nDoubledOut += 72;
+    	}
+
+    	continue; /* next die */ 
+
+          } 
+
+          /* otherwise continue with opponents roll */
+
+      for ( nDice2 = 1; nDice2 <= 6; nDice2++ ) { 
+    	for ( nDice3 = 1; nDice3 <= nDice2; nDice3++ ) { 
+	    
+    	  memcpy( anBoardNew1, anBoardNew0, sizeof ( anBoardNew1 ) );
+	  
+	  FindBestMove ( 0,
+			 anMove, nDice2, nDice3, anBoardNew1 );
+	  
+	  rFactor = ( ( nDice0 == nDice1 ) ? 1.0 : 2.0 ) *
+	            ( ( nDice2 == nDice3 ) ? 1.0 : 2.0 );
+
+	  SwapSides ( anBoardNew1 );
+
+	  EvaluatePosition( anBoardNew1, arOutput, 
+			    (nPlies > 1) ? nPlies-2 : 0 );
+	  
+	  rEqND = Utility( arOutput );
+	  
+	  /* remember gammon price is changed after doubling */
+
+	  /* FIXME: don't recalculate gammon price every turn */
+
+	  fOldCubeOwner = fCubeOwner;
+	  SetCube ( nCube << 1, !fMove );
+	  rEqD = Utility( arOutput );
+	  SetCube ( nCube >> 1, fOldCubeOwner );
+	  
+	  /*
+	   * Assume I don't double.
+	   * Add equity + equity for holding cube
+	   */
+	  
+	  if ( fCubeOwner == -1 ) {
+	    /* 
+	     * Centered cube
+	     * - if this is a market looser I can turn the 
+	     *   cube and claim 1 point
+	     * - if below my own drop point the value of owning
+	     *   the cube is 0
+	     * - else we interpolate 0.5 * rEq
+	     * FIXME: 0.25 is for money game only...
+	     * FIMXE: this needs some further explanation...
+	     */
+	      
+	    if ( rEqND >= rDropPoint ) {
+	      rEqNoDouble += rFactor * 1.0;
+	      nMarketLoosers += rFactor;
+	    }
+	    else if ( rEqND < rMyDropPoint )
+	      rEqNoDouble += rFactor * rEqND;
+	    else
+	      rEqNoDouble += rFactor * ( rEqND + 0.5 * rEqND );
+	    
+	  } 
+	  else if ( fCubeOwner == fMove ) {
+	      
+	    /* 
+	     * I own the cube...
+	     * - if this is a market looser I can turn the 
+	     *   cube and claim 1 point
+	     * - else the value of the cube is 0.25 * rEq + 0.25
+	     * FIXME: 0.25 is for money game only...
+	     */
+	    
+	    if ( rEqND >= rDropPoint ) {
+	      rEqNoDouble += rFactor * 1.0;
+	      nMarketLoosers += rFactor;
+	    }
+	    else
+	      rEqNoDouble += rFactor * ( rEqND + 0.25 * rEqND + 0.25 );
+	    
+	  }
+	  else {
+	    printf("aarggh...shouldn't be here...\n");
+	    exit(-1);
+	  }
+
+	  /* 
+	   * Bugger, see what happens if I turn the damn cube...
+	   * Subtract the value of your opponent now
+	   * holding the cube
+	   */
+
+	  if ( rEqD < rMyDropPointRecube )
+	    rEqDouble -= rFactor * 2;
+	  else 
+	    rEqDouble += rFactor * ( 2.0 * rEqD - ( 0.5 * ( -rEqD ) +
+						    0.5  ) );
+
+	  /*
+	  printf("%1i %1i %+6.3f  %+6.3f  %+6.3f\n",
+		 nDice2,nDice3,rEqD,rEqNoDouble,rEqDouble);
+	  */
+
+	} /* nDice3 */
+      } /* nDice2 */
+    } /* nDice1 */
+  } /* nDice0 */
+
+  arDouble[ 0 ] = rEqNoDouble / 1296.0;
+  arDouble[ 1 ] = rEqDouble / 1296.0;
+  arDouble[ 2 ] = nMarketLoosers;
+  arDouble[ 3 ] = nDoubledOut;
+
 }

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.11 1999/12/14 01:30:35 gary Exp $
+ * $Id: gnubg.c,v 1.13 2000/01/08 21:27:57 gtw Exp $
  */
 
 #include "config.h"
@@ -25,6 +25,9 @@
 #include <errno.h>
 #include <limits.h>
 #include <math.h>
+#if HAVE_PWD_H
+#include <pwd.h>
+#endif
 #include <signal.h>
 #include <stdio.h>
 #include <stdlib.h>
@@ -58,17 +61,21 @@ extwindow ewnd;
 int fX = TRUE; /* use X display */
 #endif
 
-static char *szPrompt = "(gnubg) ";
+char szDefaultPrompt[] = "(\\p) ",
+    *szPrompt = szDefaultPrompt;
 static int fInteractive;
 
 int anBoard[ 2 ][ 25 ], anDice[ 2 ], fTurn = -1, fDisplay = TRUE,
-    fAutoGame = TRUE, fAutoMove = FALSE, fResigned = FALSE, fMove = -1,
-    nPliesEval = 1, anScore[ 2 ] = { 0, 0 }, cGames = 0, fDoubled = FALSE,
-    nCube = 1, fCubeOwner = -1, fAutoRoll = TRUE, nMatchTo = 0;
+    fAutoBearoff = FALSE, fAutoGame = TRUE, fAutoMove = FALSE,
+    fResigned = FALSE, fMove = -1, nPliesEval = 1, anScore[ 2 ] = { 0, 0 },
+    cGames = 0, fDoubled = FALSE, nCube = 1, fCubeOwner = -1,
+    fAutoRoll = TRUE, nMatchTo = 0, fJacoby = TRUE, fCrawford = FALSE,
+    fPostCrawford = FALSE, fAutoCrawford = TRUE, cAutoDoubles = 0,
+    fCubeUse = TRUE;
 
 player ap[ 2 ] = {
-    { "O", PLAYER_GNU, 0 },
-    { "X", PLAYER_HUMAN, 0 }
+    { "gnubg", PLAYER_GNU, 0 },
+    { "user", PLAYER_HUMAN, 0 }
 };
 
 static command acDatabase[] = {
@@ -97,13 +104,14 @@ static command acDatabase[] = {
       NULL },
     { NULL, NULL, NULL, NULL }
 }, acSetCube[] = {
-    { "center", CommandNotImplemented, "The U.S.A. spelling of `centre'",
+    { "center", CommandSetCubeCentre, "The U.S.A. spelling of `centre'",
       NULL },
-    { "centre", CommandNotImplemented, "Allow both players access to the "
+    { "centre", CommandSetCubeCentre, "Allow both players access to the "
       "cube", NULL },
-    { "owner", CommandNotImplemented, "Allow only one player to double",
+    { "owner", CommandSetCubeOwner, "Allow only one player to double",
       NULL },
-    { "value", CommandNotImplemented, "Fix what the cube has been set to",
+    { "use", CommandSetCubeUse, "Enable use of the doubling cube", NULL },
+    { "value", CommandSetCubeValue, "Fix what the cube has been set to",
       NULL },
     { NULL, NULL, NULL, NULL }
 }, acSetRNG[] = {
@@ -115,9 +123,15 @@ static command acDatabase[] = {
     { "manual", CommandSetRNGManual, "Enter all dice rolls manually", NULL },
     { "mersenne", CommandSetRNGMersenne, "Use the Mersenne Twister generator",
       NULL },
-    { "user", CommandNotImplemented, "Specify an external generator", NULL },
+    { "user", CommandSetRNGUser, "Specify an external generator", NULL },
     { NULL, NULL, NULL, NULL }
 }, acSet[] = {
+    { "autobearoff", CommandSetAutoBearoff, "Automatically bear off as many "
+      "chequers as possible", NULL },
+    { "autocrawford", CommandSetAutoCrawford, "Enable the Crawford game "
+      "based on match score", NULL },
+    { "autodoubles", CommandSetAutoDoubles, "Control automatic doubles "
+      "during (money) session play", NULL },
     { "autogame", CommandSetAutoGame, "Select whether to start new games "
       "after wins", NULL },
     { "automove", CommandSetAutoMove, "Select whether forced moves will be "
@@ -126,19 +140,27 @@ static command acDatabase[] = {
       "automatically", NULL },
     { "board", CommandSetBoard, "Set up the board in a particular "
       "position", NULL },
-    { "cache", CommandNotImplemented, "Set the size of the evaluation "
+    { "cache", CommandSetCache, "Set the size of the evaluation "
       "cache", NULL },
+    { "crawford", CommandSetCrawford, 
+      "Set whether this is the Crawford game", NULL },
     { "cube", NULL, "Set the cube owner and/or value", acSetCube },
     { "dice", CommandSetDice, "Select the roll for the current move",
       NULL },
     { "display", CommandSetDisplay, "Select whether the board is updated on "
       "the computer's turn", NULL },
+    { "jacoby", CommandSetJacoby, "Set whether to use the Jacoby rule in"
+      "money game", NULL },
     { "player", CommandSetPlayer, "Change options for one or both "
       "players", NULL },
     { "plies", CommandSetPlies, "Choose how many plies the `eval' and `hint' "
       "commands look ahead", NULL },
+    { "postcrawford", CommandSetPostCrawford, 
+      "Set whether this is post-Crawford games", NULL },
+    { "prompt", CommandSetPrompt, "Customise the prompt gnubg prints when "
+      "ready for commands", NULL },
     { "rng", NULL, "Select the random number generator algorithm", acSetRNG },
-    { "score", CommandNotImplemented, "Set the match or session score ",
+    { "score", CommandSetScore, "Set the match or session score ",
       NULL },
     { "seed", CommandSetSeed, "Set the dice generator seed", NULL },
     { "turn", CommandSetTurn, "Set which player is on roll", NULL },
@@ -149,11 +171,17 @@ static command acDatabase[] = {
       "the evaluation cache", NULL },
     { "copying", CommandNotImplemented, "Conditions for redistributing copies "
       "of GNU Backgammon", NULL },
+    { "crawford", CommandShowCrawford, 
+      "See if this is the Crawford game", NULL },
     { "dice", CommandShowDice, "See what the current dice roll is", NULL },
+    { "jacoby", CommandShowJacoby, 
+      "See if the Jacoby rule is used in money sessions", NULL },
     { "pipcount", CommandShowPipCount, "Count the number of pips each player "
       "must move to bear off", NULL },
     { "player", CommandShowPlayer, "View per-player options", NULL },
-    { "rng", CommandNotImplemented, "Display which random number generator "
+    { "postcrawford", CommandShowCrawford, 
+      "See if this is post-Crawford play", NULL },
+    { "rng", CommandShowRNG, "Display which random number generator "
       "is being used", NULL },
     { "score", CommandShowScore, "View the match or session score ",
       NULL },
@@ -186,6 +214,7 @@ static command acDatabase[] = {
     { "load", CommandNotImplemented, "Read data from a file", NULL },
     { "move", CommandMove, "Make a backgammon move", NULL },
     { "new", NULL, "Start a new game", acNew },
+    { "pass", CommandDrop, "Synonym for `drop'", NULL },
     { "play", CommandPlay, "Force the computer to move", NULL },
     { "quit", CommandQuit, "Leave GNU Backgammon", NULL },
     { "r", CommandRoll, "Abbreviation for `roll'", NULL },
@@ -265,7 +294,7 @@ extern int ParsePlayer( char *sz ) {
 }
 
 extern int ParsePosition( int an[ 2 ][ 25 ], char *sz ) {
-
+ 
     /* FIXME allow more formats */
 
     if( !sz || !*sz ) {
@@ -281,7 +310,7 @@ extern int ParsePosition( int an[ 2 ][ 25 ], char *sz ) {
     return 0;
 }
 
-extern void SetToggle( char *szName, int *pf, char *sz, char *szOn,
+extern int SetToggle( char *szName, int *pf, char *sz, char *szOn,
 		       char *szOff ) {
 
     char *pch = NextToken( &sz );
@@ -291,7 +320,7 @@ extern void SetToggle( char *szName, int *pf, char *sz, char *szOn,
 	printf( "You must specify whether to set %s on or off (see `help set "
 		"%s').\n", szName, szName );
 
-	return;
+	return -1;
     }
 
     cch = strlen( pch );
@@ -302,7 +331,7 @@ extern void SetToggle( char *szName, int *pf, char *sz, char *szOn,
 
 	puts( szOn );
 
-	return;
+	return TRUE;
     }
 
     if( !strcasecmp( "off", pch ) || !strncasecmp( "no", pch, cch ) ||
@@ -311,10 +340,12 @@ extern void SetToggle( char *szName, int *pf, char *sz, char *szOn,
 
 	puts( szOff );
 
-	return;
+	return FALSE;
     }
 
     printf( "Illegal keyword `%s' -- try `help set %s'.\n", pch, szName );
+
+    return -1;
 }
 
 static command *FindContext( command *pc, char *sz, int ich, int fDeep ) {
@@ -359,6 +390,19 @@ extern void HandleCommand( char *sz, command *ac ) {
     char *pch;
     int cch;
 
+    if( ac == acTop ) {
+	if( *sz == '!' ) {
+	    /* Shell escape */
+	    /* FIXME */
+	    return;
+	} else if( *sz == ':' ) {
+	    /* Guile escape */
+	    puts( "This installation of GNU Backgammon was compiled without "
+		  "Guile support." );
+	    return;
+	}
+    }
+    
     if( !( pch = NextToken( &sz ) ) ) {
 	if( ac != acTop )
 	    puts( "Incomplete command -- try `help'." );
@@ -367,8 +411,9 @@ extern void HandleCommand( char *sz, command *ac ) {
     }
 
     cch = strlen( pch );
-    
-    if( ac == acTop && ( isdigit( *pch ) || !strncasecmp( pch, "bar", 3 ) ) ) {
+
+    if( ac == acTop && ( isdigit( *pch ) ||
+			 !strncasecmp( pch, "bar/", cch > 4 ? 4 : cch ) ) ) {
 	if( pch + cch < sz )
 	    pch[ cch ] = ' ';
 	
@@ -409,18 +454,28 @@ extern void InitBoard( int anBoard[ 2 ][ 25 ] ) {
 extern void ShowBoard( void ) {
 
     char szBoard[ 2048 ];
-    char sz[ 32 ], szCube[ 32 ];
-    char *apch[ 7 ] = { ap[ 0 ].szName, NULL, NULL, NULL, NULL, NULL,
-			ap[ 1 ].szName };
+    char sz[ 32 ], szCube[ 32 ], szPlayer0[ 35 ], szPlayer1[ 35 ];
+    char *apch[ 7 ] = { szPlayer0, NULL, NULL, NULL, NULL, NULL, szPlayer1 };
 
     if( fTurn == -1 ) {
-	puts( "No game in progress." );
+#if !X_DISPLAY_MISSING
+	if( fX ) {
+	    InitBoard( anBoard );
+	    GameSet( &ewnd, anBoard, 0, ap[ 1 ].szName, ap[ 0 ].szName,
+		     nMatchTo, anScore[ 1 ], anScore[ 0 ], -1, -1 );
+	} else
+#endif
+	    puts( "No game in progress." );
+	
 	return;
     }
-
+    
 #if !X_DISPLAY_MISSING
     if( !fX ) {
 #endif
+        sprintf( szPlayer0, "O: %s", ap[ 0 ].szName ); 
+	sprintf( szPlayer1, "X: %s", ap[ 1 ].szName ); 
+
 	if( fDoubled ) {
 	    apch[ fTurn ? 5 : 1 ] = szCube;
 
@@ -445,7 +500,8 @@ extern void ShowBoard( void ) {
 		if( cch > 20 )
 		    cch = 20;
 		
-		sprintf( szCube, "%*s (Cube: %d)", cch,
+		sprintf( szCube, "%1s: %*s (Cube: %d)", 
+			 ( ! fCubeOwner ) ? "O" : "X", cch,
 			 ap[ fCubeOwner ].szName, nCube );
 
 		apch[ fCubeOwner ? 6 : 0 ] = szCube;
@@ -468,9 +524,9 @@ extern void ShowBoard( void ) {
 	if( !fMove )
 	    SwapSides( anBoard );
     
-	GameSetBoard( &ewnd, anBoard, fMove, ap[ 1 ].szName, ap[ 0 ].szName,
-		      9999, anScore[ 1 ], anScore[ 0 ], anDice[ 0 ],
-		      anDice[ 1 ] );
+	GameSet( &ewnd, anBoard, fMove, ap[ 1 ].szName, ap[ 0 ].szName,
+		 nMatchTo, anScore[ 1 ], anScore[ 0 ], anDice[ 0 ],
+		 anDice[ 1 ] );
 	
 	if( !fMove )
 	    SwapSides( anBoard );
@@ -485,6 +541,68 @@ extern void ShowBoard( void ) {
 	XFlush( ewnd.pdsp );
     }    
 #endif    
+}
+
+static char *FormatPrompt( void ) {
+
+    static char sz[ 128 ]; /* FIXME check for overflow in rest of function */
+    char *pch = szPrompt, *pchDest = sz;
+    int anPips[ 2 ];
+
+    while( *pch )
+	if( *pch == '\\' ) {
+	    pch++;
+	    switch( *pch ) {
+	    case 0:
+		goto done;
+		
+	    case 'c':
+	    case 'C':
+		/* Pip count */
+		if( fTurn < 0 )
+		    strcpy( pchDest, "No game" );
+		else {
+		    PipCount( anBoard, anPips );
+		    sprintf( pchDest, "%d:%d", anPips[ 1 ], anPips[ 0 ] );
+		}
+		break;
+
+	    case 'p':
+	    case 'P':
+		/* Player on roll */
+		strcpy( pchDest, fTurn < 0 ? "No game" : ap[ fTurn ].szName );
+		break;
+		
+	    case 's':
+	    case 'S':
+		/* Match score */
+		if( fTurn < 0 )
+		    strcpy( pchDest, "No game" );
+		else
+		    sprintf( pchDest, "%d:%d", anScore[ fTurn ],
+			     anScore[ !fTurn ] );
+		break;
+
+	    case 'v':
+	    case 'V':
+		/* Version */
+		strcpy( pchDest, VERSION );
+		break;
+		
+	    default:
+		*pchDest++ = *pch;
+		*pchDest = 0;
+	    }
+
+	    pchDest = strchr( pchDest, 0 );
+	    pch++;
+	} else
+	    *pchDest++ = *pch++;
+    
+ done:
+    *pchDest = 0;
+
+    return sz;
 }
 
 extern void CommandEval( char *sz ) {
@@ -505,6 +623,7 @@ extern void CommandEval( char *sz ) {
 
     if( !DumpPosition( an, szOutput, nPliesEval ) )
 	puts( szOutput );
+
 }
 
 extern void CommandHelp( char *sz ) {
@@ -534,6 +653,7 @@ extern void CommandHint( char *sz ) {
     int i;
     char szMove[ 32 ];
     float aar[ 32 ][ NUM_OUTPUTS ];
+    float arDouble[ 4 ];
     
     if( fTurn < 0 ) {
 	puts( "You must set up a board first." );
@@ -541,26 +661,52 @@ extern void CommandHint( char *sz ) {
 	return;
     }
 
-    if( !anDice[ 0 ] ) {
-	puts( "You must roll (or set) the dice first." );
+    if( !anDice[ 0 ] && !fDoubled ) {
+	puts( "You haven't rolled yet or you are not doubled." );
 
 	return;
     }
 
-    FindBestMoves( &ml, aar, nPliesEval, anDice[ 0 ], anDice[ 1 ], anBoard,
-		   10, 0.2 );
+    if ( fDoubled ) {
 
-    if( fInterrupt )
+      /* give hints on cube action */
+
+      EvaluateDouble ( nPliesEval, anBoard, arDouble );
+
+      if ( fInterrupt )
 	return;
-    
-    puts( "Win  \tW(g) \tW(bg)\tL(g) \tL(bg)\tEquity  \tMove" );
-    
-    for( i = 0; i < ml.cMoves; i++ ) {
+      
+      puts ( "Take decision:\n" );
+      printf ( "Equity for take: %+6.3f\n", -arDouble[ 1 ] );
+      printf ( "Equity for pass: %+6.3f\n\n", -1.0 );
+
+      if ( ( arDouble[ 1 ] < 0 ) && ( ! nMatchTo ) )
+	puts ( "Proper cube action: Beaver\n" );
+      else if ( arDouble[ 1 ] <= 1.0 )
+	puts ( "Proper cube action: Take\n" );
+      else
+	puts ( "Proper cube action: Pass\n" );
+
+    }
+    else {
+
+      /* give hints on moves */
+
+      FindBestMoves( &ml, aar, nPliesEval, anDice[ 0 ], anDice[ 1 ], anBoard,
+		     10, 0.2 );
+
+      if( fInterrupt )
+	return;
+      
+      puts( "Win  \tW(g) \tW(bg)\tL(g) \tL(bg)\tEquity  \tMove" );
+      
+      for( i = 0; i < ml.cMoves; i++ ) {
 	float *ar = ml.amMoves[ i ].pEval;
 	printf( "%5.3f\t%5.3f\t%5.3f\t%5.3f\t%5.3f\t(%+6.3f)\t",
 		ar[ 0 ], ar[ 1 ], ar[ 2 ], ar[ 3 ], ar[ 4 ],
 		ar[ 0 ] * 2.0 + ar[ 1 ] + ar[ 2 ] - ar[ 3 ] - ar[ 4 ] - 1.0 );
 	puts( FormatMove( szMove, anBoard, ml.amMoves[ i ].anMove ) );
+      }
     }
 }
 
@@ -576,7 +722,7 @@ extern void CommandQuit( char *sz ) {
 
 extern void CommandRollout( char *sz ) {
     
-    float ar[ NUM_OUTPUTS ], arStdDev[ NUM_OUTPUTS ], r, rStdDev;
+    float ar[ NUM_ROLLOUT_OUTPUTS ], arStdDev[ NUM_ROLLOUT_OUTPUTS ];
     int c, an[ 2 ][ 25 ];
     
     if( !*sz && fTurn == -1 ) {
@@ -593,17 +739,6 @@ extern void CommandRollout( char *sz ) {
     if( ( c = Rollout( an, ar, arStdDev, 1, 500, 1296 ) ) < 0 )
 	return;
 
-    r = ar[ OUTPUT_WIN ] * 2.0 - 1.0 + ar[ OUTPUT_WINGAMMON ] +
-	ar[ OUTPUT_WINBACKGAMMON ] - ar[ OUTPUT_LOSEGAMMON ] -
-	ar[ OUTPUT_LOSEBACKGAMMON ];
-
-    rStdDev = sqrt( 4.0 * arStdDev[ OUTPUT_WIN ] * arStdDev[ OUTPUT_WIN ] +
-	arStdDev[ OUTPUT_WINGAMMON ] * arStdDev[ OUTPUT_WINGAMMON ] +
-	arStdDev[ OUTPUT_WINBACKGAMMON ] * arStdDev[ OUTPUT_WINBACKGAMMON ] +
-	arStdDev[ OUTPUT_LOSEGAMMON ] * arStdDev[ OUTPUT_LOSEGAMMON ] +
-	arStdDev[ OUTPUT_LOSEBACKGAMMON ] *
-		    arStdDev[ OUTPUT_LOSEBACKGAMMON ] );
-    
     printf( "Result (after %d trials):\n\n"
 	    "                   \tWin  \tW(g) \tW(bg)\tL(g) \tL(bg)\t"
 	    "Equity\n"
@@ -611,20 +746,21 @@ extern void CommandRollout( char *sz ) {
 	    "(%+6.3f)\n"
 	    "Standard deviation:\t%5.3f\t%5.3f\t%5.3f\t%5.3f\t%5.3f\t"
 	    "(%+6.3f)\n\n",
-	    c, ar[ 0 ], ar[ 1 ], ar[ 2 ], ar[ 3 ], ar[ 4 ], r,
+	    c, ar[ 0 ], ar[ 1 ], ar[ 2 ], ar[ 3 ], ar[ 4 ], ar[ 5 ],
 	    arStdDev[ 0 ], arStdDev[ 1 ], arStdDev[ 2 ], arStdDev[ 3 ],
-	    arStdDev[ 4 ], rStdDev );
+	    arStdDev[ 4 ], arStdDev[ 5 ] );
 }
 
-static void SaveGame( FILE *pf, list *plGame ) {
+static void SaveGame( FILE *pf, list *plGame, int iGame, int anScore[ 2 ] ) {
 
     list *pl;
     moverecord *pmr;
     char sz[ 40 ];
     int i = 0, n, nCube = 1, anBoard[ 2 ][ 25 ];
+
+    fprintf( pf, " Game %d\n", iGame + 1 );
     
-    sprintf( sz, "%s : %d", ap[ 0 ].szName,
-	     anScore[ 0 ] /* FIXME not right */ );
+    sprintf( sz, "%s : %d", ap[ 0 ].szName, anScore[ 0 ] );
     fprintf( pf, " %-33s%s : %d\n", sz, ap[ 1 ].szName, anScore[ 1 ] );
 
     InitBoard( anBoard );
@@ -653,7 +789,7 @@ static void SaveGame( FILE *pf, list *plGame ) {
 	}
 
 	if( !i && pmr->mt == MOVE_NORMAL && pmr->n.fPlayer ) {
-	    fputs( "  1)                            ", pf );
+	    fputs( "  1)                             ", pf );
 	    i++;
 	}
 
@@ -663,11 +799,14 @@ static void SaveGame( FILE *pf, list *plGame ) {
 	} else
 	    fprintf( pf, "%3d) %-28s", ( i >> 1 ) + 1, sz );
 
-	if( ( n = GameStatus( anBoard ) ) )
-	    fprintf( pf, "%sWins %d point%s%s\n",
+	if( ( n = GameStatus( anBoard ) ) ) {
+	    fprintf( pf, "%sWins %d point%s%s\n\n",
 		   i & 1 ? "                                  " : "\n     ",
 		   n * nCube, n * nCube > 1 ? "s" : "",
 		   "" /* FIXME " and the match" if appropriate */ );
+
+	    anScore[ i & 1 ] += n * nCube;
+	}
 	
 	i++;
     }
@@ -676,8 +815,10 @@ static void SaveGame( FILE *pf, list *plGame ) {
 extern void CommandSaveMatch( char *sz ) {
 
     FILE *pf;
-
-    if( !sz ) {
+    int i, anScore[ 2 ];
+    list *pl;
+    
+    if( !sz || !*sz ) {
 	puts( "You must specify a file to save to (see `help save match')." );
 	return;
     }
@@ -689,12 +830,13 @@ extern void CommandSaveMatch( char *sz ) {
 	return;
     }
 
-    /* FIXME save the whole match -- only saves current game at the moment */
+    fprintf( pf, " %d point match\n\n", nMatchTo );
 
-    fprintf( pf, " %d point match\n\n Game 1\n", nMatchTo );
+    anScore[ 0 ] = anScore[ 1 ] = 0;
     
-    SaveGame( pf, &lGame );
-
+    for( i = 0, pl = lMatch.plNext; pl != &lMatch; i++, pl = pl->plNext )
+	SaveGame( pf, pl->p, i, anScore );
+    
     if( pf != stdout )
 	fclose( pf );
 }
@@ -798,7 +940,7 @@ static void Prompt( void ) {
     if( !fInteractive )
 	return;
 
-    fputs( szPrompt, stdout );
+    fputs( FormatPrompt(), stdout );
     fflush( stdout );    
 }
 #endif
@@ -827,6 +969,9 @@ void HandleInput( char *sz ) {
     }
     
     free( sz );
+
+    /* Need to reinstall handler in case the prompt has changed */
+    rl_callback_handler_install( FormatPrompt(), HandleInput );
 }
 #endif
 
@@ -915,13 +1060,10 @@ void RunX( void ) {
     /* FIXME get colourmap here; specify it for the new window */
     
     ExtWndCreate( &ewnd, NULL, "game", &ewcGame, rdb, NULL, NULL );
-
-    GameSet( &ewnd, "board:::1:0:0:"
-              "0:-2:0:0:0:0:5:0:3:0:0:0:-5:5:0:0:0:-3:0:-5:0:0:0:0:2:0:"
-              "1:0:0:0:0:1:0:0:0:1:-1:0:25:0:0:0:0:2:0:0:3" );
-
     ExtWndRealise( &ewnd, pdsp, DefaultRootWindow( pdsp ),
                    "540x480+100+100", None, 0 );
+
+    ShowBoard();
 
     /* FIXME all this should be done in Ext somehow */
     XStoreName( pdsp, ewnd.wnd, "GNU Backgammon" );
@@ -943,7 +1085,7 @@ void RunX( void ) {
     EventHandlerReady( &ev, TRUE, -1 );
     
 #if HAVE_LIBREADLINE
-    rl_callback_handler_install( szPrompt, HandleInput );
+    rl_callback_handler_install( FormatPrompt(), HandleInput );
 #else
     Prompt();
 #endif
@@ -967,36 +1109,52 @@ static void usage( char *argv0 ) {
 "Usage: %s [options]\n"
 "Options:\n"
 "  -h, --help                Display usage and exit\n"
+"  -n, --no-weights          Do not load existing neural net weights\n"
+#if !X_DISPLAY_MISSING
+"  -t, --tty                 Start on tty instead of using X\n"
+#endif
 "  -v, --version             Show version information and exit\n"
 "\n"
-"Report bugs to <gnubg@sourceforge.net>.\n", argv0 );
+"For more information, type `help' from within gnubg.\n"
+"Please report bugs to <gnubg@sourceforge.net>.\n", argv0 );
 }
 
 extern int main( int argc, char *argv[] ) {
 
-    char ch;
+    char ch, *pch;
+    static int fNoWeights = FALSE;
     static struct option ao[] = {
         { "help", no_argument, NULL, 'h' },
-	{ "tty", no_argument, NULL, 't' },
+	{ "no-weights", no_argument, NULL, 'n' },
+        { "tty", no_argument, NULL, 't' },
         { "version", no_argument, NULL, 'v' },
         { NULL, 0, NULL, 0 }
     };
-
+#if HAVE_GETPWUID
+    struct passwd *ppwd;
+#endif
+    
     fInteractive = isatty( STDIN_FILENO );
     
-    while( ( ch = getopt_long( argc, argv, "hv", ao, NULL ) ) !=
+    while( ( ch = getopt_long( argc, argv, "hntv", ao, NULL ) ) !=
            (char) -1 )
 	switch( ch ) {
 	case 'h': /* help */
             usage( argv[ 0 ] );
             return EXIT_SUCCESS;
+	case 'n':
+	    fNoWeights = TRUE;
+	    break;
 	case 't': /* tty */
 #if !X_DISPLAY_MISSING
 	    fX = FALSE;
+#else
+	    /* Silently ignore */
 #endif
 	    break;
 	case 'v': /* version */
 	    puts( "GNU Backgammon " VERSION );
+	    /* FIXME show optional features installed (Guile, X, etc.) */
 	    return EXIT_SUCCESS;
 	default:
 	    usage( argv[ 0 ] );
@@ -1016,9 +1174,26 @@ extern int main( int argc, char *argv[] ) {
 
     InitRNG();
     
-    if( EvalInitialise( GNUBG_WEIGHTS, GNUBG_BEAROFF ) )
+    if( EvalInitialise( fNoWeights ? NULL : GNUBG_WEIGHTS,
+			fNoWeights ? NULL : GNUBG_WEIGHTS_BINARY,
+			GNUBG_BEAROFF ) )
 	return EXIT_FAILURE;
 
+    if( ( pch = getenv( "LOGNAME" ) ) )
+	strcpy( ap[ 1 ].szName, pch );
+    else if( ( pch = getenv( "USER" ) ) )
+	strcpy( ap[ 1 ].szName, pch );
+#if HAVE_GETLOGIN
+    else if( ( pch = getlogin() ) )
+	strcpy( ap[ 1 ].szName, pch );
+#endif
+#if HAVE_GETPWUID
+    else if( ( ppwd = getpwuid( getuid() ) ) )
+	strcpy( ap[ 1 ].szName, ppwd->pw_name );
+#endif
+    
+    ListCreate( &lMatch );
+    
     srandom( time( NULL ) );
 
 #if HAVE_SIGACTION
@@ -1058,18 +1233,19 @@ extern int main( int argc, char *argv[] ) {
 #endif
     
 #if !X_DISPLAY_MISSING
-    if( fX )
+    if( fX ) {
 	RunX();
 
-    fputs( "Could not open X display.  Continuing on TTY.\n", stderr );
-    fX = FALSE;
+	fputs( "Could not open X display.  Continuing on TTY.\n", stderr );
+	fX = FALSE;
+    }
 #endif
     
     for(;;) {
 #if HAVE_LIBREADLINE
 	char *sz;
 	
-	if( !( sz = readline( szPrompt ) ) )
+	if( !( sz = readline( FormatPrompt() ) ) )
 	    return EXIT_SUCCESS;
 	
 	fInterrupt = FALSE;
