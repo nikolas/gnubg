@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.23 2001/05/23 15:14:12 thyssen Exp $
+ * $Id: gtkgame.h,v 1.24 2001/06/17 17:42:10 thyssen Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -87,7 +87,9 @@ extern void GTKUpdateAnnotations( void );
 extern void GTKShowMatchEquityTable( int n );
 extern int GTKGetManualDice( int an[ 2 ] );
 extern void GTKShowVersion( void );
-
+#ifdef WIN32
+extern void GTKWinCopy( GtkWidget *widget, gpointer data);
+#endif
 extern int fTTY;
 
 #endif
