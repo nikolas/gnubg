@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.30 2003/06/01 20:40:36 thyssen Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -342,7 +342,7 @@ MoveListTempMapClicked( GtkWidget *pw, hintdata *phd ) {
 
   }
 
-  GTKShowTempMap( ams, c, ( const gchar(*)[] ) asz, TRUE );
+  GTKShowTempMap( ams, c, ( const gchar** ) asz, TRUE );
 
   g_free( ams );
   for ( i = 0; i < c; ++i )
