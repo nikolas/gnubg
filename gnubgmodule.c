@@ -1,4 +1,3 @@
-
 /*
  * gnubgmodule.c
  *
@@ -17,14 +16,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.3 2003/07/13 18:18:39 thyssen Exp $
+ * $Id$
  */
+
+#if USE_PYTHON
 
 #if HAVE_CONFIG_H
 #include "config.h"
 #endif
 
 #include <Python.h>
+
 #include <signal.h>
 #include <assert.h>
 #include <string.h>
@@ -910,3 +912,5 @@ PythonShutdown( void ) {
   Py_Finalize();
 
 }
+
+#endif /* USE_PYTHON */
