@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.71 2002/08/08 19:08:03 thyssen Exp $
+ * $Id: gtkboard.c,v 1.72 2002/09/09 19:25:29 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -4646,7 +4646,7 @@ static void board_init( Board *board ) {
     
 
 #if USE_GTK2
-    bd->toolbar = gt_toolbar_new ();
+    bd->toolbar = gtk_toolbar_new ();
     gtk_toolbar_set_orientation ( GTK_TOOLBAR ( bd->toolbar ),
                                   GTK_ORIENTATION_HORIZONTAL );
     gtk_toolbar_set_style ( GTK_TOOLBAR ( bd->toolbar ),
