@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.178 2002/11/20 19:19:26 jsegrave Exp $
+ * $Id: backgammon.h,v 1.179 2002/11/22 20:10:31 gtw Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -500,7 +500,8 @@ extern void WinCopy( char *szOut );
 extern int iProgressMax, iProgressValue;
 extern char *pcProgress;
 
-extern char *aszVersion[], *szHomeDirectory, *szDataDirectory;
+extern char *aszVersion[], *szHomeDirectory, *szDataDirectory,
+    *szTerminalCharset;
 
 extern char *aszSkillType[], *aszSkillTypeAbbr[], *aszLuckType[],
     *aszLuckTypeAbbr[], *aszSkillTypeCommand[], *aszLuckTypeCommand[];
