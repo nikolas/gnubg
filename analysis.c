@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.46 2001/12/16 11:55:54 thyssen Exp $
+ * $Id: analysis.c,v 1.47 2002/01/26 19:28:38 thyssen Exp $
  */
 
 #include "config.h"
@@ -428,7 +428,6 @@ AnalyzeMove ( moverecord *pmr ) {
         
         int nResign;
         float rBefore, rAfter;
-        float ar[ NUM_OUTPUTS ] = { 0, 0, 0, 0, 0 };
 
         GetMatchStateCubeInfo ( &ci, &msAnalyse );
 
