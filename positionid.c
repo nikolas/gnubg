@@ -32,7 +32,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.26 2003/03/30 16:37:51 thyssen Exp $
+ * $Id: positionid.c,v 1.26.4.1 2003/08/12 09:25:14 Superfly_Jon Exp $
  */
 
 #include <assert.h>

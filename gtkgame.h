@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.67 2003/07/21 14:02:20 hb Exp $
+ * $Id: gtkgame.h,v 1.62.4.1 2003/08/05 07:54:13 Superfly_Jon Exp $
  */
 
 #ifndef _GTKGAME_H_

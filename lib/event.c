@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1996-2000
  *
- * $Id: event.c,v 1.4 2000/07/28 17:11:10 gtw Exp $
+ * $Id: event.c,v 1.4.8.1 2003/08/05 07:54:15 Superfly_Jon Exp $
  */
 
 #include "config.h"

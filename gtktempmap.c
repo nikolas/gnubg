@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.12 2003/07/08 21:04:07 hb Exp $
+ * $Id: gtktempmap.c,v 1.11.2.1 2003/08/05 07:54:13 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: guile.c,v 1.33 2003/07/19 09:55:57 jsegrave Exp $
+ * $Id: guile.c,v 1.31.4.2 2003/08/12 09:25:13 Superfly_Jon Exp $
  */
 
 #include "config.h"

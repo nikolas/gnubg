@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkbearoff.c,v 1.1 2003/07/10 08:47:19 thyssen Exp $
+ * $Id: gtkpath.c,v 1.1.2.1 2003/08/05 07:54:13 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H

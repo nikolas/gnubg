@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.16 2002/11/11 18:26:47 joseph Exp $
+ * $Id: matchequity.h,v 1.16.6.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 

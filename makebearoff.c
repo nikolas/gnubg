@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.25 2003/07/10 08:44:40 thyssen Exp $
+ * $Id: makebearoff.c,v 1.24.4.1 2003/08/05 07:54:13 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1297,7 +1297,7 @@ usage ( char *arg0 ) {
 static void
 version ( void ) {
 
-  printf ( "makebearoff $Revision: 1.25 $\n" );
+  printf ( "makebearoff $Revision: 1.24.4.1 $\n" );
 
 }
 

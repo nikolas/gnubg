@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: path.c,v 1.4 2003/01/03 17:01:47 gtw Exp $
+ * $Id: path.c,v 1.4.6.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 #include "config.h"

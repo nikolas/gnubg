@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: openurl.c,v 1.4 2003/07/06 16:03:15 thyssen Exp $
+ * $Id: openurl.c,v 1.2.4.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 #include "config.h"

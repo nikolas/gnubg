@@ -23,7 +23,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: gnubg.scm,v 1.3 2001/03/19 15:57:40 gtw Exp $
+# $Id: gnubg.py,v 1.1.2.1 2003/08/05 07:54:10 Superfly_Jon Exp $
 #
 
 

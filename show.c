@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.159 2003/07/27 14:18:22 oysteijo Exp $
+ * $Id: show.c,v 1.150.2.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 #include "config.h"

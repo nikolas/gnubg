@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.h,v 1.1 2003/07/26 11:01:04 thyssen Exp $
+ * $Id: gtktoolbar.h,v 1.2.2.1 2003/08/05 07:54:13 Superfly_Jon Exp $
  */
 
 #ifndef _GTKTOOLBAR_H_
 #define _GTKTOOLBAR_H_
 
+#include "gtkboard.h"
 
 typedef enum _toolbarcontrol { 
   C_NONE, 
@@ -39,7 +40,7 @@ ToolbarGetStopParent ( GtkWidget *pwToolbar );
 extern toolbarcontrol
 ToolbarUpdate ( GtkWidget *pwToolbar,
                 const matchstate *pms,
-                const int anDice[ 2 ],
+                const DiceShown diceShown,
                 const int fComputerTurn,
                 const int fPlaying );
 

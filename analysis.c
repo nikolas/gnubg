@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.122 2003/08/07 17:32:05 thyssen Exp $
+ * $Id: analysis.c,v 1.108.2.2 2003/08/12 09:25:11 Superfly_Jon Exp $
  */
 
 #include "config.h"

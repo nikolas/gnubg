@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.9 2003/06/14 11:18:34 thyssen Exp $
+ * $Id: osr.c,v 1.8.4.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 #include <stdio.h>

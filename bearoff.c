@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.22 2003/07/27 12:45:21 oysteijo Exp $
+ * $Id: bearoff.c,v 1.18.4.1 2003/08/05 07:54:08 Superfly_Jon Exp $
  */
 
 #include "config.h"

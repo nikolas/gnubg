@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.19 2003/07/17 10:32:18 thyssen Exp $
+ * $Id: analysis.h,v 1.17.4.2 2003/08/12 09:25:11 Superfly_Jon Exp $
  */
 
 #ifndef _ANALYSIS_H_

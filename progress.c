@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.5 2003/07/21 09:49:43 jsegrave Exp $
+ * $Id: progress.c,v 1.6.2.1 2003/08/05 07:54:14 Superfly_Jon Exp $
  */
 
 #include "config.h"

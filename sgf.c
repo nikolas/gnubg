@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.76 2003/08/07 17:57:19 thyssen Exp $
+ * $Id: sgf.c,v 1.71.4.2 2003/08/12 09:25:14 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1083,7 +1083,6 @@ static void RestoreNode( list *pl, char *szCharset ) {
 	    fPlayer = pp->ach[ 0 ] == 'B';
 	    
 	    if( !strcmp( pch, "double" ) ) {
-	        moverecord *prev;
 
 		pmr = calloc( 1, sizeof( pmr->d ) );
 		pmr->mt = MOVE_DOUBLE;
