@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.h,v 1.3 2002/12/01 15:42:42 thyssen Exp $
+ * $Id: bearoff.h,v 1.4 2002/12/07 20:33:22 thyssen Exp $
  */
 
 #ifndef _BEAROFF_H_
@@ -48,7 +48,7 @@ typedef struct _bearoffcontext {
 
   void *p;        /* pointer to data */
 
-  long int nReads; /* number of reads */
+  unsigned long long int nReads; /* number of reads */
 
 } bearoffcontext;
 
