@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.103 2003/07/10 09:24:55 thyssen Exp $
+## $Id: Makefile.am,v 1.104 2003/07/11 23:27:01 thyssen Exp $
 if USE_EXT
 SUBDIRS = intl lib doc ext met po m4 xpm sounds
 else
@@ -146,7 +146,7 @@ distcheck-hook:
 
 EXTRA_DIST = userrng.c copying.awk gnubgtest sgf.l sgf.y gnubg.6 gnubg.scm \
 	gnubg.gtkrc credits.sh erf.c xboard.c xboard.h xgame.c xgame.h \
-	ABOUT-NLS boards.xml
+	ABOUT-NLS boards.xml gnubg.py
 
 DISTCLEANFILES=gnubg.wd
 
