@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.295.2.4 2003/01/16 18:44:10 gtw Exp $
+ * $Id: gtkgame.c,v 1.295.2.4.2.1 2003/09/05 09:10:47 steink Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -361,9 +361,17 @@ static char *ToUTF8( unsigned char *sz ) {
 #if USE_TIMECONTROL
 extern void GTKUpdateClock()
 {
-    board_set_clock(BOARD( pwBoard ),  
-	(ms.gc.pc[0].tc.timing == TC_NONE) ? _("n/a") : FormatClock(0) ,
-	(ms.gc.pc[1].tc.timing == TC_NONE) ? _("n/a") : FormatClock(1) );
+char szTime0[20], szTime1[20];
+    sprintf(szTime0, (TC_NONE == ms.gc.pc[0].tc.timing) ?  _("n/a") :
+	(0 == ms.nTimeouts[0]) ? "%s" :
+	(1 == ms.nTimeouts[0]) ? "%s F" : "%s Fx%d",
+	 FormatClock(&ms.tvTimeleft[0], 0), ms.nTimeouts[0]);
+    sprintf(szTime1, (TC_NONE == ms.gc.pc[1].tc.timing) ?  _("n/a") :
+	(0 == ms.nTimeouts[1]) ? "%s" :
+	(1 == ms.nTimeouts[1]) ? "%s F" : "%s Fx%d",
+	 FormatClock(&ms.tvTimeleft[1], 0), ms.nTimeouts[1]);
+	
+    board_set_clock(BOARD( pwBoard ),  szTime0, szTime1);
 }
 
 extern void GTKUpdateScores()

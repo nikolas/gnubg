@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.371.2.2 2003/01/15 21:02:04 gtw Exp $
+ * $Id: gnubg.c,v 1.371.2.2.2.1 2003/09/05 09:10:46 steink Exp $
  */
 
 #include "config.h"
@@ -2522,6 +2522,7 @@ extern void ShowBoard( void ) {
     char sz[ 32 ], szCube[ 32 ], szPlayer0[ 35 ], szPlayer1[ 35 ],
 	szScore0[ 35 ], szScore1[ 35 ], szMatch[ 35 ];
 #if USE_TIMECONTROL
+    char szTime0[20], szTime1[20];
     char *apch[ 9 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 #else
     char *apch[ 7 ] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
@@ -2670,9 +2671,9 @@ extern void ShowBoard( void ) {
 #if USE_TIMECONTROL
 	apch[7] = apch[8] = 0;
 	if (ms.gc.pc[0].tc.timing != TC_NONE)
-		 apch[7] = FormatClock(0);
+		 apch[7] = FormatClock(&ms.tvTimeleft[0], szTime0);
 	if (ms.gc.pc[1].tc.timing != TC_NONE)
-		 apch[8] = FormatClock(1);
+		 apch[8] = FormatClock(&ms.tvTimeleft[1], szTime1);
 #endif
     
 	if( ms.fResigned )
@@ -2806,7 +2807,8 @@ extern char *FormatPrompt( void ) {
 		    strcpy( pchDest, _("Game over") );
 		    break;
 		case GAME_PLAYING:
-		    sprintf(pchDest, "%s - %s", FormatClock(0), FormatClock(1));
+		    sprintf(pchDest, "%s - ", FormatClock(&ms.tvTimeleft[0], 0));
+		    FormatClock(&ms.tvTimeleft[1], pchDest+strlen(pchDest));
 		    break;
 		}
 		break;
