@@ -472,7 +472,7 @@ char *yytext;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.2 2003/12/31 22:53:38 uid65656 Exp $
+ * $Id: external_l.l,v 1.3 2004/05/07 19:14:02 thyssen Exp $
  */
 
 #include <string.h>
@@ -833,24 +833,25 @@ case 18:
 YY_RULE_SETUP
 #line 88 "external_l.l"
 {
-			char buf[100];
+			char *buf = malloc( strlen( exttext ) + 1 );
 
 			escapes(exttext, buf);
 			extlval.sval = (char *) strdup(buf);
+                        free( buf );
 			return STRING;
 		}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 96 "external_l.l"
+#line 97 "external_l.l"
 ;	/* whitespace */
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 98 "external_l.l"
+#line 99 "external_l.l"
 ECHO;
 	YY_BREAK
-#line 854 "external_l.c"
+#line 855 "external_l.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1732,7 +1733,7 @@ int main()
 	return 0;
 	}
 #endif
-#line 98 "external_l.l"
+#line 99 "external_l.l"
 
 
 void escapes(const char *cp, char *tp)
