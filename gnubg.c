@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.283 2002/08/22 17:35:50 thyssen Exp $
+ * $Id: gnubg.c,v 1.284 2002/08/22 18:00:15 thyssen Exp $
  */
 
 #include "config.h"
@@ -85,6 +85,7 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include "import.h"
 #include "export.h"
 #include "i18n.h"
+#include "sound.h"
 
 #if USE_GUILE
 #include <libguile.h>
@@ -2943,6 +2944,8 @@ extern void PromptForExit( void ) {
 	}
     }
 
+    playSound ( SOUND_EXIT );
+
     exit( EXIT_SUCCESS );
 }
 
@@ -5524,6 +5527,9 @@ static void real_main( void *closure, int argc, char *argv[] ) {
 	exit( EXIT_SUCCESS );
     }
 #endif
+
+    /* start-up sound */
+    playSound ( SOUND_START );
     
 #if USE_GTK
     if( fX ) {
