@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.69 2002/04/07 20:30:11 thyssen Exp $
+ * $Id: eval.h,v 1.70 2002/04/12 19:52:56 oysteijo Exp $
  */
 
 #ifndef _EVAL_H_
@@ -313,7 +313,7 @@ extern void
 SanityCheck( int anBoard[ 2 ][ 25 ], float arOutput[] );
 
 extern void 
-EvalBearoff1( int anBoard[ 2 ][ 25 ], float arOutput[] );
+EvalBearoff1( int anBoard[ 2 ][ 25 ], float arOutput[], int ignore );
 
 extern float 
 KleinmanCount (int nPipOnRoll, int nPipNotOnRoll);
