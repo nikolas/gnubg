@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.26 2004/01/30 09:33:50 uid68519 Exp $
+ * $Id: sound.c,v 1.27 2004/03/15 17:45:54 Superfly_Jon Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -49,6 +49,9 @@
 #endif
 #if HAVE_UNISTD_H
 #include <unistd.h>
+#endif
+#ifdef SIGIO
+#include <stropts.h>
 #endif
 
 #if HAVE_ESD
