@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.32 2003/08/15 15:01:38 thyssen Exp $
+ * $Id: dice.c,v 1.33 2004/03/18 23:29:14 oysteijo Exp $
  */
 
 #include "config.h"
@@ -588,7 +588,7 @@ extern int InitRNGSeedLong( char *sz, rng rng ) {
 
     mpz_t n;
     
-    if( mpz_init_set_str( n, sz, 10 ) || mpz_sgn( n ) < 1 ) {
+    if( mpz_init_set_str( n, sz, 10 ) || mpz_sgn( n ) < 0 ) {
 	mpz_clear( n );
 	return -1;
     }
