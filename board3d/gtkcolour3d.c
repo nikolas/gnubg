@@ -18,12 +18,11 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkcolour3d.c,v 1.17 2004/04/02 11:13:41 Superfly_Jon Exp $
+* $Id: gtkcolour3d.c,v 1.18 2004/04/06 11:36:54 Superfly_Jon Exp $
 */
 
 #include "config.h"
-#include <GL/gl.h>
-#include <GL/glu.h>
+#include "glincl.h"
 #include <string.h>
 #include "inc3d.h"
 #include <gdk/gdkkeysyms.h>
