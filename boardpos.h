@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.h,v 1.5 2003/05/23 16:04:59 hb Exp $
+ * $Id: boardpos.h,v 1.1 2003/05/29 08:52:50 thyssen Exp $
  */
 
 #ifndef _BOARDPOS_H_
@@ -52,7 +52,7 @@ PointArea( const int fClockwise, const int nSize,
 
 extern void
 CubePosition( const int crawford_game, const int cube_use,
-              const int doubled, const int cube_owner,
+              const int doubled, const int turn, const int cube_owner,
               int *px, int *py, int *porient );
 
 extern void
