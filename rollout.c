@@ -16,14 +16,23 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.135 2003/10/24 10:10:47 jsegrave Exp $
+ * $Id$
  */
 
-#include "config.h"
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
 
 #if HAVE_ALLOCA_H
 #include <alloca.h>
 #endif
+
+#if HAVE_ALLOCA
+#ifndef alloca
+#define alloca __builtin_alloca
+#endif
+#endif
+
 #include <errno.h>
 #include <isaac.h>
 #include <math.h>

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.9 2003/10/03 17:16:48 thyssen Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <glib.h>
 
 #if USE_GTK
 #include <gtk/gtk.h>
@@ -931,7 +932,7 @@ TextRolloutProgressStart( const cubeinfo *pci, const int n,
 
   *pp = prp;
 
-  prp->ppch = g_malloc( n * sizeof (char *) );
+  prp->ppch = (char **) g_malloc( n * sizeof (char *) );
   for ( i = 0; i < n; ++i )
     prp->ppch[ i ] = (char *) asz[ i ];
   prp->n = n;
