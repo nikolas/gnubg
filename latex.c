@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: latex.c,v 1.1 2001/05/14 15:19:50 gtw Exp $
  */
 
 #include "config.h"
@@ -529,7 +529,7 @@ extern void CommandExportMatchLaTeX( char *sz ) {
     for( pl = lMatch.plNext; pl != &lMatch; pl = pl->plNext )
 	ExportGameLaTeX( pf, pl->p );
     
-    LaTeXPrologue( pf );
+    LaTeXEpilogue( pf );
     
     if( pf != stdout )
 	fclose( pf );
