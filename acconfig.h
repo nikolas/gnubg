@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1999, 2000
  *
- * $Id: acconfig.h,v 1.3.2.1 2000/07/13 15:56:32 gtw Exp $
+ * $Id: acconfig.h,v 1.4 2000/07/13 16:25:26 gtw Exp $
  */
 
 /* Installation directory (used to determine PKGDATADIR below). */
@@ -18,7 +18,16 @@
 /* The directory where the weights and databases will be stored. */
 #define PKGDATADIR DATADIR "/" PACKAGE
 
+/* Define the obvious signbit() if the C library doesn't. */
+#if !HAVE_SIGNBIT
+#define signbit(x) ( (x) < 0.0 )
+#endif
+
 #ifndef FALSE
 #define FALSE 0
 #define TRUE 1
+#endif
+
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE 1
 #endif

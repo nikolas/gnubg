@@ -2,7 +2,7 @@
 ------------------------------------------------------------------------------
 Standard definitions and types, Bob Jenkins
 Modified for inclusion with GNU Backgammon by Gary Wong
-$Id: isaacs.h,v 1.1 1999/12/10 00:26:36 gary Exp $
+$Id: isaacs.h,v 1.1.1.1 1999/12/15 01:17:34 gtw Exp $
 ------------------------------------------------------------------------------
 */
 #ifndef _ISAACS_H_
