@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sound.h,v 1.7.4.1 2003/08/05 07:54:14 Superfly_Jon Exp $
+ * $Id: sound.h,v 1.9 2003/08/13 11:52:28 Superfly_Jon Exp $
  */
 
 #ifndef _SOUND_H_
@@ -47,6 +47,10 @@ typedef enum _gnubgsound {
   SOUND_BOT_WIN_MATCH,
   SOUND_ANALYSIS_FINISHED,
   /* number of sounds */
+#if USE_TIMECONTROL
+  SOUND_HUMAN_TIMEOUT,
+  SOUND_BOT_TIMEOUT,
+#endif
   NUM_SOUNDS
 } gnubgsound;
 
