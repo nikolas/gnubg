@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.94 2004/06/06 11:00:54 Superfly_Jon Exp $
+ * $Id: import.c,v 1.95 2004/06/12 10:27:04 thyssen Exp $
  */
 
 #include "config.h"
@@ -928,6 +928,9 @@ extern int ImportMat( FILE *fp, char *szFilename ) {
 					break;  /* match is over; avoid multiple matches in same .mat file */
 			}
 		}
+		else 
+		  szLine = GetMatLine(fp);
+
     }
 
     UpdateSettings();
