@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.93 2003/03/08 07:37:12 thyssen Exp $
+ * $Id: html.c,v 1.87.2.2 2003/03/08 07:52:05 thyssen Exp $
  */
 
 #include "config.h"
@@ -1761,7 +1761,7 @@ HTMLPrologue ( FILE *pf, const matchstate *pms,
               ap[ 0 ].szName,
               pms->anScore[ 0 ],
               ap[ 1 ].szName,
-              pms->anScore[ 0 ],
+              pms->anScore[ 1 ],
               pms->nMatchTo );
   else
     sprintf ( szHeader,
@@ -1854,7 +1854,7 @@ HTMLEpilogue ( FILE *pf, const matchstate *pms, char *aszLinks[ 4 ],
   int fFirst;
   int i;
 
-  const char szVersion[] = "$Revision: 1.93 $";
+  const char szVersion[] = "$Revision: 1.87.2.2 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -1935,7 +1935,7 @@ HTMLEpilogueComment ( FILE *pf ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.93 $";
+  const char szVersion[] = "$Revision: 1.87.2.2 $";
   int iMajor, iMinor;
   char *pc;
 
