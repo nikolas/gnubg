@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1997-1999
  *
- * $Id: xboard.c,v 1.3 1999/12/17 01:13:44 gtw Exp $
+ * $Id: xboard.c,v 1.4 1999/12/19 04:00:51 gtw Exp $
  */
 
 #include "config.h"
@@ -156,7 +156,7 @@ static void BoardRedrawPoint( extwindow *pewnd, gamedata *pgd, int n ) {
 	    iChequer = 0;
 	    cChequer--;
 
-	    yChequer = fInvert ? cy + ( 3 - 3 * cChequer ) * pgd->nBoardSize :
+	    yChequer = fInvert ? cy + ( 3 * cChequer - 21 ) * pgd->nBoardSize :
 		( 15 - 3 * cChequer ) * pgd->nBoardSize;
 	}
     }
