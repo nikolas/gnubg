@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.39 2000/10/13 16:40:49 gtw Exp $
+ * $Id: backgammon.h,v 1.40 2000/10/16 15:39:19 gtw Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -194,7 +194,7 @@ extern void HandleInput( char *sz );
 
 extern command acDatabase[], acNew[], acSave[], acSetAutomatic[],
     acSetCube[], acSetEvaluation[], acSetPlayer[], acSetRNG[], acSetRollout[],
-    acSet[], acShow[], acTrain[], acTop[];
+    acSet[], acShow[], acTrain[], acTop[], acSetMET[];
 
 extern void CommandAccept( char * ),
     CommandAgree( char * ),
@@ -254,6 +254,8 @@ extern void CommandAccept( char * ),
     CommandSetEvalReduced ( char * ),
     CommandSetEvalTolerance( char * ),
     CommandSetEvaluation( char * ),
+    CommandSetJacoby( char * ),
+    CommandSetMETZadeh( char * ),
     CommandSetJacoby( char * ),
     CommandSetNackgammon( char * ),
     CommandSetOutputMWC ( char * ),
