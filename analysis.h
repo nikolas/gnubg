@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.16 2003/01/19 04:27:06 gtw Exp $
+ * $Id: analysis.h,v 1.19 2003/07/17 10:32:18 thyssen Exp $
  */
 
 #ifndef _ANALYSIS_H_
@@ -71,7 +71,14 @@ typedef struct _statcontext {
   float arErrorWrongTake [ 2 ][ 2 ];
   float arErrorWrongPass [ 2 ][ 2 ];
   float arLuck[ 2 ][ 2 ];
-  
+
+  /* luck adjusted result */
+
+  float arActualResult[ 2 ];
+  float arVarianceActual[ 2 ];
+  float arVarianceLuckAdj[ 2 ];
+  int nGames;
+
 } statcontext;
 
 typedef enum _ratingtype {

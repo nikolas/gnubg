@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.23 2003/01/22 18:26:06 gtw Exp $
+ * $Id: makebearoff.c,v 1.26 2003/07/27 12:28:09 thyssen Exp $
  */
 
 #include "config.h"
@@ -46,6 +46,13 @@ typedef struct _xhash {
   int nHashSize;
   xhashent *phe;
 } xhash;
+
+/* ugly fixes */
+char *aszRNG[]; 
+char *aszSkillType[ 1 ]; 
+int exsExport;
+int ap;
+/* end ugly fixes */
 
 
 static long cLookup;
@@ -1290,7 +1297,7 @@ usage ( char *arg0 ) {
 static void
 version ( void ) {
 
-  printf ( "makebearoff $Revision: 1.23 $\n" );
+  printf ( "makebearoff $Revision: 1.26 $\n" );
 
 }
 
@@ -1467,7 +1474,7 @@ extern int main( int argc, char **argv ) {
     if ( pbc ) {
       fprintf ( stderr, "Number of reads in old database: %lu\n",
                 pbc->nReads );
-      BearoffClose ( pbc );
+      BearoffClose ( &pbc );
     }
 
     fprintf ( stderr, "Number of re-reads while generating: %ld\n", 
@@ -1532,7 +1539,7 @@ extern int main( int argc, char **argv ) {
     if ( pbc ) {
       fprintf ( stderr, "Number of reads in old database: %lu\n",
                 pbc->nReads );
-      BearoffClose ( pbc );
+      BearoffClose ( &pbc );
     }
 
     fprintf ( stderr, "Number of re-reads while generating: %ld\n", 
