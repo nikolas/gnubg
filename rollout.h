@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.21 2003/08/13 11:52:28 Superfly_Jon Exp $
+ * $Id: rollout.h,v 1.22 2003/08/16 21:35:58 joseph Exp $
  */
 
 #ifndef _ROLLOUT_H_
@@ -58,8 +58,6 @@ typedef struct _rolloutstat {
   /* FIXME: add more stuff */
 
 } rolloutstat;
-
-extern int nSkip;
 
 typedef void
 (rolloutprogressfunc) ( float arOutput[][ NUM_ROLLOUT_OUTPUTS ],
