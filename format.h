@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.3 2003/08/15 02:20:47 joseph Exp $
+ * $Id: format.h,v 1.4 2003/09/20 20:10:06 thyssen Exp $
  */
 
 #ifndef _FORMAT_H_
@@ -47,6 +47,9 @@ OutputEvalContext ( const evalcontext *pec, const int fChequer );
 
 extern char *
 OutputEquityDiff ( const float r1, const float r2, const cubeinfo *pci );
+
+extern char *
+OutputMWCDiff ( const float r1, const float r2, const cubeinfo *pci );
 
 extern char *
 OutputEquityScale ( const float r, const cubeinfo *pci, 
