@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.12 2004/01/30 09:33:50 uid68519 Exp $
+ * $Id: osr.c,v 1.13 2004/04/22 19:21:59 thyssen Exp $
  */
 
 #include <stdio.h>
@@ -860,7 +860,7 @@ raceProbs ( int anBoard[ 2 ][ 25 ], const int nGames,
 
   /* Seed set to ensure that OSR are reproducable */
 
-  init_genrand ( 0, mt );
+  init_genrand ( 0, &mti, mt );
 
   for ( i = 0; i < 5; ++i )
     arOutput[ i ] = 0.0f;
