@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.157 2002/10/12 09:04:12 thyssen Exp $
+ * $Id: play.c,v 1.158 2002/10/26 10:49:57 thyssen Exp $
  */
 
 #include "config.h"
@@ -3969,7 +3969,6 @@ getCurrentMoveRecord ( int *pfHistory ) {
         mrHint.n.esDouble.et = EVAL_NONE;
       }
 
-      printf ( "move\n" );
       return &mrHint;
 
     }
