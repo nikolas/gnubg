@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.12 2002/12/18 17:40:16 thyssen Exp $
+ * $Id: bearoff.c,v 1.13 2002/12/19 21:50:55 thyssen Exp $
  */
 
 #include "config.h"
@@ -365,7 +365,7 @@ ReadTwoSidedBearoff ( bearoffcontext *pbc,
 
     /* add to cache */
 
-    if ( ! pbc->fInMemory ) {
+    if ( ! pbc->fInMemory && pbc->ph ) {
       /* add to cache */
       hashentrytwosided *phe = 
         (hashentrytwosided *) malloc ( sizeof ( hashentrytwosided ) );
