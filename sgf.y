@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.y,v 1.5 2002/09/18 19:18:52 gtw Exp $
+ * $Id: sgf.y,v 1.6 2003/01/22 18:26:06 gtw Exp $
  */
 
 %{
@@ -50,7 +50,7 @@ static int sgferror( char *s ) {
 }
 
 static list *NewList( void ) {
-    list *pl = malloc( sizeof( *pl ) );
+    list *pl = calloc(1,  sizeof( *pl ) );
     ListCreate( pl );
     return pl;
 }
@@ -63,7 +63,7 @@ static char *Concatenate( list *pl ) {
     for( pl = pl->plNext; pl->p; pl = pl->plNext )
 	cch += strlen( pl->p );
 
-    pchDest = sz = malloc( cch + 1 );
+    pchDest = sz = calloc(1, cch + 1 );
     
     while( pl->plNext != pl ) {
 	for( pchSrc = pl->plNext->p; ( *pchDest++ = *pchSrc++ ); )
