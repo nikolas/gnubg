@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.102 2001/11/06 15:54:52 gtw Exp $
+ * $Id: backgammon.h,v 1.103 2001/11/07 16:33:19 gtw Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -205,7 +205,7 @@ typedef struct _matchstate {
 } matchstate;
 
 extern matchstate ms;
-extern int fNextTurn;
+extern int fNextTurn, fComputing;
 
 /* User settings. */
 extern int fAutoGame, fAutoMove, fAutoRoll, fAutoCrawford, cAutoDoubles,
