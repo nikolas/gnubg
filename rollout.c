@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.56 2002/01/25 19:23:59 thyssen Exp $
+ * $Id: rollout.c,v 1.57 2002/01/26 19:26:00 thyssen Exp $
  */
 
 #include "config.h"
@@ -572,7 +572,6 @@ BasicCubefulRollout ( int aanBoard[][ 2 ][ 25 ],
           case DOUBLE_TAKE:
           case DOUBLE_BEAVER:
           case REDOUBLE_TAKE:
-          case REDOUBLE_BEAVER:
 
             /* update statistics */
 	    if( aarsStatistics )
