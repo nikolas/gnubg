@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.122 2003/07/26 11:10:02 jsegrave Exp $
+ * $Id: rollout.c,v 1.123 2003/07/27 12:26:28 thyssen Exp $
  */
 
 #include "config.h"
@@ -1089,7 +1089,7 @@ RolloutGeneral( int (* apBoard[])[ 2 ][ 25 ],
        with the best move in the list. 
     */
     if (show_jsds) {
-      float v, s;
+      float v, s, denominator;
       int  reset_to = i;
 
       for (alt = 0; alt < alternatives; ++alt) {
@@ -1149,6 +1149,11 @@ RolloutGeneral( int (* apBoard[])[ 2 ][ 25 ],
         ajiJSD[ alt ].nRank = alt;
         ajiJSD[ alt ].rEquity = v - ajiJSD[ alt ].rEquity;
         
+	denominator = sqrt (s + ajiJSD[ alt ].rJSD * ajiJSD[ alt ].rJSD);
+
+	if (denominator < 1e-8)
+	  denominator = 1e-8;
+
         ajiJSD[ alt ].rJSD = ajiJSD[ alt ].rEquity /
           sqrt (s + ajiJSD[ alt ].rJSD * ajiJSD[ alt ].rJSD);
         
