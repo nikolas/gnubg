@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.12 2003/01/22 18:26:06 gtw Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -552,7 +552,7 @@ GTKShowTheory ( const int fActivePage ) {
 
   /* create dialog */
 
-  pwDialog = CreateDialog ( _("GNU Backgammon - Theory"), DT_INFO,
+  pwDialog = GTKCreateDialog ( _("GNU Backgammon - Theory"), DT_INFO,
                             NULL, NULL );
 
   pwVBox = gtk_vbox_new ( FALSE, 8 );

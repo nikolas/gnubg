@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.3 2003/03/29 12:48:20 thyssen Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -254,7 +254,7 @@ GTKShowTempMap( matchstate *pms ) {
   int i, j;
   renderdata rd;
 
-  GtkWidget *pwDialog = CreateDialog( _("Sho Sengoku Temperature Map - "
+  GtkWidget *pwDialog = GTKCreateDialog( _("Sho Sengoku Temperature Map - "
                                         "Distribution of rolls"),
                                       DT_INFO, NULL, NULL );
 

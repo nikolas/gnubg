@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.13 2003/05/23 16:04:58 hb Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -24,6 +24,7 @@
 #endif
 
 #include <assert.h>
+#include <stdlib.h>
 
 #include "boardpos.h"
 #include "i18n.h"
