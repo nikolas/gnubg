@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.31 2003/09/12 13:35:22 steink Exp $
+ * $Id: drawboard.c,v 1.32 2003/10/14 16:43:33 jsegrave Exp $
  */
 
 #include "config.h"
@@ -963,14 +963,14 @@ extern char *FIBSBoard( char *pch, int anBoard[ 2 ][ 25 ], int fRoll,
     sprintf( strchr( sz, 0 ), "%d:", anBoard[ 1 ][ 24 ] );
 
     /* Whose turn */
-    strcat( strchr( sz, 0 ), fRoll ? "1:" : "-1:" );
+    strcat( sz, fRoll ? "1:" : "-1:" );
 
     anOff[ 0 ] = anOff[ 1 ] = nChequers ? nChequers : 15;
     for( i = 0; i < 25; i++ ) {
 	anOff[ 0 ] -= anBoard[ 0 ][ i ];
 	anOff[ 1 ] -= anBoard[ 1 ][ i ];
     }
-    
+
     sprintf( strchr( sz, 0 ), "%d:%d:%d:%d:%d:%d:%d:%d:1:-1:0:25:%d:%d:0:0:0:"
 	     "0:%d:0", nDice0, nDice1, nDice0, nDice1, fTurn < 0 ? 1 : nCube,
 	     fTurn < 0 || fCubeOwner != 0, fTurn < 0 || fCubeOwner != 1,
