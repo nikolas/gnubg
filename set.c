@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.130 2002/10/15 15:40:24 thyssen Exp $
+ * $Id: set.c,v 1.131 2002/10/16 17:33:33 thyssen Exp $
  */
 
 #include "config.h"
@@ -2488,6 +2488,42 @@ extern void
 CommandSetExportHTMLTypeGNU ( char *sz ) {
 
   SetExportHTMLType ( HTML_EXPORT_TYPE_GNU, "png" );
+
+}
+
+
+static void
+SetExportHTMLCSS ( const htmlexportcss hecss ) {
+
+  if ( exsExport.hecss == hecss )
+    return;
+
+  exsExport.hecss = hecss;
+
+  outputf ( _("CSS stylesheet for HTML export: %s\n"),
+            gettext ( aszHTMLExportCSS[ hecss ] ) );
+
+}
+
+
+extern void
+CommandSetExportHTMLCSSHead ( char *sz ) {
+
+  SetExportHTMLCSS ( HTML_EXPORT_CSS_HEAD );
+
+}
+
+extern void
+CommandSetExportHTMLCSSInline ( char *sz ) {
+
+  SetExportHTMLCSS ( HTML_EXPORT_CSS_INLINE );
+
+}
+
+extern void
+CommandSetExportHTMLCSSExternal ( char *sz ) {
+
+  SetExportHTMLCSS ( HTML_EXPORT_CSS_EXTERNAL );
 
 }
 
