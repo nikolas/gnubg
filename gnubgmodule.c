@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.24 2004/02/17 10:52:19 uid68519 Exp $
+ * $Id: gnubgmodule.c,v 1.25 2004/02/19 09:41:26 uid68519 Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -1977,7 +1977,7 @@ PythonInitialise( const char *argv0, const char *szDir ) {
 
   FILE *pf;
   char *pch;
-  char scriptDir[_MAX_PATH];
+  char scriptDir[BIG_PATH];
   strcpy(scriptDir, szDir);
   strcat(scriptDir, "/scripts");
 
