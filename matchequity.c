@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.21 2002/03/23 14:47:10 thyssen Exp $
+* $Id: matchequity.c,v 1.22 2002/03/28 21:11:45 thyssen Exp $
 */
 
 #include <stdio.h>
@@ -1628,10 +1628,10 @@ calcGammonPrices ( float aafMET[ MAXSCORE ][ MAXSCORE ],
   for ( i = 0, nCube = 1; i < MAXCUBELEVEL; i++, nCube *= 2 )
     for ( j = 0; j < MAXSCORE; j++ ) {
       getGammonPrice( aaaafGammonPricesPostCrawford[ i ][ j ][ 0 ],
-                      1, MAXSCORE - j - 1, MAXSCORE,
+                      MAXSCORE - 1, MAXSCORE - j - 1, MAXSCORE,
                       nCube, FALSE, aafMET, aafMETPostCrawford );
       getGammonPrice( aaaafGammonPricesPostCrawford[ i ][ j ][ 1 ],
-                      MAXSCORE - j - 1, 1, MAXSCORE,
+                      MAXSCORE - j - 1, MAXSCORE - 1, MAXSCORE,
                       nCube, FALSE, aafMET, aafMETPostCrawford );
     }
 
