@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.14 2002/08/04 17:13:01 thyssen Exp $
+ * $Id$
  */
 
 #ifndef _ANALYSIS_H_
@@ -80,8 +80,8 @@ typedef enum _ratingtype {
   RAT_EXPERT, RAT_WORLD_CLASS, RAT_SUPERNATURAL, RAT_UNDEFINED
 } ratingtype;
 
-const char *aszRating [ RAT_UNDEFINED + 1 ];
-const char *aszLuckRating[ 7 ];
+extern const char *aszRating [ RAT_UNDEFINED + 1 ];
+extern const char *aszLuckRating[ 7 ];
 
 extern ratingtype GetRating ( const float rError );
 extern void IniStatcontext ( statcontext *psc );
