@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.h,v 1.1 2002/03/09 18:59:30 thyssen Exp $
+ * $Id: onechequer.h,v 1.1 2002/11/24 14:44:50 thyssen Exp $
  */
 
 #ifndef _ONECHEQUER_H_
@@ -24,5 +24,8 @@
 
 extern int
 OneChequer ( const int nPips, float *prMu, float *prSigma );
+
+extern void
+DistFromEPC( const float rEPC, float arDist[ 32 ] );
 
 #endif /* _ONECHEQUER_H_ */
