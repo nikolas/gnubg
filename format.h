@@ -16,13 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.2 2003/08/13 11:52:27 Superfly_Jon Exp $
+ * $Id: format.h,v 1.3 2003/08/15 02:20:47 joseph Exp $
  */
 
 #ifndef _FORMAT_H_
 #define _FORMAT_H_
 
 extern int fOutputDigits, fOutputMWC, fOutputWinPC, fOutputMatchPC;
+extern float rErrorRateFactor;
 
 /* misc. output routines used by text and HTML export */
 
