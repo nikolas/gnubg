@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.254 2003/09/10 19:30:39 jsegrave Exp $
+ * $Id: backgammon.h,v 1.255 2003/09/12 13:35:22 steink Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -30,6 +30,10 @@
 
 #include "analysis.h"
 #include "eval.h"
+
+#if USE_TIMECONTROL && WIN32
+#include <winsock2.h>
+#endif
 
 #if !defined (__GNUC__) && !defined (__attribute__)
 #define __attribute__(X)
