@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.24 2000/01/19 17:01:12 gtw Exp $
+ * $Id: gnubg.c,v 1.25 2000/01/26 22:06:33 gtw Exp $
  */
 
 #include "config.h"
@@ -25,6 +25,9 @@
 #include <errno.h>
 #if HAVE_FCNTL_H
 #include <fcntl.h>
+#endif
+#if HAVE_SYS_FILE_H
+#include <sys/file.h>
 #endif
 #if HAVE_LIMITS_H
 #include <limits.h>
