@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.193 2002/07/25 15:04:56 oysteijo Exp $
+ * $Id: gtkgame.c,v 1.194 2002/07/25 17:12:01 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -4595,8 +4595,13 @@ static void DestroyHint( gpointer p ) {
 
     hintdata *phd = gtk_object_get_user_data( GTK_OBJECT( pwHint ) );
 
-    free( phd->pml->amMoves );
-    free( phd->pml );
+    if ( phd->pml ) {
+      if ( phd->pml->amMoves )
+        free ( phd->pml->amMoves );
+
+      free( phd->pml );
+
+    }
     
     pwHint = NULL;
 }
