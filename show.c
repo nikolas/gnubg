@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.40 2000/11/13 15:53:16 gtw Exp $
+ * $Id: show.c,v 1.41 2000/11/14 15:26:38 gtw Exp $
  */
 
 #include "config.h"
@@ -137,7 +137,7 @@ extern void CommandShowBoard( char *sz ) {
     }
 
     /* FIXME handle =n notation */
-    if( ParsePosition( an, &sz ) < 0 )
+    if( ParsePosition( an, &sz, NULL ) < 0 )
 	return;
 
 #if USE_GUI
@@ -295,7 +295,7 @@ extern void CommandShowPipCount( char *sz ) {
 	return;
     }
     
-    if( ParsePosition( an, &sz ) < 0 )
+    if( ParsePosition( an, &sz, NULL ) < 0 )
 	return;
     
     PipCount( an, anPips );
@@ -437,7 +437,7 @@ extern void CommandShowKleinman( char *sz ) {
         return;
     }
  
-    if( ParsePosition( an, &sz ) < 0 )
+    if( ParsePosition( an, &sz, NULL ) < 0 )
 	return;
      
     PipCount( an, anPips );
@@ -460,7 +460,7 @@ extern void CommandShowThorp( char *sz ) {
         return;
     }
 
-    if( ParsePosition( an, &sz ) < 0 )
+    if( ParsePosition( an, &sz, NULL ) < 0 )
 	return;
 
     PipCount( an, anPips );
