@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.78 2002/03/02 23:43:20 gtw Exp $
+ * $Id: show.c,v 1.79 2002/03/09 19:02:59 thyssen Exp $
  */
 
 #include "config.h"
@@ -723,7 +723,7 @@ extern void CommandShowBeavers( char *sz ) {
 	outputl( "No beavers allowed in money sessions." );
 }
 
-extern void CommandShowGammonPrice ( char *sz ) {
+extern void CommandShowGammonValues ( char *sz ) {
 
   cubeinfo ci;
   int i;
@@ -743,7 +743,7 @@ extern void CommandShowGammonPrice ( char *sz ) {
 
   GetMatchStateCubeInfo( &ci, &ms );
 
-  output ( "Player        Gammon price    Backgammon price\n" );
+  output ( "Player        Gammon value    Backgammon value\n" );
 
   for ( i = 0; i < 2; i++ ) {
 
