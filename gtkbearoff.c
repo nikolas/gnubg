@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkbearoff.c,v 1.6 2003/08/23 08:36:06 thyssen Exp $
+ * $Id: gtkbearoff.c,v 1.7 2003/08/24 15:23:12 oysteijo Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -112,10 +112,10 @@ BearoffUpdated( GtkWidget *pw, bearoffwidget *pbw ) {
 #if WIN32
   /* Windows fonts come out smaller than you ask for, for some reason... */
   pf = gdk_font_load( "-b&h-lucidatypewriter-medium-r-normal-sans-14-"
-                      "*-*-*-m-*-iso8859-1" );
+                      "*-*-*-m-*-*" );
 #else
   pf = gdk_font_load( "-b&h-lucidatypewriter-medium-r-normal-sans-12-"
-                      "*-*-*-m-*-iso8859-1" );
+                      "*-*-*-m-*-*" );
 #endif
 
 
