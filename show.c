@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.106 2002/08/18 08:40:09 thyssen Exp $
+ * $Id: show.c,v 1.107 2002/09/01 16:30:07 thyssen Exp $
  */
 
 #include "config.h"
@@ -99,6 +99,9 @@ ShowRollout ( rolloutcontext *prc ) {
   outputl ( prc->fVarRedn ? 
             _("Lookahead variance reduction is enabled.") :
             _("Lookahead variance reduction is disabled.") );
+  outputl ( prc->fRotate ? 
+            _("Rotating of first two rolls is enabled.") :
+            _("Rotating of first two rolls is disabled.") );
   outputl ( prc->fCubeful ?
             _("Cubeful rollout.") :
             _("Cubeless rollout.") );
