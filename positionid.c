@@ -32,11 +32,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.12 2002/03/18 22:01:17 gtw Exp $
+ * $Id: positionid.c,v 1.13 2002/03/19 21:45:33 thyssen Exp $
  */
 
 #include <assert.h>
 #include <errno.h>
+#include <string.h>
 #include "positionid.h"
 
 static
