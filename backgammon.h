@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.201 2003/01/21 21:58:45 gtw Exp $
+ * $Id: backgammon.h,v 1.202 2003/01/22 18:26:05 gtw Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -720,6 +720,7 @@ extern void CommandAccept( char * ),
     CommandSetExportCubeDisplayGood ( char * ),
     CommandSetExportCubeDisplayVeryGood ( char * ),
     CommandSetExportCubeDisplayActual ( char * ),
+    CommandSetExportCubeDisplayMissed ( char * ),    
     CommandSetExportCubeDisplayClose ( char * ),
     CommandSetExportHTMLCSSExternal ( char * ),
     CommandSetExportHTMLCSSHead ( char * ),
