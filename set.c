@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.223 2004/04/08 14:22:05 thyssen Exp $
+ * $Id: set.c,v 1.224 2004/04/11 20:21:44 thyssen Exp $
  */
 
 #include "config.h"
@@ -2525,7 +2525,8 @@ extern void CommandSetToolbar( char *sz )
 		return;
 	}
 #if USE_GUI
-	SetToolbarStyle(n);
+	if (fX)
+	  SetToolbarStyle(n);
 #endif
 }
 
