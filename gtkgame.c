@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.295 2003/01/13 17:54:36 thyssen Exp $
+ * $Id: gtkgame.c,v 1.295.2.1 2003/01/15 21:02:04 gtw Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -7765,6 +7765,8 @@ GTKShowPath ( void ) {
       N_("Match Equity Tables") },
     { N_("Loading of TrueMoneyGames files (.tmg)"), 
       N_("TrueMoneyGames TMG") } 
+    { N_("Loading of BKG files"),
+      N_("BKG") }
   };
 
   
