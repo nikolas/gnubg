@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.4 2003/01/19 04:27:06 gtw Exp $
+ * $Id: htmlimages.c,v 1.5 2003/07/03 15:21:32 jsegrave Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -123,7 +123,7 @@ extern void CommandExportHTMLImages( char *sz ) {
 
     memcpy( &rd, &rdAppearance, sizeof( renderdata ) );
     
-    rd.fLabels = FALSE; /* HTML export draws labels outside the image */
+    rd.fLabels = TRUE; 
     rd.nSize = s;
 
     RenderBoard( &rd, auchBoard, 108 * 4 * 3 );
