@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.36 2000/10/26 14:20:08 gtw Exp $
+ * $Id: show.c,v 1.37 2000/11/02 08:40:07 thyssen Exp $
  */
 
 #include "config.h"
@@ -376,6 +376,8 @@ extern void CommandShowRollout( char *sz ) {
 
 extern void CommandShowScore( char *sz ) {
 
+    /* FIXME this display will be wrong if the current game is not the
+       last one */
     outputf( "The score (after %d game%s) is: %s %d, %s %d",
 	    cGames, cGames == 1 ? "" : "s",
 	    ap[ 0 ].szName, anScore[ 0 ],
