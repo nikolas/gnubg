@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.43 2004/02/09 13:02:31 uid68519 Exp $
+* $Id: matchequity.c,v 1.44 2004/03/25 20:24:42 thyssen Exp $
 */
 
 #include <stdio.h>
@@ -211,6 +211,7 @@ initPostCrawfordMET ( float afMETPostCrawford[ MAXSCORE ],
     assert( afMETPostCrawford[ i ] >= 0.0f &&
             afMETPostCrawford[ i ] <= 1.0f && 
             "insane post crawford equity(2)" );
+
   }
 
 
@@ -264,9 +265,9 @@ initMETZadeh ( float aafMET[ MAXSCORE ][ MAXSCORE ],
   for ( i = 0; i < MAXSCORE; i++ ) {
 
     aafMET[ i ][ 0 ] = 
-      rG2 * 0.5 *
+      rG1 * 0.5 *
       ( (i-2 >=0) ? afMETPostCrawford[ i-2 ] : 1.0 )
-      + (1.0 - rG2) * 0.5 * 
+      + (1.0 - rG1) * 0.5 * 
       ( (i-1 >=0) ? afMETPostCrawford[ i-1 ] : 1.0 );
     aafMET[ 0 ][ i ] = 1.0 - aafMET[ i ][ 0 ];
 
