@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.502 2004/07/04 12:27:27 thyssen Exp $
+ * $Id: gtkgame.c,v 1.503 2004/07/11 07:33:27 kaoru Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -52,6 +52,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include <time.h>
 #if HAVE_UNISTD_H
 #include <unistd.h>
