@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.231 2003/05/19 20:22:38 thyssen Exp $
+ * $Id: eval.c,v 1.231.2.1 2003/05/30 14:32:00 grob Exp $
  */
 
 #include "config.h"
@@ -73,7 +73,6 @@
 #endif
 #endif
 
-#define PROCESSING_UNITS 1
 #include "threadglobals.h"
 
 
