@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff1.c,v 1.5 2002/12/02 21:40:04 jsegrave Exp $
+ * $Id: makebearoff1.c,v 1.6 2004/03/29 07:48:24 thyssen Exp $
  */
 
 #include "config.h"
@@ -57,7 +57,7 @@ PrintPre ( FILE *pf ) {
          " * along with this program; if not, write to the Free Software\n"
          " * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA\n"
          " *\n"
-         " * $Id: makebearoff1.c,v 1.5 2002/12/02 21:40:04 jsegrave Exp $\n"
+         " * $Id: makebearoff1.c,v 1.6 2004/03/29 07:48:24 thyssen Exp $\n"
          " */\n"
          "\n\n\n"
          "#include <stdio.h>\n"
@@ -207,7 +207,7 @@ main ( int argc, char **argv ) {
 
     for ( i = 0; i < n; ++i ) {
 
-      fprintf ( pfOut, "0x%02hhX, ", (ac[ i ] & 0xff) );
+      fprintf ( pfOut, "0x%02hX, ", (ac[ i ] & 0xff) );
 
       if ( ! ( ( i + 1 ) % 8 ) )
         fprintf ( pfOut, 
