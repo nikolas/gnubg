@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.116 2002/11/24 14:41:01 thyssen Exp $
+ * $Id: show.c,v 1.117 2002/11/26 16:14:05 gtw Exp $
  */
 
 #include "config.h"
@@ -112,7 +112,7 @@ static void ShowEvaluation( evalcontext *pec ) {
 extern int
 EvalCmp (evalcontext *E1, evalcontext *E2, int nElements) {
 
-  int  i, cmp;
+  int  i, cmp = 0;
  
   if (nElements < 1)
     return 0;
