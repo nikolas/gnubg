@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.387 2003/08/16 09:24:47 thyssen Exp $
+ * $Id: gtkgame.c,v 1.388 2003/08/20 17:23:32 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -1388,9 +1388,8 @@ extern void GTKPopMoveRecord( moverecord *pmr ) {
 
 static void SkillMenuActivate( GtkWidget *pw, skilltype st ) {
 
-    static char *aszSkillCmd[ N_SKILLS ] = {
-	"verybad", "bad", "doubtful", "clear skill",
-	//"interesting", "good",	"verygood"
+    static char* aszSkillCmd[ N_SKILLS ] = {
+      "verybad", "bad", "doubtful", "clear skill", "good",
     };
     char sz[ 64 ];
 
