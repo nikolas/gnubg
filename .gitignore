@@ -28,16 +28,16 @@ core
 # CVS default ignores end
 .deps
 Makefile
+autom4te.cache
 config.cache
 config.h
 config.log
 config.status
+erftest
 gnubg
 gnubg.bd
 gnubg.wd
 gnubg.weights
 makebearoff
 makeweights
-erftest
-stamp-h
-stamp-vti
+stamp-*
