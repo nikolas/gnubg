@@ -1,19 +1,23 @@
 /*
  * event.h
  *
- * by Gary Wong, 1996
+ * by Gary Wong, 1996-2000
  *
+ * $Id: event.h,v 1.3 2000/07/28 17:11:10 gtw Exp $
  */
 
 #ifndef _EVENT_H_
 #define _EVENT_H_
 
-#include <list.h>
-#include <sys/time.h>
+#include "config.h"
 
-/* FIXME the sys/time.h include should be protected with an if HAVE_,
-   but this is a user header file and we can't rely on the user having
-   included our config.h... yuck! */
+#include <list.h>
+#if defined HAVE_SYS_TIME_H || !defined HAVE_CONFIG_H
+#include <sys/time.h>
+#endif
+
+#if HAVE_SELECT
+#define HAVE_EVENT 1
 
 typedef struct _event event;
 typedef struct _eventhandler eventhandler;
@@ -47,5 +51,6 @@ extern int EventPending( event *pev, int fPending );
 extern int InitEvents( void );
 extern int HandleEvents( void );
 extern int StopEvents( void );
+#endif
 
 #endif
