@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.56 2004/02/04 18:02:17 uid68519 Exp $
+ * $Id: gtkboard.h,v 1.57 2004/02/24 10:20:47 uid68519 Exp $
  */
 
 #ifndef _GTKBOARD_H_
@@ -55,7 +55,6 @@ extern animation animGUI;
 extern int nGUIAnimSpeed, fGUIBeep, fGUIDiceArea, fGUIHighDieFirst,
     fGUIIllegal, fGUIShowIDs, fGUIShowGameInfo, fGUIShowPips, fGUISetWindowPos,
     fGUIDragTargetHelp, fGUIUseStatsPanel;
-;
 
 typedef struct _Board {
     GtkVBox vbox;
