@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1999
  *
- * $Id: backgammon.h,v 1.3 1999/12/19 04:34:54 gtw Exp $
+ * $Id: backgammon.h,v 1.4 1999/12/20 03:21:39 thyssen Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -62,7 +62,7 @@ extern int anBoard[ 2 ][ 25 ], anDice[ 2 ], fTurn, fDisplay, fAutoGame,
     nCube, fCubeOwner, fAutoRoll, nMatchTo, fJacoby, fCrawford,
     fPostCrawford;
 
-extern list lMatch, lGame; /* (list of) list of moverecords */
+extern list lMatch, *plGame; /* (list of) list of moverecords */
 
 extern player ap[ 2 ];
 
