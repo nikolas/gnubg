@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: gnubg.c,v 1.543 2004/03/18 23:29:14 oysteijo Exp $
+# $Id: credits.sh,v 1.107 2004/03/25 20:08:31 thyssen Exp $
 # 
 
 column < /dev/null || exit 0
@@ -70,6 +70,7 @@ EOF
 cat > $credit <<EOF
 Elias Kritikos
 Misja Alma
+Christian Anthon
 Kazuaki Asai
 Eric Augustine
 Erik Barfoed
