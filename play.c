@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.169 2002/12/22 17:05:17 jsegrave Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -2851,7 +2851,12 @@ extern void SetMatchDate( matchinfo *pmi ) {
 
 extern void CommandNewMatch( char *sz ) {
 
-    int n = ParseNumber( &sz );
+    int n;
+
+    if( !sz || !*sz )
+	n = nDefaultLength;
+    else
+	n = ParseNumber( &sz );
 
     if( n < 1 ) {
 	outputl( _("You must specify a valid match length (1 or longer).") );
