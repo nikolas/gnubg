@@ -16,11 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: i18n.h,v 1.6 2004/07/10 08:20:33 kaoru Exp $
+ * $Id: i18n.h,v 1.7 2004/10/05 16:13:00 Superfly_Jon Exp $
  */
 
 #ifndef _I18N_H_
 #define _I18N_H_
+
+#if HAVE_CONFIG_H
+#include "config.h"
+#endif
 
 #include <stdio.h>
 
