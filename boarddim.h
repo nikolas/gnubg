@@ -16,14 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boarddim.h,v 1.5 2003/09/18 22:53:08 jsegrave Exp $
+ * $Id: boarddim.h,v 1.6 2003/09/19 20:24:35 jsegrave Exp $
  */
 
 #ifndef _BOARDDIM_H_
 #define _BOARDDIM_H_
-
-
-#include "config.h"
 
 
 #ifdef __cplusplus
