@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: timecontrol.c,v 1.11 2003/10/12 12:57:38 thyssen Exp $
+ * $Id: timecontrol.c,v 1.12 2003/11/06 04:52:03 steink Exp $
  */
 
 #include "config.h"
@@ -765,6 +765,8 @@ extern int CheckGameClock(matchstate *pms, struct timeval *tvp)
 {
     int pen=0;
     struct timeval ts;
+    playerclock *pgcPlayer;
+    playerclock *pgcOpp;
 
     if (0 == tvp)
     {
@@ -778,9 +780,8 @@ extern int CheckGameClock(matchstate *pms, struct timeval *tvp)
 	 return 0;
     }
 
-    playerclock
-	    *pgcPlayer=&pms->gc.pc[pms->gc.fPlayer],
-	    *pgcOpp=&pms->gc.pc[!pms->gc.fPlayer];
+    pgcPlayer=&pms->gc.pc[pms->gc.fPlayer];
+    pgcOpp=&pms->gc.pc[!pms->gc.fPlayer];
 
 /* Check transitions */
    if (pms == &ms)
