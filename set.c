@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.173 2003/03/03 19:17:06 thyssen Exp $
+ * $Id: set.c,v 1.174 2003/03/05 11:29:57 jsegrave Exp $
  */
 
 #include "config.h"
@@ -3969,7 +3969,7 @@ CommandSetExportPNGSize ( char *sz ) {
 static void
 SetVariation( const bgvariation bgvx ) {
 
-  bgv = bgvx;
+  bgvDefault = bgvx;
   CommandShowVariation( NULL );
 
 #if USE_GUI
