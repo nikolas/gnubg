@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: play.c,v 1.218 2003/09/05 22:55:50 hb Exp $
  */
 
 #include "config.h"
@@ -79,7 +79,7 @@ char *aszSkillTypeCommand[] = {
 /*   "good",  */
 /*   "verygood" */
  };
-char* aszSkillTypeAbbr[] = { "??", "?", "?!", "", ""};
+char* aszSkillTypeAbbr[] = { "??", "? ", "?!", "  ", "  "};
 
 char* aszLuckTypeCommand[] = { 
   "veryunlucky", 
