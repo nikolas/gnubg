@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.90 2004/05/07 14:27:20 thyssen Exp $
+ * $Id: import.c,v 1.91 2004/05/07 17:58:13 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1412,7 +1412,8 @@ static void ImportSGGGame( FILE *pf, int i, int nLength, int n0, int n1,
 
     ListInsert( &lMatch, plGame );
 
-    pmr = NewMoveRecord();
+    pmgi = NewMoveRecord();
+
     pmgi->mt = MOVE_GAMEINFO;
     pmgi->g.i = i - 1;
     pmgi->g.nMatch = nLength;
