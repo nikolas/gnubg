@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.8 2002/07/25 15:11:45 oysteijo Exp $
+ * $Id: gtkcube.c,v 1.9 2002/08/04 10:01:59 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -413,7 +413,7 @@ static GtkWidget *CubeAnalysis( float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ],
 
     }
 
-    getCubeDecisionOrdering ( ai, arDouble, &ci );
+    getCubeDecisionOrdering ( ai, arDouble, aarOutput, &ci );
 
     for ( i = 0; i < 3; i++ ) {
 
