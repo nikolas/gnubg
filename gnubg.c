@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.467 2003/08/22 15:13:44 jsegrave Exp $
+ * $Id: gnubg.c,v 1.468 2003/08/23 17:37:27 jsegrave Exp $
  */
 
 #include "config.h"
@@ -3827,7 +3827,7 @@ extern void PromptForExit( void ) {
 
     static int fExiting;
 #if USE_BOARD3D
-	BoardData* bd;
+	BoardData* bd = NULL;
 	
 	if (fX)
 	  bd = BOARD(pwBoard)->board_data;
