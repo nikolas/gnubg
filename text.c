@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.26 2002/11/01 19:22:44 thyssen Exp $
+ * $Id: text.c,v 1.27 2002/11/13 17:07:50 thyssen Exp $
  */
 
 #include "config.h"
@@ -176,7 +176,7 @@ OutputRolloutContext ( const char *szIndent, const rolloutcontext *prc ) {
   if ( szIndent && *szIndent )
     strcat ( sz, szIndent );
 
-  if ( prc->nTruncate )
+  if ( prc->nTruncate && prc->fDoTruncate)
     sprintf ( pc = strchr ( sz, 0 ),
               prc->fCubeful ?
               _("Truncated cubeful rollout (depth %d)") :
@@ -656,7 +656,7 @@ TextEpilogue ( FILE *pf, const matchstate *pms ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.26 $";
+  const char szVersion[] = "$Revision: 1.27 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
