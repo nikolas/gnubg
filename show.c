@@ -3,7 +3,7 @@
  *
  * by Gary Wong, 1999
  *
- * $Id: show.c,v 1.3 1999/12/19 04:34:54 gtw Exp $
+ * $Id: show.c,v 1.4 1999/12/20 03:21:39 thyssen Exp $
  */
 
 #include "config.h"
@@ -83,7 +83,7 @@ extern void CommandShowDice( char *sz ) {
 
 extern void CommandShowPipCount( char *sz ) {
 
-    int an[ 2 ], i;
+    int an[ 2 ];
 
     /* FIXME take a board argument */
     
