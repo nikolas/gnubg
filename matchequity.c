@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.42 2004/02/02 09:53:31 uid68519 Exp $
+* $Id: matchequity.c,v 1.43 2004/02/09 13:02:31 uid68519 Exp $
 */
 
 #include <stdio.h>
@@ -765,7 +765,8 @@ GetDoublePointDeadCube ( float arOutput [ 5 ], cubeinfo *pci ) {
 
 /* 
  * Extend match equity table to MAXSCORE using
- * David Montgomery's extrapolation algorithm.
+ * David Montgomery's extension algorithm. The formula
+ * is independent of the values for score < nMaxScore.
  *
  * Input:
  *    nMaxScore: the length of the native met
