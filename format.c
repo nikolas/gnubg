@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.4 2003/08/15 02:20:47 joseph Exp $
+ * $Id: format.c,v 1.5 2003/08/15 07:00:44 joseph Exp $
  */
 
 #include "config.h"
@@ -24,6 +24,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#define USES_badSkill
 #include "backgammon.h"
 #include "eval.h"
 #include "format.h"

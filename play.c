@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.213 2003/08/22 15:13:45 jsegrave Exp $
+ * $Id: play.c,v 1.214 2003/08/24 11:12:49 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -36,6 +36,7 @@
 #include <unistd.h>
 #endif
 
+#define USES_badSkill
 #include "analysis.h"
 #include "backgammon.h"
 #include "dice.h"
