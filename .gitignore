@@ -26,3 +26,10 @@ _$*
 *.ln
 core
 # CVS default ignores end
+Makefile
+gnubg.bd
+gnubg.wd
+gnubg.weights
+gnubg
+makebearoff
+makeweights
