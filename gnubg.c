@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: gnubg.c,v 1.442 2003/07/18 18:50:47 hb Exp $
  */
 
 #include "config.h"
@@ -4068,6 +4068,8 @@ CommandRollout( char *sz ) {
 	apci[ i ] = &ci;
 	apCubeDecTop[ i ] = &false;
       }
+
+      RolloutProgressStart (&ci, c, NULL, &rcRollout, asz, &p);
 
       if( ( cGames = 
 	    RolloutGeneral( apBoard, apOutput, apStdDev,
