@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.17 2003/05/23 16:04:58 hb Exp $
+ * $Id: export.c,v 1.18 2003/05/29 08:52:50 thyssen Exp $
  */
 
 #include "config.h"
@@ -753,7 +753,7 @@ CommandExportPositionJF (char *sz)
    */
 
   FILE *fp;
-  int i, anBoardJF[26];
+  int i;
   unsigned char c;
   int anBoard[2][25];
 
