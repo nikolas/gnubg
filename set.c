@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: set.c,v 1.169 2003/01/21 21:58:47 gtw Exp $
  */
 
 #include "config.h"
@@ -261,7 +261,7 @@ static void SetRNG( rng *prng, rng rngNew, char *szSeed ) {
 }
 
 
-extern void
+static void
 SetMoveFilter(char* sz, 
               movefilter aamf[ MAX_FILTER_PLIES ][ MAX_FILTER_PLIES ] ) {
 
