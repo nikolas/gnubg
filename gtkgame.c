@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.367 2003/07/20 14:50:56 jsegrave Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -3460,7 +3460,7 @@ static void LoadCommands( gpointer *p, guint n, GtkWidget *pw ) {
     GTKFileCommand( _("Open commands"), NULL, "load commands", NULL, 0 );
 }
 
-extern void SetMET( gpointer *p, guint n, GtkWidget *pw ) {
+extern void SetMET( GtkWidget *pw, gpointer p ) {
 
     char *pchMet = NULL, *pch = NULL;
 
@@ -3478,7 +3478,7 @@ extern void SetMET( gpointer *p, guint n, GtkWidget *pw ) {
     GTKFileCommand( _("Set match equity table"), pch, "set matchequitytable ",
 		 "met", 0 );
 
-    /* FIXME: update filename on option page */
+    /* update filename on option page */
     if ( p && GTK_WIDGET_VISIBLE( p ) )
 	gtk_label_set_text( GTK_LABEL( p ), miCurrent.szFileName );
 
