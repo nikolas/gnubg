@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.215 2003/01/12 22:33:20 gtw Exp $
+ * $Id: eval.c,v 1.215.2.1 2003/01/21 19:54:15 gtw Exp $
  */
 
 #include "config.h"
@@ -1919,6 +1919,11 @@ inline
 #endif
 NNEvalType NNevalAction(void)
 {
+#if 1
+    /* Incremental evaluations are currently buggy -- disable them for
+       now.  See <bug-gnubg@gnu.org> discussions for details. */
+    return NNEVAL_NONE;
+#else
   switch( moveNumber ) {
     /* default, no change */
     case -2:  return NNEVAL_NONE;
@@ -1931,6 +1936,7 @@ NNEvalType NNevalAction(void)
   }
 
   return NNEVAL_FROMBASE;
+#endif
 }
 
 /* side - side that potentially can win a backgammon */
