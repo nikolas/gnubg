@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: widget3d.c,v 1.4 2003/08/29 12:37:09 jsegrave Exp $
+* $Id$
 */
 
 #include <config.h>
@@ -31,6 +31,7 @@
 #include "shadow.h"
 #include "renderprefs.h"
 #include "backgammon.h"
+#include "boarddim.h"
 
 #if HAVE_GTKGLEXT
 #include <gtk/gtkgl.h>
@@ -367,7 +368,7 @@ void DoAcceleratedCheck(GtkWidget* board)
 
 GdkGLContext *glPixmapContext = NULL;
 
-unsigned char testbuf[ 108 * 3 * 72 * 3 * 3 ];
+unsigned char testbuf[ BOARD_WIDTH * 3 * BOARD_HEIGHT * 3 * 3 ];
 
 void SetupPreview(BoardData* bd, renderdata* prd)
 {
