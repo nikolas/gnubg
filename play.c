@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.170 2003/01/09 14:43:24 thyssen Exp $
+ * $Id: play.c,v 1.170.2.1 2003/01/28 07:21:10 jsegrave Exp $
  */
 
 #include "config.h"
@@ -3667,6 +3667,8 @@ CommandRoll( char *sz ) {
   pmr->sd.lt = LUCK_NONE;
   pmr->sd.rLuck = ERR_VAL;
   AddMoveRecord( pmr );
+
+  InvalidateStoredMoves();
   
   ShowBoard();
 
