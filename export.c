@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.6 2002/12/16 23:09:39 thyssen Exp $
+ * $Id: export.c,v 1.7 2002/12/20 17:10:40 gtw Exp $
  */
 
 #include "config.h"
@@ -457,9 +457,9 @@ GenerateImage ( renderimages *pri, renderdata *prd,
     anDicePosition[ 1 ][ 1 ] = 32;
   }
   else {
-    anDicePosition[ 0 ][ 0 ] = -1;
-    anDicePosition[ 0 ][ 1 ] = -1;
-    anDicePosition[ 1 ][ 0 ] = -1;
+    anDicePosition[ 0 ][ 0 ] = -7 * nSize;
+    anDicePosition[ 0 ][ 1 ] = 0;
+    anDicePosition[ 1 ][ 0 ] = -7 * nSize;
     anDicePosition[ 1 ][ 1 ] = -1;
   }
 
@@ -496,7 +496,7 @@ GenerateImage ( renderimages *pri, renderdata *prd,
 
   WritePNG( szName, puch, nSizeX * nSize * 3, nSizeX * nSize, nSizeY * nSize );
   
-
+  return 0;
 }
 
 
