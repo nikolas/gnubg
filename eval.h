@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.68 2002/04/04 19:02:07 thyssen Exp $
+ * $Id: eval.h,v 1.69 2002/04/07 20:30:11 thyssen Exp $
  */
 
 #ifndef _EVAL_H_
@@ -87,6 +87,7 @@ typedef struct _evalcontext {
     unsigned int nReduced : 2; /* this will need to be expanded if we add
 				  support for nReduced != 3 */
     unsigned int fDeterministic : 1;
+    unsigned int fNoOnePlyPrune : 1;
     float rSearchTolerance;
     float rNoise; /* standard deviation */
 } evalcontext;
