@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.251 2002/07/21 19:31:41 thyssen Exp $
+ * $Id: gnubg.c,v 1.252 2002/07/22 15:31:34 thyssen Exp $
  */
 
 #include "config.h"
@@ -4310,7 +4310,7 @@ extern void Prompt( void ) {
 static void ProcessInput( char *sz, int fFree ) {
     
     rl_callback_handler_remove();
-       rl_callback_handler_install (FormatPrompt(), HandleInputIgnore);
+    rl_callback_handler_install ("", HandleInputIgnore);
     fReadingCommand = FALSE;
     
     if( !sz ) {
@@ -4376,7 +4376,7 @@ void HandleInputRecursive( char *sz ) {
     szInput = sz;
 
     rl_callback_handler_remove();
-       rl_callback_handler_install( FormatPrompt(), HandleInputIgnore);        
+    rl_callback_handler_install( "", HandleInputIgnore);        
 }
 #endif
 
@@ -4567,7 +4567,7 @@ extern char *GetInput( char *szPrompt ) {
 	    } else {
 		rl_callback_handler_remove();	
 
-                rl_callback_handler_install( FormatPrompt(), HandleInputIgnore);
+                rl_callback_handler_install( "", HandleInputIgnore);
             }
 	    
 	    fReadingOther = FALSE;
