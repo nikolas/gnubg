@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.14 2002/09/15 09:01:52 thyssen Exp $
+ * $Id: sound.c,v 1.15 2002/09/17 21:21:38 gtw Exp $
  */
 
 #ifdef HAVE_CONFIG_H
@@ -68,6 +68,7 @@
 #include "eval.h"
 #include "i18n.h"
 #include "sound.h"
+#include "path.h"
 
 #if !defined(SIGIO) && defined(SIGPOLL)
 #define SIGIO SIGPOLL /* The System V equivalent */
