@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: record.h,v 1.4 2003/03/02 15:07:22 thyssen Exp $
  */
 
 #ifndef RECORD_H
@@ -27,7 +27,7 @@ typedef enum _expaverage {
 } expaverage;
 
 typedef struct _playerrecord {
-    char szName[ 32 ];
+    char szName[ MAX_NAME_LEN ];
     int cGames;
     float arErrorChequerplay[ NUM_AVG ];
     float arErrorCube[ NUM_AVG ];
