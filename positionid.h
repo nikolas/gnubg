@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.h,v 1.15 2002/10/04 20:38:21 thyssen Exp $
+ * $Id: positionid.h,v 1.16 2002/10/21 16:32:53 thyssen Exp $
  */
 
 #ifndef _POSITIONID_H_
@@ -31,6 +31,8 @@ extern void PositionFromKey( int anBoard[ 2 ][ 25 ],
 extern int PositionFromID( int anBoard[ 2 ][ 25 ], char *szID );
 extern void PositionFromBearoff( int anBoard[ 6 ], const unsigned int usID,
                                  const int n );
+extern unsigned short PositionIndex(int g, int anBoard[6]);
+
 extern int 
 EqualKeys( const unsigned char auch0[ 10 ], const unsigned char auch1[ 10 ] );
 extern int EqualBoards( int anBoard0[ 2 ][ 25 ], int anBoard1[ 2 ][ 25 ] );
