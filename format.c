@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.10 2004/02/12 10:31:27 uid68519 Exp $
+ * $Id: format.c,v 1.11 2004/10/12 08:41:23 joseph Exp $
  */
 
 #include "config.h"
@@ -777,7 +777,6 @@ OutputCubeAnalysisFull ( const float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ],
   /* check if cube analysis should be printed */
 
   if ( pes->et == EVAL_NONE ) return NULL; /* no evaluation */
-  if ( ! GetDPEq ( NULL, NULL, pci ) ) return NULL; /* cube not available */
 
   FindCubeDecision ( arDouble, aarOutput, pci );
 
