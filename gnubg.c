@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.177 2001/12/16 11:56:18 thyssen Exp $
+ * $Id: gnubg.c,v 1.178 2001/12/19 22:13:49 gtw Exp $
  */
 
 #include "config.h"
@@ -2382,7 +2382,7 @@ CommandRollout( char *sz ) {
 
 #if USE_GTK
     if( fX )
-	GTKRollout( c, asz, rcRollout.nTrials );
+	GTKRollout( c, asz, rcRollout.nTrials, aars );
     else
 #endif
 	outputl( "                               Win  W(g) W(bg)  L(g) L(bg) "
