@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.84 2002/10/31 21:10:35 thyssen Exp $
+ * $Id: rollout.c,v 1.85 2002/11/11 18:26:47 joseph Exp $
  */
 
 #include "config.h"
@@ -87,13 +87,13 @@ static int QuasiRandomDice( int iTurn, int iGame, int cGames,
       int n;
      
     reroll:
-      n = RollDice( anDice, rngx );
+      if( ( n = RollDice( anDice, rngx ) ) )
+	  return n;
 
       if ( fInitial && ! iTurn && anDice[ 0 ] == anDice[ 1 ] )
         goto reroll;
 
-      return n;
-
+      return 0;
     }
 
   }
