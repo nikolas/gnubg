@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.48 2003/03/08 10:06:37 thyssen Exp $
+ * $Id: import.c,v 1.49 2003/03/09 08:27:48 thyssen Exp $
  */
 
 #include "config.h"
@@ -2519,8 +2519,6 @@ ImportSnowieTxt( FILE *pf ) {
   }
 
   *pc++ = 0;
-
-  printf ( "Line read:-\n%s\n-\n", sz );
 
   /* parse string */
 
