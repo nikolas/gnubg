@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: record.c,v 1.4 2002/09/19 17:49:16 gtw Exp $
+ * $Id: record.c,v 1.5 2002/09/23 20:25:52 thyssen Exp $
  */
 
 #include "config.h"
@@ -219,6 +219,15 @@ static int RecordWrite( FILE *pfOut, char *pchOut, playerrecord apr[ 2 ] ) {
     }
     
     sprintf( sz, "%s/.gnubgpr", szHomeDirectory );
+
+#ifdef WIN32
+    /* experiment */
+    if ( unlink ( sz ) ) {
+      outputerr ( sz );
+      free ( pchOut );
+      return -1;
+    }
+#endif
 
     if( rename( pchOut, sz ) ) {
 	outputerr( sz );
