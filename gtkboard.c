@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.162 2004/01/28 11:06:27 uid68519 Exp $
+ * $Id: gtkboard.c,v 1.163 2004/01/29 11:30:22 uid68519 Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -2568,7 +2568,7 @@ static gint board_set( Board *board, const gchar *board_text,
 		{
 			if (rdAppearance.fDynamicLabels)
 				RestrictiveDrawBoardNumbers(bd);
-			else if (bd->showMoveIndicator)
+			if (bd->showMoveIndicator)
 				RestrictiveDrawMoveIndicator(bd);
 		}
 #endif
