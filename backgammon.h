@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.292 2004/09/29 18:13:00 Superfly_Jon Exp $
+ * $Id: backgammon.h,v 1.293 2004/10/05 16:13:00 Superfly_Jon Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -188,7 +188,7 @@ typedef enum _movetype {
     MOVE_TIME
 } movetype;
 
-#ifdef USE_TIMECONTROL
+#if USE_TIMECONTROL
 
 #include <time.h>
 #if HAVE_SYS_TIME_H
