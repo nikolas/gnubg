@@ -18,12 +18,8 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: font3d.cpp,v 1.7 2004/02/04 18:02:18 uid68519 Exp $
+* $Id: font3d.cpp,v 1.8 2004/03/15 11:13:25 Superfly_Jon Exp $
 */
-
-#if _MSC_VER
-#include <gl/gl.h>
-#endif
 
 #include "config.h"
 #include "backgammon.h"
