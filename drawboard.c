@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.21 2002/03/23 17:46:05 thyssen Exp $
+ * $Id: drawboard.c,v 1.22 2002/06/01 18:43:01 thyssen Exp $
  */
 
 #include "config.h"
@@ -321,7 +321,7 @@ static char *DrawBoardCls( char *sz, int anBoard[ 2 ][ 25 ], int fRoll,
     /* match id */
 
     if ( szMatchID && *szMatchID ) {
-      sprintf ( pch, _("                 Match ID   : %s\n"), szMatchID );
+      sprintf ( pch, _("                    Match ID   : %s\n"), szMatchID );
       pch = strchr ( pch, 0 );
     }
             
