@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.193 2002/11/27 22:38:11 gtw Exp $
+ * $Id: eval.c,v 1.194 2002/12/01 15:42:42 thyssen Exp $
  */
 
 #include "config.h"
@@ -66,10 +66,6 @@
 #define BINARY 0
 #endif
 
-
-#define CFMONEY(arEquity,pci) \
-   ( ( (pci)->fCubeOwner == -1 ) ? arEquity[ 2 ] : \
-   ( ( (pci)->fCubeOwner == (pci)->fMove ) ? arEquity[ 1 ] : arEquity[ 3 ] ) )
 
 /* From pub_eval.c: */
 extern float pubeval( int race, int pos[] );
