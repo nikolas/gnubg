@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.191 2003/07/22 14:31:18 jsegrave Exp $
+ * $Id: set.c,v 1.192 2003/07/25 20:14:15 ace Exp $
  */
 
 #include "config.h"
@@ -71,6 +71,7 @@
 #include "renderprefs.h"
 #include "export.h"
 #include "drawboard.h"
+#include "format.h"
 
 #include "i18n.h"
 

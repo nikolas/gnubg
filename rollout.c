@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.121 2003/07/22 14:31:18 jsegrave Exp $
+ * $Id: rollout.c,v 1.122 2003/07/26 11:10:02 jsegrave Exp $
  */
 
 #include "config.h"
@@ -42,6 +42,7 @@
 #include "positionid.h"
 #include "rollout.h"
 #include "i18n.h"
+#include "format.h"
 
 
 static void
