@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.26 2000/10/24 11:06:05 thyssen Exp $
+ * $Id: eval.h,v 1.27 2000/10/26 14:20:07 gtw Exp $
  */
 
 #ifndef _EVAL_H_
@@ -244,9 +244,12 @@ extern float
 Utility( float ar[ NUM_OUTPUTS ], cubeinfo *pci );
 
 
+extern int SetCubeInfoMoney( cubeinfo *pci, int nCube, int fCubeOwner,
+			     int fMove, int fJacoby );
+extern int SetCubeInfoMatch( cubeinfo *pci, int nCube, int fCubeOwner,
+			     int fMove, int nMatchTo, int anScore[ 2 ] );
 extern int 
-SetCubeInfo ( cubeinfo *ci, int nCube, int fCubeOwner,
-							int fMove );
+SetCubeInfo ( cubeinfo *ci, int nCube, int fCubeOwner, int fMove );
  
 extern void 
 swap( int *p0, int *p1 );
