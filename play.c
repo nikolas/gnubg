@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: play.c,v 1.236 2003/11/19 17:00:27 hb Exp $
  */
 
 #include "config.h"
@@ -1392,15 +1392,10 @@ extern int ComputerTurn( void ) {
 	if (ms.gs ==  GAME_TIMEOUT)
 		return(0);
 #endif
-      /* write move to status bar if using GTK */
-#if USE_GTK        
-      if ( fX ) {
-	  
-	  outputnew ();
-	  ShowAutoMove( ms.anBoard, pmn->anMove );
-	  outputx ();
-      }
-#endif
+      /* write move to status bar or stdout */
+	outputnew ();
+	ShowAutoMove( ms.anBoard, pmn->anMove );
+	outputx ();
 
       if( pmn->anMove[ 0 ] < 0 )
 	  playSound ( SOUND_BOT_DANCE );
