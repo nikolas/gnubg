@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: database.c,v 1.13 2001/02/07 17:58:45 gtw Exp $
+ * $Id: database.c,v 1.14 2001/02/08 21:12:20 gtw Exp $
  */
 
 #include "config.h"
@@ -251,7 +251,7 @@ extern void CommandDatabaseTrain( char *sz ) {
 
 	    pev = (dbevaluation *) dValue.dptr;
 
-	    if( pev->c >= 72 /* FIXME */ ) {
+	    if( pev->c >= 36 /* FIXME */ ) {
         if( !( ++c % 100 ) && fShowProgress ) {
           outputf( "%6d\r", c );
           fflush( stdout );
