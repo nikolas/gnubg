@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.96 2003/01/11 10:00:41 thyssen Exp $
+ * $Id: rollout.c,v 1.96.2.1 2003/01/29 19:27:11 thyssen Exp $
  */
 
 #include "config.h"
@@ -323,6 +323,7 @@ BasicCubefulRollout ( int aanBoard[][ 2 ][ 25 ],
   float aaar[ 6 ][ 6 ][ NUM_ROLLOUT_OUTPUTS ];
 
   evalcontext ecCubeless0ply = { FALSE, 0, 0, TRUE, 0.0 };
+  evalcontext ecCubeful0ply = { TRUE, 0, 0, TRUE, 0.0 };
 
   /* local pointers to the eval contexts to use */
   evalcontext *pecCube[2], *pecChequer[2];
@@ -384,20 +385,10 @@ BasicCubefulRollout ( int aanBoard[][ 2 ][ 25 ],
            prc->fCubeful && *pf && ! pci->nMatchTo &&
            ! ( afCubeDecTop[ ici ] && ! prc->fInitial && ! iTurn ) ) {
 
-        float arEquity[ 4 ];
-
         /* truncate at two sided bearoff if money game */
 
-        EvaluatePerfectCubeful ( aanBoard[ ici ], arEquity );
-
-        aarOutput[ ici ][ 0 ] = ( arEquity[ 0 ] + 1.0 ) / 2.0;
-        aarOutput[ ici ][ 1 ] = aarOutput[ ici ][ 2 ] =
-          aarOutput[ ici ][ 3 ] = aarOutput[ ici ][ 4 ] = 0.0;
-
-        aarOutput[ ici ][ OUTPUT_EQUITY ] = arEquity[ 0 ];
-
-        aarOutput[ ici ][ OUTPUT_CUBEFUL_EQUITY ] = 
-          CFMONEY ( arEquity, pci );
+        GeneralEvaluationE( aarOutput[ ici ], aanBoard[ ici ],
+                            pci, &ecCubeful0ply );
 
         if ( iTurn & 1 ) InvertEvaluationR ( aarOutput[ ici ], pci );
 
