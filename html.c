@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.88 2003/01/22 18:26:06 gtw Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -1854,7 +1854,7 @@ HTMLEpilogue ( FILE *pf, const matchstate *pms, char *aszLinks[ 4 ],
   int fFirst;
   int i;
 
-  const char szVersion[] = "$Revision: 1.88 $";
+  const char szVersion[] = "$Revision$";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -1935,7 +1935,7 @@ HTMLEpilogueComment ( FILE *pf ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.88 $";
+  const char szVersion[] = "$Revision$";
   int iMajor, iMinor;
   char *pc;
 
@@ -2479,18 +2479,17 @@ HTMLPrintMoveAnalysis ( FILE *pf, matchstate *pms, moverecord *pmr,
   /* table header */
 
   fprintf ( pf,
-            "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" %s>\n"
-            "<tr %s>\n"
-            "<th %s colspan=\"2\">%s</th>\n"
-            "<th %s>%s</th>\n"
-            "<th %s>%s</th>\n"
-            "<th %s>%s</th>\n"
-            "</tr>\n",
-            GetStyle ( CLASS_MOVETABLE, hecss ),
-            GetStyle ( CLASS_MOVEHEADER, hecss ),
-            GetStyle ( CLASS_MOVENUMBER, hecss ), _("#"),
-            GetStyle ( CLASS_MOVEPLY, hecss ), _("Ply"),
-            GetStyle ( CLASS_MOVEMOVE, hecss ), _("Move"),
+            "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" %s>\n",
+            GetStyle ( CLASS_MOVETABLE, hecss ) );
+  fprintf ( pf, "<tr %s>\n", GetStyle ( CLASS_MOVEHEADER, hecss ) );
+  fprintf ( pf, "<th %s colspan=\"2\">%s</th>\n",
+            GetStyle ( CLASS_MOVENUMBER, hecss ), _("#") );
+  fprintf ( pf, "<th %s>%s</th>\n",
+            GetStyle ( CLASS_MOVEPLY, hecss ), _("Ply") );
+  fprintf ( pf, "<th %s>%s</th>\n",
+            GetStyle ( CLASS_MOVEMOVE, hecss ), _("Move") );
+  fprintf ( pf,
+            "<th %s>%s</th>\n" "</tr>\n",
             GetStyle ( CLASS_MOVEEQUITY, hecss ),
             ( !pms->nMatchTo || ( pms->nMatchTo && ! fOutputMWC ) ) ?
             _("Equity") : _("MWC") );
