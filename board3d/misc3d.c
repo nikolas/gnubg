@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.34 2004/04/17 10:03:10 thyssen Exp $
+* $Id: misc3d.c,v 1.35 2004/04/19 09:38:02 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -310,8 +310,8 @@ void FindTexture(TextureInfo** textureInfo, char* file)
 	}
 
 	*textureInfo = 0;
-	/* Only warn user if textures.txt file has been loaded */
-	if (!ListEmpty(&textures))
+	/* Only warn user if in 3d */
+	if (GetMainAppearance()->fDisplayType == DT_3D)
 		g_print("Texture %s not in texture info file\n", file);
 }
 
