@@ -1,5 +1,5 @@
 #!/bin/sh
-# $Id$
+# $Id: credits.sh,v 1.1 2001/03/21 16:43:08 gtw Exp $
 
 contributors=/tmp/cont.$$
 credit=/tmp/cred.$$
@@ -23,6 +23,7 @@ Eric Groleau
 Jeff Haferman
 Alain Henry
 Jens Hoefkens
+Matija Kejzar
 Corrin Lakeland
 Kevin Maguire
 David Montgomery
