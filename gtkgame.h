@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.73 2003/09/12 13:35:24 steink Exp $
+ * $Id: gtkgame.h,v 1.74 2003/09/12 14:42:17 Superfly_Jon Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -179,5 +179,11 @@ GTKReadNumber( char *szTitle, char *szPrompt, int nDefault,
 
 extern void GTKFileCommand( char *szPrompt, char *szDefault, char *szCommand,
                             char *szPath, filedialogtype fdt );
+
+#if USE_TIMECONTROL
+extern void GTKAddTimeControl( char *szName) ;
+extern void GTKRemoveTimeControl( char *szName) ;
+extern void GTKCheckTimeControl( char *szName) ;
+#endif
 
 #endif
