@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.109 2004/03/29 07:47:03 thyssen Exp $
+# $Id: credits.sh,v 1.110 2004/04/05 14:38:42 Superfly_Jon Exp $
 # 
 
 column < /dev/null || exit 0
@@ -32,7 +32,7 @@ extra=/tmp/extra.$$
 cat > $authors <<EOF
 Joseph Heled
 Oeystein Johansen
-Johanthan Kinsey
+Jonathan Kinsey
 David Montgomery
 Jim Segrave
 Joern Thyssen
