@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.121 2003/05/29 11:05:49 thyssen Exp $
+ * $Id: gtkboard.c,v 1.122 2003/05/29 19:16:03 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -2307,11 +2307,16 @@ static gint board_blink_timeout( gpointer p ) {
     BoardData *pbd = board->board_data;
     int src, dest, src_cheq = 0, dest_cheq = 0, colour;
     static int blink_move, blink_count;
+    
+    /* board_blink_timeout is called by GDK (not GTK+) and
+        thus must be thread-safe */
+    gdk_threads_enter ();
 
     if( blink_move >= 8 || animate_move_list[ blink_move ] < 0 ||
 	fInterrupt ) {
 	blink_move = 0;
 	animation_finished = TRUE;
+        gdk_threads_leave ();
 	return FALSE;
     }
 
@@ -2354,6 +2359,8 @@ static gint board_blink_timeout( gpointer p ) {
     gdk_window_process_updates( pbd->drawing_area->window, FALSE );
 #endif
 
+    gdk_threads_leave ();
+
     return TRUE;
 }
 
@@ -2364,6 +2371,9 @@ static gint board_slide_timeout( gpointer p ) {
     int src, dest, colour;
     static int slide_move, slide_phase, x, y, x_mid, x_dest, y_dest, y_lift;
     
+    /* board_slide_timeout is called by GDK (not GTK+) and
+        thus must be thread-safe */
+    gdk_threads_enter ();
     if( fInterrupt && pbd->drag_point >= 0 ) {
 	board_end_drag( pbd->drawing_area, pbd );
 	pbd->drag_point = -1;
@@ -2373,6 +2383,7 @@ static gint board_slide_timeout( gpointer p ) {
 	fInterrupt ) {
 	slide_move = slide_phase = 0;
 	animation_finished = TRUE;
+        gdk_threads_leave ();
 	return FALSE;
     }
     
@@ -2474,7 +2485,8 @@ static gint board_slide_timeout( gpointer p ) {
 	    
 	    playSound( SOUND_CHEQUER );
 
-	    return TRUE;
+	    gdk_threads_leave ();
+            return TRUE;
 	}
 	break;
 	
@@ -2485,6 +2497,7 @@ static gint board_slide_timeout( gpointer p ) {
     board_drag( pbd->drawing_area, pbd, x * rdAppearance.nSize,
 		y * rdAppearance.nSize );
     
+    gdk_threads_leave ();
     return TRUE;
 }
 
