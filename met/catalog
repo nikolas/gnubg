@@ -1,0 +1,18 @@
+--
+
+     catalog   
+
+     by Joern Thyssen <jthyssen@dk.ibm.com>, 2002
+
+     This file is distributed as a part of the GNU Backgammon program.
+
+     Copying and distribution of verbatim and modified versions of this file
+     is permitted in any medium provided the copyright notice and this
+     permission notice are preserved.
+
+     $Id: catalog,v 1.2 2002/03/14 19:58:56 thyssen Exp $
+
+--
+
+PUBLIC "-//GNU Backgammon//DTD Match Equity Tables//EN" "met.dtd"
+
