@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.249 2003/08/26 16:58:37 hb Exp $
+ * $Id: backgammon.h,v 1.250 2003/08/30 10:07:33 kaoru Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -199,9 +199,6 @@ typedef struct _movegameinfo {
 typedef struct cubedecisiondata {
   float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ];
   float aarStdDev[ 2 ][ NUM_ROLLOUT_OUTPUTS ];
-  /* (FIXME) JTH The arDouble struct is redundant and should be removed from
-     cubedecisiondata. */
-  float arDouble[ N_CUBEFUL_OUTPUTS ];
   evalsetup esDouble;
 } cubedecisiondata;
 
@@ -236,9 +233,6 @@ typedef struct _movenormal {
   float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ];
   float aarStdDev[ 2 ][ NUM_ROLLOUT_OUTPUTS ];
 
-  /* (FIXME) JTH The arDouble struct is redundant and should be removed from
-     cubedecisiondata. */
-  float arDouble[ N_CUBEFUL_OUTPUTS ];
   evalsetup esDouble;
 
   /* evaluation of the moves */
