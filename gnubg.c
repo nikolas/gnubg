@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.575 2004/07/25 20:46:41 kaoru Exp $
+ * $Id: gnubg.c,v 1.576 2004/08/11 19:58:43 joseph Exp $
  */
 
 #include "config.h"
@@ -206,7 +206,9 @@ matchstate ms = {
     TRUE, /* fJacoby */
     GAME_NONE /* gs */
 #if USE_TIMECONTROL
-    , {0} /* gc */
+	, {{{{0}, {0}, {0}}, {{0}, {0}, {0}}}, {0}, 0}, /* gc */
+	{{0}, {0}}, /* timeleft */
+	{0, 0} /* timeouts */
 #endif
 };
 matchinfo mi;
