@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.270 2002/08/05 18:15:05 thyssen Exp $
+ * $Id: $
  */
 
 #include "config.h"
@@ -343,7 +343,7 @@ static char szDICE[] = N_("<die> <die>"),
     szRATE[] = N_("<rate>"),
     szSCORE[] = N_("<score>"),
     szSIZE[] = N_("<size>"),
-    szSTEP[] = N_("[game|roll|rolled] [count]"),
+    szSTEP[] = N_("[game|roll|rolled|marked] [count]"),
     szTRIALS[] = N_("<trials>"),
     szVALUE[] = N_("<value>"),
     szMATCHID[] = N_("<matchid>"),
