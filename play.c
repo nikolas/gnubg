@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.225 2003/09/13 22:35:34 kaoru Exp $
+ * $Id: play.c,v 1.226 2003/09/26 08:17:54 steink Exp $
  */
 
 #include "config.h"
@@ -1839,8 +1839,9 @@ extern int NextTurn( int fPlayNext ) {
     
     if( fDisplay || ap[ ms.fTurn ].pt == PLAYER_HUMAN )
 	ShowBoard();
-
+#if USE_TIMECONTROL
     HitGameClock ( &ms );
+#endif
     /* We have reached a safe point to check for interrupts.  Until now,
        the board could have been in an inconsistent state. */
     if( fAction )
