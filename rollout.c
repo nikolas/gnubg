@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.137 2003/11/19 17:00:28 hb Exp $
+ * $Id: rollout.c,v 1.138 2003/11/20 20:28:20 jsegrave Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -360,7 +360,7 @@ BasicCubefulRollout ( int aanBoard[][ 2 ][ 25 ],
   cubeinfo *pciLocal = alloca( cci * sizeof ( cubeinfo ) );
   int *pfFinished = alloca( cci * sizeof( int ) );
   float (*aarVarRedn)[ NUM_ROLLOUT_OUTPUTS ] =
-    alloca ( cci * NUM_ROLLOUT_OUTPUTS * sizeof ( float ) );;
+    alloca ( cci * NUM_ROLLOUT_OUTPUTS * sizeof ( float ) );
 #else
   cubeinfo pciLocal[ MAX_ROLLOUT_CUBEINFO ];
   int pfFinished[ MAX_ROLLOUT_CUBEINFO ];

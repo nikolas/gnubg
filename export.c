@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: export.c,v 1.25 2003/09/15 02:01:06 hb Exp $
  */
 
 #include "config.h"
@@ -131,7 +131,11 @@ WritePNG (const char *sz, unsigned char *puch, int nStride,
   png_write_info (ppng, pinfo);
 
   {
+#if __GNUC__ || !HAVE_ALLOCA
     png_bytep aprow[nSizeY];
+#else
+    png_bytep *aprow = (png_bytep *)alloca(nSizeY * sizeof(png_bytep));
+#endif
     for (i = 0; i < nSizeY; ++i)
       aprow[i] = puch + nStride * i;
 
