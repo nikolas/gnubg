@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.28 2003/12/29 20:16:57 uid65656 Exp $
+ * $Id: makebearoff.c,v 1.29 2004/01/03 15:56:13 uid65655 Exp $
  */
 
 #include "config.h"
@@ -29,7 +29,7 @@
 #include <unistd.h>
 #include <math.h>
 #include <errno.h>
-
+#include <stdarg.h>
 #include "eval.h"
 #include "positionid.h"
 #include "getopt.h"
@@ -1475,7 +1475,7 @@ usage ( char *arg0 ) {
 static void
 version ( void ) {
 
-  printf ( "makebearoff $Revision: 1.28 $\n" );
+  printf ( "makebearoff $Revision: 1.29 $\n" );
 
 }
 
@@ -1619,7 +1619,7 @@ extern int main( int argc, char **argv ) {
     dlgprintf( 123, "%d", nHashSize);
     dlgprintf( 124, "%s", szOldBearoff ? "yes" : "no");
     dlgprintf(130, "Generating one-sided bearoff database. Please wait." );
-    dlgprintf(131, "makebearoff $Revision: 1.27$" );
+    dlgprintf(131, "makebearoff $Revision: 1.29 $" );
 #else
     fprintf ( stderr, 
               _("One-sided database:\n"
@@ -1747,7 +1747,7 @@ extern int main( int argc, char **argv ) {
     dlgprintf(125, "" );
     dlgprintf(126, "" );
     dlgprintf(130, "Generating two-sided bearoff database. Please wait." );
-    dlgprintf(131, "makebearoff $Revision: 1.27$" );
+    dlgprintf(131, "makebearoff $Revision: 1.29 $" );
 #else 
     fprintf ( stderr,
               _("Two-sided database:\n"
