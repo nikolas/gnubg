@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: graph.c,v 1.7 2004/02/24 10:16:49 uid68519 Exp $
+* $Id: graph.c,v 1.8 2004/03/31 09:51:57 Superfly_Jon Exp $
 */
 
 #include <config.h>
@@ -316,9 +316,6 @@ static gboolean expose_event(GtkWidget *widget, GdkEventExpose *event, GraphData
 	if (!gdk_gl_drawable_gl_begin(gldrawable, gtk_widget_get_gl_context(widget)))
 		return TRUE;
 #else
-	/* Draw only last expose. */
-	if (event->count > 0)
-		return TRUE;
 
 	/* OpenGL functions can be called only if make_current returns true */
 	if (!gtk_gl_area_make_current(GTK_GL_AREA(widget)))
