@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.31 2003/08/13 11:52:26 Superfly_Jon Exp $
+ * $Id: dice.c,v 1.32 2003/08/15 15:01:38 thyssen Exp $
  */
 
 #include "config.h"
@@ -66,7 +66,7 @@
 #endif /* #if HAVE_SYS_SOCKET_H */
 
 #else /* #ifndef WIN32 */
-#include <winsock.h>
+#include <winsock2.h>
 
 #define EWOULDBLOCK             WSAEWOULDBLOCK
 #define EINPROGRESS             WSAEINPROGRESS
