@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.183 2002/07/17 18:46:09 gtw Exp $
+ * $Id: gtkgame.c,v 1.184 2002/07/18 20:15:51 oysteijo Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -6327,10 +6327,10 @@ extern void GTKDumpStatcontext( statcontext *psc, matchstate *pms,
          N_("Wrong takes"),
          N_("Wrong passes"),
          N_("Error rate (total)"),
-         N_("Error rate (pr. cube decision)"),
+         N_("Error rate (per cube decision)"),
          N_("Cube decision rating"),
          N_("Overall error rate (total)"),
-         N_("Overall error rate (pr. decision)"),
+         N_("Overall error rate (per decision)"),
          N_("Overall rating"),
          N_("MWC against current opponent"),
          N_("Guestimated abs. rating"),
