@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.52 2002/07/16 14:30:56 gtw Exp $
+ * $Id: sgf.c,v 1.53 2002/07/17 15:28:53 thyssen Exp $
  */
 
 #include "config.h"
@@ -288,6 +288,7 @@ static void RestoreGS( list *pl, statcontext *psc ) {
 	    
 	default:
 	    /* ignore */
+          break;
 	}
 
     AddStatcontext( psc, &scMatch );

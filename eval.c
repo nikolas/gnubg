@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.170 2002/08/08 19:38:35 thyssen Exp $
+ * $Id: eval.c,v 1.171 2002/08/09 18:48:10 thyssen Exp $
  */
 
 #include "config.h"
@@ -7114,5 +7114,7 @@ MoveKey ( int anBoard[ 2 ][ 25 ], const int anMove[ 8 ],
   memcpy ( anBoardMove, anBoard, sizeof ( anBoardMove ) );
   ApplyMove ( anBoardMove, anMove, FALSE );
   PositionKey ( anBoardMove, auch );
+
+  return 0;
 
 }
