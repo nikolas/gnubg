@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.251 2003/08/31 13:14:31 thyssen Exp $
+ * $Id$
  */
 
 #ifndef _BACKGAMMON_H_
@@ -576,6 +576,9 @@ extern char* GetLuckAnalysis( matchstate* pms, float rLuck );
 
 extern moverecord *
 getCurrentMoveRecord ( int* pfHistory );
+
+extern int
+getFinalScore( int* anScore );
 
 extern void
 UpdateStoredMoves ( const movelist* pml, const matchstate* pms );
