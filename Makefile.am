@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.133 2004/04/28 18:44:22 thyssen Exp $
+## $Id: Makefile.am,v 1.134 2004/05/07 06:20:04 thyssen Exp $
 
 localedir = $(datadir)/locale
 
@@ -117,7 +117,7 @@ gnubg_SOURCES = $(COMMON_SOURCES) gtkboard.c gtkboard.h gtkgame.c gtkgame.h \
 	gtkcolour.h gtksplash.c gtksplash.h gtkrolls.c gtkrolls.h \
         gtktempmap.c gtktempmap.h \
 	gtkbearoff.c gtkbearoff.h gtkoptions.h gtkoptions.c \
-	gtkpath.c gtkpath.h gtktoolbar.h gtktoolbar.c \
+	gtkpath.c gtkpath.h gtktoolbar.h gtktoolbar.c gtkgamelist.c \
 	$(BR1_SOURCES) $(SOUND_SOURCES) $(FONT_SOURCES) $(PYTHON_SOURCES) $(TIME_SOURCES)
 gnubg_LDADD = @GTK_LIBS@ $(COMMON_LIBS) $(SOUND_LIBS) $(PNG_LIBS) \
         @LIBART_LIBS@ $(BOARD3D_LIBS) @THREAD_LIBS@
