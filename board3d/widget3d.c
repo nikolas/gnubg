@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: widget3d.c,v 1.3 2003/08/25 09:30:20 Superfly_Jon Exp $
+* $Id: widget3d.c,v 1.4 2003/08/29 12:37:09 jsegrave Exp $
 */
 
 #include <config.h>
@@ -150,13 +150,6 @@ void realize(GtkWidget *widget, BoardData* bd)
 	gdk_gl_drawable_gl_end(gldrawable);
 	/*** OpenGL END ***/
 #endif
-}
-
-void CheckOpenglError()
-{
-	GLenum glErr = glGetError();
-	if (glErr != GL_NO_ERROR)
-		g_print("OpenGL Error: %s\n", gluErrorString(glErr));
 }
 
 void MakeCurrent3d(GtkWidget *widget)
