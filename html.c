@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.16 2002/04/17 20:00:21 thyssen Exp $
+ * $Id: html.c,v 1.17 2002/04/19 16:08:12 thyssen Exp $
  */
 
 #include "config.h"
@@ -639,7 +639,7 @@ HTMLEpilogue ( FILE *pf, const matchstate *pms, char *aszLinks[ 4 ] ) {
   int fFirst;
   int i;
 
-  const char szVersion[] = "$Revision: 1.1 $";
+  const char szVersion[] = "$Revision: 1.17 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -2076,6 +2076,8 @@ static void ExportGameHTML ( FILE *pf, list *plGame, const char *szImageDir,
 
     if ( ! iGame )
       IniStatcontext ( &scTotal );
+
+    updateStatisticsGame ( plGame );
 
     for( pl = plGame->plNext; pl != plGame; pl = pl->plNext ) {
 

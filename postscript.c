@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: postscript.c,v 1.12 2002/03/21 23:06:42 gtw Exp $
+ * $Id: postscript.c,v 1.13 2002/03/30 16:27:57 thyssen Exp $
  */
 
 #include "config.h"
@@ -29,6 +29,7 @@
 #include <string.h>
 #include <time.h>
 
+#include "analysis.h"
 #include "backgammon.h"
 #include "drawboard.h"
 #include "positionid.h"
@@ -726,6 +727,8 @@ static void ExportGamePostScript( FILE *pf, list *plGame ) {
     matchstate msExport;
     int fTook = FALSE, i, cx;
     char sz[ 1024 ], *pch;
+
+    updateStatisticsGame ( plGame );
 
     for( pl = plGame->plNext; pl != plGame; pl = pl->plNext ) {
 	pmr = pl->p;
