@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.5 2004/05/25 15:23:46 Superfly_Jon Exp $
+ * $Id: relational.c,v 1.6 2004/05/26 12:11:25 Superfly_Jon Exp $
  */
 
 #include <stdio.h>
@@ -285,7 +285,6 @@ CommandRelationalShowEnvironments( char *sz ) {
   }
   else {
     if ( PySequence_Check( v ) ) {
-      PyObject *e;
       int i;
 
       outputf( ("%-10.10s    %-40.40s\n"
