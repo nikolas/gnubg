@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: timecontrol.c,v 1.6 2003/09/12 17:14:02 jsegrave Exp $
  */
 
 
@@ -250,7 +250,7 @@ static void showTimeControl( timecontrol *ptc, int level, int levels )
       /* ignore */
       break;
     }
-    outputf("%*s%-*s (%s) %d: ", 2*level,"",
+    outputf("%*s%-*s (%s): ", 2*level,"",
 		30-strlen(szTCPENALTY),
 		"Penalty points",
 		szTCPENALTY);
