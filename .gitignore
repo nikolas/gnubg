@@ -44,3 +44,4 @@ makehyper
 makeweights
 stamp-*
 br1.c
+external_y.output
