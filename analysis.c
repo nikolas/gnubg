@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.112 2003/07/17 10:32:18 thyssen Exp $
+ * $Id: analysis.c,v 1.113 2003/07/17 10:42:24 thyssen Exp $
  */
 
 #include "config.h"
@@ -1831,7 +1831,7 @@ DumpStatcontext ( char *szOutput, const statcontext *psc, const char * sz ) {
 
     sprintf ( strchr ( szOutput, 0 ),
               "%-31s %7.2f                 %7.2f\n",
-              _("Relative FIBS rating"), rRating, -rRating );
+              _("Relative FIBS rating"), rRating / 2.0f , -rRating / 2.0f );
 
   }
 
