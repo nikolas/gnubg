@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.179 2004/03/15 12:08:20 Superfly_Jon Exp $
+ * $Id: show.c,v 1.180 2004/03/25 20:10:50 thyssen Exp $
  */
 
 #include "config.h"
@@ -976,7 +976,10 @@ extern void CommandShowCredits( char *sz )
 {
 #if USE_GTK
   if( fX )
+  {
     GTKCommandShowCredits();
+    return;
+  }
 #endif
 
   outputl( aszAUTHORS );
@@ -1351,9 +1354,7 @@ extern void CommandShowTraining( char *sz ) {
 extern void CommandShowVersion( char *sz ) {
 
     char **ppch = aszVersion;
-    extern char *aszCredits[];
-    int i = 0, cch, cCol = 0;
-    
+
 #if USE_GTK
     if( fX ) {
 	GTKShowVersion();
