@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.8 2003/07/26 23:22:48 thyssen Exp $
+ * $Id: htmlimages.c,v 1.9 2003/07/26 23:46:41 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -253,7 +253,7 @@ extern void CommandExportHTMLImages( char *sz ) {
     for ( i = 0; i < 2; ++i ) {
 
       memcpy( auchMidlb, auchBoard, 108 * 4 * 72 * 4 * 3 );
-      ArrowPosition( rd.fClockwise, s, &x, &y );
+      ArrowPosition( FALSE /* rd.fClockwise */, s, &x, &y );
 
       AlphaBlendClip2( auchMidlb, nStride,
                        x, y,
