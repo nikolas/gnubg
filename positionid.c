@@ -32,7 +32,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.16 2002/08/09 18:45:09 thyssen Exp $
+ * $Id: positionid.c,v 1.17 2002/09/16 17:11:02 gtw Exp $
  */
 
 #include <assert.h>
@@ -129,7 +129,7 @@ extern int CheckPosition( int anBoard[ 2 ][ 25 ] ) {
     /* Check for a point with a negative number of chequers */
     for( i = 0; i < 25; i++ )
 	if( anBoard[ 0 ][ i ] < 0 ||
-	    anBoard[ i ][ i ] < 0 ) {
+	    anBoard[ 1 ][ i ] < 0 ) {
             errno = EINVAL;
             return -1;
 	}
