@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.10 2002/03/14 20:04:18 thyssen Exp $
+ * $Id: matchequity.h,v 1.11 2002/03/22 20:53:08 gtw Exp $
  */
 
 
@@ -49,7 +49,7 @@ typedef struct _metinfo {
 
 extern float aafMET [ MAXSCORE ][ MAXSCORE ];
 
-extern float afMETPostCrawford [ MAXSCORE ];
+extern float aafMETPostCrawford[ 2 ][ MAXSCORE ];
 
 extern metinfo miCurrent;
 
