@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.126 2002/09/25 21:24:25 gtw Exp $
+ * $Id: set.c,v 1.127 2002/10/04 17:39:20 thyssen Exp $
  */
 
 #include "config.h"
@@ -2145,6 +2145,15 @@ CommandSetExportIncludeLegend ( char *sz ) {
   SetToggle( "annotations", &exsExport.fIncludeLegend, sz,
              _("Include legend in exports"),
              _("Do not include legend in exports") );
+
+}
+
+extern void
+CommandSetExportIncludeMatchInfo ( char *sz ) {
+
+  SetToggle( "matchinfo", &exsExport.fIncludeMatchInfo, sz,
+             _("Include match information in exports"),
+             _("Do not include match information in exports") );
 
 }
 
