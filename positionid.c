@@ -32,7 +32,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.25 2002/12/15 22:11:53 thyssen Exp $
+ * $Id: positionid.c,v 1.26 2003/03/30 16:37:51 thyssen Exp $
  */
 
 #include <assert.h>
@@ -89,7 +89,7 @@ PositionKey(int anBoard[2][25], unsigned char auchKey[10])
 extern char *PositionIDFromKey( unsigned char auchKey[ 10 ] ) {
 
     unsigned char *puch = auchKey;
-    static char szID[ 15 ];
+    /*static*/ char szID[ 15 ];		/* olivier: no need for static here */
     char *pch = szID;
     static char aszBase64[ 64 ] =
         "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
