@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.195 2003/07/31 11:37:24 jsegrave Exp $
+ * $Id: set.c,v 1.196 2003/08/01 17:56:53 ace Exp $
  */
 
 #include "config.h"
@@ -2649,6 +2649,9 @@ extern void CommandSetMET( char *sz ) {
   InitMatchEquity ( sz, szDataDirectory );
   setDefaultPath ( sz, PATH_MET );
 
+  /* Cubeful evaluation get confused withh entries from another table */
+  EvalCacheFlush();
+  
   outputf( _("GNU Backgammon will now use the %s match equity table.\n"),
            miCurrent.szName );
 
