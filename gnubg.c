@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.468 2003/08/23 17:37:27 jsegrave Exp $
+ * $Id: gnubg.c,v 1.469 2003/08/24 11:12:48 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -208,6 +208,7 @@ int fConfirmSave = TRUE;
 int fTutor = FALSE, fTutorCube = TRUE, fTutorChequer = TRUE;
 int fTutorAnalysis = FALSE;
 int fMessage = FALSE;
+int fGameList = FALSE;
 int nThreadPriority = 0;
 int fCheat = FALSE;
 int afCheatRoll[ 2 ] = { 0, 0 };
