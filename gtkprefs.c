@@ -30,7 +30,7 @@
 #include <unistd.h>
 #include <time.h>
 
-#ifdef HAVE_LIBXML2
+#if HAVE_LIBXML2
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
 #endif
@@ -950,7 +950,7 @@ DesignSave ( GtkWidget *pw, gpointer data ) {
   time ( &t );
   fputs ( ctime ( &t ), pf );
   fputs ( "\n"
-          "    $Id: gtkprefs.c,v 1.62 2003/01/29 19:05:06 thyssen Exp $\n"
+          "    $Id: gtkprefs.c,v 1.63 2003/05/23 16:04:58 hb Exp $\n"
           "\n"
           " -->\n"
           "\n"

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.187 2003/04/12 13:00:14 thyssen Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -1124,7 +1124,7 @@ extern int ComputerTurn( void ) {
 				the delay. */
 	
 	  /* write line to status bar if using GTK */
-#ifdef USE_GTK        
+#if USE_GTK        
 	  if ( fX ) {
 
 	      outputnew ();
@@ -1168,7 +1168,7 @@ extern int ComputerTurn( void ) {
       ProgressEnd();
       
       /* write move to status bar if using GTK */
-#ifdef USE_GTK        
+#if USE_GTK        
       if ( fX ) {
 	  
 	  outputnew ();
@@ -2753,7 +2753,7 @@ CommandMove( char *sz ) {
                   return;
                 }
 
-#ifdef USE_GTK        
+#if USE_GTK        
 		/* There's no point delaying here. */
 		if( nTimeout ) {
 		    gtk_timeout_remove( nTimeout );
@@ -3706,7 +3706,7 @@ CommandRoll( char *sz ) {
   
   ShowBoard();
 
-#ifdef USE_GTK        
+#if USE_GTK        
   if ( fX ) {
 
     outputnew ();

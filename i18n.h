@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: i18n.h,v 1.3 2002/12/06 16:25:19 gtw Exp $
+ * $Id$
  */
 
 #ifndef _I18N_H_
@@ -26,7 +26,7 @@
 
 #include "config.h"
 
-#ifdef HAVE_LOCALE_H
+#if HAVE_LOCALE_H
 #include <locale.h>
 #endif
 
