@@ -1,7 +1,7 @@
 /*
  * ext.c
  *
- * by Gary Wong, 1997
+ * by Gary Wong, 1997-2000
  *
  */
 
@@ -11,7 +11,7 @@
 #include <event.h>
 #include <hash.h>
 #include <stdlib.h>
-#define XLIB_ILLEGAL_ACCESS
+#include <string.h>
 #include <X11/Xatom.h>
 #include <X11/Xlib.h>
 #include <X11/Xresource.h>
@@ -28,7 +28,9 @@ static XContext xc;
 
 static hash hFont, hColourMap, hColourName, hColour, hGC, hdsp;
 
-#define MAKE_QUARK( q ) extquark eq_##q = { #q, 0 };
+static int ( *fnErrorHandlerOld )() = NULL;
+
+#define MAKE_QUARK( q ) extquark eq_##q = { #q, 0 }
 
 MAKE_QUARK( background );
 MAKE_QUARK( Background );
@@ -211,13 +213,47 @@ typedef struct _replyevent {
     unsigned long n;
 } replyevent;
 
+typedef struct _requesterrorhandler {
+    int ( *fn )( extdisplay *pedsp, XErrorEvent *pxeev );
+    unsigned long n;
+} requesterrorhandler;
+
+static int ExtDspErrorHandler( Display *pdsp, XErrorEvent *pxeev ) {
+
+    extdisplay *pedsp;
+    list *pl;
+    requesterrorhandler *preh;
+    
+    if( !( pedsp = ExtDspFind( pdsp ) ) )
+	return -1;
+
+    for( pl = pedsp->levRequestErrorHandler.plNext;
+	 pl != &pedsp->levRequestErrorHandler; pl = pl->plNext ) {
+	preh = pl->p;
+
+	if( pxeev->serial == preh->n ) {
+	    int ( *fn )( extdisplay *pedsp, XErrorEvent *pxeev ) = preh->fn;
+
+	    ListDelete( pl );
+	    free( preh );
+
+	    return fn ? fn( pedsp, pxeev ) : 0;
+	} else if( pxeev->serial < preh->n )
+	    break;
+    }
+    
+    /* Daisy chain to the old handler */
+    return fnErrorHandlerOld( pdsp, pxeev );
+}
+
 static int ExtDspNotify( event *pev, extdisplay *pedsp ) {
     
     XEvent xev;
     extwindow *pewnd;
     list *pl;
     replyevent *prev;
-
+    requesterrorhandler *preh;
+    
 #if EXT_DEBUG    
     puts( "reading" );    
 #endif
@@ -225,19 +261,40 @@ static int ExtDspNotify( event *pev, extdisplay *pedsp ) {
     XEventsQueued( pedsp->pdsp, QueuedAfterReading );
 
     pedsp->nLast = LastKnownRequestProcessed( pedsp->pdsp );
-    
+
+    /* Search for saved reply events; handle and free any that have
+       occurred. */
     while( pedsp->levReply.plNext != &pedsp->levReply ) {
 	pl = pedsp->levReply.plNext;
 	prev = pl->p;
 
 	if( pedsp->nLast >= prev->n ) {
-	    event *pev = prev->pev;
+	    event *pevReply = prev->pev;
 	    
 	    ListDelete( pl );
 	    free( prev );
 	    
-	    EventPending( pev, TRUE );
-	    EventProcess( pev );
+	    EventPending( pevReply, TRUE );
+	    EventProcess( pevReply );
+	} else
+	    break;
+    }
+
+    /* Search for errors from marked requests; if a request has been
+       processed then it must have completed without error, so delete
+       the list entry. */
+    /* FIXME is this really right?  The Xlib documentation doesn't
+       seem to be precise about whether XEventsQueued will call any
+       pending error handlers (XSync does, but it doesn't mention
+       XEventsQueued).  We presume it does... */
+    while( pedsp->levRequestErrorHandler.plNext !=
+	   &pedsp->levRequestErrorHandler ) {
+	pl = pedsp->levRequestErrorHandler.plNext;
+	preh = pl->p;
+
+	if( pedsp->nLast >= preh->n ) {
+	    ListDelete( pl );
+	    free( preh );
 	} else
 	    break;
     }
@@ -270,6 +327,8 @@ static int ExtDspCommit( event *pev, extdisplay *pedsp ) {
 
     if( ( LastKnownRequestProcessed( pedsp->pdsp ) > pedsp->nLast ) ||
 	( XEventsQueued( pedsp->pdsp, QueuedAlready ) ) )
+	/* FIXME won't this be useless, because EventTimeout will reset
+	   fPending to FALSE as soon as we return? */
 	EventPending( &pedsp->ev, TRUE );
     
     return 0;
@@ -295,6 +354,10 @@ extern int ExtDspCreate( extdisplay *pedsp, Display *pdsp ) {
     pedsp->pdsp = pdsp;
     
     ListCreate( &pedsp->levReply );
+    ListCreate( &pedsp->levRequestErrorHandler );
+
+    if( !fnErrorHandlerOld )
+	fnErrorHandlerOld = XSetErrorHandler( ExtDspErrorHandler );
     
     EventHandlerReady( &pedsp->ev, TRUE, 0 );
 
@@ -305,6 +368,10 @@ extern int ExtDspDestroy( extdisplay *pedsp ) {
 
     while( pedsp->levReply.plNext != &pedsp->levReply )
 	ListDelete( pedsp->levReply.plNext );
+    
+    while( pedsp->levRequestErrorHandler.plNext !=
+	   &pedsp->levRequestErrorHandler )
+	ListDelete( pedsp->levRequestErrorHandler.plNext );
     
     EventDestroy( &pedsp->ev );
 
@@ -332,7 +399,28 @@ extern int ExtDspReplyEvent( extdisplay *pedsp, unsigned long n, event *pev ) {
     prevNew->pev = pev;
     prevNew->n = n;
     
-    return ( ListInsert( pl, prevNew ) != NULL );
+    return !ListInsert( pl, prevNew );
+}
+
+extern int ExtDspHandleNextError( extdisplay *pedsp,
+				  int ( *fn )( extdisplay *pedsp,
+					       XErrorEvent *pxeev ) ) {
+    list *pl;
+    requesterrorhandler *preh, *prehNew = malloc( sizeof( *prehNew ) );
+    int n = NextRequest( pedsp->pdsp );
+    
+    for( pl = pedsp->levRequestErrorHandler.plNext;
+	 pl != &pedsp->levRequestErrorHandler; pl = pl->plNext ) {
+	preh = pl->p;
+
+	if( n < preh->n )
+	    break;
+    }
+
+    prehNew->fn = fn;
+    prehNew->n = n;
+    
+    return !ListInsert( pl, prehNew );
 }
 
 extern int ExtQuarkCreate( extquark *peq ) {
@@ -677,7 +765,9 @@ extern int ExtWndAttach( extwindow *pewnd, Display *pdsp, Window wnd ) {
     return ExtSendEventHandler( pewnd, &xev );
 }
 
+#if EXT_DEBUG
 static int acColour[ 2 ], acFont[ 2 ], acGC[ 2 ];
+#endif
 
 extern XColor *ExtWndLookupColour( extwindow *pewnd, char *szName ) {
     colournamehashdata cnhd, *pcnhd;
@@ -723,7 +813,9 @@ extern int ExtWndAttachColour( extwindow *pewnd, extquark *peqName,
 	pchd->xcol.pixel = pxcol->pixel;
 	pchd->cRef = 1;
 	HashAdd( &hColour, ColourHash( pchd ), pchd );
+#if EXT_DEBUG
 	acColour[ 1 ]++;
+#endif
     }
 
 #if EXT_DEBUG    
@@ -795,7 +887,8 @@ extern GC ExtWndAttachGC( extwindow *pewnd, unsigned long flValues,
 	*pgchd = gchd;
 	pgchd->gc = XCreateGC( pewnd->pdsp, pewnd->wnd, flValues, pxgcv );
 	pgchd->cRef = 1;
-	XSaveContext( pewnd->pdsp, pgchd->gc->gid, xc, (XPointer) pgchd );
+	XSaveContext( pewnd->pdsp, XGContextFromGC( pgchd->gc ), xc,
+		      (XPointer) pgchd );
 	HashAdd( &hGC, ngchdHash, pgchd );
 #if EXT_DEBUG    
 	printf( "%d GCs of %d\n", ++acGC[ 0 ], ++acGC[ 1 ] );
@@ -810,7 +903,9 @@ extern int ExtWndDetachColour( extwindow *pewnd, extcolour *pecol ) {
 	HashDelete( &hColour, ColourHash( pecol ), pecol );
 	XFreeColors( pewnd->pdsp, pewnd->cm, &pecol->xcol.pixel, 1, 0 );
 	free( pecol );
+#if EXT_DEBUG
 	acColour[ 1 ]--;
+#endif
     }
     
 #if EXT_DEBUG    
@@ -841,14 +936,17 @@ extern int ExtWndDetachGC( extwindow *pewnd, GC gc ) {
 
     gchashdata *pgchd;
 
-    if( XFindContext( pewnd->pdsp, gc->gid, xc, (XPointer *) &pgchd ) )
+    if( XFindContext( pewnd->pdsp, XGContextFromGC( gc ), xc,
+		      (XPointer *) &pgchd ) )
 	return -1;
 
     if( !--pgchd->cRef ) {
 	HashDelete( &hGC, GCHash( pgchd ), pgchd );
 	XFreeGC( pewnd->pdsp, pgchd->gc );
 	free( pgchd );
+#if EXT_DEBUG
 	acGC[ 1 ]--;
+#endif
     }
     
 #if EXT_DEBUG    
@@ -1132,6 +1230,7 @@ extern int ExtHandler( extwindow *pewnd, XEvent *pxev ) {
 	
     case ClientMessage:
 	/* FIXME anything here? */
+	break;
     }
 
     return 0;
