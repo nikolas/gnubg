@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.40 2003/09/05 20:46:44 thyssen Exp $
+* $Id: matchequity.c,v 1.41 2004/01/30 09:33:49 uid68519 Exp $
 */
 
 #include <stdio.h>
@@ -875,7 +875,11 @@ freeMP ( metparameters *pmp ) {
   list *pl;
 
   if ( pmp->szName )
+#if __GNUC__
     free ( pmp->szName );
+#else
+    xmlFree ( pmp->szName );
+#endif
 
   pl = &pmp->lParameters;
 
@@ -1325,7 +1329,11 @@ static int readMET ( metdata *pmd, const char *szFileName,
   pc = xmlCatalogResolve ( doc->intSubset->ExternalID, 
                            doc->intSubset->SystemID );
   fError = ! pc;
+#if __GNUC__
   free ( pc );
+#else
+  xmlFree ( pc );
+#endif
 
   if ( fError ) {
 
