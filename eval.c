@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.60 2000/10/26 14:20:07 gtw Exp $
+ * $Id: eval.c,v 1.61 2000/11/01 15:06:48 gtw Exp $
  */
 
 #include "config.h"
@@ -5049,7 +5049,7 @@ Cl2CfMatchCentered ( float arOutput [ NUM_OUTPUTS ], cubeinfo *pci ) {
     return  rMWCDead * ( 1.0 - rCubeX ) + rMWCLive * rCubeX;
 
   }
-  else if ( rOppTG < arOutput[ 0 ] && arOutput[ 0 ] <= rTG ) {
+  else if ( rOppTG < arOutput[ 0 ] && arOutput[ 0 ] < rTG ) {
 
     /* In double window */
 
