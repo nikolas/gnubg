@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.549 2004/04/11 21:15:49 thyssen Exp $
+ * $Id: relational.c,v 1.1 2004/04/18 08:57:09 thyssen Exp $
  */
 
 #include <stdio.h>
@@ -27,6 +27,7 @@
 #endif
 
 #include "relational.h"
+#include "backgammon.h"
 
 
 extern void
