@@ -3,7 +3,20 @@
  *
  * by Gary Wong, 1997-1999
  *
- * $Id: xboard.c,v 1.1 1999/11/23 02:16:57 gary Exp $
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of version 2 of the GNU General Public License as
+ * published by the Free Software Foundation.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * $Id: xboard.c,v 1.17 2000/11/10 18:50:42 gtw Exp $
  */
 
 #include "config.h"
@@ -16,10 +29,14 @@
 #include <string.h>
 #include <X11/Xutil.h>
 
+#include "backgammon.h"
 #include "xboard.h"
 #include "xgame.h"
 
 static extquark eq_cubeFont = { "cubeFont", 0 };
+
+#define POINT_DICE 28
+#define POINT_CUBE 29
 
 static int aanPosition[ 28 ][ 3 ] = {
     { 51, 25, 7 },
@@ -31,6 +48,9 @@ static int aanPosition[ 28 ][ 3 ] = {
     { 51, 41, -7 }, { 99, 63, 6 }, { 99, 3, -6 }
 };
 
+static unsigned int nSeed = 1; /* for rand_r */
+#define RAND ( ( (unsigned int) rand_r( &nSeed ) ) & RAND_MAX )
+
 static int Intersects( int x0, int y0, int cx0, int cy0,
 		       int x1, int y1, int cx1, int cy1 ) {
 
@@ -40,10 +60,10 @@ static int Intersects( int x0, int y0, int cx0, int cy0,
 
 static void BoardRedrawDice( extwindow *pewnd, gamedata *pgd, int i ) {
 
-    return GameRedrawDice( pewnd, pgd, pgd->xDice[ i ] * pgd->nBoardSize,
-			   pgd->yDice[ i ] * pgd->nBoardSize,
-			   pgd->fDiceColour[ i ], pgd->fTurn == pgd->fColour ?
-			   pgd->anDice[ i ] : pgd->anDiceOpponent[ i ] );
+    GameRedrawDice( pewnd, pgd, pgd->xDice[ i ] * pgd->nBoardSize,
+		    pgd->yDice[ i ] * pgd->nBoardSize,
+		    pgd->fDiceColour[ i ], pgd->fTurn == pgd->fColour ?
+		    pgd->anDice[ i ] : pgd->anDiceOpponent[ i ] );
 }
 
 static void BoardRedrawCube( extwindow *pewnd, gamedata *pgd ) {
@@ -133,7 +153,8 @@ static void BoardRedrawPoint( extwindow *pewnd, gamedata *pgd, int n ) {
 	y += cy * 4 / 5;
 	cy = -cy;
     }
-    
+
+    /* FIXME draw straight to screen and return if point is empty */
     XCopyArea( pewnd->pdsp, pgd->pmBoard, pgd->pmPoint, pgd->gcCopy, x, y,
 	       cx, cy, 0, 0 );
 
@@ -156,7 +177,7 @@ static void BoardRedrawPoint( extwindow *pewnd, gamedata *pgd, int n ) {
 	    iChequer = 0;
 	    cChequer--;
 
-	    yChequer = fInvert ? cy + ( 3 - 3 * cChequer ) * pgd->nBoardSize :
+	    yChequer = fInvert ? cy + ( 3 * cChequer - 21 ) * pgd->nBoardSize :
 		( 15 - 3 * cChequer ) * pgd->nBoardSize;
 	}
     }
@@ -245,9 +266,10 @@ static int BoardPoint( extwindow *pewnd, gamedata *pgd, int x0, int y0 ) {
 
     if( Intersects( x0, y0, 0, 0, pgd->xDice[ 0 ], pgd->yDice[ 0 ], 7, 7 ) ||
 	Intersects( x0, y0, 0, 0, pgd->xDice[ 1 ], pgd->yDice[ 1 ], 7, 7 ) )
-	return 28;
+	return POINT_DICE;
 
-    /* FIXME check for cube */
+    if( Intersects( x0, y0, 0, 0, 50, 30 - 29 * pgd->fCubeOwner, 8, 8 ) )
+	return POINT_CUBE;
     
     for( i = 0; i < 28; i++ ) {
 	y = aanPosition[ i ][ 1 ];
@@ -268,7 +290,14 @@ static int BoardPoint( extwindow *pewnd, gamedata *pgd, int x0, int y0 ) {
 static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 
     Pixmap pmSwap;
-    int nDest, xEvent, yEvent, nBar, fHit;
+    int n, nDest, xEvent, yEvent, nBar;
+
+    if( fBusy ) {
+	if( pxev->type == ButtonPress )
+	    XBell( pewnd->pdsp, 100 );
+
+	return;
+    }
     
     switch( pxev->type ) {
     case ButtonPress:
@@ -278,15 +307,39 @@ static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 	break;
 
     case MotionNotify:
-	xEvent = pxev->xmotion.x;
-	yEvent = pxev->xmotion.y;
+	if( pxev->xmotion.is_hint ) {
+	    Window wIgnore;
+	    int nIgnore;
+	    
+	    if( !XQueryPointer( pewnd->pdsp, pewnd->wnd, &wIgnore, &wIgnore,
+				&nIgnore, &nIgnore, &xEvent, &yEvent,
+				(unsigned int *) &nIgnore ) )
+		return;
+	} else {
+	    xEvent = pxev->xmotion.x;
+	    yEvent = pxev->xmotion.y;
+	}
 	break;
+
+    default:
+	abort();
     }
     
     switch( pxev->type ) {
     case ButtonPress:
+	pgd->nDragPoint = BoardPoint( pewnd, pgd, xEvent, yEvent );
+
+	/* FIXME if the dice are set, and nDragPoint is between 1 and 24 and
+	   contains no chequers of the player on roll, then scan through all
+	   the legal moves looking for the one which makes that point with
+	   the smallest pip count, make it and return. */
+
+	/* FIXME if the dice are set, and nDragPoint is 26 or 27 (i.e. off),
+	   then bear off as many chequers as possible, and return. */
+	
 	if( ( pgd->nDragPoint = BoardPoint( pewnd, pgd, xEvent, yEvent ) ) < 0
-	    || !pgd->anBoard[ pgd->nDragPoint ] ) {
+	    || ( pgd->nDragPoint < 28 && !pgd->anBoard[ pgd->nDragPoint ] ) ) {
+	    /* Click on empty point, or not on a point at all */
 	    XBell( pewnd->pdsp, 100 );
 
 	    pgd->nDragPoint = -1;
@@ -294,18 +347,56 @@ static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 	    return;
 	}
 
-	if( pgd->nDragPoint == 28 ) {
+	if( pgd->nDragPoint == POINT_CUBE ) {
+	    /* Clicked on cube; double. */
 	    pgd->nDragPoint = -1;
+	    UserCommand( "double" );
+	    return;
+	}
+	
+	if( pgd->nDragPoint == POINT_DICE ) {
+	    /* Clicked on dice. */
+	    pgd->nDragPoint = -1;
+	    
+	    if( pxev->xbutton.button == Button1 )
+		/* Button 1 on dice confirms move. */
+		StatsConfirm( &pgd->ewndStats );
+	    else {
+		/* Other buttons on dice swaps positions. */
+		n = pgd->anDice[ 0 ];
+		pgd->anDice[ 0 ] = pgd->anDice[ 1 ];
+		pgd->anDice[ 1 ] = n;
 
-	    StatsConfirm( &pgd->ewndStats );
+		n = pgd->anDiceOpponent[ 0 ];
+		pgd->anDiceOpponent[ 0 ] = pgd->anDiceOpponent[ 1 ];
+		pgd->anDiceOpponent[ 1 ] = n;
 
+		BoardRedrawDice( pewnd, pgd, 0 );
+		BoardRedrawDice( pewnd, pgd, 1 );
+	    }
+	    
 	    return;
 	}
 	
 	pgd->fDragColour = pgd->anBoard[ pgd->nDragPoint ] < 0 ? -1 : 1;
+	
 	pgd->anBoard[ pgd->nDragPoint ] -= pgd->fDragColour;
 
 	BoardExposePoint( pewnd, pgd, pgd->nDragPoint );
+
+	if( pxev->xbutton.button != Button1 ) {
+	    /* Automatically place chequer on destination point
+	       (as opposed to starting a drag). */
+	    nDest = pgd->nDragPoint - ( pxev->xbutton.button == Button2 ?
+					pgd->anDice[ 0 ] :
+					pgd->anDice[ 1 ] ) * pgd->fDragColour;
+
+	    if( ( nDest <= 0 ) || ( nDest >= 25 ) )
+		/* bearing off */
+		nDest = pgd->fDragColour > 0 ? 26 : 27;
+	    
+	    goto PlaceChequer;
+	}
 	
 	pgd->xDrag = xEvent;
 	pgd->yDrag = yEvent;
@@ -364,17 +455,17 @@ static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 	if( pgd->nDragPoint < 0 )
 	    break;
 	
-	nBar = pgd->fDragColour == pgd->fColour ? 25 - pgd->nBar : pgd->nBar;
-	    
 	XCopyArea( pewnd->pdsp, pgd->pmSaved, pewnd->wnd, pgd->gcCopy,
 		   0, 0, 6 * pgd->nBoardSize, 6 * pgd->nBoardSize,
 		   pgd->xDrag - 3 * pgd->nBoardSize,
 		   pgd->yDrag - 3 * pgd->nBoardSize );
 
 	nDest = BoardPoint( pewnd, pgd, xEvent, yEvent );
-
-	if( nDest == -1 || ( pgd->fDragColour > 0 ? pgd->anBoard[ nDest ] < -1 :
-			     pgd->anBoard[ nDest ] > 1 ) || nDest == nBar ||
+    PlaceChequer:
+	nBar = pgd->fDragColour == pgd->fColour ? 25 - pgd->nBar : pgd->nBar;
+	    
+	if( nDest == -1 || ( pgd->fDragColour > 0 ? pgd->anBoard[ nDest ] < -1
+			     : pgd->anBoard[ nDest ] > 1 ) || nDest == nBar ||
 	    nDest > 27 ) {
 	    /* FIXME check with owner that move is legal */
 	    XBell( pewnd->pdsp, 100 );
@@ -382,7 +473,7 @@ static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 	    nDest = pgd->nDragPoint;
 	}
 
-	if( ( fHit = ( pgd->anBoard[ nDest ] == -pgd->fDragColour ) ) ) {
+	if( pgd->anBoard[ nDest ] == -pgd->fDragColour ) {
 	    pgd->anBoard[ nDest ] = 0;
 	    pgd->anBoard[ nBar ] -= pgd->fDragColour;
 
@@ -394,7 +485,7 @@ static void BoardPointer( extwindow *pewnd, gamedata *pgd, XEvent *pxev ) {
 	BoardExposePoint( pewnd, pgd, nDest );
 
 	if( pgd->nDragPoint != nDest )
-	    StatsMove( &pgd->ewndStats, pgd->nDragPoint, nDest, fHit );
+	    StatsMove( &pgd->ewndStats );
 	
 	pgd->nDragPoint = -1;
 
@@ -444,6 +535,8 @@ static void BoardSetCubeFont( extwindow *pewnd, gamedata *pgd ) {
 	/* fall through */
 	
     case 3:
+	fFound = FALSE;
+	    
 	for( i = 0; i < 20 && anSizes[ i ] > pgd->nBoardSize * 5; i++ )
 	    ;
 
@@ -451,8 +544,6 @@ static void BoardSetCubeFont( extwindow *pewnd, gamedata *pgd ) {
 	    sprintf( szFont, "-adobe-utopia-bold-r-normal--%d-*-*-*-p-*-"
 		     "iso8859-1", anSizes[ i ] );
 
-	    fFound = FALSE;
-	    
 	    if( ( pgd->pxfsCube = ExtWndAttachFont( pewnd, &eq_cubeFont,
 						    &eq_Font, szFont ) ) ) {
 		fFound = TRUE;
@@ -478,6 +569,10 @@ extern int BoardSet( extwindow *pewnd, char *pch ) {
     gamedata *pgd = pewnd->pv;
     char *pchDest;
     int i, *pn, **ppn;
+    int anBoardOld[ 28 ];
+    int fDirectionOld;
+    XExposeEvent xeev;
+#if __GNUC__
     int *apnMatch[] = { &pgd->nMatchTo, &pgd->nScore, &pgd->nScoreOpponent };
     int *apnGame[] = { &pgd->fTurn, pgd->anDice, pgd->anDice + 1,
 		       pgd->anDiceOpponent, pgd->anDiceOpponent + 1,
@@ -488,10 +583,41 @@ extern int BoardSet( extwindow *pewnd, char *pch ) {
 		       &pgd->nForced, &pgd->nCrawford, &pgd->nRedoubles };
     int anDiceOld[] = { pgd->anDice[ 0 ], pgd->anDice[ 1 ],
 			pgd->anDiceOpponent[ 0 ], pgd->anDiceOpponent[ 1 ] };
-    int anBoardOld[ 28 ];
-    int fDirectionOld;
-    XExposeEvent xeev;
-	    
+#else
+    int *apnMatch[ 3 ], *apnGame[ 21 ], anDiceOld[ 4 ];
+
+    apnMatch[ 0 ] = &pgd->nMatchTo;
+    apnMatch[ 1 ] = &pgd->nScore;
+    apnMatch[ 2 ] = &pgd->nScoreOpponent;
+
+    apnGame[ 0 ] = &pgd->fTurn;
+    apnGame[ 1 ] = pgd->anDice;
+    apnGame[ 2 ] = pgd->anDice + 1;
+    apnGame[ 3 ] = pgd->anDiceOpponent;
+    apnGame[ 4 ] = pgd->anDiceOpponent + 1;
+    apnGame[ 5 ] = &pgd->nCube;
+    apnGame[ 6 ] = &pgd->fDouble;
+    apnGame[ 7 ] = &pgd->fDoubleOpponent;
+    apnGame[ 8 ] = &pgd->fDoubled;
+    apnGame[ 9 ] = &pgd->fColour;
+    apnGame[ 10 ] = &pgd->fDirection;
+    apnGame[ 11 ] = &pgd->nHome;
+    apnGame[ 12 ] = &pgd->nBar;
+    apnGame[ 13 ] = &pgd->nOff;
+    apnGame[ 14 ] = &pgd->nOffOpponent;
+    apnGame[ 15 ] = &pgd->nOnBar;
+    apnGame[ 16 ] = &pgd->nOnBarOpponent;
+    apnGame[ 17 ] = &pgd->nToMove;
+    apnGame[ 18 ] = &pgd->nForced;
+    apnGame[ 19 ] = &pgd->nCrawford;
+    apnGame[ 20 ] = &pgd->nRedoubles;
+
+    anDiceOld[ 0 ] = pgd->anDice[ 0 ];
+    anDiceOld[ 1 ] = pgd->anDice[ 1 ];
+    anDiceOld[ 2 ] = pgd->anDiceOpponent[ 0 ];
+    anDiceOld[ 3 ] = pgd->anDiceOpponent[ 1 ];
+#endif
+    
     if( strncmp( pch, "board:", 6 ) )
 	return -1;
     
@@ -563,6 +689,7 @@ extern int BoardSet( extwindow *pewnd, char *pch ) {
 	pgd->anDiceOpponent[ 0 ] != anDiceOld[ 2 ] ||
 	pgd->anDiceOpponent[ 1 ] != anDiceOld[ 3 ] ) {
 	if( pgd->xDice[ 0 ] > 0 ) {
+	    /* dice were visible before; now they're not */
 	    xeev.count = 0;
 	    xeev.x = pgd->xDice[ 0 ] * pgd->nBoardSize;
 	    xeev.y = pgd->yDice[ 0 ] * pgd->nBoardSize;
@@ -580,14 +707,15 @@ extern int BoardSet( extwindow *pewnd, char *pch ) {
 	    BoardRedraw( pewnd, pgd, &xeev );
 	}
 
-	if( !( pgd->fTurn == pgd->fColour ? pgd->anDice[ 0 ] :
-	       pgd->anDiceOpponent[ 0 ] ) )
+	if( ( pgd->fTurn == pgd->fColour ? pgd->anDice[ 0 ] :
+	       pgd->anDiceOpponent[ 0 ] ) <= 0 )
+	    /* dice have not been rolled */
 	    pgd->xDice[ 0 ] = pgd->xDice[ 1 ] = -10 * pgd->nBoardSize;
 	else {
 	    /* FIXME different dice for first turn */
 	    /* FIXME avoid cocked dice if possible */
-	    pgd->xDice[ 0 ] = random() % 21 + 13;
-	    pgd->xDice[ 1 ] = random() % ( 34 - pgd->xDice[ 0 ] ) +
+	    pgd->xDice[ 0 ] = RAND % 21 + 13;
+	    pgd->xDice[ 1 ] = RAND % ( 34 - pgd->xDice[ 0 ] ) +
 		pgd->xDice[ 0 ] + 8;
 	    
 	    if( pgd->fColour == pgd->fTurn ) {
@@ -595,8 +723,8 @@ extern int BoardSet( extwindow *pewnd, char *pch ) {
 		pgd->xDice[ 1 ] += 48;
 	    }
 	    
-	    pgd->yDice[ 0 ] = random() % 10 + 28;
-	    pgd->yDice[ 1 ] = random() % 10 + 28;
+	    pgd->yDice[ 0 ] = RAND % 10 + 28;
+	    pgd->yDice[ 1 ] = RAND % 10 + 28;
 	    pgd->fDiceColour[ 0 ] = pgd->fDiceColour[ 1 ] = pgd->fTurn;
 	}
     }
@@ -797,40 +925,40 @@ static void BoardDraw( extwindow *pewnd, gamedata *pgd ) {
 	    else if( nAntialias > 20 )
 		nAntialias = 20;
 	    
-	    anCurrent[ 0 ] = ( ( ( random() & 0x1F ) + ( random() & 0x1F ) ) *
-		( 20 - nAntialias ) +
-		( 0x80 + ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 0 ] = ( ( ( RAND & 0x1F ) + ( RAND & 0x1F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( 0x80 + ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 		      
-	    anCurrent[ 1 ] = ( ( ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		( 20 - nAntialias ) +
-		( ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 1 ] = ( ( ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 		      
-	    anCurrent[ 2 ] = ( ( ( random() & 0x1F ) + ( random() & 0x1F ) ) *
-		( 20 - nAntialias ) +
-		( ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 2 ] = ( ( ( RAND & 0x1F ) + ( RAND & 0x1F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 
 	    pix = MatchColour( pgd->pxscm, anCurrent );
 
 	    XPutPixel( pxim, ix + 6 * pgd->nBoardSize, iy, pix );
 	    XPutPixel( pxim, ix, 66 * pgd->nBoardSize - iy - 1, pix );
 
-	    anCurrent[ 0 ] = ( ( ( random() & 0x1F ) + ( random() & 0x1F ) ) *
-		( 20 - nAntialias ) +
-		( 0x40 + ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 0 ] = ( ( ( RAND & 0x1F ) + ( RAND & 0x1F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( 0x40 + ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 		      
-	    anCurrent[ 1 ] = ( ( ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		( 20 - nAntialias ) +
-		( 0x40 + ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 1 ] = ( ( ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( 0x40 + ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 		      
-	    anCurrent[ 2 ] = ( ( ( random() & 0x1F ) + ( random() & 0x1F ) ) *
-		( 20 - nAntialias ) +
-		( 0x40 + ( random() & 0x3F ) + ( random() & 0x3F ) ) *
-		nAntialias ) / 20;
+	    anCurrent[ 2 ] = ( ( ( RAND & 0x1F ) + ( RAND & 0x1F ) ) *
+			       ( 20 - nAntialias ) +
+			       ( 0x40 + ( RAND & 0x3F ) + ( RAND & 0x3F ) ) *
+			       nAntialias ) / 20;
 
 	    pix = MatchColour( pgd->pxscm, anCurrent );
 	    
@@ -841,9 +969,9 @@ static void BoardDraw( extwindow *pewnd, gamedata *pgd ) {
 
     for( iy = 0; iy < 6 * pgd->nBoardSize; iy++ )
 	for( ix = 0; ix < 12 * pgd->nBoardSize; ix++ ) {
-	    anCurrent[ 0 ] = ( random() & 0x1F ) + ( random() & 0x1F );
-	    anCurrent[ 1 ] = ( random() & 0x3F ) + ( random() & 0x3F );
-	    anCurrent[ 2 ] = ( random() & 0x1F ) + ( random() & 0x1F );
+	    anCurrent[ 0 ] = ( RAND & 0x1F ) + ( RAND & 0x1F );
+	    anCurrent[ 1 ] = ( RAND & 0x3F ) + ( RAND & 0x3F );
+	    anCurrent[ 2 ] = ( RAND & 0x1F ) + ( RAND & 0x1F );
 
 	    pix = MatchColour( pgd->pxscm, anCurrent );
 	    
@@ -869,9 +997,9 @@ static void BoardDraw( extwindow *pewnd, gamedata *pgd ) {
 
     for( iy = 0; iy < 30 * pgd->nBoardSize; iy++ )
 	for( ix = 0; ix < 6 * pgd->nBoardSize; ix++ ) {
-	    anCurrent[ 0 ] = ( random() & 0x1F ) + ( random() & 0x1F );
-	    anCurrent[ 1 ] = ( random() & 0x3F ) + ( random() & 0x3F );
-	    anCurrent[ 2 ] = ( random() & 0x1F ) + ( random() & 0x1F );
+	    anCurrent[ 0 ] = ( RAND & 0x1F ) + ( RAND & 0x1F );
+	    anCurrent[ 1 ] = ( RAND & 0x3F ) + ( RAND & 0x3F );
+	    anCurrent[ 2 ] = ( RAND & 0x1F ) + ( RAND & 0x1F );
 
 	    pix = MatchColour( pgd->pxscm, anCurrent );
 
@@ -1541,7 +1669,7 @@ static void BoardConfigure( extwindow *pewnd, gamedata *pgd,
 static void BoardCreate( extwindow *pewnd, gamedata *pgd ) {
 
     XGCValues xgcv;
-    int an[] = { 0, 0, 128 };
+    int anBlue[] = { 0, 0, 128 };
     pgd->nDragPoint = -1;
     
     pgd->nBoardSize = pewnd->cx / 108 < pewnd->cy / 72 ?
@@ -1563,8 +1691,10 @@ static void BoardCreate( extwindow *pewnd, gamedata *pgd ) {
     /* FIXME ExtWndAttachGC( pewnd, 0, NULL ) gives a bad GC, why? */
     pgd->gcCopy = XDefaultGC( pewnd->pdsp, 0 );
 
-    xgcv.foreground = MatchColour( pgd->pxscm, an );
+    xgcv.foreground = MatchColour( pgd->pxscm, anBlue );
     pgd->gcCube = ExtWndAttachGC( pewnd, GCForeground, &xgcv );
+    
+    pgd->xDice[ 0 ] = pgd->xDice[ 1 ] = -10 * pgd->nBoardSize;
     
     BoardDraw( pewnd, pgd );
     BoardDrawChequers( pewnd, pgd );
@@ -1621,7 +1751,7 @@ static int BoardHandler( extwindow *pewnd, XEvent *pxev ) {
 
 extwindowclass ewcBoard = {
     ExposureMask | StructureNotifyMask | ButtonPressMask | ButtonReleaseMask |
-    ButtonMotionMask,
+    Button1MotionMask | PointerMotionHintMask,
     108, 72, 0, 0,
     BoardHandler,
     "Board",
