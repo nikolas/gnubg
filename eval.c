@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.266 2004/10/17 22:20:02 jsegrave Exp $
+ * $Id: eval.c,v 1.267 2004/10/26 19:11:35 oysteijo Exp $
  */
 
 #include "config.h"
@@ -510,10 +510,10 @@ const char *aszMoveFilterSettings[ NUM_MOVEFILTER_SETTINGS ] = {
 
 movefilter aaamfMoveFilterSettings[ NUM_MOVEFILTER_SETTINGS ][ MAX_FILTER_PLIES ][ MAX_FILTER_PLIES ] = {
   /* tiny */
-  { { { 0,  8, 0.08 }, {  0, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } ,
-    { { 0,  8, 0.08 }, { -1, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } , 
-    { { 0,  8, 0.08 }, { -1, 0, 0 }, { 0, 2, 0.02 }, {  0, 0, 0 } }, 
-    { { 0,  8, 0.08 }, { -1, 0, 0 }, { 0, 2, 0.02 }, { -1 , 0, 0 } } },
+  { { { 0,  5, 0.08 }, {  0, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } ,
+    { { 0,  5, 0.08 }, { -1, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } , 
+    { { 0,  5, 0.08 }, { -1, 0, 0 }, { 0, 2, 0.02 }, {  0, 0, 0 } }, 
+    { { 0,  5, 0.08 }, { -1, 0, 0 }, { 0, 2, 0.02 }, { -1 , 0, 0 } } },
   /* narrow */
   { { { 0,  8, 0.12 }, {  0, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } ,
     { { 0,  8, 0.12 }, { -1, 0, 0 }, { 0, 0, 0    }, {  0, 0, 0 } } , 
