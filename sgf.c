@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.26 2001/05/23 15:12:48 thyssen Exp $
+ * $Id: sgf.c,v 1.27 2001/08/23 14:58:48 gtw Exp $
  */
 
 #include "config.h"
@@ -36,7 +36,7 @@
 #include "sgf.h"
 
 #ifndef HUGE_VALF
-#define HUGE_VALF (-1e38)
+#define HUGE_VALF 1e38
 #endif
 
 static char *szFile;
@@ -917,7 +917,7 @@ static void WriteDoubleAnalysis( FILE *pf, float ar[],
 	break;
 
     case EVAL_ROLLOUT:
-	/* FIXME */
+	/* FIXME save rollout analysis */
 
     default:
 	assert( FALSE );
