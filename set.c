@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.205 2003/09/02 10:34:39 Superfly_Jon Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -72,6 +72,7 @@
 #include "export.h"
 #include "drawboard.h"
 #include "format.h"
+#include "boarddim.h"
 
 #include "i18n.h"
 
@@ -4352,7 +4353,7 @@ CommandSetExportPNGSize ( char *sz ) {
     exsExport.nPNGSize = n;
 
     outputf ( _("Size of generated PNG images are %dx%d pixels\n"),
-              n * 108, n * 72 );
+              n * BOARD_WIDTH, n * BOARD_HEIGHT );
 
 
 }

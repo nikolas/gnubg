@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.167 2003/09/12 17:14:02 jsegrave Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -45,6 +45,7 @@
 #include "onechequer.h"
 #include "osr.h"
 #include "positionid.h"
+#include "boarddim.h"
 
 #if USE_GTK
 #include "gtkboard.h"
@@ -1812,7 +1813,7 @@ CommandShowExport ( char *sz ) {
   outputl ( _("PNG options:\n") );
 
   outputf ( _("- size of exported PNG pictures: %dx%d\n"),
-            exsExport.nPNGSize * 108, exsExport.nPNGSize * 72 );
+            exsExport.nPNGSize * BOARD_WIDTH, exsExport.nPNGSize * BOARD_HEIGHT );
 
   outputl ( "\n" );
 
