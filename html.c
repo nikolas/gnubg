@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.150 2003/10/18 09:26:07 thyssen Exp $
+ * $Id: html.c,v 1.151 2003/11/01 13:43:56 thyssen Exp $
  */
 
 #include "config.h"
@@ -171,7 +171,7 @@ WriteStyleSheet ( FILE *pf, const htmlexportcss hecss ) {
 
     fputs( "\n"
            "/* CSS Stylesheet for GNU Backgammon " VERSION " */\n"
-           "/* $Id: html.c,v 1.150 2003/10/18 09:26:07 thyssen Exp $ */\n",
+           "/* $Id: html.c,v 1.151 2003/11/01 13:43:56 thyssen Exp $ */\n",
            pf );
 
     fputs( _("/* This file is distributed as a part of the "
@@ -1728,11 +1728,12 @@ HTMLPrologue ( FILE *pf, const matchstate *pms,
             "<head>\n"
             "<meta name=\"generator\" content=\"GNU Backgammon %s\" />\n"
             "<meta http-equiv=\"Content-Type\" "
-            "content=\"text/html; charset=ISO-8859-1\" />\n" 
+            "content=\"text/html; charset=%s\" />\n" 
             "<meta name=\"keywords\" content=\"%s, %s, %s\" />\n"
             "<meta name=\"description\" "
             "content=\"",
             VERSION,
+            GNUBG_CHARSET,
             ap[ 0 ].szName, ap[ 1 ].szName,
             ( pms->nMatchTo ) ? _("match play") : _("money game") );
 
@@ -1805,7 +1806,7 @@ HTMLEpilogue ( FILE *pf, const matchstate *pms, char *aszLinks[ 4 ],
   int fFirst;
   int i;
 
-  const char szVersion[] = "$Revision: 1.150 $";
+  const char szVersion[] = "$Revision: 1.151 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -1886,7 +1887,7 @@ HTMLEpilogueComment ( FILE *pf ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.150 $";
+  const char szVersion[] = "$Revision: 1.151 $";
   int iMajor, iMinor;
   char *pc;
 
