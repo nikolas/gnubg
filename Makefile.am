@@ -1,8 +1,8 @@
-## $Id: Makefile.am,v 1.78 2002/12/07 21:51:04 thyssen Exp $
+## $Id: Makefile.am,v 1.79 2002/12/11 02:21:18 gtw Exp $
 if USE_EXT
-SUBDIRS = intl lib doc ext met po m4 xpm sounds boards
+SUBDIRS = intl lib doc ext met po m4 xpm sounds
 else
-SUBDIRS = intl lib doc met po m4 xpm sounds boards
+SUBDIRS = intl lib doc met po m4 xpm sounds
 endif
 
 localedir = $(datadir)/locale
@@ -83,7 +83,8 @@ endif
 endif
 
 
-pkgdata_DATA = gnubg_ts0.bd gnubg.wd @GTKDATA@ @GUILEDATA@ $(BR1DATA)
+pkgdata_DATA = gnubg_ts0.bd gnubg.wd boards.xml @GTKDATA@ @GUILEDATA@ \
+	$(BR1DATA)
 
 man_MANS = gnubg.6
 
