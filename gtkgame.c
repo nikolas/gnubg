@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.266 2002/12/11 18:41:33 thyssen Exp $
+ * $Id: gtkgame.c,v 1.267 2002/12/12 22:06:26 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -4352,7 +4352,7 @@ static void AnalysisOK( GtkWidget *pw, analysiswidget *paw ) {
 
   CHECKUPDATE(paw->pwMoves,fAnalyseMove, "set analysis moves %s")
   CHECKUPDATE(paw->pwCube,fAnalyseCube, "set analysis cube %s")
-  CHECKUPDATE(paw->pwLuck,fAnalyseDice, "set analysis dice %s")
+  CHECKUPDATE(paw->pwLuck,fAnalyseDice, "set analysis luck %s")
 
   if((n = paw->padjMoves->value) != cAnalysisMoves) {
     sprintf(sz, "set analysis limit %d", n );
