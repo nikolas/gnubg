@@ -3,12 +3,14 @@
  *
  * by Gary Wong <gtw@gnu.org>, 2002
  *
- * $Id$
+ * $Id: strdup.c,v 1.1 2002/03/22 20:58:07 gtw Exp $
  */
 
 #include <stdlib.h>
 #include <string.h>
+#include "config.h"
 
+#if !HAVE_STRDUP
 extern char *strdup( const char *sz ) {
 
     char *pch;
@@ -26,3 +28,4 @@ extern char *strdup( const char *sz ) {
 
     return pch;
 }
+#endif
