@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.8 2004/10/07 11:24:06 Superfly_Jon Exp $
+ * $Id: external_y.y,v 1.9 2004/10/12 08:41:23 joseph Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -44,6 +44,8 @@ void ( *ExtErrorHandler )( const char *, const char *, const int ) = NULL;
 %}
 
 %name-prefix="ext"
+%defines
+%token-table
 
 %union {
   int number;
