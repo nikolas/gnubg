@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.82 2002/09/16 20:24:34 gtw Exp $
+ * $Id: gtkboard.c,v 1.83 2002/09/17 14:41:08 gtw Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -4829,7 +4829,7 @@ static void board_init( Board *board ) {
 
     gtk_toolbar_append_widget ( GTK_TOOLBAR ( bd->toolbar ),
                                 bd->redouble,
-                                _("Reoduble immediately (beaver)"),
+                                _("Redouble immediately (beaver)"),
                                 _("private") );
 
     /* play button */
