@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.141 2002/11/22 20:10:31 gtw Exp $
+ * $Id: set.c,v 1.142 2002/11/23 03:01:56 gtw Exp $
  */
 
 #include "config.h"
@@ -1536,7 +1536,7 @@ extern void CommandSetRolloutTrials( char *sz ) {
 extern void CommandSetRolloutTruncationEnable ( char *sz ) {
 
   SetToggle( "truncated rollouts", &prcSet->fDoTruncate, sz,
-		 _("Games in rollouts will be stop after a fixed number of moves."),
+		 _("Games in rollouts will be stopped after a fixed number of moves."),
 		 _("Games in rollouts will be played out until the end.") );
 }
 
