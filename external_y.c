@@ -1,4 +1,4 @@
-/* A Bison parser, made from /home/jth/prog/gnubg-gtk12/external_y.y
+/* A Bison parser, made from /home/jth/prog/gnubg-head3/external_y.y
    by GNU bison 1.35.  */
 
 #define YYBISON 1  /* Identify Bison output.  */
@@ -44,7 +44,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.y,v 1.7 2003/09/22 22:35:07 jsegrave Exp $
+ * $Id: external_y.y,v 1.2 2003/12/31 22:53:38 uid65656 Exp $
  */
 
 #if HAVE_CONFIG_H
