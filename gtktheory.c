@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.16 2003/06/27 20:19:05 thyssen Exp $
+ * $Id$
  */
 
 #if HAVE_CONFIG_H
@@ -678,7 +678,7 @@ GTKShowTheory ( const int fActivePage ) {
 
   /* create dialog */
 
-  pwDialog = CreateDialog ( _("GNU Backgammon - Theory"), DT_INFO,
+  pwDialog = GTKCreateDialog ( _("GNU Backgammon - Theory"), DT_INFO,
                             NULL, NULL );
 
   gtk_window_set_default_size( GTK_WINDOW( pwDialog ), 400, 400 );
