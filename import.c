@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.72 2003/08/23 08:33:25 thyssen Exp $
+ * $Id: import.c,v 1.73 2003/09/01 17:35:06 thyssen Exp $
  */
 
 #include "config.h"
@@ -893,7 +893,6 @@ static void ParseOldmove( char *sz, int fInvert ) {
     int iPlayer, i, c;
     moverecord *pmr;
     char *pch;
-    int anMoveLocal[8];
 
     switch( *sz ) {
     case 'X':

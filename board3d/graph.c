@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: graph.c,v 1.2 2003/08/29 12:37:09 jsegrave Exp $
+* $Id: graph.c,v 1.3 2003/09/01 09:21:02 Superfly_Jon Exp $
 */
 
 #include <config.h>
@@ -37,6 +37,10 @@
 #include <stdlib.h>
 #include "inc3d.h"
 #include "renderprefs.h"
+
+#if HAVE_GTKGLEXT
+extern GdkGLConfig *glconfig;
+#endif
 
 #define BAR_WIDTH 5
 #define MID_GAP 1
