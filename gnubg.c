@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.417.2.4 2003/06/07 15:27:31 grob Exp $
+ * $Id$
  */
 
 #include "config.h"
@@ -6657,11 +6657,13 @@ static void real_main( void *closure, int argc, char *argv[] ) {
 #if PROCESSING_UNITS
     InitThreadGlobalStorage ();
     CreateThreadGlobalStorage ();
-    #if USE_GTK
-        g_thread_init (NULL);
-        gdk_threads_init ();
-    #endif
-#endif
+#if USE_GTK
+    g_thread_init (NULL);
+#if GTK_CHECK_VERSION(2,0,0)
+    gdk_threads_init ();
+#endif /* GTK_CHECK_VERSION(2,0,0) */
+#endif /* USE_GTK */
+#endif /* PROCESSING_UNITS */
 
 
 #if HAVE_SETLOCALE
