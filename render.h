@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.h,v 1.14 2003/10/14 10:04:11 Superfly_Jon Exp $
+ * $Id: render.h,v 1.15 2004/01/16 09:42:15 uid68519 Exp $
  */
 
 #ifndef _RENDER_H_
@@ -171,7 +171,8 @@ extern void CopyAreaRotateClip( unsigned char *puchDest, int nDestStride,
 				unsigned char *puchSrc, int nSrcStride,
 				int xSrc, int ySrc, int cx, int cy,
 				int nTheta );
-extern void AlphaBlend( unsigned char *puchDest, int nDestStride,
+/* Changed from AlphaBlend as name clashes in windows */
+extern void AlphaBlendBase( unsigned char *puchDest, int nDestStride,
 			unsigned char *puchBack, int nBackStride,
 			unsigned char *puchFore, int nForeStride,
 			int cx, int cy );
