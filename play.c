@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.215 2003/08/29 18:38:12 jsegrave Exp $
+ * $Id: play.c,v 1.216 2003/08/31 13:16:54 thyssen Exp $
  */
 
 #include "config.h"
@@ -4076,7 +4076,6 @@ extern moverecord *
 getCurrentMoveRecord ( int *pfHistory ) {
 
   static moverecord mrHint;
-  cubeinfo ci;
 
   /* FIXME: introduce a mrHint that "Hint" and "Eval" fills */
 
