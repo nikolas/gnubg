@@ -1,7 +1,7 @@
 /*
- * xboard.h
+ * gtkgame.h
  *
- * by Gary Wong, 1997-1999
+ * by Gary Wong <gtw@gnu.org>, 2000.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 2 of the GNU General Public License as
@@ -16,16 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: xboard.h,v 1.2.2.1 2000/07/13 15:56:33 gtw Exp $
  */
 
-#ifndef _BOARD_H_
-#define _BOARD_H_
+#ifndef _GTKGAME_H_
+#define _GTKGAME_H_
 
-#include <ext.h>
-
-extern extwindowclass ewcBoard;
-
-extern int BoardSet( extwindow *pewnd, char *sz );
+extern void RunGTK( void );
 
 #endif
