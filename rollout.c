@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.58 2002/01/31 19:28:02 thyssen Exp $
+ * $Id: rollout.c,v 1.59 2002/02/28 20:15:53 thyssen Exp $
  */
 
 #include "config.h"
@@ -1107,7 +1107,7 @@ RolloutGeneral( int anBoard[ 2 ][ 25 ], char asz[][ 40 ],
       
       for ( ici = 0; ici < cci ; ici++ ) {
 
-        aar[ ici ][ OUTPUT_EQUITY ] = Utility ( aar[ ici ], &aci [ ici ]);
+        // aar[ ici ][ OUTPUT_EQUITY ] = Utility ( aar[ ici ], &aci [ ici ]);
 
 
         if( fInvert ) InvertEvaluationR( aar[ ici ], &aci[ ici ] );
