@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.100.2.1 2003/05/30 14:35:38 grob Exp $
+## $Id: Makefile.am,v 1.100.2.2 2003/05/31 11:55:58 thyssen Exp $
 if USE_EXT
 SUBDIRS = intl lib doc ext met po m4 xpm sounds
 else
@@ -70,7 +70,8 @@ bin_PROGRAMS = gnubg makebearoff makehyper
 
 if USE_GTK
 ## --- GTK
-INCLUDES = $(COMMON_INCS) @GTK_CFLAGS@ $(SOUND_INCS) @LIBART_CFLAGS@
+INCLUDES = $(COMMON_INCS) @GTK_CFLAGS@ $(SOUND_INCS) @LIBART_CFLAGS@ \
+           @GTHREAD_CFLAGS@
 gnubg_SOURCES = $(COMMON_SOURCES) gtkboard.c gtkboard.h gtkgame.c gtkgame.h \
 	gtkprefs.c gtkprefs.h gtk-multiview.c \
 	gtk-multiview.h gnu.xpm question.xpm nextgame.xpm nextmove.xpm \
@@ -81,7 +82,8 @@ gnubg_SOURCES = $(COMMON_SOURCES) gtkboard.c gtkboard.h gtkgame.c gtkgame.h \
 	gtkcolour.h gtksplash.c gtksplash.h gtkrolls.c gtkrolls.h \
         openurl.c openurl.h gtktempmap.c gtktempmap.h \
 	$(BR1_SOURCES) $(SOUND_SOURCES) $(FONT_SOURCES) $(PU_SOURCES)
-gnubg_LDADD = @GTK_LIBS@ $(COMMON_LIBS) $(SOUND_LIBS) $(PNG_LIBS) @LIBART_LIBS@
+gnubg_LDADD = @GTK_LIBS@ $(COMMON_LIBS) $(SOUND_LIBS) $(PNG_LIBS) \
+	      @LIBART_LIBS@ @GTHREAD_LIBS@
 gnubg_DEPENDENCIES = $(COMMON_DEPS)
 else
 if USE_EXT
