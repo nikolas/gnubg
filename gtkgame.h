@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.80 2004/03/04 10:54:54 Superfly_Jon Exp $
+ * $Id: gtkgame.h,v 1.81 2004/03/15 12:08:20 Superfly_Jon Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -201,5 +201,8 @@ extern void GTKCheckTimeControl( char *szName) ;
 #endif
 
 extern void SetToolbarStyle(int value);
+
+extern void
+GTKShowManual( void );
 
 #endif
