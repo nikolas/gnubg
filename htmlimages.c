@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.12 2003/09/15 02:01:06 hb Exp $
+ * $Id: htmlimages.c,v 1.13 2003/11/01 13:43:56 thyssen Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -118,7 +118,7 @@ extern void CommandExportHTMLImages( char *sz ) {
     unsigned char auchLo[ BOARD_WIDTH * 4 * BORDER_HEIGHT * 4 * 4 ];
     unsigned char auchHi[ BOARD_WIDTH * 4 * BORDER_HEIGHT * 4 * 4 ];
     unsigned char auchLabel[ BOARD_WIDTH * 4 * BORDER_HEIGHT * 4 * 3 ];
-#if 1
+#if 0
     int xx = 0;
 #endif
 	
