@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.h,v 1.6.4.1 2003/06/24 09:09:33 Superfly_Jon Exp $
+ * $Id: gtkprefs.h,v 1.7 2003/08/13 11:52:28 Superfly_Jon Exp $
  */
 
 #ifndef _GTKPREFS_H_
@@ -27,7 +27,5 @@
 extern void BoardPreferences( GtkWidget *pwBoard );
 extern void BoardPreferencesStart( GtkWidget *pwBoard );
 extern void BoardPreferencesDone( GtkWidget *pwBoard );
-
-extern char szTemp[];
 
 #endif
