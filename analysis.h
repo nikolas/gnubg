@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.29 2003/08/30 18:08:14 thyssen Exp $
+ * $Id$
  */
 
 #ifndef _ANALYSIS_H_
@@ -67,8 +67,10 @@ typedef struct {
   int anLuck[ 2 ][ LUCK_VERYGOOD + 1 ];
 
   int anCubeMissedDoubleDP[ 2 ];
+  int anCubeMissedDoubleCP[ 2 ];
   int anCubeMissedDoubleTG[ 2 ];
   int anCubeWrongDoubleDP [ 2 ];
+  int anCubeWrongDoubleCP [ 2 ];
   int anCubeWrongDoubleTG [ 2 ];
   int anCubeWrongTake [ 2 ];
   int anCubeWrongPass [ 2 ];
@@ -82,8 +84,10 @@ typedef struct {
 
   float arErrorCheckerplay[ 2 ][ 2 ];
   float arErrorMissedDoubleDP [ 2 ][ 2 ];
+  float arErrorMissedDoubleCP [ 2 ][ 2 ];
   float arErrorMissedDoubleTG [ 2 ][ 2 ];
   float arErrorWrongDoubleDP [ 2 ][ 2 ];
+  float arErrorWrongDoubleCP [ 2 ][ 2 ];
   float arErrorWrongDoubleTG [ 2 ][ 2 ];
   float arErrorWrongTake [ 2 ][ 2 ];
   float arErrorWrongPass [ 2 ][ 2 ];
