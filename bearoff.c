@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.34 2004/11/24 10:25:16 Superfly_Jon Exp $
+ * $Id: bearoff.c,v 1.35 2005/02/21 23:23:07 jsegrave Exp $
  */
 
 #include "config.h"
@@ -2292,6 +2292,3 @@ isBearoff ( bearoffcontext *pbc, int anBoard[ 2 ][ 25 ] ) {
     return FALSE;
 
 }
-
-
-
