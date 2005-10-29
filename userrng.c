@@ -50,15 +50,21 @@ extern long int getrandom ( void ) {
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: userrng.c,v 1.2 1999/12/15 03:07:34 thyssen Exp $
+ * $Id: userrng.c,v 1.3 2000/01/10 18:50:47 gtw Exp $
  */
 
+#if HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include <stdio.h>
+#if HAVE_SYS_SOCKET_H
 #include <sys/socket.h>
 #include <sys/types.h>
 #include <netdb.h>
 #include <netinet/in.h>
 #include <arpa/inet.h>
+#endif
 #include <unistd.h>
 #include <string.h>
 
