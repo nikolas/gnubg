@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.283 2005/10/29 23:19:09 oysteijo Exp $
+ * $Id: eval.c,v 1.284 2005/12/15 12:28:37 jsegrave Exp $
  */
 
 #include "config.h"
@@ -948,7 +948,11 @@ EvalInitialise( char *szWeights, char *szWeightsBinary,
 	    if( !fstat( h, &st ) &&
 		( p = mmap( NULL, st.st_size, PROT_READ | PROT_WRITE,
 			    MAP_PRIVATE, h, 0 ) ) ) {
-		p = ( (float *) p ) + 2; /* skip magic number and version */
+		/* gcc 4 doesn't support casts as lvalues.
+		   -- rra, 2006-01-14 */
+		float *pf = p;
+		pf += 2;              /* skip magic number and version */
+		p = pf;
 		fReadWeights =
 		  ( p = NeuralNetCreateDirect( &nnContact, p ) ) &&
 		  ( p = NeuralNetCreateDirect( &nnRace, p ) ) &&
