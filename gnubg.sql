@@ -16,7 +16,7 @@
 -- along with this program; if not, write to the Free Software
 -- Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 --
--- $Id: gnubg.sql,v 1.3 2004/04/05 06:32:12 thyssen Exp $
+-- $Id: gnubg.sql,v 1.7 2004/11/05 14:46:21 Superfly_Jon Exp $
 --
 
 -- Table: control
@@ -171,18 +171,18 @@ CREATE TABLE matchstat (
    ,wrong_doubles_above_tg            INTEGER NOT NULL
    ,wrong_takes                       INTEGER NOT NULL
    ,wrong_passes                      INTEGER NOT NULL
-   ,error_missed_doubles_below_cp     FLOAT   NOT NULL
-   ,error_missed_doubles_above_cp     FLOAT   NOT NULL
-   ,error_wrong_doubles_below_dp      FLOAT   NOT NULL
-   ,error_wrong_doubles_above_tg      FLOAT   NOT NULL
-   ,error_wrong_takes                 FLOAT   NOT NULL
-   ,error_wrong_passes                FLOAT   NOT NULL
    ,error_missed_doubles_below_cp_normalised     FLOAT   NOT NULL
    ,error_missed_doubles_above_cp_normalised     FLOAT   NOT NULL
    ,error_wrong_doubles_below_dp_normalised      FLOAT   NOT NULL
    ,error_wrong_doubles_above_tg_normalised      FLOAT   NOT NULL
    ,error_wrong_takes_normalised                 FLOAT   NOT NULL
    ,error_wrong_passes_normalised                FLOAT   NOT NULL
+   ,error_missed_doubles_below_cp     FLOAT   NOT NULL
+   ,error_missed_doubles_above_cp     FLOAT   NOT NULL
+   ,error_wrong_doubles_below_dp      FLOAT   NOT NULL
+   ,error_wrong_doubles_above_tg      FLOAT   NOT NULL
+   ,error_wrong_takes                 FLOAT   NOT NULL
+   ,error_wrong_passes                FLOAT   NOT NULL
    ,cube_error_total_normalised       FLOAT   NOT NULL
    ,cube_error_total                  FLOAT   NOT NULL
    ,cube_error_per_move_normalised    FLOAT   NOT NULL
