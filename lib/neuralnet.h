@@ -2,7 +2,7 @@
  * neuralnet.h
  *
  * by Gary Wong, 1998
- * $Id: neuralnet.h,v 1.10 2005/10/10 18:10:30 Superfly_Jon Exp $
+ * $Id: neuralnet.h,v 1.11 2006/04/12 19:08:24 Superfly_Jon Exp $
  */
 
 #ifndef _NEURALNET_H_
@@ -64,5 +64,7 @@ extern int NeuralNetSaveBinary( neuralnet *pnn, FILE *pf );
 
 extern void 
 ComputeSigTable (void);
+
+extern int SSE_Supported();
 
 #endif
