@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.608 2006/02/24 17:41:47 Superfly_Jon Exp $
+ * $Id: gnubg.c,v 1.609 2006/04/07 12:23:15 c_anthon Exp $
  */
 
 #include "config.h"
@@ -7476,7 +7476,7 @@ getInstallDir( void ) {
   char *p;
 
   GetModuleFileName(NULL, buf, sizeof(buf));
-  p = max(strrchr(buf, '/'), strrchr(buf, '\\'));
+  p = MAX(strrchr(buf, '/'), strrchr(buf, '\\'));
   if (p)
 	  *p = '\0';
   return strdup(buf);
