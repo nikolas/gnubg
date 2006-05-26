@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.17 2005/09/19 22:41:59 jsegrave Exp $
+ * $Id: relational.c,v 1.18 2005/12/20 19:10:19 Superfly_Jon Exp $
  */
 
 #include <stdio.h>
@@ -422,8 +422,8 @@ CommandRelationalAddMatch( char *sz ) {
   }
 
   /* Warn if match is not finished or fully analyzed */
-  if (!GameOver())
-	  strcat(warnings, _("The match is not finished\n"));
+  /*if (!GameOver())
+	  strcat(warnings, _("The match is not finished\n")); */
   if (!MatchAnalysed())
 	  strcat(warnings, _("All of the match is not analyzed\n"));
 
