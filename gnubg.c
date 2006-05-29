@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.614 2006/05/26 09:53:47 c_anthon Exp $
+ * $Id: gnubg.c,v 1.615 2006/05/26 18:40:11 oysteijo Exp $
  */
 
 #include "config.h"
@@ -3123,8 +3123,9 @@ static guint nUpdate;
 static gint UpdateBoard( gpointer p ) {
 
     /* we've waited long enough -- force this update */
+#if HAVE_GDK_GDKX_H
     nLastRequest = LastKnownRequestProcessed( GDK_DISPLAY() );
-    
+#endif    
     ShowBoard();
 
     nUpdate = 0;
