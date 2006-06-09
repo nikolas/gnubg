@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.17 2005/05/09 16:38:53 Superfly_Jon Exp $
+* $Id: gtkpanels.c,v 1.18 2006/01/29 19:33:46 jsegrave Exp $
 */
 
 #include "config.h"
@@ -1298,7 +1298,7 @@ extern void CommandSetDisplayPanels( char *sz ) {
   _("Game list, Annotation and Message panels/windows will not be displayed.")
 	     );
 
-#if USE_GUI && USE_GTK
+#if USE_GTK
   if (fX) {
     if (fDisplayPanels)
       ShowAllPanels (0, 0, 0);
