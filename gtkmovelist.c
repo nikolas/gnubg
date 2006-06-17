@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelist.c,v 1.5 2006/02/24 17:41:47 Superfly_Jon Exp $
+ * $Id: gtkmovelist.c,v 1.6 2006/06/02 21:45:28 c_anthon Exp $
  */
 
 #include <config.h>
@@ -26,7 +26,7 @@
 #include <string.h>
 #include "eval.h"
 #include "gtkchequer.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 #include "backgammon.h"
 #include "format.h"
 #include "assert.h"

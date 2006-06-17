@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.30 2004/10/26 23:24:42 oysteijo Exp $
+ * $Id: gtktheory.c,v 1.31 2006/02/24 17:41:47 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -38,7 +38,7 @@
 #include "eval.h"
 #include "gtkgame.h"
 #include "gtktheory.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 #include "matchequity.h"
 
 #define MAXPLY 4

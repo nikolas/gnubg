@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.30 2006/04/14 09:13:53 Superfly_Jon Exp $
+ * $Id: export.c,v 1.31 2006/05/21 17:29:23 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -41,7 +41,7 @@
 #include "render.h"
 #include "renderprefs.h"
 #include "matchid.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 #include "boardpos.h"
 #include "boarddim.h"
 

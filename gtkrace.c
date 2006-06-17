@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrace.c,v 1.13 2004/02/24 10:20:47 uid68519 Exp $
+ * $Id: gtkrace.c,v 1.14 2004/04/21 21:11:13 mormegil Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -37,7 +37,7 @@
 #include "eval.h"
 #include "gtkrace.h"
 #include "gtkgame.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 #include "onechequer.h"
 #include "osr.h"
 #include "format.h"

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkbearoff.c,v 1.9 2003/12/29 20:21:49 uid65656 Exp $
+ * $Id: gtkbearoff.c,v 1.10 2005/02/08 16:37:45 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -35,7 +35,7 @@
 #include "gtkgame.h"
 #include "gtktoolbar.h"
 #include "bearoff.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 
 typedef struct _bearoffwidget {
 

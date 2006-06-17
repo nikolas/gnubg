@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.35 2005/02/21 23:23:07 jsegrave Exp $
+ * $Id: bearoff.c,v 1.36 2005/04/30 07:19:28 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -50,7 +50,7 @@
 #include "positionid.h"
 #include "eval.h"
 #include "bearoff.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 #include "bearoffgammon.h"
 #include "path.h"
 

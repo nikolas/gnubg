@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: latex.c,v 1.31 2004/05/07 14:27:27 thyssen Exp $
+ * $Id: latex.c,v 1.32 2004/10/22 14:25:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -29,7 +29,7 @@
 #include "drawboard.h"
 #include "export.h"
 #include "format.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 
 static char*aszLuckTypeLaTeXAbbr[] = { "$--$", "$-$", "", "$+$", "$++$" };
 

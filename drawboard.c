@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.32 2003/10/14 16:43:33 jsegrave Exp $
+ * $Id: drawboard.c,v 1.33 2004/02/09 13:02:30 uid68519 Exp $
  */
 
 #include "config.h"
@@ -30,7 +30,7 @@
 
 #include "drawboard.h"
 #include "positionid.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 
 int fClockwise = FALSE; /* Player 1 moves clockwise */
 
