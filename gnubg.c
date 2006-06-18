@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.619 2006/06/09 22:04:52 c_anthon Exp $
+ * $Id: gnubg.c,v 1.620 2006/06/17 17:58:27 oysteijo Exp $
  */
 
 #include "config.h"
@@ -7333,9 +7333,7 @@ int main(int argc, char *argv[] ) {
 
 #endif /* USE_GTK2 */
 
-#if HAVE_SETLOCALE
     setlocale (LC_ALL, "");
-#endif
     bindtextdomain (PACKAGE, LOCALEDIR);
     textdomain (PACKAGE);
     bind_textdomain_codeset( PACKAGE, GNUBG_CHARSET );
