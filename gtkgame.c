@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.571 2006/06/17 17:58:27 oysteijo Exp $
+ * $Id: gtkgame.c,v 1.572 2006/06/22 22:50:29 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -65,7 +65,7 @@
 #include <sys/utsname.h>
 #endif
 
-#include "glib.h"
+#include <glib.h>
 
 #include "analysis.h"
 #include "backgammon.h"
