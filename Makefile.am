@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.149 2006/06/26 20:12:57 c_anthon Exp $
+## $Id: Makefile.am,v 1.150 2006/06/29 09:39:41 c_anthon Exp $
 
 localedir = $(datadir)/locale
 
@@ -90,7 +90,7 @@ COMMON_SOURCES = credits.h credits.c copying.c backgammon.h gnubg.c \
 		 renderprefs.c renderprefs.h boardpos.c boardpos.h \
 		 progress.c progress.h format.c format.h formatgs.c \
 		 formatgs.h boarddim.h timer.c external_y.y \
-		 external_l.l external_y.h openurl.c openurl.h mec.h \
+		 external_l.l openurl.c openurl.h mec.h \
 		 mec.c relational.h relational.c
 
 COMMON_DEPS = @LIBOBJS@ lib/libevent.a
