@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.l,v 1.2 2000/10/17 15:12:33 gtw Exp $
+ * $Id: sgf.l,v 1.3 2002/06/02 16:34:40 thyssen Exp $
  */
 
 %{
@@ -26,7 +26,7 @@
 
 #include "sgf.h"
 #include "sgfp.h"
-#include "i18n.h"
+#include <glib/gi18n.h>
 
 extern int _SGFWarning( char * );
 
