@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.16.6.1 2003/08/05 07:54:14 Superfly_Jon Exp $
+ * $Id: matchequity.h,v 1.18 2003/08/13 11:52:28 Superfly_Jon Exp $
  */
 
 
@@ -31,9 +31,9 @@
 
 typedef struct _metinfo {
 
-  char *szName;          /* Name of match equity table */
-  char *szFileName;     /* File name of met */
-  char *szDescription;  /* Description of met */
+  unsigned char *szName;          /* Name of match equity table */
+  unsigned char *szFileName;     /* File name of met */
+  unsigned char *szDescription;  /* Description of met */
   int nLength;                /* native length of met */
  
 } metinfo;
