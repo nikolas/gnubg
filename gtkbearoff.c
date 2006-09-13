@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkbearoff.c,v 1.11 2006/06/17 17:58:27 oysteijo Exp $
+ * $Id: gtkbearoff.c,v 1.14 2006/09/11 22:59:40 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -325,7 +325,6 @@ extern void
 GTKShowEPC( int anBoard[ 2 ][ 25 ] )
 {
   GtkWidget *pwDialog;
-  GdkFont *pf;
   GtkWidget *pwText;
   gchar *pch;
   GtkTextBuffer *buffer;
