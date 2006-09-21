@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: speed.c,v 1.3 2004/06/26 14:54:53 thyssen Exp $
+ * $Id: speed.c,v 1.4 2006/06/17 17:58:27 oysteijo Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -119,7 +119,7 @@ extern void CommandCalibrate( char *sz ) {
 
 #if USE_GTK
 	if( fX )
-	    GTKCalibrationUpdate( pcc, ( iIter + 1.0 ) * EVALS_PER_ITERATION *
+	    GTKCalibrationUpdate( pcc, ( iIter + 1.0f ) * EVALS_PER_ITERATION *
 				  CLOCKS_PER_SEC / c );
 	else
 #endif

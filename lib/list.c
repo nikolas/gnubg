@@ -2,7 +2,7 @@
  * list.c
  *
  * by Gary Wong, 1996
- * $Id$
+ * $Id: list.c,v 1.5 2005/02/21 23:23:08 jsegrave Exp $
  */
 
 #include <list.h>
@@ -21,7 +21,7 @@ list *ListInsert( list *pl, void *p ) {
 
     list *plNew;
 
-    if( !( plNew = malloc( sizeof( *plNew ) ) ) )
+    if ( (plNew = malloc( sizeof( *plNew ))) == NULL )
 	return NULL;
 
     plNew->p = p;

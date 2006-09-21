@@ -2,7 +2,7 @@
  * fifo.c
  *
  * by Gary Wong, 1996
- * $Id$
+ * $Id: fifo.c,v 1.4 2005/02/21 23:23:08 jsegrave Exp $
  */
 
 #include "config.h"
@@ -14,7 +14,7 @@
 
 int FifoCreate( fifo *pf, int cb ) {
 
-    if( !( pf->pchBuffer = malloc( cb ) ) )
+    if( ( pf->pchBuffer = malloc( cb ) ) == NULL )
 	return -1;
 
     pf->cbSize = cb;
