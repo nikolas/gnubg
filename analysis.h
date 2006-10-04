@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.33 2004/01/01 17:59:29 uid65656 Exp $
+ * $Id: analysis.h,v 1.34 2006/06/22 22:50:29 Superfly_Jon Exp $
  */
 
 #ifndef _ANALYSIS_H_
@@ -112,7 +112,7 @@ extern void IniStatcontext ( statcontext* psc );
 extern void AddStatcontext ( const statcontext* pscA, statcontext* pscB );
 
 extern void
-DumpStatcontext ( char* szOutput, const statcontext* psc, const char* sz,
+DumpStatcontext ( char *szOutput, const statcontext *psc, const char * pl, const char * op, const char * sz,
                   const int fIsMatch );
 
 extern void
