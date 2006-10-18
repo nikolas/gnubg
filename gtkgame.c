@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.594 2006/10/16 13:59:46 c_anthon Exp $
+ * $Id: gtkgame.c,v 1.595 2006/10/17 18:23:01 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
@@ -2322,7 +2322,7 @@ extern void RunGTK( GtkWidget *pwSplash )
 #if HAVE_LIBREADLINE
 		if( fReadline ) {
 			fReadingCommand = TRUE;
-			rl_callback_handler_install( FormatPrompt(), HandleInput );
+			rl_callback_handler_install( FormatPrompt(), ProcessInput );
 			atexit( rl_callback_handler_remove );
 		} else
 #endif
