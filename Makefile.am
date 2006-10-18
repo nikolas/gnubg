@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.154 2006/09/26 11:59:18 c_anthon Exp $
+## $Id: Makefile.am,v 1.155 2006/10/04 12:28:39 c_anthon Exp $
 
 localedir = $(datadir)/locale
 
@@ -61,7 +61,7 @@ BOARD3DDATA=
 endif
 
 
-SUBDIRS = lib doc met po m4 xpm sounds $(BOARD3D_DIR) scripts
+SUBDIRS = lib doc met po m4 xpm sounds $(BOARD3D_DIR) scripts flags
 
 if USE_PYTHON
 PYTHON_SOURCES=gnubgmodule.c gnubgmodule.h
