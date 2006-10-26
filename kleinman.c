@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: kleinman.c,v 1.3 2002/01/08 23:17:36 oysteijo Exp $
+ * $Id: kleinman.c,v 1.4 2006/09/21 22:24:05 Superfly_Jon Exp $
  */
 
-#if HAVE_CONFIG_H
 #include "config.h"
-#endif
 
 #ifdef STANDALONE
 #include <stdio.h>

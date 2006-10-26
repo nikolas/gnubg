@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boardpos.c,v 1.6 2003/09/18 22:53:08 jsegrave Exp $
+ * $Id: boardpos.c,v 1.7 2006/06/17 17:58:27 oysteijo Exp $
  */
 
-#if HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <assert.h>
 #include <stdlib.h>
