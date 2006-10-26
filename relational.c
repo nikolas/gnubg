@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.25 2006/10/04 12:28:39 c_anthon Exp $
+ * $Id: relational.c,v 1.26 2006/10/09 12:28:43 Superfly_Jon Exp $
  */
 
-#if HAVE_CONFIG_H
 #include "config.h"
-#endif
 
 #if USE_PYTHON
 

@@ -16,12 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: speed.c,v 1.4 2006/06/17 17:58:27 oysteijo Exp $
+ * $Id: speed.c,v 1.5 2006/09/21 22:24:06 Superfly_Jon Exp $
  */
 
-#if HAVE_CONFIG_H
 #include <config.h>
-#endif
 
 #include <isaac.h>
 #include <time.h>

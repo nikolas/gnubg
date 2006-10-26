@@ -2,7 +2,7 @@
  * hash.c
  *
  * by Gary Wong, 1997-2000
- * $Id: hash.c,v 1.12 2005/02/21 23:23:08 jsegrave Exp $
+ * $Id: hash.c,v 1.13 2006/09/21 22:24:45 Superfly_Jon Exp $
  */
 
 #include <assert.h>
@@ -27,7 +27,7 @@ extern int HashCreate( hash *ph, int c, hashcomparefunc phcf ) {
     for( i = 0; ac[ i + 1 ] && c > ac[ i ]; i++ )
 	;
     
-    if( ( ph->aphn = calloc( ac[ i ], sizeof( hashnode * ) ) ) == NULL )
+    if( ( ph->aphn = (hashnode**)calloc( ac[ i ], sizeof( hashnode * ) ) ) == NULL )
 	return -1;
     
     ph->c = 0;
@@ -324,7 +324,7 @@ CacheCreate(cache* pc, unsigned int s)
 
   pc->size = ( s < pc->size ) ? 2*s : s;
   
-  pc->m = malloc(pc->size * sizeof(*pc->m));
+  pc->m = (cacheNode*)malloc(pc->size * sizeof(*pc->m));
 
   if( pc->m == 0 ) {
     return -1;

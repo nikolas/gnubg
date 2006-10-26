@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.h,v 1.1 2002/03/23 17:22:43 thyssen Exp $
+ * $Id: matchid.h,v 1.2 2004/10/05 16:13:00 Superfly_Jon Exp $
  */
 
 #ifndef _MATCHID_H_
@@ -54,7 +54,7 @@ MatchFromID ( int anDice[ 2 ],
               int *pnMatchTo,
               int anScore[ 2 ],
               int *pnCube,
-              int *pgs,
+              gamestate *pgs,
               const char *szMatchID );
 
 extern int
@@ -68,7 +68,7 @@ MatchFromKey ( int anDice[ 2 ],
                int *pnMatchTo,
                int anScore[ 2 ],
                int *pnCube,
-               int *pgs,
+               gamestate *pgs,
                const unsigned char *auchKey );
 
 extern char *
