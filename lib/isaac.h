@@ -1,5 +1,5 @@
 /*
- $Id$
+ $Id: isaac.h,v 1.2 2005/02/21 23:23:08 jsegrave Exp $
 ------------------------------------------------------------------------------
 isaac.h: definitions for a random number generator
 MODIFIED:
@@ -36,9 +36,9 @@ typedef  struct randctx  randctx;
  If (flag==TRUE), then use the contents of randrsl[0..RANDSIZ-1] as the seed.
 ------------------------------------------------------------------------------
 */
-void irandinit(/*_ randctx *r, word flag _*/);
+void irandinit( randctx *r, word flag );
 
-void isaac(/*_ randctx *r _*/);
+void isaac( randctx *r );
 
 
 /*
