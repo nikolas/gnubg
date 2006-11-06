@@ -2,6 +2,7 @@
  * buffer.h
  *
  * by Gary Wong, 1996
+ * $Id$
  */
 
 #ifndef _BUFFER_H_
@@ -9,6 +10,9 @@
 
 #include <event.h>
 #include <fifo.h>
+
+#if HAVE_EVENT
+#define HAVE_BUFFER 1
 
 typedef struct _buffer {
     fifo fRead, fWrite;
@@ -33,5 +37,6 @@ extern int BufferConsume( buffer *pb, int cch );
 
 extern int BufferWrite( buffer *pb, char *sz );
 extern int BufferWritef( buffer *pb, char *szFormat, ... );
+#endif
 
 #endif

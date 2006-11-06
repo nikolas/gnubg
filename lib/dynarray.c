@@ -2,10 +2,12 @@
  * dynarray.c
  *
  * by Gary Wong, 1996
+ * $Id: dynarray.c,v 1.5 2005/02/21 23:23:08 jsegrave Exp $
  */
 
 #include <assert.h>
 #include <errno.h>
+#include <stddef.h>
 #include <stdlib.h>
 
 #include "config.h"
@@ -13,7 +15,7 @@
 
 int DynArrayCreate( dynarray *pda, int c, int fCompact ) {
 
-    if( !( pda->ap = calloc( pda->cp = c, sizeof( void * ) ) ) )
+    if( ( pda->ap = calloc( pda->cp = c, sizeof( void * ) ) ) == NULL )
 	return -1;
     
     pda->c = 0;
@@ -40,7 +42,9 @@ int DynArrayAdd( dynarray *pda, void *p ) {
 	if( !pda->ap[ i ] )
 	    break;
 
-    if( ( i >= pda->cp ) && !( pda->ap = realloc( pda->ap, pda->cp <<= 1 ) ) )
+    if( ( i >= pda->cp ) &&
+	(( pda->ap = realloc( pda->ap, ( pda->cp <<= 1 ) *
+			      sizeof( void * ) ) ) == NULL) )
 	return -1;
 
     pda->c++;
@@ -70,7 +74,8 @@ int DynArrayDelete( dynarray *pda, int i ) {
     }
     
     if( ( ( pda->cp >> 2 ) >= pda->iFinish ) &&
-	!( pda->ap = realloc( pda->ap, pda->cp >>= 1 ) ) )
+	(( pda->ap = realloc( pda->ap, ( pda->cp >>= 1 ) *
+			      sizeof( void * ) ) ) == NULL) )
 	return -1;
     
     return 0;
@@ -109,7 +114,8 @@ extern int DynArraySet( dynarray *pda, int i, void *p ) {
 	return 0;
     }
     
-    if( ( i >= pda->cp ) && !( pda->ap = realloc( pda->ap, pda->cp <<= 1 ) ) )
+    if( ( i >= pda->cp ) && (( pda->ap = realloc( pda->ap, ( pda->cp <<= 1 ) *
+						  sizeof( void * ) ) ) == NULL ) )
 	return -1;
 
     pda->c++;

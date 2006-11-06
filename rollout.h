@@ -16,13 +16,138 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.1 1999/12/04 02:19:39 gary Exp $
+ * $Id: rollout.h,v 1.22 2003/08/16 21:35:58 joseph Exp $
  */
 
 #ifndef _ROLLOUT_H_
 #define _ROLLOUT_H_
 
-extern int Rollout( int anBoard[ 2 ][ 25 ], float arOutput[], float arStdDev[],
-		    int nPlies, int nTruncate, int cGames );
+#define MAXHIT 50 /* for statistics */
+#define STAT_MAXCUBE 10
+
+typedef struct _rolloutstat {
+
+  /* Regular win statistics (dimension is cube turns) */
+
+  int acWin[ STAT_MAXCUBE ];
+  int acWinGammon[ STAT_MAXCUBE ];
+  int acWinBackgammon[ STAT_MAXCUBE ]; 
+
+  /* Cube statistics (dimension is cube turns) */
+
+  int acDoubleDrop[ STAT_MAXCUBE ]; /* # of Double, drop */
+  int acDoubleTake[ STAT_MAXCUBE ]; /* # of Double, takes */
+
+  /* Chequer hit statistics (dimension is move number) */
+  
+  /* Opponent closed out */
+
+  int nOpponentHit;
+  int rOpponentHitMove;
+
+  /* Average loss of pips in bear-off */
+
+  int nBearoffMoves; /* number of moves with bearoff */
+  int nBearoffPipsLost; /* number of pips lost in these moves */
+
+  /* Opponent closed out */
+
+  int nOpponentClosedOut;
+  int rOpponentClosedOutMove;
+
+  /* FIXME: add more stuff */
+
+} rolloutstat;
+
+typedef void
+(rolloutprogressfunc) ( float arOutput[][ NUM_ROLLOUT_OUTPUTS ],
+                        float arStdDev[][ NUM_ROLLOUT_OUTPUTS ],
+                        const rolloutcontext *prc,
+                        const cubeinfo aci[],
+                        const int iGame,
+                        const int iAlternative,
+						const int nRank,
+						const float rJsd,
+						const int fStopped,
+						const int fShowRanks,
+                        void *pUserData );
+
+extern int
+RolloutGeneral( int (* apBoard[])[ 2 ][ 25 ], 
+                float (* apOutput[])[ NUM_ROLLOUT_OUTPUTS ],
+                float (* apStdDev[])[ NUM_ROLLOUT_OUTPUTS ],
+                rolloutstat apStatistics[][2],
+                evalsetup (* apes[]),
+                const cubeinfo (* apci[]), 
+                int (* apCubeDecTop[]), int alternatives, 
+		int fInvert, int fCubeRollout,
+                rolloutprogressfunc *pfRolloutProgress,
+                void *pUserData );
+
+extern int
+GeneralEvaluation ( float arOutput[ NUM_ROLLOUT_OUTPUTS ], 
+                    float arStdDev[ NUM_ROLLOUT_OUTPUTS ], 
+                    rolloutstat arsStatistics[ 2 ],
+                    int anBoard[ 2 ][ 25 ],
+                    const cubeinfo* pci, const evalsetup* pes,
+                    rolloutprogressfunc* pfRolloutProgress,
+                    void *pUserData );
+
+extern int
+GeneralEvaluationR ( float arOutput[ NUM_ROLLOUT_OUTPUTS ],
+                     float arStdDev[ NUM_ROLLOUT_OUTPUTS ],
+                     rolloutstat arsStatistics[ 2 ],
+                     int anBoard[ 2 ][ 25 ],
+                     const cubeinfo* pci, const rolloutcontext* prc,
+                     rolloutprogressfunc *pfRolloutProgress,
+                     void *pUserData );
+
+extern int
+GeneralCubeDecision ( float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ], 
+                      float aarStdDev[ 2 ][ NUM_ROLLOUT_OUTPUTS ], 
+                      rolloutstat aarsStatistics[ 2 ][ 2 ],
+                      int anBoard[ 2 ][ 25 ],
+                      cubeinfo *pci, evalsetup *pes,
+                      rolloutprogressfunc *pfRolloutProgress,
+                      void *pUserData );
+                      
+
+extern int
+GeneralCubeDecisionR ( float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ], 
+                       float aarStdDev[ 2 ][ NUM_ROLLOUT_OUTPUTS ], 
+                       rolloutstat aarsStatistics[ 2 ][ 2 ],
+                       int anBoard[ 2 ][ 25 ],
+                       cubeinfo *pci, rolloutcontext *prc, evalsetup *pes,
+                       rolloutprogressfunc *pfRolloutProgress,
+                       void *pUserData );
+
+/* operations on rolloutstat */
+
+extern char *
+printRolloutstat ( char *sz, const rolloutstat *prs,
+                   const int cGames );
+
+/* Resignations */
+
+extern int
+getResignation ( float arResign[ NUM_ROLLOUT_OUTPUTS ],
+                 int anBoard[ 2 ][ 25 ],
+                 const cubeinfo* pci, 
+                 const evalsetup* pesResign );
+
+extern void
+getResignEquities ( float arResign[ NUM_ROLLOUT_OUTPUTS ],
+                    cubeinfo *pci, 
+                    int nResigned,
+                    float *prBefore, float *prAfter );
+
+extern int
+ScoreMoveRollout ( move **ppm, const cubeinfo** ppci, int cMoves,
+                   rolloutprogressfunc *pfRolloutProgress,
+                   void *pUserData );
+
+extern int
+ScoreMoveGeneral ( move *pm, const cubeinfo* pci, const evalsetup* pes,
+                   rolloutprogressfunc* pfRolloutProgress, void* pUserData );
 
 #endif

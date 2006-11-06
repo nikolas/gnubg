@@ -1,0 +1,6 @@
+.deps
+Makefile.in
+Makefile
+config.status
+hashtest
+md5test

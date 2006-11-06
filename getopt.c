@@ -22,7 +22,9 @@
    You should have received a copy of the GNU General Public License
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
-   USA.  */
+   USA.  
+   $Id$
+*/
 
 /* This tells Alpha OSF/1 not to define a getopt prototype in <stdio.h>.
    Ditto for AIX 3.2 and <stdlib.h>.  */
@@ -74,9 +76,10 @@
 
 #ifdef VMS
 #include <unixlib.h>
+#endif
+
 #if HAVE_STRING_H - 0
 #include <string.h>
-#endif
 #endif
 
 #ifndef _
@@ -689,7 +692,7 @@ _getopt_internal (argc, argv, optstring, longopts, longind, long_only)
 		optarg = nameend + 1;
 	      else
 		{
-		  if (opterr)
+		  if (opterr) {
 		   if (argv[optind - 1][1] == '-')
 		    /* --option */
 		    fprintf (stderr,
@@ -700,6 +703,7 @@ _getopt_internal (argc, argv, optstring, longopts, longind, long_only)
 		    fprintf (stderr,
 		     _("%s: option `%c%s' doesn't allow an argument\n"),
 		     argv[0], argv[optind - 1][0], pfound->name);
+          }
 
 		  nextchar += strlen (nextchar);
 
