@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkbearoff.c,v 1.16 2006/09/21 22:24:05 Superfly_Jon Exp $
+ * $Id: gtkbearoff.c,v 1.17 2006/10/26 17:02:31 Superfly_Jon Exp $
  */
 
 #include <config.h>
@@ -26,6 +26,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <assert.h>
+#include <stdlib.h>
 
 #include "backgammon.h"
 #include "gtkbearoff.h"
