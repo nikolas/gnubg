@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.150 2006/09/21 22:24:06 Superfly_Jon Exp $
+ * $Id: rollout.c,v 1.151 2006/10/26 17:02:32 Superfly_Jon Exp $
  */
 
 #include <config.h>
@@ -537,8 +537,12 @@ BasicCubefulRollout ( int aanBoard[][ 2 ][ 25 ],
             /* update statistics */
 
 	    if( aarsStatistics )
+            {
 		aarsStatistics[ ici ]
 		    [ pci->fMove ].acDoubleDrop[ LogCube ( pci->nCube ) ]++; 
+                aarsStatistics[ ici ][ pci->fMove ].
+                        acWin[ LogCube ( pci->nCube )]++;
+            };
 
             break;
 
