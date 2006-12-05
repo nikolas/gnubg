@@ -19,9 +19,13 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.59 2006/07/04 16:46:15 c_anthon Exp $
+* $Id: matchequity.c,v 1.60 2006/09/21 22:24:05 Superfly_Jon Exp $
 */
 
+#include "config.h"
+
+#include <glib.h>
+#include <glib/gprintf.h>
 #include <stdio.h>
 #include <assert.h>
 #include <math.h>
@@ -29,7 +33,6 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#include "config.h"
 #include "list.h"
 #include "path.h"
 #include "mec.h"
@@ -1318,7 +1321,7 @@ static void validateWarning ( void *ctx,
   va_list ap;
   
   va_start ( ap, msg );
-  vprintf ( msg, ap );
+  g_vprintf ( msg, ap );
   va_end ( ap );
 
 }
@@ -1330,7 +1333,7 @@ static void validateError ( void *ctx,
   va_list ap;
 
   va_start ( ap, msg );
-  vprintf ( msg, ap );
+  g_vprintf ( msg, ap );
   va_end ( ap );
 
 }

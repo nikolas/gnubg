@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.137 2006/11/19 16:57:46 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.138 2006/11/23 19:29:01 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1966,7 +1966,7 @@ WriteDesignHeader( const char *szFile, FILE *pf ) {
   time ( &t );
   fputs ( ctime ( &t ), pf );
   fputs ( "\n"
-          "    $Id: gtkprefs.c,v 1.137 2006/11/19 16:57:46 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.138 2006/11/23 19:29:01 Superfly_Jon Exp $\n"
           "\n"
           " -->\n"
           "\n"
@@ -3306,7 +3306,7 @@ static void Err( void *pv, const char *msg, ... ) {
   ppc->err = TRUE;
   
   va_start(args, msg);
-  vprintf(msg, args);
+  g_vprintf(msg, args);
   va_end(args);
   
 }
