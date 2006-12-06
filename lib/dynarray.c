@@ -2,9 +2,10 @@
  * dynarray.c
  *
  * by Gary Wong, 1996
- * $Id: dynarray.c,v 1.6 2006/09/21 22:24:45 Superfly_Jon Exp $
+ * $Id: dynarray.c,v 1.7 2006/10/26 17:02:51 Superfly_Jon Exp $
  */
 
+#include <glib.h>
 #include <assert.h>
 #include <errno.h>
 #include <stddef.h>

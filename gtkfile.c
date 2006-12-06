@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.19 2006/11/26 16:04:42 c_anthon Exp $
+ * $Id: gtkfile.c,v 1.20 2006/11/26 22:32:49 Superfly_Jon Exp $
  */
 
 #include <config.h>
@@ -30,9 +30,10 @@
 #include <unistd.h>
 #endif
 #include <ctype.h>
-#include "backgammon.h"
 #include <glib/gi18n.h>
 #include <gtk/gtk.h>
+
+#include "backgammon.h"
 #include "gtkfile.h"
 #include "gtkgame.h"
 #include "gtkwindows.h"

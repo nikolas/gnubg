@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelistctrl.c,v 1.7 2006/04/15 01:35:20 c_anthon Exp $
+ * $Id: gtkmovelistctrl.c,v 1.8 2006/09/30 09:24:33 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -191,7 +191,7 @@ custom_cell_renderer_movelist_get_property (GObject    *object,
                                             GParamSpec *pspec)
 {
 	CustomCellRendererMovelist  *cellprogress = CUSTOM_CELL_RENDERER_MOVELIST(object);
-	assert(param_id == 1);
+	g_assert(param_id == 1);
 
 	g_value_set_pointer(value, cellprogress->pml);
 }

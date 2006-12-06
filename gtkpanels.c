@@ -18,15 +18,12 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.31 2006/11/16 23:23:44 c_anthon Exp $
+* $Id: gtkpanels.c,v 1.32 2006/11/17 19:46:30 Superfly_Jon Exp $
 */
 
 #include "config.h"
 
 #include <stdlib.h>
-#if HAVE_LIMITS_H
-#include <limits.h>
-#endif
 #include <ctype.h>
 #include "backgammon.h"
 #include <glib/gi18n.h>

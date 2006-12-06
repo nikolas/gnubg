@@ -16,10 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.c,v 1.10 2005/02/10 10:31:43 Superfly_Jon Exp $
+ * $Id: matchid.c,v 1.11 2006/10/26 17:02:31 Superfly_Jon Exp $
  */
 
-#include <assert.h>
+#include <glib.h>
 #include <errno.h>
 #include <string.h>
 

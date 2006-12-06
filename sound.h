@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sound.h,v 1.10 2003/09/12 13:35:24 steink Exp $
+ * $Id: sound.h,v 1.11 2006/11/26 22:43:47 Superfly_Jon Exp $
  */
 
 #ifndef _SOUND_H_
@@ -58,7 +58,6 @@ typedef enum _soundsystem {
   SOUND_SYSTEM_ARTSC = 0,
   SOUND_SYSTEM_COMMAND,
   SOUND_SYSTEM_ESD,
-  SOUND_SYSTEM_NAS,
   SOUND_SYSTEM_NORMAL,
   SOUND_SYSTEM_WINDOWS,
   SOUND_SYSTEM_QUICKTIME,

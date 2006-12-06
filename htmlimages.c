@@ -16,24 +16,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.34 2006/06/27 22:23:31 c_anthon Exp $
+ * $Id: htmlimages.c,v 1.35 2006/10/26 17:02:31 Superfly_Jon Exp $
  */
 
 #include <config.h>
-
 #include <errno.h>
 
 #if HAVE_SYS_STAT_H
 #include <sys/stat.h>
 #endif
 
-#include <stdio.h>
 #include <string.h>
-
-#if HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
-
 #if HAVE_UNISTD_H
 #include <unistd.h>
 #endif
