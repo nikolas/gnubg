@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.48 2006/12/08 08:32:01 c_anthon Exp $
+ * $Id: sound.c,v 1.49 2006/12/10 21:49:33 Superfly_Jon Exp $
  */
 
 #include <config.h>
@@ -760,7 +760,7 @@ static int artsc_play_file(const char *file)
 
 #include <QuickTime/QuickTime.h>
 #include <pthread.h>
-#include "lib/list.h"
+#include "list.h"
 
 static int		fQTInitialised = FALSE;
 static int 		fQTPlaying = FALSE;

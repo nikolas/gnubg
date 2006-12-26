@@ -16,12 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.l,v 1.3 2002/06/02 16:34:40 thyssen Exp $
+ * $Id: sgf.l,v 1.4 2006/06/29 09:39:41 c_anthon Exp $
  */
 
 %{
 #include <ctype.h>
-#include <list.h>
+#include "list.h"
 #include <string.h>
 
 #include "sgf.h"

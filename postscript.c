@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: postscript.c,v 1.45 2006/10/26 17:02:31 Superfly_Jon Exp $
+ * $Id: postscript.c,v 1.46 2006/12/06 23:12:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -1249,7 +1249,7 @@ static void ExportGamePostScript( FILE *pf, list *plGame ) {
 
 static void PostScriptEpilogue( FILE *pf ) {
 
-    int i;
+    unsigned int i;
     long lXRef;
     
     PSEndPage( pf );

@@ -16,13 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.h,v 1.1 2000/10/16 15:30:34 gtw Exp $
+ * $Id: sgf.h,v 1.2 2001/04/19 19:42:37 gtw Exp $
  */
 
 #ifndef _SGF_H_
 #define _SGF_H_
 
-#include <list.h>
+#include "list.h"
 #include <stdio.h>
 
 typedef struct _property {
