@@ -2,7 +2,7 @@
  * fifo.h
  *
  * by Gary Wong, 1996
- * $Id: fifo.h,v 1.3 2005/02/21 23:23:08 jsegrave Exp $
+ * $Id: fifo.h,v 1.4 2006/12/26 11:22:06 Superfly_Jon Exp $
  *
  */
 
@@ -22,7 +22,7 @@ typedef struct _fifo {
     int iHead, cb;
 } fifo;
 
-extern int FifoCreate( fifo *pf, int cb );
+extern int FifoCreate( fifo *pf, unsigned int cb );
 extern int FifoDestroy( fifo *pf );
 
 extern int FifoUsed( fifo *pf );
@@ -31,4 +31,9 @@ extern int FifoCopyTo( fifo *pf, char *pch, int cch );
 extern int FifoCopyFrom( fifo *pf, char *pch, int cch );
 extern int FifoProduce( fifo *pf, int cch );
 extern int FifoConsume( fifo *pf, int cch );
+#if HAVE_READV
+#define HAVE_FIFOIOVEC 1
+extern int FifoIOVec( fifo *pf, struct iovec *piov, int fIn );
+#endif
+
 #endif
