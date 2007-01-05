@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.74 2006/10/25 09:37:47 c_anthon Exp $
+ * $Id: text.c,v 1.75 2006/12/06 23:12:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -263,7 +263,7 @@ TextEpilogue ( FILE *pf, const matchstate *pms ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.74 $";
+  const char szVersion[] = "$Revision: 1.75 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -435,7 +435,7 @@ TextPrintMoveAnalysis ( FILE *pf, matchstate *pms, moverecord *pmr ) {
 
   char szBuf[ 1024 ];
   char sz[ 64 ];
-  int i;
+  unsigned int i;
 
   cubeinfo ci;
 
