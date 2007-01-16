@@ -28,9 +28,10 @@
  *
  *     gcc -DMEC_STANDALONE mec.c -o mec
  *
- * $Id: mec.c,v 1.2 2004/04/19 09:28:28 Superfly_Jon Exp $
+ * $Id: mec.c,v 1.3 2006/09/21 22:24:05 Superfly_Jon Exp $
  */
 
+#include "config.h"
 #include <stdio.h>
 #include <stddef.h>
 #include <stdlib.h>
