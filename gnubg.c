@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.672 2007/01/16 19:05:04 Superfly_Jon Exp $
+ * $Id: gnubg.c,v 1.673 2007/01/25 09:45:08 jsegrave Exp $
  */
 
 #include "config.h"
@@ -4078,6 +4078,7 @@ Shutdown( void ) {
   FreeMatch();
   ClearMatch();
 
+  MT_Close();
   EvalShutdown();
 
 #if USE_PYTHON
@@ -7260,6 +7261,10 @@ main (int argc, char *argv[])
     PushSplash ( pwSplash, 
                  _("Initialising"), _("neural nets"), 500 );
 #endif    
+
+#ifdef USE_MULTITHREAD
+		MT_InitThreads();
+#endif
 
     if( ( n = EvalInitialise( nNewWeights ? NULL : GNUBG_WEIGHTS,
 			      nNewWeights ? NULL : GNUBG_WEIGHTS_BINARY,
