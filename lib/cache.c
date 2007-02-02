@@ -2,7 +2,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: hash.c,v 1.16 2006/12/26 11:22:06 Superfly_Jon Exp $
+ * $Id: cache.c,v 1.1 2007/02/02 19:07:43 Superfly_Jon Exp $
  */
 
 #include <config.h>
@@ -16,7 +16,7 @@
 
 #include "cache.h"
 
-#ifdef USE_MULTITHREAD
+#if USE_MULTITHREAD
 extern void MT_Lock(long *lock);
 extern void MT_Release(long *lock);
 #else
