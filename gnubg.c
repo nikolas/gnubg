@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.680 2007/02/17 09:42:08 Superfly_Jon Exp $
+ * $Id: gnubg.c,v 1.681 2007/03/15 22:10:57 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2696,7 +2696,7 @@ extern void ResetInterrupt( void ) {
 	
 #if USE_GTK
 	if( nNextTurn ) {
-	    gtk_idle_remove( nNextTurn );
+	    g_source_remove( nNextTurn );
 	    nNextTurn = 0;
 	}
 #endif
