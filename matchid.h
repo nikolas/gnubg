@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.h,v 1.2 2004/10/05 16:13:00 Superfly_Jon Exp $
+ * $Id: matchid.h,v 1.3 2006/10/26 17:02:31 Superfly_Jon Exp $
  */
 
 #ifndef _MATCHID_H_
@@ -28,7 +28,7 @@ extern int
 LogCube ( const int n );
 
 extern char*
-MatchID ( const int anDice[ 2 ],
+MatchID ( const unsigned int anDice[ 2 ],
           const int fTurn,
           const int fResigned,
           const int fDoubled,
