@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.266 2007/02/15 18:05:32 Superfly_Jon Exp $
+ * $Id: set.c,v 1.267 2007/03/17 15:42:48 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -71,6 +71,7 @@
 #include "format.h"
 #include "boarddim.h"
 #include "sound.h"
+#include "openurl.h"
 
 #include <glib/gi18n.h>
 
@@ -735,6 +736,17 @@ extern void CommandSetThreads( char *sz )
 	outputf( _("The number of threads has been set to %d.\n"), n );
 }
 #endif
+
+extern void
+CommandSetBrowser ( char *sz ) {
+
+  if ( ! sz || ! *sz ) {
+    outputl ( _("You must specify a command. "
+                "See `help set sound system command'") );
+    return;
+  }
+  set_web_browser(NextToken( &sz ));
+}
 
 extern void CommandSetCalibration( char *sz ) {
 
