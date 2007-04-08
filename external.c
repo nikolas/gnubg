@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.51 2006/09/21 22:24:05 Superfly_Jon Exp $
+ * $Id: external.c,v 1.52 2006/12/06 23:12:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -494,7 +494,7 @@ ExtFIBSBoard( extcmd *pec ) {
                                &esEvalCube, NULL, NULL ) < 0 )
         return NULL;
 	  
-      switch( FindCubeDecision( arDouble, GCCCONSTAHACK aarOutput, &ci )) {
+      switch( FindCubeDecision( arDouble,  aarOutput, &ci )) {
       case DOUBLE_PASS:
       case TOOGOOD_PASS:
       case REDOUBLE_PASS:
@@ -552,7 +552,7 @@ ExtFIBSBoard( extcmd *pec ) {
                                &esEvalCube, NULL, NULL ) < 0 )
         return NULL;
 		
-      switch( FindCubeDecision( arDouble, GCCCONSTAHACK aarOutput, &ci )) {
+      switch( FindCubeDecision( arDouble,  aarOutput, &ci )) {
       case DOUBLE_TAKE:
       case DOUBLE_PASS:
       case DOUBLE_BEAVER:
