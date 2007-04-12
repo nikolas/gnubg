@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.64 2006/12/26 11:22:06 Superfly_Jon Exp $
+* $Id: misc3d.c,v 1.65 2007/03/17 09:05:13 Superfly_Jon Exp $
 */
 
 #include "inc3d.h"
@@ -2359,7 +2359,7 @@ void GenerateImage3d(renderdata *prd, const char* szName,
 	if (!WritePNG(szName, puch, nSizeX * nSize * 3, nSizeX * nSize, nSizeY * nSize))
 		g_print("WritePNG failed!\n");
 
-	gdk_pixmap_unref(ppm);
+	g_object_unref(ppm);
 	free(puch);
 }
 
