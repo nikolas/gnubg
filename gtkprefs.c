@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.142 2006/12/10 21:49:33 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.143 2006/12/26 11:22:06 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -43,7 +43,6 @@
 #include "gtkgame.h"
 #include "gtkfile.h"
 #include "gtkprefs.h"
-#include "path.h"
 #include "render.h"
 #include "renderprefs.h"
 #include "boarddim.h"
@@ -1954,7 +1953,7 @@ WriteDesignHeader( const char *szFile, FILE *pf ) {
   time ( &t );
   fputs ( ctime ( &t ), pf );
   fputs ( "\n"
-          "    $Id: gtkprefs.c,v 1.142 2006/12/10 21:49:33 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.143 2006/12/26 11:22:06 Superfly_Jon Exp $\n"
           "\n"
           " -->\n"
           "\n"
@@ -1981,7 +1980,6 @@ DesignSave ( GtkWidget *pw, gpointer data ) {
   GList **pplBoardDesigns = (GList **) data;
 
   szFile = g_build_filename ( szHomeDirectory, "boards.xml", NULL);
-  BackupFile ( szFile );
 
   if ( ! ( pf = g_fopen ( szFile, "w+" ) ) ) {
     outputerr ( szFile );
