@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.11 2007/01/25 19:29:41 c_anthon Exp $
+ * $Id: makehyper.c,v 1.12 2007/02/11 21:20:31 c_anthon Exp $
  */
 
 #include "config.h"
@@ -57,6 +57,24 @@ extern int MT_GetThreadID()
 {
   return (0);
 }
+
+#if WIN32
+extern char * getInstallDir( void ) {
+
+  char buf[_MAX_PATH];
+  char *p;
+  static char *ret = NULL;
+  if (ret)
+	  return (ret);
+  GetModuleFileName(NULL, buf, sizeof(buf));
+  p = MAX(strrchr(buf, '/'), strrchr(buf, '\\'));
+  if (p)
+	  *p = '\0';
+  ret = g_strdup(buf);
+  return ret;
+}
+#endif
+
 
 /* end ugly fixes */
 
