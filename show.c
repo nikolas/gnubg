@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.224 2007/04/27 08:53:11 c_anthon Exp $
+ * $Id: show.c,v 1.225 2007/05/01 22:04:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2085,6 +2085,7 @@ CommandShowSound ( char *sz ) {
       outputf ( _("   %-30.30s : \"%s\"\n"),
                 gettext ( sound_description[ i ] ),
                 sound);
+    g_free(sound);
   }
 }
 
