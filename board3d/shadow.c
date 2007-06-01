@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: shadow.c,v 1.11 2006/12/26 11:22:06 Superfly_Jon Exp $
+* $Id: shadow.c,v 1.12 2007/03/17 09:05:13 Superfly_Jon Exp $
 */
 
 #include "inc3d.h"
@@ -58,7 +58,7 @@ void draw_shadow_volume_edges(Occluder* pOcc)
 	}
 }
 #endif
-static void draw_shadow_volume_extruded_edges(const Occluder* pOcc, const float light_position[4], unsigned int prim)
+static void draw_shadow_volume_extruded_edges(Occluder* pOcc, const float light_position[4], unsigned int prim)
 {
 	if (pOcc->show)
 	{
@@ -74,7 +74,7 @@ static void draw_shadow_volume_extruded_edges(const Occluder* pOcc, const float 
 	}
 }
 
-static void draw_shadow_volume_to_stencil(const BoardData3d* bd3d)
+static void draw_shadow_volume_to_stencil(BoardData3d* bd3d)
 {
 	int i;
 

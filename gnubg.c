@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.708 2007/05/31 22:29:38 c_anthon Exp $
+ * $Id: gnubg.c,v 1.709 2007/06/01 13:29:31 c_anthon Exp $
  */
 
 #include "config.h"
@@ -5389,13 +5389,13 @@ extern char *GetInput( char *szPrompt )
     char *sz;
     char *pch;
     char *pchConverted;
-    char *prompt;
 #if USE_GTK
     g_assert( fTTY && !fX );
 #endif
 
 #if HAVE_LIBREADLINE
     if( fInteractive ) {
+        char *prompt;
 	/* Using readline, but not X. */
 	if( fInterrupt )
 	    return NULL;
