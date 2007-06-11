@@ -19,10 +19,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.28 2007/05/23 15:15:16 c_anthon Exp $
+ * $Id: gtkfile.c,v 1.29 2007/06/07 22:08:41 c_anthon Exp $
  */
 
-#include <config.h>
+#include "config.h"
 #include "backgammon.h"
 
 #include <stdlib.h>

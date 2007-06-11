@@ -18,9 +18,10 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: model.c,v 1.13 2007/03/15 22:10:58 c_anthon Exp $
+* $Id: model.c,v 1.14 2007/03/17 09:05:13 Superfly_Jon Exp $
 */
 
+#include "config.h"
 #include "inc3d.h"
 
 #define TOP_EDGE -2

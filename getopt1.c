@@ -18,11 +18,11 @@
    along with this program; if not, write to the Free Software
    Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307,
    USA.  
-   $Id$
+   $Id: getopt1.c,v 1.2 2005/02/21 23:23:07 jsegrave Exp $
 */
 
 #ifdef HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
 #include "getopt.h"

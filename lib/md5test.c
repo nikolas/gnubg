@@ -1,6 +1,7 @@
+#include "config.h"
 #include <string.h>
 #include "md5.h"
-/* $Id$ */
+/* $Id: md5test.c,v 1.2 2005/02/21 23:23:08 jsegrave Exp $ */
 static const struct
 {
   const char *input;

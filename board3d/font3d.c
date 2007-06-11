@@ -18,9 +18,10 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: font3d.c,v 1.13 2007/03/17 09:05:13 Superfly_Jon Exp $
+* $Id: font3d.c,v 1.14 2007/05/01 22:04:52 c_anthon Exp $
 */
 
+#include "config.h"
 #include "inc3d.h"
 
 #include <ft2build.h>

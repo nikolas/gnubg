@@ -50,11 +50,11 @@ extern long int getrandom ( void ) {
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: userrng.c,v 1.3 2000/01/10 18:50:47 gtw Exp $
+ * $Id: userrng.c,v 1.4 2005/10/29 15:41:03 Superfly_Jon Exp $
  */
 
 #if HAVE_CONFIG_H
-#include <config.h>
+#include "config.h"
 #endif
 
 #include <stdio.h>

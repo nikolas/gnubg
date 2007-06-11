@@ -2,9 +2,10 @@
  * hash.c
  *
  * by Gary Wong, 1997-2000
- * $Id: hash.c,v 1.16 2006/12/26 11:22:06 Superfly_Jon Exp $
+ * $Id: hash.c,v 1.17 2007/02/02 19:07:43 Superfly_Jon Exp $
  */
 
+#include "config.h"
 #include <stddef.h>
 #include <stdlib.h>
 #include <string.h>

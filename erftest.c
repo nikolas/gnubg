@@ -3,13 +3,13 @@
  *
  * by Gary Wong, 2001
  *
- * $Id$
+ * $Id: erftest.c,v 1.1 2001/04/12 16:45:07 gtw Exp $
  */
 
 #include <math.h>
 #include <stdio.h>
 
-#include <config.h>
+#include "config.h"
 
 #define erf erftest
 #include "erf.c"

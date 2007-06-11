@@ -16,10 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.35 2006/10/26 17:02:31 Superfly_Jon Exp $
+ * $Id: htmlimages.c,v 1.36 2006/12/06 23:12:52 c_anthon Exp $
  */
 
-#include <config.h>
+#include "config.h"
 #include <errno.h>
 
 #if HAVE_SYS_STAT_H

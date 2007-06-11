@@ -18,9 +18,10 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.66 2007/04/12 15:18:42 oysteijo Exp $
+* $Id: misc3d.c,v 1.67 2007/05/01 22:04:52 c_anthon Exp $
 */
 
+#include "config.h"
 #include "inc3d.h"
 #include "renderprefs.h"
 #include "sound.h"
