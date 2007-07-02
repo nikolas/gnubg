@@ -4,7 +4,7 @@
  * by Gary Wong <gary@cs.arizona.edu>, 1999, 2000, 2001.
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 2 of the GNU General Public License as
+ * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.165 2007/04/08 16:46:20 c_anthon Exp $
+ * $Id: rollout.c,v 1.166 2007/06/11 19:01:11 c_anthon Exp $
  */
 
 #include "config.h"

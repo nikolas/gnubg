@@ -20,7 +20,7 @@
  *
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 2 of the GNU General Public License as
+ * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
@@ -32,7 +32,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.34 2006/10/26 17:02:31 Superfly_Jon Exp $
+ * $Id: positionid.c,v 1.35 2006/12/06 23:12:52 c_anthon Exp $
  */
 
 #include "config.h"
