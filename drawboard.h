@@ -4,7 +4,7 @@
  * by Gary Wong <gary@cs.arizona.edu>, 1998-2001.
  *
  * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 2 of the GNU General Public License as
+ * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
  *
  * This program is distributed in the hope that it will be useful,
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.h,v 1.10 2002/03/23 17:46:05 thyssen Exp $
+ * $Id: drawboard.h,v 1.11 2003/04/04 20:41:59 thyssen Exp $
  */
 
 #ifndef _DRAWBOARD_H_
