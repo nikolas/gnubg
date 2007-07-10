@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.227 2007/05/31 22:29:38 c_anthon Exp $
+ * $Id: show.c,v 1.228 2007/07/02 12:43:26 ace Exp $
  */
 
 #include "config.h"
@@ -757,8 +757,10 @@ extern void CommandShowJacoby( char *sz ) {
 
 extern void CommandShowLang( char *sz ) {
 
-  outputf( _("Your language preference is set to %s.\n"), szLang );
-    
+	if (szLang)
+		outputf(_("Your language preference is set to %s.\n"), szLang );
+	else
+		outputerrf(_("Language not set"));
 }
 
 extern void CommandShowMatchInfo( char *sz ) {
