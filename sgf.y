@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.y,v 1.10 2006/12/26 11:22:06 Superfly_Jon Exp $
+ * $Id: sgf.y,v 1.11 2007/07/02 13:43:07 ace Exp $
  */
 
 %{
@@ -167,7 +167,7 @@ ValueCharSeq:	/* empty */
 
 extern list *SGFParse( FILE *pf ) {
 
-    extern FILE *sgfin;
+    FILE *sgfin;
     
     sgfin = pf;
     plCollection = NULL;
