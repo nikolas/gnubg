@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.114 2007/04/27 08:53:11 c_anthon Exp $
+ * $Id: gtkgame.h,v 1.115 2007/07/02 12:43:39 ace Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -202,5 +202,6 @@ extern int edit_new(int length);
 
 #if USE_BOARD3D
 extern void SetSwitchModeMenuText();
+extern gboolean gtk_gl_init_success;
 #endif
 #endif

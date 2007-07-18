@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.62 2007/05/23 20:45:43 c_anthon Exp $
+ * $Id: render.c,v 1.63 2007/07/02 12:43:25 ace Exp $
  */
 
 #include "config.h"
@@ -2910,7 +2910,7 @@ int MaterialTextCompare(Material* pMat1, Material* pMat2)
 extern int PreferenceCompare(renderdata *prd1, renderdata *prd2)
 {
 #if USE_BOARD3D
-	if (prd1->fDisplayType == DT_3D)
+	if (display_is_3d(prd1))
 	{	/* 3d settings */
 		return (prd1->pieceType == prd2->pieceType &&
 			prd1->fHinges3d == prd2->fHinges3d &&

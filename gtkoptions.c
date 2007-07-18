@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.55 2007/06/11 19:01:11 c_anthon Exp $
+ * $Id: gtkoptions.c,v 1.56 2007/07/02 12:43:23 ace Exp $
  */
 
 #include "config.h"
@@ -1328,7 +1328,7 @@ static void OptionsOK( GtkWidget *pw, optionswidget *pow ){
 
 {
 #if USE_BOARD3D
-	if (bd->rd->fDisplayType == DT_3D)
+	if (display_is_3d(bd->rd))
 		updateDiceOccPos(bd, bd->bd3d);
 	else
 #endif
