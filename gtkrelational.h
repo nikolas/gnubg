@@ -16,10 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.h,v 1.1 2006/10/04 12:28:39 c_anthon Exp $
+ * $Id: gtkrelational.h,v 1.2 2007/07/02 12:43:39 ace Exp $
  */
 
 #ifndef _GTKRELATIONAL_H_
 #define _GTKRELATIONAL_H_
 extern void GtkRelationalShowStats(gpointer p, guint n, GtkWidget * pw);
+extern void GtkRelationalAddMatch(gpointer * p, guint n, GtkWidget * pw);
+extern void GtkShowRelational(gpointer * p, guint n, GtkWidget * pw);
+extern void GtkManageRelationalEnvs(gpointer * p, guint n, GtkWidget * pw);
 #endif

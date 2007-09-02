@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.20 2007/07/02 12:43:24 ace Exp $
+ * $Id: gtkrolls.c,v 1.21 2007/08/12 08:46:50 c_anthon Exp $
  */
 
 #include "config.h"
@@ -315,7 +315,7 @@ static void DepthChanged ( GtkRange *pr, rollswidget *prw )
 	}
 }
 
-void CancelRolls(GtkWidget* pButton)
+static void CancelRolls(GtkWidget* pButton)
 {
 	fInterrupt = TRUE;
 	gtk_widget_set_sensitive(pButton, FALSE);
