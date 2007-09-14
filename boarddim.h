@@ -16,16 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boarddim.h,v 1.7 2004/10/05 16:13:00 Superfly_Jon Exp $
+ * $Id: boarddim.h,v 1.8 2007/07/02 12:43:38 ace Exp $
  */
 
 #ifndef _BOARDDIM_H_
 #define _BOARDDIM_H_
 
-
-#ifdef __cplusplus
-extern "C" {
-#endif /* __cplusplus */
 
 /* fundamental constants */
 #define CHEQUER_WIDTH     6
@@ -141,9 +137,5 @@ extern "C" {
                      2 * CHEQUER_HEIGHT + 1)
 
 extern int positions[ 2 ][ 30 ][ 3 ];
-
-#ifdef __cplusplus
-}
-#endif /* __cplusplus */
 
 #endif /* _BOARDDIM_H_ */
