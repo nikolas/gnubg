@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.31 2007/09/02 20:27:03 c_anthon Exp $
+ * $Id: renderprefs.c,v 1.32 2007/09/14 11:30:49 c_anthon Exp $
  */
 
 #include "config.h"
@@ -48,7 +48,7 @@ renderdata rdAppearance;
 
 /* Limit use of global... */
 extern renderdata *
-GetMainAppearance ()
+GetMainAppearance (void)
 {
   return &rdAppearance;
 }

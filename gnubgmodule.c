@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.68 2007/09/14 11:30:48 c_anthon Exp $
+ * $Id: gnubgmodule.c,v 1.69 2007/09/27 20:54:49 c_anthon Exp $
  */
 
 #include "config.h"
@@ -750,7 +750,7 @@ static void AddString(list* buffers, char* str)
 	strcat(pCurrent->p, str);
 }
 
-static char* GameAsString()
+static char* GameAsString(void)
 {
 	char *ret;
 	int size;

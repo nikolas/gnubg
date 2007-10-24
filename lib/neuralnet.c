@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.48 2007/03/20 23:24:58 c_anthon Exp $
+ * $Id: neuralnet.c,v 1.49 2007/07/02 12:46:38 ace Exp $
  */
 
 #include "config.h"
@@ -949,7 +949,7 @@ int SSE_Supported()
 
 #else
 
-int CheckSSE()
+static int CheckSSE(void)
 {
         int result;
 #ifdef __APPLE__
@@ -1034,7 +1034,7 @@ int CheckSSE()
 	return 0;
 }
 
-int SSE_Supported()
+int SSE_Supported(void)
 {
 	static int state = -1;
 

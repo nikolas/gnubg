@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.6 2007/09/27 22:35:56 c_anthon Exp $
+ * $Id: file.c,v 1.7 2007/10/18 14:29:01 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -354,7 +354,7 @@ static int IsPARFile(FileHelper * fh)
 	return FALSE;
 }
 
-int IsBGRFile(FileHelper *fh)
+static int IsBGRFile(FileHelper *fh)
 {
 	fhReset(fh);
 	fhSkipWS(fh);
