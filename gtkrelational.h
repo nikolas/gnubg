@@ -19,10 +19,10 @@
  * $Id: gtkrelational.h,v 1.3 2007/09/02 20:27:02 c_anthon Exp $
  */
 
+#include "relational.h"
+
 #ifndef _GTKRELATIONAL_H_
 #define _GTKRELATIONAL_H_
-#include <gtk/gtk.h>
-#include "relational.h"
 extern void GtkRelationalShowStats(gpointer p, guint n, GtkWidget * pw);
 extern void GtkRelationalAddMatch(gpointer p, guint n, GtkWidget * pw);
 extern void GtkShowRelational(gpointer p, guint n, GtkWidget * pw);

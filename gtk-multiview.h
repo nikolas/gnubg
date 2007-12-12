@@ -15,7 +15,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * $Id: gtk-multiview.h,v 1.3 2007/07/02 12:43:39 ace Exp $
+ * $Id: gtk-multiview.h,v 1.4 2007/09/14 11:30:48 c_anthon Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
@@ -24,8 +24,6 @@
 
 #ifndef __GTK_MULTIVIEW_H__
 #define __GTK_MULTIVIEW_H__
-
-#include <gtk/gtk.h>
 
 #define GTK_TYPE_MULTIVIEW			(gtk_multiview_get_type ())
 #define GTK_MULTIVIEW(obj)			(GTK_CHECK_CAST ((obj), GTK_TYPE_MULTIVIEW, GtkMultiview))
