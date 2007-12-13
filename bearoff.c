@@ -16,11 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.54 2007/09/27 22:35:56 c_anthon Exp $
+ * $Id: bearoff.c,v 1.55 2007/12/12 23:08:14 Superfly_Jon Exp $
  */
 
 #include "config.h"
 
+#include "gnubg-types.h"
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
