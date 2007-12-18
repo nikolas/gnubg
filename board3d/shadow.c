@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: shadow.c,v 1.15 2007/07/02 12:47:12 ace Exp $
+* $Id: shadow.c,v 1.16 2007/12/12 23:08:21 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -90,7 +90,7 @@ extern void draw_shadow_volume_extruded_edges(/*lint -e{818}*/Occluder* pOcc, co
 
 int renderingBase = FALSE;
 
-void DrawShadows(const BoardData3d* bd3d)
+static void DrawShadows(const BoardData3d* bd3d)
 {
 	int i;
 	if (renderingBase)
