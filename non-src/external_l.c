@@ -41,6 +41,10 @@
 #include <errno.h>
 #include <stdlib.h>
 
+#ifdef __STRICT_ANSI__
+extern int __cdecl fileno(FILE *);
+#endif
+
 /* end standard C headers. */
 
 /* flex integer type definitions */
@@ -115,7 +119,7 @@ typedef unsigned int flex_uint32_t;
 
 #if __STDC__
 
-#define YY_USE_CONST
+/*#define YY_USE_CONST*/
 
 #endif	/* __STDC__ */
 #endif	/* ! __cplusplus */
@@ -554,7 +558,7 @@ char *exttext;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.12 2007/07/02 13:50:09 ace Exp $
+ * $Id: external_l.c,v 1.6 2007/10/24 15:18:36 c_anthon Exp $
  */
 
 #include "config.h"

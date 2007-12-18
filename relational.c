@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.37 2007/12/12 23:08:19 Superfly_Jon Exp $
+ * $Id: relational.c,v 1.38 2007/12/15 20:36:57 c_anthon Exp $
  */
 
 #include "config.h"
@@ -216,8 +216,8 @@ CommandRelationalAddMatch( char *sz ) {
 
   pch = NextToken( &sz );
   force = pch && *pch && 
-    ( !strcasecmp( "on", pch ) || !strcasecmp( "yes", pch ) ||
-      !strcasecmp( "true", pch ) );
+    ( !StrCaseCmp( "on", pch ) || !StrCaseCmp( "yes", pch ) ||
+      !StrCaseCmp( "true", pch ) );
 
   if (!(r = Connect()))
 	  return;
