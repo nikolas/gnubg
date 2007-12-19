@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.196 2007/12/15 20:36:56 c_anthon Exp $
+## $Id: Makefile.am,v 1.197 2007/12/17 14:08:55 c_anthon Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -98,7 +98,7 @@ gnubg_SOURCES = \
 		speed.c \
 		speed.h \
 		text.c \
-		timer.c
+		timer.c \
 		util.h \
 		util.c 
 
