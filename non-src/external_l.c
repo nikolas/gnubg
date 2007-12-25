@@ -119,7 +119,7 @@ typedef unsigned int flex_uint32_t;
 
 #if __STDC__
 
-/*#define YY_USE_CONST*/
+#define YY_USE_CONST
 
 #endif	/* __STDC__ */
 #endif	/* ! __cplusplus */
@@ -558,7 +558,7 @@ char *exttext;
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.c,v 1.6 2007/10/24 15:18:36 c_anthon Exp $
+ * $Id: external_l.c,v 1.8 2007/12/18 21:48:07 Superfly_Jon Exp $
  */
 
 #include "config.h"
