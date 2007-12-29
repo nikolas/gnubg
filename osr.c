@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.22 2007/07/02 12:43:25 ace Exp $
+ * $Id: osr.c,v 1.23 2007/12/12 23:08:19 Superfly_Jon Exp $
  */
 
 #include <stdio.h>
@@ -835,7 +835,7 @@ bgProb ( const int anBoard[ 25 ],
  */
 
 extern void
-raceProbs ( TanBoard anBoard, const int nGames,
+raceProbs ( const TanBoard anBoard, const int nGames,
             float arOutput[ NUM_OUTPUTS ],
             float arMu[ 2 ] ) {
   

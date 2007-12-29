@@ -12,7 +12,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
 
-* $Id: bearoffgammon.c,v 1.6 2007/07/02 13:33:19 ace Exp $ */
+* $Id: bearoffgammon.c,v 1.7 2007/07/02 14:31:04 ace Exp $ */
 
 #include "config.h"
 #include "bearoffgammon.h"
@@ -7212,7 +7212,7 @@ struct GroupInfo info[63] = {
 #include "positionid.h"
 
 extern struct GammonProbs*
-getBearoffGammonProbs(int board[6])
+getBearoffGammonProbs(const int board[6])
 {
   int group = 0;
   int i;
