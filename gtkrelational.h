@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.h,v 1.3 2007/09/02 20:27:02 c_anthon Exp $
+ * $Id: gtkrelational.h,v 1.5 2007/12/12 23:08:17 Superfly_Jon Exp $
  */
 
 #include "relational.h"
@@ -26,6 +26,5 @@
 extern void GtkRelationalShowStats(gpointer p, guint n, GtkWidget * pw);
 extern void GtkRelationalAddMatch(gpointer p, guint n, GtkWidget * pw);
 extern void GtkShowRelational(gpointer p, guint n, GtkWidget * pw);
-extern void GtkManageRelationalEnvs(gpointer p, guint n, GtkWidget * pw);
 extern void GtkShowQuery(RowSet* pRow);
 #endif
