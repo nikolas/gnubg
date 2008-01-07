@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.237 2007/12/18 21:48:05 Superfly_Jon Exp $
+ * $Id: show.c,v 1.238 2007/12/29 14:32:31 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -799,8 +799,8 @@ extern void CommandShowMatchLength( char *sz ) {
 	     _("New matches default to %d points.\n"), nDefaultLength );
 }
 
-extern void CommandShowPipCount( char *sz ) {
-
+extern void CommandShowPipCount( char *sz )
+{
     TanBoard an;
     unsigned int anPips[ 2 ]; 
 
