@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.116 2008/01/01 19:44:13 Superfly_Jon Exp $
+ * $Id: sgf.c,v 1.117 2008/01/15 18:08:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2155,10 +2155,9 @@ static void AddRule(FILE * pf, const char *sz, int *pfFirst)
 
 static void SaveGame(FILE * pf, listOLD * plGame)
 {
-
     listOLD *pl;
     moverecord *pmr;
-    int i, j;
+    unsigned int i, j;
 	TanBoard anBoard;
 
     updateStatisticsGame(plGame);
