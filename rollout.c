@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.187 2008/01/15 22:22:45 Superfly_Jon Exp $
+ * $Id: rollout.c,v 1.188 2008/01/16 16:16:45 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1683,7 +1683,7 @@ RolloutGeneral( ConstTanBoard *apBoard,
           aarMu[ alt ][ j ] = 0.0f;
       }
     } else {
-      uint nGames = prc->nGamesDone;
+      unsigned int nGames = prc->nGamesDone;
       double r;
 
       /* make sure the saved rollout contexts are consistent for
