@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.y,v 1.15 2007/12/13 21:43:44 c_anthon Exp $
+ * $Id: sgf_y.y,v 1.1 2007/12/15 20:36:58 c_anthon Exp $
  */
 
 %{
@@ -71,7 +71,7 @@ static char *Concatenate( listOLD *pl ) {
 
 	pchDest--;
 	
-	free( pl->plNext->p );
+	g_free( pl->plNext->p );
 	ListDelete( pl->plNext );
     }
 
