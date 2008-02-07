@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.13 2008/02/06 22:47:57 Superfly_Jon Exp $
+ * $Id: gtkrelational.c,v 1.12 2008/02/03 15:37:36 c_anthon Exp $
  */
 
 #include "config.h"
@@ -554,10 +554,18 @@ void TypeChanged(GtkComboBox *widget, gpointer dbList)
 {
 	DBProvider *pdb = GetSelectedDBType();
 
-	gtk_widget_set_sensitive(user, pdb->HasUserDetails);
-	gtk_entry_set_text(GTK_ENTRY(user), pdb->username);
-	gtk_widget_set_sensitive(password, pdb->HasUserDetails);
-	gtk_entry_set_text(GTK_ENTRY(password), pdb->password);
+	if (pdb && pdb->HasUserDetails)
+	{
+		gtk_widget_set_sensitive(user, TRUE);
+		gtk_widget_set_sensitive(password, TRUE);
+		gtk_entry_set_text(GTK_ENTRY(user), pdb->username);
+		gtk_entry_set_text(GTK_ENTRY(password), pdb->password);
+	}
+	else
+	{
+		gtk_widget_set_sensitive(user, FALSE);
+		gtk_widget_set_sensitive(password, FALSE);
+	}
 
 	TryConnection(pdb, dbList);
 }
@@ -714,7 +722,7 @@ extern void GtkRelationalSetup(gpointer p, guint n, GtkWidget * pw)
 
 	dbtype = gtk_combo_box_new_text();
 	for (i = 0; i < NUM_PROVIDERS; i++)
-		gtk_combo_box_append_text(GTK_COMBO_BOX(dbtype), providers[i].name);
+		gtk_combo_box_append_text(GTK_COMBO_BOX(dbtype), GetProviderName(i));
 	g_signal_connect(dbtype, "changed", G_CALLBACK(TypeChanged), dbList);
 
 	vb2 = gtk_vbox_new(FALSE, 0);

@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.27 2008/02/06 22:47:58 Superfly_Jon Exp $
+ * $Id: osr.c,v 1.26 2008/01/16 16:16:45 Superfly_Jon Exp $
  */
 
 #include <stdio.h>
@@ -557,7 +557,6 @@ static int osr(unsigned int anBoard[25], const int iGame, const int nGames, unsi
 	while (nOut)
 	{
 		/* roll dice */
-
 		if ( OSRQuasiRandomDice ( iTurn, iGame, nGames, anDice ) < 0 )
 			return -1;
 
@@ -565,7 +564,6 @@ static int osr(unsigned int anBoard[25], const int iGame, const int nGames, unsi
 			swap ( anDice, anDice + 1 );
 
 		/* find and move best move */
-
 		FindBestMoveOSR(anBoard, anDice, &nOut);
 
 		iTurn++;

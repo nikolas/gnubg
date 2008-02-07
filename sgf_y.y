@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.2 2008/02/06 22:47:58 Superfly_Jon Exp $
+ * $Id: sgf_y.y,v 1.1 2007/12/15 20:36:58 c_anthon Exp $
  */
 
 %{
