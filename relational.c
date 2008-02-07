@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.40 2008/01/01 19:44:13 Superfly_Jon Exp $
+ * $Id: relational.c,v 1.44 2008/02/06 22:47:58 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -28,6 +28,7 @@
 #endif
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 
 #include "relational.h"
 #include "backgammon.h"
