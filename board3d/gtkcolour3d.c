@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkcolour3d.c,v 1.40 2008/02/29 19:20:33 Superfly_Jon Exp $
+* $Id: gtkcolour3d.c,v 1.41 2008/03/05 19:16:33 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -235,7 +235,7 @@ static void realize_preview3d(GtkWidget *widget, void* notused)
 	gdk_gl_drawable_gl_end(gldrawable);
 }
 
-extern GtkWidget *CreateGLPreviewWidget(Material* pMat)	// Rename this (and the one above to CreateGLBoardWidget)
+static GtkWidget *CreateGLPreviewWidget(Material* pMat)	// Rename this (and the one above to CreateGLBoardWidget)
 {
 	GtkWidget *p3dWidget = gtk_drawing_area_new();
 
