@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.52 2008/01/16 16:16:45 Superfly_Jon Exp $
+ * $Id: export.c,v 1.53 2008/02/10 22:24:55 c_anthon Exp $
  */
 
 #include "config.h"
@@ -615,8 +615,7 @@ GenerateImage (renderimages * pri, renderdata * prd,
       anDicePosition[1][1] = -1;
     }
 
-  ArrowPosition( fClockwise, nSize, 
-                 &anArrowPosition[ 0 ], &anArrowPosition[ 1 ] );
+  ArrowPosition( fClockwise, fTurn, nSize, &anArrowPosition[ 0 ], &anArrowPosition[ 1 ] );
 
   /* render board */
 
