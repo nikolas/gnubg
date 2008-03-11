@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.39 2007/12/12 23:08:18 Superfly_Jon Exp $
+ * $Id: gtktoolbar.c,v 1.40 2008/03/10 09:32:12 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -308,7 +308,6 @@ ToolbarNew ( void ) {
 #include "xpm/stock_new.xpm"
 #include "xpm/stock_open.xpm"
 #include "xpm/stock_save.xpm"
-#include "xpm/stock_export.xpm"
 #include "xpm/stock_ok.xpm"
 #include "xpm/stock_cancel.xpm"
 #include "xpm/stock_undo.xpm"
