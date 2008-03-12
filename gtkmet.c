@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmet.c,v 1.19 2007/08/12 08:46:50 c_anthon Exp $
+ * $Id: gtkmet.c,v 1.20 2007/12/12 23:08:17 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -275,9 +275,5 @@ extern void GTKShowMatchEquityTable( const int nMatchTo,
 
   UpdateAllTables ( &mw );
     
-  gtk_widget_show_all( pwDialog );
-
-  GTKDisallowStdin();
-  gtk_main();
-  GTKAllowStdin();
+  GTKRunDialog(pwDialog);
 }

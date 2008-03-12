@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.151 2008/01/15 22:22:44 Superfly_Jon Exp $
+ * $Id: eval.h,v 1.152 2008/02/20 22:57:48 c_anthon Exp $
  */
 
 #ifndef _EVAL_H_
@@ -285,9 +285,7 @@ typedef struct {
 } move;
 
 
-extern volatile int fInterrupt, fAction;
-extern void ( *fnAction )( void );
-extern void ( *fnTick )( void );
+extern int fInterrupt;
 extern cubeinfo ciCubeless;
 extern const char *aszEvalType[ (int)EVAL_ROLLOUT + 1 ];
 extern int fEgyptian;
