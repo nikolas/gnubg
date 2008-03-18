@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.26 2008/01/16 16:16:45 Superfly_Jon Exp $
+ * $Id: makehyper.c,v 1.27 2008/01/20 23:38:08 c_anthon Exp $
  */
 
 #include "config.h"
@@ -28,6 +28,8 @@
 #include <time.h>
 #include <unistd.h>
 #include <math.h>
+#include <multithread.h>
+#include "backgammon.h"
 
 #include "eval.h"
 #include "positionid.h"
@@ -63,9 +65,6 @@ typedef struct _hyperequity {
 } hyperequity;
 
 #if USE_MULTITHREAD
-extern int MT_GetThreadID(void);
-extern void MT_Release(void);
-extern void MT_Exclusive(void);
 extern int MT_GetThreadID(void)
 {
   return (0);
@@ -78,7 +77,12 @@ extern void MT_Exclusive(void)
 {
   return;
 }
+#else
+extern void CallbackProgress(void)
+{
+}
 #endif
+
 
 int aiNorm[ 10 ];
 
