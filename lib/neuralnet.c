@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.52 2007/12/12 23:08:22 Superfly_Jon Exp $
+ * $Id: neuralnet.c,v 1.53 2007/12/18 21:48:07 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -622,12 +622,14 @@ int SSE_Supported()
 
 #else
 
+#ifdef __APPLE__
+#include <sys/sysctl.h>
+#endif
+
 static int CheckSSE(void)
 {
         int result;
 #ifdef __APPLE__
-
-#include <sys/sysctl.h>
     size_t length = sizeof( result );
     int error = sysctlbyname("hw.optional.sse", &result, &length, NULL, 0);
     if ( 0 != error ) result = 0;
