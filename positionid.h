@@ -16,13 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.h,v 1.26 2007/12/29 14:32:31 Superfly_Jon Exp $
+ * $Id: positionid.h,v 1.27 2008/01/15 22:22:45 Superfly_Jon Exp $
  */
 
 #ifndef _POSITIONID_H_
 #define _POSITIONID_H_
 
 #include "gnubg-types.h"
+
+#define L_POSITIONID 14
 
 extern void PositionKey( const TanBoard anBoard, unsigned char auchKey[ 10 ] );
 extern char *PositionID( const TanBoard anBoard );
