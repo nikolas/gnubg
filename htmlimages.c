@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.41 2008/03/08 09:17:39 Superfly_Jon Exp $
+ * $Id: htmlimages.c,v 1.42 2008/03/08 15:10:58 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -33,7 +33,7 @@
 
 #include <stdlib.h>
 #include <glib.h>
-#if WIN32
+#ifdef WIN32
 #include <io.h>
 #endif
 

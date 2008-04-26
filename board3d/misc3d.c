@@ -18,12 +18,12 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.85 2008/03/13 18:15:08 Superfly_Jon Exp $
+* $Id: misc3d.c,v 1.86 2008/03/14 22:43:51 Superfly_Jon Exp $
 */
 
 #include "config.h"
 #include "inc3d.h"
-#if WIN32
+#ifdef WIN32
 #include <io.h>
 #endif
 #include "renderprefs.h"

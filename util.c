@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.13 2008/01/16 16:16:46 Superfly_Jon Exp $
+ * $Id: util.c,v 1.14 2008/02/06 22:47:58 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -24,7 +24,7 @@
 #include <glib.h>
 #include <stdlib.h>
 #include <string.h>
-#if WIN32
+#ifdef WIN32
 #include <windows.h>
 
 char *aszRNG[1]; 
