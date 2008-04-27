@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.h,v 1.33 2008/02/10 22:24:55 c_anthon Exp $
+ * $Id: export.h,v 1.34 2008/03/13 18:15:57 Superfly_Jon Exp $
  */
 
 #include "render.h"
@@ -45,9 +45,9 @@ typedef enum _htmlexportcss {
 	NUM_HTML_EXPORT_CSS
 } htmlexportcss;
 
-extern char *aszHTMLExportType[];
-extern char *aszHTMLExportCSS[];
-extern char *aszHTMLExportCSSCommand[];
+extern const char *aszHTMLExportType[];
+extern const char *aszHTMLExportCSS[];
+extern const char *aszHTMLExportCSSCommand[];
 
 typedef struct _exportsetup {
 
