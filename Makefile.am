@@ -1,6 +1,8 @@
-## $Id: Makefile.am,v 1.203 2008/04/10 19:37:12 c_anthon Exp $
+## $Id: Makefile.am,v 1.204 2008/04/16 19:03:59 c_anthon Exp $
 
 ACLOCAL_AMFLAGS = -I m4
+
+AM_CPPFLAGS = -DDATADIR='"$(datadir)"' -DPKGDATADIR='"$(datadir)/gnubg"'
 
 SUBDIRS = lib doc met po m4 xpm sounds board3d textures scripts flags fonts non-src .
 
