@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: htmlimages.c,v 1.43 2008/04/26 17:12:04 c_anthon Exp $
+ * $Id: htmlimages.c,v 1.44 2008/04/27 20:18:50 c_anthon Exp $
  */
 
 #include "config.h"
@@ -652,7 +652,7 @@ static char* GetFilenameBase(char* sz)
 		return 0;
 	}
 
-	if (access(sz, R_OK))
+	if (_access(sz, R_OK))
 	{
 		if( g_mkdir( sz, 0777) < 0 )
 		{
