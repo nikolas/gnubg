@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.709 2008/06/10 21:00:49 Superfly_Jon Exp $
+ * $Id: gtkgame.c,v 1.710 2008/06/13 11:09:47 c_anthon Exp $
  */
 
 #include "config.h"
@@ -3666,7 +3666,7 @@ static void gnubg_set_default_icon(void)
 	GList *icons = NULL;
 	GdkPixbuf *icon = NULL;
 	char *ip;
-	int i;
+	guint i;
 	struct {
 		const char *dir;
 		const char *fn;
