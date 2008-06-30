@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.65 2008/06/11 14:34:47 c_anthon Exp $
+ * $Id: dice.c,v 1.66 2008/06/29 20:14:49 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@
 #include "md5.h"
 #include "mt19937ar.h"
 #include "isaac.h"
-#include "gnubgi18n.h"
+#include <glib/gi18n.h>
 #include <glib/gstdio.h>
 
 #if USE_GTK
@@ -382,7 +382,7 @@ PrintRNGSeedMP( mpz_t n ) {
   char *pch;
   pch = mpz_get_str( NULL, 10, n );
   g_print( _("The current seed is") );
-  g_print("% s\n", pch);
+  g_print("%s\n", pch);
   free( pch );
 
 }

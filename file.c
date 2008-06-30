@@ -15,13 +15,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.13 2008/04/13 21:10:09 c_anthon Exp $
+ * $Id: file.c,v 1.14 2008/06/29 20:14:49 Superfly_Jon Exp $
  */
 
 #include "config.h"
 #include "backgammon.h"
 #include <glib.h>
-#include "gnubgi18n.h"
+#include <glib/gi18n.h>
 #ifndef _MSC_VER
 #include <string.h>
 #include <stdlib.h>
