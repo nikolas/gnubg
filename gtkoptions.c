@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.77 2008/06/29 20:14:51 Superfly_Jon Exp $
+ * $Id: gtkoptions.c,v 1.78 2008/06/30 21:22:59 c_anthon Exp $
  */
 
 #include "config.h"
@@ -1473,7 +1473,7 @@ static void OptionsOK(GtkWidget *pw, optionswidget *pow)
 
   /* ... */
   
-  CHECKUPDATE(pow->pwConfStart,fConfirm, "set confirm new %s")
+  CHECKUPDATE(pow->pwConfStart,fConfirmNew, "set confirm new %s")
   CHECKUPDATE(pow->pwConfOverwrite,fConfirmSave, "set confirm save %s")
   
   if(( n = (unsigned int)pow->padjCubeAutomatic->value ) != cAutoDoubles){
@@ -1758,7 +1758,7 @@ OptionsSet( optionswidget *pow) {
 
 
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( pow->pwConfStart ),
-                                fConfirm );
+                                fConfirmNew );
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( pow->pwConfOverwrite ),
                                 fConfirmSave );
   gtk_toggle_button_set_active( GTK_TOGGLE_BUTTON( pow->pwGotoFirstGame ),
