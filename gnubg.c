@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.790 2008/07/11 22:28:19 c_anthon Exp $
+ * $Id: gnubg.c,v 1.791 2008/07/12 07:13:19 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2787,7 +2787,7 @@ extern void CommandLoadCommands( char *sz )
 	return;
     }
 
-    if( ( pf = fopen( sz, "r" ) ) ) {
+    if( ( pf = g_fopen( sz, "r" ) ) ) {
 	LoadCommands( pf, sz );
 	fclose( pf );
     } else

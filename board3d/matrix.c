@@ -18,11 +18,12 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matrix.c,v 1.19 2007/12/18 21:48:06 Superfly_Jon Exp $
+* $Id: matrix.c,v 1.20 2007/12/29 14:32:32 Superfly_Jon Exp $
 */
 
 #include "config.h"
 #include "inc3d.h"
+#include <glib/gstdio.h>
 
 void setIdMatrix(float m[4][4])
 {
@@ -189,11 +190,11 @@ void dumpMatrix(const float m[4][4])
 	if (create)
 	{
 		create = 0;
-		fp = fopen("test.txt", "w");
+		fp = g_fopen("test.txt", "w");
 	}
 	else
 	{
-		fp = fopen("test.txt", "a");
+		fp = g_fopen("test.txt", "a");
 	}
 	if (!fp)
 		return;
