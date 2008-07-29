@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.74 2008/05/14 08:20:26 c_anthon Exp $
+ * $Id: sound.c,v 1.75 2008/07/07 20:45:57 mormegil Exp $
  */
 
 #include "config.h"
@@ -30,7 +30,6 @@
 #include <stdlib.h>
 
 #include "backgammon.h"
-#include <glib/gi18n.h>
 
 #if USE_GTK
 #include "gtkgame.h"

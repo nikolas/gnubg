@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkexport.c,v 1.41 2008/03/12 22:56:33 Superfly_Jon Exp $
+ * $Id: gtkexport.c,v 1.42 2008/03/13 21:28:18 c_anthon Exp $
  */
 
 #include "config.h"
@@ -32,7 +32,6 @@
 #include "gtkgame.h"
 #include "export.h"
 #include "gtkexport.h"
-#include <glib/gi18n.h>
 #include "boarddim.h"
 #include "gtkwindows.h"
 

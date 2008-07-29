@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.49 2008/03/12 22:08:56 c_anthon Exp $
+* $Id: gtkpanels.c,v 1.50 2008/03/16 18:13:16 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -26,7 +26,6 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include "backgammon.h"
-#include <glib/gi18n.h>
 #include <string.h>
 #include "gtkboard.h"
 #include "gtkgame.h"

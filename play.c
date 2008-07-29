@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.318 2008/06/29 20:14:51 Superfly_Jon Exp $
+ * $Id: play.c,v 1.319 2008/07/01 22:06:54 c_anthon Exp $
  */
 
 #include "config.h"
@@ -36,7 +36,6 @@
 #include "matchid.h"
 #include "matchequity.h"
 #include "rollout.h"
-#include <glib/gi18n.h>
 #include "sound.h"
 #include "renderprefs.h"
 #include "md5.h"

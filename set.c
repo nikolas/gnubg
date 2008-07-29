@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.309 2008/07/01 22:06:55 c_anthon Exp $
+ * $Id: set.c,v 1.310 2008/07/23 09:36:17 c_anthon Exp $
  */
 
 #include "config.h"
@@ -74,7 +74,6 @@
 #include "sound.h"
 #include "openurl.h"
 
-#include <glib/gi18n.h>
 
 #include "sound.h"
 
