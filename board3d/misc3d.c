@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.91 2008/06/29 20:14:52 Superfly_Jon Exp $
+* $Id: misc3d.c,v 1.92 2008/07/13 19:09:35 c_anthon Exp $
 */
 
 #include "config.h"
@@ -277,6 +277,17 @@ static void CreateDotTexture(unsigned int *pDotTexture)
 	free(data);
 }
 
+int CreateFonts(BoardData3d *bd3d)
+{
+	if (!CreateNumberFont(&bd3d->numberFont, FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
+		return FALSE;
+
+	if (!CreateNumberFont(&bd3d->cubeFont, FONT_VERA_SERIF_BOLD, CUBE_FONT_PITCH, CUBE_FONT_SIZE, CUBE_FONT_HEIGHT_RATIO))
+		return FALSE;
+
+	return TRUE;
+}
+
 void InitGL(const BoardData *bd)
 {
 	float gal[4];
@@ -313,7 +324,7 @@ void InitGL(const BoardData *bd)
 	{
 		BoardData3d *bd3d = bd->bd3d;
 		/* Setup some 3d things */
-		if (!BuildFont3d(bd3d))
+		if (!CreateFonts(bd3d))
 			g_print("Error creating fonts\n");
 
 		shadowInit(bd3d, bd->rd);
