@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: inc3d.h,v 1.42 2008/06/29 20:14:52 Superfly_Jon Exp $
+* $Id: inc3d.h,v 1.43 2008/08/12 18:23:48 Superfly_Jon Exp $
 */
 #ifndef _INC3D_H_
 #define _INC3D_H_
@@ -234,5 +234,8 @@ struct _ClipBox
 extern void TestHarnessDraw(const BoardData *bd);
 #endif
 
+#define DF_VARIABLE_OPACITY 1
+#define DF_NO_ALPHA 2
+#define DF_FULL_ALPHA 4
 
 #endif
