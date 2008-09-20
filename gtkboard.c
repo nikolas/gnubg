@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.244 2008/08/06 07:45:17 c_anthon Exp $
+ * $Id: gtkboard.c,v 1.245 2008/09/19 21:55:27 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -3526,8 +3526,11 @@ extern void board_edit( BoardData *bd )
 
 	bd->grayBoard = f;
 #if USE_BOARD3D
-	RerenderBase(bd->bd3d);
-	DrawScene3d(bd->bd3d);
+	if (display_is_3d(bd->rd))
+	{
+		RerenderBase(bd->bd3d);
+		DrawScene3d(bd->bd3d);
+	}
 #endif
 
     if( f ) {
