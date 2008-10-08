@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovefilter.h,v 1.2 2003/01/06 19:51:25 thyssen Exp $
+ * $Id: gtkmovefilter.h,v 1.3 2007/07/02 12:43:39 ace Exp $
  */
 
 #ifndef _GTKMOVEFILTER_H_
@@ -31,9 +31,6 @@ extern void
 SetMovefilterCommands ( const char *sz,
                   movefilter aamfNew[ MAX_FILTER_PLIES ][ MAX_FILTER_PLIES ], 
                   movefilter aamfOld[ MAX_FILTER_PLIES ][ MAX_FILTER_PLIES ] );
-
-extern void
-MoveFilterOK ( GtkWidget *pw, GtkWidget *pwMoveFilter );
 
 extern void
 MoveFilterSetPredefined ( GtkWidget *pwMoveFilter, 
