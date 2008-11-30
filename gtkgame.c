@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.730 2008/11/09 23:19:18 c_anthon Exp $
+ * $Id: gtkgame.c,v 1.731 2008/11/15 22:34:29 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2934,6 +2934,7 @@ static char *aaszLang[][ 3 ] = {
     { N_("Italian"),	    "it_IT", "flags/italy.png" },
     { N_("Japanese"),	    "ja_JP", "flags/japan.png" },
     { N_("Russian"),	    "ru_RU", "flags/russia.png" },
+    { N_("Spanish"),	    "es_ES", "flags/spain.png" },
     { N_("Turkish"),	    "tr_TR", "flags/turkey.png" },
     { NULL, NULL, NULL }
 };
