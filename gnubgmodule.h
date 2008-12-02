@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.15 2008/02/06 22:47:57 Superfly_Jon Exp $
+ * $Id: gnubgmodule.h,v 1.16 2008/10/24 15:09:07 c_anthon Exp $
  */
 
 #ifndef _PYTHONMODULE_H_
@@ -32,7 +32,7 @@
 #include <Python.h>
 #endif
 
-extern void PythonInitialise(void);
+extern void PythonInitialise(char *argv0);
 extern void PythonShutdown(void);
 extern void PythonRun(const char *sz);
 extern int LoadPythonFile(const char *sz);
