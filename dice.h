@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.h,v 1.23 2008/06/29 20:14:49 Superfly_Jon Exp $
+ * $Id: dice.h,v 1.24 2008/07/07 11:00:03 Superfly_Jon Exp $
  */
 
 #ifndef _DICE_H_
@@ -39,6 +39,7 @@ extern rngcontext *rngctxCurrent;
 
 rngcontext *CopyRNGContext(rngcontext *rngctx);
 
+extern void free_rngctx(rngcontext * rngctx);
 extern void *InitRNG( unsigned long *pnSeed, int *pfInitFrom, const int fSet, const rng rngx );
 extern void CloseRNG( const rng rngx, rngcontext *rngctx );
 extern void DestroyRNG( const rng rngx, rngcontext **rngctx );

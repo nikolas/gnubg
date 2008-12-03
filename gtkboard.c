@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.254 2008/11/11 22:42:42 c_anthon Exp $
+ * $Id: gtkboard.c,v 1.255 2008/12/02 00:21:46 c_anthon Exp $
  */
 
 /*! \file gtkboard.c
@@ -94,6 +94,7 @@ extern GtkWidget *board_new(renderdata* prd)
 	bd->rd->nSize = -1;
 
 	bd->crawford_game = 0;
+	bd->cube = 1;
 	bd->cube_use = 0;
 	bd->doubled = 0;
 	bd->cube_owner = 0;
@@ -3837,10 +3838,6 @@ static void board_init( Board *board )
 
     bd->x_dice[ 0 ] = bd->x_dice[ 1 ] = -10;    
     bd->diceRoll[0] = bd->diceRoll[1] = 0;
-
-    /* horizontal separator */
-
-    pw = gtk_hseparator_new ();
 
     /* board drawing area */
 

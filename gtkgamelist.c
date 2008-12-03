@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.30 2008/08/11 08:50:21 c_anthon Exp $
+* $Id: gtkgamelist.c,v 1.31 2008/09/14 20:47:05 c_anthon Exp $
 */
 
 #include "config.h"
@@ -209,7 +209,8 @@ void GetStyleFromRCFile(GtkStyle** ppStyle, char* name, GtkStyle* psBase)
 
 	/* Remove useless widgets */
 	gtk_widget_destroy(dummy);
-	gtk_widget_destroy(temp);
+	g_object_ref_sink(G_OBJECT(temp));
+	g_object_unref(G_OBJECT(temp));
 }
 
 extern GtkWidget* GL_Create(void)
