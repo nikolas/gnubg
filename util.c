@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.19 2008/06/29 20:14:52 Superfly_Jon Exp $
+ * $Id: util.c,v 1.20 2008/06/30 21:23:00 c_anthon Exp $
  */
 
 #include "config.h"
@@ -98,7 +98,13 @@ extern FILE *GetTemporaryFile(const char *nameTemplate, char **retName)
       PrintError("creating temporary file");
       return NULL;
     }
+
+#ifndef WIN32
 	pf = fdopen(tmpd, "w+" );
+#else
+	pf = fopen(*retName, "wb+" );
+#endif
+
 	if (pf == NULL)
 	{
 		g_free(retName);
