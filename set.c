@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.317 2008/11/14 19:51:27 c_anthon Exp $
+ * $Id: set.c,v 1.318 2008/12/11 22:12:52 c_anthon Exp $
  */
 
 #include "config.h"
@@ -1193,9 +1193,12 @@ extern void CommandSetGUIIllegal( char *sz ) {
 
 extern void CommandSetGUIShowIDs(char *sz)
 {
-    SetToggle("gui showids", &GetMainAppearance()->fShowIDs, sz,
-	      _("The position and match IDs will be shown above the board."),
-	      _("The position and match IDs will not be shown."));
+	if (!inCallback)
+	{
+	    SetToggle("gui showids", &GetMainAppearance()->fShowIDs, sz,
+		      _("The position and match IDs will be shown above the board."),
+			  _("The position and match IDs will not be shown."));
+	}
 }
 
 extern void CommandSetGUIDragTargetHelp( char *sz ) {
