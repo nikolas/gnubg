@@ -17,7 +17,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.745 2008/12/28 21:55:35 Superfly_Jon Exp $
+<<<<<<< gtkgame.c
+ * $Id: gtkgame.c,v 1.744 2008/12/18 13:12:18 Superfly_Jon Exp $
+=======
+ * $Id: gtkgame.c,v 1.746 2008/12/29 23:44:53 c_anthon Exp $
+>>>>>>> 1.746
  */
 
 #include "config.h"
@@ -7611,3 +7615,11 @@ extern void GTKResign(gpointer p, guint n, GtkWidget * pw)
 	GTKRunDialog(pwDialog);
 }
 
+extern void MoveListDestroy()
+{
+	if (pwMoveAnalysis)
+	{
+		gtk_widget_destroy(pwMoveAnalysis);
+		pwMoveAnalysis = NULL;
+	}
+}
