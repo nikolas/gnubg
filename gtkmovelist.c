@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelist.c,v 1.24 2008/07/30 15:02:59 c_anthon Exp $
+ * $Id: gtkmovelist.c,v 1.25 2008/12/16 22:10:57 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -185,6 +185,7 @@ if (!psHighlight)
 	/* Also get colour to use for w/l stats in detail view */
     GetStyleFromRCFile(&psTemp, "move-winlossfg", psMoves);
     memcpy(&wlCol, &psTemp->fg[GTK_STATE_NORMAL], sizeof(GdkColor));
+    g_object_unref(psTemp);
 }
 
   /* This function should only be called when the game state matches
