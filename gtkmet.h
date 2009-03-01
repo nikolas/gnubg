@@ -16,12 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmet.h,v 1.2 2002/12/28 13:16:22 thyssen Exp $
+ * $Id: gtkmet.h,v 1.3 2007/07/02 12:43:39 ace Exp $
  */
 
 #ifndef _GTKMET_H_
 #define _GTKMET_H_
 
-extern void GTKShowMatchEquityTable( const int nMatchTo,
-                                     const int anScore[ 2 ] );
+extern void GTKShowMatchEquityTable( const unsigned int nMatchTo,
+                                     const unsigned int anScore[ 2 ] );
 #endif

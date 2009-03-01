@@ -15,12 +15,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.17 2008/07/29 11:46:32 c_anthon Exp $
+ * $Id: file.c,v 1.18 2008/12/04 22:12:15 c_anthon Exp $
  */
 
 #include "config.h"
 #include "backgammon.h"
-#include <glib.h>
 #include <glib/gstdio.h>
 #ifndef _MSC_VER
 #include <string.h>
