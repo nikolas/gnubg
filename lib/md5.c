@@ -22,7 +22,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: md5.c,v 1.9 2007/07/02 12:46:38 ace Exp $
+ * $Id: md5.c,v 1.10 2009/02/23 20:22:28 Superfly_Jon Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
@@ -30,16 +30,8 @@
    with GNU Backgammon. */
 
 #include "config.h"
-
-#if STDC_HEADERS
 # include <stdlib.h>
 # include <string.h>
-#else
-# ifndef HAVE_MEMCPY
-#  define memcpy(d, s, n) bcopy ((s), (d), (n))
-# endif
-#endif
-
 #include "md5.h"
 
 /* Be conservative and always perform explicit byte-ordering.  This is
