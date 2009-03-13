@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.97 2009/02/23 20:21:52 Superfly_Jon Exp $
+ * $Id: gtkchequer.c,v 1.98 2009/03/02 23:01:28 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -276,6 +276,7 @@ EvalMoves ( hintdata *phd, evalcontext *pec )
 
   free ( ai );
 
+  find_skills(phd->pmr, &ms, -1, -1);
   MoveListUpdate ( phd );
   SetAnnotation(pmrCurAnn);
 }
@@ -699,10 +700,11 @@ CreateMoveList( moverecord *pmr, const int fButtonsValid,
        the move list. */
     g_assert( ms.fMove == 0 || ms.fMove == 1 );
 
-    if (pmr->n.iMove >0 && pmr->n.iMove< pmr->ml.cMoves)
+    if (pmr->n.iMove< pmr->ml.cMoves)
 	    phd->piHighlight = &pmr->n.iMove;
     else
 	    phd->piHighlight = NULL;
+    phd->pmr = pmr;
     phd->pml = &pmr->ml;
     phd->fButtonsValid = fButtonsValid;
     phd->fDestroyOnMove = fDestroyOnMove;
