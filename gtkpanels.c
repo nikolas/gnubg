@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.55 2008/12/31 10:40:18 Superfly_Jon Exp $
+* $Id: gtkpanels.c,v 1.56 2009/03/02 23:01:30 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -1126,7 +1126,7 @@ void DockPanels(void)
 	}
 	/* Refresh panel contents */
 	GTKRegenerateGames();
-	GTKUpdateAnnotations();
+	ChangeGame(NULL);
 	if (currentSelectedGame != -1)
 	    GTKSetGame(currentSelectedGame);
 
