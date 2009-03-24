@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: record.h,v 1.7 2007/07/02 12:43:40 ace Exp $
+ * $Id: record.h,v 1.8 2007/12/12 23:08:19 Superfly_Jon Exp $
  */
 
 #ifndef RECORD_H
@@ -38,8 +38,7 @@ typedef struct _playerrecord {
 
 extern int RecordReadItem( FILE *pf, char *pch, playerrecord *ppr );
 
-extern playerrecord *
-GetPlayerRecord( char *szPlayer );
+extern gboolean records_exist(void);
 
 #define GNUBGPR "gnubgpr"
 
