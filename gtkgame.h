@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.141 2009/03/21 21:46:31 c_anthon Exp $
+ * $Id: gtkgame.h,v 1.142 2009/03/22 22:36:57 c_anthon Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -149,7 +149,6 @@ extern void HintDoubleClick(GtkTreeView * treeview, GtkTreePath * path,
 extern void HintSelect(GtkTreeSelection * selection, hintdata * phd);
 extern void InitGTK(int *argc, char ***argv);
 extern void MoveListCreate(hintdata * phd);
-extern void MoveListDestroy();
 extern void MoveListFreeSelectionList(GList * pl);
 extern void MoveListShowToggledClicked(GtkWidget * pw, hintdata * phd);
 extern void MoveListUpdate(const hintdata * phd);
