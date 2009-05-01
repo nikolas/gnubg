@@ -18,12 +18,11 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: graph.c,v 1.25 2009/02/23 20:21:08 Superfly_Jon Exp $
+* $Id: graph.c,v 1.26 2009/03/02 23:01:31 Superfly_Jon Exp $
 */
 
 #include "config.h"
 #include "inc3d.h"
-#include "misc3d.h"
 
 #include "renderprefs.h"
 

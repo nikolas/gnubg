@@ -18,12 +18,11 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: widget3d.c,v 1.48 2009/02/23 20:21:09 Superfly_Jon Exp $
+* $Id: widget3d.c,v 1.49 2009/03/02 23:01:32 Superfly_Jon Exp $
 */
 
 #include "config.h"
 #include "inc3d.h"
-#include "misc3d.h"
 #include "tr.h"
 
 gboolean gtk_gl_init_success = FALSE;
