@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.132 2009/04/25 20:03:47 c_anthon Exp $
+# $Id: credits.sh,v 1.133 2009/04/25 22:54:16 c_anthon Exp $
 # 
 
 column < /dev/null || exit 0
@@ -330,7 +330,7 @@ cat >> credits.c <<EOF
 
 credits creditList[] =
 {
-	{N_("AUTHORS"), ceAuthors},
+	{N_("Authors"), ceAuthors},
 	{N_("Code Contributors"), ceContrib},
 	{N_("Translations"), ceTranslations},
 	{N_("Support"), ceSupport},
