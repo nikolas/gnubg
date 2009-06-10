@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.274 2009/04/20 15:49:30 c_anthon Exp $
+ * $Id: gtkboard.c,v 1.275 2009/05/15 16:45:19 Superfly_Jon Exp $
  */
 
 /*! \file gtkboard.c
@@ -2579,16 +2579,19 @@ static gint board_set( Board *board, const gchar *board_text, const gint
 	if( bd->turn != old_turn )
 	{
 #if USE_BOARD3D
-		/* Make sure flag shadow is correct if players are swapped when resigned */
-		if (bd->resigned)
-			updateFlagOccPos(bd, bd->bd3d);
-
-		if (bd->rd->quickDraw)
+		if (display_is_3d(bd->rd))
 		{
-			if (bd->rd->fDynamicLabels)
-				RestrictiveDrawBoardNumbers(bd->bd3d);
-			if (bd->rd->showMoveIndicator)
-				RestrictiveDrawMoveIndicator(bd);
+			/* Make sure flag shadow is correct if players are swapped when resigned */
+			if (bd->resigned)
+				updateFlagOccPos(bd, bd->bd3d);
+
+			if (bd->rd->quickDraw)
+			{
+				if (bd->rd->fDynamicLabels)
+					RestrictiveDrawBoardNumbers(bd->bd3d);
+				if (bd->rd->showMoveIndicator)
+					RestrictiveDrawMoveIndicator(bd);
+			}
 		}
 #endif
 	  redrawNeeded = 1;
