@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.776 2009/06/13 16:45:04 Superfly_Jon Exp $
+ * $Id: gtkgame.c,v 1.777 2009/06/24 18:38:45 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1096,7 +1096,7 @@ static void MainSize( GtkWidget *pw, GtkRequisition *preq, gpointer p ) {
 
     if( GTK_WIDGET_REALIZED( pw ) )
 	g_signal_handlers_disconnect_by_func( G_OBJECT( pw ), G_CALLBACK( MainSize ), p );
-				       G_CALLBACK( MainSize ), p );
+
     else if (!SetMainWindowSize())
 		gtk_window_set_default_size( GTK_WINDOW( pw ),
 				     MAX( 480, preq->width ),
