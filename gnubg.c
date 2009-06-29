@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.850 2009/06/25 21:15:15 Superfly_Jon Exp $
+ * $Id: gnubg.c,v 1.851 2009/06/26 10:16:09 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -35,9 +35,6 @@
 #include <ctype.h>
 #ifdef WIN32
 #include <io.h>
-#if _MSC_VER
-#include <direct.h>
-#endif
 #endif
 
 #if HAVE_LIBREADLINE
