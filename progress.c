@@ -16,12 +16,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.54 2009/05/01 09:28:35 Superfly_Jon Exp $
+ * $Id: progress.c,v 1.55 2009/07/16 21:01:31 c_anthon Exp $
  */
 
-//#define GTK_DISABLE_DEPRECATED 1
-//#define G_DISABLE_DEPRECATED 1
-//#define GDK_DISABLE_DEPRECATED 1
 #include "config.h"
 
 #include <stdio.h>
