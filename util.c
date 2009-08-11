@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.28 2009/05/01 09:28:35 Superfly_Jon Exp $
+ * $Id: util.c,v 1.29 2009/08/03 22:00:44 c_anthon Exp $
  */
 
 #include "config.h"
@@ -71,7 +71,7 @@ extern char *getDataDir(void)
 			int pos = MAX(pos1, pos2);
 			if (pos > 0)
 				buf[pos] = '\0';
-			ret = g_strdup(buf);
+			datadir = g_strdup(buf);
 		}
 #endif
 	}
