@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.103 2009/05/01 09:13:02 Superfly_Jon Exp $
+* $Id: misc3d.c,v 1.104 2009/08/13 20:09:20 mdpetch Exp $
 */
 
 #include "config.h"
@@ -2265,6 +2265,7 @@ void CloseBoard3d(BoardData *bd, BoardData3d *bd3d, renderdata *prd)
 	bd->direction = 1;
 	bd->resigned = 0;
 	fClockwise = 0;
+	GTKSuspendInput();
 
 	prd->showShadows = 0;
 	prd->showMoveIndicator = 0;
