@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelist.c,v 1.30 2009/03/13 16:25:48 c_anthon Exp $
+ * $Id: gtkmovelist.c,v 1.31 2009/05/01 09:28:34 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -217,7 +217,7 @@ if (!psHighlight)
 		memcpy(dice, ms.anDice, sizeof(dice));
 		if (!dice[0])
 		{	/* If the dice have got lost, try to find them */
-			moverecord* pmr = (moverecord*)plLastMove->p;
+			moverecord* pmr = (moverecord*)plLastMove->plNext->p;
 			if (pmr)
 			{
 				dice[0] = pmr->anDice[0];
