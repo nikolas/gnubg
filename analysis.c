@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.215 2009/09/11 15:21:27 Superfly_Jon Exp $
+ * $Id: analysis.c,v 1.216 2009/09/13 09:12:05 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2430,7 +2430,7 @@ static void cmark_cube_rollout(moverecord *pmr, gboolean destroy)
 	gchar asz[2][40];
 	void *p;
 
-	if (!pmr->CubeDecPtr->cmark == CMARK_ROLLOUT)
+	if (pmr->CubeDecPtr->cmark != CMARK_ROLLOUT)
 		return;
 	pes = setup_cube_rollout(&pmr->CubeDecPtr->esDouble,
 				 pmr, aarOutput, aarStdDev);

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.97 2009/09/01 17:54:52 Superfly_Jon Exp $
+ * $Id: gnubgmodule.c,v 1.98 2009/09/01 20:44:06 c_anthon Exp $
  */
 
 #include "config.h"
@@ -2106,7 +2106,7 @@ PythonNavigate(PyObject* self UNUSED_PARAM, PyObject* args, PyObject* keywds)
     }
   
     if( nextRecord != INT_MIN ) {
-      recordsDiff = nextRecord - InternalCommandNext(0, nextRecord);
+      recordsDiff = nextRecord - InternalCommandNext(0, 0, nextRecord);
     }
 
     /* (HACK)
