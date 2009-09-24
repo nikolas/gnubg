@@ -20,11 +20,11 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.79 2009/03/17 15:42:41 c_anthon Exp $
+ * $Id: sound.c,v 1.80 2009/03/20 16:18:51 c_anthon Exp $
  */
 
 #include "config.h"
-
+#include <string.h>
 #if USE_GTK
 #include "gtkgame.h"
 #else
