@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.33 2008/12/04 22:12:16 c_anthon Exp $
+* $Id: gtkgamelist.c,v 1.34 2009/03/13 23:52:29 c_anthon Exp $
 */
 
 #include "config.h"
@@ -362,7 +362,7 @@ extern void GTKAddMoveRecord( moverecord *pmr )
 {
     gamelistrow *pglr;
     int i, numRows, fPlayer;
-    const char *pch = GetMoveString(pmr, &fPlayer);
+    const char *pch = GetMoveString(pmr, &fPlayer, TRUE);
     if (!pch)
 		return;
 
