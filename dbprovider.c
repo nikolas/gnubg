@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.24 2009/08/14 19:07:42 c_anthon Exp $
+ * $Id: dbprovider.c,v 1.25 2009/09/18 09:42:34 c_anthon Exp $
  */
 
 #include "config.h"
@@ -259,10 +259,14 @@ extern DBProvider* GetDBProvider(DBProviderType dbType)
 			return NULL;
 	}
 #endif
+#if !NUM_PROVIDERS
+	return NULL;
+#else
 	if (dbType == INVALID_PROVIDER)
 		return NULL;
 
 	return &providers[dbType];
+#endif
 }
 
 #if USE_PYTHON
