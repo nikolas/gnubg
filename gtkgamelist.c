@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.34 2009/03/13 23:52:29 c_anthon Exp $
+* $Id: gtkgamelist.c,v 1.35 2009/10/08 17:26:51 Superfly_Jon Exp $
 */
 
 #include "config.h"
@@ -189,7 +189,7 @@ void GetStyleFromRCFile(GtkStyle** ppStyle, char* name, GtkStyle* psBase)
 	gtk_widget_ensure_style(dummy);
 	gtk_widget_set_name(dummy, styleName);
 	/* Pack in box to make sure style is loaded */
-	gtk_box_pack_start(GTK_BOX(bd->vbox_ids), dummy, FALSE, FALSE, 0);
+	gtk_box_pack_start(GTK_BOX(bd->table), dummy, FALSE, FALSE, 0);
 	psNew = gtk_widget_get_style(dummy);
 
 	/* Base new style on base style passed in */
