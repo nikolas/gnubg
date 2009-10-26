@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.95 2009/03/10 18:10:02 c_anthon Exp $
+ * $Id: gtkboard.h,v 1.96 2009/10/13 17:37:09 Superfly_Jon Exp $
  */
 
 #ifndef _GTKBOARD_H_
@@ -187,7 +187,7 @@ extern void DestroyPanel(gnubgwindow window);
 extern void
 DrawDie( GdkDrawable *pd, 
          unsigned char *achDice[ 2 ], unsigned char *achPip[ 2 ],
-         const int s, GdkGC *gc, int x, int y, int fColour, int n );
+         const int s, GdkGC *gc, int x, int y, int fColour, int n, int alpha );
 
 extern int UpdateMove( BoardData *bd, TanBoard anBoard );
 extern void stop_board_expose(BoardData *bd);
