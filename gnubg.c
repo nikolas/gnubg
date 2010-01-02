@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.875 2009/12/29 14:24:32 mdpetch Exp $
+ * $Id: gnubg.c,v 1.876 2009/12/29 22:20:21 mdpetch Exp $
  */
 
 #include "config.h"
@@ -4487,7 +4487,7 @@ extern int getDiceRandomDotOrg(void)
 		return anBuf[nCurrent++];
 	else {
 
-		outputf(_("Fetching %d random numbers from <" RANDOMORGSITE ">\n"), BUFLENGTH);
+		outputf(_("Fetching %d random numbers from <%s>\n"), BUFLENGTH, RANDOMORGSITE);
 		outputx();
 
 		/* fetch new numbers */
