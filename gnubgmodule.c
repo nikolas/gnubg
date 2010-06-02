@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.98 2009/09/01 20:44:06 c_anthon Exp $
+ * $Id: gnubgmodule.c,v 1.99 2009/09/21 07:43:43 c_anthon Exp $
  */
 
 #include "config.h"
@@ -867,7 +867,7 @@ PythonPositionBearoff( PyObject* self UNUSED_PARAM, PyObject *args )
   PyObject *pyBoard = NULL;
   int nChequers = 15;
   int nPoints = 6;
-  unsigned int anBoard[ 25 ];
+  TanBoard anBoard;
 
   memcpy( anBoard, msBoard(), sizeof(anBoard) );
 
@@ -883,7 +883,7 @@ PythonPositionBearoff( PyObject* self UNUSED_PARAM, PyObject *args )
 
 static PyObject *PythonPositionFromBearoff( PyObject* self UNUSED_PARAM, PyObject *args )
 {
-  unsigned int anBoard[ 25 ];
+  TanBoard anBoard;
   int iPos = 0;
   int nChequers = 15;
   int nPoints = 6;
