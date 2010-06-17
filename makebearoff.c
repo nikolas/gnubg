@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.74 2008/12/08 10:28:47 c_anthon Exp $
+ * $Id: makebearoff.c,v 1.75 2009/03/01 09:07:44 oysteijo Exp $
  */
 
 #include "config.h"
@@ -1291,7 +1291,7 @@ generate_ts ( const int nTSP, const int nTSC,
 
 static void
 version ( void ) {
-  printf ( "makebearoff $Revision: 1.74 $\n" );
+  printf ( "makebearoff $Revision: 1.75 $\n" );
 }
 
 
@@ -1331,7 +1331,7 @@ extern int main( int argc, char **argv )
 	  { "no-compress", 'c', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &fCompress, 
 		  "Do not use compression scheme for one-sided databases", NULL},
 	  { "no-gammon", 'g', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &fGammon,
-		  "Include gammon distribution for one-sided databases", NULL},
+		  "Do not include gammon distribution for one-sided databases", NULL},
 	  { "normal-dist", 'n', 0, G_OPTION_ARG_NONE, &fND, 
 		  "Approximate one-sided bearoff database with normal distributions", NULL},
 	  { "version", 'v', 0, G_OPTION_ARG_NONE, &show_version, 
