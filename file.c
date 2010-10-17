@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.21 2009/06/29 19:47:16 Superfly_Jon Exp $
+ * $Id: file.c,v 1.22 2010/06/02 21:00:56 plm Exp $
  */
 
 #include "config.h"
@@ -136,7 +136,7 @@ static char fhReadNextChar(FileHelper * fh)
 static int fhPeekNextIsWS(FileHelper * fh)
 {
 	char c = fhPeekNextChar(fh);
-	return (c == ' ' || c == '\t' || c == '\n');
+	return (c == ' ' || c == '\t' || c == '\r' || c == '\n');
 }
 
 static void fhSkipWS(FileHelper * fh)
