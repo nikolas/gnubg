@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.78 2009/11/03 17:46:32 Superfly_Jon Exp $
+ * $Id: dice.c,v 1.79 2009/11/13 23:33:46 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -31,7 +31,7 @@
 #include <unistd.h>
 #endif
 #include <stdlib.h>
-#include "string.h"
+#include <string.h>
 
 #ifdef WIN32
 #include <io.h>
