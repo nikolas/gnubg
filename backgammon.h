@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.420 2009/10/31 20:49:28 c_anthon Exp $
+ * $Id: backgammon.h,v 1.421 2010/06/25 08:53:45 c_anthon Exp $
  */
 
 #ifndef _BACKGAMMON_H_
@@ -588,6 +588,7 @@ extern void CommandExportMatchPDF(char *);
 extern void CommandExportMatchPS(char *);
 extern void CommandExportMatchText(char *);
 extern void CommandExportPositionGammOnLine(char *);
+extern void CommandExportPositionBGbase2Clipboard(char *);
 extern void CommandExportPositionGOL2Clipboard(char *);
 extern void CommandExportPositionHtml(char *);
 extern void CommandExportPositionJF(char *);
