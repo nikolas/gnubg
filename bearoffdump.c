@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoffdump.c,v 1.15 2008/01/16 16:16:45 Superfly_Jon Exp $
+ * $Id: bearoffdump.c,v 1.16 2008/03/18 22:51:34 c_anthon Exp $
  */
 
 #include "config.h"
@@ -89,8 +89,8 @@ main( int argc, char **argv ) {
 
   if (argc != 2)
   {
-	  g_printerr("A bearoff database file should be given as an"
-	     	     "argument\nFor more help try `bearoffdump --help'\n");
+	  g_printerr("A bearoff database file should be given as an argument\n"
+	     	     "For more help try `bearoffdump --help'\n");
 	  exit(EXIT_FAILURE);
   }
   filename = argv[ 1 ];
