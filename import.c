@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.154 2009/11/06 20:53:53 Superfly_Jon Exp $
+ * $Id: import.c,v 1.155 2010/06/19 07:24:03 c_anthon Exp $
  */
 
 #include "config.h"
@@ -598,6 +598,14 @@ static void ParseMatMove( char *sz, int iPlayer, int *warned ) {
           AddMoveRecord( pmr );
         }
         fBeaver = FALSE;
+
+        if ( ! StrNCaseCmp( sz + 4, "???", 3 ) ) {
+	  /*
+	    Apparently XG writes this when the player resigned after rolling
+	    Put it back to '   ' and fall through to "standard" .mat handling
+	  */
+	  sz[4] = sz[5] = sz[6] = ' ';
+	}
 
         if ( ! StrNCaseCmp( sz + 4, "illegal play", 12 ) ) {
           /* Snowie type illegal play */
