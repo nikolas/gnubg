@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.166 2009/09/01 19:13:55 c_anthon Exp $
+ * $Id: eval.h,v 1.168 2010/11/26 22:18:55 plm Exp $
  */
 
 #ifndef _EVAL_H_
@@ -252,8 +252,8 @@ extern const char* aszDoubleTypes[ NUM_DOUBLE_TYPES ];
 #define SETTINGS_GRANDMASTER    7
 #define SETTINGS_SUPREMO        6
 #define SETTINGS_WORLDCLASS     5
-#define SETTINGS_ADVANCED       4
-#define SETTINGS_EXPERT         3
+#define SETTINGS_EXPERT         4
+#define SETTINGS_ADVANCED       3
 #define SETTINGS_INTERMEDIATE   2
 #define SETTINGS_NOVICE         1
 #define SETTINGS_BEGINNER       0
