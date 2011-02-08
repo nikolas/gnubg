@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.220 2009/09/18 09:42:34 c_anthon Exp $
+## $Id: Makefile.am,v 1.221 2011/02/06 22:10:00 c_anthon Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -88,8 +88,6 @@ gnubg_SOURCES = \
 		positionid.h \
 		progress.c \
 		progress.h \
-		record.c \
-		record.h \
 		relational.c \
 		relational.h \
 		render.c \
