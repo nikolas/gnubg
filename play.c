@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.384 2010/11/01 13:05:00 plm Exp $
+ * $Id: play.c,v 1.385 2011/02/13 16:35:58 plm Exp $
  */
 
 #include "config.h"
@@ -2787,6 +2787,8 @@ extern void CommandNewMatch( char *sz )
     FreeMatch();
     ClearMatch();
     
+    strcpy(ap[0].szName,default_names[0]);
+    strcpy(ap[1].szName,default_names[1]);
     plLastMove = NULL;
 
     ms.nMatchTo = n;
