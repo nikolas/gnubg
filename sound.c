@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.85 2011/03/15 05:15:51 mdpetch Exp $
+ * $Id: sound.c,v 1.86 2011/03/20 21:13:42 mdpetch Exp $
  */
 
 #include "config.h"
@@ -181,8 +181,6 @@ void CoreAudio_PlayFile (char * const fileName)
 
 	const char* inputFile = fileName;
 
-	CoreAudioChkError(-1, "testing"); 
-	
 	/* Open the sound file */
 	CFURLRef outInputFileURL = CFURLCreateFromFileSystemRepresentation (kCFAllocatorDefault, 
 		(const UInt8 *)fileName, strlen(fileName), false);
