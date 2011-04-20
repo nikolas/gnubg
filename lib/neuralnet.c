@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.65 2011/03/22 21:34:48 plm Exp $
+ * $Id: neuralnet.c,v 1.66 2011/04/19 20:32:31 plm Exp $
  */
 
 #include "config.h"
@@ -73,9 +73,6 @@ extern int NeuralNetCreate( neuralnet *pnn, unsigned int cInput, unsigned int cH
 			    unsigned int cOutput, float rBetaHidden,
 			    float rBetaOutput )
 {
-    unsigned int i;
-    float *pf;
-    
     pnn->cInput = cInput;
     pnn->cHidden = cHidden;
     pnn->cOutput = cOutput;
