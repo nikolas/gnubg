@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg-types.h,v 1.4 2008/01/15 22:22:46 Superfly_Jon Exp $
+ * $Id: gnubg-types.h,v 1.5 2009/03/21 21:46:33 c_anthon Exp $
  */
 
 #ifndef _GNUBG_TYPES_H_
@@ -60,5 +60,11 @@ typedef struct _matchstate {
 	int fJacoby;
 	gamestate gs;
 } matchstate;
+
+typedef union _positionkey
+{
+	unsigned char auch[10];
+	unsigned int data[3];
+} positionkey;
 
 #endif

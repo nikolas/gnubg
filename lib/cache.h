@@ -15,7 +15,7 @@
  * cache.h
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.h,v 1.16 2009/06/24 18:56:09 Superfly_Jon Exp $
+ * $Id: cache.h,v 1.17 2009/08/30 20:56:32 Superfly_Jon Exp $
  */
 
 #ifndef _CACHE_H_
@@ -23,16 +23,14 @@
 
 #include <stdlib.h>
 
+#include "gnubg-types.h"
+
 /* Set to calculate simple cache stats */
 #define CACHE_STATS 0
 
 typedef struct _cacheNodeDetail
 {
-	union
-	{
-		unsigned char auch[10];
-		int data[3];
-	} key;
+	positionkey key;
 	int nEvalContext;
 	float ar[6];
 } cacheNodeDetail;
