@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.396 2011/05/08 21:11:53 plm Exp $
+ * $Id: eval.c,v 1.397 2011/05/13 18:22:45 plm Exp $
  */
 
 #include "config.h"
@@ -262,6 +262,7 @@ evalCache cEval;
 evalCache cpEval;
 unsigned int cCache;
 int fInterrupt = FALSE;
+int fMatchCancelled = FALSE;
 
 /* variation of backgammon used by gnubg */
 
