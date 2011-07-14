@@ -15,7 +15,7 @@
  * cache.h
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.h,v 1.17 2009/08/30 20:56:32 Superfly_Jon Exp $
+ * $Id: cache.h,v 1.18 2011/05/08 19:08:50 plm Exp $
  */
 
 #ifndef _CACHE_H_
@@ -40,7 +40,7 @@ typedef struct _cacheNode
 	cacheNodeDetail nd_primary;
 	cacheNodeDetail nd_secondary;
 #if USE_MULTITHREAD
-	int lock;
+	volatile int lock;
 #endif
 } cacheNode;
 
