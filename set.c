@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.348 2011/03/23 00:57:27 mdpetch Exp $
+ * $Id: set.c,v 1.349 2011/05/08 19:08:51 plm Exp $
  */
 
 #include "config.h"
@@ -545,6 +545,7 @@ extern void CommandSetBoard( char *sz ) {
     pmr = NewMoveRecord();
 
     pmr->mt = MOVE_SETBOARD;
+    pmr->fPlayer = ms.fMove;
     
     if( ms.fMove )
 	SwapSides( an );
