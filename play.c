@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.394 2011/07/08 21:18:23 plm Exp $
+ * $Id: play.c,v 1.395 2011/08/01 22:17:53 plm Exp $
  */
 
 #include "config.h"
@@ -2947,7 +2947,7 @@ extern void ChangeGame(listOLD *plGameNew)
 	pmr_cur = get_current_moverecord(NULL);
 
 	if (pmr_cur) {
-		if (reallastmt == MOVE_SETBOARD)
+		if (reallastmt >= MOVE_SETBOARD)
 			pmr_cur->fPlayer = reallastplayer;
 		if (pmr_cur->fPlayer != ms.fTurn) {
 			char *sz =
