@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.104 2010/10/31 10:19:46 plm Exp $
+ * $Id: gtkoptions.c,v 1.105 2011/02/14 20:13:48 c_anthon Exp $
  */
 
 #include "config.h"
@@ -302,7 +302,7 @@ static void SoundPlayClicked(GtkWidget *UNUSED(widget), gpointer UNUSED(userdata
 
 static gchar* CacheSizeString(GtkScale *UNUSED(scale), gdouble value)
 {
-  return g_strdup_printf ("%iMb", GetCacheMB(value));
+  return g_strdup_printf ("%iMB", GetCacheMB(value));
 }
 
 static void append_game_options(optionswidget *pow)
