@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.89 2011/03/28 17:23:16 mdpetch Exp $
+ * $Id: sound.c,v 1.90 2011/08/16 23:32:36 mdpetch Exp $
  */
 
 #include "config.h"
@@ -207,7 +207,7 @@ void CoreAudio_PlayFile (char * const fileName)
 	const char* inputFile = fileName;
         pthread_t CAThread;
 
-	/* first time through ininitialise the mutex */
+	/* first time through initialise the mutex */
 	if (!fCAInitialised) {
 	        pthread_mutex_init (&mutexCAAccess, NULL);
 		fCAInitialised = TRUE;
