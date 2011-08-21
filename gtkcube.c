@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.79 2011/02/14 20:13:48 c_anthon Exp $
+ * $Id: gtkcube.c,v 1.80 2011/08/21 06:00:56 mdpetch Exp $
  */
 
 #include "config.h"
@@ -728,7 +728,9 @@ CubeAnalysisRollout ( GtkWidget *pw, cubehintdata *pchd ) {
 
   pes->et = EVAL_ROLLOUT;
 
-  if ( ! gtk_widget_is_drawable(pw) )
+  /* If the source widget parent has been destroyed do not attempt
+     to update the hint window */
+  if ( ! GDK_IS_WINDOW (gtk_widget_get_parent_window( pw ) ) )
     return;
 
   UpdateCubeAnalysis ( pchd );
