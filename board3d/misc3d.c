@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: misc3d.c,v 1.105 2009/08/29 08:29:55 Superfly_Jon Exp $
+* $Id: misc3d.c,v 1.106 2011/05/09 20:59:05 plm Exp $
 */
 
 #include "config.h"
@@ -101,7 +101,7 @@ NTH_STATIC void setIdleFunc(BoardData* bd, idleFunc* pFun)
 	pIdleFun = pFun;
 	pIdleBD = bd;
 
-	idleId = g_idle_add((GtkFunction)idle, bd->bd3d);
+	idleId = g_idle_add((GSourceFunc)idle, bd->bd3d);
 }
 
 /* Test function to show normal direction */
