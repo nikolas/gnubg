@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.h,v 1.10 2008/07/30 15:03:00 c_anthon Exp $
+ * $Id: gtktoolbar.h,v 1.11 2011/08/31 00:50:45 mdpetch Exp $
  */
 
 #ifndef _GTKTOOLBAR_H_
@@ -61,5 +61,6 @@ image_from_xpm_d ( char **xpm, GtkWidget *pw );
 
 extern void click_edit(void);
 extern void click_swapdirection(void);
+extern GtkWidget* ToolbarAddWidget(GtkToolbar *pwToolbar, GtkWidget *pWidget, const char *tooltip);
 
 #endif /* _GTKTOOLBAR_H_ */
