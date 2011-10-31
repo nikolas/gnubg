@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.148 2011/02/16 19:43:38 plm Exp $
+ * $Id: gtkgame.h,v 1.149 2011/08/31 00:50:41 mdpetch Exp $
  */
 
 #ifndef _GTKGAME_H_
@@ -192,5 +192,8 @@ extern void ProcessInput(char *sz);
 extern void SetSwitchModeMenuText(void);
 extern gboolean gtk_gl_init_success;
 #endif
+
+extern GtkWidget *get_statusbar_label (GtkStatusbar *statusbar);
+extern void toolbar_set_orientation (GtkToolbar *toolbar, GtkOrientation orientation);
 
 #endif
