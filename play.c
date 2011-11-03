@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.401 2011/09/18 15:51:24 plm Exp $
+ * $Id: play.c,v 1.402 2011/10/31 09:41:14 c_anthon Exp $
  */
 
 #include "config.h"
@@ -565,7 +565,6 @@ static void add_moverecord_sanity_check(moverecord *pmr)
 	case MOVE_NORMAL:
 		if (pmr->ml.cMoves)
 			g_assert(pmr->n.iMove <= pmr->ml.cMoves);
-		break;
 
 		break;
 
