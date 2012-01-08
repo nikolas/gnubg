@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.81 2011/12/06 23:16:47 plm Exp $
+ * $Id: dice.c,v 1.82 2011/12/07 08:04:05 plm Exp $
  */
 
 #include "config.h"
@@ -24,7 +24,11 @@
 
 #include <fcntl.h>
 #if HAVE_LIBGMP
+#ifdef sun
+#include <gmp/gmp.h>
+#else
 #include <gmp.h>
+#endif
 #endif
 #include <glib.h>
 #if HAVE_UNISTD_H
