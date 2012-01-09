@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.263 2011/03/19 21:08:40 plm Exp $
+ * $Id: show.c,v 1.264 2011/08/18 21:15:27 plm Exp $
  */
 
 #include "config.h"
@@ -1540,9 +1540,9 @@ extern void CommandShowMarketWindow ( char * sz ) {
        has entered 25.1 instead of 0.251 */
 
     if ( aarRates[ 0 ][ 0 ] > 1.0 || aarRates[ 1 ][ 0 ] > 1.0 ||
-         aarRates[ 1 ][ 1 ] > 1.0 || aarRates[ 1 ][ 1 ] > 1.0 ) {
-      aarRates[ 0 ][ 0 ]  /= 100.0;
-      aarRates[ 1 ][ 0 ]  /= 100.0;
+         aarRates[ 0 ][ 1 ] > 1.0 || aarRates[ 1 ][ 1 ] > 1.0 ) {
+      aarRates[ 0 ][ 0 ] /= 100.0;
+      aarRates[ 1 ][ 0 ] /= 100.0;
       aarRates[ 0 ][ 1 ] /= 100.0;
       aarRates[ 1 ][ 1 ] /= 100.0;
     }
