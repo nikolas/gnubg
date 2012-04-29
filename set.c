@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.363 2012/04/26 10:27:18 plm Exp $
+ * $Id: set.c,v 1.364 2012/04/26 10:58:58 plm Exp $
  */
 
 #include "config.h"
@@ -1548,10 +1548,11 @@ extern void CommandSetRNGFile( char *sz ) {
     SetRNG( rngSet, rngctxSet, RNG_FILE, sz );
 }
 
-extern void CommandSetRNGBBS( char *UNUSED(sz) ) {
 #if HAVE_LIBGMP
+extern void CommandSetRNGBBS( char *sz ) {
     SetRNG( rngSet, rngctxSet, RNG_BBS, sz );
 #else
+extern void CommandSetRNGBBS( char *UNUSED(sz) ) {
     outputl( _("This installation of GNU Backgammon was compiled without the "
                "Blum, Blum and Shub generator.") );
 #endif /* HAVE_LIBGMP */
