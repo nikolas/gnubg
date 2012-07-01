@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.906 2012/01/03 21:40:59 plm Exp $
+ * $Id: gnubg.c,v 1.907 2012/04/26 11:35:17 plm Exp $
  */
 
 #include "config.h"
@@ -4760,6 +4760,16 @@ int main(int argc, char *argv[])
 	};
 	GError *error = NULL;
 	GOptionContext *context;
+
+#if NO_OVERLAYSCROLLBARS
+	/* This hack exists for those platforms like Debian Ubuntu
+	   that have problems with Overlay Scrollbars freezing
+	   when clicking on analysed position. The real solution
+	   is for the deprecated GtkCList to be removed and replaced
+	   with a GtkTreeView. mdpetch is currently working on this */ 
+
+	putenv ("LIBOVERLAY_SCROLLBAR=0");
+#endif
 
 #if USE_MULTITHREAD
 	MT_InitThreads();
