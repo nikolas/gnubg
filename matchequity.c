@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.82 2012/03/28 21:25:29 mdpetch Exp $
+* $Id: matchequity.c,v 1.83 2012/07/16 10:23:56 gflohr Exp $
 */
 
 #include "config.h"
@@ -785,18 +785,19 @@ ExtendMET ( float aarMET[ MAXSCORE ][ MAXSCORE ],
 
 /* Extend match equity table */
   for ( i = nMaxScore; i < MAXSCORE; i++ ) {
+      
+    nScore0 = i + 1;
+
+    if ( nScore0 > 10 ) 
+      rStddev0 = 1.77f;
+    else
+      rStddev0 = arStddevTable[ nScore0 ];
 
     for ( j = 0; j <= i ; j++ ) {
 
-      nScore0 = i + 1;
       nScore1 = j + 1;
 
       rGames = ( nScore0 + nScore1 ) / 2.00f;
-
-      if ( nScore0 > 10 ) 
-        rStddev0 = 1.77f;
-      else
-        rStddev0 = arStddevTable[ nScore0 ];
 
       if ( nScore1 > 10 ) 
         rStddev1 = 1.77f;
