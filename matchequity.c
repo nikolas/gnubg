@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.83 2012/07/16 10:23:56 gflohr Exp $
+* $Id: matchequity.c,v 1.84 2012/07/16 10:46:47 gflohr Exp $
 */
 
 #include "config.h"
@@ -803,11 +803,13 @@ ExtendMET ( float aarMET[ MAXSCORE ][ MAXSCORE ],
         rStddev1 = 1.77f;
       else
         rStddev1 = arStddevTable[ nScore1 ];
-	  {
-	  rSigma = sqrtf( rStddev0 * rStddev0 + rStddev1 * rStddev1 ) * sqrtf( rGames );
-	  g_assert ( 6.0f * rSigma > nScore0 - nScore1 );
-	  }
-      aafMET[ i ][ j ] = NormalDistArea ( (float)(nScore0 - nScore1), 6.0f * rSigma, 0.0f, rSigma );
+
+      rSigma = sqrtf( rStddev0 * rStddev0 + rStddev1 * rStddev1 ) * sqrtf( rGames );
+
+      if ( 6.0f * rSigma > nScore0 - nScore1 )
+        aafMET[ i ][ j ] = NormalDistArea ( (float)(nScore0 - nScore1), 6.0f * rSigma, 0.0f, rSigma );
+      else
+        aafMET[ i ][ j ] = 0.0f;
     }
   }
 
