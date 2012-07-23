@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.113 2011/09/18 18:40:20 plm Exp $
+ * $Id: gtkchequer.c,v 1.114 2011/09/20 00:16:32 mdpetch Exp $
  */
 
 #include "config.h"
@@ -449,8 +449,10 @@ GtkWidget *pwDetails;
 static void MoveListCopy(GtkWidget *UNUSED(pw), hintdata *phd)
 {
   char *pc = MoveListCopyData(phd);
-  if ( pc )
+  if ( pc ) {
 	  GTKTextWindow(pc, _("Move details"), DT_INFO, NULL);
+          free(pc);
+  }
 }
 
 static GtkWidget *
