@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.365 2012/04/29 22:48:15 mdpetch Exp $
+ * $Id: set.c,v 1.366 2012/05/08 15:04:11 plm Exp $
  */
 
 #include "config.h"
@@ -1437,14 +1437,16 @@ extern void CommandSetPlayer( char *sz ) {
 
 	HandleCommand( sz, acSetPlayer );
 	UpdateSetting( ap );
-	
+
+	szSetCommand = NULL;
 	return;
     }
 
     if( i == 2 ) {
 	if( ( pchCopy = malloc( strlen( sz ) + 1 ) ) == 0 ) {
 	    outputl( _("Insufficient memory.") );
-		
+
+	    szSetCommand = NULL;
 	    return;
 	}
 
@@ -1465,11 +1467,15 @@ extern void CommandSetPlayer( char *sz ) {
 	UpdateSetting( ap );
 	
 	free( pchCopy );
-	
+
+	szSetCommand = NULL;
 	return;
     }
     
     outputf( _("Unknown player `%s' (see `help set player').\n"), pch );
+
+    szSetCommand = NULL;
+    return;
 }
 
 
@@ -2136,7 +2142,7 @@ extern void CommandSetRolloutVarRedn( char *sz ) {
     int f = prcSet->fVarRedn;
     
     SetToggle( "rollout varredn", &f, sz,
-               _("Will lookahead during rollouts to reduce variance."),
+               _("Will use lookahead during rollouts to reduce variance."),
                _("Will not use lookahead variance "
                "reduction during rollouts.") );
 
