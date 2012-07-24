@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.428 2011/10/31 09:41:11 c_anthon Exp $
+ * $Id: backgammon.h,v 1.429 2011/12/06 23:16:48 plm Exp $
  */
 
-#ifndef _BACKGAMMON_H_
-#define _BACKGAMMON_H_
+#ifndef BACKGAMMON_H
+#define BACKGAMMON_H
 
 #include "analysis.h"
 #include "eval.h"
@@ -722,7 +722,6 @@ extern void CommandSetEvalParamRollout(char *);
 extern void CommandSetEvalParamType(char *);
 extern void CommandSetEvalPlies(char *);
 extern void CommandSetEvalPrune(char *);
-extern void CommandSetEvalReduced(char *);
 extern void CommandSetEvalSameAsAnalysis(char *);
 extern void CommandSetExportCubeDisplayActual(char *);
 extern void CommandSetExportCubeDisplayBad(char *);
