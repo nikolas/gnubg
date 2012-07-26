@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.13 2007/12/18 21:48:03 Superfly_Jon Exp $
+ * $Id: external.h,v 1.14 2012/04/26 01:15:20 mdpetch Exp $
  */
 
-#ifndef _EXTERNAL_H_
-#define _EXTERNAL_H_
+#ifndef EXTERNAL_H
+#define EXTERNAL_H
 
 #if HAVE_SOCKETS
 
@@ -52,7 +52,6 @@ typedef struct _extcmd {
   float rNoise;
   int fDeterministic;
   int fCubeful;
-  int nReduced;
   int fUsePrune;
 
   /* session rules */
@@ -80,4 +79,4 @@ extern void ( *ExtErrorHandler )( const char *szMessage, const char *szNear,
 
 #endif /* #if HAVE_SOCKETS */
 
-#endif /* #ifndef _EXTERNAL_H_ */
+#endif /* #ifndef EXTERNAL_H */
