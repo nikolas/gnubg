@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.160 2011/10/31 09:41:13 c_anthon Exp $
+ * $Id: import.c,v 1.161 2011/11/03 21:47:26 plm Exp $
  */
 
 #include "config.h"
@@ -605,6 +605,18 @@ static void ParseMatMove( char *sz, int iPlayer, int *warned ) {
 	    Put it back to '   ' and fall through to "standard" .mat handling
 	  */
 	  sz[4] = sz[5] = sz[6] = ' ';
+	  /*
+	    Sometimes it puts a 4th one...
+	  */
+	  if ( ! StrNCaseCmp( sz + 7, "?", 1 ) )
+	    sz[7] = ' ';
+	}
+
+	if ( ! StrNCaseCmp( sz + 4, "Cannot Move", 11 ) ) {
+	  /*
+	    Sometimes it writes this instead of nothing for dancing rolls
+	  */
+	  sz[4] = 0;
 	}
 
         if ( ! StrNCaseCmp( sz + 4, "illegal play", 12 ) ) {
