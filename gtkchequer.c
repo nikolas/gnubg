@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.114 2011/09/20 00:16:32 mdpetch Exp $
+ * $Id: gtkchequer.c,v 1.115 2012/07/23 22:32:44 plm Exp $
  */
 
 #include "config.h"
@@ -383,7 +383,9 @@ static char *MoveListCopyData ( hintdata *phd )
 	c = g_list_length(plSelList);
 
 	an = (int*)malloc( c * sizeof( an[ 0 ] ) );
-	sz = (char*)malloc( c * 9 * 80 );
+	/* TODO: This needs to be cleaned up since the maximum number of
+	   lines or length of a string can vary depending on settings */
+	sz = (char*)malloc( c * 25 * 80 );
 
 	*sz = 0;
 
