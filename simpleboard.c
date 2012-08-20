@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id$
+ * $Id: simpleboard.c,v 1.16 2012/04/23 19:36:31 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -231,7 +231,6 @@ static void draw_cube(SimpleBoard * board)
 			y = 252;
 			break;
 		default:
-			y = 0;
 			g_assert_not_reached();
 		}
 	}
@@ -497,13 +496,13 @@ extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr)
 	SimpleBoardColor white_black_black =
 	    { {1.0, 1.0, 1.0}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0} };
 	SimpleBoardColor grey_black_black =
-	    { {0.5, 0.5, 0.5}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0} };
+	    { {0.7, 0.7, 0.7}, {0.0, 0.0, 0.0}, {0.0, 0.0, 0.0} };
 
 	board = g_new0(SimpleBoard, 1);
-	board->color_checker[0] = black_black_white;
-	board->color_checker[1] = white_black_black;
-	board->color_point[0] = white_black_black;
-	board->color_point[1] = grey_black_black;
+	board->color_checker[0] = white_black_black;
+	board->color_checker[1] = black_black_white;
+	board->color_point[0] = grey_black_black;
+	board->color_point[1] = white_black_black;
 	board->color_cube = white_black_black;
 	board->size = SIMPLE_BOARD_SIZE;
 	board->text_size = 6;
