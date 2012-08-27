@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boarddim.h,v 1.12 2008/04/26 17:12:02 c_anthon Exp $
+ * $Id: boarddim.h,v 1.13 2009/03/01 20:01:48 Superfly_Jon Exp $
  */
 
-#ifndef _BOARDDIM_H_
-#define _BOARDDIM_H_
+#ifndef BOARDDIM_H
+#define BOARDDIM_H
 
 
 /* fundamental constants */
@@ -136,4 +136,4 @@
 #define HINGE_TOP_Y ((BOARD_HEIGHT + CUBE_HEIGHT) / 2 + \
                      2 * CHEQUER_HEIGHT + 1)
 
-#endif /* _BOARDDIM_H_ */
+#endif /* BOARDDIM_H */

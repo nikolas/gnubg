@@ -1,5 +1,5 @@
 /*
- * pythonmodule.h
+ * gnubgmodule.h
  *
  * by Joern Thyssen <jth@gnubg.org>, 2003
  *
@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.18 2009/04/06 05:52:20 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.19 2009/06/26 10:16:09 Superfly_Jon Exp $
  */
 
-#ifndef _PYTHONMODULE_H_
-#define _PYTHONMODULE_H_
+#ifndef GNUBGMODULE_H
+#define GNUBGMODULE_H
 
 #if USE_PYTHON
 #ifdef WIN32
@@ -40,4 +40,4 @@ extern void PythonShutdown(void);
 extern void PythonRun(const char *sz);
 extern int LoadPythonFile(const char *sz);
 
-#endif /* _PYTHONMODULE_H_ */
+#endif /* GNUBGMODULE_H */

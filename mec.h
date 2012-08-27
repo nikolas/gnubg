@@ -15,12 +15,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: mec.h,v 1.1 2004/04/16 20:06:28 thyssen Exp $
+ * $Id: mec.h,v 1.2 2007/07/02 12:43:39 ace Exp $
  */
 
 
-#ifndef _MEC_H_
-#define _MEC_H_
+#ifndef MEC_H
+#define MEC_H
 
 #include "matchequity.h"
 
@@ -37,5 +37,5 @@ mec_pc( const float rGammonRate,
         const float rWinRate,
         float arMetPC[ MAXSCORE ] );
 
-#endif /* _MEC_H_ */
+#endif /* MEC_H */
 

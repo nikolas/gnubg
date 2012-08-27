@@ -16,15 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.h,v 1.35 2008/04/27 20:18:43 c_anthon Exp $
+ * $Id: export.h,v 1.36 2008/09/29 10:00:49 c_anthon Exp $
  */
 
 #include "render.h"
 #include "list.h"
 #include <glib.h>
 
-#ifndef _EXPORT_H_
-#define _EXPORT_H_
+#ifndef EXPORT_H
+#define EXPORT_H
 
 #define EXPORT_CUBE_ACTUAL   7
 #define EXPORT_CUBE_MISSED   8

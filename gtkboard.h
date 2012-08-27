@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.98 2009/11/03 17:46:32 Superfly_Jon Exp $
+ * $Id: gtkboard.h,v 1.99 2011/03/23 00:57:26 mdpetch Exp $
  */
 
-#ifndef _GTKBOARD_H_
-#define _GTKBOARD_H_
+#ifndef GTKBOARD_H
+#define GTKBOARD_H
 
 #include "backgammon.h"
 #include <gtk/gtk.h>

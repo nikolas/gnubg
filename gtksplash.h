@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtksplash.h,v 1.4 2007/07/02 12:43:39 ace Exp $
+ * $Id: gtksplash.h,v 1.5 2009/03/02 23:01:30 Superfly_Jon Exp $
  */
 
-#ifndef _GTKSPLASH_H_
-#define _GTKSPLASH_H_
+#ifndef GTKSPLASH_H
+#define GTKSPLASH_H
 
 extern GtkWidget *
 CreateSplash ( void );
@@ -31,4 +31,4 @@ DestroySplash ( GtkWidget *pwSplash );
 extern void
 PushSplash ( GtkWidget *pwSplash, const gchar *szText0, const gchar *szText1 );
 
-#endif /* _GTKSPLASH_H_ */
+#endif /* GTKSPLASH_H */

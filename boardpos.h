@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boardpos.h,v 1.6 2008/03/08 09:17:39 Superfly_Jon Exp $
+ * $Id: boardpos.h,v 1.7 2008/03/08 13:42:42 Superfly_Jon Exp $
  */
 
-#ifndef _BOARDPOS_H_
-#define _BOARDPOS_H_
+#ifndef BOARDPOS_H
+#define BOARDPOS_H
 
 #define POINT_UNUSED0 28 /* the top unused bearoff tray */
 #define POINT_UNUSED1 29 /* the bottom unused bearoff tray */

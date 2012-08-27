@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.h,v 1.18 2009/03/13 23:52:28 c_anthon Exp $
+ * $Id: gtkchequer.h,v 1.19 2009/03/22 22:36:57 c_anthon Exp $
  */
 
-#ifndef _GTKCHEQUER_H_
-#define _GTKCHEQUER_H_
+#ifndef GTKCHEQUER_H
+#define GTKCHEQUER_H
 
 #include "backgammon.h"
 

@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.h,v 1.10 2008/06/14 22:12:23 c_anthon Exp $
+ * $Id: util.h,v 1.11 2009/08/03 22:00:44 c_anthon Exp $
  */
 
-#ifndef _UTIL_H_
-#define _UTIL_H_
+#ifndef UTIL_H
+#define UTIL_H
 
 #include "stdio.h"
 

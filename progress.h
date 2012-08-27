@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.h,v 1.8 2009/05/01 09:28:35 Superfly_Jon Exp $
+ * $Id: progress.h,v 1.9 2009/09/29 22:09:05 c_anthon Exp $
  */
 
-#ifndef _PROGRESS_H_
-#define _PROGRESS_H_
+#ifndef PROGRESS_H
+#define PROGRESS_H
 
 #include "eval.h"
 #include "rollout.h"
@@ -48,5 +48,5 @@ RolloutProgress( float aarOutput[][ NUM_ROLLOUT_OUTPUTS ],
 extern int
 RolloutProgressEnd( void **pp, gboolean destroy );
 
-#endif /* _PROGRESS_H_ */
+#endif /* PROGRESS_H */
 

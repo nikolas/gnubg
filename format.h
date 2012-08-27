@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.10 2009/04/26 21:03:32 c_anthon Exp $
+ * $Id: format.h,v 1.11 2010/11/11 16:50:22 plm Exp $
  */
 
-#ifndef _FORMAT_H_
-#define _FORMAT_H_
+#ifndef FORMAT_H
+#define FORMAT_H
 
 extern int fOutputMWC, fOutputWinPC, fOutputMatchPC;
 extern unsigned int fOutputDigits;
@@ -84,4 +84,4 @@ FormatCubePosition ( char *sz, cubeinfo *pci );
 extern void
 FormatCubePositions( const cubeinfo *pci, char asz[ 2 ][ 40 ] );
 
-#endif /* _FORMAT_H_ */
+#endif /* FORMAT_H */

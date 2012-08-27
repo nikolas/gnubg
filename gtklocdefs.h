@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.5 2011/09/03 23:25:27 mdpetch Exp $
+ * $Id: gtklocdefs.h,v 1.6 2011/10/31 11:23:42 c_anthon Exp $
  */
 
-#ifndef _GTKLOCDEFS_H_
-#define _GTKLOCDEFS_H_
+#ifndef GTKLOCDEFS_H
+#define GTKLOCDEFS_H
 
 #include "config.h"
 
