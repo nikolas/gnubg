@@ -2,11 +2,11 @@
 ------------------------------------------------------------------------------
 Standard definitions and types, Bob Jenkins
 Modified for inclusion with GNU Backgammon by Gary Wong
-$Id: isaacs.h,v 1.1 2000/11/10 18:50:43 gtw Exp $
+$Id: isaacs.h,v 1.2 2000/11/14 18:04:46 gtw Exp $
 ------------------------------------------------------------------------------
 */
-#ifndef _ISAACS_H_
-#define _ISAACS_H_
+#ifndef ISAACS_H
+#define ISAACS_H
 typedef  unsigned long  int  ub4;   /* unsigned 4-byte quantities */
 #define UB4MAXVAL 0xffffffff
 typedef    signed long  int  sb4;

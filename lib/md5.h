@@ -18,15 +18,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: md5.h,v 1.4 2007/07/02 12:46:38 ace Exp $
+ * $Id: md5.h,v 1.5 2009/03/07 20:49:45 c_anthon Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
    under Term 3 of the GNU LGPL) by Gary Wong for distribution
    with GNU Backgammon. */
 
-#ifndef _MD5_H
-#define _MD5_H 1
+#ifndef MD5_H
+#define MD5_H 1
 #include <glib.h>
 #include <stdio.h>
 #include "common.h"

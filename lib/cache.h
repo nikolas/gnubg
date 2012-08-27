@@ -15,11 +15,11 @@
  * cache.h
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.h,v 1.18 2011/05/08 19:08:50 plm Exp $
+ * $Id: cache.h,v 1.19 2011/07/14 21:10:15 plm Exp $
  */
 
-#ifndef _CACHE_H_
-#define _CACHE_H_
+#ifndef CACHE_H
+#define CACHE_H
 
 #include <stdlib.h>
 

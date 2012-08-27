@@ -15,11 +15,11 @@
  * list.h
  *
  * by Gary Wong, 1996
- * $Id: list.h,v 1.6 2007/07/02 14:14:18 ace Exp $
+ * $Id: list.h,v 1.7 2007/12/12 23:08:22 Superfly_Jon Exp $
  */
 
-#ifndef _LIST_H_
-#define _LIST_H_
+#ifndef LIST_H
+#define LIST_H
 
 typedef struct _list {
   struct _list* plPrev;

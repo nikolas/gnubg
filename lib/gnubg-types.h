@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg-types.h,v 1.6 2011/05/08 19:08:50 plm Exp $
+ * $Id: gnubg-types.h,v 1.7 2011/07/15 22:09:59 plm Exp $
  */
 
-#ifndef _GNUBG_TYPES_H_
-#define _GNUBG_TYPES_H_
+#ifndef GNUBG_TYPES_H
+#define GNUBG_TYPES_H
 
 typedef unsigned int TanBoard[2][25];
 typedef const unsigned int (*ConstTanBoard)[25];

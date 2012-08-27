@@ -15,11 +15,11 @@
  * neuralnet.h
  *
  * by Gary Wong, 1998
- * $Id: neuralnet.h,v 1.24 2011/02/08 22:41:38 plm Exp $
+ * $Id: neuralnet.h,v 1.25 2011/03/22 21:34:48 plm Exp $
  */
 
-#ifndef _NEURALNET_H_
-#define _NEURALNET_H_
+#ifndef NEURALNET_H
+#define NEURALNET_H
 
 #include <stdio.h>
 #include "common.h"

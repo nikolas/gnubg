@@ -1,5 +1,5 @@
 /*
- $Id: isaac.h,v 1.2 2005/02/21 23:23:08 jsegrave Exp $
+ $Id: isaac.h,v 1.3 2006/10/27 19:44:41 Superfly_Jon Exp $
 ------------------------------------------------------------------------------
 isaac.h: definitions for a random number generator
 MODIFIED:
@@ -13,8 +13,8 @@ MODIFIED:
 
 #include "isaacs.h"
 
-#ifndef _ISAAC_H_
-#define _ISAAC_H_
+#ifndef ISAAC_H
+#define ISAAC_H
 
 #define RANDSIZL   (4)  /* I recommend 8 for crypto, 4 for simulations */
 #define RANDSIZ    (1<<RANDSIZL)

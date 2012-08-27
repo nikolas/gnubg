@@ -1,11 +1,11 @@
 /*
  * mt19937int.h
  *
- * $Id: mt19937ar.h,v 1.1 2004/04/22 19:17:32 thyssen Exp $
+ * $Id: mt19937ar.h,v 1.2 2004/05/03 13:17:35 thyssen Exp $
  */
 
-#ifndef _MT19937AR_H_
-#define _MT19937AR_H_
+#ifndef MT19937AR_H
+#define MT19937AR_H
 
 #define N 624
 
