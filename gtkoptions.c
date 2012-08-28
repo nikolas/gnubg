@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.108 2011/09/03 18:19:32 mdpetch Exp $
+ * $Id: gtkoptions.c,v 1.109 2012/04/28 15:10:19 plm Exp $
  */
 
 #include "config.h"
@@ -229,7 +229,7 @@ static void SoundEnabledClicked(GtkWidget *UNUSED(widget), gpointer UNUSED(userd
 		SoundDefaultClicked(0, 0);
 }
 
-static void SoundGrabFocus(GtkWidget *pw, void *UNUSED(dummy))
+static void SoundGrabFocus(GtkWidget *UNUSED(pw), void *UNUSED(dummy))
 {
 	gtk_widget_grab_focus(soundList);
 	SoundEnabledClicked(0, 0);
