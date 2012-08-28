@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.34 2009/11/24 20:54:37 c_anthon Exp $
+ * $Id: gtkrolls.c,v 1.35 2011/09/03 19:58:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -330,7 +330,7 @@ static gint RollsClose(GtkWidget *UNUSED(widget), GdkEvent *UNUSED(eventDetails)
 		return FALSE;
 }
 
-static gboolean DepthEvent (GtkWidget *widget, GdkEvent *event, rollswidget *prw) {
+static gboolean DepthEvent (GtkWidget *UNUSED(widget), GdkEvent *event, rollswidget *prw) {
 	switch (event->type) {
 	case GDK_BUTTON_PRESS:
 		fScrollComplete = FALSE;
