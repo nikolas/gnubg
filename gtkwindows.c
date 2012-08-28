@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.46 2011/08/31 00:50:45 mdpetch Exp $
+ * $Id: gtkwindows.c,v 1.47 2011/09/02 21:48:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -88,7 +88,7 @@ static char *aszStockItem[ NUM_DIALOG_TYPES ] =
 	NULL
 };
 
-static void quitter(GtkWidget *widget, GtkWidget *parent)
+static void quitter(GtkWidget *UNUSED(widget), GtkWidget *parent)
 {
   gtk_main_quit();
   if (parent)
@@ -119,7 +119,7 @@ static void DialogResponse(GtkWidget *dialog, gint response, CallbackStruct *dat
 	}
 }
 
-static void dialog_mapped(GtkWidget *window, gpointer data)
+static void dialog_mapped(GtkWidget *window, gpointer UNUSED(data))
 {
 	GdkRectangle monitorrect;
 	GtkAllocation allocation;
