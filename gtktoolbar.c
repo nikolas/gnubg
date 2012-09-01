@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.66 2011/08/31 00:50:45 mdpetch Exp $
+ * $Id: gtktoolbar.c,v 1.67 2011/09/02 21:48:56 mdpetch Exp $
  */
 
 #include "config.h"
@@ -178,7 +178,7 @@ extern void click_swapdirection(void)
 #endif
 	}
 }
-static void ToolbarToggleClockwise( GtkWidget *pw, toolbarwidget *ptw )
+static void ToolbarToggleClockwise( GtkWidget *pw, toolbarwidget *UNUSED(ptw) )
 {
   GtkWidget **aapw = (GtkWidget **) g_object_get_data( G_OBJECT( pw ), "toggle_images" );
   int f = gtk_toggle_button_get_active( GTK_TOGGLE_BUTTON( pw ) );

@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.36 2009/10/13 17:37:09 Superfly_Jon Exp $
+* $Id: gtkgamelist.c,v 1.37 2011/08/31 00:50:42 mdpetch Exp $
 */
 
 #undef GDK_DISABLE_DEPRECATED 
@@ -65,7 +65,7 @@ extern void GTKClearMoveRecord( void ) {
     gtk_clist_clear( GTK_CLIST( pwGameList ) );
 }
 
-static void GameListSelectRow(GtkCList *pcl, gint y, gint x, GdkEventButton *pev, gpointer p)
+static void GameListSelectRow(GtkCList *pcl, gint y, gint x, GdkEventButton *UNUSED(pev), gpointer UNUSED(p))
 {
 #if USE_BOARD3D
     BoardData *bd = BOARD( pwBoard )->board_data;

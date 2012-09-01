@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.228 2011/10/16 18:59:49 plm Exp $
+ * $Id: rollout.c,v 1.229 2012/01/09 22:59:19 plm Exp $
  */
 
 #include "config.h"
@@ -1137,7 +1137,7 @@ static void check_sds(int *active)
 
 }
 
-extern void RolloutLoopMT(void *unused)
+extern void RolloutLoopMT(void *UNUSED(unused))
 {
 	TanBoard anBoardEval;
 	float aar[NUM_ROLLOUT_OUTPUTS];
@@ -1278,7 +1278,7 @@ extern void RolloutLoopMT(void *unused)
 rolloutprogressfunc *ro_pfProgress;
 void *ro_pUserData;
 
-static gboolean UpdateProgress(gpointer unused)
+static gboolean UpdateProgress(gpointer UNUSED(unused))
 {
 	if (fShowProgress && ro_alternatives > 0) {
 		int alt;

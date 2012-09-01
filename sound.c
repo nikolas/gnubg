@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.90 2011/08/16 23:32:36 mdpetch Exp $
+ * $Id: sound.c,v 1.91 2011/08/16 23:59:56 mdpetch Exp $
  */
 
 #include "config.h"
@@ -387,7 +387,7 @@ int fQuiet = FALSE;
 static char *sound_cmd = NULL;
 
 void
-playSoundFile (char *file, /*lint -e{715}*/gboolean sync)
+playSoundFile (char *file, gboolean UNUSED(sync))
 {
     GError *error = NULL;
 #if HAVE_CANBERRA

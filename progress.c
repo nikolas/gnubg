@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.63 2011/02/08 18:57:56 c_anthon Exp $
+ * $Id: progress.c,v 1.64 2011/09/03 02:27:46 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1006,7 +1006,7 @@ static int GTKRolloutProgressEnd(void **pp, gboolean destroy)
 static void
 TextRolloutProgressStart( const cubeinfo *UNUSED(pci), const int n,
                           rolloutstat UNUSED(aars[ 2 ][ 2 ]),
-                          rolloutcontext *prc, char asz[][ 40 ], gboolean multiple, void **pp ) {
+                          rolloutcontext *prc, char asz[][ 40 ], gboolean UNUSED(multiple), void **pp ) {
 
   int i;
 

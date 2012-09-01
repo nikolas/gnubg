@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.104 2011/01/10 22:23:36 plm Exp $
+ * $Id: text.c,v 1.105 2012/08/20 20:42:58 plm Exp $
  */
 
 #include "config.h"
@@ -148,7 +148,7 @@ printTextBoard ( FILE *pf, const matchstate *pms ) {
 
 extern void 
 TextBoardHeader ( GString *gsz, const matchstate *pms, 
-                  const int notused/*iGame*/, const int iMove ) {
+                  const int UNUSED(iGame), const int iMove ) {
 
   if ( iMove >= 0 )
     g_string_append_printf(gsz, _("Move number %d: "), iMove + 1 );
@@ -206,7 +206,7 @@ TextBoardHeader ( GString *gsz, const matchstate *pms,
  */
 
 extern void 
-TextPrologue ( GString *gsz, const matchstate *pms, const int iGame ) {
+TextPrologue ( GString *gsz, const matchstate *pms, const int UNUSED(iGame) ) {
 
   g_string_append_printf( gsz, pms->cGames == 1 ? 
            _("The score (after %d game) is: %s %d, %s %d") :
@@ -242,11 +242,11 @@ TextPrologue ( GString *gsz, const matchstate *pms, const int iGame ) {
  */
 
 static void 
-TextEpilogue ( FILE *pf, const matchstate *pms ) {
+TextEpilogue ( FILE *pf, const matchstate *UNUSED(pms) ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.104 $";
+  const char szVersion[] = "$Revision: 1.105 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -283,7 +283,7 @@ static void
 TextPrintCubeAnalysisTable ( GString *gsz, 
                              float aarOutput[ 2 ][ NUM_ROLLOUT_OUTPUTS ],
                              float aarStdDev[ 2 ][ NUM_ROLLOUT_OUTPUTS ],
-                             int fPlayer,
+                             int UNUSED(fPlayer),
                              const evalsetup* pes, const cubeinfo* pci,
                              int fDouble, int fTake,
                              skilltype stDouble,

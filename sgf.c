@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.135 2011/05/08 19:08:52 plm Exp $
+ * $Id: sgf.c,v 1.136 2011/10/31 09:41:14 c_anthon Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@ static const char *szFile;
 static int fError;
 
 static int CheckSGFVersion(const char **sz);
-static void ErrorHandler(char *sz, int fParseError)
+static void ErrorHandler(char *sz, int UNUSED(fParseError))
 {
 
     if (!fError) {

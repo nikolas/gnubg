@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: formatgs.c,v 1.31 2009/03/24 23:48:45 c_anthon Exp $
+ * $Id: formatgs.c,v 1.32 2009/06/24 18:38:45 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -631,7 +631,7 @@ extern GList *formatGS( const statcontext *psc, const int nMatchTo, const enum _
 }
 
 static void
-_freeGS( gpointer data, gpointer userdata ) {
+_freeGS( gpointer data, gpointer UNUSED(userdata) ) {
 
   char **aasz = data;
   int i;

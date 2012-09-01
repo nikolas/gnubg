@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.71 2012/05/14 22:07:46 gflohr Exp $
+ * $Id: external.c,v 1.72 2012/05/18 09:18:04 gflohr Exp $
  */
 
 #include "config.h"
@@ -341,7 +341,7 @@ extern int ExternalWrite( int h, char *pch, size_t cch ) {
 #if HAVE_SOCKETS
 static void
 ErrorHandler( const char *szMessage, const char *szNear, 
-              const int fParseError ) {
+              const int UNUSED(fParseError) ) {
 
   fError = TRUE;
 
