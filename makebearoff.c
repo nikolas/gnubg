@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.77 2011/05/08 19:08:52 plm Exp $
+ * $Id: makebearoff.c,v 1.78 2011/10/31 09:41:13 c_anthon Exp $
  */
 
 #include "config.h"
@@ -178,7 +178,7 @@ XhashLookup ( xhash *ph, const unsigned int iKey ) {
 
 static int
 OSLookup ( const unsigned int iPos,
-           const int nPoints,
+           const int UNUSED(nPoints),
            unsigned short int aProb[ 64 ],
            const int fGammon, const int fCompress,
            FILE *pfOutput, FILE *pfTmp ) {
@@ -950,7 +950,7 @@ CalcPosition ( const int i, const int j, const int n ) {
 
 static void
 TSLookup ( const int nUs, const int nThem,
-           const int nTSP, const int nTSC,
+           const int UNUSED(nTSP), const int UNUSED(nTSC),
            short int arEquity[ 4 ], 
            const int n, const int fCubeful,
            FILE *pfTmp ) {
@@ -1286,7 +1286,7 @@ generate_ts ( const int nTSP, const int nTSC,
 
 static void
 version ( void ) {
-  printf ( "makebearoff $Revision: 1.77 $\n" );
+  printf ( "makebearoff $Revision: 1.78 $\n" );
 }
 
 

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.228 2011/07/29 17:22:16 mdpetch Exp $
+ * $Id: analysis.c,v 1.229 2011/10/31 09:41:09 c_anthon Exp $
  */
 
 #include "config.h"
@@ -978,7 +978,7 @@ NumberMovesGame ( listOLD *plGame ) {
 }
 
 
-static gboolean UpdateProgressBar(gpointer unused)
+static gboolean UpdateProgressBar(gpointer UNUSED(unused))
 {
 	ProgressValue(MT_GetDoneTasks());
 	return TRUE;
@@ -987,7 +987,7 @@ static gboolean UpdateProgressBar(gpointer unused)
 static void AnalyseMoveMT(Task *task)
 {
 	AnalyseMoveTask *amt;
-    float doubleError;
+	float doubleError;
 
 analyzeDouble:
 	amt = (AnalyseMoveTask *)task;
