@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.84 2012/09/19 04:57:39 mdpetch Exp $
+ * $Id: dice.c,v 1.85 2012/09/19 07:32:49 mdpetch Exp $
  */
 
 #include "config.h"
@@ -527,7 +527,6 @@ static void InitRNGSeedMP( mpz_t n, rng rng, rngcontext *rngctx ) {
         if (mpz_cmp_ui (n, UINT_MAX) > 0) {
 
             achState = mpz_export( NULL, &cb, -1, sizeof ( gint32 ), 0, 0, n );
-            printf ("cb: %d\n", cb);
             for( i = 0; i < N && i < cb; i++ ){
                 tempmtkey[ i ] = achState[ i ];
 	    }
