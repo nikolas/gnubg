@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.82 2011/12/07 08:04:05 plm Exp $
+ * $Id: dice.c,v 1.83 2012/01/08 22:07:04 plm Exp $
  */
 
 #include "config.h"
@@ -374,7 +374,7 @@ PrintRNGSeedMP( mpz_t n ) {
   char *pch;
   pch = mpz_get_str( NULL, 10, n );
   g_print( _("The current seed is") );
-  g_print("%s\n", pch);
+  g_print(" %s\n", pch);
   free( pch );
 
 }
@@ -385,7 +385,7 @@ static void
 PrintRNGSeedNormal( unsigned int n ) {
 
   g_print( _("The current seed is") );
-  g_print( " %d.\n", n );
+  g_print( " %u.\n", n );
 
 }
 #endif /* HAVE_LIBGMP */
@@ -517,9 +517,34 @@ static void InitRNGSeedMP( mpz_t n, rng rng, rngcontext *rngctx ) {
     rngctx->c = 0;
 
     switch( rng ) {
+
+    case RNG_MERSENNE: {
+	ub4 *achState;
+	unsigned long tempmtkey[ N ];
+	size_t cb;
+	unsigned int i;
+
+    if (mpz_cmp_ui (n, UINT_MAX) > 0) {
+
+        achState = mpz_export( NULL, &cb, -1, sizeof( ub4 ), 0, 0, n );
+        
+        for( i = 0; i < N && i < cb; i++ )
+            tempmtkey[ i ] = achState[ i ];
+
+        for( ; i < N; i++ )
+            tempmtkey[ i ] = 0;
+        
+        init_by_array(tempmtkey, N, &rngctx->mti, rngctx->mt);
+
+        free( achState );
+    }
+    else{
+        InitRNGSeed( (unsigned long)(mpz_get_ui( n )), rng, rngctx );    
+    }
+	break;	
+	}
     case RNG_ANSI:
     case RNG_BSD:
-    case RNG_MERSENNE:
     case RNG_MD5:
 	InitRNGSeed( (unsigned int)(mpz_get_ui( n ) % UINT_MAX), rng, rngctx );
 	break;

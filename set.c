@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.366 2012/05/08 15:04:11 plm Exp $
+ * $Id: set.c,v 1.367 2012/07/23 22:24:50 plm Exp $
  */
 
 #include "config.h"
@@ -119,18 +119,19 @@ SetSeed ( const rng rngx, void *rngctx, char *sz ) {
 	else
 	    outputf( _("Seed set to %s.\n"), sz );
 #else
-	int n;
+	gboolean bSuccess;
+	unsigned long n = 0;
 
-	n = ParseNumber( &sz );
+	bSuccess = ParseULong( &sz, &n );
 
-	if( n < 0 ) {
+	if( !bSuccess || n > UINT_MAX || n < 0) {
 	    outputl( _("You must specify a valid seed (see `help set seed').") );
 
 	    return;
 	}
 
-	InitRNGSeed( n, rngx, rngctx );
-	outputf( _("Seed set to %d.\n"), n );
+	InitRNGSeed( (unsigned int) n, rngx, rngctx );
+	outputf( _("Seed set to %ld.\n"), n );
 #endif /* HAVE_LIBGMP */
     } else 
       outputl( RNGSystemSeed( rngx, rngctx, NULL ) ?

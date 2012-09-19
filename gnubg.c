@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.907 2012/04/26 11:35:17 plm Exp $
+ * $Id: gnubg.c,v 1.908 2012/07/01 16:42:30 mdpetch Exp $
  */
 
 #include "config.h"
@@ -804,6 +804,36 @@ extern int ParseNumber( char **ppch )
 	    return INT_MIN;
 
     return atoi( pchOrig );
+}
+
+/* get the next token from the input and convert as an
+   integer. Returns 0 on empty input or non-numerics found, and
+   1 on success. On failure, one token (if any were available)
+   will have been consumed, it is not pushed back into the input.
+   Unsigned long is returned in pretVal
+*/
+extern gboolean ParseULong( char **ppch, unsigned long *pretVal )
+{
+
+    char *pch, *pchOrig;
+
+    if( !ppch || !( pchOrig = NextToken( ppch ) ) )
+	return FALSE;
+
+    for( pch = pchOrig; *pch; pch++ )
+	if( !isdigit( *pch ) )
+	    return FALSE;
+
+    errno = 0;    /* To distinguish success/failure after call */
+    *pretVal = strtol(pchOrig, NULL, 10);
+
+   /* Check for various possible errors */
+   if ((errno == ERANGE && (*pretVal == LONG_MAX || *pretVal == LONG_MIN))
+            || (errno != 0 && pretVal == 0)) 
+	return FALSE;
+
+   return TRUE;
+
 }
 
 /* get a player either by name or as player 0 or 1 (indicated by the single

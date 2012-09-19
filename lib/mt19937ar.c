@@ -44,7 +44,7 @@
 
    (1) #UNDEF main(), and other unused functions.
    (2) make mt and mti parameters
-   $Id: mt19937ar.c,v 1.5 2007/06/11 19:01:13 c_anthon Exp $
+   $Id: mt19937ar.c,v 1.6 2007/12/12 23:08:22 Superfly_Jon Exp $
 */
 
 /* No configuration used in this file
@@ -77,15 +77,13 @@ void init_genrand(unsigned long s, int *mti, unsigned long mt[ N ] )
     }
 }
 
-#ifdef UNDEF
 /* initialize by an array with array-length */
 /* init_key is the array for initializing keys */
 /* key_length is its length */
-void init_by_array(init_key, key_length)
-unsigned long init_key[], key_length;
+void init_by_array(unsigned long init_key[], int key_length,  int *mti, unsigned long mt[ N ])
 {
     int i, j, k;
-    init_genrand(19650218UL);
+    init_genrand(19650218UL, mti, mt);
     i=1; j=0;
     k = (N>key_length ? N : key_length);
     for (; k; k--) {
@@ -106,7 +104,6 @@ unsigned long init_key[], key_length;
 
     mt[0] = 0x80000000UL; /* MSB is 1; assuring non-zero initial array */ 
 }
-#endif /* UNDEF */
 
 /* generates a random number on [0,0xffffffff]-interval */
 unsigned long genrand_int32(int *mti, unsigned long mt[ N ] )
