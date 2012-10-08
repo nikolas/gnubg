@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.431 2012/09/19 04:57:39 mdpetch Exp $
+ * $Id: backgammon.h,v 1.432 2012/10/08 00:50:05 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -26,15 +26,18 @@
 #include "eval.h"
 #include "rollout.h"
 
-#define MAX_CUBE ( 1 << 12 )
-#define MAX_NAME_LEN 32
-#ifndef BUILD_DATE
-#define BUILD_DATE " " __DATE__
-#endif
 #define STRINGIZEAUX(num) #num
 #define STRINGIZE(num) STRINGIZEAUX(num)
 
-#define VERSION_STRING "GNU Backgammon " VERSION " " STRINGIZE(BUILD_DATE)
+#define MAX_CUBE ( 1 << 12 )
+#define MAX_NAME_LEN 32
+#ifndef BUILD_DATE
+#define BUILD_DATE_STR " " __DATE__
+#else
+#define BUILD_DATE_STR STRINGIZE(BUILD_DATE)
+#endif
+
+#define VERSION_STRING "GNU Backgammon " VERSION " " BUILD_DATE_STR
 #define GNUBG_CHARSET "UTF-8"
 
 extern const char *intro_string;
