@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.228 2012/01/08 22:04:54 plm Exp $
+## $Id: Makefile.am,v 1.229 2012/10/07 18:05:49 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -33,12 +33,6 @@ BUILT_SOURCES = sgf_y.c sgf_l.c copying.c credits.c external_l.c external_y.c
 #
 ## sources for building the main executable
 #
-if WIN32
-if USE_GTK
-gnubg_CFLAGS = -mwindows
-endif
-endif
-
 
 gnubg_SOURCES = \
 		analysis.c \
@@ -158,6 +152,13 @@ endif
 if USE_BOARD3D
 gnubg_LDADD += -L$(srcdir)/board3d board3d/libboard3d.la @GTKGLEXT_LIBS@
 endif
+
+if WIN32
+if USE_GTK
+gnubg_LDFLAGS = -mwindows
+endif
+endif
+
 
 
 #
