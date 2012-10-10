@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.c,v 1.21 2011/03/22 08:21:45 mdpetch Exp $
+ * $Id: matchid.c,v 1.22 2011/03/23 00:57:26 mdpetch Exp $
  */
 
 #include "config.h"
@@ -165,8 +165,13 @@ MatchID ( const unsigned int anDice[ 2 ],
   SetBits ( auchKey, 11, 1, fTurn );
   SetBits ( auchKey, 12, 1, fDoubled );
   SetBits ( auchKey, 13, 2, fResigned );
-  SetBits ( auchKey, 15, 3, anDice[ 0 ] & 0x7 );
-  SetBits ( auchKey, 18, 3, anDice[ 1 ] & 0x7 );
+  if (anDice[ 0 ] >= anDice[ 1 ]) {
+    SetBits ( auchKey, 15, 3, anDice[ 0 ] & 0x7 );
+    SetBits ( auchKey, 18, 3, anDice[ 1 ] & 0x7 );
+  } else {
+    SetBits ( auchKey, 15, 3, anDice[ 1 ] & 0x7 );
+    SetBits ( auchKey, 18, 3, anDice[ 0 ] & 0x7 );
+  }
   SetBits ( auchKey, 21, 15, nMatchTo & 0x7FFF );
   SetBits ( auchKey, 36, 15, anScore[ 0 ] & 0x7FFF );
   SetBits ( auchKey, 51, 15, anScore[ 1 ] & 0x7FFF );
