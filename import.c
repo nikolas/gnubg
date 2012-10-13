@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.165 2012/10/12 19:26:43 mdpetch Exp $
+ * $Id: import.c,v 1.166 2012/10/12 19:37:46 mdpetch Exp $
  */
 
 #include "config.h"
@@ -4035,5 +4035,6 @@ extern void CommandImportBGRoom(char *sz)
     else
             outputerrf("Failed to convert gam to mat\n");
 
+	g_unlink( matfile );
     g_free(matfile);
 }
