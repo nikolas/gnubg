@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.405 2012/04/26 09:59:44 plm Exp $
+ * $Id: play.c,v 1.406 2012/05/15 17:18:01 mdpetch Exp $
  */
 
 #include "config.h"
@@ -859,7 +859,7 @@ static void ShowAutoMove( const TanBoard anBoard, int anMove[ 8 ] ) {
 
 static void get_eq_before_resign(cubeinfo *pci, decisionData *pdd)
 {
-	const evalcontext ecResign = { FALSE, 2, FALSE, TRUE, 0.0 };
+	const evalcontext ecResign = { FALSE, 0, FALSE, TRUE, 0.0 };
 
 	pdd->pboard = msBoard();
 	pdd->pci = pci;
