@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.367 2012/07/23 22:24:50 plm Exp $
+ * $Id: set.c,v 1.368 2012/09/19 04:57:39 mdpetch Exp $
  */
 
 #include "config.h"
@@ -698,8 +698,12 @@ extern void CommandSetClockwise( char *sz ) {
 extern void CommandSetAppearance( char *sz )
 {
 #if USE_GTK
-	if (fX)
-		SetBoardPreferences(pwBoard, sz);
+	SetBoardPreferences(pwBoard, sz);
+#else
+	char *apch[2];
+
+	while (ParseKeyValue(&sz, apch))
+		RenderPreferencesParam(GetMainAppearance(), apch[0], apch[1]);
 #endif
 }
 
