@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.19 2009/06/26 10:16:09 Superfly_Jon Exp $
+ * $Id: gnubgmodule.h,v 1.20 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -33,6 +33,14 @@ typedef int Py_ssize_t;
 #define PY_SSIZE_T_MAX INT_MAX
 #define PY_SSIZE_T_MIN INT_MIN
 #endif
+#endif
+
+#if __GNUC__ && defined(WIN32)
+/* Align stack pointer on 16 byte boundary so SSE variables work correctly */
+#define STACKALIGN __attribute__((force_align_arg_pointer))
+#else
+#define STACKALIGN
+
 #endif
 
 extern void PythonInitialise(char *argv0);
