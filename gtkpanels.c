@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.69 2011/10/31 09:41:13 c_anthon Exp $
+* $Id: gtkpanels.c,v 1.70 2012/08/28 21:35:54 plm Exp $
 */
 
 #include "config.h"
@@ -768,6 +768,10 @@ extern void GTKAddGame(moverecord * pmr)
     model = gtk_combo_box_get_model(GTK_COMBO_BOX(game_select_combo));
     last_game = gtk_tree_model_iter_n_children(model, NULL);
     GTKSetGame(last_game - 1);
+
+	/* Update Crawford flag on the board */
+    ms.fCrawford = pmr->g.fCrawford && pmr->g.fCrawfordGame;
+    GTKSet(&ms.fCrawford);
 }
 
 extern void GTKRegenerateGames(void)
