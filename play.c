@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.406 2012/05/15 17:18:01 mdpetch Exp $
+ * $Id: play.c,v 1.407 2012/10/19 01:24:31 mdpetch Exp $
  */
 
 #include "config.h"
@@ -910,7 +910,7 @@ extern int check_resigns(cubeinfo * pci)
 		else if (rEqAfter - rEqBefore < max_gain )
 			break;
 	}
-	while (resigned++ < 3);
+	while (resigned++ <= 3);
 	return resigned == 4 ? -1 : resigned;
 }
 
