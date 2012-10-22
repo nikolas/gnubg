@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.121 2012/10/19 23:55:31 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.122 2012/10/21 22:18:15 plm Exp $
  */
 
 #include "config.h"
@@ -2009,6 +2009,7 @@ PythonGame(const listOLD*    plGame,
     for( pl = pl->plNext; pl != plGame; pl = pl->plNext ) {
       const char* action = 0;
       int player = -1;
+	  long points = -1;
       PyObject* recordDict = PyDict_New();
       PyObject* analysis = doAnalysis ? PyDict_New() : 0;
       
@@ -2119,6 +2120,9 @@ PythonGame(const listOLD*    plGame,
 	{
 	  action = "resign";
 	  player = pmr->fPlayer;
+	  points = pmr->r.nResigned;
+	  if (points < 1) points = 1;
+	  else if (points > 3) points = 3;
 	  break;
 	}
 	
@@ -2188,6 +2192,11 @@ PythonGame(const listOLD*    plGame,
       if( player != -1 ) {
 	DictSetItemSteal(recordDict, "player",
 			     PyString_FromString(player ? "O" : "X"));
+      }
+
+      if( points != -1 ) {
+	DictSetItemSteal(recordDict, "points",
+			     PyInt_FromLong(points));
       }
 
       if( analysis ) {
