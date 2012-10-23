@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.122 2012/10/21 22:18:15 plm Exp $
+ * $Id: gnubgmodule.c,v 1.123 2012/10/22 02:44:30 mdpetch Exp $
  */
 
 #include "config.h"
@@ -404,7 +404,6 @@ PyToEvalContext( PyObject *p, evalcontext *pec ) {
     case 0:
     case 1:
     case 2:
-    case 3:
       /* simple integer */
       if ( ! PyInt_Check( pyValue ) ) {
         /* not an integer */
@@ -426,7 +425,7 @@ PyToEvalContext( PyObject *p, evalcontext *pec ) {
 
       break;
 
-    case 4:
+    case 3:
       /* float */
       if( ! PyFloat_Check( pyValue ) ) {
         /* not a float */
