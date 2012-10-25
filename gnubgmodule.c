@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.124 2012/10/23 18:02:57 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.125 2012/10/25 22:31:25 mdpetch Exp $
  */
 
 #include "config.h"
@@ -725,6 +725,7 @@ PythonMoveTuple2String( PyObject* self UNUSED_PARAM, PyObject *args ) {
 
   szMove[0] = '\0';
   FormatMove( szMove, (ConstTanBoard)anBoard, anMove );
+  parse_move_is_legal(szMove, (ConstTanBoard)anBoard, anMove);
 
   return PyString_FromString(szMove);
 }
@@ -2659,7 +2660,7 @@ PyMethodDef gnubgMethods[] = {
   { "movetupletostring", PythonMoveTuple2String, METH_VARARGS,
     "Convert a move tuple to a move string\n"
     "    arguments: tuple of 8 ints\n"
-    "    returns: String represtation of move" },
+    "    returns: String representation of move" },
   { "parsemove", PythonParseMove, METH_VARARGS,
     "Parse move\n"
     "    arguments: string containing move to parse\n"
