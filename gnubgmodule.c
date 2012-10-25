@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.125 2012/10/25 22:31:25 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.126 2012/10/25 22:49:03 mdpetch Exp $
  */
 
 #include "config.h"
@@ -725,7 +725,6 @@ PythonMoveTuple2String( PyObject* self UNUSED_PARAM, PyObject *args ) {
 
   szMove[0] = '\0';
   FormatMove( szMove, (ConstTanBoard)anBoard, anMove );
-  parse_move_is_legal(szMove, (ConstTanBoard)anBoard, anMove);
 
   return PyString_FromString(szMove);
 }
