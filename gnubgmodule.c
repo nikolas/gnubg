@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.127 2012/10/25 22:50:49 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.128 2012/10/26 02:56:21 mdpetch Exp $
  */
 
 #include "config.h"
@@ -95,8 +95,12 @@ PyToMove( PyObject* p, unsigned int anMove[ 8 ] )
     for ( j = 0; j < tuplelen && anIndex < 8; ++j ) {
       PyObject* pi = PySequence_Fast_GET_ITEM(p, j);
       if( !PySequence_Check(pi))
-        /* Found value like findbestmove returns */
-        anMove[ anIndex++ ] = (int) PyInt_AsLong( pi ) - 1;
+        if (PyInt_Check(pi))
+          /* Found value like findbestmove returns */
+          anMove[ anIndex++ ] = (int) PyInt_AsLong( pi ) - 1;
+       else
+          /* Value not an integer */
+          return 0;
       else {
         /* Found inner tuple like parsemove returns */
         if ( PySequence_Check(pi) && PySequence_Size(pi) == 2 ) {
@@ -104,7 +108,11 @@ PyToMove( PyObject* p, unsigned int anMove[ 8 ] )
           /* Process inner tuple */
           for ( k = 0; k < 2 && anIndex < 8; ++k, anIndex++ ) {
             PyObject* pii = PySequence_Fast_GET_ITEM(pi, k);
-  	        anMove[ anIndex ] = (int) PyInt_AsLong( pii ) - 1;
+            if (PyInt_Check(pii))
+   	          anMove[ anIndex ] = (int) PyInt_AsLong( pii ) - 1;
+            else
+              /* Value not an integer */
+              return 0;
           }
         }
         /*if an inner tuple doesn't have exactly 2 elements there is an error */
