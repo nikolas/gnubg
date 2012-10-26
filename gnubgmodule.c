@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.126 2012/10/25 22:49:03 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.127 2012/10/25 22:50:49 mdpetch Exp $
  */
 
 #include "config.h"
@@ -71,7 +71,13 @@ Board1ToPy( unsigned int anBoard [ 25 ] ) {
   return b;
 }
 
+/* Convert Move tuple to an anMove structure. 
+   A tuple can be expressed in two forms.
+   form returned by findbestmove ie. (21,18,11,5)
+   form returned by parsemove ie. ((21,18),(11,5))
 
+   on return populates the passed anMove structure
+*/
 static int
 PyToMove( PyObject* p, unsigned int anMove[ 8 ] )
 {
@@ -81,13 +87,35 @@ PyToMove( PyObject* p, unsigned int anMove[ 8 ] )
     return 0;
 
   tuplelen = PySequence_Size(p);
-  if( tuplelen > 0 && tuplelen <= 8 ) {
+  if( tuplelen > 0 ) {
     int j;
+    int anIndex = 0;
 
-    for ( j = 0; j < tuplelen; ++j ) {
+    /* Process outter tuple */
+    for ( j = 0; j < tuplelen && anIndex < 8; ++j ) {
       PyObject* pi = PySequence_Fast_GET_ITEM(p, j);
-      anMove[ j ] = (int) PyInt_AsLong( pi ) - 1;
+      if( !PySequence_Check(pi))
+        /* Found value like findbestmove returns */
+        anMove[ anIndex++ ] = (int) PyInt_AsLong( pi ) - 1;
+      else {
+        /* Found inner tuple like parsemove returns */
+        if ( PySequence_Check(pi) && PySequence_Size(pi) == 2 ) {
+          int k;
+          /* Process inner tuple */
+          for ( k = 0; k < 2 && anIndex < 8; ++k, anIndex++ ) {
+            PyObject* pii = PySequence_Fast_GET_ITEM(pi, k);
+  	        anMove[ anIndex ] = (int) PyInt_AsLong( pii ) - 1;
+          }
+        }
+        /*if an inner tuple doesn't have exactly 2 elements there is an error */
+        else
+          return 0;
+      }
     }
+    /* If we have found more items than the maximum */
+    if ( anIndex >= 8 && j < tuplelen)
+      return 0;
+
     return 1;
   }
 
@@ -686,6 +714,14 @@ PythonErrorRating( PyObject* self UNUSED_PARAM, PyObject *args ) {
   return PyInt_FromLong( GetRating( r ) );
 
 }
+
+/* Convert Move tuple to a string 
+   A tuple can be expressed in two forms.
+   form returned by findbestmove ie. (21,18,11,5)
+   form returned by parsemove ie. ((21,18),(11,5))
+
+   returns a string representing the move tuple.
+*/
 
 static PyObject *
 PythonMoveTuple2String( PyObject* self UNUSED_PARAM, PyObject *args ) {
