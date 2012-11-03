@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.64 2011/09/03 02:27:46 mdpetch Exp $
+ * $Id: progress.c,v 1.65 2012/09/01 18:49:57 plm Exp $
  */
 
 #include "config.h"
@@ -43,7 +43,7 @@
 #include "gtkgame.h"
 #include "gtkwindows.h"
 typedef enum _rollout_colls {
-	TITLE_C, RANK_C, TRIALS_C, WIN_C, WIN_G_C, WIN_BG_C, LOOSE_G_C, LOOSE_BG_C, CLESS_C, CFUL_C, CFUL_S_C, JSD_C, N_ROLLOUT_COLS
+	TITLE_C, RANK_C, TRIALS_C, WIN_C, WIN_G_C, WIN_BG_C, LOSE_G_C, LOSE_BG_C, CLESS_C, CFUL_C, CFUL_S_C, JSD_C, N_ROLLOUT_COLS
 } rollout_cols;
 
 #endif /* USE_GTK */
