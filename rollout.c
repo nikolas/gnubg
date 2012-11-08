@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.229 2012/01/09 22:59:19 plm Exp $
+ * $Id: rollout.c,v 1.230 2012/09/01 18:49:58 plm Exp $
  */
 
 #include "config.h"
@@ -149,7 +149,7 @@ extern FILE *log_game_start(const char *name, const cubeinfo * pci, int fCubeful
 	fprintf(logfp, ";PL[%s]\n", pci->fMove ? "B" : "W");
 	fprintf(logfp, ";CP[%s]\n", pci->fCubeOwner == 0 ? "w" : pci->fCubeOwner == 1 ? "b" : "c");
 	fprintf(logfp, ";CV[%d]\n", pci->nCube);
-	fprintf(logfp, ";AE[a:y]AW");
+	fprintf(logfp, ";AE[a:x]AW");
 	if (!pci->fMove) {
 		board_to_sgf(logfp, anBoard[1], 1);
 		fprintf(logfp, "AB");
