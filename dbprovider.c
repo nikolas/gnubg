@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.26 2009/10/09 08:15:14 Superfly_Jon Exp $
+ * $Id: dbprovider.c,v 1.27 2011/09/03 03:09:41 mdpetch Exp $
  */
 
 #include "config.h"
@@ -310,7 +310,7 @@ int PyPostgreConnect(const char *dbfilename, const char *user, const char *passw
 	return 1;
 }
 #if !USE_SQLITE
-static int PySQLiteConnect(const char *dbfilename, const char *user, const char *password)
+static int PySQLiteConnect(const char *dbfilename, const char *UNUSED(user), const char *UNUSED(password))
 {
 	PyObject *con;
 	char *name, *filename, *buf;
@@ -561,7 +561,7 @@ int PyPostgreDeleteDatabase(const char *dbfilename, const char *user, const char
 
 sqlite3 *connection;
 
-int SQLiteConnect(const char *dbfilename, const char *user, const char *UNUSED(password))
+int SQLiteConnect(const char *dbfilename, const char *UNUSED(user), const char *UNUSED(password))
 {
 	char *name, *filename;
 	int exists, ret;
@@ -647,7 +647,7 @@ static void SQLiteCommit(void)
 #endif
 
 #if NUM_PROVIDERS
-GList *SQLiteGetDatabaseList(const char *user, const char *UNUSED(password))
+GList *SQLiteGetDatabaseList(const char *UNUSED(user), const char *UNUSED(password))
 {
 	GList *glist = NULL;
 	GDir *dir = g_dir_open(szHomeDirectory, 0, NULL);
@@ -669,7 +669,7 @@ GList *SQLiteGetDatabaseList(const char *user, const char *UNUSED(password))
 	return glist;
 }
 
-int SQLiteDeleteDatabase(const char *dbfilename, const char *user, const char *UNUSED(password))
+int SQLiteDeleteDatabase(const char *dbfilename, const char *UNUSED(user), const char *UNUSED(password))
 {
 	char *name, *filename;
 	int ret;
