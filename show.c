@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.264 2011/08/18 21:15:27 plm Exp $
+ * $Id: show.c,v 1.265 2012/01/09 22:52:22 plm Exp $
  */
 
 #include "config.h"
@@ -2134,8 +2134,11 @@ CommandShowCheat( char *UNUSED(sz) ) {
 
   outputf( _("Manipulation with dice is %s.\n"),
            fCheat ? _("enabled") : _("disabled") );
-  PrintCheatRoll( 0, afCheatRoll[ 0 ] );
-  PrintCheatRoll( 1, afCheatRoll[ 1 ] );
+
+  if (fCheat) {
+    PrintCheatRoll( 0, afCheatRoll[ 0 ] );
+    PrintCheatRoll( 1, afCheatRoll[ 1 ] );
+  }
 
 }
 
