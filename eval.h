@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.172 2012/04/25 11:46:06 plm Exp $
+ * $Id: eval.h,v 1.173 2012/04/28 15:10:18 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -38,7 +38,6 @@
 
 #define NUM_OUTPUTS 5
 #define NUM_CUBEFUL_OUTPUTS 4
-#define MAX_ROLLOUT_CUBEINFO 16
 #define NUM_ROLLOUT_OUTPUTS 7
 
 #define BETA_HIDDEN 0.1f
@@ -59,8 +58,7 @@ typedef enum {
   OUTPUT_OPTIMAL = 0,
   OUTPUT_NODOUBLE ,
   OUTPUT_TAKE, 
-  OUTPUT_DROP,
-  N_CUBEFUL_OUTPUTS
+  OUTPUT_DROP
 } CubefulOutputs;
 
 /* A trivial upper bound on the number of (complete or incomplete)
