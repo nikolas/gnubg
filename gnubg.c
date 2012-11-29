@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.909 2012/09/19 04:57:39 mdpetch Exp $
+ * $Id: gnubg.c,v 1.910 2012/10/08 00:50:05 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3558,7 +3558,7 @@ static command *FindContext( command *pc, char *szOrig, int ich )
     return NULL;
 }
 
-static char **CompleteKeyword( const char *szText, int iStart, int iEnd)
+static char **CompleteKeyword( const char *szText, int iStart, int UNUSED(iEnd))
 {
 
     if( fReadingOther )
