@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.230 2012/09/01 18:49:58 plm Exp $
+ * $Id: rollout.c,v 1.231 2012/11/08 21:16:49 gflohr Exp $
  */
 
 #include "config.h"
@@ -1057,7 +1057,10 @@ static void check_jsds(int *active)
 		if (eq_dp < eq_dt) {
 			/* compare nd to dp */
 			ajiJSD[0].rEquity = ajiJSD[0].rEquity - eq_dp;
-			ajiJSD[0].rJSD = (float)fabs(ajiJSD[0].rEquity / ajiJSD[0].rJSD);
+			denominator = ajiJSD[0].rJSD;
+			if (denominator < 1e-8f)
+				denominator = 1e-8f;
+			ajiJSD[0].rJSD = (float)fabs(ajiJSD[0].rEquity / denominator);
 		} else {
 			/* compare nd to dt */
 			ajiJSD[0].rEquity = ajiJSD[0].rEquity - ajiJSD[1].rEquity;
@@ -1070,7 +1073,10 @@ static void check_jsds(int *active)
 		}
 		/* compare dt to dp */
 		ajiJSD[1].rEquity = ajiJSD[1].rEquity - eq_dp;
-		ajiJSD[1].rJSD = (float)fabs(ajiJSD[1].rEquity / ajiJSD[1].rJSD);
+		denominator = ajiJSD[1].rJSD;
+		if (denominator < 1e-8f)
+		  denominator = 1e-8f;
+		ajiJSD[1].rJSD = (float)fabs(ajiJSD[1].rEquity / denominator);
 		if (rcRollout.fStopOnJsd &&
 		    (altGameCount[0] >= (rcRollout.nMinimumJsdGames)) &&
 		    rcRollout.rJsdLimit < MIN(ajiJSD[0].rJSD, ajiJSD[1].rJSD)) {
