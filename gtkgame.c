@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.858 2012/08/28 21:27:07 plm Exp $
+ * $Id: gtkgame.c,v 1.859 2012/10/15 21:10:11 plm Exp $
  */
 
 #include "config.h"
@@ -4604,7 +4604,7 @@ static void NewOK( GtkWidget *pw, newwidget *pnw )
 	if (ToolbarIsEditing(NULL))
 		click_edit();	/* Come out of editing mode */
 
-  sprintf(sz, "new match %d", Mlength );
+  sprintf(sz, "new match %u", Mlength );
   UserCommand(sz);
 }
 
@@ -7268,7 +7268,7 @@ static void MatchInfoOK( GtkWidget *pw, int *UNUSED(pf) )
 	else if( nDay && ( !mi.nYear || mi.nYear != nYear ||
 			   mi.nMonth != nMonth || mi.nDay != nDay ) ) {
 	    char sz[ 64 ];
-	    sprintf( sz, "set matchinfo date %04d-%02d-%02d", nYear, nMonth,
+	    sprintf( sz, "set matchinfo date %04u-%02u-%02u", nYear, nMonth,
 		     nDay );
 	    UserCommand( sz );
 	}
