@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.70 2012/03/25 12:08:48 plm Exp $
+ * $Id: multithread.c,v 1.71 2012/09/06 21:33:33 plm Exp $
  */
 
 #include "config.h"
@@ -497,7 +497,7 @@ void mt_add_tasks(unsigned int num_tasks, AsyncFun pFun, void *taskData, gpointe
 	{
 #ifdef DEBUG_MULTITHREADED
 		char buf[20];
-		sprintf(buf, "add %d tasks", num_tasks);
+		sprintf(buf, "add %u tasks", num_tasks);
 		Mutex_Lock(td.queueLock, buf);
 #else
 		Mutex_Lock(td.queueLock, NULL);
