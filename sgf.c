@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.138 2012/11/08 21:16:49 gflohr Exp $
+ * $Id: sgf.c,v 1.139 2012/12/16 18:04:35 plm Exp $
  */
 
 #include "config.h"
@@ -2284,7 +2284,7 @@ extern void SaveGame(FILE * pf, listOLD * plGame)
 	case MOVE_SETBOARD:
 	    PositionFromKey(anBoard, &pmr->sb.key);
 
-	    fputs("\n;AE[a:x]", pf);
+	    fputs("\n;AE[a:y]", pf);
 
 	    for (i = 0, j = 0; i < 25; ++i)
 		j += anBoard[1][i];
