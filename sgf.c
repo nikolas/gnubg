@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.139 2012/12/16 18:04:35 plm Exp $
+ * $Id: sgf.c,v 1.140 2012/12/17 22:01:26 plm Exp $
  */
 
 #include "config.h"
@@ -1097,7 +1097,7 @@ static void PointList(listOLD * pl, int an[])
 	    ch0 = ch1 = 0;
 	    sscanf(pch, "%c:%c", &ch0, &ch1);
 	    if (ch0 >= 'a' && ch1 <= 'y' && ch0 < ch1)
-		for (i = ch0 - 'a'; i < ch1 - 'a'; i++)
+		for (i = ch0 - 'a'; i <= ch1 - 'a'; i++)
 		    an[i]++;
 	} else if (*pch >= 'a' && *pch <= 'y')
 	    an[*pch - 'a']++;
