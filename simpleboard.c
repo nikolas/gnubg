@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simpleboard.c,v 1.18 2013/01/23 20:35:20 plm Exp $
+ * $Id: simpleboard.c,v 1.19 2013/01/23 21:12:23 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -29,8 +29,6 @@
 #include "matchid.h"
 #include "simpleboard.h"
 #include <glib.h>
-
-#define SIMPLE_BOARD_SIZE 150.
 
 /*! \brief get number of checkers from a backgammon variation
  *
@@ -488,7 +486,7 @@ extern int simple_board_draw(SimpleBoard * board)
 	return (0);
 }
 
-extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr)
+extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr, float simple_board_size)
 {
 	SimpleBoard *board;
 	SimpleBoardColor black_black_white =
@@ -504,7 +502,7 @@ extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr)
 	board->color_point[0] = grey_black_black;
 	board->color_point[1] = white_black_black;
 	board->color_cube = white_black_black;
-	board->size = SIMPLE_BOARD_SIZE;
+	board->size = simple_board_size;
 	board->text_size = 6;
 	if (ms)
 		board->ms = *ms;
@@ -520,7 +518,7 @@ static SimpleBoard *simple_board_new_from_ids(gchar * position_id,
 	SimpleBoard *board;
 	g_assert(position_id != NULL && match_id != NULL);
 
-	board = simple_board_new(NULL, cr);
+	board = simple_board_new(NULL, cr, SIZE_1PERPAGE);
 	if (!PositionFromID(board->ms.anBoard, position_id)) {
 		g_free(board);
 		return (NULL);

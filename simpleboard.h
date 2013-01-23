@@ -11,10 +11,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id:$
+ * $Id: simpleboard.h,v 1.6 2013/01/23 20:35:20 plm Exp $
  */
 
 #if HAVE_PANGOCAIRO
+
+#define SIZE_1PERPAGE 250.0f
+#define SIZE_2PERPAGE 150.0f
+
 typedef struct _SimpleBoardColor SimpleBoardColor;
 
 /** \brief struct to hold the colors for points, dice, checkers, etc.*/
@@ -41,7 +45,7 @@ struct _SimpleBoard {
 
 extern gint simple_board_draw(SimpleBoard * board);
 
-extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr);
+extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr, float simple_board_size);
 
 extern void simple_board_destroy(SimpleBoard * board);
 #endif
