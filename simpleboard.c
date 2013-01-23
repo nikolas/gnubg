@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simpleboard.c,v 1.17 2012/08/20 20:42:58 plm Exp $
+ * $Id: simpleboard.c,v 1.18 2013/01/23 20:35:20 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -239,7 +239,7 @@ static void draw_cube(SimpleBoard * board)
 	fill_and_stroke(cr, color);
 	text = g_strdup_printf("%d", cube);
 	cairo_move_to(cr, x, y + 8);
-	draw_centered_text(cr, color.text, 8.0, text);
+	draw_centered_text(cr, color.text, 10.0-2*floorf(log10f(cube)), text);
 	g_free(text);
 }
 
