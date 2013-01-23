@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simpleboard.c,v 1.16 2012/04/23 19:36:31 plm Exp $
+ * $Id: simpleboard.c,v 1.17 2012/08/20 20:42:58 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -512,7 +512,8 @@ extern SimpleBoard *simple_board_new(matchstate * ms, cairo_t * cr)
 	return board;
 }
 
-extern SimpleBoard *simple_board_new_from_ids(gchar * position_id,
+#ifdef SB_STAND_ALONE
+static SimpleBoard *simple_board_new_from_ids(gchar * position_id,
 					      gchar * match_id,
 					      cairo_t * cr)
 {
@@ -541,7 +542,6 @@ extern SimpleBoard *simple_board_new_from_ids(gchar * position_id,
 	return (board);
 }
 
-#ifdef SB_STAND_ALONE
 #include <cairo-svg.h>
 main(int argc, char *argv[])
 {
