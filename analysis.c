@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.230 2012/09/02 21:10:20 plm Exp $
+ * $Id: analysis.c,v 1.231 2012/10/20 07:29:45 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2511,8 +2511,10 @@ static void cmark_match_rollout(listOLD *match)
 
 static gint check_cube_in_pmr(const moverecord *pmr)
 {
-	if (!pmr)
+	if (!pmr) {
 		outputerrf(_("No moverecord stored for this cube."));
+		return 0;
+	}
 
 	if (pmr->mt != MOVE_NORMAL && pmr->mt != MOVE_DOUBLE
 	    && pmr->mt != MOVE_TAKE && pmr->mt != MOVE_DROP) {
@@ -2527,8 +2529,10 @@ static gint check_cmoves_in_pmr(const moverecord *pmr)
 {
 	gint c;
 
-	if (!pmr)
+	if (!pmr) {
 		outputerrf(_("No moverecord stored for this move."));
+		return 0;
+	}
 
 	if (pmr->mt != MOVE_NORMAL) {
 		outputerrf(_("This is not a normal chequer move. "
