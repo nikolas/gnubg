@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.27 2011/09/03 03:09:41 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.28 2012/11/29 15:00:18 plm Exp $
  */
 
 #include "config.h"
@@ -99,7 +99,7 @@ static RowSet* MallocRowset(size_t rows, size_t cols)
 	pRow->widths = (size_t*)malloc(cols * sizeof(size_t));
 	memset(pRow->widths, 0, cols * sizeof(size_t));
 
-	pRow->data = malloc(rows * sizeof(char*));
+	pRow->data = malloc(rows * sizeof(char**));
 	for (i = 0; i < rows; i++)
 	{
 		pRow->data[i] = malloc(cols * sizeof(char*));
