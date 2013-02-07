@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.232 2012/12/01 15:22:41 plm Exp $
+ * $Id: rollout.c,v 1.233 2012/12/17 22:01:26 plm Exp $
  */
 
 #include "config.h"
@@ -1331,6 +1331,11 @@ RolloutGeneral(ConstTanBoard * apBoard,
 
 	show_jsds = 1;
 
+	if (alternatives < 1) {
+		errno = EINVAL;
+		return -1;
+	}
+
 	ajiJSD = g_alloca(alternatives * sizeof(jsdinfo));
 	fNoMore = g_alloca(alternatives * sizeof(int));
 	aciLocal = g_alloca(alternatives * sizeof(cubeinfo));
@@ -1341,11 +1346,6 @@ RolloutGeneral(ConstTanBoard * apBoard,
 	aarSigma = g_alloca(alternatives * NUM_ROLLOUT_OUTPUTS * sizeof(float));
 	aarResult = g_alloca(alternatives * NUM_ROLLOUT_OUTPUTS * sizeof(double));
 	aarVariance = g_alloca(alternatives * NUM_ROLLOUT_OUTPUTS * sizeof(double));
-
-	if (alternatives < 1) {
-		errno = EINVAL;
-		return -1;
-	}
 
 	if (ms.nMatchTo == 0)
 		fOutputMWC = 0;
