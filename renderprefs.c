@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.42 2009/10/13 17:37:10 Superfly_Jon Exp $
+ * $Id: renderprefs.c,v 1.43 2012/10/19 14:27:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -200,7 +200,7 @@ SetMaterialCommon (Material * pMat, const char *sz, const char **arg)
     opac;
   pMat->alphaBlend = (opac != 1) && (opac != 0);
 
-  if (pch) {
+  if (pch && sz) {
     sz += strlen (sz) + 1;
     if (sz && *sz) {
       *arg = sz;
