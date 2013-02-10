@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.911 2012/11/29 15:05:25 plm Exp $
+ * $Id: gnubg.c,v 1.912 2012/12/16 17:43:10 plm Exp $
  */
 
 #include "config.h"
@@ -825,7 +825,7 @@ extern gboolean ParseULong( char **ppch, unsigned long *pretVal )
     *pretVal = strtol(pchOrig, NULL, 10);
 
    /* Check for various possible errors */
-   if ((errno == ERANGE && (*pretVal == LONG_MAX || *pretVal == LONG_MIN))
+   if ((errno == ERANGE && (*pretVal == LONG_MAX || *pretVal == (unsigned long)LONG_MIN))
             || (errno != 0 && pretVal == 0)) 
 	return FALSE;
 
