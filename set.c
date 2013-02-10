@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.368 2012/09/19 04:57:39 mdpetch Exp $
+ * $Id: set.c,v 1.369 2012/10/19 14:27:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -124,7 +124,7 @@ SetSeed ( const rng rngx, void *rngctx, char *sz ) {
 
 	bSuccess = ParseULong( &sz, &n );
 
-	if( !bSuccess || n > UINT_MAX || n < 0) {
+	if( !bSuccess || n > UINT_MAX ) {
 	    outputl( _("You must specify a valid seed (see `help set seed').") );
 
 	    return;
