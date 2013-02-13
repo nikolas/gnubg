@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.31 2011/07/14 21:10:14 plm Exp $
+ * $Id: cache.c,v 1.32 2011/07/15 22:09:59 plm Exp $
  */
 
 #include "config.h"
@@ -376,6 +376,8 @@ void CacheStats(const evalCache* pc, unsigned int* pcLookup, unsigned int* pcHit
    if( pcUsed )
       *pcUsed = pc->nAdds;
 #else
+   (void)pc;	/* suppress unused parameter compiler warning */
+
    if ( pcLookup )
       *pcLookup = 0;
 
