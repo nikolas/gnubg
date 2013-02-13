@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.369 2012/10/19 14:27:35 mdpetch Exp $
+ * $Id: set.c,v 1.370 2013/02/10 23:25:01 plm Exp $
  */
 
 #include "config.h"
@@ -636,6 +636,7 @@ extern void CommandSetVsync3d( char * sz )
 	}
 	fSync = (fSync != 0) ? 1 : 0;	/* Set to 1 or 0, (-1 == not set) */
 #else
+	(void)sz;	/* suppress unused parameter compiler warning */
 	outputl(_("This function is for the MS Windows 3d board only"));
 #endif
 }
