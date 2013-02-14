@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.28 2012/11/29 15:00:18 plm Exp $
+ * $Id: dbprovider.c,v 1.29 2013/02/07 21:47:03 plm Exp $
  */
 
 #include "config.h"
@@ -221,7 +221,7 @@ void SetDBSettings(DBProviderType dbType, const char *database, const char *user
 
 void RelationalSaveSettings(FILE *pf)
 {
-	unsigned int i;
+	int i;
 	fprintf(pf, "relational setup storegamestats=%s\n", storeGameStats ? "yes" : "no");
 	
 	if (dbProviderType != INVALID_PROVIDER)
@@ -260,6 +260,7 @@ extern DBProvider* GetDBProvider(DBProviderType dbType)
 	}
 #endif
 #if !NUM_PROVIDERS
+	(void)dbType;	/* suppress unused parameter compiler warning */
 	return NULL;
 #else
 	if (dbType == INVALID_PROVIDER)
