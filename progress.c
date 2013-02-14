@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.66 2012/11/03 20:49:26 plm Exp $
+ * $Id: progress.c,v 1.67 2013/01/31 22:14:59 plm Exp $
  */
 
 #include "config.h"
@@ -1199,6 +1199,8 @@ RolloutProgressEnd( void **pp, gboolean destroy ) {
   if ( fX ) {
     return GTKRolloutProgressEnd( pp, destroy );
   }
+#else
+  (void)destroy;	/* suppress unused parameter compiler warning */
 #endif /* USE_GTK */
 
   return TextRolloutProgressEnd( pp );
