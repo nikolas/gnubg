@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.90 2011/09/03 02:27:46 mdpetch Exp $
+ * $Id: render.c,v 1.91 2012/09/01 18:49:58 plm Exp $
  */
 
 #include "config.h"
@@ -2743,6 +2743,8 @@ extern void CalculateArea( renderdata *prd, unsigned char *puch, int nStride,
 			 0, 0,
 			 prd->nSize * ARROW_WIDTH, prd->nSize * ARROW_HEIGHT );
 	}
+#else
+	(void)anArrowPosition;	/* suppress unused parameter compiler warning */
 #endif
 }
 
