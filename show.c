@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.266 2012/11/29 13:01:48 plm Exp $
+ * $Id: show.c,v 1.267 2012/11/29 13:10:12 plm Exp $
  */
 
 #include "config.h"
@@ -2022,6 +2022,8 @@ CommandShowRolls ( char *sz ) {
 
 #if USE_GTK
   int nDepth = ParseNumber ( &sz );
+#else
+  (void)sz;	 /* suppress unused parameter compiler warning */
 #endif
 
   if( ms.gs != GAME_PLAYING ) {
@@ -2097,6 +2099,8 @@ CommandShowTemperatureMap( char *sz ) {
     
     return;
   }
+#else
+  (void)sz;	/* suppress unused parameter compiler warning */
 #endif
 
   CommandNotImplemented( NULL );
