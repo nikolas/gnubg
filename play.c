@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.408 2012/10/21 16:08:53 mdpetch Exp $
+ * $Id: play.c,v 1.409 2012/12/01 14:59:57 plm Exp $
  */
 
 #include "config.h"
@@ -655,6 +655,8 @@ extern void SetMoveRecord( void *pv ) {
 #if USE_GTK
     if( fX )
 	GTKSetMoveRecord( pv );
+#else
+    (void)pv;	/* suppress unused parameter compiler warning */
 #endif
 }
 
