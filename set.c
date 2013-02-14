@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.370 2013/02/10 23:25:01 plm Exp $
+ * $Id: set.c,v 1.371 2013/02/13 21:14:06 plm Exp $
  */
 
 #include "config.h"
@@ -899,6 +899,7 @@ extern void CommandSetDelay( char *sz ) {
 	UpdateSetting( &nDelay );
     } else
 #endif /* USE_GTK */
+	(void)sz;	/* suppress unused parameter compiler warning */
 	outputl( _("The `set delay' command applies only when using a window "
 	      "system.") );
 }
@@ -1175,72 +1176,72 @@ static void NoGUI( void ) {
 	       "support.") );
 }
 
-extern void CommandSetGUIAnimationBlink( char *sz ) {
+extern void CommandSetGUIAnimationBlink( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIAnimationNone( char *sz ) {
+extern void CommandSetGUIAnimationNone( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIAnimationSlide( char *sz ) {
+extern void CommandSetGUIAnimationSlide( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIAnimationSpeed( char *sz ) {
+extern void CommandSetGUIAnimationSpeed( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIBeep( char *sz ) {
+extern void CommandSetGUIBeep( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIDiceArea( char *sz ) {
+extern void CommandSetGUIDiceArea( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIHighDieFirst( char *sz ) {
+extern void CommandSetGUIHighDieFirst( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIIllegal( char *sz ) {
+extern void CommandSetGUIIllegal( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIShowIDs( char *sz ) {
+extern void CommandSetGUIShowIDs( char *UNUSED(sz) ) {
 
     NoGUI();
 }
 
-extern void CommandSetGUIShowPipsNone(char *sz)
+extern void CommandSetGUIShowPipsNone(char *UNUSED(sz))
 {
 	NoGUI();
 }
 
-extern void CommandSetGUIShowPipsPips(char *sz)
+extern void CommandSetGUIShowPipsPips(char *UNUSED(sz))
 {
 	NoGUI();
 }
 
-extern void CommandSetGUIShowPipsEPC(char *sz)
+extern void CommandSetGUIShowPipsEPC(char *UNUSED(sz))
 {
 	NoGUI();
 }
 
-extern void CommandSetGUIShowPipsWastage(char *sz)
+extern void CommandSetGUIShowPipsWastage(char *UNUSED(sz))
 {
 	NoGUI();
 }
  
-extern void CommandSetGUIWindowPositions( char *sz ) {
+extern void CommandSetGUIWindowPositions( char *UNUSED(sz) ) {
 
     NoGUI();
 }
