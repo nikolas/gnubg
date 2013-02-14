@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.912 2012/12/16 17:43:10 plm Exp $
+ * $Id: gnubg.c,v 1.913 2013/02/10 23:13:23 plm Exp $
  */
 
 #include "config.h"
@@ -1000,6 +1000,8 @@ extern void UpdateSetting( void *p )
 #if USE_GTK
     if( fX )
 	GTKSet( p );
+#else
+    (void)p;	/* suppress unused parameter compiler warning */
 #endif
 }
 
@@ -4450,7 +4452,7 @@ static void setup_readline(void)
 }
 
 #if !USE_GTK
-static void PushSplash(char *unused, char *heading, char *message)
+static void PushSplash(char *UNUSED(unused), char *UNUSED(heading), char *UNUSED(message))
 {
 }
 #endif
