@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.32 2011/09/03 18:19:32 mdpetch Exp $
+ * $Id: gtkrelational.c,v 1.33 2012/09/06 21:26:14 plm Exp $
  */
 
 #include "config.h"
@@ -675,7 +675,7 @@ extern void RelationalSaveOptions(void)
 
 extern GtkWidget *RelationalOptions(void)
 {
-	unsigned int i;
+	int i;
 	GtkWidget *hb1, *hb2, *vb1, *vb2, *table, *lbl, *align,
 		*help, *pwScrolled;
 
