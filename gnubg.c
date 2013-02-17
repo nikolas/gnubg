@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.913 2013/02/10 23:13:23 plm Exp $
+ * $Id: gnubg.c,v 1.914 2013/02/14 23:10:53 plm Exp $
  */
 
 #include "config.h"
@@ -264,8 +264,6 @@ float    arLuckLevel[] = {
 	0.04f, /* SKILL_DOUBTFUL */
 	0,     /* SKILL_NONE */
     };
-
-evalcontext ecTD = { FALSE, 0, FALSE, TRUE, 0.0 };
 
 /* this is the "normal" movefilter*/
 #define MOVEFILTER \
