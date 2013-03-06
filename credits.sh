@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.140 2012/01/08 22:42:47 plm Exp $
+# $Id: credits.sh,v 1.141 2012/01/08 22:47:10 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -37,6 +37,7 @@ Joern Thyssen
 Gary Wong
 Christian Anthon
 Michael Petch
+Philippe Michel
 EOF
 
 cat > $contributors <<EOF
@@ -46,7 +47,6 @@ Nis Joergensen
 Petr Kadlec
 Kaoru Takahashi
 Stein Kulseth
-Philippe Michel
 Rod Roark
 Ingo Macherius
 EOF
@@ -258,7 +258,7 @@ cat > credits.c <<EOF
 #include "credits.h"
 
 const char aszCOPYRIGHT[] = N_("Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004 by Gary Wong.\n"
-                               "Copyright (C) 2012 by Gary Wong and the AUTHORS; for details type \`show version'.");
+                               "Copyright (C) 2013 by Gary Wong and the AUTHORS; for details type \`show version'.");
 
 credEntry ceAuthors[] = {
 EOF

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.173 2012/04/28 15:10:18 plm Exp $
+ * $Id: eval.h,v 1.174 2012/11/29 12:28:55 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -32,8 +32,8 @@
 	extern ret name##NoLocking( __VA_ARGS__); \
 	extern ret name##WithLocking( __VA_ARGS__)
 
-#define WEIGHTS_VERSION "0.15"
-#define WEIGHTS_VERSION_BINARY 0.15f
+#define WEIGHTS_VERSION "0.91"
+#define WEIGHTS_VERSION_BINARY 0.91f
 #define WEIGHTS_MAGIC_BINARY 472.3782f
 
 #define NUM_OUTPUTS 5
