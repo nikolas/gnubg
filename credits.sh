@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.141 2012/01/08 22:47:10 plm Exp $
+# $Id: credits.sh,v 1.142 2013/03/06 22:41:11 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -49,6 +49,7 @@ Kaoru Takahashi
 Stein Kulseth
 Rod Roark
 Ingo Macherius
+Guido Flohr
 EOF
 
 cat > $support <<EOF
@@ -95,7 +96,6 @@ Ian Dunstan
 Max Durbano
 Peter Eberhard
 Robert Eberlein
-Guido Flohr
 Fotis
 Kennedy Fraser
 Ric Gerace
@@ -107,7 +107,6 @@ Alain Henry
 Jens Hoefkens
 Casey Hopkins
 Martin Janke
-Nis Jorgensen
 Neil Kazaross
 Mathias Kegelmann
 Matija Kejzar
