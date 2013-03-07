@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.411 2013/03/07 10:20:38 plm Exp $
+ * $Id: eval.c,v 1.412 2013/03/07 10:47:02 plm Exp $
  */
 
 #include "config.h"
@@ -5488,7 +5488,11 @@ static void FindBestMoveInEval(NNState * nnStates, int const nDice0, int const n
 				neuralnet *n = nets[pc - CLASS_RACE];
 				if (nnStates)
 					nnStates[pc - CLASS_RACE].state = (i == 0) ? NNSTATE_INCREMENTAL : NNSTATE_DONE;
+#if USE_SSE_VECTORIZE
+				NeuralNetEvaluateSSE(n, arInput, arOutput, nnStates);
+#else
 				NeuralNetEvaluate(n, arInput, arOutput, nnStates);
+#endif
 				if (pc == CLASS_RACE)
 					/* special evaluation of backgammons
 					   overrides net output */
