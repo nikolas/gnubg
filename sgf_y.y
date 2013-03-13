@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.6 2008/04/26 17:12:05 c_anthon Exp $
+ * $Id: sgf_y.y,v 1.7 2012/10/08 21:40:38 plm Exp $
  */
 
 %{
@@ -38,9 +38,9 @@ extern int sgflex( void );
 
 #define YYERROR_VERBOSE
 
-void ( *SGFErrorHandler )( char *, int ) = NULL;
+void ( *SGFErrorHandler )( const char *, int ) = NULL;
  
-static int sgferror( char *s ) {
+static int sgferror( const char *s ) {
 
     if( SGFErrorHandler )
 	SGFErrorHandler( s, 1 );
