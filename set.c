@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.371 2013/02/13 21:14:06 plm Exp $
+ * $Id: set.c,v 1.372 2013/02/14 23:30:06 plm Exp $
  */
 
 #include "config.h"
@@ -2794,7 +2794,7 @@ extern void CommandSetMET( char *sz ) {
   }
 
   InitMatchEquity ( sz );
-  /* Cubeful evaluation get confused withh entries from another table */
+  /* Cubeful evaluation get confused with entries from another table */
   EvalCacheFlush();
 
   /* clear hint */
@@ -2803,7 +2803,7 @@ extern void CommandSetMET( char *sz ) {
   outputf( _("GNU Backgammon will now use the %s match equity table.\n"),
            miCurrent.szName );
 
-  if ( miCurrent.nLength < MAXSCORE ) {
+  if ( miCurrent.nLength < MAXSCORE && miCurrent.nLength != -1 ) {
     
     outputf (_("\n"
              "Note that this match equity table only supports "
