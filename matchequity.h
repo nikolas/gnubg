@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.23 2009/06/13 00:05:41 c_anthon Exp $
+ * $Id: matchequity.h,v 1.24 2012/08/27 23:06:41 plm Exp $
  */
 
 
@@ -31,10 +31,10 @@
 
 typedef struct _metinfo {
 
-  gchar *szName;          /* Name of match equity table */
+  gchar *szName;         /* Name of match equity table */
   gchar *szFileName;     /* File name of met */
   gchar *szDescription;  /* Description of met */
-  int nLength;                /* native length of met */
+  int nLength;           /* native length of met, -1 : pure calculated table */
  
 } metinfo;
 
