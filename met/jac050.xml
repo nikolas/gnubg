@@ -14,14 +14,14 @@
      is permitted in any medium provided the copyright notice and this
      permission notice are preserved.
 
-     $Id: jac050.xml,v 1.4 2002/04/17 20:16:41 Campbell Exp $
+     $Id: jac050.xml,v 1.2 2002/04/17 06:43:21 thyssen Exp $
 
  -->
 
 
 <met>
   <info>
-    <name>Jacobs &amp; Trice</name>
+    <name>Jacobs &amp; Trice with player 0 a 50 Elo favorite</name>
     <description>J. Jacobs &amp; W. Trice, Can a Fish Taste Twice as Good (+50) (1996)</description>
     <length>25</length>
   </info>
