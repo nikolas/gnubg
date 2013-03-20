@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.231 2012/10/20 07:29:45 mdpetch Exp $
+ * $Id: analysis.c,v 1.232 2013/01/26 17:48:32 plm Exp $
  */
 
 #include "config.h"
@@ -2064,7 +2064,7 @@ static int MoveAnalysed(moverecord * pmr, matchstate * pms, listOLD * plGame,
 	case MOVE_SETCUBEPOS:
 		break;
 	default:
-		g_assert(0);
+		g_assert_not_reached();
 	}
 
 	ApplyMoveRecord(pms, plGame, pmr);
@@ -2667,10 +2667,12 @@ extern void CommandCMarkMatchShow(char *UNUSED(sz))
 	if (!CheckGameExists())
 		return;
 
-	gsz = g_string_new(NULL);
-	cmark_match_show(gsz, &lMatch);
-	outputf("%s", gsz->str);
-	g_string_free(gsz, TRUE);
+	if ((gsz = g_string_new(NULL))) {
+		cmark_match_show(gsz, &lMatch);
+		outputf("%s", gsz->str);
+		g_string_free(gsz, TRUE);
+	} else 
+		g_assert_not_reached();
 }
 
 extern void CommandAnalyseRolloutCube(char *UNUSED(sz))
