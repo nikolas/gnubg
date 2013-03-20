@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.142 2013/03/06 22:41:11 plm Exp $
+# $Id: credits.sh,v 1.143 2013/03/07 14:02:18 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -409,6 +409,7 @@ cat >> AUTHORS <<'EOF'
      Ulrich Drepper (an implementation of the public domain MD5 algorithm)
    Bob Jenkins (the ISAAC pseudo random number generator, hashing functions)
        Takuji Nishimura and Makoto Matsumoto (the Mersenne Twister PRNG)
+                   Brian Paul (the TR tile rendering library)
                 Gerry Tesauro (the "pubeval" position evaluator)
              Claes Tornberg (the mec match equity table generator)
 
