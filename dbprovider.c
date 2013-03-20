@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.29 2013/02/07 21:47:03 plm Exp $
+ * $Id: dbprovider.c,v 1.30 2013/02/14 22:41:26 plm Exp $
  */
 
 #include "config.h"
@@ -33,7 +33,6 @@
 #include <glib/gstdio.h>
 #include <string.h>
 #include "dbprovider.h"
-#include <assert.h>
 
 DBProviderType dbProviderType = (DBProviderType)0;
 int storeGameStats = TRUE;
@@ -94,7 +93,7 @@ static RowSet* MallocRowset(size_t rows, size_t cols)
 {
 	size_t i;
 	RowSet* pRow = malloc(sizeof(RowSet));
-	assert(pRow);
+	g_assert(pRow);
 
 	pRow->widths = (size_t*)malloc(cols * sizeof(size_t));
 	memset(pRow->widths, 0, cols * sizeof(size_t));
