@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.20 2011/04/19 20:32:31 plm Exp $
+ * $Id: neuralnetsse.c,v 1.21 2011/12/31 13:14:31 plm Exp $
  */
 
 #include "config.h"
@@ -30,9 +30,6 @@
 #include "sse.h"
 #include "neuralnet.h"
 #include <string.h>
-#if DEBUG_SSE
-#include <assert.h>
-#endif
 
 #ifdef USE_SSE2 
 #include <emmintrin.h> 
@@ -210,8 +207,8 @@ extern int NeuralNetEvaluateSSE(const neuralnet *pnn, /*lint -e{818}*/ float arI
 
 #if DEBUG_SSE
 	/* Not 64bit robust (pointer truncation) - causes strange crash */
-    assert(sse_aligned(ar));
-    assert(sse_aligned(arInput));
+    g_assert(sse_aligned(ar));
+    g_assert(sse_aligned(arInput));
 #endif
 
 	EvaluateSSE(pnn, arInput, ar, arOutput, 0);
