@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: inc3d.h,v 1.49 2011/08/31 00:50:46 mdpetch Exp $
+* $Id: inc3d.h,v 1.50 2012/08/27 21:55:42 plm Exp $
 */
 #ifndef INC3D_H
 #define INC3D_H
@@ -27,7 +27,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <assert.h>
 #if HAVE_UNISTD_H
 #include <unistd.h>
 #endif
