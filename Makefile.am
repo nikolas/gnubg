@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.231 2012/10/08 20:54:37 plm Exp $
+## $Id: Makefile.am,v 1.232 2013/03/06 23:54:58 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -195,7 +195,7 @@ pkgdata_DATA = gnubg_ts0.bd gnubg.wd boards.xml \
 EXTRA_DIST = config.rpath  copying.awk gnubg.gtkrc credits.sh AUTHORS \
 	$(BUILT_SOURCES) ABOUT-NLS boards.xml gnubg.sql autogen.sh \
 	gnubg.weights textures.txt corecount.c \
-	external_y.h sgf_y.h commands.inc
+	external_y.h sgf_y.h commands.inc movefilters.inc
 
 #
 # targets created by credits.sh
