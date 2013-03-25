@@ -19,7 +19,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: matchequity.c,v 1.89 2013/02/13 21:49:31 plm Exp $
+* $Id: matchequity.c,v 1.90 2013/03/25 23:23:31 plm Exp $
 */
 
 #include "config.h"
@@ -1871,6 +1871,8 @@ invertMET ( void ) {
 
     }
   }
+
+  calcGammonPrices ( aafMET, aafMETPostCrawford, aaaafGammonPrices, aaaafGammonPricesPostCrawford );
 }
 
 /* given a match score, return a pair of arrays with the METs for
