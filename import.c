@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.168 2013/03/08 09:35:42 plm Exp $
+ * $Id: import.c,v 1.169 2013/04/05 20:07:39 plm Exp $
  */
 
 #include "config.h"
@@ -3852,11 +3852,17 @@ static int ConvertBackGammonRoomFileToMat(FILE *bgrFP, FILE *matFP)
 	if (ferror(bgrFP))
 	{
 		outputerr("tomat");
+		free(player2);
+		free(player1);
 		return FALSE;
 	}
 
 	if (feof(bgrFP))
+	{
+		free(player2);
+		free(player1);
 		return FALSE;
+	}
 
 	while (!feof(bgrFP))
 	{
@@ -3869,6 +3875,8 @@ static int ConvertBackGammonRoomFileToMat(FILE *bgrFP, FILE *matFP)
 			{
 				if (ferror(bgrFP))
 					outputerr("tomat");
+				free(player2);
+				free(player1);
 				return FALSE;
 			}
 			if (strstr(buffer, "Win the Match"))
@@ -3897,6 +3905,8 @@ static int ConvertBackGammonRoomFileToMat(FILE *bgrFP, FILE *matFP)
 		{
 			if (ferror(bgrFP))
 				outputerr("tomat");
+			free(player2);
+			free(player1);
 			return FALSE;
 		}
 
@@ -3919,6 +3929,8 @@ static int ConvertBackGammonRoomFileToMat(FILE *bgrFP, FILE *matFP)
 			{
 				if (ferror(bgrFP))
 					outputerr("tomat");
+				free(player2);
+				free(player1);
 				return FALSE;
 			}
 			while (buffer[strlen(buffer) - 1] == '\n'
@@ -3984,8 +3996,8 @@ static int ConvertBackGammonRoomFileToMat(FILE *bgrFP, FILE *matFP)
 done:
 	fclose(bgrFP);
 	fclose(matFP);
-	if (player1) free(player1);
-	if (player2) free(player2);
+	free(player2);
+	free(player1);
 
 	return TRUE;
 }
