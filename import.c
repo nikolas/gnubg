@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.170 2013/04/05 20:14:24 plm Exp $
+ * $Id: import.c,v 1.171 2013/04/10 20:23:46 plm Exp $
  */
 
 #include "config.h"
@@ -2057,7 +2057,7 @@ ParseSGGDate ( const char *sz, unsigned int *pnDay, unsigned int *pnMonth, unsig
   *pnMonth = 1;
   *pnYear = 1900;
 
-  if ( sscanf ( sz, "%*s %79s %ud, %ud", szMonth, &nDay, &nYear ) != 3 ) 
+  if ( sscanf ( sz, "%*s %79s %u, %u", szMonth, &nDay, &nYear) != 3 )
     return;
 
   *pnDay = nDay;
