@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.859 2012/10/15 21:10:11 plm Exp $
+ * $Id: gtkgame.c,v 1.860 2012/12/16 17:51:05 plm Exp $
  */
 
 #include "config.h"
@@ -1545,7 +1545,7 @@ static void TogglePanel ( guint iType, guint iActionID, GtkToggleAction *action,
 		panel = WINDOW_COMMAND;
 		break;
 	default:
-		g_assert(FALSE);
+		g_assert_not_reached();
 	}
 	if (f)
 		PanelShow(panel);
@@ -1585,7 +1585,7 @@ static void TogglePanel(gpointer UNUSED(p), guint n, GtkWidget * pw)
 		panel = WINDOW_COMMAND;
 		break;
 	default:
-		g_assert(FALSE);
+		g_assert_not_reached();
 	}
 	if (f)
 		PanelShow(panel);
