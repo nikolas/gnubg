@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.89 2012/03/25 14:50:18 plm Exp $
+ * $Id: bearoff.c,v 1.90 2012/12/16 17:33:37 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw*/
@@ -1166,7 +1166,7 @@ static unsigned short int *GetDistCompressed ( unsigned short int aus[ 64 ], con
              "Offset %lu, dist size %u (offset %u), "
              "gammon dist size %u (offset %u)\n",
              pbc->szFilename, (unsigned long) iOffset, nz, ioff, nzg, ioffg );
-    g_assert( FALSE );
+    g_assert_not_reached();
   }
 
   /* read prob + gammon probs */
