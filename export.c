@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.74 2011/10/31 09:41:12 c_anthon Exp $
+ * $Id: export.c,v 1.75 2013/01/23 22:12:34 plm Exp $
  */
 
 #include "config.h"
@@ -1290,6 +1290,32 @@ static void ExportMatchMat( char *sz, int fSst ) {
     else if( !( pf = g_fopen( sz, "w" ) ) ) {
 	outputerr( sz );
 	return;
+    }
+
+    if (!fSst) {
+      if (mi.pchPlace)
+        fprintf( pf, "; [Site \"%s\"]\n", mi.pchPlace );
+      if (mi.pchEvent)
+        fprintf( pf, "; [Event \"%s\"]\n", mi.pchEvent );
+      if (mi.pchRound)
+        fprintf( pf, "; [Round \"%s\"]\n", mi.pchRound );
+      if (mi.nYear > 1900)
+        fprintf( pf, "; [EventDate \"%4u.%02u.%02u\"]\n", mi.nYear, mi.nMonth, mi.nDay );
+      if (ms.bgv == VARIATION_NACKGAMMON)
+        fprintf( pf, "; [Variation \"NackGammon\"]\n" );
+      if (mi.pchAnnotator)
+        fprintf( pf, "; [Transcriber \"%s\"]\n", mi.pchAnnotator );
+      if (mi.pchComment) {
+        char *pc;
+
+        fprintf( pf, "\n; ");
+        for (pc = mi.pchComment; *pc != 0; pc++)
+          if (*pc == '\n' && *(pc+1) != 0)
+            fputs("\n; ", pf);
+          else
+            fputc(*pc, pf);
+      }
+      fprintf( pf, "\n" );
     }
 
     fprintf( pf, " %d point match\n\n", ms.nMatchTo );
