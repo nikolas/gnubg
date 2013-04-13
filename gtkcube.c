@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.82 2011/09/20 00:16:32 mdpetch Exp $
+ * $Id: gtkcube.c,v 1.83 2012/03/18 16:48:47 plm Exp $
  */
 
 #include "config.h"
@@ -210,8 +210,7 @@ TakeAnalysis(cubehintdata *pchd) {
 
     default:
 
-      g_assert ( FALSE );
-      break;
+      g_assert_not_reached();
 
     }
 
@@ -660,7 +659,7 @@ static void UpdateCubeAnalysis(cubehintdata * pchd)
 		break;
 
 	default:
-		g_assert(FALSE);
+		g_assert_not_reached();
 		break;
 
 	}
@@ -1095,7 +1094,7 @@ extern GtkWidget *CreateCubeAnalysis(moverecord *pmr, const matchstate *pms, int
 		pchd->pwFrame = TakeAnalysis(pchd);
 		break;
 	default:
-		g_assert(FALSE);
+		g_assert_not_reached();
 		break;
 
 	}
