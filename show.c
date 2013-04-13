@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.267 2012/11/29 13:10:12 plm Exp $
+ * $Id: show.c,v 1.268 2013/02/14 23:37:54 plm Exp $
  */
 
 #include "config.h"
@@ -332,7 +332,7 @@ ShowEvalSetup ( const evalsetup *pes ) {
     ShowRollout ( &pes->rc );
     break;
   default:
-    g_assert ( FALSE );
+    g_assert_not_reached();
 
   }
 
@@ -2171,7 +2171,7 @@ extern void show_bearoff( TanBoard an, char *szTemp)
 
                 default:
 
-                        g_assert( FALSE );
+                        g_assert_not_reached();
 
         }
 
