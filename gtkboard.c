@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.311 2012/06/21 08:38:28 mdpetch Exp $
+ * $Id: gtkboard.c,v 1.312 2012/09/01 18:49:57 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -1886,7 +1886,7 @@ extern gboolean board_button_press(GtkWidget *board, GdkEventButton *event,
 				if ( UpdateMove( bd, anBoard ) ) {
 					/* should not happen as ForcedMove and GreadyBearoff
 					   always return legal moves */
-					g_assert(FALSE);
+					g_assert_not_reached();
 				}
 				/* Play a sound if any chequers have moved */
 				if (memcmp(old_points, bd->points, sizeof old_points))
