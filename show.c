@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.268 2013/02/14 23:37:54 plm Exp $
+ * $Id: show.c,v 1.269 2013/04/13 22:47:33 plm Exp $
  */
 
 #include "config.h"
@@ -1448,7 +1448,7 @@ extern void CommandShowMatchEquityTable ( char *sz ) {
   for ( i = 0; i < 2; i++ ) {
     outputf ( _("Post-Crawford table for player %d (%s):\n\n"),
               i, ap[ i ].szName );
-  writeMET ( (float (*)[MAXSCORE] ) aafMETPostCrawford[ i ], 1, n, TRUE );
+  writeMET ( (float (*)[MAXSCORE] ) aafMETPostCrawford[ i ], 1, n, FALSE );
   }
   
 }
