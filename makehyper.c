@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.34 2012/09/02 21:10:20 plm Exp $
+ * $Id: makehyper.c,v 1.35 2013/04/13 23:23:35 plm Exp $
  */
 
 #include "config.h"
@@ -352,12 +352,10 @@ HyperEquity ( const int nUs, const int nThem,
       Utility ( phe->arOutput, &ciJacoby );
 
     return;
-    break;
 
   case HYPER_ILLEGAL:
 
     return;
-    break;
 
   case HYPER_BEAROFF:
   case HYPER_CONTACT:
