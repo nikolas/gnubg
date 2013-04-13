@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.141 2012/12/17 22:11:54 plm Exp $
+ * $Id: sgf.c,v 1.142 2013/03/13 23:10:39 plm Exp $
  */
 
 #include "config.h"
@@ -1789,7 +1789,7 @@ static void WriteDoubleAnalysis(FILE * pf,
 	break;
 
     default:
-	g_assert(FALSE);
+	g_assert_not_reached();
     }
 
     fputc(']', pf);
@@ -1878,7 +1878,7 @@ static void WriteMoveAnalysis(FILE * pf, int fPlayer, movelist * pml,
 
 
 	default:
-	    g_assert(FALSE);
+	    g_assert_not_reached();
 	}
 
 	fputc(']', pf);
@@ -2325,7 +2325,7 @@ extern void SaveGame(FILE * pf, listOLD * plGame)
 	    break;
 
 	default:
-	    g_assert(FALSE);
+	    g_assert_not_reached();
 	}
 
 	if (pmr->sz) {
