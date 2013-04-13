@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.91 2012/09/01 18:49:58 plm Exp $
+ * $Id: render.c,v 1.92 2013/02/14 23:19:28 plm Exp $
  */
 
 #include "config.h"
@@ -1023,7 +1023,7 @@ static void WoodPixel( float x, float y, float z, unsigned char auch[ 3 ],
 	break;
 	
     default:
-	g_assert( FALSE );
+	g_assert_not_reached();
     }
 #if USE_GTK
 	if (showingGray)
