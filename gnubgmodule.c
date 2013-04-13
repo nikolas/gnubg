@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.129 2012/10/26 16:12:49 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.130 2012/11/29 14:27:58 plm Exp $
  */
 
 #include "config.h"
@@ -284,8 +284,7 @@ PyToCubeInfo( PyObject *p, cubeinfo *pci ) {
       break;
       
     default:
-
-      g_assert( FALSE );
+      g_assert_not_reached();
 
     }
 
@@ -404,8 +403,7 @@ PyToPosInfo( PyObject *p, posinfo *ppi ) {
       break;
       
     default:
-
-      g_assert( FALSE );
+      g_assert_not_reached();
 
     }
 
@@ -496,8 +494,7 @@ PyToEvalContext( PyObject *p, evalcontext *pec ) {
       break;
 
     default:
-
-      g_assert( FALSE );
+      g_assert_not_reached();
 
     }
 
@@ -1578,7 +1575,7 @@ luckString(lucktype const lt, int const ignoreNone)
     case LUCK_GOOD: return "good";
     case LUCK_VERYGOOD: return "verygood";
   }
-  g_assert(0);
+  g_assert_not_reached();
   return 0;
 }
     
@@ -1591,7 +1588,7 @@ skillString(skilltype const st, int const ignoreNone)
     case SKILL_DOUBTFUL:    return "doubtful";
     case SKILL_NONE:        return ignoreNone ? 0 : "unmarked";
   }
-  g_assert(0);
+  g_assert_not_reached();
   return 0;
 }
 
@@ -2285,7 +2282,7 @@ PythonGame(const listOLD*    plGame,
 
 	default:
 	{
-	  g_assert(0);
+	  g_assert_not_reached();
 	}
       }
 
