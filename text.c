@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.105 2012/08/20 20:42:58 plm Exp $
+ * $Id: text.c,v 1.106 2012/09/01 18:49:58 plm Exp $
  */
 
 #include "config.h"
@@ -246,7 +246,7 @@ TextEpilogue ( FILE *pf, const matchstate *UNUSED(pms) ) {
 
   time_t t;
 
-  const char szVersion[] = "$Revision: 1.105 $";
+  const char szVersion[] = "$Revision: 1.106 $";
   int iMajor, iMinor;
 
   iMajor = atoi ( strchr ( szVersion, ' ' ) );
@@ -407,7 +407,7 @@ TextPrintCubeAnalysis ( GString *gsz, const matchstate *pms, moverecord *pmr ) {
 
   default:
 
-    g_assert ( FALSE );
+    g_assert_not_reached();
 
 
   }
