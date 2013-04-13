@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.173 2013/04/10 20:41:54 plm Exp $
+ * $Id: import.c,v 1.174 2013/04/13 22:00:53 plm Exp $
  */
 
 #include "config.h"
@@ -2428,7 +2428,7 @@ ParseTMGOptions ( const char *sz, matchinfo *pmi, int *pfCrawfordRule,
 
   case 6: /* Startdate */
 
-    if ( ( sscanf ( sz, "Startdate: %ud-%ud-%ud", 
+    if ( ( sscanf ( sz, "Startdate: %u-%u-%u", 
                     &pmi->nYear, &pmi->nMonth, &pmi->nDay ) ) != 3 ) 
       pmi->nYear = pmi->nMonth = pmi->nDay = 0;
     return 0;
