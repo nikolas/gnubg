@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.413 2013/03/07 11:35:57 plm Exp $
+ * $Id: eval.c,v 1.414 2013/03/21 23:27:49 plm Exp $
  */
 
 #include "config.h"
@@ -5437,7 +5437,7 @@ static void FindBestMoveInEval(NNState * nnStates, int const nDice0, int const n
 		SSE_ALIGN(float arInput[200]);
 		float arOutput[NUM_OUTPUTS];
 		evalcache ec;
-		unsigned long l;
+		uint32_t l;
 		/* declared volatile to avoid wrong compiler optimization
 		 * on some gcc systems. Remove with great care. */
 		move* const volatile pm = &ml.amMoves[i];
@@ -5617,7 +5617,7 @@ EvaluatePositionCache( NNState *nnStates, const TanBoard anBoard, float arOutput
                        const cubeinfo* pci, const evalcontext* pecx,
 		       int nPlies, positionclass pc ) {
     evalcache ec;
-    unsigned long l;
+    uint32_t l;
     /* This should be a part of the code that is called in all
        time-consuming operations at a relatively steady rate, so is a
        good choice for a callback function. */

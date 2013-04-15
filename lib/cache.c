@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.32 2011/07/15 22:09:59 plm Exp $
+ * $Id: cache.c,v 1.33 2013/02/13 21:08:50 plm Exp $
  */
 
 #include "config.h"
@@ -25,12 +25,6 @@
 #include <string.h>
 #ifndef WIN32
 #include <stdio.h>
-#endif
-
-#ifdef HAVE_STDINT_H
-#include <stdint.h>
-#else
-typedef unsigned int uint32_t;
 #endif
 
 #include "cache.h"
@@ -78,6 +72,9 @@ int CacheCreate(evalCache* pc, unsigned int s)
 	pc->cHit = 0;
 	pc->nAdds = 0;
 #endif
+
+	if (s > 1u<<31)
+		return -1;
 
 	pc->size = s;
 	/* adjust size to smallest power of 2 GE to s */
@@ -212,11 +209,11 @@ and these came close:
   c ^= b; c -= rot(b,24); \
 }
 
-extern unsigned long GetHashKey(unsigned long hashMask, const cacheNodeDetail* e)
+extern uint32_t GetHashKey(uint32_t hashMask, const cacheNodeDetail* e)
 {
 	uint32_t a,b,c;
 
-	a = b = c = 0xdeadbeef + (unsigned int)e->nEvalContext;
+	a = b = c = 0xdeadbeef + (uint32_t)e->nEvalContext;
 
 	a = a + e->key.data[0];
 	b = b + e->key.data[1];
@@ -237,9 +234,9 @@ extern unsigned long GetHashKey(unsigned long hashMask, const cacheNodeDetail* e
 	return (c & hashMask);
 }
 
-unsigned int CacheLookupWithLocking(evalCache* pc, const cacheNodeDetail* e, float *arOut, float *arCubeful)
+uint32_t CacheLookupWithLocking(evalCache* pc, const cacheNodeDetail* e, float *arOut, float *arCubeful)
 {
-	unsigned long const l = GetHashKey(pc->hashMask, e);
+	uint32_t const l = GetHashKey(pc->hashMask, e);
 
 #if CACHE_STATS
 	++pc->cLookup;
@@ -282,9 +279,9 @@ unsigned int CacheLookupWithLocking(evalCache* pc, const cacheNodeDetail* e, flo
     return CACHEHIT;
 }
 
-unsigned int CacheLookupNoLocking(evalCache* pc, const cacheNodeDetail* e, float *arOut, float *arCubeful)
+uint32_t CacheLookupNoLocking(evalCache* pc, const cacheNodeDetail* e, float *arOut, float *arCubeful)
 {
-	unsigned long const l = GetHashKey(pc->hashMask, e);
+	uint32_t const l = GetHashKey(pc->hashMask, e);
 
 #if CACHE_STATS
 	++pc->cLookup;
@@ -317,7 +314,7 @@ unsigned int CacheLookupNoLocking(evalCache* pc, const cacheNodeDetail* e, float
     return CACHEHIT;
 }
 
-void CacheAddWithLocking(evalCache* pc, const cacheNodeDetail* e, unsigned long l)
+void CacheAddWithLocking(evalCache* pc, const cacheNodeDetail* e, uint32_t l)
 {
 #if USE_MULTITHREAD
 	cache_lock(pc, l);
