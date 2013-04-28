@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.71 2012/09/06 21:33:33 plm Exp $
+ * $Id: multithread.c,v 1.72 2012/12/16 17:58:44 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@
 #ifdef TRY_COUNTING_PROCEESING_UNITS
 extern int GetLogicalProcssingUnitCount(void);
 #endif
-#ifdef DEBUG_MULTITHREADED
+#if defined(DEBUG_MULTITHREADED) && defined(WIN32)
 unsigned int mainThreadID;
 #endif
 
@@ -433,28 +433,28 @@ void MT_SetNumThreads(unsigned int num)
 
 extern void MT_InitThreads(void)
 {
-	if (!g_thread_supported ())
-		g_thread_init (NULL);
-	g_assert(g_thread_supported());
+    if (!g_thread_supported ())
+        g_thread_init (NULL);
+    g_assert(g_thread_supported());
 
     td.tasks = NULL;
-	td.doneTasks = td.addedTasks = 0;
-	td.totalTasks = -1;
+    td.doneTasks = td.addedTasks = 0;
+    td.totalTasks = -1;
     InitManualEvent(&td.activity);
     TLSCreate(&td.tlsItem);
-	TLSSetValue(td.tlsItem, 0);	/* Main thread shares id 0 */
-#ifdef DEBUG_MULTITHREADED
-	mainThreadID = GetCurrentThreadId();
+    TLSSetValue(td.tlsItem, 0);	/* Main thread shares id 0 */
+#if defined(DEBUG_MULTITHREADED) && defined(WIN32)
+    mainThreadID = GetCurrentThreadId();
 #endif
     InitMutex(&td.multiLock);
     InitMutex(&td.queueLock);
-	InitManualEvent(&td.syncStart);
-	InitManualEvent(&td.syncEnd);
+    InitManualEvent(&td.syncStart);
+    InitManualEvent(&td.syncEnd);
 #ifdef GLIB_THREADS
     if (condMutex == NULL)
         condMutex = g_mutex_new();
 #endif
-	td.numThreads = 0;
+    td.numThreads = 0;
 }
 
 extern void MT_StartThreads(void)
@@ -677,7 +677,11 @@ void multi_debug(const char *str, ...)
 	vsprintf(buf, str, vl);
 
 	id = MT_GetThreadID();
+#if defined(WIN32)
 	if (id == 0 && GetCurrentThreadId() == mainThreadID)
+#else
+	if (id == 0)
+#endif
 		strcpy(tn, "MT");
 	else
 		sprintf(tn, "T%d", id + 1);
