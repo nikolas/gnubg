@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.74 2013/05/01 14:27:12 plm Exp $
+ * $Id: multithread.c,v 1.75 2013/05/01 19:57:49 plm Exp $
  */
 
 #include "config.h"
@@ -242,7 +242,7 @@ static void FreeMutex(Mutex mutex)
 }
 #endif
 
-void Mutex_Lock(Mutex mutex, const char *reason)
+static void Mutex_Lock(Mutex mutex, const char *reason)
 {
 #ifdef DEBUG_MULTITHREADED
 	multi_debug(reason);
@@ -255,7 +255,7 @@ void Mutex_Lock(Mutex mutex, const char *reason)
 	g_mutex_lock(mutex);
 #endif
 }
-void Mutex_Release(Mutex mutex)
+static void Mutex_Release(Mutex mutex)
 {
 #ifdef DEBUG_MULTITHREADED
 	multi_debug("Releasing lock");
