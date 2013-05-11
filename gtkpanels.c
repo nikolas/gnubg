@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkpanels.c,v 1.70 2012/08/28 21:35:54 plm Exp $
+* $Id: gtkpanels.c,v 1.71 2012/10/20 07:29:45 mdpetch Exp $
 */
 
 #include "config.h"
@@ -75,7 +75,7 @@ static gboolean ShowTheoryWindow( void );
 static gboolean ShowCommandWindow( void );
 
 typedef struct _windowobject {
-	char* winName;
+	const char* winName;
 	int showing;
 	int docked;
 	int dockable;
@@ -253,7 +253,7 @@ static gboolean ShowCommandWindow( void )
 	return TRUE;
 }
 
-static void CreatePanel(gnubgwindow window, GtkWidget* pWidget, char* winTitle, char* windowRole)
+static void CreatePanel(gnubgwindow window, GtkWidget* pWidget, char* winTitle, const char* windowRole)
 {
 	if (!woPanel[window].docked)
 	{
