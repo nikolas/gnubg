@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.150 2011/10/31 09:41:13 c_anthon Exp $
+ * $Id: gtkgame.h,v 1.151 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -85,7 +85,7 @@ extern void DisplayWindows(void);
 extern void DockPanels(void);
 extern void FullScreenMode(int state);
 extern void GetFullscreenWindowSettings(int *panels, int *ids, int *maxed);
-extern void GetStyleFromRCFile(GtkStyle ** ppStyle, char *name,
+extern void GetStyleFromRCFile(GtkStyle ** ppStyle, const char *name,
 			       GtkStyle * psBase);
 extern void GL_Freeze(void);
 extern void GL_SetNames(void);

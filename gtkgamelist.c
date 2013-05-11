@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.37 2011/08/31 00:50:42 mdpetch Exp $
+* $Id: gtkgamelist.c,v 1.38 2012/09/01 18:49:57 plm Exp $
 */
 
 #undef GDK_DISABLE_DEPRECATED 
@@ -175,7 +175,7 @@ static void UpdateStyle(GtkStyle *psStyle, GtkStyle *psNew, GtkStyle *psDefault)
 		gtk_set_font(psStyle, psNew);
 }
 
-void GetStyleFromRCFile(GtkStyle** ppStyle, char* name, GtkStyle* psBase)
+void GetStyleFromRCFile(GtkStyle** ppStyle, const char* name, GtkStyle* psBase)
 {	/* Note gtk 1.3 doesn't seem to have a nice way to do this... */
 	BoardData *bd = BOARD(pwBoard)->board_data;
 	GtkStyle *psDefault, *psNew;
