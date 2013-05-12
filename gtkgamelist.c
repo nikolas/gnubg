@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.38 2012/09/01 18:49:57 plm Exp $
+* $Id: gtkgamelist.c,v 1.39 2013/05/11 08:59:14 plm Exp $
 */
 
 #undef GDK_DISABLE_DEPRECATED 
@@ -84,7 +84,7 @@ static void GameListSelectRow(GtkCList *pcl, gint y, gint x, GdkEventButton *UNU
     	pmr = pglr->apmr[(pglr->fCombined) ? 0 : x - 1];
 
     /* Get previous move record */
-    if (!pglr->fCombined && x == 2)
+    if (pglr && !pglr->fCombined && x == 2)
     	x = 1;
     else
     {
