@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.144 2013/05/12 13:30:43 plm Exp $
+ * $Id: sgf.c,v 1.145 2013/05/12 19:13:52 plm Exp $
  */
 
 #include "config.h"
@@ -220,7 +220,7 @@ static void RestoreGS(listOLD * pl, statcontext * psc)
 	    psc->anTotalMoves[0] = strtol(pch, &pch, 10);
 	    psc->anTotalMoves[1] = strtol(pch, &pch, 10);
 
-	    for (st = SKILL_VERYBAD; st < N_SKILLS; st++) {
+	    for (st = SKILL_VERYBAD; st <= SKILL_NONE; st++) {
 		psc->anMoves[0][st] = strtol(pch, &pch, 10);
 		psc->anMoves[1][st] = strtol(pch, &pch, 10);
 	    }
@@ -1976,7 +1976,7 @@ static void WriteStatContext(FILE * pf, statcontext * psc)
 	fprintf(pf, "[M:%d %d %d %d ", psc->anUnforcedMoves[0],
 		psc->anUnforcedMoves[1], psc->anTotalMoves[0],
 		psc->anTotalMoves[1]);
-	for (st = SKILL_VERYBAD; st < N_SKILLS; st++)
+	for (st = SKILL_VERYBAD; st <= SKILL_NONE; st++)
 	    fprintf(pf, "%d %d ", psc->anMoves[0][st],
 		    psc->anMoves[1][st]);
 	g_ascii_formatd(buffer, sizeof(buffer), "%.6f",

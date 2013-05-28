@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.130 2012/11/29 14:27:58 plm Exp $
+ * $Id: gnubgmodule.c,v 1.131 2013/04/13 23:49:49 plm Exp $
  */
 
 #include "config.h"
@@ -1834,7 +1834,7 @@ PyGameStats(const statcontext* sc, const int fIsMatch, const int nMatchTo)
 
       {
 	skilltype st;
-	for( st = SKILL_VERYBAD; st < N_SKILLS; st++ ) {
+	for( st = SKILL_VERYBAD; st <= SKILL_NONE; st++ ) {
 	  DictSetItemSteal(m, skillString(st, 0),
 			   PyInt_FromLong(sc->anMoves[side][st]));
 	}
