@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.233 2013/03/20 23:19:52 plm Exp $
+ * $Id: analysis.c,v 1.234 2013/05/29 20:11:04 plm Exp $
  */
 
 #include "config.h"
@@ -987,7 +987,7 @@ static gboolean UpdateProgressBar(gpointer UNUSED(unused))
 static void AnalyseMoveMT(Task *task)
 {
 	AnalyseMoveTask *amt;
-	float doubleError;
+	float doubleError = 0.0f;
 
 analyzeDouble:
 	amt = (AnalyseMoveTask *)task;
