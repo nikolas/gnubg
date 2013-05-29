@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.235 2013/05/29 20:15:27 plm Exp $
+ * $Id: analysis.c,v 1.236 2013/05/29 20:38:49 plm Exp $
  */
 
 #include "config.h"
@@ -2406,8 +2406,9 @@ static int cmark_cube_rollout(moverecord *pmr, gboolean destroy)
 	void *p;
 	int res;
 
-	if (pmr->CubeDecPtr->cmark != CMARK_ROLLOUT)
+	if (!pmr->CubeDecPtr || pmr->CubeDecPtr->cmark != CMARK_ROLLOUT)
 		return 0;
+
 	pes = setup_cube_rollout(&pmr->CubeDecPtr->esDouble, pmr, aarOutput, aarStdDev);
 
 	GetMatchStateCubeInfo(&ci, &ms);
