@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.234 2013/05/29 20:11:04 plm Exp $
+ * $Id: analysis.c,v 1.235 2013/05/29 20:15:27 plm Exp $
  */
 
 #include "config.h"
@@ -1027,6 +1027,12 @@ static int AnalyzeGame ( listOLD *plGame, int wait )
 	{
 		pl = pl->plNext;
 		pmr = pl->p;
+
+		if (pmr == NULL) {
+			/* corrupt moves list */
+			g_assert_not_reached();
+			break;
+		}
 
 		if (!pParentTask)
 			pt = (AnalyseMoveTask*)malloc(sizeof(AnalyseMoveTask));
