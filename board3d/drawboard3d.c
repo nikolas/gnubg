@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: drawboard3d.c,v 1.94 2012/05/05 12:41:01 Superfly_Jon Exp $
+* $Id: drawboard3d.c,v 1.95 2012/09/01 15:21:34 plm Exp $
 */
 
 #include "config.h"
@@ -2530,6 +2530,9 @@ static void getProjectedPos(int x, int y, float atDepth, float pos[3])
 	if ((gluUnProject ((GLdouble)x, (GLdouble)y, 0.0, mvmatrix, projmatrix, viewport, &nearX, &nearY, &nearZ) == GL_FALSE) ||
 		(gluUnProject ((GLdouble)x, (GLdouble)y, 1.0, mvmatrix, projmatrix, viewport, &farX, &farY, &farZ) == GL_FALSE))
 	{
+		/* Maybe a g_assert_not_reached() would be appropriate here
+		   Don't leave output parameters undefined anyway */
+		pos[0] = pos[1] = pos[2]  = 0.0f;
 		g_print("gluUnProject failed!\n");
 		return;
 	}
