@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.65 2009/04/03 19:48:40 c_anthon Exp $
+ * $Id: relational.c,v 1.66 2011/05/09 20:53:02 plm Exp $
  */
 
 #include "config.h"
@@ -485,8 +485,10 @@ extern void CommandRelationalAddMatch(char *sz)
 	}
 
 	if ((pdb = ConnectToDB(dbProviderType)) == NULL)
+	{
+		outputerrf( _("Error opening database") );
 		return;
-
+	}
 	existing_id = RelationalMatchExists(pdb);
 	if (existing_id != -1)
 	{
