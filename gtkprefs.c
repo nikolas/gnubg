@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.187 2012/09/01 18:49:56 plm Exp $
+ * $Id: gtkprefs.c,v 1.188 2012/10/19 14:27:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1993,7 +1993,7 @@ WriteDesignHeader( const char *szFile, FILE *pf ) {
   time ( &t );
   fputs ( ctime ( &t ), pf );
   fputs ( "\n"
-          "    $Id: gtkprefs.c,v 1.187 2012/09/01 18:49:56 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.188 2012/10/19 14:27:35 mdpetch Exp $\n"
           "\n"
           " -->\n"
           "\n"
@@ -2619,6 +2619,9 @@ static void AddDesignRowIfNew( gpointer data, gpointer user_data )
 {
 	renderdata rdNew;
 	boarddesign *pbde = data;
+
+	if (pbde == NULL)
+		return;
 
 	ParsePreferences(pbde, &rdNew);
 	if (FindDesign(plBoardDesigns, &rdNew))
