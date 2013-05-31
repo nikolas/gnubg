@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.410 2013/02/14 23:11:46 plm Exp $
+ * $Id: play.c,v 1.411 2013/03/20 23:10:30 plm Exp $
  */
 
 #include "config.h"
@@ -3419,6 +3419,7 @@ extern void CommandPlay( char *UNUSED(sz) )
 		TurnDone();
 
     fComputing = FALSE;
+    NextTurnNotify(NULL);
 }
 
 static void CommandPreviousGame(char *sz)
