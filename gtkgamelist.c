@@ -18,7 +18,7 @@
 * along with this program; if not, write to the Free Software
 * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 *
-* $Id: gtkgamelist.c,v 1.39 2013/05/11 08:59:14 plm Exp $
+* $Id: gtkgamelist.c,v 1.40 2013/05/12 07:18:32 plm Exp $
 */
 
 #undef GDK_DISABLE_DEPRECATED 
@@ -102,7 +102,7 @@ static void GameListSelectRow(GtkCList *pcl, gint y, gint x, GdkEventButton *UNU
 
     for( pl = plGame->plPrev; pl != plGame; pl = pl->plPrev ) {
     	g_assert( pl->p );
-    	if( pl == plGame->plPrev && pl->p == pmr && pmr->mt == MOVE_SETDICE )
+    	if( pl == plGame->plPrev && pl->p == pmr && pmr && pmr->mt == MOVE_SETDICE )
     	break;
 
     	if( pl->p == pmrPrev && pmr != pmrPrev ) {
