@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.75 2013/05/01 19:57:49 plm Exp $
+ * $Id: multithread.c,v 1.76 2013/05/11 10:11:59 plm Exp $
  */
 
 #include "config.h"
@@ -43,9 +43,6 @@
 
 #define UI_UPDATETIME 250
 
-#ifdef TRY_COUNTING_PROCEESING_UNITS
-extern int GetLogicalProcssingUnitCount(void);
-#endif
 #if defined(DEBUG_MULTITHREADED) && defined(WIN32)
 unsigned int mainThreadID;
 #endif
@@ -545,12 +542,13 @@ extern void MT_StartThreads(void)
 {
     if (td.numThreads == 0)
 	{
-#ifdef TRY_COUNTING_PROCEESING_UNITS
-        td.numThreads = GetLogicalProcssingUnitCount();
-#else
+	/* We could set it to something else (the number of cores or some
+	   fraction of that ?) but it is probably not a good idea to hog
+           a lot of resources by default.
+        */
         td.numThreads = 1;
-#endif
-		MT_CreateThreads();
+
+	MT_CreateThreads();
 	}
 }
 
