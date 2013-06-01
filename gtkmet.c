@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmet.c,v 1.26 2009/05/01 09:28:34 Superfly_Jon Exp $
+ * $Id: gtkmet.c,v 1.27 2011/02/14 20:13:48 c_anthon Exp $
  */
 
 #include "config.h"
@@ -47,11 +47,8 @@ static void UpdateTable ( const mettable *pmt,
               const metinfo *pmi,
               const unsigned int nRows, const unsigned int nCols, const int fInvert ) {
 
-#define STRINGLENGTH 64
-
   unsigned int i, j;
-  int nBytes;
-  char sz[ STRINGLENGTH ];
+  char sz[ 9 ];
 
   /* set labels */
 
@@ -64,18 +61,17 @@ static void UpdateTable ( const mettable *pmt,
   for( i = 0; i < nRows; i++ )
     for( j = 0; j < nCols; j++ ) {
 
-      if ( fInvert )
-        nBytes = sprintf( sz, "%8.4f", met[j][i] * 100.0f );
-      else
-        nBytes = sprintf( sz, "%8.4f", met[i][j] * 100.0f );
+      g_assert( met[i][j] >= 0.0f && met[i][j] <= 1.0f );
 
-      g_assert( nBytes < STRINGLENGTH );
+      if ( fInvert )
+        sprintf( sz, "%8.4f", met[j][i] * 100.0f );
+      else
+        sprintf( sz, "%8.4f", met[i][j] * 100.0f );
 
       gtk_label_set_text ( GTK_LABEL ( pmt->aapwLabel[ i ][ j ] ), sz );
 
     }
 
-#undef STRINGLENGTH
 }
 
 
