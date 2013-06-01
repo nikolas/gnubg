@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.918 2013/05/20 02:47:07 mdpetch Exp $
+ * $Id: gnubg.c,v 1.919 2013/05/29 21:45:43 mdpetch Exp $
  */
 
 #include "config.h"
@@ -669,14 +669,14 @@ NextTokenGeneral( char **ppch, const char *szTokens ) {
 
     char *pch, *pchSave, chQuote = 0;
     int fEnd = FALSE;
-#ifndef NDEBUG
+#if !defined(G_DISABLE_ASSERT)
     char *pchEnd;
 #endif
     
     if( !*ppch )
 	return NULL;
 
-#ifndef NDEBUG
+#if !defined(G_DISABLE_ASSERT)
     pchEnd = strchr( *ppch, 0 );
 #endif
     
@@ -762,7 +762,7 @@ NextTokenGeneral( char **ppch, const char *szTokens ) {
 
     *pchSave = 0;
 
-#ifndef NDEBUG
+#if !defined(G_DISABLE_ASSERT)
     g_assert( pchSave <= pchEnd );
     g_assert( *ppch <= pchEnd );
     g_assert( pch <= pchEnd );
