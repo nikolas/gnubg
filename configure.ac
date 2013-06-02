@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.4 $)
+AC_REVISION($Revision: 1.5 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -402,6 +402,19 @@ if test "x$enable_threads" != "xno"; then
 	esac
 fi
 AS_IF( [test "x$enable_threads" != "xno"], [AC_MSG_RESULT($threads)], [AC_MSG_RESULT(no)] )
+
+dnl 
+dnl Maximum number of threads
+dnl 
+
+AC_ARG_WITH([eval_max_threads],
+AC_HELP_STRING([--with-eval-max-threads=size],
+		[define the maximum number of evaluation threads allowed: (default=48)]),
+[
+	EVAL_THREAD_COUNT=$with_eval_max_threads
+	AC_DEFINE_UNQUOTED(MAX_NUMTHREADS, $EVAL_THREAD_COUNT, [maximum number of evaluation threads])
+])
+
 
 dnl *************
 dnl Misc. setings

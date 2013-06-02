@@ -12,13 +12,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.44 2012/08/27 23:13:40 plm Exp $
+ * $Id: multithread.h,v 1.45 2013/04/21 15:41:50 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
 #define MULTITHREAD_H
 
 #include "backgammon.h"
+#include "config.h"
 
 /*#define DEBUG_MULTITHREADED 1*/
 #ifdef DEBUG_MULTITHREADED
@@ -59,7 +60,9 @@ extern int MT_WaitForTasks(gboolean (*pCallback)(gpointer), int callbackTime, in
 #endif
 #endif
 
+#if !defined(MAX_NUMTHREADS)
 #define MAX_NUMTHREADS 48
+#endif
 
 extern unsigned int MT_GetNumThreads(void);
 extern void MT_Release(void);
