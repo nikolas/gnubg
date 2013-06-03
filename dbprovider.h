@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id:$
+ * $Id: dbprovider.h,v 1.11 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef DBPROVIDER_H
@@ -58,12 +58,18 @@ typedef enum _DBProviderType {
 #if !USE_SQLITE
 	PYTHON_SQLITE,
 #endif
+#if !defined(WIN32)
 	PYTHON_MYSQL, PYTHON_POSTGRE
+#endif
 #endif
 } DBProviderType;
 
 #if USE_PYTHON
+#if !defined(WIN32)
 #define NUM_PROVIDERS 3
+#else
+#define NUM_PROVIDERS 1
+#endif
 #elif USE_SQLITE
 #define NUM_PROVIDERS 1
 #else
