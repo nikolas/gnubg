@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.35 2013/05/30 21:12:09 plm Exp $
+ * $Id: gtkrelational.c,v 1.36 2013/06/04 07:45:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -633,6 +633,20 @@ static void AddDBClicked(GtkButton *UNUSED(button), gpointer dbList)
 	{
 		DBProvider *pdb = GetSelectedDBType();
 		int con = 0;
+		gchar *sz;
+		GtkTreeIter iter;
+		GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(dbList));
+
+		/* If the database name is already in the list, don't try to add a new one */
+		if (gtk_tree_model_get_iter_first(model, &iter))
+                do {
+                        gtk_tree_model_get(model, &iter, 0, &sz, -1);
+			if (g_ascii_strcasecmp(dbName, sz) == 0) {
+				gtk_label_set_text(GTK_LABEL(helptext), _("Failed to create, database exists!"));
+				g_free(dbName);
+				return;
+			}
+                } while (gtk_tree_model_iter_next(model, &iter));
 
 		if (pdb)
 			con = pdb->Connect(dbName, gtk_entry_get_text(GTK_ENTRY(user)), gtk_entry_get_text(GTK_ENTRY(password)));
