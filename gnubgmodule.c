@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.134 2013/05/30 00:08:17 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.135 2013/06/04 19:33:47 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2860,18 +2860,19 @@ extern void PythonRun(const char *sz)
 	if (*sz) {
 		PyRun_SimpleString(sz);
 	} else {
-		PyRun_SimpleString("import sys\n"
+		/* Run python interactively with history and auto completion 
+		   if available
+		*/
+		PyRun_SimpleString("try:\n"
+				   "    import sys, readline, rlcompleter\n"
+				   "    readline.parse_and_bind('tab: complete')\n"
+				   "except: pass\n"
 				   "print 'Python', sys.version\n");
-		while (PyRun_SimpleString(
-				   "while 1:\n"
-				   "    print '>>> ',\n"
-				   "    line = sys.stdin.readline()\n"
-				   "    if not line:\n"
-				   "        break\n"
-				   "    exec(line)\n"))
-		{};
+
+		PyRun_InteractiveLoop(stdin, "<stdin>");
 	}
 }
+
 extern int LoadPythonFile(const char *sz)
 {
 	char *path = NULL;
