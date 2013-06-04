@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.138 2013/06/04 21:49:54 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.139 2013/06/04 21:56:25 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2864,10 +2864,10 @@ extern void PythonRun(const char *sz)
 		   if available
 		*/
 		PyRun_SimpleString("try:\n"
-				   "    import pyreadline as readline\n"
+				   "    import readline\n"
 				   "except ImportError:\n" 
 				   "    try:\n"
-				   "        import readline\n"
+				   "        import pyreadline as readline\n"
 				   "    except: pass\n"
 				   "try:\n"
 				   "    import sys, rlcompleter\n"
