@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.h,v 1.13 2013/06/04 19:33:47 mdpetch Exp $
+ * $Id: dbprovider.h,v 1.14 2013/06/04 20:09:53 mdpetch Exp $
  */
 
 #ifndef DBPROVIDER_H
@@ -69,10 +69,10 @@ typedef enum _DBProviderType {
 #if !defined(WIN32)
 #define NUM_PROVIDERS 3
 #else
-#define NUM_PROVIDERS 1
+#define NUM_PROVIDERS 2
 #endif
 #elif USE_SQLITE
-#define NUM_PROVIDERS 2
+#define NUM_PROVIDERS 1
 #else
 #define NUM_PROVIDERS 0
 #endif
