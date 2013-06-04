@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.31 2013/03/20 23:44:23 plm Exp $
+ * $Id: dbprovider.c,v 1.32 2013/06/03 04:27:08 mdpetch Exp $
  */
 
 #include "config.h"
@@ -525,7 +525,7 @@ GList *PyPostgreGetDatabaseList(const char *user, const char *password)
 	{
 		unsigned int i;
 		GList *glist = NULL;
-		for (i = 0; i < rs->rows; i++)
+		for (i = 1; i < rs->rows; i++)
 			glist = g_list_append(glist, g_strdup(rs->data[i][0]));
 		FreeRowset(rs);
 		return glist;
@@ -554,9 +554,10 @@ int PyPostgreDeleteDatabase(const char *dbfilename, const char *user, const char
 {
 	char *buf;
 	int ret;
-	if (PyPostgreConnect(dbfilename, user, password) < 0)
+	if (PyPostgreConnect("postgres", user, password) < 0)
 		return FALSE;
 
+	ret = PyUpdateCommand("END");
 	buf = g_strdup_printf("DROP DATABASE %s", dbfilename);
 	ret = PyUpdateCommand(buf);
 	g_free(buf);

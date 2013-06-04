@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.34 2013/02/14 22:48:26 plm Exp $
+ * $Id: gtkrelational.c,v 1.35 2013/05/30 21:12:09 plm Exp $
  */
 
 #include "config.h"
@@ -666,6 +666,7 @@ static void DelDBClicked(GtkButton *UNUSED(button), gpointer dbList)
 			optionsValid = FALSE;
 			gtk_widget_set_sensitive(deldb, FALSE);
 			gtk_label_set_text(GTK_LABEL(helptext), _("Database successfully removed"));
+			pdb->database = "gnubg";
 		}
 		else
 			gtk_label_set_text(GTK_LABEL(helptext), _("Failed to delete database!"));
