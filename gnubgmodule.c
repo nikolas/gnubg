@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.135 2013/06/04 19:33:47 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.136 2013/06/04 20:59:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2864,9 +2864,14 @@ extern void PythonRun(const char *sz)
 		   if available
 		*/
 		PyRun_SimpleString("try:\n"
-				   "    import sys, readline, rlcompleter\n"
+				   "    import pyreadline as readline\n"
+				   "except ImportError:\n" 
+				   "    import readline\n"
+				   "try:\n"
+				   "    import sys, rlcompleter\n"
 				   "    readline.parse_and_bind('tab: complete')\n"
-				   "except: pass\n"
+				   "except ImportError:\n"
+				   "    pass\n"
 				   "print 'Python', sys.version\n");
 
 		PyRun_InteractiveLoop(stdin, "<stdin>");
