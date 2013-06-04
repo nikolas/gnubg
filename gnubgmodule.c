@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.133 2013/05/29 15:46:52 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.134 2013/05/30 00:08:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2825,7 +2825,7 @@ extern void PythonInitialise(char *argv0)
 	char *working_dir = g_get_current_dir();
 	char *python_dir = g_build_filename(working_dir, "/PythonLib", NULL);
 	if (access(python_dir, F_OK) == 0)
-	{	/* Set Pyton to use this directory */
+	{	/* Set Python to use this directory */
 		char *buf;
 		buf = g_strdup_printf("PYTHONPATH=%s", python_dir);
 		putenv(buf);

@@ -21,14 +21,18 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: database.py,v 1.26 2013/06/03 04:27:09 mdpetch Exp $
+# $Id: database.py,v 1.27 2013/06/04 07:45:46 mdpetch Exp $
 #
 
 connection = 0
 
 def PyMySQLConnect(database, user, password):
   global connection
-  import MySQLdb
+  try:
+    import MySQLdb
+  except:
+    import pymysql as MySQLdb
+
   try:
     connection = MySQLdb.connect( db = database, user = user, passwd = password )
     return 1

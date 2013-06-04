@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.32 2013/06/03 04:27:08 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.33 2013/06/04 07:45:32 mdpetch Exp $
  */
 
 #include "config.h"
@@ -77,9 +77,9 @@ DBProvider providers[NUM_PROVIDERS] =
 	{PySQLiteConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, SQLiteGetDatabaseList, SQLiteDeleteDatabase,
 		"SQLite (Python)", "PythonSQLite", "SQLite3 connection included in latest Python version", FALSE, TRUE, "gnubg", "", ""},
 #endif
-#if !defined(WIN32)
 	{PyMySQLConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, PyMySQLGetDatabaseList, PyMySQLDeleteDatabase,
 		"MySQL (Python)", "PythonMySQL", "MySQL connection via MySQLdb Python module", TRUE, TRUE, "gnubg", "", ""},
+#if !defined(WIN32)
 	{PyPostgreConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, PyPostgreGetDatabaseList, PyPostgreDeleteDatabase,
 		"Postgres (Python)", "PythonPostgre", "PostgreSQL connection via PyGreSQL Python module", TRUE, TRUE, "gnubg", "", ""},
 #endif
