@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.860 2012/12/16 17:51:05 plm Exp $
+ * $Id: gtkgame.c,v 1.861 2013/04/13 23:36:55 plm Exp $
  */
 
 #include "config.h"
@@ -4002,9 +4002,10 @@ static gint python_run_file (gpointer file)
 {
 	char *pch;
         g_assert(file);
-        pch = g_strdup_printf(">import sys;"
-		   "sys.argv=['','-n', '%s'];"
-		   "import idlelib.PyShell;" "idlelib.PyShell.main()", (char *)file);
+        pch = g_strdup_printf(">import sys\n"
+		   "sys.argv=['','-n', '%s']\n"
+		   "import idlelib.PyShell\n" 
+		   "idlelib.PyShell.main()\n", (char *)file);
 	UserCommand(pch);
 	g_free(pch);
         g_free(file);
