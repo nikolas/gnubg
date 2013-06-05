@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.140 2013/06/04 23:06:17 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.141 2013/06/05 06:25:30 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2841,28 +2841,22 @@ PyMethodDef gnubgMethods[] = {
 
 };
 
+static char *python_dir = NULL;
+ 
 extern void PythonInitialise(char *argv0)
 {
 
 #ifdef WIN32
-{	/* Setup python to look in the pythonlib directory if present */
-	char *working_dir = g_get_current_dir();
-	char *python_dir = g_build_filename(working_dir, "/PythonLib", NULL);
-	if (access(python_dir, F_OK) == 0)
-	{	/* Set Python to use this directory */
-		char *buf;
-		buf = g_strdup_printf("PYTHONPATH=%s", python_dir);
-		putenv(buf);
-		g_free(buf);
-		buf = g_strdup_printf("PYTHONROOT=%s", python_dir);
-		putenv(buf);
-		g_free(buf);
-	}
-	g_free(python_dir);
-	g_free(working_dir);
-}
-
+  /* Setup python to look in the pythonlib directory if present */
+  char *working_dir = g_get_current_dir();
+  python_dir = g_build_filename(working_dir, "PythonLib", NULL);
+  if (access(python_dir, F_OK) == 0) {	
+    /* Set Python to use this directory */
+    Py_SetPythonHome(python_dir);
+  }
+  g_free(working_dir);
 #endif
+
   Py_SetProgramName(argv0);
   Py_Initialize();
 
@@ -2877,6 +2871,11 @@ extern void PythonInitialise(char *argv0)
 extern void PythonShutdown( void )
 {
   Py_Finalize();
+
+#ifdef WIN32
+  if (python_dir)
+    g_free(python_dir);
+#endif
 }
 
 extern void PythonRun(const char *sz)
