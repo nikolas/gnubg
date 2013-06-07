@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.862 2013/06/05 06:25:35 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.863 2013/06/07 02:41:29 mdpetch Exp $
  */
 
 #include "config.h"
@@ -4153,7 +4153,9 @@ extern void RunGTK( GtkWidget *pwSplash, char *commands, char *python_script, ch
 #ifdef WIN32
 			outputerrf(_("The MS windows GTK interface doesn't support the '-p' option. Use the cl interface instead"));
 #else
+#if USE_PYTHON
 			g_idle_add( python_run_file, g_strdup(python_script) );
+#endif
 #endif
 			g_free(python_script);
 			python_script = NULL;

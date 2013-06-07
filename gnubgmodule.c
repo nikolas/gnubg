@@ -16,12 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.142 2013/06/05 21:07:25 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.143 2013/06/07 02:41:28 mdpetch Exp $
  */
 
 #include "config.h"
 
+#if USE_PYTHON
 #include "gnubgmodule.h"
+#endif
+
 #include "backgammon.h"
 #include "positionid.h"
 #include "drawboard.h"
