@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.861 2013/04/13 23:36:55 plm Exp $
+ * $Id: gtkgame.c,v 1.862 2013/06/05 06:25:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -184,6 +184,10 @@ typedef enum _gnubgcommand {
     VIEW_TOOLBAR_TEXTONLY,
     VIEW_TOOLBAR_BOTH
 } gnubgcommand;
+
+#ifndef WIN32
+extern gint python_run_file (gpointer file);
+#endif
 
 /* TRUE if gnubg is automatically setting the state of a menu item. */
 static int fAutoCommand;
@@ -3995,23 +3999,6 @@ extern void InitGTK(int *argc, char ***argv)
 	cb = gdk_atom_intern("CLIPBOARD", TRUE);
 	clipboard = gtk_clipboard_get(cb);
 }
-
-
-#ifndef WIN32
-static gint python_run_file (gpointer file)
-{
-	char *pch;
-        g_assert(file);
-        pch = g_strdup_printf(">import sys\n"
-		   "sys.argv=['','-n', '%s']\n"
-		   "import idlelib.PyShell\n" 
-		   "idlelib.PyShell.main()\n", (char *)file);
-	UserCommand(pch);
-	g_free(pch);
-        g_free(file);
-        return FALSE;
-}
-#endif
 
 enum {RE_NONE, RE_LANGUAGE_CHANGE};
 

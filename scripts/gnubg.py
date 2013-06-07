@@ -23,11 +23,80 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: gnubg.py,v 1.3 2007/07/02 12:50:13 ace Exp $
+# $Id: gnubg.py,v 1.4 2013/06/05 21:59:51 mdpetch Exp $
 #
 
+# Add the scrpts directory to the module path to allow 
+# for modules from this directory to be improted
 import sys
 sys.path.append('./scripts')
+
+def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
+    import sys, traceback, code
+
+    try:
+        sys.argv=argv
+
+        from IPython.frontend.terminal.embed import InteractiveShellEmbed
+        from IPython import __version__ as ipyversion
+        from IPython.config.loader import Config
+    except:
+        try:
+            import readline
+        except:
+            try:
+                import pyreadline as readline
+            except:
+                pass
+        try:
+            import rlcompleter
+            readline.parse_and_bind('tab: complete')
+        except:
+            pass
+
+        if (banner == None):
+            banner = 'Python ' + sys.version 
+
+        code.interact(banner=banner)
+        return True
+
+    try:
+        cfg = Config()
+        prompt_config = cfg.PromptManager
+        prompt_config.in_template = 'In <\\#> > '
+        prompt_config.in2_template = '   .\\D. > '
+        prompt_config.out_template = 'Out<\\#> > '
+        cfg.InteractiveShell.confirm_exit = False
+
+        if banner == None:
+            banner = 'IPython ' + ipyversion + ', Python ' + sys.version 
+
+        ipshell = InteractiveShellEmbed(config=cfg,banner1=banner)
+        ipshell()
+        return True
+
+    except:
+        traceback.print_exc()
+
+    return False
+
+
+def gnubg_InteractivePyShell_gui(argv=['','-n']):
+    import sys
+    sys.argv=argv
+
+    try:
+        import idlelib.PyShell
+        try:
+            idlelib.PyShell.main()
+            return True;
+        except:
+            traceback.print_exc()
+    except:
+        pass
+
+    return False
+
 
 def swapboard(board):
     """Swap the board"""
