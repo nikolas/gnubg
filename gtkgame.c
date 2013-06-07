@@ -16,9 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.863 2013/06/07 02:41:29 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.864 2013/06/07 02:59:45 mdpetch Exp $
  */
 
+#include "gnubgmodule.h"
 #include "config.h"
 #include "gtklocdefs.h"
 #include "gtkuidefs.h"
@@ -184,10 +185,6 @@ typedef enum _gnubgcommand {
     VIEW_TOOLBAR_TEXTONLY,
     VIEW_TOOLBAR_BOTH
 } gnubgcommand;
-
-#ifndef WIN32
-extern gint python_run_file (gpointer file);
-#endif
 
 /* TRUE if gnubg is automatically setting the state of a menu item. */
 static int fAutoCommand;

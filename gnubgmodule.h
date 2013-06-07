@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.21 2012/10/19 23:55:32 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.22 2013/06/07 02:41:29 mdpetch Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -32,8 +32,9 @@
 typedef int Py_ssize_t;
 #define PY_SSIZE_T_MAX INT_MAX
 #define PY_SSIZE_T_MIN INT_MIN
-#endif
-#endif
+#endif /* PY_VERSION_CHK */
+extern PyObject *PythonGnubgModule();
+#endif /* USE_PYTHON */
 
 #if __GNUC__ && defined(WIN32)
 /* Align stack pointer on 16 byte boundary so SSE variables work correctly */
@@ -41,12 +42,14 @@ typedef int Py_ssize_t;
 #else
 #define STACKALIGN
 
-extern PyObject *PythonGnubgModule();
-#endif
+#endif /* STACKALIGN */
+
+#include <glib.h>
 
 extern void PythonInitialise(char *argv0);
 extern void PythonShutdown(void);
 extern void PythonRun(const char *sz);
 extern int LoadPythonFile(const char *sz);
+extern gint python_run_file (gpointer file);
 
 #endif /* GNUBGMODULE_H */

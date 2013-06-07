@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.143 2013/06/07 02:41:28 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.144 2013/06/07 02:59:45 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2927,7 +2927,7 @@ extern void PythonRun(const char *sz)
 		   if available
 		*/
 #if USE_GTK
-		py_dict = PyModule_GetDict(py_gnubg_module);
+		py_dict = PyModule_GetDict(PythonGnubgModule());
 
 	        if (fX && (py_ret = PyRun_String("gnubg_InteractivePyShell_gui()", 
 		    Py_eval_input, PythonGnubgModule(), py_dict)))

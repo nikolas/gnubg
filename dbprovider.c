@@ -19,14 +19,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.33 2013/06/04 07:45:32 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.34 2013/06/04 19:33:47 mdpetch Exp $
  */
 
 #include "config.h"
-
-#if USE_PYTHON
 #include "gnubgmodule.h"
-#endif
 
 #include "backgammon.h"
 #include <stdlib.h>
