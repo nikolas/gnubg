@@ -21,7 +21,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: database.py,v 1.29 2013/06/07 08:56:16 mdpetch Exp $
+# $Id: database.py,v 1.30 2013/06/07 09:07:23 mdpetch Exp $
 #
 
 # Host settings for Mysql database
@@ -62,7 +62,7 @@ def PyMySQLConnect(database, user, password):
   return connection
 
 def PyPostgreConnect(database, user, password):
-  global connection, postgres_host, postgres_port
+  global connection, postgres_host
   import pgdb
 
   try:

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.412 2013/05/31 19:15:32 mdpetch Exp $
+ * $Id: play.c,v 1.413 2013/06/04 21:20:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3290,7 +3290,9 @@ extern void CommandEndGame(char *UNUSED(sz))
 	int fDisplay_store = fDisplay;
 	int fQuiet_store = fQuiet;
 #if USE_BOARD3D
-	BoardData *bd = BOARD(pwBoard)->board_data;
+	BoardData *bd;
+	if (fX && pwBoard) 
+		bd = BOARD(pwBoard)->board_data;
 #endif
 	const evalcontext ec_quick = { FALSE, 0, FALSE, TRUE, 0.0 };
 	int manual_dice = (rngCurrent == RNG_MANUAL); 
@@ -3329,7 +3331,8 @@ extern void CommandEndGame(char *UNUSED(sz))
 	}
 
 #if USE_BOARD3D
-	SuspendDiceRolling(bd->rd);
+	if (fX)
+		SuspendDiceRolling(bd->rd);
 #endif
 
 	fAutoGame = FALSE;
@@ -3386,7 +3389,8 @@ extern void CommandEndGame(char *UNUSED(sz))
 	}
 
 #if USE_BOARD3D
-	ResumeDiceRolling(bd->rd);
+	if (fX)
+		ResumeDiceRolling(bd->rd);
 #endif
 
 	if (!automaticTask)

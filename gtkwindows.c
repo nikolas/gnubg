@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.47 2011/09/02 21:48:57 mdpetch Exp $
+ * $Id: gtkwindows.c,v 1.48 2012/08/28 21:39:57 plm Exp $
  */
 
 #include "config.h"
@@ -391,7 +391,7 @@ WarningOK ( GtkWidget *pw, warningType warning )
 
 extern int GTKShowWarning(warningType warning, GtkWidget *pwParent)
 {
-	if (warnings[warning].warningEnabled)
+	if (fX && warnings[warning].warningEnabled)
 	{
 		char *buf;
 		GtkWidget *pwDialog, *pwMsg, *pwv, *label;
