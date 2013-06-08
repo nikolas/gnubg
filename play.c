@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.413 2013/06/04 21:20:35 mdpetch Exp $
+ * $Id: play.c,v 1.414 2013/06/07 16:40:19 mdpetch Exp $
  */
 
 #include "config.h"
@@ -212,6 +212,13 @@ ApplyMoveRecord(matchstate* pms, const listOLD* plGame, const moverecord* pmr)
     int n;
     moverecord *pmrx = (moverecord *) plGame->plNext->p;
     xmovegameinfo* pmgi;
+
+    if ( !pmr ) {
+        g_assert_not_reached();
+        outputerr( "Applying null move record!" );
+        return;
+    }
+
     /* FIXME this is wrong -- plGame is not necessarily the right game */
 
     g_assert( pmr->mt == MOVE_GAMEINFO || (pmrx && pmrx->mt == MOVE_GAMEINFO) );
