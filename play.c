@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.415 2013/06/08 19:46:36 plm Exp $
+ * $Id: play.c,v 1.416 2013/06/08 19:50:29 plm Exp $
  */
 
 #include "config.h"
@@ -2962,9 +2962,12 @@ extern void ChangeGame(listOLD *plGameNew)
 	   last move is a MOVE_SETxxx record, its fPlayer will
 	   be bogus and we will have to fix it */
 
-	pmr_cur = plLastMove->p;
-	reallastmt = pmr_cur->mt;
-	reallastplayer = pmr_cur->fPlayer;
+	if ((pmr_cur = plLastMove->p)) {
+		reallastmt = pmr_cur->mt;
+		reallastplayer = pmr_cur->fPlayer;
+	} else {
+		reallastmt = reallastplayer = -1;
+	}
 
 	pmr_cur = get_current_moverecord(NULL);
 
