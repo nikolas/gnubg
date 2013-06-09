@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.864 2013/06/07 02:59:45 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.865 2013/06/07 04:58:49 mdpetch Exp $
  */
 
 #include "gnubgmodule.h"
@@ -1060,10 +1060,10 @@ extern void SetAnnotation( moverecord *pmr) {
     if( pmr->rLuck != ERR_VAL ) {
 	if( fOutputMWC && ms.nMatchTo ) {
 	    GetMatchStateCubeInfo( &ci, &ms );
-	    pch += sprintf( pch, " (%+0.3f%%)",
+	    sprintf( pch, " (%+0.3f%%)",
 	     100.0f * ( eq2mwc( pmr->rLuck, &ci ) - eq2mwc( 0.0f, &ci ) ) );
 	} else
-	    pch += sprintf( pch, " (%+0.3f)", pmr->rLuck );
+	    sprintf( pch, " (%+0.3f)", pmr->rLuck );
     }
     gtk_table_attach_defaults( GTK_TABLE( pwBox ),
 				gtk_label_new( sz ), 1, 2, 0, 1 );
