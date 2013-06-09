@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.921 2013/06/07 02:59:45 mdpetch Exp $
+ * $Id: gnubg.c,v 1.922 2013/06/07 04:58:49 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2534,15 +2534,17 @@ extern void PromptForExit( void )
 #if USE_GTK
 	BoardData* bd = NULL;
 
-	if (fX)
+	if (fX) {
 		bd = BOARD(pwBoard)->board_data;
+		g_assert(bd);
+	}
 #endif
 	if (fExiting)
 		return;
 
 	fExiting = TRUE;
 
-	if( fInteractive) {
+	if(fInteractive) {
 		fInterrupt = FALSE;
 		if (!get_input_discard())
 		{
@@ -2553,7 +2555,7 @@ extern void PromptForExit( void )
 	}
 
 #if USE_BOARD3D
-    if (fX && (display_is_3d(bd->rd)))
+    if (fX && bd && (display_is_3d(bd->rd)))
 	{	/* Stop any 3d animations */
 		StopIdle3d(bd, bd->bd3d);
 	}
@@ -2569,7 +2571,7 @@ extern void PromptForExit( void )
 	playSound ( SOUND_EXIT );
 
 #if USE_BOARD3D
-	if (fX && display_is_3d(bd->rd) && bd->rd->closeBoardOnExit && bd->rd->fHinges3d)
+	if (fX && bd && display_is_3d(bd->rd) && bd->rd->closeBoardOnExit && bd->rd->fHinges3d)
 		CloseBoard3d(bd, bd->bd3d, bd->rd);
 #endif
 	ProcessEvents();
@@ -2587,7 +2589,7 @@ extern void PromptForExit( void )
 	}
 
 #if USE_BOARD3D
-	if (fX && gtk_gl_init_success)
+	if (fX && gtk_gl_init_success && bd)
 		Tidy3dObjects(bd->bd3d, bd->rd);
 #endif
 #endif
