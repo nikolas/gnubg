@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.313 2013/04/13 23:47:14 plm Exp $
+ * $Id: gtkboard.c,v 1.314 2013/06/09 14:59:21 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -959,6 +959,9 @@ static void board_drag( GtkWidget *UNUSED(widget), BoardData *bd, int x, int y )
 
     gdk_window_process_updates( gtk_widget_get_window ( bd->drawing_area ), FALSE );
 
+    if (s == 0)
+        return;
+
     puch = g_alloca( 6 * s * 6 * s * 3 );
     puchNew = g_alloca( 6 * s * 6 * s * 3 );
     puchChequer = g_alloca( 6 * s * 6 * s * 3 );
@@ -1011,6 +1014,9 @@ static void board_end_drag( GtkWidget *UNUSED(widget), BoardData *bd )
     int s = bd->rd->nSize;
     
     gdk_window_process_updates( gtk_widget_get_window ( bd->drawing_area ), FALSE );
+
+    if (s == 0)
+        return;
 
     puch = g_alloca( 6 * s * 6 * s * 3 );
     
