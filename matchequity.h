@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.24 2012/08/27 23:06:41 plm Exp $
+ * $Id: matchequity.h,v 1.25 2013/03/15 23:56:50 plm Exp $
  */
 
 
@@ -40,9 +40,9 @@ typedef struct _metinfo {
 
 /* macros for getting match equities */
 
-#define GET_MET(i,j,aafMET) ( ( (i) < 0 ) ? 1.0 : ( ( (j) < 0 ) ? 0.0 : \
+#define GET_MET(i,j,aafMET) ( ( (i) < 0 ) ? 1.0f : ( ( (j) < 0 ) ? 0.0f : \
 						 (aafMET [ i ][ j ]) ) )
-#define GET_METPostCrawford(i,afBtilde) ( (i) < 0 ? 1.0 : afBtilde [ i ] )
+#define GET_METPostCrawford(i,afBtilde) ( (i) < 0 ? 1.0f : afBtilde [ i ] )
 
 /* current match equity table used by gnubg */
 
