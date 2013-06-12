@@ -23,7 +23,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: gnubg.py,v 1.6 2013/06/12 01:31:34 mdpetch Exp $
+# $Id: gnubg.py,v 1.7 2013/06/12 21:58:08 mdpetch Exp $
 #
 
 # Add the scrpts directory to the module path to allow 
@@ -71,9 +71,21 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
         if banner == None:
             banner = 'IPython ' + ipyversion + ', Python ' + sys.version 
 
-        ipshell = InteractiveShellEmbed(config=cfg,banner1=banner)
+        # We want to execute in the name space of the CALLER of this function,
+        # not within the namespace of THIS function.
+        # This allows us to have changes made in the IPython environment 
+        # visible to the CALLER of this function 
+ 
+        # Go back one frame and get the locals. 
+        call_frame = sys._getframe(0).f_back
+        calling_ns = call_frame.f_locals
+
+        ipshell = InteractiveShellEmbed(config=cfg,user_ns=calling_ns,banner1=banner)
         ipshell()
+
+        # Cleanup the sys environment (including exception handlers)
         ipshell.restore_sys_module_state()
+
         return True
 
     except:
