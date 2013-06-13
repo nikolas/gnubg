@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.37 2013/06/04 16:58:55 mdpetch Exp $
+ * $Id: gtkrelational.c,v 1.38 2013/06/13 02:05:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -520,7 +520,7 @@ static void LoginClicked(GtkButton *UNUSED(button), gpointer dbList)
 	if (pdb == NULL)
 		return;
 
-	tmpUser = pdb->username, tmpPass = pdb->password, pdb->hostname = tmpHost;
+	tmpUser = pdb->username, tmpPass = pdb->password, tmpHost = pdb->hostname;
 
 	pdb->username = gtk_entry_get_text(GTK_ENTRY(user));
 	pdb->password = gtk_entry_get_text(GTK_ENTRY(password));
