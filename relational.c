@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.67 2013/05/30 20:58:23 plm Exp $
+ * $Id: relational.c,v 1.68 2013/06/03 04:27:08 mdpetch Exp $
  */
 
 #include "config.h"
@@ -417,7 +417,7 @@ DBProvider *ConnectToDB(DBProviderType dbType)
 	DBProvider *pdb = GetDBProvider(dbType);
 	if (pdb)
 	{
-		int con = pdb->Connect(pdb->database, pdb->username, pdb->password);
+		int con = pdb->Connect(pdb->database, pdb->username, pdb->password, pdb->hostname);
 		if (con < 0 )
 			return NULL;
 

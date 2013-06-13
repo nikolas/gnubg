@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.h,v 1.14 2013/06/04 20:09:53 mdpetch Exp $
+ * $Id: dbprovider.h,v 1.15 2013/06/04 20:12:31 mdpetch Exp $
  */
 
 #ifndef DBPROVIDER_H
@@ -31,13 +31,13 @@ typedef struct _RowSet
 
 typedef struct _DBProvider
 {
-	int (*Connect)(const char *database, const char *user, const char *password);
+	int (*Connect)(const char *database, const char *user, const char *password, const char *hostname);
 	void (*Disconnect)(void);
 	RowSet *(*Select)(const char* str);
 	int (*UpdateCommand)(const char* str);
 	void (*Commit)(void);
-	GList *(*GetDatabaseList)(const char *user, const char *password);
-	int (*DeleteDatabase)(const char *database, const char *user, const char *password);
+	GList *(*GetDatabaseList)(const char *user, const char *password, const char *hostname);
+	int (*DeleteDatabase)(const char *database, const char *user, const char *password, const char *hostname);
 
 	const char *name;
 	const char *shortname;
@@ -47,6 +47,7 @@ typedef struct _DBProvider
 	const char *database;
 	const char *username;
 	const char *password;
+	const char *hostname;
 } DBProvider;
 
 typedef enum _DBProviderType {
@@ -82,7 +83,7 @@ extern DBProvider* GetDBProvider(DBProviderType dbType);
 extern const char *TestDB(DBProviderType dbType);
 DBProvider *ConnectToDB(DBProviderType dbType);
 void SetDBType(const char *type);
-void SetDBSettings(DBProviderType dbType, const char *database, const char *user, const char *password);
+void SetDBSettings(DBProviderType dbType, const char *database, const char *user, const char *password, const char *hostname);
 void RelationalSaveSettings(FILE *pf);
 void SetDBParam(const char *db, const char *key, const char *value);
 extern int CreateDatabase(DBProvider *pdb);
