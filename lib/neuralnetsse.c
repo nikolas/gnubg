@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.21 2011/12/31 13:14:31 plm Exp $
+ * $Id: neuralnetsse.c,v 1.22 2013/03/20 23:43:01 plm Exp $
  */
 
 #include "config.h"
@@ -109,7 +109,7 @@ static inline __m128 sigmoid_ps( __m128 xin )
 
 static void
 EvaluateSSE( const neuralnet *pnn, const float arInput[], float ar[],
-                        float arOutput[], float *saveAr ) {
+                        float arOutput[] ) {
 
     const unsigned int cHidden = pnn->cHidden;
     unsigned int i, j;
@@ -158,9 +158,6 @@ EvaluateSSE( const neuralnet *pnn, const float arInput[], float ar[],
 		}
     }
 
-    if( saveAr)
-      memcpy( saveAr, ar, cHidden * sizeof( *saveAr));
-    
 #if USE_SSE2
 	scalevec = _mm_set1_ps(pnn->rBetaHidden);
 	for (par = ar, i = (cHidden >> 2); i; i--, par += 4) {
@@ -211,7 +208,7 @@ extern int NeuralNetEvaluateSSE(const neuralnet *pnn, /*lint -e{818}*/ float arI
     g_assert(sse_aligned(arInput));
 #endif
 
-	EvaluateSSE(pnn, arInput, ar, arOutput, 0);
+	EvaluateSSE(pnn, arInput, ar, arOutput);
     return 0;
 }
 
