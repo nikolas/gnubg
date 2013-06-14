@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.188 2012/10/19 14:27:35 mdpetch Exp $
+ * $Id: gtkprefs.c,v 1.189 2013/05/30 17:29:30 plm Exp $
  */
 
 #include "config.h"
@@ -1125,6 +1125,7 @@ static void BoardPrefsOK( GtkWidget *pw, GtkWidget *mainBoard )
 	gtk_widget_destroy( gtk_widget_get_toplevel( pw ) );
 	/* Make sure chequers correct below board */
 	gtk_widget_queue_draw(bd->table);
+	UserCommand("save settings");
 }
 
 static void WorkOut2dLight(renderdata* prd)
@@ -1993,7 +1994,7 @@ WriteDesignHeader( const char *szFile, FILE *pf ) {
   time ( &t );
   fputs ( ctime ( &t ), pf );
   fputs ( "\n"
-          "    $Id: gtkprefs.c,v 1.188 2012/10/19 14:27:35 mdpetch Exp $\n"
+          "    $Id: gtkprefs.c,v 1.189 2013/05/30 17:29:30 plm Exp $\n"
           "\n"
           " -->\n"
           "\n"
