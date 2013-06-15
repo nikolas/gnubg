@@ -1,4 +1,4 @@
-/* $Id: sse.h,v 1.7 2006/10/27 19:44:41 Superfly_Jon Exp $ 
+/* $Id: sse.h,v 1.8 2007/07/02 14:14:18 ace Exp $ 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -17,7 +17,19 @@
 
 #include <stdlib.h>
 
+#ifdef USE_AVX
+#define ALIGN_SIZE 32
+#define VEC_SIZE 8
+#define LOG2VEC_SIZE 3
+#define float_vector __m256
+#define int_vector __m256i
+#else
 #define ALIGN_SIZE 16
+#define VEC_SIZE 4
+#define LOG2VEC_SIZE 2
+#define float_vector __m128
+#define int_vector __m128i
+#endif
 
 #ifdef _MSC_VER
 #define SSE_ALIGN(D) __declspec(align(ALIGN_SIZE)) D
