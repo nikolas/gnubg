@@ -16,7 +16,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: db_import.py,v 1.1 2004/11/08 12:24:41 Superfly_Jon Exp $
+# $Id: db_import.py,v 1.2 2007/07/02 12:50:13 ace Exp $
 
 """
  db_import.py -- batch import of multiple sgf files into relational database
@@ -25,6 +25,7 @@
 \n"""
 
 import os
+
 
 def GetFiles(dir):
     "Look for gnubg import files in dir"
@@ -45,7 +46,7 @@ def GetFiles(dir):
             # Check has supported extension
             dot = file.rfind('.')
             if dot != -1:
-                ext = file[dot + 1 : ].lower()
+                ext = file[dot + 1:].lower()
                 if ext == "sgf":
                     foundBGFile = True
                     fileList.append(file)
@@ -59,17 +60,20 @@ def GetFiles(dir):
             print "  ** No sgf files found in directory **"
         return 0
 
+
 def ImportFile(prompt, file, dir):
     "Run commands to import stats into gnubg"
     print prompt + " Importing " + file
     gnubg.command('load match "' + dir + file + '"')
     gnubg.command('relational add match')
 
+
 def GetYN(prompt):
-    confirm = '';
+    confirm = ''
     while len(confirm) == 0 or (confirm[0] != 'y' and confirm[0] != 'n'):
         confirm = raw_input(prompt + " (y/n): ").lower()
     return confirm
+
 
 def GetDir(prompt):
     dir = raw_input(prompt)
@@ -78,6 +82,7 @@ def GetDir(prompt):
         if (dir[-1] != '\\' and dir[-1] != '/'):
             dir = dir + '/'
     return dir
+
 
 def BatchImport():
     "Import stats for all sgf files in a directory"
@@ -101,7 +106,7 @@ def BatchImport():
     # Check user wants to continue
     if GetYN("Continue") == 'n':
         return
-    
+
     # Get stats for each file
     num = 0
     for file in inFiles:

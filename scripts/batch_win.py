@@ -16,13 +16,14 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: batch_win.py,v 1.1 2004/03/24 23:23:39 oysteijo Exp $
+# $Id: batch_win.py,v 1.2 2007/07/02 12:50:13 ace Exp $
 
 # This file is inspired of the batch.py file of Jon Kinsey. The code
 # contains MS-Windows specific code and will therefore only work on MS-Windows
 # together with GNU Backgammon and Python.
 
-import win32ui, win32con
+import win32ui
+import win32con
 
 # file extensions, names and gnubg import commands
 
@@ -30,23 +31,28 @@ extensions = ['mat', 'pos', 'sgg', 'tmg', 'txt']
 extTypes = ['.mat', '.pos', 'Games grid', 'True money game', 'Snowie text']
 extCmds = ['mat', 'pos', 'sgg', 'tmg', 'snowietxt']
 
+
 def BatchAnalyze(filelist):
     for file in filelist:
         dot = file.rfind('.')
         if dot != -1:
-            ext = file[dot + 1 : ].lower()
+            ext = file[dot + 1:].lower()
             if ext in extensions:
                 AnalyzeFile(file, extensions.index(ext))
-                
+
+
 def GetFiles():
-    import win32ui, win32con
-    filedialog = win32ui.CreateFileDialog(1,"", "", win32con.OFN_ALLOWMULTISELECT | win32con.OFN_HIDEREADONLY)
+    import win32ui
+    import win32con
+    filedialog = win32ui.CreateFileDialog(
+        1, "", "", win32con.OFN_ALLOWMULTISELECT | win32con.OFN_HIDEREADONLY)
     filedialog.SetOFNTitle("Select files to analyse")
     filedialog.DoModal()
-    
+
     return filedialog.GetPathNames()
 
-def AnalyzeFile( file, type):
+
+def AnalyzeFile(file, type):
     "Run commands to analyze file in gnubg"
     gnubg.command('import ' + extCmds[type] + ' "' + file + '"')
     gnubg.command('analyze match')
