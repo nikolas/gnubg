@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.144 2013/06/07 02:59:45 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.145 2013/06/07 04:58:49 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2909,14 +2909,15 @@ extern void PythonShutdown( void )
     python_dir = NULL;
   }
 #endif
-  Py_DECREF(py_gnubg_module);
+  if (py_gnubg_module) Py_DECREF(py_gnubg_module);
+
   py_gnubg_module = NULL;
 }
 
 extern void PythonRun(const char *sz)
 {
 #if USE_GTK
-	PyObject *py_ret, *py_dict = NULL;
+	PyObject *py_ret = NULL, *py_dict = NULL;
 	int success = FALSE;
 #endif
 
