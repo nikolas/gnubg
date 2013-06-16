@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id:$
+ * $Id: gtkuidefs.h,v 1.1 2011/08/31 10:23:55 mdpetch Exp $
  */
 
 #define GNUBG_MAIN_UI \
@@ -255,4 +255,4 @@
         "               <menuitem name='SwitchMode' action='SwitchModeAction'/>" \
         "       </menu>" \
         "</menubar>" \
-        "</ui>" 
+        "</ui>"

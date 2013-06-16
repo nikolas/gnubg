@@ -16,15 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: openurl.h,v 1.4 2007/07/02 12:43:39 ace Exp $
+ * $Id: openurl.h,v 1.5 2012/08/27 23:06:41 plm Exp $
  */
 
 #ifndef OPENURL_H
 #define OPENURL_H
 
 
-extern void OpenURL( const char *szURL );
-extern char *set_web_browser (const char *sz);
-extern const gchar *get_web_browser (void);
+extern void OpenURL(const char *szURL);
+extern char *set_web_browser(const char *sz);
+extern const gchar *get_web_browser(void);
 
-#endif /* OPENURL_H */
+#endif                          /* OPENURL_H */

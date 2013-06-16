@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.h,v 1.12 2011/03/23 03:26:56 mdpetch Exp $
+ * $Id: matchid.h,v 1.13 2012/08/27 23:06:41 plm Exp $
  */
 
 #ifndef MATCHID_H
@@ -25,70 +25,55 @@
 #define L_MATCHID 12
 
 typedef struct {
-        int anDice[ 2 ];
-        int fTurn;
-        int fResigned;
-        int fDoubled;
-        gamestate gs;
+    int anDice[2];
+    int fTurn;
+    int fResigned;
+    int fDoubled;
+    gamestate gs;
 } posinfo;
 
 extern int
-LogCube ( const int n );
+ LogCube(const int n);
 
-extern char*
-MatchID ( const unsigned int anDice[ 2 ],
-          const int fTurn,
-          const int fResigned,
-          const int fDoubled,
-          const int fMove,
-          const int fCubeOwner,
-          const int fCrawford,
-          const int nMatchTo,
-          const int anScore[ 2 ],
-          const int nCube,
-#if USE_EXTENDEDMATCHID 
-	  const int fJacoby,
-#endif          
-          const gamestate gs );
+extern char *MatchID(const unsigned int anDice[2],
+                     const int fTurn,
+                     const int fResigned,
+                     const int fDoubled,
+                     const int fMove,
+                     const int fCubeOwner,
+                     const int fCrawford, const int nMatchTo, const int anScore[2], const int nCube,
+#if USE_EXTENDEDMATCHID
+                     const int fJacoby,
+#endif
+                     const gamestate gs);
 
-extern char*
-MatchIDFromKey( unsigned char auchKey[ 9 ] );
+extern char *MatchIDFromKey(unsigned char auchKey[9]);
 
 extern int
-MatchFromID ( unsigned int anDice[ 2 ],
-              int *pfTurn,
-              int *pfResigned,
-              int *pfDoubled,
-              int *pfMove,
-              int *pfCubeOwner,
-              int *pfCrawford,
-              int *pnMatchTo,
-              int anScore[ 2 ],
-              int *pnCube,
-#if USE_EXTENDEDMATCHID 
-              int *pfJacoby,
-#endif  
-              gamestate *pgs,
-              const char *szMatchID );
+
+
+MatchFromID(unsigned int anDice[2],
+            int *pfTurn,
+            int *pfResigned,
+            int *pfDoubled, int *pfMove, int *pfCubeOwner, int *pfCrawford, int *pnMatchTo, int anScore[2], int *pnCube,
+#if USE_EXTENDEDMATCHID
+            int *pfJacoby,
+#endif
+            gamestate * pgs, const char *szMatchID);
 
 extern int
-MatchFromKey ( int anDice[ 2 ],
-               int *pfTurn,
-               int *pfResigned,
-               int *pfDoubled,
-               int *pfMove,
-               int *pfCubeOwner,
-               int *pfCrawford,
-               int *pnMatchTo,
-               int anScore[ 2 ],
-               int *pnCube,
-#if USE_EXTENDEDMATCHID 
-               int *pfJacoby,
-#endif               
-               gamestate *pgs,
-               const unsigned char *auchKey );
 
-extern char *
-MatchIDFromMatchState ( const matchstate *pms );
+
+MatchFromKey(int anDice[2],
+             int *pfTurn,
+             int *pfResigned,
+             int *pfDoubled,
+             int *pfMove, int *pfCubeOwner, int *pfCrawford, int *pnMatchTo, int anScore[2], int *pnCube,
+#if USE_EXTENDEDMATCHID
+             int *pfJacoby,
+#endif
+             gamestate * pgs, const unsigned char *auchKey);
+
+extern char *MatchIDFromMatchState(const matchstate * pms);
 
 #endif

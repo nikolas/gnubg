@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: mec.h,v 1.2 2007/07/02 12:43:39 ace Exp $
+ * $Id: mec.h,v 1.3 2012/08/27 23:06:41 plm Exp $
  */
 
 
@@ -25,17 +25,14 @@
 #include "matchequity.h"
 
 extern void
-mec( const float rGammonRate, 
-     const float rWinRate,
-     /* const */ float aarMetPC[ 2 ][ MAXSCORE ],
-     float aarMet[ MAXSCORE ][ MAXSCORE ] );
+ mec(const float rGammonRate, const float rWinRate,
+     /* const */ float aarMetPC[2][MAXSCORE],
+     float aarMet[MAXSCORE][MAXSCORE]);
 
 extern void
-mec_pc( const float rGammonRate, 
-        const float rFreeDrop2Away, 
-        const float rFreeDrop4Away, 
-        const float rWinRate,
-        float arMetPC[ MAXSCORE ] );
 
-#endif /* MEC_H */
 
+mec_pc(const float rGammonRate,
+       const float rFreeDrop2Away, const float rFreeDrop4Away, const float rWinRate, float arMetPC[MAXSCORE]);
+
+#endif                          /* MEC_H */

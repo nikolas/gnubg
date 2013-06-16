@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id:$
+ * $Id: gtkpanels.h,v 1.6 2012/08/27 23:06:41 plm Exp $
  */
 
 /* position of windows: main window, game list, and annotation */
@@ -21,23 +21,23 @@
 #define GTKPANELS_H
 
 typedef enum _gnubgwindow {
-  WINDOW_MAIN = 0,
-  WINDOW_GAME,
-  WINDOW_ANALYSIS,
-  WINDOW_ANNOTATION,
-  WINDOW_HINT,
-  WINDOW_MESSAGE,
-  WINDOW_COMMAND,
-  WINDOW_THEORY,
-  NUM_WINDOWS
+    WINDOW_MAIN = 0,
+    WINDOW_GAME,
+    WINDOW_ANALYSIS,
+    WINDOW_ANNOTATION,
+    WINDOW_HINT,
+    WINDOW_MESSAGE,
+    WINDOW_COMMAND,
+    WINDOW_THEORY,
+    NUM_WINDOWS
 } gnubgwindow;
 
 typedef struct _windowgeometry {
-  int nWidth, nHeight;
-  int nPosX, nPosY, max;
+    int nWidth, nHeight;
+    int nPosX, nPosY, max;
 } windowgeometry;
 
-extern void SaveWindowSettings(FILE* pf);
+extern void SaveWindowSettings(FILE * pf);
 extern void HidePanel(gnubgwindow window);
 extern void getWindowGeometry(gnubgwindow window);
 extern int PanelShowing(gnubgwindow window);

@@ -1,4 +1,4 @@
-/* $Id: sse.h,v 1.8 2007/07/02 14:14:18 ace Exp $ 
+/* $Id: sse.h,v 1.9 2013/06/15 09:57:38 plm Exp $ 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -40,7 +40,7 @@
 #define sse_aligned(ar) (!(((int)ar) % ALIGN_SIZE))
 
 extern float *sse_malloc(size_t size);
-extern void sse_free(float* ptr);
+extern void sse_free(float *ptr);
 
 #else
 

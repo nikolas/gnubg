@@ -16,12 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.h,v 1.9 2009/03/22 22:36:57 c_anthon Exp $
+ * $Id: gtkcube.h,v 1.10 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef GTKCUBE_H
 #define GTKCUBE_H
 
-extern GtkWidget *CreateCubeAnalysis(moverecord *pmr, const matchstate *pms, int did_double, int did_take, int hist);
+extern GtkWidget *CreateCubeAnalysis(moverecord * pmr, const matchstate * pms, int did_double, int did_take, int hist);
 
 #endif

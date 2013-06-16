@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.h,v 1.11 2009/08/03 22:00:44 c_anthon Exp $
+ * $Id: util.h,v 1.12 2012/08/27 23:06:41 plm Exp $
  */
 
 #ifndef UTIL_H
@@ -27,15 +27,15 @@
 extern char *datadir;
 extern char *pkg_datadir;
 extern char *docdir;
-extern char *getDataDir( void );
-extern char *getPkgDataDir( void );
-extern char *getDocDir( void );
+extern char *getDataDir(void);
+extern char *getPkgDataDir(void);
+extern char *getDocDir(void);
 
 #define BuildFilename(file) g_build_filename(getPkgDataDir(), file, NULL)
 #define BuildFilename2(file1, file2) g_build_filename(getPkgDataDir(), file1, file2, NULL)
 
-extern void PrintSystemError(const char* message);
-extern void PrintError(const char* message);
+extern void PrintSystemError(const char *message);
+extern void PrintError(const char *message);
 extern FILE *GetTemporaryFile(const char *nameTemplate, char **retName);
 
 #endif

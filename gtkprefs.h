@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.h,v 1.14 2009/10/07 10:18:26 Superfly_Jon Exp $
+ * $Id: gtkprefs.h,v 1.15 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef GTKPREFS_H
@@ -24,12 +24,12 @@
 
 #include "gtkboard.h"
 
-extern void BoardPreferences( GtkWidget *pwBoard );
-extern void SetBoardPreferences(GtkWidget *pwBoard, char *sz);
-extern void Default3dSettings(BoardData* bd);
+extern void BoardPreferences(GtkWidget * pwBoard);
+extern void SetBoardPreferences(GtkWidget * pwBoard, char *sz);
+extern void Default3dSettings(BoardData * bd);
 extern void UpdatePreview(void);
-extern void gtk_color_button_get_array(GtkColorButton *button, double array[4]);
-extern void gtk_color_button_set_from_array(GtkColorButton *button, double array[4]);
+extern void gtk_color_button_get_array(GtkColorButton * button, double array[4]);
+extern void gtk_color_button_set_from_array(GtkColorButton * button, double array[4]);
 
 extern GtkWidget *pwPrevBoard;
 

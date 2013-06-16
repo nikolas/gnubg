@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.h,v 1.9 2009/09/29 22:09:05 c_anthon Exp $
+ * $Id: progress.h,v 1.10 2012/08/27 23:06:40 plm Exp $
  */
 
 #ifndef PROGRESS_H
@@ -26,27 +26,25 @@
 #include "rollout.h"
 
 extern void
-RolloutProgressStart( const cubeinfo *pci, const int n,
-                      rolloutstat aars[][ 2 ],
-                      rolloutcontext *pes, char asz[][ 40 ], gboolean multiple, void **pp );
+
+
+RolloutProgressStart(const cubeinfo * pci, const int n,
+                     rolloutstat aars[][2], rolloutcontext * pes, char asz[][40], gboolean multiple, void **pp);
 
 extern void
-RolloutProgress( float aarOutput[][ NUM_ROLLOUT_OUTPUTS ],
-                 float aarStdDev[][ NUM_ROLLOUT_OUTPUTS ],
-                 const rolloutcontext *prc,
-                 const cubeinfo aci[],
-                 unsigned int initial_game_count,
-                 const int iGame,
-                 const int iAlternative,
-				 const int nRank,
-				 const float rJsd,
-				 const int fStopped,
-				 const int fShowRanks,
-				 int fCubeRollout,
-                 void *pUserData );
+
+
+RolloutProgress(float aarOutput[][NUM_ROLLOUT_OUTPUTS],
+                float aarStdDev[][NUM_ROLLOUT_OUTPUTS],
+                const rolloutcontext * prc,
+                const cubeinfo aci[],
+                unsigned int initial_game_count,
+                const int iGame,
+                const int iAlternative,
+                const int nRank,
+                const float rJsd, const int fStopped, const int fShowRanks, int fCubeRollout, void *pUserData);
 
 extern int
-RolloutProgressEnd( void **pp, gboolean destroy );
+ RolloutProgressEnd(void **pp, gboolean destroy);
 
-#endif /* PROGRESS_H */
-
+#endif                          /* PROGRESS_H */

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.h,v 1.19 2009/03/22 22:36:57 c_anthon Exp $
+ * $Id: gtkchequer.h,v 1.20 2012/08/27 23:06:42 plm Exp $
  */
 
 #ifndef GTKCHEQUER_H
@@ -25,35 +25,33 @@
 #include "backgammon.h"
 
 typedef struct _hintdata {
-  GtkWidget *pwMoves;     /* the movelist */
-  GtkWidget *pwRollout, *pwRolloutSettings; /* rollout buttons */
-  GtkWidget *pwEval, *pwEvalSettings;       /* evaluation buttons */
-  GtkWidget *pwMove; /* move button */
-  GtkWidget *pwCopy; /* copy button */
-  GtkWidget *pwEvalPly; /* predefined eval buttons */
-  GtkWidget *pwRolloutPresets; /* predefined Rollout buttons */
-  GtkWidget *pwShow; /* button for showing moves */
-  GtkWidget *pwTempMap; /* button for showing temperature map */
-  GtkWidget *pwCmark; /* button for marking*/
-  moverecord *pmr;
-  movelist *pml;
-  int fButtonsValid;
-  int fDestroyOnMove;
-  unsigned int *piHighlight;
-  int fDetails;
-  int hist;
+    GtkWidget *pwMoves;         /* the movelist */
+    GtkWidget *pwRollout, *pwRolloutSettings;   /* rollout buttons */
+    GtkWidget *pwEval, *pwEvalSettings; /* evaluation buttons */
+    GtkWidget *pwMove;          /* move button */
+    GtkWidget *pwCopy;          /* copy button */
+    GtkWidget *pwEvalPly;       /* predefined eval buttons */
+    GtkWidget *pwRolloutPresets;        /* predefined Rollout buttons */
+    GtkWidget *pwShow;          /* button for showing moves */
+    GtkWidget *pwTempMap;       /* button for showing temperature map */
+    GtkWidget *pwCmark;         /* button for marking */
+    moverecord *pmr;
+    movelist *pml;
+    int fButtonsValid;
+    int fDestroyOnMove;
+    unsigned int *piHighlight;
+    int fDetails;
+    int hist;
 } hintdata;
 
-extern GtkWidget *
-CreateMoveList( moverecord *pmr,
-                const int fButtonsValid, const int fDestroyOnMove,
-                const int fDetails, int hist );
+extern GtkWidget *CreateMoveList(moverecord * pmr,
+                                 const int fButtonsValid, const int fDestroyOnMove, const int fDetails, int hist);
 
-extern int 
-CheckHintButtons( hintdata *phd );
+extern int
+ CheckHintButtons(hintdata * phd);
 
 extern void MoveListRefreshSize(void);
-extern GtkWidget* pwDetails;
+extern GtkWidget *pwDetails;
 extern int showMoveListDetail;
 
 #endif
