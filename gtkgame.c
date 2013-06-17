@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.866 2013/06/09 11:01:15 plm Exp $
+ * $Id: gtkgame.c,v 1.867 2013/06/16 02:16:14 mdpetch Exp $
  */
 
 #include "gnubgmodule.h"
@@ -4039,7 +4039,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
 extern void
 GtkChangeLanguage(void)
 {
-    setlocale(LC_ALL, "C");
+    setlocale(LC_ALL, "");
     if (pwMain && gtk_widget_get_realized(pwMain)) {
         reasonExited = RE_LANGUAGE_CHANGE;
         custom_cell_renderer_invalidate_size(); /* Recalulate widget sizes */
