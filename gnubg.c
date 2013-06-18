@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.924 2013/06/16 02:16:12 mdpetch Exp $
+ * $Id: gnubg.c,v 1.925 2013/06/18 14:09:10 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3282,7 +3282,7 @@ CommandSaveSettings(char *szParam)
     szParam = NextToken(&szParam);
 
     /* If we were started without a configuration file, don't
-     * save anyting since this will overwrite an existing file
+     * save anything since this will overwrite an existing file
      * with defaults */
     if (fNoRC)
         return;
