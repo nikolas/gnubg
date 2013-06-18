@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.72 2013/05/11 08:56:12 plm Exp $
+ * $Id: gtkpanels.c,v 1.73 2013/06/16 02:16:16 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1613,9 +1613,9 @@ extern void
 CommandShowPanels(char *UNUSED(sz))
 {
     if (fDisplayPanels)
-        outputf(_("Game list, Annotation and Message panels/windows " "will be displayed."));
+        outputl(_("Game list, Annotation and Message panels/windows " "will be displayed."));
     else
-        outputf(_("Game list, Annotation and Message panels/windows " "will not be displayed."));
+        outputl(_("Game list, Annotation and Message panels/windows " "will not be displayed."));
 }
 
 extern void
