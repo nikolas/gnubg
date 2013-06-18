@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.415 2013/04/15 21:45:23 plm Exp $
+ * $Id: eval.c,v 1.416 2013/06/16 02:16:11 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3171,12 +3171,12 @@ GetEvalCacheEntries(void)
 }
 
 extern int
-GetCacheMB(double size)
+GetCacheMB(int size)
 {
-    if (size == 0)
+    if (size <= 0)
         return 0;
     else
-        return (int) ((pow(2, size + 15) * sizeof(cacheNode)) / (1024 * 1024));
+        return (1<<(size + 15)) * sizeof(cacheNode) / (1024 * 1024);
 }
 
 extern int

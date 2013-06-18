@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.176 2013/05/17 02:07:00 mdpetch Exp $
+ * $Id: eval.h,v 1.177 2013/06/16 02:16:11 mdpetch Exp $
  */
 
 #ifndef EVAL_H
@@ -415,7 +415,7 @@ extern int
 extern double GetEvalCacheSize(void);
 void SetEvalCacheSize(unsigned int size);
 extern unsigned int GetEvalCacheEntries(void);
-extern int GetCacheMB(double size);
+extern int GetCacheMB(int size);
 
 extern int
  GenerateMoves(movelist * pml, const TanBoard anBoard, int n0, int n1, int fPartial);
