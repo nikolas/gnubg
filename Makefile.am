@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.233 2013/03/21 23:27:49 plm Exp $
+## $Id: Makefile.am,v 1.234 2013/06/01 13:26:48 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -9,8 +9,14 @@ bin_PROGRAMS = gnubg makebearoff makehyper bearoffdump makeweights
 #
 ##include path
 #
+if WIN32
+localeloc=-DLOCALEDIR=\"locale\" 
+else
+localeloc=-DLOCALEDIR=\"$(localedir)\"
+endif 
+
 AM_CPPFLAGS = -I$(srcdir)/lib -I$(srcdir)/board3d \
-	   -DLOCALEDIR=\"$(localedir)\" @FREETYPE2_CFLAGS@ @GLIB_CFLAGS@ \
+	   $(localeloc) @FREETYPE2_CFLAGS@ @GLIB_CFLAGS@ \
 	   @LIBPNG_CFLAGS@ @GTK_CFLAGS@ @CAIRO_CFLAGS@ @PANGOCAIRO_CFLAGS@ \
 	   @GTHREAD_CFLAGS@ @GTKGLEXT_CFLAGS@ @CANBERRA_CFLAGS@
 
