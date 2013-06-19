@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.7 $)
+AC_REVISION($Revision: 1.8 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -366,7 +366,7 @@ AC_MSG_RESULT([$host (sse=$ssecpu, SSE_CFLAGS="$SSE_CFLAGS")])
 AC_ARG_VAR(SSE_CFLAGS, [CFLAGS needed for compiling in sse cpu support])
 
 AC_MSG_CHECKING([for vectorized CPU test])
-AC_ARG_ENABLE( cputest, [  --enable-cputest=TYPE  enable vectorized CPU test (TYPE=yes,no,auto) (Default no) ], cputest=$enableval, cputest="no")
+AC_ARG_ENABLE( cputest, [  --enable-cputest=TYPE  enable vectorized CPU test (TYPE=yes,no,auto) (Default no) ], cputest=$enableval, cputest="auto")
 if test "x$ssecpu" = "xno"; then
 	cputest="no"
 elif test "x$cputest" = "xauto"; then
