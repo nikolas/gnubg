@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.417 2013/06/18 21:13:23 plm Exp $
+ * $Id: eval.c,v 1.418 2013/06/19 10:11:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3166,7 +3166,7 @@ GetEvalCacheSize(void)
 extern void
 SetEvalCacheSize(unsigned int size)
 {
-    EvalCacheResize((size == 0) ? 0 : (unsigned int) pow(2, size + 16));
+    EvalCacheResize((size == 0) ? 0 : 1U<<(size + 16));
 }
 
 extern unsigned int
