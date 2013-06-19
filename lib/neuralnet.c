@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.71 2013/06/19 10:39:45 mdpetch Exp $
+ * $Id: neuralnet.c,v 1.72 2013/06/19 18:34:51 mdpetch Exp $
  */
 
 #include "config.h"
@@ -381,7 +381,7 @@ check_for_cpuid()
     asm volatile(
 #if defined(ENVIRONMENT32) && defined(__PIC__)
         /* We have to be careful to not destroy ebx if using PIC on 32bit builds */
-        asm volatile ("pushl %%ebx;\n\t");
+        "pushl %%ebx;\n\t"
 #endif
         "mov $1, %%eax\n\t"
         "shl $21, %%eax\n\t"
