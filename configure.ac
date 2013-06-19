@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.8 $)
+AC_REVISION($Revision: 1.9 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -371,7 +371,7 @@ if test "x$ssecpu" = "xno"; then
 	cputest="no"
 elif test "x$cputest" = "xauto"; then
 	case "$host" in
-		x86* | i586-* | i686-* )
+		x86* | i586-* | i686-* | ia64* | amd64-* | i386-apple-darwin*)
 			if test "x$GCC" = "xyes"; then
 				cputest="yes"
 			else
