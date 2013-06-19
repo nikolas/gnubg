@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.416 2013/06/16 02:16:11 mdpetch Exp $
+ * $Id: eval.c,v 1.417 2013/06/18 21:13:23 plm Exp $
  */
 
 #include "config.h"
@@ -577,8 +577,13 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
 
 #if USE_SSE_VECTORIZE
         if (!SSE_Supported())
+#if USE_AVX
+            g_critical(_
+                       ("This version of GNU Backgammon is compiled with AVX support but this machine does not support AVX"));
+#else
             g_critical(_
                        ("This version of GNU Backgammon is compiled with SSE support but this machine does not support SSE"));
+#endif
 #endif
 
         cCache = 0x1 << CACHE_SIZE_DEFAULT;
