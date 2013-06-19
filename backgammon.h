@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.434 2012/10/15 21:10:11 plm Exp $
+ * $Id: backgammon.h,v 1.435 2013/06/16 02:16:09 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
 #define BACKGAMMON_H
 
+#include "output.h"
 #include "analysis.h"
 #include "eval.h"
 #include "rollout.h"
@@ -392,6 +393,11 @@ extern command acSetTruncation[];
 extern command acTop[];
 extern command cFilename;
 extern command cOnOff;
+
+extern int fInteractive;
+extern int cOutputDisabled;
+extern int cOutputPostponed;
+extern int foutput_on;
 
 #ifdef _LIBINTL_H
 #warning "libintl.h already included expect warnings under mingw"
