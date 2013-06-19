@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.73 2013/06/19 19:08:36 mdpetch Exp $
+ * $Id: neuralnet.c,v 1.74 2013/06/19 20:19:14 mdpetch Exp $
  */
 
 #include "config.h"
@@ -372,8 +372,9 @@ SSE_Supported(void)
 
 #if defined(__APPLE__) || defined(__FreeBSD__)
 #include <sys/sysctl.h>
-#else
-int
+#endif
+
+static int
 check_for_cpuid()
 {
     int result;
@@ -439,7 +440,6 @@ check_for_cpuid()
           "%edx");
     return result;
 }
-#endif
 
 static int
 CheckSSE(void)
