@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.69 2013/06/16 02:16:24 mdpetch Exp $
+ * $Id: neuralnet.c,v 1.70 2013/06/19 10:11:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -372,13 +372,14 @@ SSE_Supported(void)
 #if defined(__APPLE__) || defined(__FreeBSD__)
 #include <sys/sysctl.h>
 #else
-int check_for_cpuid()
+int
+check_for_cpuid()
 {
     int result;
 
     asm volatile(
 #if defined(ENVIRONMENT32) && defined(__PIC__)
-           /* We have to be careful to not destroy ebx if using PIC on I386 */
+        /* We have to be careful to not destroy ebx if using PIC on 32bit builds */
         asm volatile ("pushl %%ebx;\n\t");
 #endif
         "mov $1, %%eax\n\t"
@@ -433,7 +434,7 @@ CheckSSE(void)
 
     asm volatile(
 #if defined(ENVIRONMENT32) && defined(__PIC__)
-           /* We have to be careful to not destroy ebx if using PIC on I386 */
+        /* We have to be careful to not destroy ebx if using PIC on 32bit builds */
         "pushl %%ebx;\n\t"
 #endif
         "xor %%eax, %%eax\n\t"
@@ -462,7 +463,7 @@ CheckSSE(void)
 #if defined(ENVIRONMENT32) && defined(__PIC__)
         "popl %%ebx;\n\t"
 #endif
-        : "=a"(result) /* Result returned in is_avx_supported */
+        : "=a"(result) /* Result returned in result variable */
         :
         : "%ecx", 
 #if !defined(ENVIRONMENT32) || !defined(__PIC__)
