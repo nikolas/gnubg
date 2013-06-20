@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.10 $)
+AC_REVISION($Revision: 1.11 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -327,12 +327,12 @@ AX_EXT()
 AC_MSG_CHECKING([for simd cpu])
 AC_ARG_ENABLE( sse, [  --enable-sse=TYPE  enable SSE for newer cpus(TYPE=yes,avx,sse2,no)], ssecpu=$enableval, ssecpu="undef")
 if test "x$ssecpu" = "xundef" || test "x$ssecpu" = "xyes"; then
-    if test "x$ax_cv_have_avx_ext" = "xyes"; then
-        ssecpu="avx"
-    elif test "x$ax_cv_have_sse2_ext" = "xyes"; then 
+    if test "x$ax_cv_have_sse2_ext" = "xyes"; then
         ssecpu="sse2"
     elif test "x$ax_cv_have_sse_ext" = "xyes"; then 
         ssecpu="sse"
+    elif test "x$ax_cv_have_avx_ext" = "xyes"; then 
+        ssecpu="avx"
     else
         ssecpu="no"
     fi
