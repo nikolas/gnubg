@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.926 2013/06/18 14:20:30 mdpetch Exp $
+ * $Id: output.c,v 1.1 2013/06/19 18:06:26 mdpetch Exp $
  */
 
 #include "config.h"
@@ -52,7 +52,7 @@ int cOutputPostponed;
 int foutput_on;
 
 extern void
-output_initialize()
+output_initialize(void)
 {
     cOutputDisabled = FALSE;
     cOutputPostponed = FALSE;
