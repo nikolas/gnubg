@@ -1,4 +1,4 @@
-/* $Id: sse.h,v 1.9 2013/06/15 09:57:38 plm Exp $ 
+/* $Id: simd.h,v 1.10 2013/06/16 02:16:25 mdpetch Exp $ 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -13,7 +13,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#if USE_SSE_VECTORIZE
+#if USE_SIMD_INSTRUCTIONS
 
 #include <stdlib.h>
 

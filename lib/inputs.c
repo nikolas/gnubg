@@ -15,15 +15,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inputs.c,v 1.4 2013/06/15 09:57:38 plm Exp $
+ * $Id: inputs.c,v 1.5 2013/06/16 02:16:24 mdpetch Exp $
  */
 
 #include "config.h"
 #include "gnubg-types.h"
-#include "sse.h"
+#include "simd.h"
 #include "eval.h"
 
-#if USE_SSE_VECTORIZE
+#if USE_SIMD_INSTRUCTIONS
 #if defined(USE_AVX)
 #include <immintrin.h>
 #elif defined(USE_SSE2)
@@ -101,7 +101,7 @@ SSE_ALIGN(float inpvecb[16][4]) = {
         /* 15 */  {
 1.0, 1.0, 1.0, 6.0}};
 
-#if USE_SSE_VECTORIZE
+#if USE_SIMD_INSTRUCTIONS
 extern void
 baseInputs(const TanBoard anBoard, float arInput[])
 {

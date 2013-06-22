@@ -17,17 +17,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.24 2013/06/15 09:57:38 plm Exp $
+ * $Id: neuralnetsse.c,v 1.25 2013/06/16 02:16:25 mdpetch Exp $
  */
 
 #include "config.h"
 #include "common.h"
 
-#if USE_SSE_VECTORIZE
+#if USE_SIMD_INSTRUCTIONS
 
 #define DEBUG_SSE 0
 
-#include "sse.h"
+#include "simd.h"
 #include "neuralnet.h"
 #include <string.h>
 
