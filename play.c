@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.417 2013/06/08 20:09:52 plm Exp $
+ * $Id: play.c,v 1.418 2013/06/16 02:16:19 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1115,7 +1115,7 @@ ComputerTurn(void)
                     /* Note, this should not happen as the computer plays
                      * "perfectly"!! */
 
-                    if (arDouble[OUTPUT_TAKE] <= -1.0)
+                    if (arDouble[OUTPUT_TAKE] <= -1.0f)
                         /* drop beaver */
                         CommandDrop(NULL);
                     else
@@ -3281,7 +3281,7 @@ CommandEndGame(char *UNUSED(sz))
     int fDisplay_store = fDisplay;
     int fQuiet_store = fQuiet;
 #if USE_BOARD3D
-    BoardData *bd;
+    BoardData *bd = NULL;
     if (fX && pwBoard)
         bd = BOARD(pwBoard)->board_data;
 #endif
@@ -3319,7 +3319,7 @@ CommandEndGame(char *UNUSED(sz))
         outputon();
     }
 #if USE_BOARD3D
-    if (fX)
+    if (fX && bd)
         SuspendDiceRolling(bd->rd);
 #endif
 
@@ -3373,7 +3373,7 @@ CommandEndGame(char *UNUSED(sz))
         outputon();
     }
 #if USE_BOARD3D
-    if (fX)
+    if (fX && bd)
         ResumeDiceRolling(bd->rd);
 #endif
 
@@ -3457,7 +3457,9 @@ CommandPreviousRoll(char *UNUSED(sz))
         /* if the dice haven't been rolled skip the entire move */
         CommandPrevious(NULL);
 
-        if (plLastMove->plNext->p != pmr) {
+        g_assert(plLastMove->plNext);
+
+        if (plLastMove->plNext && plLastMove->plNext->p != pmr) {
             pmr = plLastMove->plNext->p;
             if (pmr && (pmr->mt == MOVE_NORMAL || pmr->mt == MOVE_GAMEINFO))
                 /* We've stepped back a whole move; now we need to recover the
