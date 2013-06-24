@@ -23,13 +23,31 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: gnubg.py,v 1.9 2013/06/16 01:43:55 mdpetch Exp $
+# $Id: gnubg.py,v 1.10 2013/06/16 03:03:07 mdpetch Exp $
 #
 
 # Add the scrpts directory to the module path to allow
 # for modules from this directory to be improted
 import sys
-sys.path.append('./scripts')
+sys.path.insert(1, './scripts')
+#import site
+
+import __builtin__
+
+def setinterpreterquit():
+    class interpreterquit(object):
+        def __repr__(self):
+            self()
+        def __call__(self, code=None):
+            if not ('idlelib' in sys.stdin.__class__.__module__):
+                raise SystemExit(0)
+            else:
+                print 'Press Ctrl-D to exit'
+
+    __builtin__.quit = interpreterquit()
+    __builtin__.exit = interpreterquit()
+
+setinterpreterquit()
 
 
 def gnubg_find_msvcrt():
@@ -98,7 +116,12 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
             except:
                 pass
 
-            code.interact(banner=banner, local=globals())
+            try:
+                code.interact(banner=banner, local=globals())
+            except SystemExit:
+                # Ignore calls to exit() and quit()
+                pass
+
             return True
 
         else:
@@ -113,7 +136,11 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
                 if not line:
                     break
 
-                exec(line)
+                try:
+                    exec(line)
+                except SystemExit:
+                    # Ignore calls to exit() and quit()
+                    break
 
             return True
 
@@ -140,7 +167,12 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
 
         ipshell = InteractiveShellEmbed(
             config=cfg, user_ns=calling_ns, banner1=banner)
-        ipshell()
+
+        try:
+            ipshell()
+        except SystemExit:
+            # Ignore calls to exit() and quit()
+            pass
 
         # Cleanup the sys environment (including exception handlers)
         ipshell.restore_sys_module_state()
@@ -162,8 +194,12 @@ def gnubg_InteractivePyShell_gui(argv=['', '-n']):
         try:
             idlelib.PyShell.main()
             return True
+        except SystemExit:
+            # Ignore calls to exit() and quit()
+            return True
         except:
             traceback.print_exc()
+
     except:
         pass
 
