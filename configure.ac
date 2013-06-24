@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.12 $)
+AC_REVISION($Revision: 1.13 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -114,7 +114,13 @@ PKG_CHECK_MODULES(LIBPNG, [libpng >= 1.2], have_libpng="yes", AC_MSG_WARN([no pn
 PKG_CHECK_MODULES(CAIRO, [cairo >= 1.2], have_cairo="yes", [AC_MSG_WARN([no cairo support])])
 PKG_CHECK_MODULES(PANGOCAIRO, [pangocairo >= 1.0], have_pangocairo="yes", [AC_MSG_WARN([no pangocairo support])])
 PKG_CHECK_MODULES(SQLITE, [sqlite3], have_sqlite="yes", AC_MSG_WARN([no sqlite support]))
-PKG_CHECK_MODULES(CANBERRA, [libcanberra-gtk], have_canberra="yes", AC_MSG_WARN([no libcanberra-gtk support]))
+
+if test "x$win32" != "xyes"; then
+    PKG_CHECK_MODULES(CANBERRA, [libcanberra-gtk], have_canberra="yes", AC_MSG_WARN([no libcanberra-gtk support]))
+else
+    have_canberra="no"
+fi
+
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.6.0], have_gtk="yes" , AC_MSG_WARN([no gtk support]))
 PKG_CHECK_MODULES(GTKGLEXT, [gtkglext-1.0 >= 1.0], have_gtkglext="yes" , AC_MSG_WARN([no gtkglext support]))
 
@@ -162,7 +168,7 @@ if test "x$darwin" = "xyes"; then
 			AC_DEFINE(HAVE_APPLE_COREAUDIO,1, [Define if you have Apple CoreAudio])
 			LDFLAGS="$LDFLAGS -framework AudioUnit -framework CoreServices -framework AudioToolBox -framework CoreAudio"
 		fi
-	fi
+    fi
 fi
 
 if test "x$have_canberra" = "xyes"; then
@@ -170,11 +176,15 @@ if test "x$have_canberra" = "xyes"; then
 fi
 
 dnl Enable workaround on recent Ubuntus.
-if test x`lsb_release -is` = "xUbuntu"; then
-   AS_VERSION_COMPARE("$(lsb_release -rs)", "11.04", [], [], [no_ovsb=yes])
-   if test "x$no_ovsb" = "xyes"; then
-   AC_DEFINE(NO_OVERLAYSCROLLBARS, 1, [Needed for now on recent Ubuntu releases])
-   fi
+
+AC_CHECK_PROG(LSB_CHECK,lsb_release,yes)
+if test x"$LSB_CHECK" = x"yes" ; then
+    if test x`lsb_release -is` = "xUbuntu"; then
+        AS_VERSION_COMPARE("$(lsb_release -rs)", "11.04", [], [], [no_ovsb=yes])
+        if test "x$no_ovsb" = "xyes"; then
+            AC_DEFINE(NO_OVERLAYSCROLLBARS, 1, [Needed for now on recent Ubuntu releases])
+        fi
+    fi
 fi
 
 dnl have_gthread, have_gtk and have_gtk are handled later, not having glib is fatal
