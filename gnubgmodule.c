@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.148 2013/06/25 14:52:31 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.149 2013/06/25 15:05:32 mdpetch Exp $
  */
 
 #include "config.h"
@@ -813,7 +813,7 @@ PythonEvaluate(PyObject * UNUSED(self), PyObject * args)
         return NULL;
 
     if (GeneralEvaluationE(arOutput, (ConstTanBoard) anBoard, &ci, &ec)) {
-        PyErr_SetString(PyExc_StandardError, _("interupted/errno in GeneralEvaluateE"));
+        PyErr_SetString(PyExc_StandardError, _("interrupted/errno in GeneralEvaluateE"));
         return NULL;
     }
 
@@ -858,7 +858,7 @@ PythonEvaluateCubeful(PyObject * UNUSED(self), PyObject * args)
         return NULL;
 
     if (GeneralCubeDecisionE(aarOutput, (ConstTanBoard) anBoard, &ci, &ec, 0) < 0) {
-        PyErr_SetString(PyExc_StandardError, _("interupted/errno in GeneralCubeDecisionE"));
+        PyErr_SetString(PyExc_StandardError, _("interrupted/errno in GeneralCubeDecisionE"));
         return NULL;
     }
 
