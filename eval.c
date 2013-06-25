@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.421 2013/06/25 13:59:31 mdpetch Exp $
+ * $Id: eval.c,v 1.422 2013/06/25 14:04:49 mdpetch Exp $
  */
 
 #include "config.h"
@@ -575,6 +575,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     int result, simderror = TRUE;
 
     if (!fInitialised) {
+#if USE_SIMD_INSTRUCTIONS
         result = SIMD_Supported() ;
         switch (result) {
         case -1:
@@ -604,7 +605,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
 #endif
             exit(EXIT_FAILURE);
         }
-
+#endif
         cCache = 0x1 << CACHE_SIZE_DEFAULT;
         if (CacheCreate(&cEval, cCache)) {
             PrintError("CacheCreate");
