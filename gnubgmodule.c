@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.146 2013/06/16 01:43:55 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.147 2013/06/16 02:16:12 mdpetch Exp $
  */
 
 #include "config.h"
@@ -779,7 +779,7 @@ PythonMoveTuple2String(PyObject * UNUSED(self), PyObject * args)
     }
 
     szMove[0] = '\0';
-    FormatMove(szMove, (ConstTanBoard) anBoard, anMove);
+    FormatMove(szMove, (ConstTanBoard) anBoard, (signed int *)anMove);
 
     return PyString_FromString(szMove);
 }
@@ -2795,7 +2795,10 @@ PyMethodDef gnubgMethods[] = {
 
 };
 
+#ifdef WIN32
 static char *python_dir = NULL;
+#endif
+
 static PyObject *py_gnubg_module = NULL;
 
 #ifndef WIN32
