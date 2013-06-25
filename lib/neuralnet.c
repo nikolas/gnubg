@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.75 2013/06/19 23:49:47 mdpetch Exp $
+ * $Id: neuralnet.c,v 1.76 2013/06/22 23:49:37 mdpetch Exp $
  */
 
 #include "config.h"
@@ -540,33 +540,15 @@ CheckSSE(void)
 
 #endif /* USE_AVX */
 
-    switch (result) {
-    case -1:
-        outputf(_("Can't check for SIMD support - non pentium cpu\n"));
-        break;
-    case -2:
-        outputf(_("No cpuid check available\n"));
-        break;
-    case 0:
-        /* No SIMD support */
-        break;
-    case 1:
-        /* SIMD support */
-        return 1;
-    default:
-        ;
-        outputf(_("Unknown error while doing SIMD support test\n"));
-    }
-
-    return 0;
+    return result;
 }
 
 int
 SIMD_Supported(void)
 {
-    static int state = -1;
+    static int state = -3;
 
-    if (state == -1)
+    if (state == -3)
         state = CheckSSE();
 
     return state;
