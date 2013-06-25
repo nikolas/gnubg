@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.147 2013/06/16 02:16:12 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.148 2013/06/25 14:52:31 mdpetch Exp $
  */
 
 #include "config.h"
@@ -86,7 +86,7 @@ Board1ToPy(unsigned int anBoard[25])
  * on return populates the passed anMove structure
  */
 static int
-PyToMove(PyObject * p, unsigned int anMove[8])
+PyToMove(PyObject * p, signed int anMove[8])
 {
     int tuplelen;
 
@@ -752,7 +752,7 @@ PythonMoveTuple2String(PyObject * UNUSED(self), PyObject * args)
     PyObject *pyMove = NULL;
 
     char szMove[32];
-    unsigned int anMove[8];
+    signed int anMove[8];
     TanBoard anBoard;
 
     memset(anBoard, 0, sizeof(TanBoard));
@@ -779,7 +779,7 @@ PythonMoveTuple2String(PyObject * UNUSED(self), PyObject * args)
     }
 
     szMove[0] = '\0';
-    FormatMove(szMove, (ConstTanBoard) anBoard, (signed int *)anMove);
+    FormatMove(szMove, (ConstTanBoard) anBoard, anMove);
 
     return PyString_FromString(szMove);
 }
