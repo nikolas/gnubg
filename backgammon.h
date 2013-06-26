@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.435 2013/06/16 02:16:09 mdpetch Exp $
+ * $Id: backgammon.h,v 1.436 2013/06/19 18:33:52 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -53,6 +53,13 @@ typedef struct _command {
     /* List of subcommands (NULL if none) */
     struct _command *pc;
 } command;
+
+typedef struct _procrecorddata {
+    /* Record handler */
+    void (*pfProcessRecord) (struct _procrecorddata *);
+    void *avInputData[8];
+    void *avOutputData[8];
+} procrecorddata;
 
 typedef enum _playertype {
     PLAYER_HUMAN, PLAYER_GNU, PLAYER_EXTERNAL
@@ -1002,7 +1009,8 @@ extern void CommandShowWarranty(char *);
 extern void CommandSwapPlayers(char *);
 extern void CommandTake(char *);
 extern void CommandSetDefaultNames(char *sz);
-extern void hint_move(char *sz, gboolean show);
+extern void hint_move(char *sz, gboolean show, procrecorddata *procdatarec);
+extern int fShowProgress;
 extern void hint_double(int show, int did_double);
 extern void hint_take(int show, int did_take);
 extern void find_skills(moverecord * pmr, const matchstate * pms, int did_double, int did_take);

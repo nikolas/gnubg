@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.418 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: play.c,v 1.419 2013/06/23 09:46:27 plm Exp $
  */
 
 #include "config.h"
@@ -2646,7 +2646,7 @@ CommandMove(char *sz)
         g_assert(pmr_cur);
         /* update or set the move */
         memcpy(pmr_cur->n.anMove, an, sizeof an);
-        hint_move("", FALSE);
+        hint_move("", FALSE, NULL);
         if (!GiveAdvice(pmr_cur->n.stMove)) {
             free(pmr);
             return;
