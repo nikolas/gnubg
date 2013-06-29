@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.436 2013/06/19 18:33:52 mdpetch Exp $
+ * $Id: backgammon.h,v 1.437 2013/06/26 04:41:45 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -56,10 +56,20 @@ typedef struct _command {
 
 typedef struct _procrecorddata {
     /* Record handler */
-    void (*pfProcessRecord) (struct _procrecorddata *);
+    int (*pfProcessRecord) (struct _procrecorddata *);
+    void *pvUserData;
     void *avInputData[8];
     void *avOutputData[8];
 } procrecorddata;
+
+#define PROCREC_HINT_ARGIN_SHOWPROGRESS 0
+#define PROCREC_HINT_ARGIN_MAXMOVES 1
+#define PROCREC_HINT_ARGOUT_MATCHSTATE 0
+#define PROCREC_HINT_ARGOUT_CUBEINFO 1
+#define PROCREC_HINT_ARGOUT_MOVELIST 2
+#define PROCREC_HINT_ARGOUT_MOVERECORD 3
+#define PROCREC_HINT_ARGOUT_INDEX 4
+
 
 typedef enum _playertype {
     PLAYER_HUMAN, PLAYER_GNU, PLAYER_EXTERNAL
