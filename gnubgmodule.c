@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.154 2013/06/30 05:32:15 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.155 2013/06/30 07:23:45 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3048,7 +3048,7 @@ PyMethodDef gnubgMethods[] = {
      "          'date'=>(tuple dd, mm, yyyy)\n"
      "          'default-eval-context' = dictionary\n"
      "            'plies'=> int, 'deterministic'=>0/1, 'noise'=>float,\n"
-     "            'cubeful'=>0/1\n"
+     "            'cubeful'=>0/1, 'prune'=>0/1\n"
      "          'match_length' = int\n"
      "          'result' =>0/1\n"
      "          'rules' = 'Crawford'/whatever\n" 
