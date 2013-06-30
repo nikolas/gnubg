@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.36 2013/06/13 02:05:57 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.37 2013/06/16 02:16:10 mdpetch Exp $
  */
 
 #include "config.h"
@@ -251,7 +251,7 @@ GetDBProvider(DBProviderType dbType)
 #if USE_PYTHON
     static int setup = FALSE;
     if (!setup) {
-        if (LoadPythonFile("database.py") == 0) {
+        if (LoadPythonFile("database.py", FALSE) == 0) {
             PyObject *m;
             /* Get main python dictionary */
             if ((m = PyImport_AddModule("__main__")) == NULL) {

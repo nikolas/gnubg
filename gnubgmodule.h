@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.23 2013/06/07 04:58:49 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.24 2013/06/16 02:16:13 mdpetch Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -49,7 +49,7 @@ extern PyObject *PythonGnubgModule();
 extern void PythonInitialise(char *argv0);
 extern void PythonShutdown(void);
 extern void PythonRun(const char *sz);
-extern int LoadPythonFile(const char *sz);
+extern int LoadPythonFile(const char *sz, int fQuiet);
 extern gint python_run_file(gpointer file);
 
 #endif                          /* GNUBGMODULE_H */

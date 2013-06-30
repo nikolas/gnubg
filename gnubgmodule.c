@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.153 2013/06/30 01:52:07 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.154 2013/06/30 05:32:15 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3144,7 +3144,8 @@ PythonInitialise(char *argv0)
     PyRun_SimpleString("import gnubg\n");
 
     /* run gnubg.py start up script */
-    LoadPythonFile("gnubg.py");
+    LoadPythonFile("gnubg.py", FALSE);
+    LoadPythonFile("gnubg_user.py", TRUE);
     py_gnubg_module = PyImport_AddModule("__main__");
 }
 
@@ -3201,7 +3202,7 @@ PythonRun(const char *sz)
 }
 
 extern int
-LoadPythonFile(const char *sz)
+LoadPythonFile(const char *sz, int fQuiet)
 {
     char *path = NULL;
     char *cmd = NULL;
@@ -3219,7 +3220,9 @@ LoadPythonFile(const char *sz)
     }
     if (!g_file_test(path, G_FILE_TEST_IS_REGULAR)) {
         g_free(path);
-        outputerrf("Python file (%s) not found\n", sz);
+        if (!fQuiet)
+            outputerrf("Python file (%s) not found\n", sz);
+
         return FALSE;
     }
     escpath = g_strescape(path, NULL);

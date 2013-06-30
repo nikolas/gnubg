@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.931 2013/06/26 22:08:32 mdpetch Exp $
+ * $Id: gnubg.c,v 1.932 2013/06/29 23:34:15 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2692,7 +2692,7 @@ CommandLoadPython(char *sz)
 
     if (sz && *sz)
 #if USE_PYTHON
-        LoadPythonFile(sz);
+        LoadPythonFile(sz, FALSE);
 #else
         outputl(_("This build of GNU Backgammon does not support Python"));
 #endif
@@ -4829,7 +4829,7 @@ main(int argc, char *argv[])
     if (pchPythonScript) {
 #if USE_PYTHON
         fInteractive = FALSE;
-        LoadPythonFile(pchPythonScript);
+        LoadPythonFile(pchPythonScript, FALSE);
         Shutdown();
         exit(EXIT_SUCCESS);
 #else
