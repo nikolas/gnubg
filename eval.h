@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.177 2013/06/16 02:16:11 mdpetch Exp $
+ * $Id: eval.h,v 1.178 2013/06/18 21:13:23 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -141,6 +141,7 @@ typedef struct {
     unsigned int nMinimumJsdGames;
     double rJsdLimit;
     unsigned int nGamesDone;
+    double rStoppedOnJSD;
     int nSkip;
 } rolloutcontext;
 

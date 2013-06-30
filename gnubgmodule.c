@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.150 2013/06/25 15:07:36 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.153 2013/06/30 01:52:07 mdpetch Exp $
  */
 
 #include "config.h"
@@ -617,12 +617,13 @@ PythonHint_Callback (procrecorddata *pr)
         const float *p = mi->arEvalMove;
         const float *s = mi->arEvalStdDev;
 
-        details = Py_BuildValue("{s:(fffff),s:(fffff),s:f,s:f,s:f,s:f,s:i}",
+        details = Py_BuildValue("{s:(fffff),s:(fffff),s:f,s:f,s:f,s:f,s:i,s:f}",
                                         "probs", p[0], p[1], p[2], p[3], p[4],
                                         "probs-std", s[0], s[1], s[2], s[3], s[4],
                                         "match-eq", p[OUTPUT_EQUITY],
                                         "cubeful-eq", p[OUTPUT_CUBEFUL_EQUITY],
-                                        "score", mi->rScore, "score2", mi->rScore2, "trials", pes->rc.nGamesDone);
+                                        "score", mi->rScore, "score2", mi->rScore2, "trials", pes->rc.nGamesDone, 
+                                        "stopped-on-jsd", pes->rc.rStoppedOnJSD);
 
         ctxdict = RolloutContextToPy(&pes->rc); 
         hintdict = Py_BuildValue("{s:i,s:s,s:s,s:f,s:f,s:N,s:N}", "movenum", index + 1, "type", "rollout", "move", szMove,

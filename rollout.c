@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.234 2013/02/07 21:38:26 plm Exp $
+ * $Id: rollout.c,v 1.235 2013/06/16 02:16:20 mdpetch Exp $
  */
 
 #include "config.h"
@@ -992,6 +992,8 @@ check_jsds(int *active)
                     /* This move is no longer worth rolling out */
 
                     fNoMore[ajiJSD[alt].nOrder] = 1;
+                    ro_apes[alt]->rc.rStoppedOnJSD = ajiJSD[alt].rJSD;
+
                     (*active)--;
 
                 } else {
@@ -1044,6 +1046,8 @@ check_jsds(int *active)
         if (rcRollout.fStopOnJsd &&
             (altGameCount[0] >= (rcRollout.nMinimumJsdGames)) &&
             rcRollout.rJsdLimit < MIN(ajiJSD[0].rJSD, ajiJSD[1].rJSD)) {
+            ro_apes[0]->rc.rStoppedOnJSD = ajiJSD[0].rJSD;
+            ro_apes[1]->rc.rStoppedOnJSD = ajiJSD[1].rJSD;
             fNoMore[0] = 1;
             fNoMore[1] = 1;
             *active = 0;
