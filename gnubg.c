@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.934 2013/07/01 18:22:45 plm Exp $
+ * $Id: gnubg.c,v 1.935 2013/07/01 18:30:23 plm Exp $
  */
 
 #include "config.h"
@@ -2346,7 +2346,7 @@ hint_move(char *sz, gboolean show, procrecorddata *procdatarec)
     int hist;
     movelist ml;
     findData fd;
-    int fSaveShowProg = fShowProgress;
+    long fSaveShowProg = fShowProgress;
 
     if (!ms.anDice[0])
         return;
@@ -2367,7 +2367,7 @@ hint_move(char *sz, gboolean show, procrecorddata *procdatarec)
         fd.aamf = *GetEvalMoveFilter();
         if (procdatarec){
             show = FALSE;
-            fShowProgress = (int)procdatarec->avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS];
+            fShowProgress = (long)procdatarec->avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS];
         }
         if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || fInterrupt){
             fShowProgress = fSaveShowProg;
