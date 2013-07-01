@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.14 $)
+AC_REVISION($Revision: 1.15 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.00.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -80,10 +80,12 @@ AC_CHECK_PROGS(DOCBOOK2TEXI, docbook2x-texi db2x_docbook2texi, false)
 AC_CHECK_PROGS(DOCBOOK2MAN, docbook2x-man db2x_docbook2man, false)
 AC_CHECK_PROGS(DBLATEX, dblatex, false)
 AC_CHECK_PROGS(XSLTPROC, xsltproc, false)
+AC_CHECK_PROGS(GMSGFMT, msgfmt, false)
 AC_ARG_VAR([DOCBOOK2TEXI], [path for docbook2texi from docbook2x package])
 AC_ARG_VAR([DOCBOOK2MAN], [path for docbook2man from docbook2x package])
 AC_ARG_VAR([DBLATEX], [path for dblatex used to build pdf documentation])
 AC_ARG_VAR([XSLTPROC], [path for xsltproc used to build html documentation])
+AC_ARG_VAR([GMSGFMT], [path for msgfmt used to compile message catalogs])
 
 dnl
 dnl Setup libtool
