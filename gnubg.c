@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.933 2013/06/30 07:23:45 mdpetch Exp $
+ * $Id: gnubg.c,v 1.934 2013/07/01 18:22:45 plm Exp $
  */
 
 #include "config.h"
@@ -333,6 +333,7 @@ rolloutcontext rcRollout = {
     324,                        /* minimum games  */
     2.33,                       /* stop when best has j.s.d. for 99% confidence */
     0,                          /* nGamesDone */
+    0.0,                        /* rStoppedOnJSD */
     0,                          /* nSkip */
 };
 
@@ -386,6 +387,7 @@ rolloutcontext rcRollout = {
   324,    /* minimum games  */ \
   2.33,   /* stop when best has j.s.d. for 99% confidence */ \
   0, \
+  0.0, \
   0 \
   } \
 }
@@ -440,6 +442,7 @@ rolloutcontext rcRollout = {
   324,    /* minimum games  */ \
   2.33,   /* stop when best has j.s.d. for 99% confidence */ \
   0, \
+  0.0, \
   0 \
   } \
 }
