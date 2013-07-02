@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.78 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: multithread.c,v 1.79 2013/07/02 05:29:22 mdpetch Exp $
  */
 
 #include "config.h"
@@ -438,7 +438,7 @@ MT_WorkerThreadFunction(void *id)
 {
     /* why do we need this align ? - because of a gcc bug */
 #if __GNUC__ && defined(WIN32)
-    /* Align stack pointer on 16 byte boundary so SSE variables work correctly */
+    /* Align stack pointer on 16/13 byte boundary so SSE/AVX variables work correctly */
     int align_offset;
 #ifdef USE_AVX
     asm __volatile__("andl $-32, %%esp":::"%esp");
@@ -464,11 +464,11 @@ MT_WorkerThreadFunction(void *id)
             }
         } while (!td.closingThreads);
 
-#ifdef GLIB_THREADS
 #if __GNUC__ && defined(WIN32)
         /* De-align stack pointer to avoid crash on exit */
         asm __volatile__("addl %0, %%esp"::"r"(align_offset):"%esp");
 #endif
+#ifdef GLIB_THREADS
         return NULL;
 #endif
     }
