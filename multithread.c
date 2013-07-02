@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.77 2013/06/01 13:26:49 plm Exp $
+ * $Id: multithread.c,v 1.78 2013/06/16 02:16:19 mdpetch Exp $
  */
 
 #include "config.h"
@@ -440,8 +440,13 @@ MT_WorkerThreadFunction(void *id)
 #if __GNUC__ && defined(WIN32)
     /* Align stack pointer on 16 byte boundary so SSE variables work correctly */
     int align_offset;
+#ifdef USE_AVX
+    asm __volatile__("andl $-32, %%esp":::"%esp");
+    align_offset = ((int) (&align_offset)) % 32;
+#else
     asm __volatile__("andl $-16, %%esp":::"%esp");
     align_offset = ((int) (&align_offset)) % 16;
+#endif
 #endif
     {
         int *pID = (int *) id;
