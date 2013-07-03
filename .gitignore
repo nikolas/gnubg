@@ -70,3 +70,5 @@ Doxyfile
 cscope.out
 doxygen
 compile
+*.lo
+*.la
