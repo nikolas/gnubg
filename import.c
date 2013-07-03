@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.176 2013/06/16 02:16:17 mdpetch Exp $
+ * $Id: import.c,v 1.177 2013/06/23 14:07:17 plm Exp $
  */
 
 #include "config.h"
@@ -43,7 +43,6 @@
 #include "matchequity.h"
 
 static int
-
 ParseSnowieTxt(char *sz,
                int *pnMatchTo, int *pfJacoby, int *pfUnused1, int *pfUnused2,
                int *pfTurn, char aszPlayer[2][MAX_NAME_LEN], int *pfCrawfordGame,
@@ -1967,14 +1966,14 @@ ParseSGGGame(char *pch, int *pi, int *pn0, int *pn1, int *pfCrawford, int *pnLen
 
     pch += 5;
 
-    *pi = strtol(pch, &pch, 10);
+    *pi = (int)strtol(pch, &pch, 10);
 
     if (*pch != '.')
         return -1;
 
     pch++;
 
-    *pn0 = strtol(pch, &pch, 10);
+    *pn0 = (int)strtol(pch, &pch, 10);
 
     if (*pch == '*') {
         pch++;
@@ -1986,7 +1985,7 @@ ParseSGGGame(char *pch, int *pi, int *pn0, int *pn1, int *pfCrawford, int *pnLen
 
     pch++;
 
-    *pn1 = strtol(pch, &pch, 10);
+    *pn1 = (int)strtol(pch, &pch, 10);
 
     if (*pch == '*') {
         pch++;
@@ -2001,7 +2000,7 @@ ParseSGGGame(char *pch, int *pi, int *pn0, int *pn1, int *pfCrawford, int *pnLen
 
     pch++;
 
-    *pnLength = strtol(pch, &pch, 10);
+    *pnLength = (int)strtol(pch, &pch, 10);
 
     return 0;
 }
