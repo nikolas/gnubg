@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.17 $)
+AC_REVISION($Revision: 1.18 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.01.0$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -65,10 +65,25 @@ dnl Compiler setup
 dnl
 
 AC_GNU_SOURCE
+
+# the following needs to come before the expansion of AC_PROG_CC
+cflags_were_set=false
+if test "${CFLAGS+set}" = set; then
+  AM_CFLAGS=$CFLAGS
+  CFLAGS=
+  cflags_were_set=:
+fi
 AC_PROG_CC
 AM_PROG_CC_C_O
-AM_CONDITIONAL(CROSS_COMPILING, test "x$cross_compiling" = "xyes")
 
+# the following needs to come after the expansion of AC_PROG_CC
+if $cflags_were_set; then :; else
+  AM_CFLAGS=$CFLAGS
+  CFLAGS=
+fi
+AC_SUBST(AM_CFLAGS)
+
+AM_CONDITIONAL(CROSS_COMPILING, test "x$cross_compiling" = "xyes")
 
 dnl
 dnl Checks for programs.
