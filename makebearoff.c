@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.79 2012/09/02 21:10:20 plm Exp $
+ * $Id: makebearoff.c,v 1.80 2013/06/16 02:16:18 mdpetch Exp $
  */
 
 #include "config.h"
@@ -135,7 +135,7 @@ XhashDestroy(xhash * ph)
     for (i = 0; i < ph->nHashSize; ++i)
         if (ph->phe[i].p)
             free(ph->phe[i].p);
-
+    free(ph->phe);
 }
 
 
@@ -1262,7 +1262,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.79 $\n");
+    printf("makebearoff $Revision: 1.80 $\n");
 }
 
 
