@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.81 2013/07/06 18:06:18 plm Exp $
+ * $Id: makebearoff.c,v 1.82 2013/07/06 18:19:53 plm Exp $
  */
 
 #include "config.h"
@@ -620,7 +620,7 @@ generate_os(const int nOS, const int fHeader,
     /* initialise xhash */
 
     if (XhashCreate(&h, nHashSize / (fGammon ? 128 : 64))) {
-        fprintf(stderr, _("Error creating xhash with %d elements\n"), nHashSize / fGammon ? 128 : 64);
+        fprintf(stderr, _("Error creating xhash with %d elements\n"), nHashSize / (fGammon ? 128 : 64));
         exit(2);
     }
 
@@ -1167,7 +1167,7 @@ generate_ts(const int nTSP, const int nTSC,
     /* initialise xhash */
 
     if (XhashCreate(&h, nHashSize / (fCubeful ? 8 : 2))) {
-        fprintf(stderr, _("Error creating xhash with %d elements\n"), nHashSize / fCubeful ? 8 : 2);
+        fprintf(stderr, _("Error creating xhash with %d elements\n"), nHashSize / (fCubeful ? 8 : 2));
         exit(2);
     }
 
@@ -1262,7 +1262,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.81 $\n");
+    printf("makebearoff $Revision: 1.82 $\n");
 }
 
 
