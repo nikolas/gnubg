@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.80 2013/06/16 02:16:18 mdpetch Exp $
+ * $Id: makebearoff.c,v 1.81 2013/07/06 18:06:18 plm Exp $
  */
 
 #include "config.h"
@@ -1262,7 +1262,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.80 $\n");
+    printf("makebearoff $Revision: 1.81 $\n");
 }
 
 
@@ -1283,7 +1283,7 @@ main(int argc, char **argv)
     static int show_version = 0;
 
     bearoffcontext *pbc = NULL;
-    FILE *output = stdout;
+    FILE *output;
     double r;
     int nTSP = 0, nTSC = 0;
 
