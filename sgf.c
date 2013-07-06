@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.148 2013/06/16 02:16:20 mdpetch Exp $
+ * $Id: sgf.c,v 1.149 2013/07/06 21:13:05 plm Exp $
  */
 
 #include "config.h"
@@ -974,6 +974,11 @@ RestoreMoveAnalysis(property * pp, int fPlayer,
 
     for (pml->cMoves = 0, pl = pl->plNext; pl->p; pl = pl->plNext)
         pml->cMoves++;
+
+    if (pml->cMoves == 0) {
+        g_assert_not_reached();
+        return;
+    }
 
     /* FIXME we could work these out, but it hardly seems worth it */
     pml->cMaxMoves = pml->cMaxPips = pml->iMoveBest = 0;
