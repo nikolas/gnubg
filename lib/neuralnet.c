@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.77 2013/06/25 13:59:32 mdpetch Exp $
+ * $Id: neuralnet.c,v 1.78 2013/06/27 18:44:39 mdpetch Exp $
  */
 
 #include "config.h"
@@ -270,7 +270,7 @@ NeuralNetLoad(neuralnet * pnn, FILE * pf)
     if (fscanf(pf, "%u %u %u %s %f %f\n", &pnn->cInput, &pnn->cHidden,
                &pnn->cOutput, dummy, &pnn->rBetaHidden,
                &pnn->rBetaOutput) < 5 || pnn->cInput < 1 ||
-        pnn->cHidden < 1 || pnn->cOutput < 1 || pnn->rBetaHidden <= 0.0 || pnn->rBetaOutput <= 0.0) {
+        pnn->cHidden < 1 || pnn->cOutput < 1 || pnn->rBetaHidden <= 0.0f || pnn->rBetaOutput <= 0.0f) {
         errno = EINVAL;
         return -1;
     }
@@ -315,7 +315,7 @@ NeuralNetLoadBinary(neuralnet * pnn, FILE * pf)
     FREAD(&pnn->rBetaHidden, 1);
     FREAD(&pnn->rBetaOutput, 1);
 
-    if (pnn->cInput < 1 || pnn->cHidden < 1 || pnn->cOutput < 1 || pnn->rBetaHidden <= 0.0 || pnn->rBetaOutput <= 0.0) {
+    if (pnn->cInput < 1 || pnn->cHidden < 1 || pnn->cOutput < 1 || pnn->rBetaHidden <= 0.0f || pnn->rBetaOutput <= 0.0f) {
         errno = EINVAL;
         return -1;
     }
