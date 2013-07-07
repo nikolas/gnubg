@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.241 2013/07/07 01:46:54 mdpetch Exp $
+## $Id: Makefile.am,v 1.242 2013/07/07 04:32:14 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -134,7 +134,7 @@ libeval_la_CFLAGS = $(AM_CFLAGS)
 # in eval.c
 if USE_AVX
 if WIN32
-#libeval_la_CFLAGS += -O0
+libeval_la_CFLAGS += -O0
 endif
 endif
 
