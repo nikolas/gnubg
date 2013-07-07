@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.156 2013/06/30 20:03:43 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.157 2013/07/01 19:19:15 mdpetch Exp $
  */
 
 #include "config.h"
@@ -595,7 +595,7 @@ PythonHint_Callback (procrecorddata *pr)
     float rEq = pml->amMoves[index].rScore;
     float rEqTop = pml->amMoves[0].rScore;
     float rEqDiff = rEq - rEqTop;
-    
+
     FormatMove(szMove, (ConstTanBoard)pms->anBoard, pml->amMoves[index].anMove);
 
     switch (pes->et) {
@@ -606,7 +606,7 @@ PythonHint_Callback (procrecorddata *pr)
         const move *mi = &pml->amMoves[index];
         details = Py_BuildValue("{s:(fffff),s:f}", "probs", mi->arEvalMove[0], mi->arEvalMove[1],
                                 mi->arEvalMove[2], mi->arEvalMove[3], mi->arEvalMove[4], "score", mi->rScore);
-                                        
+
         ctxdict = EvalContextToPy(&pes->ec); 
         hintdict = Py_BuildValue("{s:i,s:s,s:s,s:f,s:f,s:N,s:N}", "movenum", index + 1, "type", "eval", "move", szMove, 
                                  "equity", rEq, "eqdiff", rEqDiff, "context", ctxdict, "details", details);
@@ -649,8 +649,6 @@ PythonHint(PyObject * UNUSED(self), PyObject * args)
     procrecorddata prochint;
     char szNumber[6];
     char *szHintType;
-//    moverecord *pmr;
-//    movelist ml;
     int nMaxMoves = -1;
 
     if (!PyArg_ParseTuple(args, "|i", &nMaxMoves))

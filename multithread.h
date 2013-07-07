@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.46 2013/06/02 15:30:13 mdpetch Exp $
+ * $Id: multithread.h,v 1.47 2013/06/16 02:16:19 mdpetch Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -101,7 +101,9 @@ extern void MT_SetResultFailed(void);
 #endif
 
 #else                           /*USE_MULTITHREAD */
+#if !defined(MAX_NUMTHREADS)
 #define MAX_NUMTHREADS 1
+#endif
 extern int asyncRet;
 #define MT_Exclusive() {}
 #define MT_Release() {}

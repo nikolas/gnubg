@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.423 2013/06/25 16:26:51 mdpetch Exp $
+ * $Id: eval.c,v 1.424 2013/07/06 16:36:14 plm Exp $
  */
 
 #include "config.h"
@@ -572,7 +572,9 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     static int fInitialised = FALSE;
     char *gnubg_bearoff;
     char *gnubg_bearoff_os;
+#if USE_SIMD_INSTRUCTIONS
     int result, simderror = TRUE;
+#endif
 
     if (!fInitialised) {
 #if USE_SIMD_INSTRUCTIONS

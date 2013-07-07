@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.239 2013/07/03 08:37:27 mdpetch Exp $
+## $Id: Makefile.am,v 1.240 2013/07/03 17:25:23 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -130,6 +130,14 @@ gnubg_SOURCES = \
 noinst_LTLIBRARIES = libeval.la
 libeval_la_SOURCES = eval.c eval.h
 libeval_la_CFLAGS = $(AM_CFLAGS)
+
+# If using AVX on WIN32 disable inline function optimizations
+# in eval.c
+if USE_AVX
+if WIN32
+libeval_la_CFLAGS += -O0
+endif
+endif
 
 if USE_GTK
 gnubg_SOURCES += gtkboard.c gtkboard.h gtkgame.c gtkgame.h gtkfile.c gtkfile.h \

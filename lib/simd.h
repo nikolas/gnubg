@@ -1,4 +1,4 @@
-/* $Id: simd.h,v 1.10 2013/06/16 02:16:25 mdpetch Exp $ 
+/* $Id: simd.h,v 1.1 2013/06/22 23:49:37 mdpetch Exp $ 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -12,6 +12,9 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
+
+#ifndef SIMD_H
+#define SIMD_H
 
 #if USE_SIMD_INSTRUCTIONS
 
@@ -49,3 +52,5 @@ extern void sse_free(float *ptr);
 #define sse_free free
 
 #endif
+
+#endif /* SIMD_H */

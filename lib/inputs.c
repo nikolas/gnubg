@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inputs.c,v 1.5 2013/06/16 02:16:24 mdpetch Exp $
+ * $Id: inputs.c,v 1.6 2013/06/22 23:49:37 mdpetch Exp $
  */
 
 #include "config.h"
@@ -31,9 +31,13 @@
 #else
 #include <xmmintrin.h>
 #endif
-#endif
+#else
+typedef float float_vector[4];
+#endif /* USE_SIMD_INSTRUCTIONS */
 
-SSE_ALIGN(float inpvec[16][4]) = {
+typedef SSE_ALIGN(float float_vec_aligned[sizeof(float_vector)/sizeof(float)]);
+
+SSE_ALIGN (float_vec_aligned inpvec[16]) = {
     /*  0 */  {
     0.0, 0.0, 0.0, 0.0},
         /*  1 */  {
@@ -67,7 +71,7 @@ SSE_ALIGN(float inpvec[16][4]) = {
         /* 15 */  {
 0.0, 0.0, 1.0, 6.0}};
 
-SSE_ALIGN(float inpvecb[16][4]) = {
+SSE_ALIGN(float_vec_aligned inpvecb[16]) = {
     /*  0 */  {
     0.0, 0.0, 0.0, 0.0},
         /*  1 */  {

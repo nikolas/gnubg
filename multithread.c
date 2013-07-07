@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.80 2013/07/02 12:19:40 mdpetch Exp $
+ * $Id: multithread.c,v 1.81 2013/07/03 07:19:04 mdpetch Exp $
  */
 
 #include "config.h"
@@ -867,7 +867,6 @@ int
 MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
 {
     GList *member;
-    guint cb_source = 0;
     guint as_source = 0;
     td.doneTasks = 0;
 
@@ -878,7 +877,7 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
     multi_debug("Waiting for all tasks");
 
     pCallback(NULL);
-    cb_source = g_timeout_add(1000, pCallback, NULL);
+    g_timeout_add(1000, pCallback, NULL);
     if (autosave)
         as_source = g_timeout_add(nAutoSaveTime * 60000, save_autosave, NULL);
     for (member = g_list_first(td.tasks); member; member = member->next, td.doneTasks++) {
