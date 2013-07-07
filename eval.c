@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.424 2013/07/06 16:36:14 plm Exp $
+ * $Id: eval.c,v 1.425 2013/07/07 01:46:54 mdpetch Exp $
  */
 
 #include "config.h"
@@ -459,7 +459,7 @@ ComputeTable(void)
 }
 
 
-NNState nnStatesStorage[MAX_NUMTHREADS][3];
+static NNState nnStatesStorage[MAX_NUMTHREADS][3];
 
 static void
 DestroyWeights(void)
@@ -5272,7 +5272,7 @@ extern evalCache cpEval;
 extern classevalfunc acef[N_CLASSES];
 extern unsigned int cCache;
 extern evalcontext ecBasic;
-NNState nnStatesStorage[MAX_NUMTHREADS][3];
+static NNState nnStatesStorage[MAX_NUMTHREADS][3];
 #endif
 
 static int GeneralEvaluationEPlied(NNState * nnStates, float arOutput[NUM_ROLLOUT_OUTPUTS],

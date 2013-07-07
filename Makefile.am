@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.240 2013/07/03 17:25:23 mdpetch Exp $
+## $Id: Makefile.am,v 1.241 2013/07/07 01:46:54 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -61,7 +61,6 @@ gnubg_SOURCES = \
 		dice.h \
 		drawboard.c \
 		drawboard.h \
-		evallock.c \
 		eval.h \
 		export.c \
 		export.h \
@@ -128,14 +127,14 @@ gnubg_SOURCES = \
 		util.c 
 
 noinst_LTLIBRARIES = libeval.la
-libeval_la_SOURCES = eval.c eval.h
+libeval_la_SOURCES = eval.c eval.h evallock.c
 libeval_la_CFLAGS = $(AM_CFLAGS)
 
 # If using AVX on WIN32 disable inline function optimizations
 # in eval.c
 if USE_AVX
 if WIN32
-libeval_la_CFLAGS += -O0
+#libeval_la_CFLAGS += -O0
 endif
 endif
 
