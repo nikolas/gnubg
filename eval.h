@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.178 2013/06/18 21:13:23 plm Exp $
+ * $Id: eval.h,v 1.179 2013/06/30 05:32:15 mdpetch Exp $
  */
 
 #ifndef EVAL_H
@@ -595,4 +595,7 @@ extern int EvalKey(const evalcontext * pec, const int nPlies, const cubeinfo * p
 extern void MakeCubePos(const cubeinfo aciCubePos[], const int cci, const int fTop, cubeinfo aci[], const int fInvert);
 extern void GetECF3(float arCubeful[], int cci, float arCf[], cubeinfo aci[]);
 extern int EvaluatePerfectCubeful(const TanBoard anBoard, float arEquity[], const bgvariation bgv);
+
+extern neuralnet nnContact, nnRace, nnCrashed;
+
 #endif

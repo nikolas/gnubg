@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.936 2013/07/01 19:14:57 mdpetch Exp $
+ * $Id: gnubg.c,v 1.937 2013/07/01 19:26:15 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2492,9 +2492,8 @@ Shutdown(void)
     MoveListDestroy();
 #endif
 
-#if USE_MULTITHREAD
     MT_Close();
-#endif
+
     EvalShutdown();
 
 #if USE_PYTHON
@@ -4685,10 +4684,6 @@ main(int argc, char *argv[])
 
     output_initialize();
 
-#if USE_MULTITHREAD
-    MT_InitThreads();
-#endif
-
     /* set language */
     init_defaults();
 #if USE_GTK
@@ -4775,6 +4770,9 @@ main(int argc, char *argv[])
 
     PushSplash(pwSplash, _("Initialising"), _("neural nets"));
     init_nets(fNoBearoff);
+
+    PushSplash(pwSplash, _("Initialising"), _("initialising thread data"));
+    MT_InitThreads();
 
 #if defined(WIN32) && HAVE_SOCKETS
     PushSplash(pwSplash, _("Initialising"), _("Windows sockets"));

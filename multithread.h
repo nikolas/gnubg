@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.47 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: multithread.h,v 1.48 2013/07/07 01:46:55 mdpetch Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -47,6 +47,10 @@ extern void MT_AbortTasks(void);
 extern void MT_AddTask(Task * pt, gboolean lock);
 extern void mt_add_tasks(unsigned int num_tasks, AsyncFun pFun, void *taskData, gpointer linked);
 extern int MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave);
+extern void MT_InitThreads(void);
+extern void MT_Close(void);
+extern NNState *MT_Get_nnState(void);
+extern move *MT_Get_aMoves(void);
 
 #if USE_MULTITHREAD
 
@@ -65,15 +69,13 @@ extern int MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, in
 extern unsigned int MT_GetNumThreads(void);
 extern void MT_Release(void);
 extern void MT_Exclusive(void);
-extern void MT_InitThreads(void);
 extern void MT_StartThreads(void);
-extern void MT_Close(void);
 extern void MT_SetNumThreads(unsigned int num);
-extern int MT_GetThreadID(void);
 extern void MT_SyncInit(void);
 extern void MT_SyncStart(void);
 extern double MT_SyncEnd(void);
 extern void MT_SetResultFailed(void);
+extern int MT_GetThreadID(void);
 
 #ifdef GLIB_THREADS
 #if GLIB_CHECK_VERSION (2,30,0)
@@ -115,7 +117,6 @@ extern int asyncRet;
 #define MT_SafeAdd(x, y) ((*x) += y)
 #define MT_SafeDec(x) (--(*x))
 #define MT_SafeDecCheck(x) ((--(*x)) == 0)
-#define MT_GetThreadID() 0
 #endif
 
 #endif
