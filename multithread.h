@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.49 2013/07/09 00:20:54 mdpetch Exp $
+ * $Id: multithread.h,v 1.50 2013/07/10 13:56:05 mdpetch Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -129,16 +129,28 @@ extern void mt_add_tasks(unsigned int num_tasks, AsyncFun pFun, void *taskData, 
 extern int MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave);
 extern void MT_InitThreads(void);
 extern void MT_Close(void);
+extern void MT_CloseThreads(void);
+extern void CloseThread(void *unused);
 extern ThreadLocalData *MT_CreateThreadLocalData(int id);
 
 extern ThreadData td;
 
 #if defined(USE_MULTITHREAD)
+extern void Mutex_Lock(Mutex mutex, const char *reason);
+extern void ResetManualEvent(ManualEvent ME);
+extern void Mutex_Release(Mutex mutex);
+extern void TLSSetValue(TLSItem pItem, size_t value);
+extern void WaitForManualEvent(ManualEvent ME);
+extern void SetManualEvent(ManualEvent ME);
+extern void TLSFree(TLSItem pItem);
+extern void InitManualEvent(ManualEvent * pME);
+extern void FreeManualEvent(ManualEvent ME);
+extern void InitMutex(Mutex * pMutex);
+extern void FreeMutex(Mutex mutex);
 
 #define UI_UPDATETIME 250
 
 #if defined (GLIB_THREADS)
-typedef GPrivate* TLSItem;
 #define TLSGet(item) *((size_t*)g_private_get(item))
 
 #else /* WIN32 */

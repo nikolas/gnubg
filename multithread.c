@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.83 2013/07/09 00:20:54 mdpetch Exp $
+ * $Id: multithread.c,v 1.84 2013/07/10 13:56:04 mdpetch Exp $
  */
 
 #include "config.h"
@@ -47,23 +47,6 @@ extern unsigned int
 MT_GetNumThreads(void)
 {
     return td.numThreads;
-}
-
-static void
-CloseThread(void *UNUSED(unused))
-{
-    int i;
-    NNState *pnnState = ((ThreadLocalData *)TLSGet(td.tlsItem))->pnnState;
-
-    g_assert(td.closingThreads);
-    free(((ThreadLocalData *)TLSGet(td.tlsItem))->aMoves);
-    for (i = 0; i < 3; i++) {
-        free(pnnState[i].savedBase);
-        free(pnnState[i].savedIBase);
-    }
-    free(((ThreadLocalData *)TLSGet(td.tlsItem))->pnnState);
-    free((void *)TLSGet(td.tlsItem));
-    MT_SafeInc(&td.result);
 }
 
 extern void
