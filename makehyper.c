@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.39 2013/07/09 00:20:54 mdpetch Exp $
+ * $Id: makehyper.c,v 1.40 2013/07/10 13:56:02 mdpetch Exp $
  */
 
 #include "config.h"
@@ -40,8 +40,6 @@
 #include "multithread.h"
 #include "lib/simd.h"
 #include "multithread.h"
-
-SSE_ALIGN(ThreadData td);
 
 static cubeinfo ci;
 static cubeinfo ciJacoby;
