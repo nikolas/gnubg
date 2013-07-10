@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.50 2013/07/10 13:56:05 mdpetch Exp $
+ * $Id: multithread.h,v 1.51 2013/07/10 20:51:46 mdpetch Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -82,6 +82,7 @@ typedef HANDLE Mutex;
 #define WaitForManualEvent(ME) WaitForSingleObject(ME, INFINITE)
 #define ResetManualEvent(ME) ResetEvent(ME)
 #define SetManualEvent(ME) SetEvent(ME)
+extern void TLSSetValue(TLSItem pItem, int value);
 
 #if defined (DEBUG_MULTITHREADED)
 extern void Mutex_Lock(Mutex mutex, const char *reason);
@@ -136,12 +137,15 @@ extern ThreadLocalData *MT_CreateThreadLocalData(int id);
 extern ThreadData td;
 
 #if defined(USE_MULTITHREAD)
-extern void Mutex_Lock(Mutex mutex, const char *reason);
+
+#if defined(GLIB_THREADS)
 extern void ResetManualEvent(ManualEvent ME);
+extern void Mutex_Lock(Mutex mutex, const char *reason);
 extern void Mutex_Release(Mutex mutex);
-extern void TLSSetValue(TLSItem pItem, size_t value);
 extern void WaitForManualEvent(ManualEvent ME);
 extern void SetManualEvent(ManualEvent ME);
+extern void TLSSetValue(TLSItem pItem, size_t value);
+#endif
 extern void TLSFree(TLSItem pItem);
 extern void InitManualEvent(ManualEvent * pME);
 extern void FreeManualEvent(ManualEvent ME);

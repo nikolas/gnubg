@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.87 2012/09/22 23:09:24 mdpetch Exp $
+ * $Id: dice.c,v 1.88 2013/06/16 02:16:10 mdpetch Exp $
  */
 
 #include "config.h"
@@ -654,7 +654,9 @@ RNGSystemSeed(const rng rngx, void *p, unsigned long *pnSeed)
     unsigned int n = 0;
 
 #if HAVE_LIBGMP
+#if !defined(WIN32)
     int h;
+#endif
     if (!pnSeed) {
 #if defined(WIN32)
         /* Can be amended to support seeds > 32 bit */

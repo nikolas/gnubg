@@ -16,13 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.h,v 1.12 2012/08/27 23:06:41 plm Exp $
+ * $Id: util.h,v 1.13 2013/06/16 02:16:21 mdpetch Exp $
  */
 
 #ifndef UTIL_H
 #define UTIL_H
 
-#include "stdio.h"
+#include <glib.h>
+#include <stdio.h>
 
 extern char *datadir;
 extern char *pkg_datadir;
@@ -37,5 +38,10 @@ extern char *getDocDir(void);
 extern void PrintSystemError(const char *message);
 extern void PrintError(const char *message);
 extern FILE *GetTemporaryFile(const char *nameTemplate, char **retName);
+
+#if defined(WIN32)
+extern int TEMP_g_mkstemp(char *tmpl);
+extern int TEMP_g_file_open_tmp(const char *tmpl, char **name_used, GError **pError);
+#endif
 
 #endif
