@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.87 2013/07/10 23:04:54 mdpetch Exp $
+ * $Id: makebearoff.c,v 1.88 2013/07/10 23:30:24 mdpetch Exp $
  */
 
 #include "config.h"
@@ -709,7 +709,7 @@ NDBearoff(const int iPos, const unsigned int nPoints, float ar[4], xhash * ph, b
     float *prj;
     float arj[4] = { 0.0, 0.0, 0.0, 0.0 };
     float arBest[4] = { 0.0, 0.0, 0.0, 0.0 };
-    float arGammonBest[4];
+    float arGammonBest[4] = { 0.0, 0.0, 0.0, 0.0 };
     float rGammonBest;
 
     for (i = 0; i < 4; ++i)
@@ -1255,7 +1255,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.87 $\n");
+    printf("makebearoff $Revision: 1.88 $\n");
 }
 
 
