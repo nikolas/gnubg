@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.38 2013/07/06 16:31:37 plm Exp $
+ * $Id: makehyper.c,v 1.39 2013/07/09 00:20:54 mdpetch Exp $
  */
 
 #include "config.h"
@@ -37,6 +37,11 @@
 #include <locale.h>
 #include "bearoff.h"
 #include "drawboard.h"
+#include "multithread.h"
+#include "lib/simd.h"
+#include "multithread.h"
+
+SSE_ALIGN(ThreadData td);
 
 static cubeinfo ci;
 static cubeinfo ciJacoby;
@@ -63,44 +68,11 @@ typedef struct _hyperequity {
 
 } hyperequity;
 
-extern move *
-MT_Get_aMoves(void)
-{
-    return NULL;
-}
-
-extern NNState *
-MT_Get_nnState(void)
-{
-    return NULL;
-}
-
-extern int
-MT_GetThreadID(void)
-{
-    return (0);
-}
-
-#if USE_MULTITHREAD
-
 extern void
-MT_Release(void)
+MT_CloseThreads(void)
 {
     return;
 }
-
-extern void
-MT_Exclusive(void)
-{
-    return;
-}
-#else
-extern void
-CallbackProgress(void)
-{
-}
-#endif
-
 
 int aiNorm[10];
 
@@ -637,6 +609,7 @@ main(int argc, char **argv)
 
     /* i18n */
 
+    MT_InitThreads();
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);
     textdomain(PACKAGE);
