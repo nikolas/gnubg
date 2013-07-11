@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.869 2013/06/23 09:53:26 plm Exp $
+ * $Id: gtkgame.c,v 1.870 2013/07/11 04:02:22 mdpetch Exp $
  */
 
 #include "gnubgmodule.h"
@@ -577,7 +577,7 @@ GTKSuspendInput(void)
     if (!fX)
         return;
 
-    if (suspendCount == 0 && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
+    if (suspendCount == 0 && pwGrab && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
         /* Grab events so that the board window knows this is a re-entrant*/
         /*  call, and won't allow commands like roll, move or double. */
         grabbedWidget = pwGrab;
