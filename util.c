@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.33 2013/06/16 02:16:21 mdpetch Exp $
+ * $Id: util.c,v 1.34 2013/07/10 22:35:13 mdpetch Exp $
  */
 
 #include "config.h"
@@ -25,6 +25,7 @@
 #include <string.h>
 #include "common.h"
 
+char *prefsdir = NULL;
 char *datadir = NULL;
 char *pkg_datadir = NULL;
 char *docdir = NULL;
