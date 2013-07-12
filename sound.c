@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.92 2012/09/01 18:49:58 plm Exp $
+ * $Id: sound.c,v 1.93 2013/06/16 02:16:21 mdpetch Exp $
  */
 
 #include "config.h"
@@ -443,6 +443,7 @@ playSoundFile(char *file, gboolean UNUSED(sync))
         else
 #endif
             ca_context_create(&canberracontext);
+	ca_context_change_props(canberracontext, CA_PROP_CANBERRA_ENABLE, "1", NULL);
     }
     ca_context_play(canberracontext, 0, CA_PROP_MEDIA_FILENAME, file, NULL);
 #endif
