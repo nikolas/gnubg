@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.179 2013/06/30 05:32:15 mdpetch Exp $
+ * $Id: eval.h,v 1.180 2013/07/09 00:20:54 mdpetch Exp $
  */
 
 #ifndef EVAL_H
@@ -370,9 +370,6 @@ extern void
 
 extern void
  InvertEvaluation(float ar[NUM_OUTPUTS]);
-
-extern void
- InvertEvaluationCf(float ar[4]);
 
 EXP_LOCK_FUN(int, FindBestMove, int anMove[8], int nDice0, int nDice1,
              TanBoard anBoard, cubeinfo * pci, evalcontext * pec, movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES]);

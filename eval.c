@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.427 2013/07/09 00:20:54 mdpetch Exp $
+ * $Id: eval.c,v 1.428 2013/07/18 02:01:24 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2382,22 +2382,6 @@ InvertEvaluation(float ar[NUM_OUTPUTS])
     ar[OUTPUT_WINBACKGAMMON] = ar[OUTPUT_LOSEBACKGAMMON];
     ar[OUTPUT_LOSEBACKGAMMON] = r;
 }
-
-
-extern void
-InvertEvaluationCf(float ar[4])
-{
-
-    int i;
-
-    for (i = 0; i < 4; i++) {
-
-        ar[i] = -ar[i];
-
-    }
-
-}
-
 
 extern void
 InvertEvaluationR(float ar[NUM_ROLLOUT_OUTPUTS], const cubeinfo * pci)
