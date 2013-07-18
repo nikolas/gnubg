@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.25 2013/06/30 07:23:46 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.26 2013/07/10 20:51:45 mdpetch Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -39,13 +39,7 @@ typedef int Py_ssize_t;
 extern PyObject *PythonGnubgModule();
 #endif                          /* USE_PYTHON */
 
-#if __GNUC__ && defined(WIN32)
-/* Align stack pointer on 16 byte boundary so SSE variables work correctly */
-#define STACKALIGN __attribute__((force_align_arg_pointer))
-#else
-#define STACKALIGN
-
-#endif                          /* STACKALIGN */
+#include "lib/simd.h"
 
 #include <glib.h>
 

@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inputs.c,v 1.6 2013/06/22 23:49:37 mdpetch Exp $
+ * $Id: inputs.c,v 1.7 2013/07/07 01:46:55 mdpetch Exp $
  */
 
 #include "config.h"
@@ -106,7 +106,7 @@ SSE_ALIGN(float_vec_aligned inpvecb[16]) = {
 1.0, 1.0, 1.0, 6.0}};
 
 #if USE_SIMD_INSTRUCTIONS
-extern void
+extern SIMD_AVX_STACKALIGN void
 baseInputs(const TanBoard anBoard, float arInput[])
 {
     int i = 3;

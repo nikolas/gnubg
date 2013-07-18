@@ -1,4 +1,4 @@
-/* $Id: simd.h,v 1.1 2013/06/22 23:49:37 mdpetch Exp $ 
+/* $Id: simd.h,v 1.2 2013/07/07 01:46:55 mdpetch Exp $ 
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -40,7 +40,20 @@
 #define SSE_ALIGN(D) D __attribute__ ((aligned(ALIGN_SIZE)))
 #endif
 
-#define sse_aligned(ar) (!(((int)ar) % ALIGN_SIZE))
+#if __GNUC__ && defined(WIN32)
+/* Align stack pointer on 16 byte boundary so SSE variables work correctly */
+#define SIMD_STACKALIGN __attribute__((force_align_arg_pointer))
+#if defined(USE_AVX)
+#define SIMD_AVX_STACKALIGN __attribute__((force_align_arg_pointer))
+#else
+#define SIMD_AVX_STACKALIGN
+#endif                          /* USE_AVX */
+#else
+#define SIMD_STACKALIGN
+#define SIMD_AVX_STACKALIGN
+#endif                          /* GNUC/WIN32 */
+
+#define sse_aligned(ar) (!(((size_t)ar) % ALIGN_SIZE))
 
 extern float *sse_malloc(size_t size);
 extern void sse_free(float *ptr);

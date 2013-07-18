@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.237 2013/05/29 21:08:05 plm Exp $
+ * $Id: analysis.c,v 1.238 2013/06/16 02:16:09 mdpetch Exp $
  */
 
 #include "config.h"
@@ -41,6 +41,7 @@
 #include "progress.h"
 #include "multithread.h"
 #include "format.h"
+#include "lib/simd.h"
 
 const char *aszRating[N_RATINGS] = {
     N_("rating|Awful!"),
