@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.938 2013/07/09 00:20:54 mdpetch Exp $
+ * $Id: gnubg.c,v 1.939 2013/07/11 19:16:07 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3381,6 +3381,11 @@ CommandSaveSettings(char *szParam)
     else {
         outputf(_("Settings saved to %s."), (!strcmp(szFile, "-")) ? _("standard output stream") : szFile);
         output("\n");
+        if(cOutputPostponed){
+            outputresume();
+            outputx();
+            outputpostpone();            
+        }
     }
     g_free(szFile);
 
