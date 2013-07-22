@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.39 2013/07/10 22:35:13 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.40 2013/07/18 02:01:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -157,7 +157,7 @@ RunQueryValue(const DBProvider * pdb, const char *query)
     RowSet *rs;
     rs = pdb->Select(query);
     if (rs && rs->rows > 1) {
-        int id = strtol(rs->data[1][0], NULL, 0);
+        int id = (int)strtol(rs->data[1][0], NULL, 0);
         FreeRowset(rs);
         return id;
     } else
