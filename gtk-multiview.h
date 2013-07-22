@@ -8,14 +8,14 @@
  * This library is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- * Library General Public License for more details.
+ * General Public License for more details.
  *
- * You should have received a copy of the GNU Library General Public
+ * You should have received a copy of the GNU General Public
  * License along with this library; if not, write to the
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * $Id: gtk-multiview.h,v 1.7 2008/12/12 13:06:41 c_anthon Exp $
+ * $Id: gtk-multiview.h,v 1.8 2013/06/16 02:16:13 mdpetch Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
