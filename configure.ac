@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.23 $)
+AC_REVISION($Revision: 1.24 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.02.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -478,6 +478,7 @@ if test x"$win32" == x"no"; then
     [
         OPENWWW_PROG="$DEFAULT_WWW_PROG"
     ])
+    AC_DEFINE_UNQUOTED(OPEN_URL_PROG, "$OPENWWW_PROG", [program to open URLs])
     AC_MSG_RESULT($OPENWWW_PROG)
 else
     AC_DEFINE_UNQUOTED(OPEN_URL_PROG, "", [program to open URLs])
