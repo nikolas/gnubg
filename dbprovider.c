@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.40 2013/07/18 02:01:23 mdpetch Exp $
+ * $Id: dbprovider.c,v 1.41 2013/07/22 19:58:40 plm Exp $
  */
 
 #include "config.h"
@@ -552,7 +552,7 @@ PyPostgreDeleteDatabase(const char *dbfilename, const char *user, const char *pa
     if (PyPostgreConnect("postgres", user, password, hostname) < 0)
         return FALSE;
 
-    ret = PyUpdateCommand("END");
+    PyUpdateCommand("END");
     buf = g_strdup_printf("DROP DATABASE %s", dbfilename);
     ret = PyUpdateCommand(buf);
     g_free(buf);
