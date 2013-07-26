@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.26 $)
+AC_REVISION($Revision: 1.27 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.02.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -487,10 +487,10 @@ fi
 AC_MSG_CHECKING([whether g_asserts are enabled])
 AC_ARG_ENABLE([gasserts], 
     AC_HELP_STRING([--enable-gasserts], [enable g_assert debugging macros (Default disabled)]), [gasserts="yes"], [gasserts="no"])
-if test x"$enable_gasserts" != x"no"; then
+if test x"$enable_gasserts" != x"yes"; then
     AM_CFLAGS="$AM_CFLAGS -DG_DISABLE_ASSERT"
 fi
-AS_IF( [test x"$enable_gasserts" != x"no"], [AC_MSG_RESULT($gasserts)], [AC_MSG_RESULT(no)] )
+AS_IF( [test x"$enable_gasserts" != x"yes"], [AC_MSG_RESULT($gasserts)], [AC_MSG_RESULT(yes)] )
 
 AC_SUBST(AM_CFLAGS)
 
