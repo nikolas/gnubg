@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.160 2013/07/18 02:01:24 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.161 2013/07/27 22:28:30 mdpetch Exp $
  */
 
 #include "config.h"
@@ -636,7 +636,7 @@ PythonHint_Callback (procrecorddata *pr)
     }
     if (hintdict){
         PyList_Append (list, hintdict);
-        Py_DecRef(hintdict);
+        Py_DECREF(hintdict);
     }
         
     return TRUE;
