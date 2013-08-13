@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.244 2013/07/09 00:20:53 mdpetch Exp $
+## $Id: Makefile.am,v 1.245 2013/07/10 13:55:58 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -27,7 +27,7 @@ if USE_PYTHON
 AM_CPPFLAGS += @PYTHON_INCLUDES@ 
 endif
 
-AM_CPPFLAGS += -DAC_DOCDIR='"$(datadir)/doc/gnubg/"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
+AM_CPPFLAGS += -DAC_DOCDIR='"$(docdir)/"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
 
 OTHER_LIBS =
 if WIN32
