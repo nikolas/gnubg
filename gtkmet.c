@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmet.c,v 1.28 2013/06/01 13:03:44 plm Exp $
+ * $Id: gtkmet.c,v 1.29 2013/06/16 02:16:15 mdpetch Exp $
  */
 
 #include "config.h"
@@ -62,13 +62,14 @@ UpdateTable(const mettable * pmt,
     for (i = 0; i < nRows; i++)
         for (j = 0; j < nCols; j++) {
 
-            g_assert(met[i][j] >= 0.0f && met[i][j] <= 1.0f);
-
-            if (fInvert)
+            if (fInvert) {
+                g_assert(met[j][i] >= 0.0f && met[j][i] <= 1.0f);
                 sprintf(sz, "%8.4f", met[j][i] * 100.0f);
-            else
+            }
+            else {
+                g_assert(met[i][j] >= 0.0f && met[i][j] <= 1.0f);
                 sprintf(sz, "%8.4f", met[i][j] * 100.0f);
-
+            }
             gtk_label_set_text(GTK_LABEL(pmt->aapwLabel[i][j]), sz);
 
         }
