@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.246 2013/08/13 04:06:50 mdpetch Exp $
+## $Id: Makefile.am,v 1.247 2013/08/20 20:24:59 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -161,7 +161,7 @@ if USE_PYTHON
 gnubg_LDADD += @PYTHON_LIBS@ 
 endif
 if USE_BOARD3D
-gnubg_LDADD += -L$(srcdir)/board3d board3d/libboard3d.la @GTKGLEXT_LIBS@
+gnubg_LDADD += -L$(srcdir)/board3d board3d/libboard3d.la $(GTKGLEXT_LIBS) $(GLU_LIBS)
 endif
 
 if WIN32
