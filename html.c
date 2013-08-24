@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.231 2013/06/16 02:16:17 mdpetch Exp $
+ * $Id: html.c,v 1.232 2013/08/24 22:50:48 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.231 2013/06/16 02:16:17 mdpetch Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.232 2013/08/24 22:50:48 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.231 $";
+    const char szVersion[] = "$Revision: 1.232 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.231 $";
+    const char szVersion[] = "$Revision: 1.232 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -3170,13 +3170,7 @@ ExportPositionGammOnLine(FILE * pf)
         iMove = -1;
     HTMLBoardHeader(pf, &ms, HTML_EXPORT_TYPE_BBS, HTML_EXPORT_CSS_INLINE, getGameNumber(plGame), iMove, FALSE);
 
-    printHTMLBoard(pf, &ms, ms.fTurn,
-#ifdef GAMMONLINE_TEST
-                   "http://www.gammonline.com/demo/Images/",
-#else
-                   "../Images/",
-#endif
-                   "gif", HTML_EXPORT_TYPE_BBS, HTML_EXPORT_CSS_INLINE);
+    printHTMLBoard(pf, &ms, ms.fTurn, "../Images/", "gif", HTML_EXPORT_TYPE_BBS, HTML_EXPORT_CSS_INLINE);
 
     if (pmr) {
         HTMLAnalysis(pf, &ms, pmr, "../Images/", "gif", HTML_EXPORT_TYPE_BBS, HTML_EXPORT_CSS_INLINE);
