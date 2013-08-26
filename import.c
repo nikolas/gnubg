@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.179 2013/07/03 19:17:42 plm Exp $
+ * $Id: import.c,v 1.180 2013/08/26 20:35:19 plm Exp $
  */
 
 #include "config.h"
@@ -3765,7 +3765,7 @@ OutputMove(FILE * fpOut, int side, const char *outBuf)
 }
 
 static int
-ConvertBackGammonRoomFileToMat(FILE * bgrFP, FILE * matFP)
+ConvertBGRoomFileToMat(FILE * bgrFP, FILE * matFP)
 {
 
     char *player1 = NULL;
@@ -3947,7 +3947,7 @@ CommandImportBGRoom(char *sz)
     sz = NextToken(&sz);
 
     if (!sz || !*sz) {
-        outputl(_("You must specify a BackGammonRoom file to import (see `help " "import bgroom')."));
+        outputl(_("You must specify a BGRoom file to import (see `help " "import bgroom')."));
         return;
     }
 
@@ -3964,7 +3964,7 @@ CommandImportBGRoom(char *sz)
         return;
     }
 
-    if (ConvertBackGammonRoomFileToMat(gamf, matf)) {
+    if (ConvertBGRoomFileToMat(gamf, matf)) {
         if ((pf = g_fopen(matfile, "r")) != 0) {
             rc = ImportMat(pf, matfile);
             fclose(pf);

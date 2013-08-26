@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.34 2012/01/03 21:43:00 plm Exp $ */
+/* $Id: commands.inc,v 1.35 2012/10/15 21:10:11 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -282,7 +282,7 @@ command cER = {
       szFILENAME, &cFilename },
     { "party", CommandImportParty, N_("Import a PartyGammon game file"),
       szFILENAME, &cFilename },
-    { "bgroom", CommandImportBGRoom, N_("Import a BackGammonRoom game file"),
+    { "bgroom", CommandImportBGRoom, N_("Import a BGRoom game file"),
       szFILENAME, &cFilename },
     { "pos", CommandImportJF, 
       N_("Import a Jellyfish position file"), szFILENAME,
