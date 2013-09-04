@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.870 2013/07/11 04:02:22 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.871 2013/07/11 04:52:15 mdpetch Exp $
  */
 
 #include "gnubgmodule.h"
@@ -3744,12 +3744,12 @@ CreateMainWindow(void)
 
     idMenu = gtk_menu_new();
 
-    menu_item = gtk_menu_item_new_with_label(_("Copy Position ID"));
+    menu_item = gtk_menu_item_new_with_label(_("Copy GNUbg ID"));
     gtk_menu_shell_append(GTK_MENU_SHELL(idMenu), menu_item);
     gtk_widget_show(menu_item);
     g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(CopyIDs), NULL);
 
-    menu_item = gtk_menu_item_new_with_label(_("Paste Position ID"));
+    menu_item = gtk_menu_item_new_with_label(_("Paste GNUbg ID"));
     gtk_menu_shell_append(GTK_MENU_SHELL(idMenu), menu_item);
     gtk_widget_show(menu_item);
     g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(PasteIDs), NULL);
