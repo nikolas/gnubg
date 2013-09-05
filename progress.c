@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.69 2013/05/11 08:54:01 plm Exp $
+ * $Id: progress.c,v 1.70 2013/06/16 02:16:19 mdpetch Exp $
  */
 
 #include "config.h"
@@ -69,7 +69,7 @@ typedef struct _rolloutprogress {
     GtkWidget *pwRolloutStop;
     GtkWidget *pwRolloutStopAll;
     GtkWidget *pwRolloutViewStat;
-    guint nRolloutSignal;
+    gulong nRolloutSignal;
     GtkWidget *pwElapsed;
     GtkWidget *pwLeft;
     GtkWidget *pwSE;
