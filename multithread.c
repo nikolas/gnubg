@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.86 2013/07/18 02:01:24 mdpetch Exp $
+ * $Id: multithread.c,v 1.87 2013/07/21 00:58:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -126,7 +126,7 @@ MT_WorkerThreadFunction(void *tld)
 #endif
     {
         ThreadLocalData *pTLD = (ThreadLocalData *) tld;
-        TLSSetValue(td.tlsItem, (size_t)pTLD);
+        TLSSetValue(td.tlsItem, (size_t) pTLD);
 
         MT_SafeInc(&td.result);
         MT_TaskDone(NULL);      /* Thread created */
@@ -392,8 +392,6 @@ MT_SyncEnd(void)
 #include <gtkgame.h>
 #endif
 
-#define UI_UPDATETIME 250
-
 int asyncRet;
 void
 MT_AddTask(Task * pt, gboolean lock)
@@ -467,5 +465,3 @@ MT_AbortTasks(void)
 }
 
 #endif
-
-
