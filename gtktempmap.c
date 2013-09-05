@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.49 2011/08/31 00:50:44 mdpetch Exp $
+ * $Id: gtktempmap.c,v 1.50 2013/06/16 02:16:16 mdpetch Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,6 @@
 #include "gtkgame.h"
 #include "gtkwindows.h"
 
-#define SIZE_DIE 4
 #define SIZE_QUADRANT 52
 
 
