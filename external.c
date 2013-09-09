@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.73 2012/09/01 18:49:57 plm Exp $
+ * $Id: external.c,v 1.74 2013/06/16 02:16:11 mdpetch Exp $
  */
 
 #include "config.h"
@@ -204,7 +204,7 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
 
         /* yuck... there's no portable way to obtain the necessary
          * sockaddr_un size, but this is a conservative estimate */
-        psun = malloc(*pcb = 16 + strlen(sz));
+        psun = malloc(*pcb = 16 + (int)strlen(sz));
 
         psun->sun_family = AF_LOCAL;
         strcpy(psun->sun_path, sz);
@@ -238,9 +238,11 @@ ExternalRead(int h, char *pch, size_t cch)
 {
 
     char *p = pch, *pEnd;
-    int n;
 #ifndef WIN32
+    ssize_t n;
     psighandler sh;
+#else
+    int n;
 #endif
 
     while (cch) {
@@ -297,9 +299,11 @@ ExternalWrite(int h, char *pch, size_t cch)
 {
 
     char *p = pch;
-    int n;
 #ifndef WIN32
+    ssize_t n;
     psighandler sh;
+#else
+    int n;
 #endif
 
     while (cch) {
