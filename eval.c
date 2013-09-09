@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.430 2013/07/22 19:22:46 plm Exp $
+ * $Id: eval.c,v 1.431 2013/07/23 19:39:19 plm Exp $
  */
 
 #include "config.h"
@@ -377,7 +377,6 @@ float rRaceMax = 0.7f;
 float rRaceMin = 0.6f;
 float rCrashedX = 0.68f;
 float rContactX = 0.68f;
-
 
 static void
 ComputeTable0(void)
@@ -2243,8 +2242,8 @@ Noise(const evalcontext * pec, const TanBoard anBoard, int iOutput)
         int i;
 
         for (i = 0; i < 25; i++) {
-            auchBoard[i << 1] = anBoard[0][i];
-            auchBoard[(i << 1) + 1] = anBoard[1][i];
+            auchBoard[i << 1] = (char) anBoard[0][i];
+            auchBoard[(i << 1) + 1] = (char) anBoard[1][i];
         }
 
         auchBoard[0] += iOutput;
