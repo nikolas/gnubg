@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.373 2013/03/15 23:56:13 plm Exp $
+ * $Id: set.c,v 1.374 2013/06/16 02:16:20 mdpetch Exp $
  */
 
 #include "config.h"
@@ -2435,12 +2435,11 @@ extern void
 CommandSetScore(char *sz)
 {
 
-    long int n0, n1;
     moverecord *pmr;
     xmovegameinfo *pmgi;
     const char *pch0, *pch1;
     char *pchEnd0, *pchEnd1;
-    int fCrawford0, fCrawford1, fPostCrawford0, fPostCrawford1;
+    int n0, n1, fCrawford0, fCrawford1, fPostCrawford0, fPostCrawford1;
 
     if ((pch0 = NextToken(&sz)) == 0)
         pch0 = "";
@@ -2448,11 +2447,11 @@ CommandSetScore(char *sz)
     if ((pch1 = NextToken(&sz)) == 0)
         pch1 = "";
 
-    n0 = strtol(pch0, &pchEnd0, 10);
+    n0 = (int) strtol(pch0, &pchEnd0, 10);
     if (pch0 == pchEnd0)
         n0 = INT_MIN;
 
-    n1 = strtol(pch1, &pchEnd1, 10);
+    n1 = (int) strtol(pch1, &pchEnd1, 10);
     if (pch1 == pchEnd1)
         n1 = INT_MIN;
 
