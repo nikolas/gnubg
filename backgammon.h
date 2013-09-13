@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.438 2013/06/29 23:34:15 mdpetch Exp $
+ * $Id: backgammon.h,v 1.439 2013/09/12 22:31:32 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -1010,6 +1010,7 @@ extern int get_input_discard(void);
 extern void SaveGame(FILE * pf, listOLD * plGame);
 
 extern int fMatchCancelled;
+extern int fJustSwappedPlayers;
 
 extern void ProcessEvents(void);
 #if !USE_MULTITHREAD
@@ -1021,6 +1022,5 @@ extern int quick_roll(void);
 extern int board_in_list(const movelist * pml, const TanBoard old_board, const TanBoard board, int *an);
 extern unsigned int getDiceRandomDotOrg(void);
 extern int GetManualDice(unsigned int anDice[2]);
-#endif
 
-extern int fJustSwappedPlayers;
+#endif	/* BACKGAMMON_H */
