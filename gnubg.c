@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.940 2013/07/21 23:42:50 mdpetch Exp $
+ * $Id: gnubg.c,v 1.941 2013/09/05 19:24:17 plm Exp $
  */
 
 #include "config.h"
@@ -507,8 +507,6 @@ exportsetup exsExport = {
     4                           /* Html size */
 };
 
-
-#define DEFAULT_NET_SIZE 128
 
 player ap[2] = {
     {"gnubg", PLAYER_GNU, EVALSETUP_WORLDCLASS, EVALSETUP_WORLDCLASS, MOVEFILTER_NORMAL, 0, NULL}
@@ -2352,7 +2350,7 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
     int hist;
     movelist ml;
     findData fd;
-    ssize_t fSaveShowProg = fShowProgress;
+    int fSaveShowProg = fShowProgress;
 
     if (!ms.anDice[0])
         return;
@@ -2373,7 +2371,7 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
         fd.aamf = *GetEvalMoveFilter();
         if (procdatarec) {
             show = FALSE;
-            fShowProgress = (ssize_t) procdatarec->avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS];
+            fShowProgress = (procdatarec->avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS] != NULL);
         }
         if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || fInterrupt) {
             fShowProgress = fSaveShowProg;
