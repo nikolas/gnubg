@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.871 2013/07/11 04:52:15 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.872 2013/09/04 22:02:14 plm Exp $
  */
 
 #include "gnubgmodule.h"
@@ -578,7 +578,7 @@ GTKSuspendInput(void)
         return;
 
     if (suspendCount == 0 && pwGrab && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
-        /* Grab events so that the board window knows this is a re-entrant*/
+        /* Grab events so that the board window knows this is a re-entrant */
         /*  call, and won't allow commands like roll, move or double. */
         grabbedWidget = pwGrab;
         if (pwGrab == pwStop) {
@@ -5422,8 +5422,10 @@ GTKCubeHint(moverecord * pmr, const matchstate * pms, int did_double, int did_ta
  *    pci: cubeinfo
  *    fOUtputMWC: output in MWC or equity
  *
- * FIXME: include arOutput in the dialog, so the the user
+ * FIXME: Include arOutput in the dialog, so the the user
  *        can see how many gammons/backgammons she'll win.
+ * FIXME: This only handles the acceptance / refusal side.
+ *        Comment on the resignation itself as well.
  */
 
 extern void

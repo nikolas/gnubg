@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.941 2013/09/05 19:24:17 plm Exp $
+ * $Id: gnubg.c,v 1.942 2013/09/16 21:37:35 plm Exp $
  */
 
 #include "config.h"
@@ -2443,10 +2443,24 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
 extern void
 CommandHint(char *sz)
 {
+    listOLD *pl;
+    moverecord *pmr;
 
     if (ms.gs != GAME_PLAYING) {
         outputl(_("You must set up a board first."));
 
+        return;
+    }
+
+    /* The code further below handles only the case of asking a hint
+     * on a resignation by gnubg while playing against it. When
+     * clicking on a "resign" entry in the moves panel while reviewing
+     * a game, the match state ms is not up to date and we have to
+     * look at the moves list */
+
+    pl = plLastMove->plNext;
+    if ((pmr = pl->p) && pmr->mt == MOVE_RESIGN) {
+        HintResigned();
         return;
     }
 
