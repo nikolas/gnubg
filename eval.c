@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.431 2013/07/23 19:39:19 plm Exp $
+ * $Id: eval.c,v 1.432 2013/09/09 21:32:29 plm Exp $
  */
 
 #include "config.h"
@@ -44,40 +44,6 @@ typedef int (*classevalfunc) (const TanBoard anBoard, float arOutput[], const bg
 
 typedef void (*classstatusfunc) (char *szOutput);
 typedef int (*cfunc) (const void *, const void *);
-
-#if !LOCKING_VERSION
-
-f_FindnSaveBestMoves FindnSaveBestMoves = FindnSaveBestMovesNoLocking;
-f_FindBestMove FindBestMove = FindBestMoveNoLocking;
-f_EvaluatePosition EvaluatePosition = EvaluatePositionNoLocking;
-f_ScoreMove ScoreMove = ScoreMoveNoLocking;
-f_GeneralCubeDecisionE GeneralCubeDecisionE = GeneralCubeDecisionENoLocking;
-f_GeneralEvaluationE GeneralEvaluationE = GeneralEvaluationENoLocking;
-
-#define FindnSaveBestMoves FindnSaveBestMovesNoLocking
-#define FindBestMove FindBestMoveNoLocking
-#define EvaluatePosition EvaluatePositionNoLocking
-#define ScoreMove ScoreMoveNoLocking
-#define GeneralCubeDecisionE GeneralCubeDecisionENoLocking
-#define GeneralEvaluationE GeneralEvaluationENoLocking
-#define EvaluatePositionCache EvaluatePositionCacheNoLocking
-#define FindBestMovePlied FindBestMovePliedNoLocking
-#define GeneralEvaluationEPlied GeneralEvaluationEPliedNoLocking
-#define EvaluatePositionCubeful3 EvaluatePositionCubeful3NoLocking
-#define ScoreMoves ScoreMovesNoLocking
-#define ScoreMovesPruned ScoreMovesPrunedNoLocking
-#define FindBestMoveInEval FindBestMoveInEvalNoLocking
-#define GeneralEvaluationEPliedCubeful GeneralEvaluationEPliedCubefulNoLocking
-#define EvaluatePositionCubeful4 EvaluatePositionCubeful4NoLocking
-#define CacheAdd CacheAddNoLocking
-#define CacheLookup CacheLookupNoLocking
-
-static int EvaluatePositionCache(NNState * nnStates, const TanBoard anBoard, float arOutput[],
-                                 const cubeinfo * pci, const evalcontext * pecx, int nPlies, positionclass pc);
-
-static int FindBestMovePlied(int anMove[8], int nDice0, int nDice1,
-                             TanBoard anBoard, const cubeinfo * pci,
-                             const evalcontext * pec, int nPlies, movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES]);
 
 /* Race inputs */
 enum {
@@ -232,6 +198,41 @@ enum {
 #define NUM_INPUTS ((25 * MINPPERPOINT + MORE_INPUTS) * 2)
 #define NUM_RACE_INPUTS ( HALF_RACE_INPUTS * 2 )
 #define NUM_PRUNING_INPUTS (25 * MINPPERPOINT * 2)
+
+
+#if !LOCKING_VERSION
+
+f_FindnSaveBestMoves FindnSaveBestMoves = FindnSaveBestMovesNoLocking;
+f_FindBestMove FindBestMove = FindBestMoveNoLocking;
+f_EvaluatePosition EvaluatePosition = EvaluatePositionNoLocking;
+f_ScoreMove ScoreMove = ScoreMoveNoLocking;
+f_GeneralCubeDecisionE GeneralCubeDecisionE = GeneralCubeDecisionENoLocking;
+f_GeneralEvaluationE GeneralEvaluationE = GeneralEvaluationENoLocking;
+
+#define FindnSaveBestMoves FindnSaveBestMovesNoLocking
+#define FindBestMove FindBestMoveNoLocking
+#define EvaluatePosition EvaluatePositionNoLocking
+#define ScoreMove ScoreMoveNoLocking
+#define GeneralCubeDecisionE GeneralCubeDecisionENoLocking
+#define GeneralEvaluationE GeneralEvaluationENoLocking
+#define EvaluatePositionCache EvaluatePositionCacheNoLocking
+#define FindBestMovePlied FindBestMovePliedNoLocking
+#define GeneralEvaluationEPlied GeneralEvaluationEPliedNoLocking
+#define EvaluatePositionCubeful3 EvaluatePositionCubeful3NoLocking
+#define ScoreMoves ScoreMovesNoLocking
+#define ScoreMovesPruned ScoreMovesPrunedNoLocking
+#define FindBestMoveInEval FindBestMoveInEvalNoLocking
+#define GeneralEvaluationEPliedCubeful GeneralEvaluationEPliedCubefulNoLocking
+#define EvaluatePositionCubeful4 EvaluatePositionCubeful4NoLocking
+#define CacheAdd CacheAddNoLocking
+#define CacheLookup CacheLookupNoLocking
+
+static int EvaluatePositionCache(NNState * nnStates, const TanBoard anBoard, float arOutput[],
+                                 const cubeinfo * pci, const evalcontext * pecx, int nPlies, positionclass pc);
+
+static int FindBestMovePlied(int anMove[8], int nDice0, int nDice1,
+                             TanBoard anBoard, const cubeinfo * pci,
+                             const evalcontext * pec, int nPlies, movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES]);
 
 static int anEscapes[0x1000];
 static int anEscapes1[0x1000];
@@ -1511,7 +1512,7 @@ CalculateContactInputs(const TanBoard anBoard, float arInput[])
     baseInputs(anBoard, arInput);
 
     {
-        float *b = arInput + 4 * 25 * 2;
+        float *b = arInput + MINPPERPOINT * 25 * 2;
 
         /* I accidentally switched sides (0 and 1) when I trained the net */
         menOffNonCrashed(anBoard[0], b + I_OFF1);
@@ -1520,7 +1521,7 @@ CalculateContactInputs(const TanBoard anBoard, float arInput[])
     }
 
     {
-        float *b = arInput + (4 * 25 * 2 + MORE_INPUTS);
+        float *b = arInput + (MINPPERPOINT * 25 * 2 + MORE_INPUTS);
 
         menOffNonCrashed(anBoard[1], b + I_OFF1);
 
@@ -1536,7 +1537,7 @@ CalculateCrashedInputs(const TanBoard anBoard, float arInput[])
     baseInputs(anBoard, arInput);
 
     {
-        float *b = arInput + 4 * 25 * 2;
+        float *b = arInput + MINPPERPOINT * 25 * 2;
 
         menOffAll(anBoard[1], b + I_OFF1);
 
@@ -1544,7 +1545,7 @@ CalculateCrashedInputs(const TanBoard anBoard, float arInput[])
     }
 
     {
-        float *b = arInput + (4 * 25 * 2 + MORE_INPUTS);
+        float *b = arInput + (MINPPERPOINT * 25 * 2 + MORE_INPUTS);
 
         menOffAll(anBoard[0], b + I_OFF1);
 
@@ -2094,7 +2095,7 @@ EvalRaceBG(const TanBoard anBoard, float arOutput[], const bgvariation bgv)
 static int
 EvalRace(const TanBoard anBoard, float arOutput[], const bgvariation bgv, NNState * nnStates)
 {
-    SSE_ALIGN(float arInput[NUM_INPUTS]);
+    SSE_ALIGN(float arInput[NUM_RACE_INPUTS]);
 
     CalculateRaceInputs(anBoard, arInput);
 
@@ -4208,7 +4209,7 @@ CalcCubefulEquity(positionclass pc, float arOutput[NUM_ROLLOUT_OUTPUTS], int nPl
     arOutput[OUTPUT_CUBEFUL_EQUITY] = r;
 
 }
-#endif
+#endif                          /* !LOCKING_VERSION */
 
 
 
@@ -5279,7 +5280,7 @@ FindBestMoveInEval(NNState * nnStates, int const nDice0, int const nDice1, const
 
     for (i = 0; i < ml.cMoves; i++) {
         positionclass pc;
-        SSE_ALIGN(float arInput[200]);
+        SSE_ALIGN(float arInput[NUM_PRUNING_INPUTS]);
         SSE_ALIGN(float arOutput[NUM_OUTPUTS]);
         evalcache ec;
         uint32_t l;
