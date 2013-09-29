@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.873 2013/09/22 18:02:40 plm Exp $
+ * $Id: gtkgame.c,v 1.874 2013/09/29 19:17:41 plm Exp $
  */
 
 #include "gnubgmodule.h"
@@ -3275,7 +3275,7 @@ static GtkActionEntry actionEntries[] = {
     {"HelpManualAllAboutAction", NULL, N_("_Manual (all about)"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_ABOUT)},
     {"HelpManualWebAction", NULL, N_("Manual (_web)"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_WEB)},
-    {"HelpAboutGNUBGAction", GTK_STOCK_ABOUT, N_("_About gnubg"), NULL, NULL,
+    {"HelpAboutGNUBGAction", GTK_STOCK_ABOUT, N_("_About GNU Backgammon"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_VERSION)}
 };
 
@@ -3519,7 +3519,7 @@ GtkItemFactoryEntry aife[] = {
     {N_("/_Help/Manual (_web)"), NULL, Command,
      CMD_SHOW_MANUAL_WEB, NULL, NULL},
     {N_("/_Help/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Help/_About gnubg"), NULL, Command, CMD_SHOW_VERSION,
+    {N_("/_Help/_About GNU Backgammon"), NULL, Command, CMD_SHOW_VERSION,
      "<StockItem>", GTK_STOCK_ABOUT}
 };
 #endif
@@ -5696,7 +5696,7 @@ GtkShowEngine(GtkWidget * parent)
     szBuffer[0] = g_new0(char, 4096);
     szBuffer[1] = NULL;
     EvalStatus(szBuffer[0]);
-    ShowList(szBuffer, _("Evaluation engine"), parent);
+    ShowList(szBuffer, _("Evaluation Engine"), parent);
 }
 
 extern void
