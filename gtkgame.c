@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.872 2013/09/04 22:02:14 plm Exp $
+ * $Id: gtkgame.c,v 1.873 2013/09/22 18:02:40 plm Exp $
  */
 
 #include "gnubgmodule.h"
@@ -85,9 +85,10 @@
 
 #define KEY_ESCAPE -229
 
+#if (USE_BOARD3D && !USE_GTKUIMANAGER)
 /* Offset action to avoid predefined values */
 #define MENU_OFFSET 50
-
+#endif
 
 #if (USE_GTKUIMANAGER)
 static void TogglePanel(guint iType, guint iActionID, GtkToggleAction * action,
