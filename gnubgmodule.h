@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.26 2013/07/10 20:51:45 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.27 2013/07/18 02:01:24 mdpetch Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -28,6 +28,7 @@
 /* needed for mingw inclusion of Python.h */
 #include <stdint.h>
 #endif
+
 #include <Python.h>
 extern PyObject *PythonGnubgModule(void);
 
@@ -36,7 +37,7 @@ typedef int Py_ssize_t;
 #define PY_SSIZE_T_MAX INT_MAX
 #define PY_SSIZE_T_MIN INT_MIN
 #endif                          /* PY_VERSION_CHK */
-extern PyObject *PythonGnubgModule();
+
 #endif                          /* USE_PYTHON */
 
 #include "lib/simd.h"
