@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.874 2013/09/29 19:17:41 plm Exp $
+ * $Id: gtkgame.c,v 1.875 2013/09/29 19:35:38 plm Exp $
  */
 
 #include "gnubgmodule.h"
@@ -3581,7 +3581,7 @@ FileDragDropped(GtkWidget * UNUSED(widget), GdkDragContext * UNUSED(drag_context
                 gint UNUSED(x), gint UNUSED(y), GtkSelectionData * data, guint UNUSED(info), guint UNUSED(time))
 {
     gchar **list;
-    list = g_uri_list_extract_uris((gchar *) gtk_selection_data_get_data(data));
+    list = g_uri_list_extract_uris((const gchar *) gtk_selection_data_get_data(data));
 
     if (list[0]) {
         char *next, *file, *quoted;
