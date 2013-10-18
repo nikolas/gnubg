@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.316 2013/06/16 02:16:13 mdpetch Exp $
+ * $Id: gtkboard.c,v 1.317 2013/07/22 19:46:33 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -2324,7 +2324,6 @@ board_set(Board * board, const gchar * board_text, const gint resigned, const gi
     old_dice[1] = bd->diceRoll[1];
     old_diceShown = bd->diceShown;
     old_turn = bd->turn;
-    old_jacoby = bd->jacoby_flag;
 
     editing = bd->playing && ToolbarIsEditing(pwToolbar);
 
