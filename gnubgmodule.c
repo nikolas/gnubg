@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.161 2013/07/27 22:28:30 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.162 2013/07/28 16:25:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -379,26 +379,23 @@ PyToPosInfo(PyObject * p, posinfo * ppi)
         case 0:
         case 1:
         case 2:
-            /* simple unsigned integer (gamestate) */
-            if (!PyInt_Check(pyValue)) {
-                /* unknown dict value */
-                PyErr_SetString(PyExc_ValueError, _("invalid value posinfo " "(see gnubg.posinfo() for an example)"));
-                return -1;
-            }
-
-            *((gamestate *) ap[iKey]) = (gamestate) PyInt_AsLong(pyValue);
-
-            break;
-
-        case 3:
             /* simple integer */
             if (!PyInt_Check(pyValue)) {
                 /* unknown dict value */
                 PyErr_SetString(PyExc_ValueError, _("invalid value posinfo " "(see gnubg.posinfo() for an example)"));
                 return -1;
             }
-
             *((int *) ap[iKey]) = (int) PyInt_AsLong(pyValue);
+            break;
+
+        case 3:
+            /* simple unsigned integer (gamestate) */
+            if (!PyInt_Check(pyValue)) {
+                /* unknown dict value */
+                PyErr_SetString(PyExc_ValueError, _("invalid value posinfo " "(see gnubg.posinfo() for an example)"));
+                return -1;
+            }
+            *((gamestate *) ap[iKey]) = (gamestate) PyInt_AsLong(pyValue);
             break;
 
         case 4:
