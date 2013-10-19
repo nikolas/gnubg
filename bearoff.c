@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.92 2013/06/16 02:16:09 mdpetch Exp $
+ * $Id: bearoff.c,v 1.93 2013/10/19 14:13:56 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -669,7 +669,7 @@ BearoffDumpOneSided(const bearoffcontext * pbc, const TanBoard anBoard, char *sz
     sz += sprintf(sz, "%s\t%7.3f\t%7.3f\n%s\t%7.3f\t%7.3f\n\n", _("EPC"),
                   ar[0][0] * x, ar[1][0] * x, _("Wastage"), ar[0][0] * x - anPips[1], ar[1][0] * x - anPips[0]);
 
-    sz += sprintf(sz, "%s = %5.3f * %s\n%s = %s - %s\n\n",
+    sprintf(sz, "%s = %5.3f * %s\n%s = %s - %s\n\n",
                   _("EPC"), x, _("Average rolls"), _("Wastage"), _("EPC"), _("pips"));
 
     return 0;
