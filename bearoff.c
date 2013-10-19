@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.93 2013/10/19 14:13:56 plm Exp $
+ * $Id: bearoff.c,v 1.94 2013/10/19 14:27:04 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -161,7 +161,7 @@ HeuristicBearoff(unsigned int anBoard[6], const unsigned int anRoll[2])
             }
 
             nTotal = anDice[i] - 1;
-            for (j = i + 1; j < c; j++) {
+            for (n = -1, j = i + 1; j < c; j++) {
                 nTotal += anDice[j];
                 if (nTotal < 6 && anBoard[nTotal]) {
                     /* there's a chequer we can bear off with subsequent dice;
@@ -170,6 +170,8 @@ HeuristicBearoff(unsigned int anBoard[6], const unsigned int anRoll[2])
                     break;
                 }
             }
+            if (n >= 0)
+                break;
 
             for (n = -1, iSearch = anDice[i]; iSearch <= nMax; iSearch++) {
                 if (anBoard[iSearch] >= 2 &&    /* at least 2 on source point */
