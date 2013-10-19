@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.162 2013/07/28 16:25:17 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.163 2013/10/18 20:43:26 plm Exp $
  */
 
 #include "config.h"
@@ -1376,8 +1376,8 @@ PythonMatchID(PyObject * UNUSED(self), PyObject * args)
 
     PyObject *pyCubeInfo = NULL;
     PyObject *pyPosInfo = NULL;
-    cubeinfo ci;
-    posinfo pi;
+    cubeinfo ci = { 1, 0, 0, 0, {0, 0}, FALSE, TRUE, FALSE, {1.0f, 1.0f, 1.0f, 1.0f}, VARIATION_STANDARD};
+    posinfo pi = {{0, 0}, 0, 0, 0, GAME_NONE};
 
     if (!PyArg_ParseTuple(args, "|OO:matchid", &pyCubeInfo, &pyPosInfo))
         return NULL;
