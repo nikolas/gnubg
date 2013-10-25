@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.432 2013/09/09 21:32:29 plm Exp $
+ * $Id: eval.c,v 1.433 2013/09/26 21:39:47 plm Exp $
  */
 
 #include "config.h"
@@ -3059,6 +3059,9 @@ EvalStatus(char *szOutput)
     for (i = N_CLASSES - 1; i >= 0; i--)
         if (acsf[i])
             acsf[i] (strchr(szOutput, 0));
+
+    sprintf(strchr(szOutput, 0),
+        _(" * " "Weights file and databases installed in" ":\n   - %s\n"), getPkgDataDir());
 }
 
 
