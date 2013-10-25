@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.94 2013/10/19 14:27:04 plm Exp $
+ * $Id: bearoff.c,v 1.95 2013/10/19 14:50:44 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -543,8 +543,7 @@ BearoffStatus(const bearoffcontext * pbc, char *sz)
     default:
         break;
     }
-    sprintf(buf, _("number of reads: %lu"), pbc->nReads);
-    sprintf(sz, "   - %s\n", buf);
+    sprintf(sz, "\n");
 }
 
 static int
@@ -672,7 +671,7 @@ BearoffDumpOneSided(const bearoffcontext * pbc, const TanBoard anBoard, char *sz
                   ar[0][0] * x, ar[1][0] * x, _("Wastage"), ar[0][0] * x - anPips[1], ar[1][0] * x - anPips[0]);
 
     sprintf(sz, "%s = %5.3f * %s\n%s = %s - %s\n\n",
-                  _("EPC"), x, _("Average rolls"), _("Wastage"), _("EPC"), _("pips"));
+            _("EPC"), x, _("Average rolls"), _("Wastage"), _("EPC"), _("pips"));
 
     return 0;
 
