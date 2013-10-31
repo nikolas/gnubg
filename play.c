@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.420 2013/06/26 04:41:47 mdpetch Exp $
+ * $Id: play.c,v 1.421 2013/10/30 23:12:42 plm Exp $
  */
 
 #include "config.h"
@@ -35,7 +35,6 @@
 #include "positionid.h"
 #include "matchid.h"
 #include "matchequity.h"
-#include "rollout.h"
 #include "sound.h"
 #include "renderprefs.h"
 #include "md5.h"
@@ -723,12 +722,13 @@ ResetDelayTimer(void)
 extern void
 AddGame(moverecord * pmr)
 {
-
     g_assert(pmr->mt == MOVE_GAMEINFO);
 
 #if USE_GTK
     if (fX)
         GTKAddGame(pmr);
+#else
+    (void) pmr;                 /* silence compiler warning */
 #endif
 }
 
@@ -4297,14 +4297,13 @@ EvaluateRoll(float ar[NUM_ROLLOUT_OUTPUTS], int nDie1, int nDie2, const TanBoard
     memcpy(&anBoardTemp[0][0], &anBoard[0][0], 2 * 25 * sizeof(int));
 
     if (FindBestMove(NULL, nDie1, nDie2, anBoardTemp, (cubeinfo *) pci, NULL, defaultFilters) < 0)
-        return;
-
+        g_assert_not_reached();
 
     SwapSides(anBoardTemp);
 
-    if (GeneralEvaluationE(ar, (ConstTanBoard) anBoardTemp, &ciOpp, (evalcontext *) pec))
-        return;
+    GeneralEvaluationE(ar, (ConstTanBoard) anBoardTemp, &ciOpp, (evalcontext *) pec);
 
+    return;
 }
 
 /* routine to link doubles/beavers/raccoons/etc and their eventual
