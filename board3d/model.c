@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: model.c,v 1.18 2007/12/12 23:08:21 Superfly_Jon Exp $
+ * $Id: model.c,v 1.19 2013/06/16 02:16:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -489,10 +489,19 @@ addCylinder(Occluder * pOcc, float x, float y, float z, float r, float d, unsign
 void
 addHalfTube(Occluder * pOcc, float r, float h, unsigned int numSteps)
 {
-    float step = ((2 * (float) G_PI) / numSteps) / 2.0f;
-    float *xPts = (float *) malloc(sizeof(float) * (numSteps + 1));
-    float *yPts = (float *) malloc(sizeof(float) * (numSteps + 1));
+    float *xPts, *yPts;
+    float step;
     unsigned int i;
+  
+    if (numSteps == 0) {
+        g_assert_not_reached();
+        return;
+    }
+
+    step = ((2 * (float) G_PI) / numSteps) / 2.0f;
+
+    xPts = (float *) malloc(sizeof(float) * (numSteps + 1));
+    yPts = (float *) malloc(sizeof(float) * (numSteps + 1));
     g_assert(xPts && yPts);
 
     for (i = 0; i <= numSteps; i++) {
