@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.421 2013/10/30 23:12:42 plm Exp $
+ * $Id: play.c,v 1.422 2013/10/31 07:40:18 plm Exp $
  */
 
 #include "config.h"
@@ -4378,8 +4378,8 @@ GetMoveString(moverecord * pmr, int *pPlayer, gboolean addSkillMarks)
     case MOVE_NORMAL:
         *pPlayer = pmr->fPlayer;
         pch = sz;
-        sz[0] = (char) pmr->anDice[0] + '0';
-        sz[1] = (char) pmr->anDice[1] + '0';
+        sz[0] = (char) (MAX(pmr->anDice[0], pmr->anDice[1]) + '0');
+        sz[1] = (char) (MIN(pmr->anDice[0], pmr->anDice[1]) + '0');
         sz[2] = ':';
         sz[3] = ' ';
         FormatMove(sz + 4, msBoard(), pmr->n.anMove);
@@ -4431,7 +4431,7 @@ GetMoveString(moverecord * pmr, int *pPlayer, gboolean addSkillMarks)
 
     case MOVE_SETDICE:
         *pPlayer = pmr->fPlayer;
-        sprintf(sz, _("Rolled %d%d"), pmr->anDice[0], pmr->anDice[1]);
+        sprintf(sz, _("Rolled %d%d"), MAX(pmr->anDice[0], pmr->anDice[1]), MIN(pmr->anDice[0], pmr->anDice[1]));
         pch = sz;
         break;
 
