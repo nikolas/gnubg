@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.35 2012/10/15 21:10:11 plm Exp $ */
+/* $Id: commands.inc,v 1.36 2013/08/26 21:07:55 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -269,8 +269,6 @@ command cER = {
     { NULL, NULL, NULL, NULL, NULL }
 }, acImport[] = {
     { "auto", CommandImportAuto, N_("Import from any known format"),
-      szFILENAME, &cFilename },
-    { "bkg", CommandImportBKG, N_("Import from Hans Berliner's BKG format"),
       szFILENAME, &cFilename },
     { "mat", CommandImportMat, N_("Import a Jellyfish match"), szFILENAME,
       &cFilename },

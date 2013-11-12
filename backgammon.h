@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.439 2013/09/12 22:31:32 plm Exp $
+ * $Id: backgammon.h,v 1.440 2013/09/13 19:30:31 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -594,7 +594,6 @@ extern void CommandHint(char *);
 extern void CommandHistory(char *);
 extern void CommandImportAuto(char *);
 extern void CommandImportBGRoom(char *);
-extern void CommandImportBKG(char *);
 extern void CommandImportEmpire(char *);
 extern void CommandImportJF(char *);
 extern void CommandImportMat(char *);

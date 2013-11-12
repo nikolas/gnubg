@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.26 2013/08/26 21:07:55 plm Exp $
+ * $Id: file.c,v 1.27 2013/10/20 15:17:54 plm Exp $
  */
 
 #include "config.h"
@@ -75,8 +75,6 @@ ImportFormat import_format[] = {
     {IMPORT_SGF, ".sgf", N_("Gnu Backgammon File"), "sgf"}
     ,                           /*must be the first element */
     {IMPORT_SGG, ".sgg", N_("GamesGrid Save Game"), "sgg"}
-    ,
-    {IMPORT_BKG, ".bkg", N_("Hans Berliner's BKG Format"), "bkg"}
     ,
     {IMPORT_MAT, ".mat", N_("Jellyfish Match"), "mat"}
     ,
@@ -384,21 +382,6 @@ IsJFPFile(FileHelper * fh)
 }
 
 static int
-IsBKGFile(FileHelper * fh)
-{
-    fhReset(fh);
-    fhSkipWS(fh);
-    if (fhReadString(fh, "Black"))
-        return TRUE;
-    fhReset(fh);
-    fhSkipWS(fh);
-    if (fhReadString(fh, "White"))
-        return TRUE;
-
-    return FALSE;
-}
-
-static int
 IsGAMFile(FileHelper * fh)
 {
     fhReset(fh);
@@ -470,8 +453,6 @@ ReadFilePreview(const char *filename)
         fpd->type = IMPORT_MAT;
     else if (IsJFPFile(fh))
         fpd->type = IMPORT_POS;
-    else if (IsBKGFile(fh))
-        fpd->type = IMPORT_BKG;
     else if (IsGAMFile(fh))
         fpd->type = IMPORT_EMPIRE;
     else if (IsPARFile(fh))
