@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.942 2013/09/16 21:37:35 plm Exp $
+ * $Id: gnubg.c,v 1.943 2013/09/22 18:02:40 plm Exp $
  */
 
 #include "config.h"
@@ -2821,7 +2821,18 @@ CommandCopy(char *UNUSED(sz))
         SwapSides(anBoardTemp);
 
     DrawBoard(szOut, (ConstTanBoard) anBoardTemp, ms.fMove, aps, MatchIDFromMatchState(&ms), anChequers[ms.bgv]);
-    strcat(szOut, "\n");
+
+    {
+        unsigned int anPips[2];
+        char szPipCount[32];
+
+        PipCount((ConstTanBoard) anBoardTemp, anPips);
+        sprintf(szPipCount, "Pip counts : O %d, X %d\n", anPips[0], anPips[1]);
+
+        strcat(szOut, "                    ");
+        strcat(szOut, szPipCount);
+    }
+
     TextToClipboard(szOut);
 }
 
