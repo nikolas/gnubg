@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.28 $)
+AC_REVISION($Revision: 1.29 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.02.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -334,17 +334,6 @@ if test "$with_python" != "no" && test "x$have_python" = "xyes"; then
         AC_DEFINE(USE_PYTHON,1,[Define if you want to use Python inside gnubg])
 fi
 AM_CONDITIONAL(USE_PYTHON, test "$with_python" != "no" && test "$have_python" != "no" )
-
-dnl
-dnl Should we enable Extended MatchID test code
-dnl
-
-AC_MSG_CHECKING([for extended match ids])
-AC_ARG_ENABLE( extmatchid, [  --disable-extmatchid    disable extended MatchIDs ])
-AS_IF([test "x$enable_extmatchid" != "xno"], [
-        AC_DEFINE(USE_EXTENDEDMATCHID,1,Define if you want extended MatchID support)
-])
-AS_IF( [test "x$enable_extmatchid" != "xno"], [AC_MSG_RESULT(yes)], [AC_MSG_RESULT(no)] )
 
 dnl
 dnl SIMD

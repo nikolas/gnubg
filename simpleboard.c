@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simpleboard.c,v 1.22 2013/06/16 02:16:21 mdpetch Exp $
+ * $Id: simpleboard.c,v 1.23 2013/09/10 22:24:52 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -526,9 +526,7 @@ simple_board_new_from_ids(gchar * position_id, gchar * match_id, cairo_t * cr)
         (board->ms.anDice, &board->ms.fTurn,
          &board->ms.fResigned, &board->ms.fDoubled, &board->ms.fMove,
          &board->ms.fCubeOwner, &board->ms.fCrawford, &board->ms.nMatchTo, board->ms.anScore, &board->ms.nCube,
-#if USE_EXTENDEDMATCHID
          &board->ms.fJacoby,
-#endif
          &board->ms.gs, match_id)) {
         g_free(board);
         return (NULL);
