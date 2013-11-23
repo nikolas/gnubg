@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.29 $)
+AC_REVISION($Revision: 1.30 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.02.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -250,6 +250,14 @@ dnl
 
 AC_C_INLINE
 AC_TYPE_SIZE_T
+
+# Check for __builtin_expect()
+AC_MSG_CHECKING([for __builtin_expect()])
+AC_LINK_IFELSE([AC_LANG_PROGRAM(, return __builtin_expect(main != 0, 1))],
+	[AC_DEFINE(HAVE_BUILTIN_EXPECT, 1,
+		Define to 1 if compiler supports __builtin_expect)
+		AC_MSG_RESULT([yes])],
+		[AC_MSG_RESULT([no])])
 
 dnl
 dnl Checks for library functions.
