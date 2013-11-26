@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.166 2013/11/20 21:23:10 plm Exp $
+ * $Id: gnubgmodule.c,v 1.167 2013/11/26 19:03:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3112,7 +3112,7 @@ python_run_file(gpointer file)
 #endif
 
 extern PyObject *
-PythonGnubgModule()
+PythonGnubgModule(void)
 {
     return py_gnubg_module;
 }
