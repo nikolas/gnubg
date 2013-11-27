@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.423 2013/11/10 16:03:08 plm Exp $
+ * $Id: play.c,v 1.424 2013/11/20 21:23:10 plm Exp $
  */
 
 #include "config.h"
@@ -2951,9 +2951,7 @@ ChangeGame(listOLD * plGameNew)
         if (reallastmt >= MOVE_SETBOARD && pmr_cur->ml.cMoves == 0)
             pmr_cur->fPlayer = reallastplayer;
         if (pmr_cur->fPlayer != ms.fTurn) {
-            char *sz = g_strdup_printf("%s", pmr_cur->fPlayer ? "1" : "0");
-            CommandSetTurn(sz);
-            g_free(sz);
+            SetTurn(pmr_cur->fPlayer);
         }
         if (dice_rolled) {
             ms.anDice[0] = pmr_cur->anDice[0];
