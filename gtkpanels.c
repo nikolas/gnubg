@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.73 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtkpanels.c,v 1.74 2013/06/18 21:21:13 plm Exp $
  */
 
 #include "config.h"
@@ -1278,7 +1278,7 @@ HideAllPanels(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
 #if (USE_GTKUIMANAGER)
 void
-ToggleDockPanels(GtkToggleAction * action, gpointer user_data)
+ToggleDockPanels(GtkToggleAction * action, gpointer UNUSED(user_data))
 {
     int newValue = gtk_toggle_action_get_active(action);
     if (fDockPanels != newValue) {
