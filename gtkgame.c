@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.875 2013/09/29 19:35:38 plm Exp $
+ * $Id: gtkgame.c,v 1.876 2013/10/18 21:17:39 plm Exp $
  */
 
 #include "gnubgmodule.h"
@@ -252,6 +252,10 @@ ExecActionCommand_internal(guint iWidgetType, guint iCommand, gchar * szCommand,
         UserCommand(sz);
         return;
 
+    case CMD_ANALYSE_MATCH:
+        UserCommand("analyse match");
+        UserCommand("show statistics match");
+        return;
 
     default:
         UserCommand(szCommand);
@@ -491,6 +495,10 @@ Command(gpointer UNUSED(p), guint iCommand, GtkWidget * widget)
         UserCommand(sz);
         return;
 
+    case CMD_ANALYSE_MATCH:
+        UserCommand(aszCommands[CMD_ANALYSE_MATCH]);
+        UserCommand(aszCommands[CMD_SHOW_STATISTICS_MATCH]);
+        return;
 
     default:
         UserCommand(aszCommands[iCommand]);
