@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.318 2013/10/18 20:04:13 plm Exp $
+ * $Id: gtkboard.c,v 1.319 2013/11/20 21:23:10 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3435,7 +3435,7 @@ DrawAlphaImage(GdkDrawable * pd, int x, int y, unsigned char *puchSrc, int nStri
     for (iy = 0; iy < cy; iy++) {
         for (ix = 0; ix < cx; ix++) {
             puchDest[0] = puch[0] * 0x100 / (0x100 - puch[3]);
-            puchDest[1] = puch[2] * 0x100 / (0x100 - puch[3]);
+            puchDest[1] = puch[1] * 0x100 / (0x100 - puch[3]);
             puchDest[2] = puch[2] * 0x100 / (0x100 - puch[3]);
             puchDest[3] = 0xFF - puch[3];
 
