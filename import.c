@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.185 2013/11/12 22:40:12 plm Exp $
+ * $Id: import.c,v 1.186 2013/11/27 21:27:09 plm Exp $
  */
 
 #include "config.h"
@@ -889,7 +889,7 @@ ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warn
     for (; pch >= sz0; pch--)
         if (isspace(*pch))
             *pch = ' ';
-        else if (*pch == ',') { /* GamesGrid mat files have ratings */
+        else if (*pch == ',' && strtol(pch + 1, NULL, 10) > 0) {        /* GamesGrid mat files have ratings */
             *pch = '\0';        /* after player name                */
             SetMatchInfo(&mi.pchRating[0], pch + 1, NULL);
         }
@@ -901,7 +901,7 @@ ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warn
     for (; pch >= sz1; pch--)
         if (isspace(*pch))
             *pch = ' ';
-        else if (*pch == ',') { /* GamesGrid mat files have ratings */
+        else if (*pch == ',' && strtol(pch + 1, NULL, 10) > 0) {        /* GamesGrid mat files have ratings */
             *pch = '\0';        /* after player name                */
             SetMatchInfo(&mi.pchRating[1], pch + 1, NULL);
         }
