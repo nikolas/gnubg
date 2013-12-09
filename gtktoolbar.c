@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.69 2013/06/16 02:16:17 mdpetch Exp $
+ * $Id: gtktoolbar.c,v 1.70 2013/11/28 22:56:58 plm Exp $
  */
 
 #include "config.h"
@@ -381,21 +381,21 @@ ToolbarNew(void)
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwSave), TRUE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwSave), NULL);
     ptw->pwTake = gtk_ui_manager_get_widget(puim, "/MainToolBar/Accept");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwTake), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwTake), TRUE);
     ptw->pwDrop = gtk_ui_manager_get_widget(puim, "/MainToolBar/Reject");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwDrop), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwDrop), TRUE);
     ptw->pwDouble = gtk_ui_manager_get_widget(puim, "/MainToolBar/Double");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwDouble), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwDouble), TRUE);
     ptw->pwResign = gtk_ui_manager_get_widget(puim, "/MainToolBar/Resign");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwResign), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwResign), TRUE);
     ptw->pwEndGame = gtk_ui_manager_get_widget(puim, "/MainToolBar/EndGame");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwEndGame), FALSE);
     ptw->pwReset = gtk_ui_manager_get_widget(puim, "/MainToolBar/Undo");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwReset), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwReset), TRUE);
     ptw->pwHint = gtk_ui_manager_get_widget(puim, "/MainToolBar/Hint");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwHint), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwHint), TRUE);
     ptw->pwEdit = gtk_ui_manager_get_widget(puim, "/MainToolBar/EditPosition");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwEdit), FALSE);
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwEdit), TRUE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwEdit), NULL);
     ptw->pwButtonClockwise = gtk_ui_manager_get_widget(puim, "/MainToolBar/PlayClockwise");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwButtonClockwise), FALSE);
