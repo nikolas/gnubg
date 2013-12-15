@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.237 2013/09/12 22:37:22 plm Exp $
+ * $Id: rollout.c,v 1.238 2013/12/15 15:18:18 plm Exp $
  */
 
 #include "config.h"
@@ -284,9 +284,6 @@ ClosedBoard(int afClosedBoard[2], const TanBoard anBoard)
 #define BasicCubefulRollout BasicCubefulRolloutWithLocking
 
 extern unsigned int initial_game_count;
-#if USE_GTK
-extern int fX;
-#endif
 
 #endif
 
