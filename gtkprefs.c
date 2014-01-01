@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.191 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtkprefs.c,v 1.192 2013/06/23 10:02:47 plm Exp $
  */
 
 #include "config.h"
@@ -1723,7 +1723,7 @@ UseDesign(void)
             if (i != 1)
                 gtk_adjustment_set_value(GTK_ADJUSTMENT(apadjBoard[i]), newPrefs.aSpeckle[i] / 128.0);
 
-            for (j = 0; j < 3; j++)
+            for (j = 0; j < 4; j++)
                 ar[j] = newPrefs.aanBoardColour[i][j] / 255.0;
 
             gtk_color_button_set_from_array(GTK_COLOR_BUTTON(apwBoard[i]), ar);
@@ -1833,7 +1833,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.191 2013/06/16 02:16:16 mdpetch Exp $\n"
+          "    $Id: gtkprefs.c,v 1.192 2013/06/23 10:02:47 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
