@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.62 2013/06/16 02:16:10 mdpetch Exp $
+ * $Id: drawboard.c,v 1.63 2013/09/09 20:47:05 plm Exp $
  */
 
 #include "config.h"
@@ -970,6 +970,7 @@ ParseFIBSBoard(char *pch, TanBoard anBoard,
     char *szTmp;
     int nTurn, nColor, nDirection;
     int anFIBSBoard[26];
+    int fMustSwap = 0;
 
     /* Names and match length/score */
     c = -1;
@@ -1038,7 +1039,6 @@ ParseFIBSBoard(char *pch, TanBoard anBoard,
     if (!*pfDoubled && !fCanDouble && !fOppCanDouble)
         *pfDoubled = 1;
 
-    int fMustSwap = 0;
     if (*pfDoubled)
         fMustSwap = !fMustSwap;
     if (nTurn * nColor < 0)

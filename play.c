@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.424 2013/11/20 21:23:10 plm Exp $
+ * $Id: play.c,v 1.425 2013/11/27 22:04:42 plm Exp $
  */
 
 #include "config.h"
@@ -3278,15 +3278,15 @@ CommandEndGame(char *UNUSED(sz))
     int fAutoGame_store = fAutoGame;
     int fDisplay_store = fDisplay;
     int fQuiet_store = fQuiet;
+    const evalcontext ec_quick = { FALSE, 0, FALSE, TRUE, 0.0 };
+    int manual_dice = (rngCurrent == RNG_MANUAL);
+    evalcontext ec_cheq_store[2];
+    evalcontext ec_cube_store[2];
 #if USE_BOARD3D
     BoardData *bd = NULL;
     if (fX && pwBoard)
         bd = BOARD(pwBoard)->board_data;
 #endif
-    const evalcontext ec_quick = { FALSE, 0, FALSE, TRUE, 0.0 };
-    int manual_dice = (rngCurrent == RNG_MANUAL);
-    evalcontext ec_cheq_store[2];
-    evalcontext ec_cube_store[2];
     ec_cheq_store[0] = ap[0].esChequer.ec;
     ec_cheq_store[1] = ap[1].esChequer.ec;
     ec_cube_store[0] = ap[0].esCube.ec;
