@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.89 2013/07/10 23:32:50 mdpetch Exp $
+ * $Id: makebearoff.c,v 1.90 2013/09/12 22:42:04 plm Exp $
  */
 
 #include "config.h"
@@ -1253,7 +1253,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.89 $\n");
+    printf("makebearoff $Revision: 1.90 $\n");
 }
 
 
@@ -1387,10 +1387,7 @@ main(int argc, char **argv)
             generate_os(nOS, fHeader, fCompress, fGammon, nHashSize, pbc, output);
         }
 
-        if (pbc) {
-            fprintf(stderr, "Number of reads in old database: %lu\n", pbc->nReads);
-            BearoffClose(pbc);
-        }
+        BearoffClose(pbc);
 
         fprintf(stderr, "Number of re-reads while generating: %ld\n", cLookup);
     }
@@ -1435,10 +1432,8 @@ main(int argc, char **argv)
 
         /* close old bearoff database */
 
-        if (pbc) {
-            fprintf(stderr, "Number of reads in old database: %lu\n", pbc->nReads);
-            BearoffClose(pbc);
-        }
+        BearoffClose(pbc);
+
         fprintf(stderr, "Number of re-reads while generating: %ld\n", cLookup);
 
     }

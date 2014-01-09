@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.h,v 1.29 2012/08/27 23:06:42 plm Exp $
+ * $Id: bearoff.h,v 1.30 2013/06/16 02:16:09 mdpetch Exp $
  */
 
 #ifndef BEAROFF_H
@@ -50,9 +50,6 @@ typedef struct _bearoffcontext {
     GMappedFile *map;
 #endif
     unsigned char *p;           /* pointer to data in memory */
-
-    unsigned long int nReads;   /* number of reads */
-
 } bearoffcontext;
 
 enum _bearoffoptions {

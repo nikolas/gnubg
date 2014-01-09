@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.95 2013/10/19 14:50:44 plm Exp $
+ * $Id: bearoff.c,v 1.96 2013/10/25 21:25:23 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -302,8 +302,6 @@ ReadTwoSidedBearoff(const bearoffcontext * pbc, const unsigned int iPos, float a
         if (ar)
             ar[i] = us / 32767.5f - 1.0f;
     }
-
-    ++((bearoffcontext *) pbc)->nReads; /* nReads only used for stats info */
 }
 
 extern int
@@ -365,8 +363,6 @@ ReadHypergammon(const bearoffcontext * pbc, const unsigned int iPos, float arOut
             us = pc[15 + 3 * i] | (pc[15 + 3 * i + 1]) << 8 | (pc[15 + 3 * i + 2]) << 16;
             arEquity[i] = (us / 16777215.0f - 0.5f) * 6.0f;
         }
-
-    ++((bearoffcontext *) pbc)->nReads; /* nReads only used for stats info */
 
     return 0;
 
@@ -1007,8 +1003,6 @@ ReadBearoffOneSidedND(const bearoffcontext * pbc,
     if (ar)
         memcpy(ar, arx, 16);
 
-    ++((bearoffcontext *) pbc)->nReads; /* nReads only used for stats info */
-
     return 0;
 
 }
@@ -1185,8 +1179,6 @@ ReadBearoffOneSidedExact(const bearoffcontext * pbc, const unsigned int nPosID,
     }
 
     AssignOneSided(arProb, arGammonProb, ar, ausProb, ausGammonProb, pus, pus + 32);
-
-    ++((bearoffcontext *) pbc)->nReads; /* nReads only used for stats info */
 
     return 0;
 }
