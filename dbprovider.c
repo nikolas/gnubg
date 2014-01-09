@@ -19,11 +19,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.42 2013/07/26 21:20:46 plm Exp $
+ * $Id: dbprovider.c,v 1.43 2013/10/18 22:08:16 plm Exp $
  */
 
 #include "config.h"
 #include "gnubgmodule.h"
+#include "stdlib.h"
 
 #include "backgammon.h"
 #include <glib/gstdio.h>

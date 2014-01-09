@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.187 2013/12/07 21:42:10 plm Exp $
+ * $Id: import.c,v 1.188 2014/01/05 21:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -74,7 +74,7 @@ ParseSetDate(char *szFilename)
      * for other files use last file access date
      */
 
-    struct stat filestat;
+    GStatBuf filestat;
     struct tm *matchdate = NULL;
 
 #if HAVE_STRPTIME
@@ -94,7 +94,7 @@ ParseSetDate(char *szFilename)
     /* date could not be parsed, use date of last modification */
     if (matchdate == NULL) {
         if (g_stat(szFilename, &filestat) == 0) {
-            matchdate = localtime(&filestat.st_mtime);
+            matchdate = localtime((time_t*)&filestat.st_mtime);
         }
     }
 
