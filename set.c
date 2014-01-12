@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.375 2013/09/12 21:51:35 plm Exp $
+ * $Id: set.c,v 1.376 2013/11/27 22:04:42 plm Exp $
  */
 
 #include "config.h"
@@ -4426,40 +4426,11 @@ SetXGID(char *sz)
         return 1;
     }
 
-    for (i = 0; i < 26; i++) {
-        int p0, p1;
-
-        if (i == 0) {
-            p0 = 24;
-            p1 = -1;
-        } else if (i == 25) {
-            p0 = -1;
-            p1 = 24;
-        } else {
-            p0 = 24 - i;
-            p1 = i - 1;
-        }
-
-        if (pos[i] >= 'A' && pos[i] <= 'P') {
-            if (p0 > -1)
-                anBoard[0][p0] = 0;
-            anBoard[1][p1] = pos[i] - 'A' + 1;
-        } else if (pos[i] >= 'a' && pos[i] <= 'p') {
-            anBoard[0][p0] = pos[i] - 'a' + 1;
-            if (p1 > -1)
-                anBoard[1][p1] = 0;
-        } else if (pos[i] == '-') {
-            if (p0 > -1)
-                anBoard[0][p0] = 0;
-            if (p1 > -1)
-                anBoard[1][p1] = 0;
-        } else {
-            g_free(s);
-            return 1;
-        }
-    }
-
-    g_free(s);
+    if (PositionFromXG(anBoard, pos)) {
+        g_free(s);
+        return 1;
+    } else
+        g_free(s);
 
     /* atoi(v[0]) is a maximum (money) cube value, unused in gnubg */
 
