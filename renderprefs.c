@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.45 2013/06/16 02:16:20 mdpetch Exp $
+ * $Id: renderprefs.c,v 1.46 2013/09/12 22:10:38 plm Exp $
  */
 
 #include "config.h"
@@ -665,7 +665,7 @@ SaveRenderingSettings(FILE * pf)
     fprintf(pf, "animateflag=%c ", prd->animateFlag ? 'y' : 'n');
     fprintf(pf, "closeboard=%c ", prd->closeBoardOnExit ? 'y' : 'n');
     fprintf(pf, "quickdraw=%c ", prd->quickDraw ? 'y' : 'n');
-    fprintf(pf, "curveaccuracy=%d ", prd->curveAccuracy);
+    fprintf(pf, "curveaccuracy=%u ", prd->curveAccuracy);
     fprintf(pf, "lighttype=%c ", prd->lightType == LT_POSITIONAL ? 'p' : 'd');
 
     g_ascii_formatd(buf, G_ASCII_DTOSTR_BUF_SIZE, "%f", prd->lightPos[0]);
