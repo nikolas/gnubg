@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.425 2013/11/27 22:04:42 plm Exp $
+ * $Id: play.c,v 1.426 2014/01/08 21:26:11 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -4015,7 +4015,7 @@ SetMatchID(const char *szMatchID)
 
     if (anDice[0]) {
         char sz[10];
-        sprintf(sz, "%d %d", anDice[0], anDice[1]);
+        sprintf(sz, "%u %u", anDice[0], anDice[1]);
         CommandSetDice(sz);
 
     }
