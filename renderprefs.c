@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.46 2013/09/12 22:10:38 plm Exp $
+ * $Id: renderprefs.c,v 1.47 2014/01/23 23:11:43 plm Exp $
  */
 
 #include "config.h"
@@ -172,20 +172,21 @@ SetMaterialCommon(Material * pMat, const char *sz, const char **arg)
     if (SetColourF(pMat->specularColour, sz) != 0)
         return -1;
 
-    if (sz)
+    if (sz) {
         sz += strlen(sz) + 1;
-    if ((pch = strchr(sz, ';')))
-        *pch = 0;
-
+        if ((pch = strchr(sz, ';')))
+            *pch = 0;
+    }
     if (sz)
         pMat->shine = atoi(sz);
     else
         pMat->shine = 128;
 
-    if (sz)
+    if (sz) {
         sz += strlen(sz) + 1;
-    if ((pch = strchr(sz, ';')))
-        *pch = 0;
+        if ((pch = strchr(sz, ';')))
+            *pch = 0;
+    }
     if (sz) {
         int o = atoi(sz);
         if (o == 100)
