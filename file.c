@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.27 2013/10/20 15:17:54 plm Exp $
+ * $Id: file.c,v 1.28 2013/11/12 22:40:12 plm Exp $
  */
 
 #include "config.h"
@@ -467,14 +467,16 @@ ReadFilePreview(const char *filename)
 extern char *
 GetFilename(int CheckForCurrent, ExportType type)
 {
-    char *sz, tstr[15];
+    char *sz;
     time_t t;
 
     if (CheckForCurrent && szCurrentFileName && *szCurrentFileName)
         sz = g_strdup_printf("%s%s", szCurrentFileName, export_format[type].extension);
     else {
+        char tstr[15];
+
         if (mi.nYear)
-            sprintf(tstr, "%04d-%02d-%02d", mi.nYear, mi.nMonth, mi.nDay);
+            sprintf(tstr, "%04u-%02u-%02u", mi.nYear, mi.nMonth, mi.nDay);
         else {
             t = time(NULL);
             if (strftime(tstr, 14, "%Y-%m-%d-%H%M", localtime(&t)) == 0)
