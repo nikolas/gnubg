@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.90 2013/09/12 22:42:04 plm Exp $
+ * $Id: makebearoff.c,v 1.91 2014/01/09 22:15:10 plm Exp $
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ XhashStatus(xhash * ph)
 
     fprintf(stderr, "Xhash status:\n");
     fprintf(stderr, "Size:    %d elements\n", ph->nHashSize);
-    fprintf(stderr, "Queries: %lu (hits: %ld)\n", ph->nQueries, ph->nHits);
+    fprintf(stderr, "Queries: %lu (hits: %lu)\n", ph->nQueries, ph->nHits);
     fprintf(stderr, "Entries: %lu (overwrites: %lu)\n", ph->nEntries, ph->nOverwrites);
 
 }
@@ -1253,7 +1253,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.90 $\n");
+    printf("makebearoff $Revision: 1.91 $\n");
 }
 
 
