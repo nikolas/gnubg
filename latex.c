@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: latex.c,v 1.52 2011/02/02 18:38:29 c_anthon Exp $
+ * $Id: latex.c,v 1.53 2013/06/16 02:16:18 mdpetch Exp $
  */
 
 #include "config.h"
@@ -415,7 +415,7 @@ ExportGameLaTeX(FILE * pf, listOLD * plGame)
                                    pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble);
             /* FIXME: output cube skill */
 
-            sprintf(sz, "%s %d%d%s: ", PlayerSymbol(pmr->fPlayer),
+            sprintf(sz, "%s %u%u%s: ", PlayerSymbol(pmr->fPlayer),
                     pmr->anDice[0], pmr->anDice[1], aszLuckTypeLaTeXAbbr[pmr->lt]);
             FormatMove(strchr(sz, 0), (ConstTanBoard) msExport.anBoard, pmr->n.anMove);
             fprintf(pf, "\\begin{center}%s%s\\end{center}\n\n", sz, aszSkillTypeAbbr[pmr->n.stMove]);
