@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.189 2014/01/09 22:18:30 Superfly_Jon Exp $
+ * $Id: import.c,v 1.190 2014/01/12 21:41:36 plm Exp $
  */
 
 #include "config.h"
@@ -1140,6 +1140,21 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
     }
 
     UpdateSettings();
+
+    {
+      gchar **token;
+      int i = 0;
+
+      token = g_strsplit_set(aliases, ":", -1);
+
+      while (token[i] != NULL)
+        if (!strcmp(token[i++], ap[0].szName)) {
+          CommandSwapPlayers(NULL);
+          break;
+        }
+
+      g_strfreev(token);
+    }
 
 #if USE_GTK
     if (fX) {

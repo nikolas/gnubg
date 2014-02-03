@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.376 2013/11/27 22:04:42 plm Exp $
+ * $Id: set.c,v 1.377 2014/01/12 20:09:54 plm Exp $
  */
 
 #include "config.h"
@@ -1613,6 +1613,18 @@ CommandSetDefaultNames(char *sz)
     outputf(_("Players will be known as `%s' and `%s'.\n This setting will take effect when a new match is started.\n"),
             default_names[0], default_names[1]);
 }
+
+extern void
+CommandSetAliases(char *sz)
+{
+        if (strlen(sz) > 63)
+            outputl(_("Aliases list limited to 63 characters, truncating.\n"));
+
+	strncpy(aliases, sz, 63);
+
+    outputf(_("Aliases for player 1 when importing MAT files set to \"%s\".\n "), aliases);
+}
+
 
 extern void
 CommandSetPrompt(char *szParam)
