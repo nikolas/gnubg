@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.47 2014/01/23 23:11:43 plm Exp $
+ * $Id: renderprefs.c,v 1.48 2014/01/24 22:23:36 plm Exp $
  */
 
 #include "config.h"
@@ -159,7 +159,7 @@ static int
 SetMaterialCommon(Material * pMat, const char *sz, const char **arg)
 {
     float opac;
-    char *pch;
+    char *pch = NULL;
 
     if (SetColourF(pMat->ambientColour, sz) != 0)
         return -1;
