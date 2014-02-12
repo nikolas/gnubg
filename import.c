@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.190 2014/01/12 21:41:36 plm Exp $
+ * $Id: import.c,v 1.191 2014/02/03 22:42:03 plm Exp $
  */
 
 #include "config.h"
@@ -41,6 +41,10 @@
 #include "file.h"
 #include "positionid.h"
 #include "matchequity.h"
+
+#ifdef WIN32
+#define GStatBuf struct _g_stat_struct
+#endif
 
 static int
 ParseSnowieTxt(char *sz,
