@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.107 2013/04/13 22:54:33 plm Exp $
+ * $Id: text.c,v 1.108 2013/06/16 02:16:21 mdpetch Exp $
  */
 
 #include "config.h"
@@ -123,7 +123,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
 
     PipCount((ConstTanBoard) anBoard, anPips);
 
-    fprintf(pf, "Pip counts: O %d, X %d\n\n", anPips[0], anPips[1]);
+    fprintf(pf, "Pip counts: O %u, X %u\n\n", anPips[0], anPips[1]);
 
 }
 
@@ -223,7 +223,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.107 $";
+    const char szVersion[] = "$Revision: 1.108 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
