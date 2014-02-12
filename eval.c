@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.433 2013/09/26 21:39:47 plm Exp $
+ * $Id: eval.c,v 1.434 2013/10/25 21:34:48 plm Exp $
  */
 
 #include "config.h"
@@ -3060,8 +3060,7 @@ EvalStatus(char *szOutput)
         if (acsf[i])
             acsf[i] (strchr(szOutput, 0));
 
-    sprintf(strchr(szOutput, 0),
-        _(" * " "Weights file and databases installed in" ":\n   - %s\n"), getPkgDataDir());
+    sprintf(strchr(szOutput, 0), _(" * " "Weights file and databases installed in" ":\n   - %s\n"), getPkgDataDir());
 }
 
 
@@ -4061,7 +4060,7 @@ FormatEval(char *sz, evalsetup * pes)
         strcpy(sz, "");
         break;
     case EVAL_EVAL:
-        sprintf(sz, "%s %1i-%s", pes->ec.fCubeful ? _("Cubeful") : _("Cubeless"), pes->ec.nPlies, _("ply"));
+        sprintf(sz, "%s %1u-%s", pes->ec.fCubeful ? _("Cubeful") : _("Cubeless"), pes->ec.nPlies, _("ply"));
         break;
     case EVAL_ROLLOUT:
         sprintf(sz, "%s", _("Rollout"));
