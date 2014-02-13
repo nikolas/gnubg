@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.7 2012/08/27 23:06:42 plm Exp $
+ * $Id: gtklocdefs.h,v 1.8 2013/06/16 02:16:15 mdpetch Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -34,7 +34,8 @@
 #define gtk_combo_box_text_append_text gtk_combo_box_append_text
 #define gtk_combo_box_text_remove gtk_combo_box_remove_text
 #define gtk_combo_box_text_insert_text gtk_combo_box_insert_text
-#define GTK_COMBO_BOX_TEXT  GTK_COMBO_BOX
+#define GtkComboBoxText GtkComboBox
+#define GTK_COMBO_BOX_TEXT GTK_COMBO_BOX
 #endif
 
 #if ! GTK_CHECK_VERSION(2,22,0)
