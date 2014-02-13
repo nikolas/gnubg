@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.31 $)
+AC_REVISION($Revision: 1.32 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.03.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -130,12 +130,13 @@ PKG_CHECK_MODULES(LIBPNG, [libpng >= 1.2], have_libpng="yes", AC_MSG_WARN([no pn
 PKG_CHECK_MODULES(CAIRO, [cairo >= 1.2], have_cairo="yes", [AC_MSG_WARN([no cairo support])])
 PKG_CHECK_MODULES(PANGOCAIRO, [pangocairo >= 1.0], have_pangocairo="yes", [AC_MSG_WARN([no pangocairo support])])
 PKG_CHECK_MODULES(SQLITE, [sqlite3], have_sqlite="yes", AC_MSG_WARN([no sqlite support]))
-PKG_CHECK_MODULES(GLU, [glu], have_glu="yes", AC_MSG_WARN([no glu support]))
 
 if test "x$win32" != "xyes"; then
     PKG_CHECK_MODULES(CANBERRA, [libcanberra-gtk], have_canberra="yes", AC_MSG_WARN([no libcanberra-gtk support]))
+    PKG_CHECK_MODULES(GLU, [glu], have_glu="yes", AC_MSG_WARN([no glu support]))
 else
     have_canberra="no"
+    have_glu="yes"
 fi
 
 PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.6.0], have_gtk="yes" , AC_MSG_WARN([no gtk support]))
