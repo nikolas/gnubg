@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.947 2014/01/24 23:26:57 plm Exp $
+ * $Id: gnubg.c,v 1.948 2014/02/03 22:42:04 plm Exp $
  */
 
 #include "config.h"
@@ -682,7 +682,6 @@ NextTokenGeneral(char **ppch, const char *szTokens)
                 *pchSave++ = **ppch;
         } else {
             switch (**ppch) {
-            case '\'':
             case '"':
                 /* quote mark */
                 if (!chQuote)
