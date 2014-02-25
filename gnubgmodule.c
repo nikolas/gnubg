@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.170 2014/02/12 18:23:49 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.171 2014/02/25 20:53:43 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1112,7 +1112,7 @@ PythonFindBestMove(PyObject * UNUSED(self), PyObject * args)
             p = PyTuple_New(8);
             for (k = 0; k < 8; ++k) {
                 nMove = ml.amMoves[0].anMove[k];
-                if (nMove == -1) 
+                if ((nMove == -1) && ((k % 2) == 0)) 
                     break;
                 
                 PyTuple_SET_ITEM(p, k, PyInt_FromLong(nMove + 1));
