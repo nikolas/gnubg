@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.442 2013/11/27 22:04:42 plm Exp $
+ * $Id: backgammon.h,v 1.443 2014/02/03 22:42:04 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -245,6 +245,7 @@ typedef struct _findData {
     float rThr;
     const cubeinfo *pci;
     const evalcontext *pec;
+    unsigned int anDice[2];
      movefilter(*aamf)[MAX_FILTER_PLIES];
 } findData;
 
@@ -257,6 +258,7 @@ typedef struct _scoreData {
 typedef void (*AsyncFun) (void *);
 
 void asyncDumpDecision(decisionData * pdd);
+void asyncFindBestMoves(findData * pfd);
 void asyncFindMove(findData * pfd);
 void asyncScoreMove(scoreData * psd);
 void asyncEvalRoll(decisionData * pcdd);

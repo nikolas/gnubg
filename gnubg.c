@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.949 2014/02/16 18:39:34 plm Exp $
+ * $Id: gnubg.c,v 1.950 2014/02/16 19:50:25 plm Exp $
  */
 
 #include "config.h"
@@ -5436,6 +5436,16 @@ SetupLanguage(const char *newLangCode)
     return (result);
 }
 #endif
+
+void
+asyncFindBestMoves(findData * pfd)
+{
+    if (FindnSaveBestMoves(pfd->pml, pfd->anDice[0], pfd->anDice[1], pfd->pboard,
+                           pfd->keyMove, pfd->rThr, pfd->pci, pfd->pec, pfd->aamf) < 0)
+        MT_SetResultFailed();
+        
+    RefreshMoveList (pfd->pml, NULL);
+}
 
 void
 asyncFindMove(findData * pfd)
