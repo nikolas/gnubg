@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.63 2013/09/09 20:47:05 plm Exp $
+ * $Id: drawboard.c,v 1.64 2014/01/08 21:26:08 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -967,7 +967,6 @@ ParseFIBSBoard(char *pch, TanBoard anBoard,
 
     int i, c, n, fCanDouble, fOppCanDouble, anOppDice[2];
     int nTmp, fNonCrawford, fPostCrawford;
-    char *szTmp;
     int nTurn, nColor, nDirection;
     int anFIBSBoard[26];
     int fMustSwap = 0;
@@ -1046,9 +1045,6 @@ ParseFIBSBoard(char *pch, TanBoard anBoard,
 
     /* Opponent's turn? */
     if (fMustSwap) {
-        szTmp = szPlayer;
-        szPlayer = szOpp;
-        szOpp = szTmp;
         nTmp = *pnScore;
         *pnScore = *pnScoreOpp;
         *pnScoreOpp = nTmp;
