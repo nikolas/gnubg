@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.173 2014/02/27 00:26:20 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.174 2014/02/27 11:29:48 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3102,7 +3102,7 @@ PyMethodDef gnubgMethods[] = {
      "        pieces on points 1..24 and the bar"}
     ,
     {"calcgammonprice", (PyCFunction) PythonCalculateGammonPrice, METH_O,
-     "return cube-info with updated gammon values\n"
+     "return cube-info with updated gammon prices\n"
      "    arguments: [cube-info dictionary]\n"
      "        cube-info: see 'cfevaluate'\n"
      "    returns: cube-info dictionary"}
