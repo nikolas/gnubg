@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.193 2014/01/01 23:02:48 plm Exp $
+ * $Id: gtkprefs.c,v 1.194 2014/01/13 20:47:09 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1747,7 +1747,7 @@ UseDesign(void)
             rAzimuth = 0.0;
         else
             rAzimuth = (float) (acos(newPrefs.arLight[0] / sqrt(1.0 - newPrefs.arLight[2] *
-                                                                 newPrefs.arLight[2])) * 180 / G_PI);
+                                                                newPrefs.arLight[2])) * 180 / G_PI);
         if (newPrefs.arLight[1] < 0)
             rAzimuth = 360 - rAzimuth;
 
@@ -1769,18 +1769,16 @@ UseDesign(void)
 static void
 WriteTheDesign(boarddesign * pbde, FILE * pf)
 {
-	gchar *title, *author;
-	if (pbde->szTitle) {
-		title = g_markup_escape_text(pbde->szTitle, -1);
-	}
-	else
-		title = _("unknown title");
+    gchar *title, *author;
+    if (pbde->szTitle) {
+        title = g_markup_escape_text(pbde->szTitle, -1);
+    } else
+        title = _("unknown title");
 
-	if (pbde->szAuthor) {
-		author = g_markup_escape_text(pbde->szAuthor, -1);
-	}
-	else
-		author = _("unknown author");
+    if (pbde->szAuthor) {
+        author = g_markup_escape_text(pbde->szAuthor, -1);
+    } else
+        author = _("unknown author");
 
     fputs("   <board-design>\n\n", pf);
 
@@ -1791,15 +1789,14 @@ WriteTheDesign(boarddesign * pbde, FILE * pf)
             "         <title>%s</title>\n"
             "         <author>%s</author>\n"
             "      </about>\n\n"
-            "      <design>%s   </design>\n\n",
-            title, author, pbde->szBoardDesign ? pbde->szBoardDesign : "");
+            "      <design>%s   </design>\n\n", title, author, pbde->szBoardDesign ? pbde->szBoardDesign : "");
 
     fputs("   </board-design>\n\n\n", pf);
 
-	if (pbde->szTitle)
-		g_free(title);
-	if (pbde->szAuthor)
-		g_free(author);
+    if (pbde->szTitle)
+        g_free(title);
+    if (pbde->szAuthor)
+        g_free(author);
 }
 
 static void
@@ -1847,7 +1844,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.193 2014/01/01 23:02:48 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.194 2014/01/13 20:47:09 Superfly_Jon Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2788,10 +2785,12 @@ pref_dialog_map(GtkWidget * UNUSED(window), BoardData * bd)
     DisplayCorrectBoardType(bd, bd->bd3d, bd->rd);
     redrawChange = FALSE;
     bd->rd->quickDraw = FALSE;
+#else
+    (void) bd;                  /* suppress unused parameter compiler warning */
 #endif
     SetTitle();                 /* Make sure title selected properly */
-	gtk_widget_grab_focus(pwDesignList);	/* Select this to stop "change" message after something is changed */
-	fUpdate = TRUE;
+    gtk_widget_grab_focus(pwDesignList);        /* Select this to stop "change" message after something is changed */
+    fUpdate = TRUE;
 }
 
 extern void
