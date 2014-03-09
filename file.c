@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.29 2014/01/24 23:06:54 plm Exp $
+ * $Id: file.c,v 1.30 2014/03/09 19:43:00 plm Exp $
  */
 
 #include "config.h"
@@ -25,7 +25,7 @@
 #include <stdlib.h>
 
 ExportFormat export_format[] = {
-    {EXPORT_SGF, ".sgf", N_("Gnu Backgammon File"), "sgf", {TRUE, TRUE, TRUE}
+    {EXPORT_SGF, ".sgf", N_("GNU Backgammon File"), "sgf", {TRUE, TRUE, TRUE}
      }
     ,                           /*must be the first element */
     {EXPORT_HTML, ".html", "HTML", "html", {TRUE, TRUE, TRUE}
@@ -72,7 +72,7 @@ ExportFormat export_format[] = {
 };
 
 ImportFormat import_format[] = {
-    {IMPORT_SGF, ".sgf", N_("Gnu Backgammon File"), "sgf"}
+    {IMPORT_SGF, ".sgf", N_("GNU Backgammon File"), "sgf"}
     ,                           /*must be the first element */
     {IMPORT_SGG, ".sgg", N_("GamesGrid Save Game"), "sgg"}
     ,
