@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.951 2014/02/25 20:53:38 mdpetch Exp $
+ * $Id: gnubg.c,v 1.952 2014/03/01 21:39:37 plm Exp $
  */
 
 #include "config.h"
@@ -524,7 +524,7 @@ static char szDICE[] = N_("<die> <die>"),
     szMATCHID[] = N_("<matchid>"),
     szGNUBGID[] = N_("<gnubgid>"),
     szXGID[] = N_("<xgid>"),
-    szURL[] = N_("<URL>"),
+    szURL[] = "<URL>",
     szMAXERR[] = N_("<fraction>"), szMINGAMES[] = N_("<minimum games to rollout>"), szFOLDER[] = N_("<folder>"),
 #if USE_GTK
     szWARN[] = N_("[<warning>]"), szWARNYN[] = N_("<warning> on|off"),
@@ -4787,7 +4787,7 @@ main(int argc, char *argv[])
 #endif
 
 #if USE_PYTHON
-    PushSplash(pwSplash, _("Initialising"), _("Python"));
+    PushSplash(pwSplash, _("Initialising"), "Python");
     PythonInitialise(argv[0]);
 #endif
 
