@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.377 2014/01/12 20:09:54 plm Exp $
+ * $Id: set.c,v 1.378 2014/02/03 22:42:03 plm Exp $
  */
 
 #include "config.h"
@@ -4123,7 +4123,7 @@ CommandSetExportHtmlSize(char *sz)
 
     exsExport.nHtmlSize = n;
 
-    outputf(_("Size of generated Html images are %dx%d pixels\n"), n * BOARD_WIDTH, n * BOARD_HEIGHT);
+    outputf(_("Size of generated HTML images is %dx%d pixels\n"), n * BOARD_WIDTH, n * BOARD_HEIGHT);
 
 
 }

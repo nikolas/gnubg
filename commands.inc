@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.37 2013/11/12 22:40:12 plm Exp $ */
+/* $Id: commands.inc,v 1.38 2014/02/03 22:42:03 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -847,7 +847,7 @@ command cER = {
     N_("set type of HTML boards used in HTML export"), NULL, 
     acSetExportHTMLType },
   { "size", CommandSetExportHtmlSize, 
-      N_("Set size of board for Html image export"), 
+      N_("Set size of board for HTML image export"), 
       szVALUE, NULL },
   { NULL, NULL, NULL, NULL, NULL }    
 }, acSetExportMovesDisplay[] = {
