@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.40 2013/07/10 13:56:02 mdpetch Exp $
+ * $Id: makehyper.c,v 1.41 2013/07/10 19:21:45 mdpetch Exp $
  */
 
 #include "config.h"
@@ -592,7 +592,7 @@ main(int argc, char **argv)
         {"restart", 'r', 0, G_OPTION_ARG_FILENAME, &szRestart,
          "Restart calculation of database from \"filename\"", "filename"},
         {"threshold", 't', 0, G_OPTION_ARG_STRING, &szEpsilon,
-         "The convergens threshold (T). Default is 1e-5", "T"},
+         "The convergence threshold (T). Default is 1e-5", "T"},
         {"no-checkpoint", 'n', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &fCheckPoint,
          "Do not write a checkpoint file after each iteration.", NULL},
         {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
@@ -652,7 +652,7 @@ main(int argc, char **argv)
     printf("%-40s: %d\n", _("Total number of two sided positions"), nPos * nPos);
     printf("%-40s: %s %d\n", _("Estimated size of file"), _("bytes"), nPos * nPos * 28 + 40);
     printf("%-40s: %s\n", _("Output file"), szOutput);
-    printf("%-40s: %e\n", _("Convergens threshold"), rEpsilon);
+    printf("%-40s: %e\n", _("Convergence threshold"), rEpsilon);
 
     /* Iteration 0 */
 
