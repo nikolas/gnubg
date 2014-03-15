@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.94 2013/06/16 02:16:20 mdpetch Exp $
+ * $Id: render.c,v 1.95 2013/09/13 19:43:35 plm Exp $
  */
 
 #include "config.h"
@@ -1547,7 +1547,7 @@ RenderBoard(renderdata * prd, unsigned char *puch, int nStride)
         for (ix = 0; ix < CHEQUER_WIDTH * prd->nSize; ix++) {
             /* <= 0 is board; >= 20 is on a point; interpolate in between */
             antialias = 2 * (DISPLAY_POINT_HEIGHT * prd->nSize - iy)
-                + 1 - (BEAROFF_WIDTH + 2 * CHEQUER_WIDTH - 1) * abs(BORDER_WIDTH * prd->nSize - ix);
+                + 1 - (BEAROFF_WIDTH + 2 * CHEQUER_WIDTH - 1) * abs(BORDER_WIDTH * (int)prd->nSize - (int)ix);
 
             if (antialias < 0)
                 antialias = 0;
