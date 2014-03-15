@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.434 2013/10/25 21:34:48 plm Exp $
+ * $Id: eval.c,v 1.435 2014/02/12 21:41:58 plm Exp $
  */
 
 #include "config.h"
@@ -572,7 +572,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
         result = SIMD_Supported();
         switch (result) {
         case -1:
-            outputerrf(_("Can't check for SIMD support - non pentium cpu\n"));
+            outputerrf(_("Can't check for SIMD support\n"));
             break;
         case -2:
             outputerrf(_("No cpuid check available\n"));
