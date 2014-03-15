@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.74 2013/06/18 21:21:13 plm Exp $
+ * $Id: gtkpanels.c,v 1.75 2013/11/28 22:40:34 plm Exp $
  */
 
 #include "config.h"
@@ -318,7 +318,7 @@ UpdateTheoryData(BoardData * bd, int UpdateType, const TanBoard points)
             if (diff == 0)
                 pc = g_strdup_printf(_("equal"));
             else
-                pc = g_strdup_printf("%d %s", abs(anPip[0] - anPip[1]), (diff > 0) ? _("ahead") : _("behind"));
+                pc = g_strdup_printf("%d %s", abs(diff), (diff > 0) ? _("ahead") : _("behind"));
 
             gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, NULL, 0);
             gtk_list_store_set(store, &iter, 1, pc, -1);
