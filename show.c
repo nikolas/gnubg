@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.273 2014/02/03 22:42:03 plm Exp $
+ * $Id: show.c,v 1.274 2014/03/09 23:31:28 plm Exp $
  */
 
 #include "config.h"
@@ -1789,7 +1789,7 @@ CommandShowExport(char *UNUSED(sz))
     output(_("\n"
              "Export settings: \n\n"
              "WARNING: not all settings are honoured in the export!\n"
-             "         Do not expect to much!\n\n" "Include: \n\n"));
+             "         Do not expect too much!\n\n" "Include: \n\n"));
 
     output(_("- annotations"));
     outputf("\r\t\t\t\t\t\t: %s\n", exsExport.fIncludeAnnotation ? _("yes") : _("no"));
