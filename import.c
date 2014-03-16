@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.191 2014/02/03 22:42:03 plm Exp $
+ * $Id: import.c,v 1.192 2014/02/12 18:25:44 mdpetch Exp $
  */
 
 #include "config.h"
@@ -350,7 +350,7 @@ ParseJF(FILE * fp, int *pnMatchTo, int *pfJacoby, int *pfTurn, char aszPlayer[2]
     return 0;
 
   read_failed:
-    outputerr(_("Failed reading jellyfish file"));
+    outputerr(_("Failed reading Jellyfish file"));
     fclose(fp);
     return -2;
 }
