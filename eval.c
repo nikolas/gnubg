@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.436 2014/03/15 23:04:27 plm Exp $
+ * $Id: eval.c,v 1.437 2014/04/27 18:58:26 plm Exp $
  */
 
 #include "config.h"
@@ -1898,16 +1898,6 @@ EvalHypergammon3(const TanBoard anBoard, float arOutput[], const bgvariation UNU
 {
 
     return BearoffEval(apbcHyper[2], anBoard, arOutput);
-
-}
-
-
-
-extern int
-EvalBearoff1Full(const TanBoard anBoard, float arOutput[])
-{
-
-    return BearoffEval(pbc1, anBoard, arOutput);
 
 }
 

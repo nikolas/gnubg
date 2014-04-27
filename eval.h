@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.181 2013/07/18 20:52:50 plm Exp $
+ * $Id: eval.h,v 1.182 2013/09/12 22:24:49 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -422,7 +422,6 @@ extern int ApplyMove(TanBoard anBoard, const int anMove[8], const int fCheckLega
 extern positionclass ClassifyPosition(const TanBoard anBoard, const bgvariation bgv);
 
 /* internal use only */
-extern int EvalBearoff1Full(const TanBoard anBoard, float arOutput[]);
 extern void EvalRaceBG(const TanBoard anBoard, float arOutput[], const bgvariation bgv);
 
 extern float
