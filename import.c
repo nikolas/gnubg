@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.192 2014/02/12 18:25:44 mdpetch Exp $
+ * $Id: import.c,v 1.193 2014/03/16 19:25:55 plm Exp $
  */
 
 #include "config.h"
@@ -44,6 +44,10 @@
 
 #ifdef WIN32
 #define GStatBuf struct _g_stat_struct
+#else
+#if !GLIB_CHECK_VERSION (2,26,0)
+typedef struct stat GStatBuf;
+#endif
 #endif
 
 static int
