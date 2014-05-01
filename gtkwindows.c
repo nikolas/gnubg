@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.49 2013/06/07 16:40:16 mdpetch Exp $
+ * $Id: gtkwindows.c,v 1.50 2013/06/16 02:16:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -267,7 +267,7 @@ GTKGetCurrentParent(void)
 }
 
 extern int
-GTKMessage(char *sz, dialogtype dt)
+GTKMessage(const char *sz, dialogtype dt)
 {
 #define MAXWINSIZE 400
 #define MAXSTRLEN 200

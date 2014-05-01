@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.882 2014/03/09 20:19:54 plm Exp $
+ * $Id: gtkgame.c,v 1.883 2014/03/15 23:17:44 plm Exp $
  */
 
 #include "config.h"
@@ -4215,7 +4215,7 @@ GTKOutputErr(const char *sz)
 
     GtkTextBuffer *buffer;
     GtkTextIter iter;
-    GTKMessage((char *) sz, DT_ERROR);
+    GTKMessage(sz, DT_ERROR);
 
     if (PanelShowing(WINDOW_MESSAGE)) {
         buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pwMessageText));
