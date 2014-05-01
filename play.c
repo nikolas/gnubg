@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.426 2014/01/08 21:26:11 Superfly_Jon Exp $
+ * $Id: play.c,v 1.427 2014/01/23 23:32:27 plm Exp $
  */
 
 #include "config.h"
@@ -4228,8 +4228,8 @@ static int
 CompareRollEquity(const void *p1, const void *p2)
 {
 
-    const rollequity *per1 = (rollequity *) p1;
-    const rollequity *per2 = (rollequity *) p2;
+    const rollequity *per1 = (const rollequity *) p1;
+    const rollequity *per2 = (const rollequity *) p2;
 
     if (per1->r > per2->r)
         return -1;
