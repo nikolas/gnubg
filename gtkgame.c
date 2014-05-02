@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.883 2014/03/15 23:17:44 plm Exp $
+ * $Id: gtkgame.c,v 1.884 2014/05/01 22:19:08 plm Exp $
  */
 
 #include "config.h"
@@ -626,9 +626,6 @@ GTKResumeInput(void)
 static gboolean
 StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer UNUSED(p))
 {
-
-    char sz[2048], *pch;
-
 #if HAVE_LIBREADLINE
     /* Handle "next turn" processing before more input (otherwise we might
      * not even have a readline handler installed!) */
@@ -638,7 +635,8 @@ StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer
     rl_callback_read_char();
 
     return TRUE;
-#endif
+#else
+    char sz[2048], *pch;
 
     while (nNextTurn)
         NextTurnNotify(NULL);
@@ -654,7 +652,6 @@ StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer
     if ((pch = strchr(sz, '\n')))
         *pch = 0;
 
-
     fInterrupt = FALSE;
 
     HandleCommand(sz, acTop);
@@ -667,6 +664,7 @@ StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer
         Prompt();
 
     return TRUE;
+#endif
 }
 
 
