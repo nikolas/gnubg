@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.238 2013/12/15 15:18:18 plm Exp $
+ * $Id: rollout.c,v 1.239 2013/12/15 15:28:06 plm Exp $
  */
 
 #include "config.h"
@@ -1528,7 +1528,7 @@ extern int
 GeneralEvaluation(float arOutput[NUM_ROLLOUT_OUTPUTS],
                   float arStdDev[NUM_ROLLOUT_OUTPUTS],
                   rolloutstat arsStatistics[2],
-                  TanBoard anBoard, const cubeinfo * pci, const evalsetup * pes, rolloutprogressfunc * pf, void *p)
+                  TanBoard anBoard, cubeinfo * const pci, const evalsetup * pes, rolloutprogressfunc * pf, void *p)
 {
 
     int i;
@@ -1739,7 +1739,7 @@ initRolloutstat(rolloutstat * prs)
  */
 
 extern int
-getResignation(float arResign[NUM_ROLLOUT_OUTPUTS], TanBoard anBoard, const cubeinfo * pci, const evalsetup * pesResign)
+getResignation(float arResign[NUM_ROLLOUT_OUTPUTS], TanBoard anBoard, cubeinfo * const pci, const evalsetup * pesResign)
 {
 
     float arStdDev[NUM_ROLLOUT_OUTPUTS];

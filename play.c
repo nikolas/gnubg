@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.427 2014/01/23 23:32:27 plm Exp $
+ * $Id: play.c,v 1.428 2014/05/01 21:19:25 plm Exp $
  */
 
 #include "config.h"
@@ -4288,12 +4288,12 @@ EvaluateRoll(float ar[NUM_ROLLOUT_OUTPUTS], int nDie1, int nDie2, const TanBoard
 
     memcpy(&anBoardTemp[0][0], &anBoard[0][0], 2 * 25 * sizeof(int));
 
-    if (FindBestMove(NULL, nDie1, nDie2, anBoardTemp, (cubeinfo *) pci, NULL, defaultFilters) < 0)
+    if (FindBestMove(NULL, nDie1, nDie2, anBoardTemp, pci, NULL, defaultFilters) < 0)
         g_assert_not_reached();
 
     SwapSides(anBoardTemp);
 
-    GeneralEvaluationE(ar, (ConstTanBoard) anBoardTemp, &ciOpp, (evalcontext *) pec);
+    GeneralEvaluationE(ar, (ConstTanBoard) anBoardTemp, &ciOpp, pec);
 
     return;
 }
