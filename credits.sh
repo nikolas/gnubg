@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.145 2013/07/12 15:54:00 mdpetch Exp $
+# $Id: credits.sh,v 1.146 2014/01/05 21:58:25 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -411,7 +411,6 @@ cat >> AUTHORS <<'EOF'
    Bob Jenkins (the ISAAC pseudo random number generator, hashing functions)
        Takuji Nishimura and Makoto Matsumoto (the Mersenne Twister PRNG)
                    Brian Paul (the TR tile rendering library)
-                Gerry Tesauro (the "pubeval" position evaluator)
              Claes Tornberg (the mec match equity table generator)
 
 
