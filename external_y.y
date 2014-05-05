@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.19 2012/07/26 20:46:56 plm Exp $
+ * $Id: external_y.y,v 1.20 2012/11/30 23:27:59 plm Exp $
  */
 
 #include "config.h"
@@ -194,8 +194,8 @@ main( int argc, char *argv[] ) {
           "cubeful %d\n"
           "prune %d\n"
           "fibsboard %s\n"
-          "crawfordrule %s\n"
-          "jacobyrule %s\n",
+          "crawfordrule %d\n"
+          "jacobyrule %d\n",
           ec.ct, ec.nPlies, ec.rNoise, ec.fDeterministic, ec.fCubeful,
           ec.fUsePrune, ec.szFIBSBoard, ec.fCrawfordRule, ec.fJacobyRule );
 
