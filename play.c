@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.428 2014/05/01 21:19:25 plm Exp $
+ * $Id: play.c,v 1.429 2014/05/04 20:15:15 plm Exp $
  */
 
 #include "config.h"
@@ -1306,8 +1306,8 @@ ComputerTurn(void)
                     case OPTIONAL_DOUBLE_PASS:
                     case OPTIONAL_REDOUBLE_PASS:
 
-                        if (ap[ms.fTurn].esCube.et == EVAL_EVAL && ap[ms.fTurn].esCube.ec.nPlies == 0) {
-                            /* double if 0-ply */
+                        if (ap[ms.fTurn].esCube.et == EVAL_EVAL && ap[ms.fTurn].esCube.ec.nPlies == 0 && arOutput[0] > 0.001f ) {
+                            /* double if 0-ply except when about to lose game */
                             if (fTutor && fTutorCube)
                                 current_pmr_cubedata_update(dd.pes, dd.aarOutput, dd.aarStdDev);
                             fComputerDecision = TRUE;
