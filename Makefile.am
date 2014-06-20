@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.247 2013/08/20 20:24:59 mdpetch Exp $
+## $Id: Makefile.am,v 1.248 2013/08/20 21:37:33 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -76,6 +76,8 @@ gnubg_SOURCES = \
 		formatgs.c \
 		formatgs.h \
 		format.h \
+		glib-ext.c \
+		glib-ext.h \
 		gnubg.c \
 		gnubgmodule.c \
 		gnubgmodule.h \
