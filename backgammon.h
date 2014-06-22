@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.444 2014/02/25 20:53:29 mdpetch Exp $
+ * $Id: backgammon.h,v 1.445 2014/02/27 00:26:20 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -385,7 +385,7 @@ typedef const movefilter (*ConstTmoveFilter)[MAX_FILTER_PLIES];
 extern TmoveFilter *GetEvalMoveFilter(void);
 extern player ap[2];
 extern char default_names[2][31];
-extern char aliases[64];
+extern char aliases[256];
 extern rolloutcontext rcRollout;
 extern skilltype TutorSkill;
 extern statcontext scMatch;
