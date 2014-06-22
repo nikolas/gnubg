@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.952 2014/03/01 21:39:37 plm Exp $
+ * $Id: gnubg.c,v 1.953 2014/03/09 20:01:10 plm Exp $
  */
 
 #include "config.h"
@@ -4684,6 +4684,10 @@ main(int argc, char *argv[])
      * with a GtkTreeView. mdpetch is currently working on this */
 
     putenv("LIBOVERLAY_SCROLLBAR=0");
+#endif
+
+#if ! GLIB_CHECK_VERSION(2,36,0)
+    g_type_init();
 #endif
 
     output_initialize();
