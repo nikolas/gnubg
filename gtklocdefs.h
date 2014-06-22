@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.8 2013/06/16 02:16:15 mdpetch Exp $
+ * $Id: gtklocdefs.h,v 1.9 2014/02/13 03:19:56 mdpetch Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -26,6 +26,10 @@
 
 #if (USE_GTK)
 #include <gtk/gtk.h>
+
+#if ! GTK_CHECK_VERSION(2,28,0)
+extern void g_list_free_full(GList *list, GDestroyNotify free_func);
+#endif
 
 #if ! GTK_CHECK_VERSION(2,24,0)
 #define gtk_combo_box_text_new_with_entry gtk_combo_box_entry_new_text

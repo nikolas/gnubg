@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.c,v 1.6 2011/10/31 11:23:42 c_anthon Exp $
+ * $Id: gtklocdefs.c,v 1.7 2013/06/16 02:16:14 mdpetch Exp $
  */
 
 
@@ -26,6 +26,15 @@
 
 #if (USE_GTK)
 #include <gtk/gtk.h>
+
+#if ! GTK_CHECK_VERSION(2,28,0)
+void
+g_list_free_full(GList *list, GDestroyNotify free_func)
+{
+    g_list_foreach(list, (GFunc) free_func, NULL);
+    g_list_free(list);
+}
+#endif
 
 #if ! GTK_CHECK_VERSION(2,22,0)
 gint
