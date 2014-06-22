@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.1 2014/06/20 22:58:17 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.2 2014/06/22 10:14:17 mdpetch Exp $
  */
 
 
@@ -26,8 +26,17 @@
 #include "glib-ext.h"
 
 GLIBEXT_DEFINE_BOXED_TYPE(GListBoxed, g_list_boxed, g_list_copy, g_list_gv_boxed_free)
-    GLIBEXT_DEFINE_BOXED_TYPE(GMapBoxed, g_map_boxed, g_list_copy, g_list_gv_boxed_free)
-    GLIBEXT_DEFINE_BOXED_TYPE(GMapEntryBoxed, g_mapentry_boxed, g_list_copy, g_list_gv_boxed_free)
+GLIBEXT_DEFINE_BOXED_TYPE(GMapBoxed, g_map_boxed, g_list_copy, g_list_gv_boxed_free)
+GLIBEXT_DEFINE_BOXED_TYPE(GMapEntryBoxed, g_mapentry_boxed, g_list_copy, g_list_gv_boxed_free)
+
+#if ! GLIB_CHECK_VERSION(2,28,0)
+void
+g_list_free_full(GList *list, GDestroyNotify free_func)
+{
+    g_list_foreach(list, (GFunc) free_func, NULL);
+    g_list_free(list);
+}
+#endif
 
 void
 g_value_unsetfree(GValue * gv)

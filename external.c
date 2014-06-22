@@ -16,14 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.75 2013/09/09 20:54:39 plm Exp $
+ * $Id: external.c,v 1.76 2014/06/22 03:49:18 mdpetch Exp $
  */
 
 #include "config.h"
 
 #if HAVE_SOCKETS
-
-#define EXTERNAL_INTERFACE_VERSION "2"
 
 #include <signal.h>
 #include <glib.h>
@@ -673,7 +671,9 @@ CommandExternal(char *sz)
 
                 switch (scanctx.ct) {
                 case COMMAND_VERSION:
-                    szResponse = g_strdup(EXTERNAL_INTERFACE_VERSION "\n");
+                    szResponse = g_strdup("Interface: " EXTERNAL_INTERFACE_VERSION "\n"
+                                           "RFBF: " RFBF_VERSION_SUPPORTED "\n"
+                                           "Software: " VERSION_STRING "\n");
                     break;
 
                 case COMMAND_NONE:

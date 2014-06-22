@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.11 2014/06/22 06:13:59 mdpetch Exp $
+ * $Id: gtklocdefs.h,v 1.12 2014/06/22 06:39:54 mdpetch Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -26,10 +26,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-
-#if ! GLIB_CHECK_VERSION(2,28,0)
-extern void g_list_free_full(GList *list, GDestroyNotify free_func);
-#endif
 
 #if (USE_GTK)
 #include <gtk/gtk.h>

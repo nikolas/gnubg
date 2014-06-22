@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.2 2014/06/22 05:53:29 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.3 2014/06/22 05:55:40 mdpetch Exp $
  */
 
 
@@ -29,6 +29,10 @@
 
 #define GLIBEXT_MERGE(a,b)  a##b
 #define GLIBEXT_LABEL_(a,b) GLIBEXT_MERGE(a, b)
+
+#if ! GLIB_CHECK_VERSION(2,28,0)
+extern void g_list_free_full(GList *list, GDestroyNotify free_func);
+#endif
 
 typedef GList GMap;
 typedef GList GMapEntry;

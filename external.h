@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.16 2013/06/16 02:16:11 mdpetch Exp $
+ * $Id: external.h,v 1.17 2014/06/22 03:49:18 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_H
@@ -39,6 +39,9 @@
 
 #include <glib.h>
 #include <glib-object.h>
+
+#define EXTERNAL_INTERFACE_VERSION "2"
+#define RFBF_VERSION_SUPPORTED "0"
 
 typedef enum _cmdtype {
     COMMAND_NONE = 0,
