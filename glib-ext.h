@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.1 2014/06/20 22:58:18 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.2 2014/06/22 05:53:29 mdpetch Exp $
  */
 
 
@@ -25,7 +25,7 @@
 
 #include <glib.h>
 #include <glib-object.h>
-#include "glib-ext.h"
+#include "gtklocdefs.h"
 
 #define GLIBEXT_MERGE(a,b)  a##b
 #define GLIBEXT_LABEL_(a,b) GLIBEXT_MERGE(a, b)
