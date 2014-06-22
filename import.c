@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.194 2014/04/28 20:50:30 plm Exp $
+ * $Id: import.c,v 1.195 2014/05/26 20:54:49 plm Exp $
  */
 
 #include "config.h"
@@ -102,7 +102,7 @@ ParseSetDate(char *szFilename)
     /* date could not be parsed, use date of last modification */
     if (matchdate == NULL) {
         if (g_stat(szFilename, &filestat) == 0) {
-            matchdate = localtime((time_t*)&filestat.st_mtime);
+            matchdate = localtime((time_t *) &filestat.st_mtime);
         }
     }
 
@@ -1150,18 +1150,18 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
     UpdateSettings();
 
     {
-      gchar **token;
-      int i = 0;
+        gchar **token;
+        int i = 0;
 
-      token = g_strsplit_set(aliases, ":", -1);
+        token = g_strsplit_set(aliases, ";", -1);
 
-      while (token[i] != NULL)
-        if (!strcmp(token[i++], ap[0].szName)) {
-          CommandSwapPlayers(NULL);
-          break;
-        }
+        while (token[i] != NULL)
+            if (!strcmp(token[i++], ap[0].szName)) {
+                CommandSwapPlayers(NULL);
+                break;
+            }
 
-      g_strfreev(token);
+        g_strfreev(token);
     }
 
 #if USE_GTK
