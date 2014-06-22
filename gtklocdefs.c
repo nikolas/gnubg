@@ -16,16 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.c,v 1.8 2014/06/22 05:42:33 mdpetch Exp $
+ * $Id: gtklocdefs.c,v 1.9 2014/06/22 06:13:58 mdpetch Exp $
  */
 
 
 #include "config.h"
 #include "gtkgame.h"
 #include "gtklocdefs.h"
-
-#if (USE_GTK)
-#include <gtk/gtk.h>
 
 #if ! GLIB_CHECK_VERSION(2,28,0)
 void
@@ -35,6 +32,9 @@ g_list_free_full(GList *list, GDestroyNotify free_func)
     g_list_free(list);
 }
 #endif
+
+#if (USE_GTK)
+#include <gtk/gtk.h>
 
 #if ! GTK_CHECK_VERSION(2,22,0)
 gint
