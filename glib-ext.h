@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.3 2014/06/22 05:55:40 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.4 2014/06/22 22:34:27 mdpetch Exp $
  */
 
 
@@ -51,8 +51,8 @@ extern GList *create_str2int_tuple(char *str, int value);
 extern GList *create_str2gvalue_tuple(char *str, GValue * gv);
 extern GList *create_str2double_tuple(char *str, double value);
 extern void free_strmap_tuple(GList * tuple);
-extern void g_value_print_list(GList * list, int depth);
-extern void g_value_print(GValue * gv, int depth);
+extern void g_value_list_tostring(GString * str, GList * list, int depth);
+extern void g_value_tostring(GString * str, GValue * gv, int depth);
 
 #define G_TYPE_BOXED_GLIST_GV (g_list_boxed_get_type ())
 #define G_VALUE_HOLDS_BOXED_GLIST_GV(value)	 (G_TYPE_CHECK_VALUE_TYPE ((value), G_TYPE_BOXED_GLIST_GV))
