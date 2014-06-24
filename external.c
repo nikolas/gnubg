@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.79 2014/06/24 03:29:11 mdpetch Exp $
+ * $Id: external.c,v 1.80 2014/06/24 03:33:44 mdpetch Exp $
  */
 
 #include "config.h"
@@ -356,7 +356,6 @@ unset_scan_context(scancontext * pScanCtx, int bFreeScanner)
     pScanCtx->bi.gsOpp = NULL;
     pScanCtx->szError = NULL;
     pScanCtx->fError = 0;
-    pScanCtx->fDebug = 0;
 
     if (bFreeScanner) {
         ExtDestroyParse(pScanCtx->scanner);
@@ -603,6 +602,7 @@ CommandExternal(char *sz)
   listenloop:
     {
         fExit = FALSE;
+        scanctx.fDebug = FALSE;
 
         if ((h = ExternalSocket(&psa, &cb, sz)) < 0) {
             SockErr(sz);
