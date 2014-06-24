@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.77 2014/06/22 22:34:26 mdpetch Exp $
+ * $Id: external.c,v 1.78 2014/06/24 03:26:18 mdpetch Exp $
  */
 
 #include "config.h"
@@ -702,7 +702,7 @@ CommandExternal(char *sz)
                         g_string_append(dbgStr, "\nDBG: ");
                         g_value_tostring(dbgStr, boarddatagv, 0);
                         g_string_append(dbgStr, "\n");
-                        ExternalWrite(hPeer, dbgStr->str, strlen(dbgStr->str))
+                        ExternalWrite(hPeer, dbgStr->str, strlen(dbgStr->str));
                         g_string_free(dbgStr, TRUE);
                     }
                     g_value_unsetfree(scanctx.pCmdData);
