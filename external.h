@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.17 2014/06/22 03:49:18 mdpetch Exp $
+ * $Id: external.h,v 1.18 2014/06/22 22:34:27 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_H
@@ -49,7 +49,8 @@ typedef enum _cmdtype {
     COMMAND_EVALUATION = 2,
     COMMAND_EXIT = 3,
     COMMAND_VERSION = 4,
-    COMMAND_LIST = 5
+    COMMAND_DEBUG = 5,
+    COMMAND_LIST = 6
 } cmdtype;
 
 typedef struct _commandinfo {
@@ -88,11 +89,13 @@ typedef struct _scancontext {
     void *scanner;
     void (*ExtErrorHandler) (struct _scancontext *, const char *);
     int fError;
+    int fDebug;
     char *szError;
 
     /* command type */
     cmdtype ct;
-
+    void *pCmdData;
+    
     /* evalcontext */
     int nPlies;
     float rNoise;
