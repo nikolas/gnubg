@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.81 2014/06/24 03:46:40 mdpetch Exp $
+ * $Id: external.c,v 1.82 2014/06/24 23:53:13 mdpetch Exp $
  */
 
 #include "config.h"
@@ -717,8 +717,8 @@ CommandExternal(char *sz)
                         ExternalWrite(hPeer, dbgStr->str, strlen(dbgStr->str));
                         ProcessFIBSBoardInfo(&scanctx.bi, &processedBoard);
 
-                        anScore[0] = processedBoard.nScore;
-                        anScore[1] = processedBoard.nScoreOpp;
+                        anScore[0] = processedBoard.nScoreOpp;
+                        anScore[1] = processedBoard.nScore;
                         /* If the session isn't using Crawford rule, set crawford flag to false */
                         fCrawford = scanctx.fCrawfordRule ? processedBoard.fCrawford : FALSE;
                         /* Set the Jacoby flag appropriately from the external interface settings */
