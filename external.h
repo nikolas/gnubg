@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.19 2014/06/24 03:26:30 mdpetch Exp $
+ * $Id: external.h,v 1.20 2014/06/24 23:53:13 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_H
@@ -37,8 +37,9 @@ typedef enum _cmdtype {
     COMMAND_EVALUATION = 2,
     COMMAND_EXIT = 3,
     COMMAND_VERSION = 4,
-    COMMAND_SET_DEBUG = 5,
-    COMMAND_LIST = 6
+    COMMAND_SET = 5,
+    COMMAND_HELP = 6,
+    COMMAND_LIST = 7
 } cmdtype;
 
 typedef struct _commandinfo {
@@ -84,7 +85,7 @@ typedef struct _ProcessedFIBSBoard {
     int fDoubled;
     int fCrawford;
     int fJacoby;
-    int fResignation;
+    int nResignation;
     TanBoard anBoard;
 } ProcessedFIBSBoard;
 
@@ -94,6 +95,7 @@ typedef struct _scancontext {
     void (*ExtErrorHandler) (struct _scancontext *, const char *);
     int fError;
     int fDebug;
+    int fAdvOutput;
     char *szError;
 
     /* command type */
@@ -110,7 +112,7 @@ typedef struct _scancontext {
     /* session rules */
     int fJacobyRule;
     int fCrawfordRule;
-    int fResignation;
+    int nResignation;
 
     /* fibs board */
     union {

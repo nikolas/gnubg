@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.22 2014/06/24 03:26:36 mdpetch Exp $
+ * $Id: external_l.l,v 1.23 2014/06/24 23:53:13 mdpetch Exp $
  */
 
 #include "config.h"
@@ -71,6 +71,11 @@ board:                  {   BEGIN(SBOARDP1);
                             return FIBSBOARD;
                         }
 
+prompt{EOT}             {   return PROMPT; }
+advanced{EOT}           {   return ADVANCED; }
+normal{EOT}             {   return NORMAL; }
+output{EOT}             {   return OUTPUT; }
+help{EOT}               {   return HELP; }
 set{EOT}                {   return SET; }
 debug{EOT}              {   return DEBUG; }
 version{EOT}            {   return INTERFACEVERSION; }

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.66 2014/06/22 03:49:18 mdpetch Exp $
+ * $Id: drawboard.c,v 1.67 2014/06/24 23:53:13 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1041,7 +1041,7 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
     g_strlcpy(procBrd->szOpp, brdInfo->gsOpp->str, MAX_NAME_LEN);
 
     /* Not yet supported set to zero */
-    procBrd->fResignation = 0;
+    procBrd->nResignation = 0;
     
     for (i = 0; i < 26; ++i)
         anFIBSBoard[i] = -anFIBSBoard[i];
