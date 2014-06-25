@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.83 2014/06/25 02:25:20 mdpetch Exp $
+ * $Id: external.c,v 1.84 2014/06/25 20:10:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -674,21 +674,18 @@ CommandExternal(char *sz)
                     
                 case COMMAND_SET:
                     szOptStr = g_value_get_gstring_gchar(g_list_nth_data(scanctx.pCmdData, 0));
-                    if (g_ascii_strcasecmp(szOptStr, "debug") == 0) {
-                        if ((scanctx.fDebug = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1))))
-                            szResponse = g_strdup("Debug output ON\n");
-                        else
-                            szResponse = g_strdup("Debug Output OFF\n");
-                    } else if (g_ascii_strcasecmp(szOptStr, "advoutput") == 0) {
-                        if ((scanctx.fAdvOutput = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1))))
-                            szResponse = g_strdup("Advanced output ON\n");
-                        else
-                            szResponse = g_strdup("Advanced Output OFF\n");
-                        
+                    if (g_ascii_strcasecmp(szOptStr, KEY_STR_DEBUG) == 0) {
+                        scanctx.fDebug = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
+                        szResponse = g_strdup_printf("Debug output %s\n", scanctx.fDebug ? "ON" : "OFF");
+                    } else if (g_ascii_strcasecmp(szOptStr, KEY_STR_ADVOUTPUT) == 0) {
+                        scanctx.fAdvOutput = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
+                        szResponse = g_strdup_printf("Advanced output %s\n", scanctx.fAdvOutput ? "ON" : "OFF");                        
                     } else {
                         szResponse = g_strdup("Error: set option not supported\n");
                     }
                     g_list_gv_boxed_free(scanctx.pCmdData);
+                    g_list_free(scanctx.pCmdData);
+
                     break;
 
                 case COMMAND_VERSION:

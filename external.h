@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.20 2014/06/24 23:53:13 mdpetch Exp $
+ * $Id: external.h,v 1.21 2014/06/25 20:10:40 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_H
@@ -30,6 +30,20 @@
 extern void ExtStartParse(void *scanner, const char *szCommand);
 extern int ExtInitParse(void **scancontext);
 extern void ExtDestroyParse(void *scancontext);
+
+#define MAX_RFBF_ELEMENTS 53
+
+#define KEY_STR_RESIGNATION "resignation"
+#define KEY_STR_DETERMINISTIC "deterministic"
+#define KEY_STR_JACOBYRULE "jacobyrule"
+#define KEY_STR_CRAWFORDRULE "crawfordrule"
+#define KEY_STR_PRUNE "prune"
+#define KEY_STR_NOISE "noise"
+#define KEY_STR_CUBEFUL "cubeful"
+#define KEY_STR_PLIES "plies"
+#define KEY_STR_ADVOUTPUT "advoutput"
+#define KEY_STR_DEBUG "debug"
+#define KEY_STR_PROMPT "prompt"
 
 typedef enum _cmdtype {
     COMMAND_NONE = 0,
