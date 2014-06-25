@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.379 2014/03/09 23:31:28 plm Exp $
+ * $Id: set.c,v 1.380 2014/06/22 23:12:33 plm Exp $
  */
 
 #include "config.h"
@@ -1617,7 +1617,7 @@ extern void
 CommandSetAliases(char *sz)
 {
         if (strlen(sz) >= sizeof(aliases) )
-            outputf("%s %lu %s.\n", _("Aliases list limited to"), sizeof(aliases)-1, _("characters, truncating"));
+            outputf("%s %lu %s.\n", _("Aliases list limited to"), (long unsigned int)(sizeof(aliases)-1), _("characters, truncating"));
 
 	strncpy(aliases, sz, sizeof(aliases)-1);
 
