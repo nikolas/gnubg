@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.84 2014/06/25 20:10:40 mdpetch Exp $
+ * $Id: external.c,v 1.85 2014/06/25 21:15:06 mdpetch Exp $
  */
 
 #include "config.h"
@@ -681,10 +681,9 @@ CommandExternal(char *sz)
                         scanctx.fAdvOutput = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
                         szResponse = g_strdup_printf("Advanced output %s\n", scanctx.fAdvOutput ? "ON" : "OFF");                        
                     } else {
-                        szResponse = g_strdup("Error: set option not supported\n");
+                        szResponse = g_strdup_printf("Error: set option '%s' not supported\n", szOptStr);
                     }
                     g_list_gv_boxed_free(scanctx.pCmdData);
-                    g_list_free(scanctx.pCmdData);
 
                     break;
 
