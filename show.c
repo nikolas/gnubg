@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.274 2014/03/09 23:31:28 plm Exp $
+ * $Id: show.c,v 1.275 2014/03/15 23:15:30 plm Exp $
  */
 
 #include "config.h"
@@ -518,7 +518,7 @@ CommandShowDelay(char *UNUSED(sz))
 extern void
 CommandShowAliases(char *UNUSED(sz))
 {
-    outputf(_("Aliases for player 1 when importing MAT files is set to \"%s\".\n "), aliases);
+    outputf(_("Aliases for player 1 when importing MAT files is set to \"%s\".\n "), player1aliases);
 }
 
 extern void

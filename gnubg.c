@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.955 2014/06/22 23:12:33 plm Exp $
+ * $Id: gnubg.c,v 1.956 2014/06/24 23:56:12 mdpetch Exp $
  */
 
 #include "config.h"
@@ -480,7 +480,7 @@ player ap[2] = {
 
 char default_names[2][31] = { "gnubg", "user" };
 
-char aliases[256] = "";
+char player1aliases[256] = "";
 
 /* Usage strings */
 static char szDICE[] = N_("<die> <die>"),
@@ -3181,8 +3181,8 @@ SavePlayerSettings(FILE * pf)
     char szTemp[4096];
 
     fprintf(pf, "set defaultnames \"%s\" \"%s\"\n", default_names[0], default_names[1]);
-    if (strlen(aliases) > 0)
-        fprintf(pf, "set aliases %s\n", aliases);
+    if (strlen(player1aliases) > 0)
+        fprintf(pf, "set player1aliases %s\n", player1aliases);
 
     for (i = 0; i < 2; i++) {
         fprintf(pf, "set player %d name %s\n", i, ap[i].szName);

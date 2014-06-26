@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.380 2014/06/22 23:12:33 plm Exp $
+ * $Id: set.c,v 1.381 2014/06/25 00:11:43 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1616,12 +1616,12 @@ CommandSetDefaultNames(char *sz)
 extern void
 CommandSetAliases(char *sz)
 {
-        if (strlen(sz) >= sizeof(aliases) )
-            outputf("%s %lu %s.\n", _("Aliases list limited to"), (long unsigned int)(sizeof(aliases)-1), _("characters, truncating"));
+        if (strlen(sz) >= sizeof(player1aliases) )
+            outputf("%s %lu %s.\n", _("Aliases list limited to"), (long unsigned int)(sizeof(player1aliases)-1), _("characters, truncating"));
 
-	strncpy(aliases, sz, sizeof(aliases)-1);
+	strncpy(player1aliases, sz, sizeof(player1aliases)-1);
 
-    outputf(_("Aliases for player 1 when importing MAT files set to \"%s\".\n "), aliases);
+    outputf(_("Aliases for player 1 when importing MAT files set to \"%s\".\n "), player1aliases);
 }
 
 

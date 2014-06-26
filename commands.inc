@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.38 2014/02/03 22:42:03 plm Exp $ */
+/* $Id: commands.inc,v 1.39 2014/03/09 23:31:28 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -1139,7 +1139,7 @@ command cER = {
       "money games"), szONOFF, &cOnOff },
     { "defaultnames", CommandSetDefaultNames, N_("Set default names for players"),
 	  szNAME, NULL },
-    { "aliases", CommandSetAliases, N_("Set aliases for player 1 when importing MAT files"), szNAME, NULL },
+    { "player1aliases", CommandSetAliases, N_("Set aliases for player 1 when importing MAT files"), szNAME, NULL },
     { "lang", CommandSetLang, N_("Set your language preference"),
       szLANG, NULL },
     { "matchequitytable", CommandSetMET,
@@ -1226,7 +1226,7 @@ command cER = {
       NULL, NULL },
     { NULL, NULL, NULL, NULL, NULL }
 }, acShow[] = {
-    { "aliases", CommandShowAliases, N_("Show aliases for player 1 when importing MAT files"), NULL, NULL }, 
+    { "player1aliases", CommandShowAliases, N_("Show aliases for player 1 when importing MAT files"), NULL, NULL }, 
     { "analysis", CommandShowAnalysis, N_("Show parameters used for analysing "
       "moves"), NULL, NULL },
     { "autosave", CommandShowAutoSave, N_("Show parameters used for autosaving"), NULL, NULL },

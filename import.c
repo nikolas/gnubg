@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.195 2014/05/26 20:54:49 plm Exp $
+ * $Id: import.c,v 1.196 2014/06/22 18:32:58 plm Exp $
  */
 
 #include "config.h"
@@ -1153,7 +1153,7 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
         gchar **token;
         int i = 0;
 
-        token = g_strsplit_set(aliases, ";", -1);
+        token = g_strsplit_set(player1aliases, ";", -1);
 
         while (token[i] != NULL)
             if (!strcmp(token[i++], ap[0].szName)) {
