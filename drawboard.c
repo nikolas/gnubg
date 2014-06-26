@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.67 2014/06/24 23:53:13 mdpetch Exp $
+ * $Id: drawboard.c,v 1.68 2014/06/25 20:10:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1021,7 +1021,8 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
     int nTurn, nColor, nDirection;
     int anFIBSBoard[26];
     int fMustSwap = 0;
-
+    GString *tmpName;
+    
     procBrd->nMatchTo = brdInfo->nMatchTo;
     procBrd->nScore = brdInfo->nScore;
     procBrd->nScoreOpp = brdInfo->nScoreOpp;
@@ -1037,8 +1038,6 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
     memcpy(anFIBSBoard, brdInfo->anFIBSBoard, sizeof(brdInfo->anFIBSBoard));
     fNonCrawford = brdInfo->fNonCrawford;
     fPostCrawford = brdInfo->fPostCrawford;
-    g_strlcpy(procBrd->szPlayer, brdInfo->gsName->str, MAX_NAME_LEN);
-    g_strlcpy(procBrd->szOpp, brdInfo->gsOpp->str, MAX_NAME_LEN);
 
     /* Not yet supported set to zero */
     procBrd->nResignation = 0;
@@ -1101,6 +1100,9 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
         nTmp = fCanDouble;
         fCanDouble = fOppCanDouble;
         fOppCanDouble = nTmp;
+        tmpName = brdInfo->gsName;
+        brdInfo->gsName = brdInfo->gsOpp; 
+        brdInfo->gsOpp = tmpName;
     }
 
     if (nTurn * nColor < 0)
@@ -1166,7 +1168,7 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
     if (!procBrd->nMatchTo) {
         procBrd->fCrawford = 0;
     } else {
-        if (procBrd->nMatchTo - procBrd->nScore == 1 || procBrd->nMatchTo - procBrd->nScoreOpp == 1) {
+        if (((procBrd->nMatchTo - procBrd->nScore) == 1) || ((procBrd->nMatchTo - procBrd->nScoreOpp) == 1)) {
             if (fNonCrawford || fPostCrawford) {
                 procBrd->fCrawford = 0;
             } else {
@@ -1178,6 +1180,8 @@ ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd)
     }
 
     procBrd->fCubeOwner = fCanDouble != fOppCanDouble ? fCanDouble : -1;
+    g_strlcpy(procBrd->szPlayer, brdInfo->gsName->str, MAX_NAME_LEN);
+    g_strlcpy(procBrd->szOpp, brdInfo->gsOpp->str, MAX_NAME_LEN);
 
     return 0;
 }

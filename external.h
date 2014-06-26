@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.h,v 1.21 2014/06/25 20:10:40 mdpetch Exp $
+ * $Id: external.h,v 1.22 2014/06/25 21:15:06 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_H
@@ -33,6 +33,7 @@ extern void ExtDestroyParse(void *scancontext);
 
 #define MAX_RFBF_ELEMENTS 53
 
+#define KEY_STR_BEAVERS "beavers"
 #define KEY_STR_RESIGNATION "resignation"
 #define KEY_STR_DETERMINISTIC "deterministic"
 #define KEY_STR_JACOBYRULE "jacobyrule"
@@ -41,7 +42,7 @@ extern void ExtDestroyParse(void *scancontext);
 #define KEY_STR_NOISE "noise"
 #define KEY_STR_CUBEFUL "cubeful"
 #define KEY_STR_PLIES "plies"
-#define KEY_STR_ADVOUTPUT "advoutput"
+#define KEY_STR_NEWINTERFACE "newinterface"
 #define KEY_STR_DEBUG "debug"
 #define KEY_STR_PROMPT "prompt"
 
@@ -109,7 +110,7 @@ typedef struct _scancontext {
     void (*ExtErrorHandler) (struct _scancontext *, const char *);
     int fError;
     int fDebug;
-    int fAdvOutput;
+    int fNewInterface;
     char *szError;
 
     /* command type */
@@ -127,6 +128,7 @@ typedef struct _scancontext {
     int fJacobyRule;
     int fCrawfordRule;
     int nResignation;
+    int fBeavers;
 
     /* fibs board */
     union {

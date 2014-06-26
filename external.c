@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.85 2014/06/25 21:15:06 mdpetch Exp $
+ * $Id: external.c,v 1.86 2014/06/25 22:36:12 mdpetch Exp $
  */
 
 #include "config.h"
@@ -587,7 +587,7 @@ CommandExternal(char *sz)
     {
         fExit = FALSE;
         scanctx.fDebug = FALSE;
-        scanctx.fAdvOutput = FALSE;
+        scanctx.fNewInterface = FALSE;
 
         if ((h = ExternalSocket(&psa, &cb, sz)) < 0) {
             SockErr(sz);
@@ -677,9 +677,9 @@ CommandExternal(char *sz)
                     if (g_ascii_strcasecmp(szOptStr, KEY_STR_DEBUG) == 0) {
                         scanctx.fDebug = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
                         szResponse = g_strdup_printf("Debug output %s\n", scanctx.fDebug ? "ON" : "OFF");
-                    } else if (g_ascii_strcasecmp(szOptStr, KEY_STR_ADVOUTPUT) == 0) {
-                        scanctx.fAdvOutput = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
-                        szResponse = g_strdup_printf("Advanced output %s\n", scanctx.fAdvOutput ? "ON" : "OFF");                        
+                    } else if (g_ascii_strcasecmp(szOptStr, KEY_STR_NEWINTERFACE) == 0) {
+                        scanctx.fNewInterface = g_value_get_int(g_list_nth_data(scanctx.pCmdData, 1));
+                        szResponse = g_strdup_printf("New interface %s\n", scanctx.fNewInterface ? "ON" : "OFF");                        
                     } else {
                         szResponse = g_strdup_printf("Error: set option '%s' not supported\n", szOptStr);
                     }
@@ -735,12 +735,14 @@ CommandExternal(char *sz)
                         }
 
                         dbgStr = g_string_assign(dbgStr, "");
+                        g_string_append_printf(dbgStr, DEBUG_PREFIX "X is %s, O is %s\n", processedBoard.szPlayer, processedBoard.szOpp);
                         if (processedBoard.nMatchTo){
                             g_string_append_printf(dbgStr, DEBUG_PREFIX "Match Play %s Crawford Rule\n", scanctx.fCrawfordRule ? "with" : "without");
                             g_string_append_printf(dbgStr, DEBUG_PREFIX "Score: %d-%d/%d%s, ", processedBoard.nScore, 
                                                    processedBoard.nScoreOpp, processedBoard.nMatchTo, processedBoard.fCrawford ? "*" : "");
                         } else {
-                            g_string_append_printf(dbgStr, DEBUG_PREFIX "Money Session %s Jacoby Rule\n", scanctx.fJacobyRule ? "with" : "without");
+                            g_string_append_printf(dbgStr, DEBUG_PREFIX "Money Session %s Jacoby Rule, %s Beavers\n", 
+                                                   scanctx.fJacobyRule ? "with" : "without", scanctx.fBeavers ? "with" : "without");
                             g_string_append_printf(dbgStr, DEBUG_PREFIX "Score: %d-%d, ", processedBoard.nScore, processedBoard.nScoreOpp);
                         }
                         g_string_append_printf(dbgStr, "Roll: %d%d\n", 

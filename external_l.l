@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.23 2014/06/24 23:53:13 mdpetch Exp $
+ * $Id: external_l.l,v 1.24 2014/06/25 20:10:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -72,9 +72,9 @@ board:                  {   BEGIN(SBOARDP1);
                         }
 
 prompt{EOT}             {   return PROMPT; }
-advanced{EOT}           {   return ADVANCED; }
-normal{EOT}             {   return NORMAL; }
-output{EOT}             {   return OUTPUT; }
+new{EOT}                {   return NEW; }
+old{EOT}                {   return OLD; }
+interface{EOT}          {   return INTERFACE; }
 help{EOT}               {   return HELP; }
 set{EOT}                {   return SET; }
 debug{EOT}              {   return DEBUG; }
@@ -108,6 +108,8 @@ fibsboard{EOT}          {   return FIBSBOARD; }
 [\[\],\(\)\{\}]         return (yytext[0]);
 
 <OPTIONS>{
+resignation{EOT}        {   return RESIGNATION; }
+beavers{EOT}            {   return BEAVERS; }
 crawfordrule{EOT}       {   return CRAWFORDRULE; }
 cube{EOT}               {   return CUBE; }
 cubeful{EOT}            {   return CUBEFUL; }
