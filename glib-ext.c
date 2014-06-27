@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.4 2014/06/23 16:09:15 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.5 2014/06/27 00:35:13 mdpetch Exp $
  */
 
 
@@ -47,10 +47,6 @@ g_once_init_enter_impl(volatile gsize * value_location)
 {
     gboolean need_init = FALSE;
     /* mutex and cond creation works without g_threads_got_initialized */
-    if (!g_once_mutex)
-        g_once_mutex = g_mutex_new();
-    if (!g_once_cond)
-        g_once_cond = g_cond_new();
 
     g_mutex_lock(g_once_mutex);
     if (g_atomic_pointer_get((void **) value_location) == NULL) {
@@ -80,6 +76,17 @@ g_once_init_leave(volatile gsize * value_location, gsize initialization_value)
     g_mutex_unlock(g_once_mutex);
 }
 #endif
+
+void glib_ext_init(void)
+{
+#if ! GLIB_CHECK_VERSION(2,14,0)
+    if (!g_once_mutex)
+        g_once_mutex = g_mutex_new();
+    if (!g_once_cond)
+        g_once_cond = g_cond_new();
+#endif
+    return;
+}
 
 GLIBEXT_DEFINE_BOXED_TYPE(GListBoxed, g_list_boxed, g_list_copy, g_list_gv_boxed_free)
     GLIBEXT_DEFINE_BOXED_TYPE(GMapBoxed, g_map_boxed, g_list_copy, g_list_gv_boxed_free)

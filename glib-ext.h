@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.5 2014/06/23 16:09:16 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.6 2014/06/27 00:35:14 mdpetch Exp $
  */
 
 
@@ -66,6 +66,7 @@ extern void g_list_free_full(GList * list, GDestroyNotify free_func);
 typedef GList GMap;
 typedef GList GMapEntry;
 
+extern void glib_ext_init(void);
 extern GType g_list_boxed_get_type(void);
 extern GType g_map_boxed_get_type(void);
 extern GType g_mapentry_boxed_get_type(void);

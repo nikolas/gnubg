@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.956 2014/06/24 23:56:12 mdpetch Exp $
+ * $Id: gnubg.c,v 1.957 2014/06/26 20:28:05 plm Exp $
  */
 
 #include "config.h"
 
 #include "gnubgmodule.h"
+#include "glib-ext.h"
 
 #include <sys/types.h>
 #include <stdlib.h>
@@ -4686,7 +4687,8 @@ main(int argc, char *argv[])
 #if ! GLIB_CHECK_VERSION(2,36,0)
     g_type_init();
 #endif
-
+    glib_ext_init();
+    
     output_initialize();
 
     /* set language */
