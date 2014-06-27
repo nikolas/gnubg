@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.174 2014/02/27 11:29:48 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.175 2014/02/27 11:32:19 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1186,9 +1186,10 @@ PythonEvaluate(PyObject * UNUSED(self), PyObject * args)
 
     TanBoard anBoard;
     cubeinfo ci;
-    evalcontext ec = { 0, 0, 0, 1, 0.0f };
+    evalcontext ec;
     float arOutput[7];
 
+    memcpy (&ec, &GetEvalChequer()->ec, sizeof (evalcontext));
     memcpy(anBoard, msBoard(), sizeof(TanBoard));
     GetMatchStateCubeInfo(&ci, &ms);
 
@@ -1231,11 +1232,11 @@ PythonEvaluateCubeful(PyObject * UNUSED(self), PyObject * args)
     TanBoard anBoard;
     float aarOutput[2][NUM_ROLLOUT_OUTPUTS], arCube[NUM_CUBEFUL_OUTPUTS];
     cubeinfo ci;
-    evalcontext ec = { 0, 0, 0, 1, 0.0f };
+    evalcontext ec;
     int cp;
 
+    memcpy (&ec, &GetEvalCube()->ec, sizeof (evalcontext));
     memcpy(anBoard, msBoard(), sizeof(TanBoard));
-
     GetMatchStateCubeInfo(&ci, &ms);
 
     if (!PyArg_ParseTuple(args, "|OOO", &pyBoard, &pyCubeInfo, &pyEvalContext))
