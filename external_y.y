@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.28 2014/06/25 21:15:06 mdpetch Exp $
+ * $Id: external_y.y,v 1.29 2014/06/26 08:08:38 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_Y_H
@@ -79,6 +79,10 @@
 #include "backgammon.h"
 #include "external_y.h"
 
+/* Resolve a warning on older GLIBC/GNU systems that have stpcpy */
+#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
+extern char *stpcpy(char *s1, const char *s2);
+#endif
 
 #define extcmd ext_get_extra(scanner)  
 
