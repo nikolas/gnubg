@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.958 2014/06/27 09:44:32 mdpetch Exp $
+ * $Id: gnubg.c,v 1.959 2014/06/27 10:08:27 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3183,7 +3183,7 @@ SavePlayerSettings(FILE * pf)
 
     fprintf(pf, "set defaultnames \"%s\" \"%s\"\n", default_names[0], default_names[1]);
     if (strlen(player1aliases) > 0)
-        fprintf(pf, "set player1aliases %s\n", player1aliases);
+        fprintf(pf, "set aliases %s\n", player1aliases);
 
     for (i = 0; i < 2; i++) {
         fprintf(pf, "set player %d name %s\n", i, ap[i].szName);
