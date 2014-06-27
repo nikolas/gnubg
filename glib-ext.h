@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.6 2014/06/27 00:35:14 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.7 2014/06/27 09:44:32 mdpetch Exp $
  */
 
 
@@ -29,7 +29,7 @@
 
 #if ! GLIB_CHECK_VERSION(2,14,0)
 
-/* This code has been backported from the latest GLib
+/* This code has been backported from GLIB 2.16
  *
  * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
  *
