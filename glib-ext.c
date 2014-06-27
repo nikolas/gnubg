@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.5 2014/06/27 00:35:13 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.6 2014/06/27 09:44:31 mdpetch Exp $
  */
 
 
@@ -79,6 +79,12 @@ g_once_init_leave(volatile gsize * value_location, gsize initialization_value)
 
 void glib_ext_init(void)
 {
+#if !GLIB_CHECK_VERSION (2,32,0)
+    if (!g_thread_supported())
+        g_thread_init(NULL);
+    g_assert(g_thread_supported());
+#endif
+
 #if ! GLIB_CHECK_VERSION(2,14,0)
     if (!g_once_mutex)
         g_once_mutex = g_mutex_new();
