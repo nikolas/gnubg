@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.87 2014/06/26 08:08:38 mdpetch Exp $
+ * $Id: external.c,v 1.88 2014/06/27 00:36:25 mdpetch Exp $
  */
 
 #include "config.h"
@@ -182,12 +182,7 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
                 free(psin);
                 return -1;
             }
-#ifdef WIN32
-            memcpy(&(psin->sin_addr), (struct in_addr *) (phe->h_addr), phe->h_length);
-#else
-            psin->sin_addr = *(struct in_addr *) phe->h_addr;
-#endif                          /* WIN32 */
-
+			memcpy(&(psin->sin_addr), phe->h_addr, phe->h_length); 
         }
 
         *pch++ = ':';
