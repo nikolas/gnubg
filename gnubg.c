@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.957 2014/06/26 20:28:05 plm Exp $
+ * $Id: gnubg.c,v 1.958 2014/06/27 09:44:32 mdpetch Exp $
  */
 
 #include "config.h"
@@ -4687,7 +4687,6 @@ main(int argc, char *argv[])
 #if ! GLIB_CHECK_VERSION(2,36,0)
     g_type_init();
 #endif
-    glib_ext_init();
     
     output_initialize();
 
@@ -4783,6 +4782,7 @@ main(int argc, char *argv[])
 
     PushSplash(pwSplash, _("Initialising"), _("initialising thread data"));
     MT_InitThreads();
+    glib_ext_init();
 
 #if defined(WIN32) && HAVE_SOCKETS
     PushSplash(pwSplash, _("Initialising"), _("Windows sockets"));
