@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: common.h,v 1.27 2013/06/16 02:16:10 mdpetch Exp $
+ * $Id: common.h,v 1.28 2013/11/23 19:42:07 plm Exp $
  */
 
 /*! \file common.h
@@ -55,14 +55,6 @@ typedef void (*psighandler) (int);
 
 /* abs returns unsigned int by definition */
 #define Abs(a) ((unsigned int)abs(a))
-
-/* signbit() is used only in a somewhat performance sensitive place
- * in lib/sigmoid.h. If HAVE_DECL_SIGNBIT is false, maybe we should
- * work around it there instead of using this */
-#if !HAVE_DECL_SIGNBIT
-/* copysign() caters for special IEEE 754 numbers */
-#define signbit(x) (copysign(1, (x)) < 0)
-#endif
 
 /* Do we need to use g_utf8_casefold() for utf8 anywhere? */
 #define StrCaseCmp(s1, s2) g_ascii_strcasecmp(s1, s2)
