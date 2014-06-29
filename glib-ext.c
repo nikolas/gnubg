@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.7 2014/06/27 10:48:29 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.8 2014/06/29 13:18:21 plm Exp $
  */
 
 
@@ -182,7 +182,7 @@ GList *
 create_str2double_tuple(char *str, double value)
 {
     GString *tmpstr = g_string_new(str);
-    GVALUE_CREATE(G_TYPE_DOUBLE, float, value, gvdouble);
+    GVALUE_CREATE(G_TYPE_DOUBLE, double, value, gvdouble);
     GVALUE_CREATE(G_TYPE_GSTRING, boxed, tmpstr, gvstr);
     g_string_free(tmpstr, TRUE);
     return g_list_prepend(g_list_prepend(NULL, gvdouble), gvstr);
