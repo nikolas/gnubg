@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.7 2014/06/27 09:44:32 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.8 2014/06/27 23:30:41 mdpetch Exp $
  */
 
 
@@ -76,7 +76,6 @@ extern GMapEntry *str2gv_map_has_key(GMap * map, GString * key);
 extern GValue *str2gv_map_get_key_value(GMap * map, gchar * key, GValue * defaultgv);
 extern void g_list_gv_boxed_free(GList * list);
 extern void g_list_gv_free_full(gpointer data);
-extern void g_list_gv_boxed_free(GList * list);
 extern GList *create_str2int_tuple(char *str, int value);
 extern GList *create_str2gvalue_tuple(char *str, GValue * gv);
 extern GList *create_str2double_tuple(char *str, double value);
