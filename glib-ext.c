@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.6 2014/06/27 09:44:31 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.7 2014/06/27 10:48:29 mdpetch Exp $
  */
 
 
@@ -116,7 +116,7 @@ g_value_unsetfree(GValue * gv)
 GMapEntry *
 str2gv_map_has_key(GMap * map, GString * key)
 {
-    int item;
+    guint item;
 
     for (item = 0; item < g_list_length(map); item++) {
         GString *cmpkey = g_value_get_gstring(g_list_nth_data(g_value_get_boxed(g_list_nth_data(map, item)), 0));
