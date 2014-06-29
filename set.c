@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.381 2014/06/25 00:11:43 mdpetch Exp $
+ * $Id: set.c,v 1.382 2014/06/26 20:28:06 plm Exp $
  */
 
 #include "config.h"
@@ -99,8 +99,6 @@ static evalsetup *pesSet;
 
 static rng *rngSet;
 static rngcontext *rngctxSet;
-
-movefilter *aamfSet[MAX_FILTER_PLIES][MAX_FILTER_PLIES];
 
 static void
 SetSeed(const rng rngx, void *rngctx, char *sz)
@@ -1616,10 +1614,11 @@ CommandSetDefaultNames(char *sz)
 extern void
 CommandSetAliases(char *sz)
 {
-        if (strlen(sz) >= sizeof(player1aliases) )
-            outputf("%s %lu %s.\n", _("Aliases list limited to"), (long unsigned int)(sizeof(player1aliases)-1), _("characters, truncating"));
+    if (strlen(sz) >= sizeof(player1aliases))
+        outputf("%s %lu %s.\n", _("Aliases list limited to"), (long unsigned int) (sizeof(player1aliases) - 1),
+                _("characters, truncating"));
 
-	strncpy(player1aliases, sz, sizeof(player1aliases)-1);
+    strncpy(player1aliases, sz, sizeof(player1aliases) - 1);
 
     outputf(_("Aliases for player 1 when importing MAT files set to \"%s\".\n "), player1aliases);
 }
@@ -2987,7 +2986,6 @@ CommandSetEvalParamType(char *sz)
     default:
         outputf(_("Unknown evaluation type: %s (see\n" "`help set %s type').\n"), sz, szSetCommand);
         return;
-        break;
 
     }
 
