@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.88 2014/06/27 00:36:25 mdpetch Exp $
+ * $Id: external.c,v 1.89 2014/06/27 01:29:38 mdpetch Exp $
  */
 
 #include "config.h"
@@ -738,7 +738,7 @@ CommandExternal(char *sz)
                                                    scanctx.fCrawfordRule ? "with" : "without");
                             g_string_append_printf(dbgStr, DEBUG_PREFIX "Score: %d-%d/%d%s, ", processedBoard.nScore,
                                                    processedBoard.nScoreOpp, processedBoard.nMatchTo,
-                                                   processedBoard.fCrawford ? "*" : "");
+                                                   fCrawford ? "*" : "");
                         } else {
                             g_string_append_printf(dbgStr, DEBUG_PREFIX "Money Session %s Jacoby Rule, %s Beavers\n",
                                                    scanctx.fJacobyRule ? "with" : "without",
