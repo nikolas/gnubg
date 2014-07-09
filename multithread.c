@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.87 2013/07/21 00:58:40 mdpetch Exp $
+ * $Id: multithread.c,v 1.88 2013/09/05 19:45:58 plm Exp $
  */
 
 #include "config.h"
@@ -396,6 +396,7 @@ int asyncRet;
 void
 MT_AddTask(Task * pt, gboolean lock)
 {
+    (void) lock;                /* silence compiler warning */
     td.result = 0;              /* Reset result for new tasks */
     td.tasks = g_list_append(td.tasks, pt);
 }
@@ -424,6 +425,8 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
 {
     GList *member;
     guint as_source, cb_source = 0;
+
+    (void) callbackTime;        /* silence compiler warning */
     td.doneTasks = 0;
 
 #if USE_GTK
