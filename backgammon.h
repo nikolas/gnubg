@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.446 2014/06/22 23:12:32 plm Exp $
+ * $Id: backgammon.h,v 1.447 2014/06/26 20:28:05 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -969,6 +969,7 @@ extern void CommandShowPipCount(char *);
 extern void CommandShowPlayer(char *);
 extern void CommandShowPostCrawford(char *);
 extern void CommandShowPrompt(char *);
+extern void CommandShowRatingOffset(char *);
 extern void CommandShowRNG(char *);
 extern void CommandShowRollout(char *);
 extern void CommandShowRolls(char *);
@@ -1020,7 +1021,7 @@ extern int fMatchCancelled;
 extern int fJustSwappedPlayers;
 
 extern void ProcessEvents(void);
-#if !USE_MULTITHREAD
+#if !defined(USE_MULTITHREAD)
 extern void CallbackProgress(void);
 #endif
 extern void SetRNG(rng * prng, rngcontext * rngctx, rng rngNew, char *szSeed);

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.275 2014/03/15 23:15:30 plm Exp $
+ * $Id: show.c,v 1.276 2014/06/26 20:28:05 plm Exp $
  */
 
 #include "config.h"
@@ -2072,6 +2072,12 @@ CommandShowCheat(char *UNUSED(sz))
         PrintCheatRoll(1, afCheatRoll[1]);
     }
 
+}
+
+extern void
+CommandShowRatingOffset(char *UNUSED(sz))
+{
+    outputf(_("The rating offset for estimating absolute ratings is: %.1f\n"), rRatingOffset);
 }
 
 

@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.40 2014/06/26 20:28:06 plm Exp $ */
+/* $Id: commands.inc,v 1.41 2014/06/27 18:16:51 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -1327,6 +1327,8 @@ command cER = {
       N_("See if this is post-Crawford play"), NULL, NULL },
     { "prompt", CommandShowPrompt, N_("Show the prompt that will be printed "
       "when ready for commands"), NULL, NULL },
+    { "ratingoffset", CommandShowRatingOffset, N_("Show the rating offset "
+      "used for estimating abs. rating"), NULL, NULL },
     { "rng", CommandShowRNG, N_("Display which random number generator "
       "is being used"), NULL, NULL },
     { "rollout", CommandShowRollout, N_("Display the evaluation settings used "
