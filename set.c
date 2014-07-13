@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.382 2014/06/26 20:28:06 plm Exp $
+ * $Id: set.c,v 1.383 2014/06/29 14:37:16 plm Exp $
  */
 
 #include "config.h"
@@ -429,7 +429,7 @@ CommandSetStyledGameList(char *sz)
 extern void
 CommandSetFullScreen(char *sz)
 {
-    int newValue;
+    int newValue = fFullScreen;
     SetToggle("fullscreen", &newValue, sz, _("Show board in full screen mode"), _("Show board in normal screen mode."));
 
     if (newValue != fFullScreen) {      /* Value has changed */
