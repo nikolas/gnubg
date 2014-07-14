@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.89 2014/06/27 01:29:38 mdpetch Exp $
+ * $Id: external.c,v 1.90 2014/06/30 23:21:51 mdpetch Exp $
  */
 
 #include "config.h"
@@ -501,7 +501,7 @@ ExtFIBSBoard(scancontext * pec)
 
             float arOutput[NUM_ROLLOUT_OUTPUTS];
             float rEqBefore, rEqAfter;
-            const float epsilon = 1.0e-6;
+            const float epsilon = 1.0e-6f;
 
             getResignation(arOutput, processedBoard.anBoard, &ci, &esEvalCube);
 
@@ -788,10 +788,9 @@ CommandExternal(char *sz)
             }
 
         }
-        /* Interrupted */
+        /* Interrupted : get out of listen loop */
         if (retval == -2) {
             ProcessEvents();
-            fExit = TRUE;
             fRestart = FALSE;
         }
 
