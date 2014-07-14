@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.197 2014/07/14 13:03:12 plm Exp $
+ * $Id: gtkprefs.c,v 1.198 2014/07/14 14:56:15 plm Exp $
  */
 
 #include "config.h"
@@ -1846,7 +1846,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.197 2014/07/14 13:03:12 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.198 2014/07/14 14:56:15 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2229,7 +2229,7 @@ DesignAdd(GtkWidget * pw, gpointer data)
     plBoardDesigns = g_list_append(plBoardDesigns, (gpointer) pbde);
     AddDesignRow(pbde, pwDesignList);
 
-    DesignSave(pw, data);
+    DesignSave(pw, plBoardDesigns);
 
     pbdeSelected = pbde;
 
@@ -2366,7 +2366,7 @@ RemoveDesign(GtkWidget * pw, gpointer data)
 
     RemoveListDesign(pbdeSelected);
 
-    DesignSave(pw, data);
+    DesignSave(pw, plBoardDesigns);
 
     SetTitle();
 }
