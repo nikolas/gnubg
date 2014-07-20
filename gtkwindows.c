@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.50 2013/06/16 02:16:17 mdpetch Exp $
+ * $Id: gtkwindows.c,v 1.51 2014/05/01 22:19:08 plm Exp $
  */
 
 #include "config.h"
@@ -40,7 +40,7 @@ typedef struct _Warning {
     int isWarningQuestion;
 } Warning;
 
-Warning warnings[WARN_NUM_WARNINGS] = {
+static Warning warnings[WARN_NUM_WARNINGS] = {
     {
      N_("Press escape to exit full screen mode"),
      "fullscreenexit", TRUE, FALSE},
@@ -247,7 +247,7 @@ DialogArea(GtkWidget * pw, dialogarea da)
 
 /* Use to temporarily set the parent dialog for nested dialogs
  * Note that passing a control of a window is ok (and common) */
-GtkWidget *pwCurrentParent = NULL;
+static GtkWidget *pwCurrentParent = NULL;
 
 extern void
 GTKSetCurrentParent(GtkWidget * parent)
@@ -325,7 +325,8 @@ GTKGetInputYN(char *szPrompt)
     return GTKMessage(szPrompt, DT_AREYOUSURE);
 }
 
-char *inputString;
+static char *inputString;
+
 static void
 GetInputOk(GtkWidget * pw, GtkWidget * pwEntry)
 {
@@ -353,9 +354,9 @@ GTKGetInput(char *title, char *prompt, GtkWidget * parent)
     return inputString;
 }
 
-GtkWidget *pwTick;
+static GtkWidget *pwTick;
 
-int warningResult;
+static int warningResult;
 
 static void
 WarningOK(GtkWidget * pw, warningType warning)
