@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.196 2014/06/22 18:32:58 plm Exp $
+ * $Id: import.c,v 1.197 2014/06/26 20:28:06 plm Exp $
  */
 
 #include "config.h"
@@ -3647,7 +3647,7 @@ CommandImportAuto(char *sz)
 }
 
 #define BGR_STRING "BGF version"
-int moveNum;
+static int moveNum;
 
 static void
 OutputMove(FILE * fpOut, int side, const char *outBuf)
