@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.40 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtkrelational.c,v 1.41 2013/09/05 18:59:32 plm Exp $
  */
 
 #include "config.h"
@@ -70,11 +70,11 @@ static GtkWidget *pwQueryText;
 static GtkWidget *pwQueryResult = NULL;
 static GtkWidget *pwQueryBox;
 
-GtkListStore *playerStore;
-GtkListStore *dbStore;
-GtkTreeIter selected_iter;
-int optionsValid;
-GtkWidget *playerTreeview, *adddb, *deldb, *gameStats, *dbList, *dbtype, *user, *password, *hostname, *login, *helptext;
+static GtkListStore *playerStore;
+static GtkListStore *dbStore;
+static GtkTreeIter selected_iter;
+static int optionsValid;
+static GtkWidget *playerTreeview, *adddb, *deldb, *gameStats, *dbList, *dbtype, *user, *password, *hostname, *login, *helptext;
 
 void CheckDatabase(const char *database);
 static void DBListSelected(GtkTreeView * treeview, gpointer userdata);
