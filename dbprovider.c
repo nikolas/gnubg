@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.43 2013/10/18 22:08:16 plm Exp $
+ * $Id: dbprovider.c,v 1.44 2014/01/09 22:18:30 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -66,7 +66,7 @@ static void SQLiteCommit(void);
 #if NUM_PROVIDERS
 static int SQLiteDeleteDatabase(const char *dbfilename, const char *user, const char *password, const char *hostname);
 static GList *SQLiteGetDatabaseList(const char *user, const char *password, const char *hostname);
-DBProvider providers[NUM_PROVIDERS] = {
+static DBProvider providers[NUM_PROVIDERS] = {
 #if USE_SQLITE
     {SQLiteConnect, SQLiteDisconnect, SQLiteSelect, SQLiteUpdateCommand, SQLiteCommit, SQLiteGetDatabaseList,
      SQLiteDeleteDatabase,
@@ -567,7 +567,7 @@ PyPostgreDeleteDatabase(const char *dbfilename, const char *user, const char *pa
 
 #include <sqlite3.h>
 
-sqlite3 *connection;
+static sqlite3 *connection;
 
 int
 SQLiteConnect(const char *dbfilename, const char *UNUSED(user), const char *UNUSED(password),
