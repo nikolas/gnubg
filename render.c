@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.95 2013/09/13 19:43:35 plm Exp $
+ * $Id: render.c,v 1.96 2014/03/15 23:06:29 plm Exp $
  */
 
 #include "config.h"
@@ -122,10 +122,10 @@ int positions[2][30][3] = { {
 };
 
 #if HAVE_FREETYPE
-FT_Library ftl;
+static FT_Library ftl;
 #endif
 
-renderdata rdDefault = {
+static renderdata rdDefault = {
     WOOD_ALDER,                 /* wt */
     {{0xF1 / 255.0, 0x25 / 255.0, 0x25 / 255.0, 0.9}, {0, 0, 0xB / 255.0, 0.5}},        /* aarColour */
     {{0xF1 / 255.0, 0x25 / 255.0, 0x25 / 255.0, 0.9}, {0, 0, 0xB / 255.0, 0.5}},        /* aarDiceColour */
