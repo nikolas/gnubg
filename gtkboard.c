@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.320 2013/12/03 22:35:34 plm Exp $
+ * $Id: gtkboard.c,v 1.321 2013/12/03 22:56:42 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -82,7 +82,7 @@ typedef struct _SetDiceData {
     manualDiceType mdt;
 } SetDiceData;
 /*todo - tidy set cube like above */
-unsigned char *TTachCube, *TTachCubeFaces;
+static unsigned char *TTachCube, *TTachCubeFaces;
 
 #define RAND irand( &rc )
 
