@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.429 2014/05/04 20:15:15 plm Exp $
+ * $Id: play.c,v 1.430 2014/05/20 20:30:51 plm Exp $
  */
 
 #include "config.h"
@@ -46,7 +46,7 @@
 #include "fun3d.h"
 #endif
 
-moverecord *pmr_hint = NULL;
+static moverecord *pmr_hint = NULL;
 
 const char *aszGameResult[] = {
     N_("single game"),
@@ -148,7 +148,7 @@ static int
 #if USE_GTK
 #include "gtkgame.h"
 
-int anLastMove[8], fLastMove, fLastPlayer;
+static int anLastMove[8], fLastMove, fLastPlayer;
 #endif
 
 static void
