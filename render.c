@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.97 2014/07/20 21:53:59 plm Exp $
+ * $Id: render.c,v 1.98 2014/07/20 22:00:29 plm Exp $
  */
 
 #include "config.h"
@@ -37,6 +37,7 @@
 #include "render.h"
 #include "renderprefs.h"
 #include "boarddim.h"
+#include "boardpos.h"
 #include "backgammon.h"
 #include "util.h"
 
@@ -2315,24 +2316,6 @@ RenderArrows(renderdata * prd, unsigned char *puch0, unsigned char *puch1, int U
 #endif
 
 static void
-PointArea(renderdata * prd, int n, int *px, int *py, int *pcx, int *pcy)
-{
-
-    int c = (!n || n == 25) ? 3 : 5;
-
-    *px = positions[prd->fClockwise][n][0] * prd->nSize;
-    *py = positions[prd->fClockwise][n][1] * prd->nSize;
-    *pcx = CHEQUER_WIDTH * prd->nSize;
-    *pcy = positions[prd->fClockwise][n][2] * prd->nSize;
-
-    if (*pcy > 0) {
-        *pcy = *pcy * (c - 1) + CHEQUER_HEIGHT * prd->nSize;
-        *py += CHEQUER_HEIGHT * prd->nSize - *pcy;
-    } else
-        *pcy = -*pcy * (c - 1) + CHEQUER_HEIGHT * prd->nSize;
-}
-
-static void
 DrawChequers(renderdata * prd, unsigned char *puch, int nStride,
              renderimages * pri, int iPoint, int n, int f, int x, int y, int cx, int cy)
 {
@@ -2444,7 +2427,7 @@ CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
     /* draw points */
 
     for (i = 0; i < 28; i++) {
-        PointArea(prd, i, &xPoint, &yPoint, &cxPoint, &cyPoint);
+        PointArea(prd->fClockwise, prd->nSize, i, &xPoint, &yPoint, &cxPoint, &cyPoint);
         if (intersects(x, y, cx, cy, xPoint, yPoint, cxPoint, cyPoint)) {
             switch (i) {
             case 0:
