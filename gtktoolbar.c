@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.70 2013/11/28 22:56:58 plm Exp $
+ * $Id: gtktoolbar.c,v 1.71 2013/12/09 19:50:06 mdpetch Exp $
  */
 
 #include "config.h"
@@ -207,7 +207,7 @@ ToolbarToggleClockwise(GtkWidget * pw, toolbarwidget * UNUSED(ptw))
 }
 #endif
 
-int editing = FALSE;
+static int editing = FALSE;
 
 extern void
 click_edit(void)
