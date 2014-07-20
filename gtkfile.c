@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.65 2012/08/20 20:37:42 plm Exp $
+ * $Id: gtkfile.c,v 1.66 2013/06/16 02:16:14 mdpetch Exp $
  */
 
 #include "config.h"
@@ -235,9 +235,9 @@ SaveCommon(guint f, gchar * prompt)
     gtk_widget_destroy(so.fc);
 }
 
-ImportType lastOpenType;
-GtkWidget *openButton, *selFileType;
-int autoOpen;
+static ImportType lastOpenType;
+static GtkWidget *openButton, *selFileType;
+static int autoOpen;
 
 static void
 selection_changed_cb(GtkFileChooser * file_chooser, void *UNUSED(notused))
