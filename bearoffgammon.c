@@ -12,7 +12,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
 
- * $Id: bearoffgammon.c,v 1.11 2013/06/16 02:16:10 mdpetch Exp $ */
+ * $Id: bearoffgammon.c,v 1.12 2014/01/09 22:17:31 Superfly_Jon Exp $ */
 
 #include "config.h"
 #include "bearoffgammon.h"
@@ -7080,7 +7080,7 @@ static unsigned char x55[] = {
     3,
 };
 
-struct GroupInfo info[63] = {
+static struct GroupInfo info[63] = {
     /*  1 100000 */
     {{0, 0, 0, 36}, 0, 0, 0},
     /*  2 010000 */
