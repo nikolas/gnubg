@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.96 2014/03/15 23:06:29 plm Exp $
+ * $Id: render.c,v 1.97 2014/07/20 21:53:59 plm Exp $
  */
 
 #include "config.h"
@@ -51,9 +51,13 @@
 static randctx rc;
 #define RAND irand( &rc )
 
+#if HAVE_FREETYPE
 #define FONT_VERA "fonts/Vera.ttf"
 #define FONT_VERA_SERIF_BOLD "fonts/VeraSeBd.ttf"
+#if 0 /* unused for now */
 #define FONT_VERA_BOLD "fonts/VeraBd.ttf"
+#endif
+#endif
 
 /* aaanPositions[Clockwise][x][point number][x, y. deltay] */
 int positions[2][30][3] = { {
