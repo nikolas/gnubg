@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.438 2014/04/27 20:15:41 plm Exp $
+ * $Id: eval.c,v 1.439 2014/05/04 20:15:15 plm Exp $
  */
 
 #include "config.h"
@@ -621,10 +621,6 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     }
 
     if (!fNoBearoff) {
-#ifdef USE_BUILTIN_BEAROFF
-        /* read one-sided db from gnubg.bd */
-        pbc1 = BearoffInitBuiltin();
-#endif
         gnubg_bearoff_os = BuildFilename("gnubg_os0.bd");
         if (!pbc1)
             pbc1 = BearoffInit(gnubg_bearoff_os, (int) BO_IN_MEMORY, NULL);
@@ -1742,7 +1738,7 @@ SanityCheck(const TanBoard anBoard, float arOutput[])
     {
         float noise = 1 / 10000.0f;
 
-        for (i = OUTPUT_WINGAMMON; i < 5; ++i) {
+        for (i = OUTPUT_WINGAMMON; i < NUM_OUTPUTS; ++i) {
             if (unlikely(arOutput[i] < noise)) {
                 arOutput[i] = 0.0;
             }
