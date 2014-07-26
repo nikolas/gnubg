@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.41 2013/07/10 19:21:45 mdpetch Exp $
+ * $Id: makehyper.c,v 1.42 2014/03/09 17:08:00 plm Exp $
  */
 
 #include "config.h"
@@ -39,6 +39,7 @@
 #include "drawboard.h"
 #include "multithread.h"
 #include "lib/simd.h"
+#include "glib-ext.h"
 #include "multithread.h"
 
 static cubeinfo ci;
@@ -607,6 +608,7 @@ main(int argc, char **argv)
 
     /* i18n */
 
+    glib_ext_init();
     MT_InitThreads();
     setlocale(LC_ALL, "");
     bindtextdomain(PACKAGE, LOCALEDIR);

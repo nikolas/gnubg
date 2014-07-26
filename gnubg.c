@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.960 2014/06/27 18:16:51 plm Exp $
+ * $Id: gnubg.c,v 1.961 2014/07/20 21:30:36 plm Exp $
  */
 
 #include "config.h"
@@ -4781,8 +4781,8 @@ main(int argc, char *argv[])
     init_nets(fNoBearoff);
 
     PushSplash(pwSplash, _("Initialising"), _("initialising thread data"));
-    MT_InitThreads();
     glib_ext_init();
+    MT_InitThreads();
 
 #if defined(WIN32) && HAVE_SOCKETS
     PushSplash(pwSplash, _("Initialising"), _("Windows sockets"));

@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.52 2013/07/10 22:35:13 mdpetch Exp $
+ * $Id: multithread.h,v 1.53 2013/09/05 19:45:58 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -142,8 +142,8 @@ extern ThreadData td;
 
 #if defined(GLIB_THREADS)
 extern void ResetManualEvent(ManualEvent ME);
-extern void Mutex_Lock(Mutex mutex, const char *reason);
-extern void Mutex_Release(Mutex mutex);
+extern void Mutex_Lock(Mutex *mutex, const char *reason);
+extern void Mutex_Release(Mutex *mutex);
 extern void WaitForManualEvent(ManualEvent ME);
 extern void SetManualEvent(ManualEvent ME);
 extern void TLSSetValue(TLSItem pItem, size_t value);
@@ -152,7 +152,7 @@ extern void TLSFree(TLSItem pItem);
 extern void InitManualEvent(ManualEvent * pME);
 extern void FreeManualEvent(ManualEvent ME);
 extern void InitMutex(Mutex * pMutex);
-extern void FreeMutex(Mutex mutex);
+extern void FreeMutex(Mutex * mutex);
 
 #define UI_UPDATETIME 250
 

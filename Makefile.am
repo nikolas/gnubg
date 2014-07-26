@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.252 2014/06/27 00:35:44 mdpetch Exp $
+## $Id: Makefile.am,v 1.253 2014/07/01 00:10:19 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -181,19 +181,19 @@ UTILSOURCES = eval.h eval.c positionid.h positionid.c \
 	matchequity.c matchequity.h matchid.h matchid.c \
 	osr.c osr.h multithread.h mtsupport.c \
     bearoffgammon.c bearoffgammon.h bearoff.c bearoff.h \
-	mec.h mec.c util.c util.h
+	mec.h mec.c util.c util.h glib-ext.c glib-ext.h
 
 makebearoff_SOURCES = makebearoff.c $(UTILSOURCES)
-makebearoff_LDADD = -Llib lib/libevent.la  @GLIB_LIBS@ @GTHREAD_LIBS@
+makebearoff_LDADD = -Llib lib/libevent.la  @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
 makehyper_SOURCES = makehyper.c $(UTILSOURCES)
-makehyper_LDADD =  -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@
+makehyper_LDADD =  -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
 bearoffdump_SOURCES = bearoffdump.c $(UTILSOURCES)
-bearoffdump_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@
+bearoffdump_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
 makeweights_SOURCES = makeweights.c
-makeweights_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@
+makeweights_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
 
 #

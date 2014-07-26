@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.8 2014/06/27 23:30:41 mdpetch Exp $
+ * $Id: glib-ext.h,v 1.9 2014/06/29 13:14:36 plm Exp $
  */
 
 
@@ -42,19 +42,7 @@
 G_INLINE_FUNC gboolean g_once_init_enter(volatile gsize * value_location);
 gboolean g_once_init_enter_impl(volatile gsize * value_location);
 void g_once_init_leave(volatile gsize * value_location, gsize initialization_value);
-#if defined (G_CAN_INLINE) || defined (__G_THREAD_C__)
-G_INLINE_FUNC gboolean
-g_once_init_enter(volatile gsize * value_location)
-{
-    if G_LIKELY
-        (g_atomic_pointer_get((void *volatile *) value_location) != NULL)
-            return FALSE;
-    else
-        return g_once_init_enter_impl(value_location);
-}
-#endif                          /* G_CAN_INLINE || __G_THREAD_C__ */
 #endif
-
 
 #define GLIBEXT_MERGE(a,b)  a##b
 #define GLIBEXT_LABEL_(a,b) GLIBEXT_MERGE(a, b)

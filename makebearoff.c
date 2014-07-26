@@ -16,13 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.93 2014/05/01 20:22:29 plm Exp $
+ * $Id: makebearoff.c,v 1.94 2014/07/23 19:43:01 plm Exp $
  */
 
 #include "config.h"
 
-#include <glib.h>
-#include <glib/gstdio.h>
 #include <stdio.h>
 #ifdef WIN32
 #include <io.h>
@@ -39,6 +37,8 @@
 #include "bearoff.h"
 #include "util.h"
 #include "backgammon.h"
+#include <glib/gstdio.h>
+#include "glib-ext.h"
 #include "multithread.h"
 
 void
@@ -1253,7 +1253,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.93 $\n");
+    printf("makebearoff $Revision: 1.94 $\n");
 }
 
 
@@ -1273,6 +1273,7 @@ main(int argc, char **argv)
     static char *szTwoSided = NULL;
     static int show_version = 0;
 
+    glib_ext_init();
     MT_InitThreads();
     bearoffcontext *pbc = NULL;
     FILE *output;
