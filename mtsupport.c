@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.2 2013/09/05 19:45:58 plm Exp $
+ * $Id: mtsupport.c,v 1.3 2014/07/26 06:23:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -350,12 +350,10 @@ Mutex_Release(Mutex mutex)
 extern void
 MT_InitThreads(void)
 {
-#if 0
 #if !GLIB_CHECK_VERSION (2,32,0)
     if (!g_thread_supported())
         g_thread_init(NULL);
     g_assert(g_thread_supported());
-#endif
 #endif
     td.tasks = NULL;
     td.doneTasks = td.addedTasks = 0;
