@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.3 2014/07/26 06:23:35 mdpetch Exp $
+ * $Id: mtsupport.c,v 1.4 2014/07/26 06:55:52 mdpetch Exp $
  */
 
 #include "config.h"
@@ -315,9 +315,9 @@ InitMutex(Mutex * pMutex)
 }
 
 extern void
-FreeMutex(Mutex mutex)
+FreeMutex(Mutex * mutex)
 {
-    CloseHandle(mutex);
+    CloseHandle(*mutex);
 }
 
 #ifdef DEBUG_MULTITHREADED
