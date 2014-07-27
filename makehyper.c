@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.42 2014/03/09 17:08:00 plm Exp $
+ * $Id: makehyper.c,v 1.43 2014/07/26 06:23:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -73,8 +73,7 @@ MT_CloseThreads(void)
     return;
 }
 
-int aiNorm[10];
-
+static int aiNorm[10];
 
 static hyperclass
 ClassifyHyper(TanBoard anBoard)
