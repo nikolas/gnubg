@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard3d.c,v 1.97 2013/06/16 02:16:21 mdpetch Exp $
+ * $Id: drawboard3d.c,v 1.98 2014/01/08 21:26:11 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1748,8 +1748,8 @@ drawTable(const BoardData3d * bd3d, const renderdata * prd)
     if (prd->roundedEdges) {
         if (prd->BoxMat.pTexture) {
             tuv = (TEXTURE_SCALE) / prd->BoxMat.pTexture->width;
-            st = sinf((2 * G_PI) / prd->curveAccuracy) * BOARD_FILLET;
-            ct = (cosf((2 * G_PI) / prd->curveAccuracy) - 1) * BOARD_FILLET;
+            st = sinf((2 * (float)G_PI) / prd->curveAccuracy) * BOARD_FILLET;
+            ct = (cosf((2 * (float)G_PI) / prd->curveAccuracy) - 1) * BOARD_FILLET;
             dInc = sqrtf(st * st + ct * ct);
             curveTextOff = (int) (prd->curveAccuracy / 4) * dInc;
         }
@@ -2699,7 +2699,7 @@ drawPointPick(const BoardData * UNUSED(bd), void *data)
 
 /* 20 allows for 5 hit records (more than enough) */
 #define BUFSIZE 20
-GLuint selectBuf[BUFSIZE];
+static GLuint selectBuf[BUFSIZE];
 
 typedef void (*PickDrawFun) (const BoardData * bd, void *data);
 
