@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.430 2014/05/20 20:30:51 plm Exp $
+ * $Id: play.c,v 1.431 2014/07/20 21:22:42 plm Exp $
  */
 
 #include "config.h"
@@ -413,8 +413,10 @@ FreeMoveRecord(moverecord * pmr)
 
     switch (pmr->mt) {
     case MOVE_NORMAL:
-        if (pmr->ml.cMoves)
+        if (pmr->ml.cMoves && pmr->ml.amMoves) {
             free(pmr->ml.amMoves);
+            pmr->ml.amMoves = NULL;
+        }
         break;
 
     default:
