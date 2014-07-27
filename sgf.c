@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.152 2013/11/10 15:53:56 plm Exp $
+ * $Id: sgf.c,v 1.153 2014/01/24 22:49:16 plm Exp $
  */
 
 #include "config.h"
@@ -647,7 +647,7 @@ RestoreRolloutRolloutContext(rolloutcontext * prc, const char *sz)
     prc->fStopOnSTD = 0;
     prc->nLate = 0;
     prc->nMinimumGames = 144;
-    prc->rStdLimit = 0.01;
+    prc->rStdLimit = 0.01f;
 
     if (!pc)
         return;
@@ -799,7 +799,7 @@ RestoreExtendedRolloutContext(rolloutcontext * prc, const char *sz)
     prc->fTruncBearoffOS = fTruncBearoffOS;
     prc->rngRollout = RNG_MERSENNE;
     prc->nMinimumGames = 144;
-    prc->rStdLimit = 0.01;
+    prc->rStdLimit = 0.01f;
 
     for (i = 0; i < 2; ++i) {
         sprintf(szTemp, "latecube%d ", i);

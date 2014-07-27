@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.276 2014/06/26 20:28:05 plm Exp $
+ * $Id: show.c,v 1.277 2014/07/09 21:00:07 plm Exp $
  */
 
 #include "config.h"
@@ -1523,15 +1523,15 @@ CommandShowMarketWindow(char *sz)
 
     /* see if ratios are given on command line */
 
-    aarRates[0][0] = (float) ParseReal(&sz);
+    aarRates[0][0] = ParseReal(&sz);
 
     if (aarRates[0][0] >= 0) {
 
         /* read the others */
 
-        aarRates[1][0] = ((r = (float) ParseReal(&sz)) > 0.0f) ? r : 0.0f;
-        aarRates[0][1] = ((r = (float) ParseReal(&sz)) > 0.0f) ? r : 0.0f;
-        aarRates[1][1] = ((r = (float) ParseReal(&sz)) > 0.0f) ? r : 0.0f;
+        aarRates[1][0] = ((r = ParseReal(&sz)) > 0.0f) ? r : 0.0f;
+        aarRates[0][1] = ((r = ParseReal(&sz)) > 0.0f) ? r : 0.0f;
+        aarRates[1][1] = ((r = ParseReal(&sz)) > 0.0f) ? r : 0.0f;
 
         /* If one of the ratios are larger than 1 we assume the user
          * has entered 25.1 instead of 0.251 */

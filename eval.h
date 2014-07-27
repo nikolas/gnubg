@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.184 2014/05/04 20:15:16 plm Exp $
+ * $Id: eval.h,v 1.185 2014/07/27 15:15:45 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -138,11 +138,11 @@ typedef struct {
     rng rngRollout;
     unsigned long nSeed;
     unsigned int nMinimumGames; /* but always do at least this many */
-    double rStdLimit;           /* stop when abs( value / std ) < this */
+    float rStdLimit;           /* stop when abs( value / std ) < this */
     unsigned int nMinimumJsdGames;
-    double rJsdLimit;
+    float rJsdLimit;
     unsigned int nGamesDone;
-    double rStoppedOnJSD;
+    float rStoppedOnJSD;
     int nSkip;
 } rolloutcontext;
 

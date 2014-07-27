@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.447 2014/06/26 20:28:05 plm Exp $
+ * $Id: backgammon.h,v 1.448 2014/07/09 21:00:07 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -443,7 +443,7 @@ extern char *NextToken(char **ppch);
 extern char *NextTokenGeneral(char **ppch, const char *szTokens);
 extern char *SetupLanguage(const char *newLangCode);
 extern command *FindHelpCommand(command * pcBase, char *sz, char *pchCommand, char *pchUsage);
-extern double ParseReal(char **ppch);
+extern float ParseReal(char **ppch);
 extern int AnalyzeMove(moverecord * pmr, matchstate * pms,
                        const listOLD * plGame, statcontext * psc,
                        const evalsetup * pesChequer, evalsetup * pesCube,
