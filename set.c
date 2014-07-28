@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.385 2014/07/20 22:06:27 plm Exp $
+ * $Id: set.c,v 1.386 2014/07/27 16:01:09 plm Exp $
  */
 
 #include "config.h"
@@ -329,16 +329,16 @@ static void
 SetLuckThreshold(lucktype lt, char *sz)
 {
 
-    double r = ParseReal(&sz);
+    float r = ParseReal(&sz);
     char *szCommand = gettext(aszLuckTypeCommand[lt]);
 
-    if (r <= 0.0) {
+    if (r <= 0.0f) {
         outputf(_("You must specify a positive number for the threshold (see "
                   "`help set analysis\nthreshold %s').\n"), szCommand);
         return;
     }
 
-    arLuckLevel[lt] = (float) r;
+    arLuckLevel[lt] = r;
 
     outputf(_("`%s' threshold set to %.3f.\n"), szCommand, r);
 }
@@ -347,16 +347,16 @@ static void
 SetSkillThreshold(skilltype lt, char *sz)
 {
 
-    double r = ParseReal(&sz);
+    float r = ParseReal(&sz);
     char *szCommand = gettext(aszSkillTypeCommand[lt]);
 
-    if (r < 0.0) {
+    if (r < 0.0f) {
         outputf(_("You must specify a semi-positive number for the threshold (see "
                   "`help set analysis\nthreshold %s').\n"), szCommand);
         return;
     }
 
-    arSkillLevel[lt] = (float) r;
+    arSkillLevel[lt] = r;
 
     outputf(_("`%s' threshold set to %.3f.\n"), szCommand, r);
 }
