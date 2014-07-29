@@ -15,13 +15,15 @@
  * cache.h
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.h,v 1.22 2013/06/16 02:16:23 mdpetch Exp $
+ * $Id: cache.h,v 1.23 2014/01/08 21:26:11 Superfly_Jon Exp $
  */
 
 #ifndef CACHE_H
 #define CACHE_H
 
 #include <stdlib.h>
+
+#include "config.h"
 
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
