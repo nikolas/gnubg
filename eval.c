@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.440 2014/07/23 19:43:01 plm Exp $
+ * $Id: eval.c,v 1.441 2014/07/27 15:15:45 plm Exp $
  */
 
 #include "config.h"
@@ -3573,9 +3573,6 @@ MoneyLive(const float rW, const float rL, const float p, const cubeinfo * pci)
             return -1.0f + (rW + 1.0f) * (p - rTP) / (1.0f - rTP);
 
     }
-
-    g_assert_not_reached();
-    return 0;
 
 }
 
