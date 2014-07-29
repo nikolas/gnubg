@@ -16,11 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: output.c,v 1.2 2013/06/20 01:51:48 mdpetch Exp $
+ * $Id: output.c,v 1.3 2013/09/12 22:14:45 plm Exp $
  */
 
 #include "config.h"
 #include "output.h"
+#include "backgammon.h"
 
 #include <sys/types.h>
 #include <stdlib.h>
@@ -45,8 +46,6 @@
 #if USE_GTK
 #include "gtkgame.h"
 #endif
-
-#include "backgammon.h"
 
 int cOutputDisabled;
 int cOutputPostponed;
