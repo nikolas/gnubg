@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.448 2014/07/09 21:00:07 plm Exp $
+ * $Id: backgammon.h,v 1.449 2014/07/27 16:01:19 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -418,7 +418,7 @@ extern command cOnOff;
 
 extern int fInteractive;
 
-#ifdef _LIBINTL_H
+#if defined(_LIBINTL_H) && defined(__MINGW32__)
 #warning "libintl.h already included expect warnings under mingw"
 #endif
 
