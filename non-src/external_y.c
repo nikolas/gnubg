@@ -86,7 +86,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.29 2014/06/26 08:08:38 mdpetch Exp $
+ * $Id: external_y.y,v 1.30 2014/06/27 00:36:25 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_Y_H
