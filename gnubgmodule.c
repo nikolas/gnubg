@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.177 2014/06/27 09:30:30 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.178 2014/07/26 20:13:30 mdpetch Exp $
  */
 
 #include "config.h"
@@ -46,10 +46,6 @@
 #endif
 
 #if USE_PYTHON
-
-#if (PY_VERSION_HEX < 0x02050000)
-typedef int Py_ssize_t;
-#endif
 
 #if (PY_VERSION_HEX < 0x02030000)
 /* Bool introduced in 2.3 */
