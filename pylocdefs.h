@@ -1,5 +1,5 @@
 /*
- * pythonlocdefs.h
+ * pylocdefs.h
  *
  * by Michael Petch <mpetch@capp-sysware.com>, 2011.
  *
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: $
+ * $Id: pylocdefs.h,v 1.1 2014/08/07 21:51:48 mdpetch Exp $
  */
 
 #ifndef PYTHONLOCDEFS_H
