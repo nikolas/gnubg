@@ -16,11 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: pylocdefs.h,v 1.2 2014/08/07 21:58:12 mdpetch Exp $
+ * $Id: pylocdefs.h,v 1.3 2014/08/07 21:59:24 mdpetch Exp $
  */
 
-#ifndef PYTHONLOCDEFS_H
-#define PYTHONLOCDEFS_H
+#ifndef PYLOCDEFS_H
+#define PYLOCDEFS_H
 
 #include "config.h"
 
