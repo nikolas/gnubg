@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: pylocdefs.h,v 1.3 2014/08/07 21:59:24 mdpetch Exp $
+ * $Id: pylocdefs.h,v 1.4 2014/08/07 22:01:48 mdpetch Exp $
  */
 
 #ifndef PYLOCDEFS_H
@@ -44,6 +44,15 @@
 
 #if PY_VERSION_HEX < 0x02050000
 typedef int Py_ssize_t;
+#endif
+
+#if PY_VERSION_HEX < 0x02060000
+    #define PyBytes_FromStringAndSize PyString_FromStringAndSize
+    #define PyBytes_FromString PyString_FromString
+    #define PyBytes_AsString PyString_AsString
+    #define PyBytes_Size PyString_Size
+    #define PyBytes_Check PyString_Check
+    #define PyUnicode_FromString PyString_FromString
 #endif
 
 #if PY_VERSION_HEX < 0x02050000 && !defined(PY_SSIZE_T_MIN)
