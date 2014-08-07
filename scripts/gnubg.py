@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnubg.py,v 1.11 2013/06/24 22:01:55 mdpetch Exp $
+# $Id: gnubg.py,v 1.12 2013/08/21 03:45:23 mdpetch Exp $
 #
 
 # Add the scrpts directory to the module path to allow
@@ -31,7 +31,11 @@ import sys
 sys.path.insert(1, './scripts')
 #import site
 
-import __builtin__
+if sys.version_info >= (3, 0):
+    import builtins as bi
+else:
+    import __builtin__ as bi
+
 
 def setinterpreterquit():
     class interpreterquit(object):
@@ -41,10 +45,10 @@ def setinterpreterquit():
             if not ('idlelib' in sys.stdin.__class__.__module__):
                 raise SystemExit(0)
             else:
-                print 'Press Ctrl-D to exit'
+                print('Press Ctrl-D to exit')
 
-    __builtin__.quit = interpreterquit()
-    __builtin__.exit = interpreterquit()
+    bi.quit = interpreterquit()
+    bi.exit = interpreterquit()
 
 setinterpreterquit()
 
@@ -127,10 +131,10 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
             # If we get this far we are on Win32 and too early
             # a version to support the embedded interpreter so
             # we simulate one
-            print banner
-            print '<Control-Z> and <Return> to exit'
+            print(banner)
+            print('<Control-Z> and <Return> to exit')
             while True:
-                print '>>> ',
+                print('>>> ',)
                 line = sys.stdin.readline()
                 if not line:
                     break
