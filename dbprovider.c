@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.45 2014/07/20 21:27:06 plm Exp $
+ * $Id: dbprovider.c,v 1.46 2014/08/07 21:49:07 mdpetch Exp $
  */
 
 #include "config.h"
@@ -35,7 +35,7 @@ DBProviderType dbProviderType = (DBProviderType) 0;
 int storeGameStats = TRUE;
 
 #if USE_PYTHON
-#include "pythonlocdefs.h"
+#include "pylocdefs.h"
 
 PyObject *pdict;
 RowSet *ConvertPythonToRowset(PyObject * v);

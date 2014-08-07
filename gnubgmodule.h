@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.h,v 1.29 2014/08/05 07:39:41 mdpetch Exp $
+ * $Id: gnubgmodule.h,v 1.30 2014/08/07 21:49:07 mdpetch Exp $
  */
 
 #ifndef GNUBGMODULE_H
@@ -30,7 +30,7 @@
 #endif
 
 #include <Python.h>
-#include "pythonlocdefs.h"
+#include "pylocdefs.h"
 
 extern PyObject *PythonGnubgModule(void);
 
