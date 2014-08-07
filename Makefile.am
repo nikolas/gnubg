@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.253 2014/07/01 00:10:19 mdpetch Exp $
+## $Id: Makefile.am,v 1.254 2014/07/26 06:23:34 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -106,6 +106,7 @@ gnubg_SOURCES = \
 		positionid.h \
 		progress.c \
 		progress.h \
+		pylocdefs.h \
 		relational.c \
 		relational.h \
 		render.c \
