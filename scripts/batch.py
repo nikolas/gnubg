@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: batch.py,v 1.6 2013/08/21 03:45:23 mdpetch Exp $
+# $Id: batch.py,v 1.7 2014/08/08 04:50:26 mdpetch Exp $
 
 """
  batch.py -- batch import and analysis of multiple files using gnubg
@@ -222,5 +222,6 @@ def BatchImport():
 try:
     print (__doc__)
     BatchImport()
-except Exception as e:
-    print ("Error:", e)
+except Exception:
+    e = sys.exc_info()[1].args[0]
+    print ("Error: " + e)

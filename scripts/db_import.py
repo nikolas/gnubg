@@ -16,7 +16,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: db_import.py,v 1.4 2013/08/21 03:45:23 mdpetch Exp $
+# $Id: db_import.py,v 1.5 2014/08/08 04:50:26 mdpetch Exp $
 
 """
  db_import.py -- batch import of multiple sgf files into relational database
@@ -126,5 +126,6 @@ def BatchImport():
 try:
     print (__doc__)
     BatchImport()
-except Exception as e:
-    print ("Error:", e)
+except Exception:
+    e = sys.exc_info()[1].args[0]
+    print ("Error: " + e)
