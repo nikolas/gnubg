@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.179 2014/08/05 06:55:42 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.180 2014/08/07 21:49:07 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3475,8 +3475,6 @@ PythonInitialise(char *argv0)
 extern void
 PythonShutdown(void)
 {
-    Py_Finalize();
-
 #ifdef WIN32
     if (python_dir) {
         g_free(python_dir);
@@ -3488,6 +3486,11 @@ PythonShutdown(void)
     }
 
     py_gnubg_module = NULL;
+   /* With versions < 2.4 Py_finalize has garbage collection bugs
+      so we skip it to prevent problems */
+#if (PY_VERSION_HEX >= 0x02040000)
+    Py_Finalize();
+#endif
 }
 
 extern void
