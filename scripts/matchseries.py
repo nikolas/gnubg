@@ -46,7 +46,7 @@
 #                  matBasePath = None)
 # EOF
 #
-# $Id: matchseries.py,v 1.3 2013/06/16 03:03:07 mdpetch Exp $
+# $Id: matchseries.py,v 1.4 2013/08/21 03:45:23 mdpetch Exp $
 #
 
 import gnubg
@@ -106,7 +106,7 @@ def formatMatchInfo(matchInfo):
         score[winner] += pw
 
         cube = getCube(game)
-        print 'cube: ', cube
+        print ('cube: ', cube)
 
         if pw == cube:
             gammon = ''
