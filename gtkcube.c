@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.84 2013/04/13 23:44:27 plm Exp $
+ * $Id: gtkcube.c,v 1.85 2013/06/16 02:16:14 mdpetch Exp $
  */
 
 #include "config.h"
@@ -372,7 +372,7 @@ CubeAnalysis(cubehintdata * pchd)
 
     cd = FindCubeDecision(arDouble, cdec->aarOutput, &ci);
 
-    if (!GetDPEq(NULL, NULL, &ci) && !pchd->pmr->mt == MOVE_DOUBLE)
+    if (!GetDPEq(NULL, NULL, &ci) && !(pchd->pmr->mt == MOVE_DOUBLE))
         /* No cube action possible */
         return NULL;
 
@@ -501,7 +501,7 @@ CubeAnalysis(cubehintdata * pchd)
 
         if (pes->et == EVAL_ROLLOUT && (ai[i] == OUTPUT_TAKE || ai[i] == OUTPUT_NODOUBLE)) {
 
-            /* FIXME: output cubeless euqities and percentages for rollout */
+            /* FIXME: output cubeless equities and percentages for rollout */
             /*        probably along with rollout details */
 
             pw = gtk_label_new(OutputPercents(cdec->aarOutput[ai[i] - 1], TRUE));
