@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.198 2014/07/20 20:57:55 plm Exp $
+ * $Id: import.c,v 1.199 2014/07/20 21:01:48 plm Exp $
  */
 
 #include "config.h"
@@ -934,7 +934,7 @@ ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warn
     IniStatcontext(&pmr->g.sc);
     AddMoveRecord(pmr);
 
-    while ((szLine = GetMatLine(fp)) && strncmp(g_strchug(szLine), START_STRING, START_STRING_LEN)) {
+    while ((szLine = GetMatLine(fp)) && !g_strrstr(szLine, START_STRING)) {
         pchRight = pchLeft = NULL;
 
         if ((pch = strpbrk(szLine, "\n\r")) != 0)
@@ -1134,7 +1134,7 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
 
     szLine = GetMatLine(fp);
     while (szLine) {
-        if (!strncmp(g_strchug(szLine), START_STRING, START_STRING_LEN)) {
+        if (g_strrstr(szLine, START_STRING)) {
             game = atoi(g_strchug(szLine) + START_STRING_LEN);
             if (!game)
                 outputf(_("WARNING! Unrecognized line in mat file: '%s'\n"), szLine);
