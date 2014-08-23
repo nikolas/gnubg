@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.185 2014/07/27 15:15:45 plm Exp $
+ * $Id: eval.h,v 1.186 2014/07/27 16:00:07 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -73,11 +73,6 @@ typedef enum {
  * compute. */
 #define MAX_INCOMPLETE_MOVES 3875
 #define MAX_MOVES 3060
-
-/* If this is increased, the nSearchCandidates member in struct _evalcontext
- * must also be enlarged. */
-#define MAX_SEARCH_CANDIDATES 127
-
 
 typedef struct movefilter_s {
     int Accept;                 /* always allow this many moves. 0 means don't use this */
