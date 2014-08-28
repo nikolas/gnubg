@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.277 2014/07/09 21:00:07 plm Exp $
+ * $Id: show.c,v 1.278 2014/07/27 16:01:21 plm Exp $
  */
 
 #include "config.h"
@@ -530,7 +530,7 @@ CommandShowCache(char *UNUSED(sz))
 
     EvalCacheStats(&c, &cLookup, &cHit);
 
-    outputf(_("%d cache entries have been used. %d lookups, %d hits"), c, cLookup, cHit);
+    outputf(_("%u cache entries have been used. %u lookups, %u hits"), c, cLookup, cHit);
 
     if (cLookup)
         outputf(" (%4.1f%%).", (float)cHit * 100.0f / (float)cLookup);
