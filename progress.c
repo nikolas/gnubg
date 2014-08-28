@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.70 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: progress.c,v 1.71 2013/09/05 18:43:46 plm Exp $
  */
 
 #include "config.h"
@@ -736,7 +736,10 @@ GTKRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
     rolloutprogress *prp = (rolloutprogress *) g_malloc(sizeof(rolloutprogress));
     *pp = prp;
     prp->prs = (rolloutstat *) aars;
+    if (aars)
+        memset(aars, 0, 2 * n * sizeof(rolloutstat));
     prp->n = n;
+    prp->nGamesDone = 0;
     prp->stopped = 0;
     fInterrupt = FALSE;
 
@@ -786,8 +789,6 @@ GTKRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
 
     gtk_box_pack_start(GTK_BOX(pwVbox), prp->pwRolloutResult, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(pwVbox), prp->pwRolloutProgress, FALSE, FALSE, 0);
-
-
 
     /* time elapsed and left */
 
