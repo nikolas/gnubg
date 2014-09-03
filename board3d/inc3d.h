@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.51 2013/03/21 00:06:47 plm Exp $
+ * $Id: inc3d.h,v 1.52 2013/06/16 02:16:22 mdpetch Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -57,9 +57,6 @@
 
 #include "model.h"
 #include "drawboard.h"          /* for fClockwise decl */
-
-/* float versions (to quiet compiler warnings) */
-#define powi(arg1, arg2) (int)pow((double)(arg1), (double)(arg2))
 
 /* Clipping planes */
 #define zNear .1
