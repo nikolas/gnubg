@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: misc3d.c,v 1.111 2013/06/16 02:16:22 mdpetch Exp $
+ * $Id: misc3d.c,v 1.112 2014/01/08 21:09:29 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -565,7 +565,6 @@ int
 LoadTexture(Texture * texture, const char *filename)
 {
     unsigned char *bits = 0;
-    int n;
     GError *pix_error = NULL;
     GdkPixbuf *fpixbuf, *pixbuf;
 
@@ -604,8 +603,7 @@ LoadTexture(Texture * texture, const char *filename)
         return 0;               /* failed to load file */
     }
     /* Check size is a power of 2 */
-    frexp((double) texture->width, &n);
-    if (texture->width != powi(2, n - 1)) {
+    if (texture->width <= 0 || (texture->width & (texture->width -1))) {
         g_print("Failed to load texture %s, size (%d) isn't a power of 2\n", filename, texture->width);
         return 0;               /* failed to load file */
     }
