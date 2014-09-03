@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.35 2013/06/16 02:16:23 mdpetch Exp $
+ * $Id: cache.c,v 1.36 2014/07/16 06:52:59 plm Exp $
  */
 
 #include "config.h"
@@ -261,16 +261,16 @@ CacheLookupWithLocking(evalCache * pc, const cacheNodeDetail * e, float *arOut, 
         }
     }
     /* Cache hit */
-#if CACHE_STATS
-    ++pc->cHit;
-#endif
-
     memcpy(arOut, pc->entries[l].nd_primary.ar, sizeof(float) * 5 /*NUM_OUTPUTS */ );
     if (arCubeful)
         *arCubeful = pc->entries[l].nd_primary.ar[5];   /* Cubeful equity stored in slot 5 */
 
 #if USE_MULTITHREAD
     cache_unlock(pc, l);
+#endif
+
+#if CACHE_STATS
+    ++pc->cHit;
 #endif
 
     return CACHEHIT;
@@ -294,14 +294,15 @@ CacheLookupNoLocking(evalCache * pc, const cacheNodeDetail * e, float *arOut, fl
             pc->entries[l].nd_secondary = tmp;
         }
     }
-    /* Cache hit */
-#if CACHE_STATS
-    ++pc->cHit;
-#endif
 
+    /* Cache hit */
     memcpy(arOut, pc->entries[l].nd_primary.ar, sizeof(float) * 5 /*NUM_OUTPUTS */ );
     if (arCubeful)
         *arCubeful = pc->entries[l].nd_primary.ar[5];   /* Cubeful equity stored in slot 5 */
+
+#if CACHE_STATS
+    ++pc->cHit;
+#endif
 
     return CACHEHIT;
 }
