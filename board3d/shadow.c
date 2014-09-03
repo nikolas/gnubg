@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: shadow.c,v 1.19 2011/04/10 22:33:32 mdpetch Exp $
+ * $Id: shadow.c,v 1.20 2013/06/16 02:16:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -53,7 +53,7 @@ shadowInit(BoardData3d * bd3d, renderdata * prd)
         g_print("No stencil buffer - no shadows\n");
         return;
     }
-    midStencilVal = powi(2, stencilBits - 1);
+    midStencilVal = 1 << (stencilBits - 1);
     glClearStencil(midStencilVal);
 
     bd3d->shadowsInitialised = TRUE;
