@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.962 2014/07/26 06:23:34 mdpetch Exp $
+ * $Id: gnubg.c,v 1.963 2014/07/27 16:00:14 plm Exp $
  */
 
 #include "config.h"
@@ -2211,8 +2211,6 @@ find_skills(moverecord * pmr, const matchstate * pms, int did_double, int did_ta
         pmr->stCube = drop_skill(pmr, &ci);
     else if (did_take == TRUE)
         pmr->stCube = take_skill(pmr, &ci);
-    else
-        pmr->stCube = SKILL_NONE;
 
     if (pmr->mt == MOVE_NORMAL && pmr->ml.cMoves > 0 && pmr->n.iMove < pmr->ml.cMoves)
         pmr->n.stMove = move_skill(pmr);
