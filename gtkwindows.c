@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.51 2014/05/01 22:19:08 plm Exp $
+ * $Id: gtkwindows.c,v 1.52 2014/07/20 21:11:58 plm Exp $
  */
 
 #include "config.h"
@@ -55,7 +55,7 @@ static Warning warnings[WARN_NUM_WARNINGS] = {
      N_("No hardware accelerated graphics card found, performance may be slow"),
      "unaccelerated", TRUE, FALSE},
     {
-     N_("Interupt the current process?"),
+     N_("Interrupt the current process?"),
      "stop", TRUE, TRUE},
     {
      N_("Play to the end of the game automatically?"),
