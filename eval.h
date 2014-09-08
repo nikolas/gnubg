@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.187 2014/08/23 20:45:50 plm Exp $
+ * $Id: eval.h,v 1.188 2014/08/30 20:33:37 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -324,6 +324,7 @@ typedef enum {
 #define N_CLASSES (CLASS_CONTACT + 1)
 
 #define CLASS_PERFECT CLASS_BEAROFF_TS
+#define CLASS_GOOD CLASS_BEAROFF_OS   /* Good enough to not need SanityCheck */
 
 typedef int (*classevalfunc) (const TanBoard anBoard, float arOutput[], const bgvariation bgv, NNState * nnStates);
 
