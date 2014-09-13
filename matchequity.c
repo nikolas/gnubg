@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.c,v 1.93 2013/09/13 21:57:36 plm Exp $
+ * $Id: matchequity.c,v 1.94 2014/02/12 23:06:19 plm Exp $
  */
 
 #include "config.h"
@@ -1653,9 +1653,6 @@ getME(const int nScore0, const int nScore1, const int nMatchTo,
         /* non-post-Crawford games */
         return (fPlayer) ? 1.0f - aafMET[n0][n1] : aafMET[n0][n1];
 
-    g_assert_not_reached();
-    return 0.0f;
-
 }
 
 
@@ -1694,9 +1691,6 @@ getMEAtScore(const int nScore0, const int nScore1, const int nMatchTo,
     } else
         /* non-post-Crawford games */
         return (fPlayer) ? 1.0f - aafMET[n0][n1] : aafMET[n0][n1];
-
-    g_assert_not_reached();
-    return 0.0f;
 
 }
 
