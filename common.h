@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: common.h,v 1.28 2013/11/23 19:42:07 plm Exp $
+ * $Id: common.h,v 1.29 2014/06/28 22:31:24 plm Exp $
  */
 
 /*! \file common.h
@@ -74,7 +74,7 @@ typedef void (*psighandler) (int);
 #endif
 
 /* Helper macros for __builtin_expect */
-#ifdef HAVE_BUILTIN_EXPECT
+#ifdef HAVE___BUILTIN_EXPECT
 #define likely(expression)	__builtin_expect(!!(expression), 1)
 #define unlikely(expression)	__builtin_expect(!!(expression), 0)
 #else
