@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.444 2014/09/13 20:07:20 plm Exp $
+ * $Id: eval.c,v 1.445 2014/09/13 20:47:15 plm Exp $
  */
 
 #include "config.h"
@@ -5401,7 +5401,7 @@ EvaluatePositionFull(NNState * nnStates, const TanBoard anBoard, float arOutput[
             for (i = 0; i < NUM_OUTPUTS; i++)
                 arOutput[i] += Noise(pec, anBoard, i);
 
-        if (pc > CLASS_GOOD)
+        if (pc > CLASS_GOOD || pec->rNoise)
             /* no sanity check needed for accurate evaluations */
             SanityCheck(anBoard, arOutput);
     }
@@ -6021,7 +6021,7 @@ EvaluatePositionCubeful4(NNState * nnStates, const TanBoard anBoard,
                 for (i = 0; i < NUM_OUTPUTS; i++)
                     arOutput[i] += Noise(pec, anBoard, i);
 
-            if (pc > CLASS_GOOD)
+            if (pc > CLASS_GOOD || pec->rNoise)
                 /* no sanity check needed for accurate evaluations */
                 SanityCheck(anBoard, arOutput);
 
