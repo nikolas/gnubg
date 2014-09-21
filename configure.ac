@@ -18,7 +18,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.40 $)
+AC_REVISION($Revision: 1.41 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.03.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -264,12 +264,6 @@ dnl
 AC_CHECK_FUNCS(sigaction sigvec,break)
 AC_CHECK_FUNCS(strptime random setpriority)
 AC_CHECK_FUNCS(mtrace)
-
-dnl 	 
-dnl Checks for declarations 	 
-dnl
-
-AC_CHECK_DECLS([signbit], , , [#include <math.h>])
 
 dnl
 dnl Checks for compiler builtins
