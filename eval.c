@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.447 2014/09/21 17:07:03 plm Exp $
+ * $Id: eval.c,v 1.448 2014/09/21 21:58:52 plm Exp $
  */
 
 #include "config.h"
@@ -868,11 +868,11 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
     /* One roll stat */
 
     struct {
-        /* count of pips this roll hits */
-        int nPips;
-
         /* number of chequers this roll hits */
         int nChequers;
+
+        /* count of pips this roll hits */
+        int nPips;
     } aRoll[21];
 
     for (nOppBack = 24; nOppBack >= 0; --nOppBack) {
