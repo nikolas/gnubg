@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.147 2014/05/05 19:41:07 plm Exp $
+# $Id: credits.sh,v 1.148 2014/07/27 13:53:56 mdpetch Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -413,8 +413,9 @@ cat >> AUTHORS <<'EOF'
 
   Library code from the following authors has been included in GNU Backgammon:
 
+               Austin Appleby (the MurmurHash3 hashing function)
      Ulrich Drepper (an implementation of the public domain MD5 algorithm)
-   Bob Jenkins (the ISAAC pseudo random number generator, hashing functions)
+            Bob Jenkins (the ISAAC pseudo random number generator)
        Takuji Nishimura and Makoto Matsumoto (the Mersenne Twister PRNG)
                    Brian Paul (the TR tile rendering library)
              Claes Tornberg (the mec match equity table generator)
