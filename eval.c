@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.449 2014/09/22 20:02:41 plm Exp $
+ * $Id: eval.c,v 1.450 2014/10/04 21:44:03 plm Exp $
  */
 
 #include "config.h"
@@ -5275,8 +5275,7 @@ FindBestMoveInEval(NNState * nnStates, int const nDice0, int const nDice1, const
          * on some gcc systems. Remove with great care. */
         move *const volatile pm = &ml.amMoves[i];
 
-        PositionFromKey(anBoardOut, &pm->key);
-        SwapSides(anBoardOut);
+        PositionFromKeySwapped(anBoardOut, &pm->key);
 
         pc = ClassifyPosition((ConstTanBoard) anBoardOut, VARIATION_STANDARD);
         if (i == 0) {
@@ -5483,9 +5482,7 @@ ScoreMove(NNState * nnStates, move * pm, const cubeinfo * pci, const evalcontext
     SSE_ALIGN(float arEval[NUM_ROLLOUT_OUTPUTS]);
     cubeinfo ci;
 
-    PositionFromKey(anBoardTemp, &pm->key);
-
-    SwapSides(anBoardTemp);
+    PositionFromKeySwapped(anBoardTemp, &pm->key);
 
     /* swap fMove in cubeinfo */
     memcpy(&ci, pci, sizeof(ci));

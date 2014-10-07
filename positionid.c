@@ -34,7 +34,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: positionid.c,v 1.52 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: positionid.c,v 1.53 2014/01/12 20:02:54 plm Exp $
  */
 
 #include "config.h"
@@ -89,6 +89,40 @@ PositionFromKey(TanBoard anBoard, const positionkey * pkey)
     }
     anBoard[0][24] = anpBoard[6] & 0x0f;
     anBoard[1][24] = (anpBoard[6] >> 4) & 0x0f;
+}
+
+/* In evaluations, the function above is often followed by swapping
+ * the board. This is expensive (SwapSides is about as costly as
+ * PositionFromKey itself).
+ * Provide one that fills the board already swapped. */
+
+extern void
+PositionFromKeySwapped(TanBoard anBoard, const positionkey * pkey)
+{
+    unsigned int i, j;
+    unsigned int const *anpBoard = pkey->data;
+
+    for (i = 0, j = 0; i < 3; i++, j += 8) {
+        anBoard[0][j] = anpBoard[i] & 0x0f;
+        anBoard[0][j + 1] = (anpBoard[i] >> 4) & 0x0f;
+        anBoard[0][j + 2] = (anpBoard[i] >> 8) & 0x0f;
+        anBoard[0][j + 3] = (anpBoard[i] >> 12) & 0x0f;
+        anBoard[0][j + 4] = (anpBoard[i] >> 16) & 0x0f;
+        anBoard[0][j + 5] = (anpBoard[i] >> 20) & 0x0f;
+        anBoard[0][j + 6] = (anpBoard[i] >> 24) & 0x0f;
+        anBoard[0][j + 7] = (anpBoard[i] >> 28) & 0x0f;
+
+        anBoard[1][j] = anpBoard[i + 3] & 0x0f;
+        anBoard[1][j + 1] = (anpBoard[i + 3] >> 4) & 0x0f;
+        anBoard[1][j + 2] = (anpBoard[i + 3] >> 8) & 0x0f;
+        anBoard[1][j + 3] = (anpBoard[i + 3] >> 12) & 0x0f;
+        anBoard[1][j + 4] = (anpBoard[i + 3] >> 16) & 0x0f;
+        anBoard[1][j + 5] = (anpBoard[i + 3] >> 20) & 0x0f;
+        anBoard[1][j + 6] = (anpBoard[i + 3] >> 24) & 0x0f;
+        anBoard[1][j + 7] = (anpBoard[i + 3] >> 28) & 0x0f;
+    }
+    anBoard[1][24] = anpBoard[6] & 0x0f;
+    anBoard[0][24] = (anpBoard[6] >> 4) & 0x0f;
 }
 
 static inline void
