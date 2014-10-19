@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.78 2013/07/26 21:21:34 plm Exp $
+ * $Id: export.c,v 1.79 2014/01/24 22:53:28 plm Exp $
  */
 
 #include "config.h"
@@ -607,7 +607,7 @@ GenerateImage(renderimages * pri, renderdata * prd,
     color = fMove;
 
     CalculateArea(prd, puch, BOARD_WIDTH * nSize * 3, pri, anBoardTemp, NULL,
-                  (int *) anDice, anDicePosition,
+                  anDice, anDicePosition,
                   color, anCubePosition,
                   LogCube(nCube) + (doubled != 0),
                   nOrient,

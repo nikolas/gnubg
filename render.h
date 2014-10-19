@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.h,v 1.36 2012/08/27 23:06:40 plm Exp $
+ * $Id: render.h,v 1.37 2013/06/16 02:16:20 mdpetch Exp $
  */
 
 #ifndef RENDER_H
@@ -167,7 +167,7 @@ extern void FreeImages(renderimages * pri);
 
 extern void CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
                           renderimages * pri, TanBoard anBoard,
-                          int anOff[2], int anDice[2],
+                          int anOff[2], const unsigned int anDice[2],
                           int anDicePosition[2][2],
                           int fDiceColour, int anCubePosition[2],
                           int nLogCube, int nCubeOrientation,
