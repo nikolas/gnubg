@@ -1,4 +1,4 @@
-/* $Id: simd.h,v 1.4 2013/07/18 12:41:12 mdpetch Exp $ 
+/*
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
  * published by the Free Software Foundation.
@@ -11,6 +11,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *
+ * $Id: simd.h,v 1.5 2014/07/27 15:53:09 plm Exp $
  */
 
 #ifndef SIMD_H
