@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.242 2014/07/27 16:00:01 plm Exp $
+ * $Id: rollout.c,v 1.243 2014/08/09 16:07:40 mdpetch Exp $
  */
 
 #include "config.h"
@@ -611,7 +611,7 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
 
                         }
 
-                    if (prc->fInitial && !iTurn && j == i)
+                    if (prc->fInitial && !iTurn)
                         /* no doubles ... */
                         for (i = 0; i < NUM_ROLLOUT_OUTPUTS; i++)
                             arMean[i] /= 30.0f;
@@ -1072,7 +1072,7 @@ check_sds(int *active)
                     }
                 } else {        /* match play */
                     s = fabsf(se_mwc2eq(se_eq2mwc(aarSigma[alt][output],
-                                                 &aciLocal[alt]), &aciLocal[(ro_fCubeRollout ? 0 : alt)]));
+                                                  &aciLocal[alt]), &aciLocal[(ro_fCubeRollout ? 0 : alt)]));
                 }
             } else {
                 if (!prc->fCubeful)
