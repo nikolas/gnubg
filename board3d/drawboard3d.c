@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard3d.c,v 1.98 2014/01/08 21:26:11 Superfly_Jon Exp $
+ * $Id: drawboard3d.c,v 1.99 2014/07/27 11:56:23 plm Exp $
  */
 
 #include "config.h"
@@ -1748,8 +1748,8 @@ drawTable(const BoardData3d * bd3d, const renderdata * prd)
     if (prd->roundedEdges) {
         if (prd->BoxMat.pTexture) {
             tuv = (TEXTURE_SCALE) / prd->BoxMat.pTexture->width;
-            st = sinf((2 * (float)G_PI) / prd->curveAccuracy) * BOARD_FILLET;
-            ct = (cosf((2 * (float)G_PI) / prd->curveAccuracy) - 1) * BOARD_FILLET;
+            st = sinf((2 * (float) G_PI) / prd->curveAccuracy) * BOARD_FILLET;
+            ct = (cosf((2 * (float) G_PI) / prd->curveAccuracy) - 1) * BOARD_FILLET;
             dInc = sqrtf(st * st + ct * ct);
             curveTextOff = (int) (prd->curveAccuracy / 4) * dInc;
         }
@@ -3936,7 +3936,6 @@ drawBoard(const BoardData * bd, const BoardData3d * bd3d, const renderdata * prd
     drawBoardTop(bd, bd3d, prd);
 }
 
-extern int renderingBase;
 #ifdef WIN32
 extern void
 drawBasePreRender(const BoardData * bd, const BoardData3d * bd3d, const renderdata * prd)
