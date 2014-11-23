@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.83 2014/05/11 15:32:34 plm Exp $
+ * $Id: neuralnet.c,v 1.84 2014/11/23 20:07:38 plm Exp $
  */
 
 #include "config.h"
@@ -136,7 +136,7 @@ Evaluate(const neuralnet * pnn, const float arInput[], float ar[], float arOutpu
     for (i = 0; i < pnn->cInput; i++) {
         float const ari = arInput[i];
 
-        if (!ari)
+        if (ari == 0.0f)
             prWeight += cHidden;
         else {
             float *pr = ar;
@@ -184,7 +184,7 @@ EvaluateFromBase(const neuralnet * pnn, const float arInputDif[], float ar[], fl
     for (i = 0; i < pnn->cInput; ++i) {
         float const ari = arInputDif[i];
 
-        if (!ari)
+        if (ari == 0.0f)
             prWeight += pnn->cHidden;
         else {
             float *pr = ar;
