@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.96 2013/10/25 21:25:23 plm Exp $
+ * $Id: bearoff.c,v 1.97 2014/01/09 22:15:10 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -566,7 +566,7 @@ BearoffDumpTwoSided(const bearoffcontext * pbc, const TanBoard anBoard, char *sz
         for (i = 0; i < 4; ++i)
             sprintf(sz + strlen(sz), "%-30.30s: %+7.4f\n", gettext(aszEquity[i]), ar[i]);
     else
-        sprintf(sz + strlen(sz), "%-30.30s: %+7.4f\n", gettext(aszEquity[0]), 2.0 * ar[0] - 1.0f);
+        sprintf(sz + strlen(sz), "%-30.30s: %+7.4f\n", gettext(aszEquity[0]), 2.0f * ar[0] - 1.0f);
 
     strcat(sz, "\n");
 
