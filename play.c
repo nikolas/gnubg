@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.432 2014/07/27 01:28:30 mdpetch Exp $
+ * $Id: play.c,v 1.433 2014/12/04 14:44:50 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1463,8 +1463,10 @@ ComputerTurn(void)
             return ms.fTurn == fTurnOrig ? -1 : 0;
         }
 #endif
+#define OLD_ERROR_START "Error ("
 #define ERROR_START "Error: "
-        if (!strncmp(szResponse, ERROR_START, strlen(ERROR_START))) {
+        if (!strncmp(szResponse, ERROR_START, strlen(ERROR_START)) ||
+            !strncmp(szResponse, OLD_ERROR_START, strlen(OLD_ERROR_START))) {
             outputl(szResponse);
             fComputerDecision = FALSE;
             return -1;
