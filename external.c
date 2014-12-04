@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.90 2014/06/30 23:21:51 mdpetch Exp $
+ * $Id: external.c,v 1.91 2014/07/14 13:03:53 plm Exp $
  */
 
 #include "config.h"
@@ -645,6 +645,9 @@ CommandExternal(char *sz)
         ProcessEvents();
 
         while (!fExit && !(retval = ExternalRead(hPeer, szCommand, sizeof(szCommand)))) {
+            /* To keep lexer happy terminate each line with \n */
+            if (szCommand[strlen(szCommand)] != '\n')
+                strcat(szCommand, "\n");
 
             if ((ExtParse(&scanctx, szCommand)) == 0) {
                 /* parse error */
