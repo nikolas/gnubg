@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.198 2014/07/14 14:56:15 plm Exp $
+ * $Id: gtkprefs.c,v 1.199 2014/07/14 16:23:59 plm Exp $
  */
 
 #include "config.h"
@@ -1791,7 +1791,7 @@ WriteTheDesign(boarddesign * pbde, FILE * pf)
             "         <title>%s</title>\n"
             "         <author>%s</author>\n"
             "      </about>\n\n"
-            "      <design>%s   </design>\n\n", title, author, pbde->szBoardDesign ? pbde->szBoardDesign : "");
+            "      <design>%s      </design>\n\n", title, author, pbde->szBoardDesign ? pbde->szBoardDesign : "\n");
 
     fputs("   </board-design>\n\n\n", pf);
 
@@ -1846,7 +1846,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.198 2014/07/14 14:56:15 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.199 2014/07/14 16:23:59 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2084,8 +2084,7 @@ WriteDesignString(boarddesign * pbde, renderdata * prd)
             "         border3d=%s\n"
             "         hinge3d=%s\n"
             "         numbers3d=%s\n"
-            "         background3d=%s\n"
-            "\n",
+            "         background3d=%s\n",
             prd->fHinges3d ? 'y' : 'n',
             prd->pieceType,
             prd->pieceTextureType,
