@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.68 2014/06/25 20:10:40 mdpetch Exp $
+ * $Id: drawboard.c,v 1.69 2014/06/26 08:08:37 mdpetch Exp $
  */
 
 #include "config.h"
@@ -562,12 +562,12 @@ static int
 CompareMovesSimple(const void *p0, const void *p1)
 {
 
-    int n0 = *((int *) p0), n1 = *((int *) p1);
+    int n0 = *((const int *) p0), n1 = *((const int *) p1);
 
     if (n0 != n1)
         return n1 - n0;
     else
-        return *((int *) p1 + 1) - *((int *) p0 + 1);
+        return *((const int *) p1 + 1) - *((const int *) p0 + 1);
 }
 
 extern void
