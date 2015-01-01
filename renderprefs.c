@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: renderprefs.c,v 1.49 2014/02/03 22:56:34 plm Exp $
+ * $Id: renderprefs.c,v 1.50 2014/07/20 20:53:58 plm Exp $
  */
 
 #include "config.h"
@@ -113,7 +113,7 @@ SetColourSpeckle(const char *sz, unsigned char anColour[], int *pnSpeckle)
 
 /* Set colour (with floats) */
 static int
-SetColourX(gdouble arColour[4], const char *sz)
+SetColourX(float arColour[4], const char *sz)
 {
 
     char *pch;
@@ -244,7 +244,7 @@ SetMaterialDice(Material * pMat, const char *sz, int *flag)
 
 /* Set colour, alpha, refraction, shine, specular. */
 static int
-SetColourARSS(double aarColour[2][4],
+SetColourARSS(float aarColour[2][4],
               float arRefraction[2], float arCoefficient[2], float arExponent[2], char *sz, int i)
 {
 
@@ -257,7 +257,7 @@ SetColourARSS(double aarColour[2][4],
 
         if (pch) {
             /* alpha */
-            aarColour[i][3] = g_ascii_strtod(pch, NULL);
+            aarColour[i][3] = (float) g_ascii_strtod(pch, NULL);
 
             if ((pch = strchr(pch, ';')))
                 *pch++ = 0;
@@ -299,7 +299,7 @@ SetColourARSS(double aarColour[2][4],
 
 /* Set colour, shine, specular, flag. */
 static int
-SetColourSSF(gdouble aarColour[2][4],
+SetColourSSF(float aarColour[2][4],
              gfloat arCoefficient[2], gfloat arExponent[2], int afDieColour[2], char *sz, int i)
 {
 

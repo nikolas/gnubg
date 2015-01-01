@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcolour3d.c,v 1.54 2013/12/01 00:10:52 mdpetch Exp $
+ * $Id: gtkcolour3d.c,v 1.55 2013/12/01 17:06:34 mdpetch Exp $
  */
 
 #include "config.h"
@@ -162,7 +162,7 @@ static void
 UpdateColourPreview(void)
 {
     TextureInfo *tempTexture;
-    double ambient[4], diffuse[4], specular[4];
+    float ambient[4], diffuse[4], specular[4];
 
     if (!bUpdate)
         return;
@@ -390,16 +390,6 @@ append_to_combo_box( /*lint -e{818} */ gpointer data, gpointer combo)
 }
 
 static void
-gtk_color_button_set_from_farray(GtkColorButton * button, const float col[4])
-{
-    int i;
-    double cold[4];
-    for (i = 0; i < 4; i++)
-        cold[i] = col[i];
-    gtk_color_button_set_from_array(button, cold);
-}
-
-static void
 UpdateColour3d(GtkButton * UNUSED(button), UpdateDetails * pDetails)
 {
     curDetails = pDetails;
@@ -417,9 +407,9 @@ UpdateColour3d(GtkButton * UNUSED(button), UpdateDetails * pDetails)
     bUpdate = FALSE;
 
     /* Setup widgets */
-    gtk_color_button_set_from_farray(GTK_COLOR_BUTTON(pcpAmbient), col3d.ambientColour);
-    gtk_color_button_set_from_farray(GTK_COLOR_BUTTON(pcpDiffuse), col3d.diffuseColour);
-    gtk_color_button_set_from_farray(GTK_COLOR_BUTTON(pcpSpecular), col3d.specularColour);
+    gtk_color_button_set_from_array(GTK_COLOR_BUTTON(pcpAmbient), col3d.ambientColour);
+    gtk_color_button_set_from_array(GTK_COLOR_BUTTON(pcpDiffuse), col3d.diffuseColour);
+    gtk_color_button_set_from_array(GTK_COLOR_BUTTON(pcpSpecular), col3d.specularColour);
 
     gtk_adjustment_set_value(padjShine, (double) col3d.shine);
     if (IsFlagSet(pDetails->opacity, DF_VARIABLE_OPACITY)) {
