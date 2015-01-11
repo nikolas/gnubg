@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.8 2013/03/13 23:10:39 plm Exp $
+ * $Id: sgf_y.y,v 1.9 2014/07/25 18:58:01 mdpetch Exp $
  */
 
 %{
@@ -58,7 +58,7 @@ static listOLD *NewList( void ) {
 
 static char *Concatenate( listOLD *pl ) {
 
-    int cch = 0;
+    size_t cch = 0;
     char *sz, *pchDest, *pchSrc;
     
     for( pl = pl->plNext; pl->p; pl = pl->plNext )
