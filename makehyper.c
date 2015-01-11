@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.43 2014/07/26 06:23:35 mdpetch Exp $
+ * $Id: makehyper.c,v 1.44 2014/07/27 12:37:57 plm Exp $
  */
 
 #include "config.h"
@@ -29,15 +29,13 @@
 #include <time.h>
 #include <unistd.h>
 #include <math.h>
-#include <multithread.h>
-#include "backgammon.h"
+#include <locale.h>
 
+#include "backgammon.h"
 #include "eval.h"
 #include "positionid.h"
-#include <locale.h>
 #include "bearoff.h"
 #include "drawboard.h"
-#include "multithread.h"
 #include "lib/simd.h"
 #include "glib-ext.h"
 #include "multithread.h"
