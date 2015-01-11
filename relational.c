@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.71 2013/09/05 18:49:33 plm Exp $
+ * $Id: relational.c,v 1.72 2014/08/24 10:44:15 plm Exp $
  */
 
 #include "config.h"
@@ -785,7 +785,7 @@ CommandRelationalSelect(char *sz)
             if (i == 1) {       /* Underline headings */
                 char *line, *p;
                 unsigned int k;
-                int totalwidth = 0;
+                size_t totalwidth = 0;
                 for (k = 0; k < rs->cols; k++) {
                     totalwidth += rs->widths[k] + 1;
                     if (k != 0)
