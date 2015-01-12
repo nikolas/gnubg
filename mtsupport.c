@@ -1,9 +1,9 @@
 /*
- * multithread.c
+ * mtsupport.c
  *
  * by Jon Kinsey, 2008
  *
- * Multithreaded operations
+ * Multithreaded support functions, moved out of multithread.c
  *
  *
  * This program is free software; you can redistribute it and/or modify
@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.6 2014/07/27 01:28:30 mdpetch Exp $
+ * $Id: mtsupport.c,v 1.7 2015/01/12 22:30:44 plm Exp $
  */
 
 #include "config.h"
