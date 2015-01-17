@@ -18,8 +18,8 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.46 $)
-AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.04.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
+AC_REVISION($Revision: 1.47 $)
+AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CONFIG_SRCDIR(gnubg.c)
