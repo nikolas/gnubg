@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.199 2014/07/20 21:01:48 plm Exp $
+ * $Id: import.c,v 1.200 2014/08/21 21:25:21 plm Exp $
  */
 
 #include "config.h"
@@ -41,11 +41,12 @@
 #include "file.h"
 #include "positionid.h"
 #include "matchequity.h"
+#include <glib/gstdio.h>
 
+#if !GLIB_CHECK_VERSION (2,26,0)
 #ifdef WIN32
 #define GStatBuf struct _g_stat_struct
 #else
-#if !GLIB_CHECK_VERSION (2,26,0)
 typedef struct stat GStatBuf;
 #endif
 #endif

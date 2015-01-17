@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.24 2014/06/25 20:10:40 mdpetch Exp $
+ * $Id: external_l.l,v 1.25 2014/06/26 08:08:38 mdpetch Exp $
  */
 
 #include "config.h"
@@ -74,7 +74,7 @@ board:                  {   BEGIN(SBOARDP1);
 prompt{EOT}             {   return PROMPT; }
 new{EOT}                {   return NEW; }
 old{EOT}                {   return OLD; }
-interface{EOT}          {   return INTERFACE; }
+interface{EOT}          {   return E_INTERFACE; }
 help{EOT}               {   return HELP; }
 set{EOT}                {   return SET; }
 debug{EOT}              {   return DEBUG; }

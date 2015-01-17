@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.963 2014/07/27 16:00:14 plm Exp $
+ * $Id: gnubg.c,v 1.964 2014/09/07 21:18:52 plm Exp $
  */
 
 #include "config.h"
@@ -36,6 +36,7 @@
 #include <signal.h>
 #include <ctype.h>
 #ifdef WIN32
+#include <direct.h>
 #include <io.h>
 #endif
 

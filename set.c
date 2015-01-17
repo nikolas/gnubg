@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.386 2014/07/27 16:01:09 plm Exp $
+ * $Id: set.c,v 1.387 2014/07/28 21:24:55 plm Exp $
  */
 
 #include "config.h"
@@ -24,6 +24,7 @@
 
 #ifdef WIN32
 /* Needed for thread priority defines */
+#include <winsock2.h>
 #include <windows.h>
 #endif
 

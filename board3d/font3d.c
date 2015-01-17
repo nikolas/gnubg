@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: font3d.c,v 1.29 2013/06/16 02:16:22 mdpetch Exp $
+ * $Id: font3d.c,v 1.30 2013/09/22 18:04:35 plm Exp $
  */
 
 #include "config.h"
@@ -477,6 +477,9 @@ PopulateContour(GArray * contour, const FT_Vector * points, const char *pointTag
 #if defined(USE_APPLE_OPENGL)
 #define GLUFUN(X) X
 #elif defined(__GNUC__)
+#if WIN32
+typedef APIENTRY GLvoid (*_GLUfuncptr)();
+#endif
 #define GLUFUN(X) (_GLUfuncptr)X
 #else
 #define GLUFUN(X) X

@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.29 2014/06/26 08:08:38 mdpetch Exp $
+ * $Id: external_y.y,v 1.30 2014/06/27 00:36:25 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_Y_H
@@ -128,7 +128,7 @@ void yyerror(scancontext *scanner, const char *str)
 %}
 
 %token EOL EXIT DISABLED INTERFACEVERSION 
-%token DEBUG SET NEW OLD OUTPUT INTERFACE HELP PROMPT
+%token DEBUG SET NEW OLD OUTPUT E_INTERFACE HELP PROMPT
 %token E_STRING E_CHARACTER E_INTEGER E_FLOAT E_BOOLEAN
 %token FIBSBOARD FIBSBOARDEND EVALUATION
 %token CRAWFORDRULE JACOBYRULE RESIGNATION BEAVERS
@@ -262,13 +262,13 @@ setcommand:
             $$ = create_str2gvalue_tuple (KEY_STR_DEBUG, $2);
         }
     |
-    INTERFACE NEW
+    E_INTERFACE NEW
         {
             GVALUE_CREATE(G_TYPE_INT, int, 1, gvint); 
             $$ = create_str2gvalue_tuple (KEY_STR_NEWINTERFACE, gvint);
         }
     |
-    INTERFACE OLD
+    E_INTERFACE OLD
         {
             GVALUE_CREATE(G_TYPE_INT, int, 0, gvint); 
             $$ = create_str2gvalue_tuple (KEY_STR_NEWINTERFACE, gvint);

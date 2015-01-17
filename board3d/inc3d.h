@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.53 2014/09/03 21:52:36 plm Exp $
+ * $Id: inc3d.h,v 1.54 2014/11/23 17:35:29 plm Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -35,6 +35,7 @@
 
 #if defined(WIN32)
 /* MS gl.h needs windows.h to be included first */
+#include <winsock2.h>
 #include <windows.h>
 #endif
 
