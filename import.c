@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.200 2014/08/21 21:25:21 plm Exp $
+ * $Id: import.c,v 1.201 2015/01/17 21:52:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -41,7 +41,6 @@
 #include "file.h"
 #include "positionid.h"
 #include "matchequity.h"
-#include <glib/gstdio.h>
 
 #if !GLIB_CHECK_VERSION (2,26,0)
 #ifdef WIN32
