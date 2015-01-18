@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.47 2014/01/24 23:14:29 plm Exp $
+ * $Id: format.c,v 1.48 2015/01/18 18:10:17 plm Exp $
  */
 
 #include "config.h"
@@ -154,6 +154,10 @@ GetPredefinedChequerplaySetting(const evalcontext * pec, const movefilter aamf[M
     int fSame;
     int nPreset;
     int Accept;
+
+    if (nPlies > MAX_FILTER_PLIES) {
+        return -1;
+    }
 
     for (nEval = 0; nEval < NUM_SETTINGS; ++nEval) {
         if (cmp_evalcontext(aecSettings + nEval, pec) == 0) {
