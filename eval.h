@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.188 2014/08/30 20:33:37 plm Exp $
+ * $Id: eval.h,v 1.189 2014/09/08 21:11:51 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -535,7 +535,7 @@ extern int
  MoveKey(const TanBoard anBoard, const int anMove[8], positionkey * pkey);
 
 extern int
- equal_movefilter(const int i, movefilter amf1[MAX_FILTER_PLIES], movefilter amf2[MAX_FILTER_PLIES]);
+ equal_movefilter(const int i, const movefilter amf1[MAX_FILTER_PLIES], const movefilter amf2[MAX_FILTER_PLIES]);
 
 extern int
  equal_movefilters(movefilter aamf1[MAX_FILTER_PLIES][MAX_FILTER_PLIES],
