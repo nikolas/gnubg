@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: randomorg.c,v 1.1 2015/01/19 10:38:04 mdpetch Exp $
+ * $Id: randomorg.c,v 1.2 2015/01/19 17:22:59 mdpetch Exp $
  */
 
 #include "config.h"
@@ -68,7 +68,7 @@ RandomOrgCallBack(void *pvRawData, size_t nSize, size_t nNumMemb, void *pvUserDa
     return nNewDataLen;
 }
 
-static RandomData randomData = { 0, -1 };
+static RandomData randomData = { 0, -1, { 0 } };
 
 unsigned int
 getDiceRandomDotOrg(void)
