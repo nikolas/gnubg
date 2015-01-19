@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.387 2014/07/28 21:24:55 plm Exp $
+ * $Id: set.c,v 1.388 2015/01/17 21:52:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1720,12 +1720,12 @@ extern void
 CommandSetRNGRandomDotOrg(char *sz)
 {
 
-#if HAVE_SOCKETS
+#if defined(LIBCURL_PROTOCOL_HTTPS)
     SetRNG(rngSet, rngctxSet, RNG_RANDOM_DOT_ORG, sz);
 #else
-    outputl(_("This installation of GNU Backgammon was compiled without "
-              "support for sockets needed for fetching\n" "random numbers from <www.random.org>"));
-#endif                          /* HAVE_SOCKETS */
+    outputl(_("This installation of GNU Backgammon was compiled without\n"
+              "support for HTTPS(libcurl) that is needed for fetching\n" "random numbers from <www.random.org>"));
+#endif
 
 }
 
