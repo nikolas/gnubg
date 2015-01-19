@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.388 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: set.c,v 1.389 2015/01/19 11:17:35 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1724,7 +1724,7 @@ CommandSetRNGRandomDotOrg(char *sz)
     SetRNG(rngSet, rngctxSet, RNG_RANDOM_DOT_ORG, sz);
 #else
     outputl(_("This installation of GNU Backgammon was compiled without\n"
-              "support for HTTPS(libcurl) that is needed for fetching\n" "random numbers from <www.random.org>"));
+              "support for HTTPS(libcurl) which is needed for fetching\n" "random numbers from <www.random.org>"));
 #endif
 
 }

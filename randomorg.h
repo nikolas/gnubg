@@ -16,13 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: $
+ * $Id: randomorg.h,v 1.1 2015/01/19 10:38:04 mdpetch Exp $
  */
 
 #ifndef RANDOMORG_H
 #define RANDOMORG_H
 
 #include <stdlib.h>
+
+/*#define RANDOMORG_DEBUG 1 */
 
 #define SUPPORT_EMAIL "support@gnubg.org"
 #define STRINGIZEAUX(num) #num
@@ -31,6 +33,12 @@
 #define RANDOMORGSITE "www.random.org"
 #define BUFLENGTH 500
 #define BUFLENGTH_STR STRINGIZE(BUFLENGTH)
+
+#define RANDOMORG_URL "https://" RANDOMORGSITE "/integers/?num=" \
+	BUFLENGTH_STR "&min=0&max=5&col=1&base=10&format=plain&rnd=new"
+#define RANDOMORG_USERAGENT "GNUBG/" VERSION " (email: " SUPPORT_EMAIL ")"
+#define RANDOMORG_CERTPATH ".\\etc\\ssl\\"
+#define RANDOMORG_CABUNDLE "ca-bundle.crt"
 
 typedef struct _RandomData {
     size_t nNumRolls;

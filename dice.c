@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.91 2014/03/09 20:07:09 plm Exp $
+ * $Id: dice.c,v 1.92 2015/01/19 10:38:03 mdpetch Exp $
  */
 
 #include "config.h"
@@ -856,10 +856,9 @@ RollDice(unsigned int anDice[2], rng * prng, rngcontext * rngctx)
     case RNG_RANDOM_DOT_ORG:
 #if defined(LIBCURL_PROTOCOL_HTTPS)
         anDice[0] = getDiceRandomDotOrg();
-        if (anDice[0] > 0){
+        if (anDice[0] > 0) {
             anDice[1] = getDiceRandomDotOrg();
-		}
-        else
+        } else
             anDice[1] = anDice[0];
 #endif
         break;
