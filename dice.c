@@ -16,11 +16,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.90 2013/09/05 19:09:23 plm Exp $
+ * $Id: dice.c,v 1.91 2014/03/09 20:07:09 plm Exp $
  */
 
 #include "config.h"
 #include "backgammon.h"
+#include "randomorg.h"
 
 #include <fcntl.h>
 #if HAVE_LIBGMP
@@ -853,11 +854,14 @@ RollDice(unsigned int anDice[2], rng * prng, rngcontext * rngctx)
         break;
 
     case RNG_RANDOM_DOT_ORG:
-#if HAVE_SOCKETS
-
+#if defined(LIBCURL_PROTOCOL_HTTPS)
         anDice[0] = getDiceRandomDotOrg();
-        anDice[1] = getDiceRandomDotOrg();
-#endif                          /* !HAVE_SOCKETS */
+        if (anDice[0] > 0){
+            anDice[1] = getDiceRandomDotOrg();
+		}
+        else
+            anDice[1] = anDice[0];
+#endif
         break;
 
     case RNG_FILE:

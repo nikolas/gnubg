@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.254 2014/07/26 06:23:34 mdpetch Exp $
+## $Id: Makefile.am,v 1.255 2014/08/07 22:26:52 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -18,7 +18,8 @@ endif
 AM_CPPFLAGS = -I$(srcdir)/lib -I$(srcdir)/board3d -I$(srcdir)/pixmaps \
 	   $(localeloc) @FREETYPE2_CFLAGS@ @GLIB_CFLAGS@ \
 	   @LIBPNG_CFLAGS@ @GTK_CFLAGS@ @CAIRO_CFLAGS@ @PANGOCAIRO_CFLAGS@ \
-	   @GTHREAD_CFLAGS@ @GTKGLEXT_CFLAGS@ @CANBERRA_CFLAGS@ @GOBJECT_CFLAGS@
+	   @GTHREAD_CFLAGS@ @GTKGLEXT_CFLAGS@ @CANBERRA_CFLAGS@ @GOBJECT_CFLAGS@ \
+	   @LIBCURL_CPPFLAGS@
 
 if USE_SQLITE
 AM_CPPFLAGS += @SQLITE_CFLAGS@
@@ -107,6 +108,8 @@ gnubg_SOURCES = \
 		progress.c \
 		progress.h \
 		pylocdefs.h \
+	    randomorg.h \
+	    randomorg.c \
 		relational.c \
 		relational.h \
 		render.c \
@@ -155,7 +158,7 @@ gnubg_LDADD = -L$(srcdir)/lib lib/libevent.la \
 	      @GTHREAD_LIBS@ @GOBJECT_LIBS@ \
 	      @LTLIBOBJS@ \
 	      @FREETYPE2_LIBS@ @GLIB_LIBS@ @LIBPNG_LIBS@ @CANBERRA_LIBS@ \
-           $(OTHER_LIBS)
+          @LIBCURL@ $(OTHER_LIBS)
 
 if USE_SQLITE
 gnubg_LDADD += @SQLITE_LIBS@
