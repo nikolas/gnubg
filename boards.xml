@@ -19,7 +19,7 @@
      You should have received a copy of the GNU General Public License
      along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-     $Id: boards.xml,v 1.32 2013/08/21 03:45:22 mdpetch Exp $
+     $Id: boards.xml,v 1.33 2014/12/15 21:17:07 plm Exp $
 
  -->
 
@@ -599,7 +599,7 @@
       </about>
   
       <design>
-         board=#6C9856;0.0
+         board=#6C9856;0.00
          border=#004000
          wood=walnut
          hinges=n
@@ -1163,7 +1163,7 @@
       </about>
 
       <design>
-         board=#F5F9D3;0.20f
+         board=#F5F9D3;0.20
          border=#CEA567
          wood=beech
          hinges=n
@@ -1265,7 +1265,7 @@
       </about>
 
       <design>
-         board=#577457;0.00f
+         board=#577457;0.00
          border=#5A3B3B
          wood=paint
          hinges=n

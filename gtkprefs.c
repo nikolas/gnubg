@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.200 2014/12/15 21:41:24 plm Exp $
+ * $Id: gtkprefs.c,v 1.201 2015/01/01 16:42:04 plm Exp $
  */
 
 #include "config.h"
@@ -1845,7 +1845,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.200 2014/12/15 21:41:24 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.201 2015/01/01 16:42:04 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -1978,7 +1978,7 @@ WriteDesignString(boarddesign * pbde, renderdata * prd)
         rAzimuth = 360 - rAzimuth;
 
     pTemp = szTemp;
-    pTemp += sprintf(pTemp, "\n" "         board=#%02X%02X%02X;%sf\n" "         border=#%02X%02X%02X\n",
+    pTemp += sprintf(pTemp, "\n" "         board=#%02X%02X%02X;%s\n" "         border=#%02X%02X%02X\n",
                      /* board */
                      prd->aanBoardColour[0][0], prd->aanBoardColour[0][1],
                      prd->aanBoardColour[0][2],
