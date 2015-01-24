@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.450 2014/07/29 15:08:16 plm Exp $
+ * $Id: backgammon.h,v 1.451 2015/01/19 10:38:03 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -102,7 +102,6 @@ typedef enum _movetype {
 } movetype;
 
 typedef struct _movegameinfo {
-
     /* ordinal number of the game within a match */
     int i;
     /* match length */
@@ -1002,9 +1001,7 @@ extern int getMoveNumber(const listOLD * plGame, const void *p);
 extern int CheckGameExists(void);
 extern void pmr_cubedata_set(moverecord * pmr, evalsetup * es, float output[2][NUM_ROLLOUT_OUTPUTS],
                              float stddev[2][NUM_ROLLOUT_OUTPUTS]);
-extern void pmr_cubedata_copy(const moverecord * source, moverecord * target);
 extern void pmr_movelist_set(moverecord * pmr, evalsetup * pes, movelist * pml);
-extern void pmr_movelist_copy(const moverecord * source, moverecord * target);
 extern void current_pmr_cubedata_update(evalsetup * pes, float output[][NUM_ROLLOUT_OUTPUTS],
                                         float stddev[][NUM_ROLLOUT_OUTPUTS]);
 extern listOLD *game_add_pmr_hint(listOLD * plGame);
