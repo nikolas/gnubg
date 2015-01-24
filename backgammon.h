@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.451 2015/01/19 10:38:03 mdpetch Exp $
+ * $Id: backgammon.h,v 1.452 2015/01/24 18:51:55 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -395,7 +395,6 @@ extern unsigned int nDefaultLength;
 extern rngcontext *rngctxRollout;
 
 extern command acAnnotateMove[];
-extern command acSet[];
 extern command acSetAnalysisPlayer[];
 extern command acSetCheatPlayer[];
 extern command acSetEvalParam[];
@@ -412,8 +411,6 @@ extern command acSetRolloutLimit[];
 extern command acSetRolloutPlayer[];
 extern command acSetTruncation[];
 extern command acTop[];
-extern command cFilename;
-extern command cOnOff;
 
 extern int fInteractive;
 
