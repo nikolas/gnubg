@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.69 2014/06/26 08:08:37 mdpetch Exp $
+ * $Id: drawboard.c,v 1.70 2014/12/21 22:36:34 plm Exp $
  */
 
 #include "config.h"
@@ -716,7 +716,7 @@ extern int
 ParseMove(char *pch, int an[8])
 {
 
-    int i, j, iBegin, iEnd, n, c = 0, anUser[8];
+    int i, j, iBegin, iEnd, n, c = 0, anUser[12];
     unsigned fl = 0;
 
     while (*pch) {
