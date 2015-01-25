@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.389 2015/01/19 11:17:35 mdpetch Exp $
+ * $Id: set.c,v 1.390 2015/01/19 17:22:59 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1023,7 +1023,7 @@ CommandSetEvalDeterministic(char *sz)
     SetToggle(szCommand, &f, sz, asz[0], asz[1]);
     pecSet->fDeterministic = f;
 
-    if (!pecSet->rNoise)
+    if (pecSet->rNoise == 0.0f)
         outputl(_("(Note that this setting will have no effect unless you " "set noise to some non-zero value.)"));
 }
 
@@ -1041,7 +1041,7 @@ CommandSetEvalNoise(char *sz)
 
     pecSet->rNoise = r;
 
-    if (pecSet->rNoise)
+    if (pecSet->rNoise > 0.0f)
         outputf(_("%s will use noise with standard deviation %5.3f.\n"), szSet, pecSet->rNoise);
     else
         outputf(_("%s will use noiseless evaluations.\n"), szSet);
