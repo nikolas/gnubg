@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.85 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkcube.c,v 1.86 2014/08/18 20:23:06 plm Exp $
  */
 
 #include "config.h"
@@ -244,7 +244,7 @@ TakeAnalysis(cubehintdata * pchd)
         if (!ci.nMatchTo || (ci.nMatchTo && !fOutputMWC))
             sz = g_strdup_printf("%+7.3f", -arDouble[ai[i]]);
         else
-            sz = g_strdup_printf("%7.3f%%", 100.0f * (1.0 - eq2mwc(arDouble[ai[i]], &ci)));
+            sz = g_strdup_printf("%7.3f%%", 100.0f * (1.0f - eq2mwc(arDouble[ai[i]], &ci)));
 
         pw = gtk_label_new(sz);
         gtk_misc_set_alignment(GTK_MISC(pw), 1, 0.5);
@@ -530,9 +530,9 @@ CubeAnalysis(cubehintdata * pchd)
 
     /* percent */
 
-    if ((r = getPercent(cd, arDouble)) >= 0.0) {
+    if ((r = getPercent(cd, arDouble)) >= 0.0f) {
 
-        sz = g_strdup_printf("(%.1f%%)", 100.0 * r);
+        sz = g_strdup_printf("(%.1f%%)", 100.0f * r);
         pw = gtk_label_new(sz);
         g_free(sz);
         gtk_misc_set_alignment(GTK_MISC(pw), 1, 0.5);
