@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.391 2015/01/25 09:32:04 plm Exp $
+ * $Id: set.c,v 1.392 2015/01/25 11:27:09 plm Exp $
  */
 
 #include "config.h"
@@ -125,7 +125,7 @@ ParseULong(char **ppch, unsigned long *pretVal)
     /* Check for various possible errors */
     if ((errno == ERANGE && (*pretVal == LONG_MAX || *pretVal == (unsigned long)
  LONG_MIN))
-        || (errno != 0 && pretVal == 0))
+        || (errno != 0 && *pretVal == 0))
         return FALSE;
 
     return TRUE;
