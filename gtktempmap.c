@@ -1,4 +1,3 @@
-
 /*
  * gtktempmap.c
  *
@@ -20,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.50 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtktempmap.c,v 1.51 2013/09/05 19:02:43 plm Exp $
  */
 
 #include "config.h"
@@ -42,7 +41,6 @@
 #include "render.h"
 #include "renderprefs.h"
 #include "gtkboard.h"
-#include "gtkgame.h"
 #include "gtkwindows.h"
 
 #define SIZE_QUADRANT 52
@@ -139,7 +137,7 @@ TempMapEquities(evalcontext * pec, matchstate * pms,
 
             InvertEvaluationR(arOutput, &cix);
 
-            if (!cix.nMatchTo && rFac != 1.0)
+            if (!cix.nMatchTo && rFac != 1.0f)
                 arOutput[OUTPUT_CUBEFUL_EQUITY] *= rFac;
 
             aar[i][j] = arOutput[OUTPUT_CUBEFUL_EQUITY];
@@ -260,7 +258,7 @@ UpdateTempMapEquities(tempmapwidget * ptmw)
                 if (r < rMin)
                     rMin = r;
             }
-        ptmw->atm[m].rAverage /= 36.0;
+        ptmw->atm[m].rAverage /= 36.0f;
     }
 
     ptmw->rMax = rMax;
@@ -385,8 +383,10 @@ ExposeQuadrant(GtkWidget * pw, GdkEventExpose * UNUSED(pev), tempmapwidget * ptm
         pango_layout_set_text(layout, pch, -1);
         gtk_paint_layout(gtk_widget_get_style(pw), gtk_widget_get_window(pw),
                          GTK_STATE_NORMAL, TRUE, NULL, pw, NULL, 2, (int) y, layout);
-        pch = tmp + 1;
-        y += (allocation.height - 4) / 5.0f;
+        if (tmp) {
+             pch = tmp + 1;
+             y += (allocation.height - 4) / 5.0f;
+        }
     } while (tmp);
 
     g_object_unref(layout);
