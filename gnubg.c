@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.966 2015/01/19 10:38:04 mdpetch Exp $
+ * $Id: gnubg.c,v 1.967 2015/01/25 11:27:09 plm Exp $
  */
 
 #include "config.h"
@@ -567,9 +567,6 @@ static char const *aszBuildInfo[] = {
 #endif
 #if USE_BOARD3D
     N_("3d Boards supported."),
-#endif
-#if HAVE_SOCKETS
-    N_("External commands supported."),
 #endif
 #if defined(WIN32)
     N_("Windows sound system supported."),
