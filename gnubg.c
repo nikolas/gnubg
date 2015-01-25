@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.965 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: gnubg.c,v 1.966 2015/01/19 10:38:04 mdpetch Exp $
  */
 
 #include "config.h"
@@ -843,37 +843,6 @@ ParseNumber(char **ppch)
             return INT_MIN;
 
     return atoi(pchOrig);
-}
-
-/* get the next token from the input and convert as an
- * integer. Returns 0 on empty input or non-numerics found, and
- * 1 on success. On failure, one token (if any were available)
- * will have been consumed, it is not pushed back into the input.
- * Unsigned long is returned in pretVal
- */
-extern gboolean
-ParseULong(char **ppch, unsigned long *pretVal)
-{
-
-    char *pch, *pchOrig;
-
-    if (!ppch || !(pchOrig = NextToken(ppch)))
-        return FALSE;
-
-    for (pch = pchOrig; *pch; pch++)
-        if (!isdigit(*pch))
-            return FALSE;
-
-    errno = 0;                  /* To distinguish success/failure after call */
-    *pretVal = strtol(pchOrig, NULL, 10);
-
-    /* Check for various possible errors */
-    if ((errno == ERANGE && (*pretVal == LONG_MAX || *pretVal == (unsigned long) LONG_MIN))
-        || (errno != 0 && pretVal == 0))
-        return FALSE;
-
-    return TRUE;
-
 }
 
 /* get a player either by name or as player 0 or 1 (indicated by the single
@@ -3249,11 +3218,11 @@ SaveEvaluationSettings(FILE * pf)
     SaveEvalSetupSettings(pf, "set evaluation chequerplay", &esEvalChequer);
     SaveEvalSetupSettings(pf, "set evaluation cubedecision", &esEvalCube);
     SaveMoveFilterSettings(pf, "set evaluation movefilter", aamfEval);
-    fprintf(pf, "set cache %d\n", GetEvalCacheEntries());
+    fprintf(pf, "set cache %u\n", GetEvalCacheEntries());
     fprintf(pf, "set matchequitytable \"%s\"\n", miCurrent.szFileName);
     fprintf(pf, "set invert matchequitytable %s\n", fInvertMET ? "on" : "off");
 #if USE_MULTITHREAD
-    fprintf(pf, "set threads %d\n", MT_GetNumThreads());
+    fprintf(pf, "set threads %u\n", MT_GetNumThreads());
 #endif
 }
 
