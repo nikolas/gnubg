@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.201 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: import.c,v 1.202 2015/01/18 02:37:57 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1815,7 +1815,6 @@ ImportSGGGame(FILE * pf, int i, int nLength, int n0, int n1,
 
                                 AddMoveRecord(pmr);
                                 szComment = NULL;
-                                fBeaver = FALSE;
                             }
 
                             pmr = NewMoveRecord();
@@ -1864,7 +1863,6 @@ ImportSGGGame(FILE * pf, int i, int nLength, int n0, int n1,
 
                                 AddMoveRecord(pmr);
                                 szComment = NULL;
-                                fBeaver = FALSE;
                             }
 
                             pmr = NewMoveRecord();
