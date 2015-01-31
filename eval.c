@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.451 2014/10/07 07:14:29 plm Exp $
+ * $Id: eval.c,v 1.452 2015/01/18 18:10:17 plm Exp $
  */
 
 #include "config.h"
@@ -907,7 +907,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
         int t = 0;
         int no = 0;
 
-	int m = (nOppBack >= 11 ) ? nOppBack : 11;
+        int m = (nOppBack >= 11) ? nOppBack : 11;
 
         t += 24 * anBoard[24];
         no += anBoard[24];
@@ -1134,10 +1134,10 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
 
                 if (pi->nFaces == 1) {
                     /* direct shot */
-                    
+
                     /* FIXME: There must be a more profitable way to use
-                              the possibility of finding the msb quickly,
-                              but I don't understand the code below. */
+                     * the possibility of finding the msb quickly,
+                     * but I don't understand the code below. */
 #ifdef HAVE___BUILTIN_CLZ
                     /* This shortcut is worthwhile only if msb32 is fast */
                     for (k = msb32(aHit[r]); k > 0; k--) {
@@ -5498,7 +5498,6 @@ ScoreMove(NNState * nnStates, move * pm, const cubeinfo * pci, const evalcontext
 
     /* Save evaluations */
     memcpy(pm->arEvalMove, arEval, NUM_ROLLOUT_OUTPUTS * sizeof(float));
-    memset(pm->arEvalStdDev, 0, NUM_ROLLOUT_OUTPUTS * sizeof(float));
 
     /* Save evaluation setup */
     pm->esMove.et = EVAL_EVAL;
