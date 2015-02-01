@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.452 2015/01/18 18:10:17 plm Exp $
+ * $Id: eval.c,v 1.453 2015/01/31 15:45:45 plm Exp $
  */
 
 #include "config.h"
@@ -2832,7 +2832,7 @@ CompareMovesGeneral(const move * pm0, const move * pm1)
         }
     }
     /* "back" chequer at high point bad */
-    return (back[0] < back[1] ? 1 : -1);
+    return (back[0] > back[1] ? 1 : -1);
 }
 
 extern int
