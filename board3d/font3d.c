@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: font3d.c,v 1.30 2013/09/22 18:04:35 plm Exp $
+ * $Id: font3d.c,v 1.31 2015/01/17 21:52:24 mdpetch Exp $
  */
 
 #include "config.h"
@@ -602,21 +602,21 @@ glPrintPointNumbers(const OGLFont * numberFont, const char *text)
 }
 
 extern void
-glPrintCube(const OGLFont * cubeFont, const char *text)
+glPrintCube(OGLFont * cubeFont, const char *text)
 {
     /* Align horizontally and vertically */
     float saveScale = 0;
     float heightOffset = -cubeFont->height;
     if (strlen(text) > 1) {     /* Make font smaller for 2 digit cube numbers */
         saveScale = cubeFont->scale;
-        ((OGLFont *) cubeFont)->scale *= CUBE_TWODIGIT_FACTOR;
+        cubeFont->scale *= CUBE_TWODIGIT_FACTOR;
         heightOffset *= CUBE_TWODIGIT_FACTOR;
     }
     glTranslatef(-getTextLen3d(cubeFont, text) / 2.0f, heightOffset / 2.0f, 0.f);
     RenderString3d(cubeFont, text);
 
     if (strlen(text) > 1)
-        ((OGLFont *) cubeFont)->scale = saveScale;
+        cubeFont->scale = saveScale;
 }
 
 extern void
