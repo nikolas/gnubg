@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.70 2014/12/21 22:36:34 plm Exp $
+ * $Id: drawboard.c,v 1.71 2015/01/24 14:54:38 plm Exp $
  */
 
 #include "config.h"
@@ -956,60 +956,6 @@ FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
             fDoubled ? (fTurn ? -1 : 1) : 0, anOff[1], anOff[0], fCrawford);
 
     return pch;
-}
-
-extern int
-ProcessFIBSBoardString(char *pch, ProcessedFIBSBoard * procBrd)
-{
-    FIBSBoardInfo brdInfo;
-
-    if (ParseFIBSBoardString(pch, &brdInfo))
-        return -1;
-
-    if (ProcessFIBSBoardInfo(&brdInfo, procBrd))
-        return -1;
-
-    return 0;
-}
-
-extern int
-ParseFIBSBoardString(char *pch, FIBSBoardInfo * brdInfo)
-{
-    int i, c, n;
-    char szPlayer[MAX_NAME_LEN];
-    char szOpp[MAX_NAME_LEN];
-
-    /* Names and match length/score */
-    c = -1;
-    sscanf(pch, "board:%31[^:]:%31[^:]:%d:%d:%d:%n", szPlayer, szOpp, &brdInfo->nMatchTo, &brdInfo->nScore,
-           &brdInfo->nScoreOpp, &c);
-    if (c < 0)
-        return -1;
-    pch += c;
-
-    brdInfo->gsName = g_string_new(szPlayer);
-    brdInfo->gsOpp = g_string_new(szOpp);
-
-    /* Board */
-    for (i = 0; i < 26; ++i) {
-        c = -1;
-        sscanf(pch, "%d:%n", &n, &c);
-        if (c < 0)
-            return -1;
-        pch += c;
-        brdInfo->anFIBSBoard[i] = n;
-    }
-
-    c = -1;
-    sscanf(pch, "%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%d:%*d:%*d:%*d:%*d:%*d:%*d:"
-           "%*d:%d:%d:%n", &brdInfo->nTurn, &brdInfo->anDice[0], &brdInfo->anDice[1], &brdInfo->anOppDice[0],
-           &brdInfo->anOppDice[1], &brdInfo->nCube, &brdInfo->fCanDouble, &brdInfo->fOppCanDouble,
-           &brdInfo->fDoubled, &brdInfo->nColor, &brdInfo->nDirection, &brdInfo->fNonCrawford, &brdInfo->fPostCrawford,
-           &c);
-    if (c < 0)
-        return -1;
-
-    return 0;
 }
 
 extern int

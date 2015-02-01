@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.h,v 1.21 2014/06/22 03:49:18 mdpetch Exp $
+ * $Id: drawboard.h,v 1.22 2014/06/24 23:53:13 mdpetch Exp $
  */
 
 #ifndef DRAWBOARD_H
@@ -40,12 +40,8 @@ extern char *FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
                        const char *szPlayer, const char *szOpp, int nMatchTo,
                        int nScore, int nOpponent, int nDice0, int nDice1,
                        int nCube, int fCubeOwner, int fDoubled, int fTurn, int fCrawford, int nChequers);
-/* Read a FIBS "boardstyle 3" description from pch. */
-extern int ProcessFIBSBoardString(char *pch, ProcessedFIBSBoard * procBrd);
 
 /* Process a board info structure from external interface */
 extern int ProcessFIBSBoardInfo(FIBSBoardInfo * brdInfo, ProcessedFIBSBoard * procBrd);
-
-extern int ParseFIBSBoardString(char *pch, FIBSBoardInfo * brdInfo);
 
 #endif
