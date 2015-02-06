@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.116 2012/08/05 18:58:26 mdpetch Exp $
+ * $Id: gtkchequer.c,v 1.117 2013/06/16 02:16:13 mdpetch Exp $
  */
 
 #include "config.h"
@@ -68,7 +68,7 @@ MoveListRolloutClicked(GtkWidget * pw, hintdata * phd)
     /* setup rollout dialog */
     {
         move **ppm = (move **) malloc(c * sizeof(move *));
-        cubeinfo **ppci = (cubeinfo **) malloc(c * sizeof(cubeinfo *));
+        const cubeinfo **ppci = (const cubeinfo **) malloc(c * sizeof(cubeinfo *));
         char (*asz)[40] = (char (*)[40]) malloc(40 * c);
 
         for (i = 0, pl = plSelList; i < c; pl = pl->next, i++) {
@@ -168,7 +168,7 @@ MoveListTempMapClicked(GtkWidget * pw, hintdata * phd)
     c = g_list_length(plSelList);
 
     ams = (matchstate *) g_malloc(c * sizeof(matchstate));
-    asz = (char **) g_malloc(c * sizeof(char *));
+    asz = (gchar **) g_malloc(c * sizeof(gchar *));
 
     for (i = 0, pl = plSelList; pl; pl = pl->next, ++i) {
 
@@ -195,7 +195,7 @@ MoveListTempMapClicked(GtkWidget * pw, hintdata * phd)
     MoveListFreeSelectionList(plSelList);
 
     GTKSetCurrentParent(pw);
-    GTKShowTempMap(ams, c, (const gchar **) asz, TRUE);
+    GTKShowTempMap(ams, c, asz, TRUE);
 
     g_free(ams);
     for (i = 0; i < c; ++i)

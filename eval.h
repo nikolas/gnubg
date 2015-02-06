@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.189 2014/09/08 21:11:51 plm Exp $
+ * $Id: eval.h,v 1.190 2015/01/18 18:10:17 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -538,8 +538,8 @@ extern int
  equal_movefilter(const int i, const movefilter amf1[MAX_FILTER_PLIES], const movefilter amf2[MAX_FILTER_PLIES]);
 
 extern int
- equal_movefilters(movefilter aamf1[MAX_FILTER_PLIES][MAX_FILTER_PLIES],
-                  movefilter aamf2[MAX_FILTER_PLIES][MAX_FILTER_PLIES]);
+ equal_movefilters(const movefilter aamf1[MAX_FILTER_PLIES][MAX_FILTER_PLIES],
+                   const movefilter aamf2[MAX_FILTER_PLIES][MAX_FILTER_PLIES]);
 
 extern doubletype DoubleType(const int fDoubled, const int fMove, const int fTurn);
 

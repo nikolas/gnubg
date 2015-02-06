@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.455 2015/02/01 17:25:00 plm Exp $
+ * $Id: eval.c,v 1.456 2015/02/03 23:07:47 plm Exp $
  */
 
 #include "config.h"
@@ -5150,8 +5150,8 @@ equal_movefilter(const int i, const movefilter amf1[MAX_FILTER_PLIES], const mov
 
 
 extern int
-equal_movefilters(movefilter aamf1[MAX_FILTER_PLIES][MAX_FILTER_PLIES],
-                  movefilter aamf2[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
+equal_movefilters(const movefilter aamf1[MAX_FILTER_PLIES][MAX_FILTER_PLIES],
+                  const movefilter aamf2[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 {
 
     int i;
