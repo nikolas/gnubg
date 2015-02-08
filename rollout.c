@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.243 2014/08/09 16:07:40 mdpetch Exp $
+ * $Id: rollout.c,v 1.244 2014/11/16 14:13:02 plm Exp $
  */
 
 #include "config.h"
@@ -902,7 +902,7 @@ comp_jsdinfo_order(const void *a, const void *b)
 }
 
 /* Lots of shared variables - should probably not be globals... */
-static unsigned int cGames;
+static int cGames;
 static cubeinfo *aciLocal;
 static int show_jsds;
 
@@ -1114,7 +1114,6 @@ RolloutLoopMT(void *UNUSED(unused))
     int active_alternatives;
     unsigned int j;
     int alt;
-    unsigned int this_trial;
     FILE *logfp = NULL;
     rolloutcontext *prc = NULL;
     /* Each thread gets a copy of the rngctxRollout */
@@ -1124,11 +1123,11 @@ RolloutLoopMT(void *UNUSED(unused))
 
     /* ============ begin rollout loop ============= */
 
-    while ((this_trial = MT_SafeIncValue(&ro_NextTrial)) <= cGames) {
+    while (MT_SafeIncValue(&ro_NextTrial) <= cGames) {
         active_alternatives = ro_alternatives;
 
         for (alt = 0; alt < ro_alternatives; ++alt) {
-            unsigned int trial = MT_SafeIncValue(&altTrialCount[alt]) - 1;
+            int trial = MT_SafeIncValue(&altTrialCount[alt]) - 1;
             /* skip this one if it's already finished */
             if (fNoMore[alt] || (trial > cGames)) {
                 MT_SafeDec(&altTrialCount[alt]);
