@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.281 2015/02/06 23:25:00 plm Exp $
+ * $Id: show.c,v 1.282 2015/02/08 10:37:31 plm Exp $
  */
 
 #include "config.h"
@@ -45,6 +45,8 @@
 #include "boarddim.h"
 #include "credits.h"
 #include "util.h"
+#include "openurl.h"
+#include "multithread.h"
 
 #if USE_GTK
 #include "gtkboard.h"
@@ -56,11 +58,7 @@
 #include "gtkrolls.h"
 #include "gtktempmap.h"
 #include "gtkoptions.h"
-#else
-#include <glib.h>
 #endif
-#include "openurl.h"
-#include "multithread.h"
 
 #ifdef WIN32
 #include <io.h>
