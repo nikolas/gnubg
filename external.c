@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.92 2014/12/04 14:22:31 mdpetch Exp $
+ * $Id: external.c,v 1.93 2014/12/05 01:57:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -25,6 +25,7 @@
 
 #define DEBUG_PREFIX "DBG: "
 
+#include <stdlib.h>
 #include <signal.h>
 #include <glib.h>
 #include <glib/gstdio.h>
@@ -36,8 +37,8 @@
 
 #ifndef WIN32
 
+#include <stdio.h>
 #include <errno.h>
-#include <stdlib.h>
 #include <string.h>
 
 #if HAVE_SYS_SOCKET_H
@@ -49,10 +50,8 @@
 #include <sys/un.h>
 #endif                          /* #if HAVE_SYS_SOCKET_H */
 
-#include <stdio.h>
-
 #else                           /* #ifndef WIN32 */
-#include <stdlib.h>
+
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
