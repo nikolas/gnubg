@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.182 2014/08/08 02:49:54 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.183 2014/08/08 13:38:16 mdpetch Exp $
  */
 
 #include "config.h"
@@ -25,14 +25,12 @@
 #include "gnubgmodule.h"
 #endif
 
-#include "backgammon.h"
-#include "positionid.h"
-#include "drawboard.h"
-
 #include <signal.h>
 #include <glib.h>
 #include <glib/gstdio.h>
 
+#include "backgammon.h"
+#include "drawboard.h"
 #include "eval.h"
 #include "matchequity.h"
 #include "positionid.h"
@@ -153,8 +151,6 @@ PyToMove(PyObject * p, signed int anMove[8])
         /* No tuples equivalent to no legal moves */
         return 1;
     }
-
-    return 0;
 }
 
 static int
