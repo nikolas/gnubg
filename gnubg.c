@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.967 2015/01/25 11:27:09 plm Exp $
+ * $Id: gnubg.c,v 1.968 2015/01/25 20:12:08 plm Exp $
  */
 
 #include "config.h"
@@ -35,6 +35,7 @@
 #include <glib/gstdio.h>
 #include <signal.h>
 #include <ctype.h>
+#include <locale.h>
 #ifdef WIN32
 #include <direct.h>
 #include <io.h>
@@ -56,8 +57,6 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include "sgf.h"
 #include "export.h"
 #include "import.h"
-#include <glib/gstdio.h>
-#include <locale.h>
 #include "matchequity.h"
 #include "matchid.h"
 #include "positionid.h"
@@ -86,19 +85,13 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include <netdb.h>
 #include <sys/un.h>
 #endif                          /* #if HAVE_SYS_SOCKET_H */
-#ifndef WIN32
-#include <stdio.h>
-#else                           /* #ifndef WIN32 */
+#ifdef WIN32
 #include <winsock2.h>
 #include <ws2tcpip.h>
-
 #define inet_aton(ip,addr)  (addr)->s_addr = inet_addr(ip), 1
 #define inet_pton(fam,ip,addr) (addr)->s_addr = inet_addr(ip), 1
-
-#endif                          /* #ifndef WIN32 */
-
-#endif
-
+#endif                          /* #ifdef WIN32 */
+#endif                          /* #if HAVE_SOCKETS */
 
 #if USE_GTK
 #include <gtk/gtk.h>
