@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.77 2014/03/16 23:06:29 plm Exp $
+ * $Id: gtkpanels.c,v 1.78 2014/07/20 21:16:30 plm Exp $
  */
 
 #include "config.h"
@@ -586,19 +586,15 @@ CommandKeyPress(GtkWidget * UNUSED(widget), GdkEventKey * event, CommandEntryDat
     short k = (short) event->keyval;
 
     if (k == KEY_TAB) {         /* Tab press - auto complete */
-        command *pc;
         char szCommand[128], szUsage[128];
         command cTop = { NULL, NULL, NULL, NULL, acTop };
-        if ((pc =
-             FindHelpCommand(&cTop,
-                             gtk_editable_get_chars(GTK_EDITABLE
-                                                    (pData->pwEntry), 0, -1), szCommand, szUsage)) != NULL) {
+        if (FindHelpCommand(&cTop, gtk_editable_get_chars(GTK_EDITABLE(pData->pwEntry), 0, -1), szCommand, szUsage) != NULL) {
             Capitalize(szCommand);
             gtk_entry_set_text(GTK_ENTRY(pData->pwEntry), szCommand);
             gtk_editable_set_position(GTK_EDITABLE(pData->pwEntry), -1);
             return TRUE;
         }
-        /* Gtk 1 not good at stoping focus moving - so just move back later */
+        /* Gtk 1 not good at stopping focus moving - so just move back later */
         pData->completing = 1;
     }
     return FALSE;
