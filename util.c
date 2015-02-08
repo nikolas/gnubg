@@ -16,23 +16,24 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.34 2013/07/10 22:35:13 mdpetch Exp $
+ * $Id: util.c,v 1.35 2013/07/11 19:16:07 mdpetch Exp $
  */
 
 #include "config.h"
 #include "util.h"
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
 #include "common.h"
 
 char *prefsdir = NULL;
 char *datadir = NULL;
 char *pkg_datadir = NULL;
 char *docdir = NULL;
+
 #ifdef WIN32
 #include <io.h>
 #include <fcntl.h>
-#include <errno.h>
 #include <windows.h>
 
 extern void
@@ -51,8 +52,6 @@ PrintSystemError(const char *message)
     }
 }
 #else
-#include <errno.h>
-
 extern void
 PrintSystemError(const char *message)
 {
