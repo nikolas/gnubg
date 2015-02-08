@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoffdump.c,v 1.20 2013/07/10 13:56:00 mdpetch Exp $
+ * $Id: bearoffdump.c,v 1.21 2014/07/09 20:32:49 plm Exp $
  */
 
 #include "config.h"
@@ -41,12 +41,9 @@ main(int argc, char **argv)
 {
 
     char *filename, *szPosID = NULL;
-    int id = 0;
+    unsigned int id = 0;
     bearoffcontext *pbc;
     char sz[4096];
-    int n;
-    int nUs;
-    int nThem;
     TanBoard anBoard;
 
     GOptionEntry ao[] = {
@@ -84,7 +81,7 @@ main(int argc, char **argv)
     if (!id) {
         printf("Position ID     : %s\n", szPosID);
     } else {
-        printf("Position number : %d\n", id);
+        printf("Position number : %u\n", id);
     }
 
     /* This is needed since we call ReadBearoffFile() from bearoff.c */
@@ -112,7 +109,9 @@ main(int argc, char **argv)
 
         PositionFromID(anBoard, szPosID);
     } else {
-        printf("\n" "Dump of position#: %d\n\n", id);
+        unsigned int n, nUs, nThem;
+
+        printf("\n" "Dump of position#: %u\n\n", id);
 
         n = Combination(pbc->nPoints + pbc->nChequers, pbc->nPoints);
         nUs = id / n;
