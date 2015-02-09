@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.282 2015/02/08 10:37:31 plm Exp $
+ * $Id: show.c,v 1.283 2015/02/08 15:42:09 plm Exp $
  */
 
 #include "config.h"
@@ -88,7 +88,7 @@ ShowMoveFilter(const movefilter * pmf, const int ply)
 
 
 static void
-ShowMoveFilters(const movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
+ShowMoveFilters(movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 {
 
     int i, j;
@@ -184,7 +184,7 @@ show_evals(const char *text,
 
 
 static void
-show_movefilters(const movefilter aaamf[2][MAX_FILTER_PLIES][MAX_FILTER_PLIES])
+show_movefilters(movefilter aaamf[2][MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 {
 
     if (equal_movefilters(aaamf[0], aaamf[1]))
@@ -199,7 +199,7 @@ show_movefilters(const movefilter aaamf[2][MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 }
 
 static void
-ShowRollout(const rolloutcontext * prc)
+ShowRollout(rolloutcontext * prc)
 {
 
     int fDoTruncate = 0;
@@ -295,7 +295,7 @@ ShowRollout(const rolloutcontext * prc)
 }
 
 static void
-ShowEvalSetup(const evalsetup * pes)
+ShowEvalSetup(evalsetup * pes)
 {
 
     switch (pes->et) {
