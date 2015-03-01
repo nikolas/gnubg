@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: randomorg.c,v 1.2 2015/01/19 17:22:59 mdpetch Exp $
+ * $Id: randomorg.c,v 1.3 2015/01/19 22:08:07 mdpetch Exp $
  */
 
 #include "config.h"
@@ -39,7 +39,7 @@ RandomOrgCallBack(void *pvRawData, size_t nSize, size_t nNumMemb, void *pvUserDa
 {
     size_t nNewDataLen = nSize * nNumMemb;
     RandomData *randomData = (RandomData *) pvUserData;
-    int i;
+    unsigned int i;
     int iNumRead = 0;
     char *szRawData = (char *) pvRawData;
 
@@ -68,7 +68,7 @@ RandomOrgCallBack(void *pvRawData, size_t nSize, size_t nNumMemb, void *pvUserDa
     return nNewDataLen;
 }
 
-static RandomData randomData = { 0, -1, { 0 } };
+static RandomData randomData = { 0, -1, {0} };
 
 unsigned int
 getDiceRandomDotOrg(void)
@@ -78,7 +78,7 @@ getDiceRandomDotOrg(void)
 #ifdef WIN32
     gchar *szWIN32_cert_path = NULL;
 #endif
-    if ((randomData.nCurrent >= 0) && (randomData.nCurrent < randomData.nNumRolls)) {
+    if ((randomData.nCurrent >= 0) && ((unsigned int) randomData.nCurrent < randomData.nNumRolls)) {
         return randomData.anBuf[randomData.nCurrent++];
     }
 
