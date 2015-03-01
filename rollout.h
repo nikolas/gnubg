@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.37 2013/06/16 02:16:20 mdpetch Exp $
+ * $Id: rollout.h,v 1.38 2014/05/04 20:15:16 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -138,7 +138,7 @@ extern void
 extern int
 
 
-ScoreMoveRollout(move ** ppm, const cubeinfo ** ppci, int cMoves,
+ScoreMoveRollout(move ** ppm, cubeinfo ** ppci, int cMoves,
                  rolloutprogressfunc * pfRolloutProgress, void *pUserData);
 
 extern void RolloutLoopMT(void *unused);
