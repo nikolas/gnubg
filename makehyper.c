@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.45 2015/01/11 23:49:09 plm Exp $
+ * $Id: makehyper.c,v 1.46 2015/02/08 15:52:36 plm Exp $
  */
 
 #include "config.h"
@@ -595,7 +595,7 @@ main(int argc, char **argv)
         {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
          "Print version info and exit", NULL},
         {"outfile", 'f', 0, G_OPTION_ARG_STRING, &szOutput,
-         "Required output filename", "filename"},
+         "Output filename. Default is hyper<C>.bd.", "filename"},
         {NULL, 0, 0, 0, NULL, NULL, NULL}
     };
 
@@ -633,10 +633,13 @@ main(int argc, char **argv)
         exit(1);
     }
 
-    if (!szOutput || nC < 1 || nC > 3) {
+    if (nC < 1 || nC > 3) {
         g_printerr("Illegal options. Try `makehyper --help' for usage " "information\n");
         exit(1);
     }
+
+    if (!szOutput)
+        szOutput = g_strdup_printf("hyper%d.bd", nC);
 
     /* start calculation */
 
