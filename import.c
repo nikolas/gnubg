@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.202 2015/01/18 02:37:57 mdpetch Exp $
+ * $Id: import.c,v 1.203 2015/01/31 14:37:01 plm Exp $
  */
 
 #include "config.h"
@@ -102,7 +102,7 @@ ParseSetDate(char *szFilename)
     /* date could not be parsed, use date of last modification */
     if (matchdate == NULL) {
         if (g_stat(szFilename, &filestat) == 0) {
-            matchdate = localtime((time_t *) &filestat.st_mtime);
+            matchdate = localtime((time_t *) & filestat.st_mtime);
         }
     }
 
@@ -1074,6 +1074,12 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
                     bgVariation = VARIATION_STANDARD;
                 } else if (g_str_has_prefix(pch, "[Variation \"NackGammon")) {
                     bgVariation = VARIATION_NACKGAMMON;
+                } else if (g_str_has_prefix(pch, "[Variation \"HyperGammon (1)")) {
+                    bgVariation = VARIATION_HYPERGAMMON_1;
+                } else if (g_str_has_prefix(pch, "[Variation \"HyperGammon (2)")) {
+                    bgVariation = VARIATION_HYPERGAMMON_2;
+                } else if (g_str_has_prefix(pch, "[Variation \"HyperGammon (3)")) {
+                    bgVariation = VARIATION_HYPERGAMMON_3;
                 } else if (g_str_has_prefix(pch, "[Crawford ")) {
                     ;           /* discard for now */
                 } else if (g_str_has_prefix(pch, "[Jacoby ")) {

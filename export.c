@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.80 2014/10/19 21:24:54 plm Exp $
+ * $Id: export.c,v 1.81 2015/04/09 21:26:42 plm Exp $
  */
 
 #include "config.h"
@@ -1262,8 +1262,20 @@ ExportMatchMat(char *sz, int fSst)
             fprintf(pf, "; [Round \"%s\"]\n", mi.pchRound);
         if (mi.nYear > 1900)
             fprintf(pf, "; [EventDate \"%4u.%02u.%02u\"]\n", mi.nYear, mi.nMonth, mi.nDay);
-        if (ms.bgv == VARIATION_NACKGAMMON)
+        switch (ms.bgv) {
+        case VARIATION_NACKGAMMON:
             fprintf(pf, "; [Variation \"NackGammon\"]\n");
+            break;
+        case VARIATION_HYPERGAMMON_1:
+            fprintf(pf, "; [Variation \"HyperGammon (1)\"]\n");
+            break;
+        case VARIATION_HYPERGAMMON_2:
+            fprintf(pf, "; [Variation \"HyperGammon (2)\"]\n");
+            break;
+        case VARIATION_HYPERGAMMON_3:
+            fprintf(pf, "; [Variation \"HyperGammon (3)\"]\n");
+            break;
+        }
         if (mi.pchAnnotator)
             fprintf(pf, "; [Transcriber \"%s\"]\n", mi.pchAnnotator);
         if (mi.pchComment) {
