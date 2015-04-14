@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.183 2014/08/08 13:38:16 mdpetch Exp $
+ * $Id: gnubgmodule.c,v 1.184 2015/02/08 15:32:54 plm Exp $
  */
 
 #include "config.h"
@@ -3096,7 +3096,7 @@ PythonNavigate(PyObject * UNUSED(self), PyObject * args, PyObject * keywds)
 }
 
 
-PyMethodDef gnubgMethods[] = {
+static PyMethodDef gnubgMethods[] = {
 
     {"board", PythonBoard, METH_VARARGS,
      "Get the current board\n"
