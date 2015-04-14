@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.458 2015/02/09 21:55:33 plm Exp $
+ * $Id: eval.c,v 1.459 2015/04/14 17:07:04 plm Exp $
  */
 
 #include "config.h"
@@ -682,7 +682,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
             char sz[10];
             sprintf(sz, "hyper%1d.bd", i + 1);
             fn = BuildFilename(sz);
-            apbcHyper[i] = BearoffInit(fn, BO_NONE, NULL);
+            apbcHyper[i] = BearoffInit(fn, BO_IN_MEMORY, NULL);
             g_free(fn);
         }
 
