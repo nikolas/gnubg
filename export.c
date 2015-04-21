@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.81 2015/04/09 21:26:42 plm Exp $
+ * $Id: export.c,v 1.82 2015/04/12 22:00:25 plm Exp $
  */
 
 #include "config.h"
@@ -1275,7 +1275,12 @@ ExportMatchMat(char *sz, int fSst)
         case VARIATION_HYPERGAMMON_3:
             fprintf(pf, "; [Variation \"HyperGammon (3)\"]\n");
             break;
+        case VARIATION_STANDARD:
+            break;
+        default:
+            g_assert_not_reached();
         }
+
         if (mi.pchAnnotator)
             fprintf(pf, "; [Transcriber \"%s\"]\n", mi.pchAnnotator);
         if (mi.pchComment) {
