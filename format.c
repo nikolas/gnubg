@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.48 2015/01/18 18:10:17 plm Exp $
+ * $Id: format.c,v 1.49 2015/01/18 18:52:48 plm Exp $
  */
 
 #include "config.h"
@@ -35,7 +35,11 @@
 int fOutputMWC = FALSE;
 int fOutputWinPC = FALSE;
 int fOutputMatchPC = TRUE;
+
+/* Maximum fOutputDigits is 6 (see set.c:CommandSetOutputDigits() */
+#define OUTPUT_SZ_LENGTH (5 + 6)
 unsigned int fOutputDigits = 3;
+
 float rErrorRateFactor = 1000.0f;
 
 typedef int (*classdumpfunc) (const TanBoard anBoard, char *szOutput, const bgvariation bgv);
@@ -412,7 +416,7 @@ extern char *
 OutputEquity(const float r, const cubeinfo * pci, const int f)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
 
     if (!pci->nMatchTo || (pci->nMatchTo && !fOutputMWC)) {
         if (f)
@@ -437,7 +441,7 @@ extern char *
 OutputMoneyEquity(const float ar[], const int f)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
     float eq = 2.0f * ar[OUTPUT_WIN] - 1.0f + ar[OUTPUT_WINGAMMON] + ar[OUTPUT_WINBACKGAMMON] -
         ar[OUTPUT_LOSEGAMMON] - ar[OUTPUT_LOSEBACKGAMMON];
 
@@ -470,7 +474,7 @@ extern char *
 OutputEquityScale(const float r, const cubeinfo * pci, const cubeinfo * pciBase, const int f)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
 
     if (!pci->nMatchTo) {
         if (f)
@@ -520,7 +524,7 @@ extern char *
 OutputEquityDiff(const float r1, const float r2, const cubeinfo * pci)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
 
     if (!pci->nMatchTo || (pci->nMatchTo && !fOutputMWC)) {
         sprintf(sz, "%+*.*f", fOutputDigits + 4, fOutputDigits, r1 - r2);
@@ -551,7 +555,7 @@ extern char *
 OutputMWC(const float r, const cubeinfo * pci, const int f)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
 
     if (!pci->nMatchTo) {
         if (f)
@@ -584,7 +588,7 @@ extern char *
 OutputPercent(const float r)
 {
 
-    static char sz[9];
+    static char sz[OUTPUT_SZ_LENGTH];
 
     if (fOutputWinPC) {
         sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits > 2 ? fOutputDigits - 2 : 0, 100.0 * r);
