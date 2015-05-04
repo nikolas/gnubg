@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.49 2015/01/18 18:52:48 plm Exp $
+ * $Id: format.c,v 1.50 2015/05/03 20:19:50 plm Exp $
  */
 
 #include "config.h"
@@ -36,8 +36,7 @@ int fOutputMWC = FALSE;
 int fOutputWinPC = FALSE;
 int fOutputMatchPC = TRUE;
 
-/* Maximum fOutputDigits is 6 (see set.c:CommandSetOutputDigits() */
-#define OUTPUT_SZ_LENGTH (5 + 6)
+#define OUTPUT_SZ_LENGTH (5 + MAX_OUTPUT_DIGITS)
 unsigned int fOutputDigits = 3;
 
 float rErrorRateFactor = 1000.0f;

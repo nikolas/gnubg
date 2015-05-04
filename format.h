@@ -16,11 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.12 2012/08/27 23:06:42 plm Exp $
+ * $Id: format.h,v 1.13 2013/06/16 02:16:12 mdpetch Exp $
  */
 
 #ifndef FORMAT_H
 #define FORMAT_H
+
+#define MAX_OUTPUT_DIGITS 6
 
 extern int fOutputMWC, fOutputWinPC, fOutputMatchPC;
 extern unsigned int fOutputDigits;

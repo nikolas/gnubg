@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.393 2015/01/25 12:16:25 plm Exp $
+ * $Id: set.c,v 1.394 2015/02/08 15:50:56 plm Exp $
  */
 
 #include "config.h"
@@ -2903,8 +2903,8 @@ CommandSetOutputDigits(char *sz)
 
     int n = ParseNumber(&sz);
 
-    if (n < 0 || n > 6) {
-        outputl(_("You must specify a number between 1 and 6.\n"));
+    if (n < 0 || n > MAX_OUTPUT_DIGITS) {
+        outputf(_("You must specify a number between 1 and %d.\n"), MAX_OUTPUT_DIGITS);
         return;
     }
 
