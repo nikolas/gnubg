@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.460 2015/04/14 18:32:08 plm Exp $
+ * $Id: eval.c,v 1.461 2015/04/16 22:15:40 plm Exp $
  */
 
 #include "config.h"
@@ -940,10 +940,6 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
                     no -= n;
                 }
             }
-        }
-
-        if (t < 0) {
-            t = 0;
         }
 
         afInput[I_TIMING] = t / 100.0f;
