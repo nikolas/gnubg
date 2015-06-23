@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.154 2014/07/27 16:01:11 plm Exp $
+ * $Id: sgf.c,v 1.155 2015/02/01 18:11:53 plm Exp $
  */
 
 #include "config.h"
@@ -960,9 +960,7 @@ RestoreMoveAnalysis(property * pp, int fPlayer,
                     movelist * pml, unsigned int *piMove, evalsetup * pesChequer, const matchstate * pms)
 {
     listOLD *pl = pp->pl->plNext;
-    const char *pc;
-    char *pch;
-    char ch;
+    char *pc, *pch, ch;
     move *pm;
     int i;
     int fDeterministic __attribute((unused));
@@ -1009,7 +1007,7 @@ RestoreMoveAnalysis(property * pp, int fPlayer,
         ApplyMove(anBoardMove, pm->anMove, FALSE);
         PositionKey((ConstTanBoard) anBoardMove, &pm->key);
 
-        pch = (char *) pc;
+        pch = pc;
         while (isspace(ch = *pch++)) {
         };
         pch++;
