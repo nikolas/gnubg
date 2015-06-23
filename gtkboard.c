@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.323 2014/10/19 21:24:54 plm Exp $
+ * $Id: gtkboard.c,v 1.324 2014/12/23 09:22:24 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -86,7 +86,7 @@ static unsigned char *TTachCube, *TTachCubeFaces;
 
 #define RAND irand( &rc )
 
-static gint board_set(Board * board, const gchar * board_text, const gint resigned, const gint cube_use);
+static gint board_set(Board * board, gchar * board_text, const gint resigned, const gint cube_use);
 static void InitialPos(BoardData * bd);
 
 
@@ -2278,7 +2278,7 @@ SetJacobyToggle(BoardData * bd)
 
 
 static int
-board_text_to_setting(const gchar ** board_text, gint * failed)
+board_text_to_setting(gchar ** board_text, gint * failed)
 {
     if (*failed)
         return 0;
@@ -2291,7 +2291,7 @@ board_text_to_setting(const gchar ** board_text, gint * failed)
 }
 
 static gint
-board_set(Board * board, const gchar * board_text, const gint resigned, const gint cube_use)
+board_set(Board * board, gchar * board_text, const gint resigned, const gint cube_use)
 {
 
     BoardData *bd = board->board_data;
