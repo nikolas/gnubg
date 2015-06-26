@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.324 2014/12/23 09:22:24 plm Exp $
+ * $Id: gtkboard.c,v 1.325 2015/06/23 21:49:18 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -2914,7 +2914,8 @@ game_set(Board * board, TanBoard points, int roll,
         memcpy(bd->old_board, points, sizeof(bd->old_board));
 
     FIBSBoard(board_str, points, roll, name, opp_name, match, score,
-              opp_score, die0, die1, ms.nCube, ms.fCubeOwner, ms.fDoubled, ms.fTurn, ms.fCrawford, nchequers);
+              opp_score, die0, die1, ms.nCube, ms.fCubeOwner, ms.fDoubled, ms.fTurn, ms.fCrawford, nchequers,
+              ms.fPostCrawford);
 
     if (gtk_widget_get_realized(pwMain))
         board_set(board, board_str, ms.fResigned == -1 ? 0 : -bd->turn * ms.fResigned, ms.fCubeUse);

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.433 2014/12/04 14:44:50 mdpetch Exp $
+ * $Id: play.c,v 1.434 2014/12/04 14:51:22 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1434,7 +1434,7 @@ ComputerTurn(void)
                   ap[ms.fMove].szName, ap[!ms.fMove].szName,
                   ms.nMatchTo, ms.anScore[ms.fMove], ms.anScore[!ms.fMove],
                   ms.anDice[0], ms.anDice[1], ms.nCube, ms.fCubeOwner, ms.fDoubled, 0 /* turn */ , ms.fCrawford,
-                  anChequers[ms.bgv]);
+                  anChequers[ms.bgv], ms.fPostCrawford);
         strcat(szBoard, "\n");
 
         if (ExternalWrite(ap[ms.fTurn].h, szBoard, strlen(szBoard) + 1) < 0)

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.93 2014/12/05 01:57:17 mdpetch Exp $
+ * $Id: external.c,v 1.94 2015/02/08 15:19:07 plm Exp $
  */
 
 #include "config.h"
@@ -298,6 +298,7 @@ ExternalWrite(int h, char *pch, size_t cch)
 #else
     int n;
 #endif
+	outputf("%s", pch);
 
     while (cch) {
         ProcessEvents();
@@ -398,8 +399,8 @@ ExtEvaluation(scancontext * pec)
         szResponse = g_strdup_printf("Error: badly formed board\n");
     } else {
 
-        anScore[0] = processedBoard.nScoreOpp;
-        anScore[1] = processedBoard.nScore;
+        anScore[0] = processedBoard.nScore;
+        anScore[1] = processedBoard.nScoreOpp;
         /* If the session isn't using Crawford rule, set crawford flag to false */
         processedBoard.fCrawford = pec->fCrawfordRule ? processedBoard.fCrawford : FALSE;
         /* Set the Jacoby flag appropriately from the external interface settings */
@@ -451,8 +452,8 @@ ExtFIBSBoard(scancontext * pec)
         szResponse = g_strdup_printf("Error: badly formed board\n");
     } else {
 
-        anScore[0] = processedBoard.nScoreOpp;
-        anScore[1] = processedBoard.nScore;
+        anScore[0] = processedBoard.nScore;
+        anScore[1] = processedBoard.nScoreOpp;
 
         /* If the session isn't using Crawford rule, set crawford flag to false */
         processedBoard.fCrawford = pec->fCrawfordRule ? processedBoard.fCrawford : FALSE;
@@ -782,6 +783,7 @@ CommandExternal(char *sz)
             }
 
             if (szResponse) {
+				/* outputf("%s", szResponse);*/
                 if (ExternalWrite(hPeer, szResponse, strlen(szResponse)))
                     break;
 
