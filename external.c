@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.94 2015/02/08 15:19:07 plm Exp $
+ * $Id: external.c,v 1.95 2015/06/26 06:39:37 mdpetch Exp $
  */
 
 #include "config.h"
@@ -298,7 +298,7 @@ ExternalWrite(int h, char *pch, size_t cch)
 #else
     int n;
 #endif
-	outputf("%s", pch);
+	/* outputf("%s", pch); */
 
     while (cch) {
         ProcessEvents();
@@ -783,7 +783,7 @@ CommandExternal(char *sz)
             }
 
             if (szResponse) {
-				/* outputf("%s", szResponse);*/
+                /* outputf("%s", szResponse);*/
                 if (ExternalWrite(hPeer, szResponse, strlen(szResponse)))
                     break;
 
