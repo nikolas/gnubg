@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.50 $)
+AC_REVISION($Revision: 1.51 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -50,6 +50,10 @@ case "$host" in
     darwin=yes
     LDFLAGS="$LDFLAGS -dylib_file /System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib:/System/Library/Frameworks/OpenGL.framework/Versions/A/Libraries/libGL.dylib"
     AC_DEFINE(USE_APPLE_OPENGL, 1, [Define if using Apple OpenGL])
+    ;;
+  *-*-freebsd*)
+    CPPFLAGS="$CPPFLAGS -I${LOCALBASE:-/usr/local}/include"
+    LDFLAGS="$LDFLAGS -L${LOCALBASE:-/usr/local}/lib"
     ;;
 esac
 AM_CONDITIONAL(WIN32, test "x$win32" = "xyes")
