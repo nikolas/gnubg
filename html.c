@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.235 2014/02/12 21:12:36 plm Exp $
+ * $Id: html.c,v 1.236 2015/07/19 16:55:42 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.235 2014/02/12 21:12:36 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.236 2015/07/19 16:55:42 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.235 $";
+    const char szVersion[] = "$Revision: 1.236 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1619,14 +1619,14 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     fprintf(pf,
             "</address>\n"
             "<p>\n"
-            "<a href=\"http://validator.w3.org/check/referer\">"
-            "<img style=\"border: 0\" width=\"88\" height=\"31\" "
+            "<a href=\"http://validator.w3.org/check?uri=referer\">"
+            "<img style=\"border:0;width:88px;height:31px\" "
             "src=\"http://www.w3.org/Icons/valid-xhtml10\" "
             "alt=\"%s\" /></a>\n"
             "<a href=\"http://jigsaw.w3.org/css-validator/check/referer\">"
-            "<img style=\"border: 0\" width=\"88\" height=\"31\" "
+            "<img style=\"border:0;width=88px;height:31px\" "
             "src=\"http://jigsaw.w3.org/css-validator/images/vcss\" "
-            "alt=\"%s\" />" "</a>\n" "</p>\n" "</body>\n" "</html>\n", _("Valid XHTML 1.0!"), _("Valid CSS!"));
+            "alt=\"%s\" />" "</a>\n" "</p>\n" "</body>\n" "</html>\n", _("Valid XHTML 1.0 Strict!"), _("Valid CSS!"));
 
 
 }
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.235 $";
+    const char szVersion[] = "$Revision: 1.236 $";
     int iMajor, iMinor;
     char *pc;
 
