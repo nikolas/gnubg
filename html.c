@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.234 2014/01/24 23:55:38 plm Exp $
+ * $Id: html.c,v 1.235 2014/02/12 21:12:36 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.234 2014/01/24 23:55:38 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.235 2014/02/12 21:12:36 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.234 $";
+    const char szVersion[] = "$Revision: 1.235 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.234 $";
+    const char szVersion[] = "$Revision: 1.235 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2587,7 +2587,7 @@ HTMLPrintComment(FILE * pf, const moverecord * pmr, const htmlexportcss hecss)
 
         fputs("<!-- Annotation -->\n\n", pf);
 
-        fprintf(pf, "<br />\n" "<div %s>", GetStyle(CLASS_COMMENTHEADER, hecss));
+        fprintf(pf, "<p></p>\n" "<div %s>", GetStyle(CLASS_COMMENTHEADER, hecss));
         fputs(_("Annotation"), pf);
         fputs("</div>\n", pf);
 
