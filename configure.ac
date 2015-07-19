@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.49 $)
+AC_REVISION($Revision: 1.50 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.000$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -500,17 +500,7 @@ if test x"$enable_gasserts" != x"yes"; then
 fi
 AS_IF( [test x"$enable_gasserts" != x"yes"], [AC_MSG_RESULT($gasserts)], [AC_MSG_RESULT(yes)] )
 
-dnl Compiling with -O3 makes a useful difference with gcc, clang and Sun's
-dnl compiler ; -ffast-math helps as well when available.
-dnl For instance, some match analysis on a Core i5 CPU (gcc 4.4.7, -mavx) :
-dnl -O2             1:23
-dnl -O3             1:14
-dnl -O3 -ffast-math 1:11
-
-AC_SUBST(AM_CFLAGS, "-g -O3")
-if test x"$GCC" = "xyes"; then
-    AX_APPEND_FLAG("-ffast-math", AM_CFLAGS)
-fi
+AC_SUBST(AM_CFLAGS)
 
 dnl *************
 dnl Misc. settings
