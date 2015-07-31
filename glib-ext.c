@@ -16,10 +16,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.10 2014/07/26 06:23:34 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.11 2015/07/31 23:40:23 mdpetch Exp $
  */
 
 
+#include <errno.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
