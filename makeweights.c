@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makeweights.c,v 1.23 2009/02/23 20:21:53 Superfly_Jon Exp $
+ * $Id: makeweights.c,v 1.24 2013/06/16 02:16:18 mdpetch Exp $
  */
 
 #include "config.h"
@@ -26,6 +26,8 @@
 #include <glib/gi18n.h>
 #include <glib/gstdio.h>
 #include <locale.h>
+#include "glib-ext.h"
+
 #include "eval.h"               /* for WEIGHTS_VERSION */
 
 static void
@@ -53,12 +55,12 @@ main(int argc, /*lint -e{818} */ char *argv[])
 
         if (argc > arg + 2)
             usage(argv[0]);
-        if ((output = g_fopen(argv[arg], "wb")) == 0) {
+        if ((output = gnubg_g_fopen(argv[arg], "wb")) == 0) {
             perror("Can't open output file");
             exit(1);
         }
         if (argc == arg + 2) {
-            if ((input = g_fopen(argv[arg + 1], "r")) == 0) {
+            if ((input = gnubg_g_fopen(argv[arg + 1], "r")) == 0) {
                 perror("Can't open input file");
                 exit(1);
             }

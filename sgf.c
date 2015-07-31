@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.155 2015/02/01 18:11:53 plm Exp $
+ * $Id: sgf.c,v 1.156 2015/06/23 22:16:05 plm Exp $
  */
 
 #include "config.h"
@@ -29,6 +29,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "glib-ext.h"
 
 #include "backgammon.h"
 #include "dice.h"
@@ -107,7 +108,7 @@ LoadCollection(char *sz)
     SGFErrorHandler = ErrorHandler;
 
     if (strcmp(sz, "-")) {
-        if (!(pf = g_fopen(sz, "r"))) {
+        if (!(pf = gnubg_g_fopen(sz, "r"))) {
             outputerr(sz);
             return NULL;
         }
@@ -2315,7 +2316,7 @@ CommandSaveGame(char *sz)
 
     if (!strcmp(sz, "-"))
         pf = stdout;
-    else if (!(pf = g_fopen(sz, "w"))) {
+    else if (!(pf = gnubg_g_fopen(sz, "w"))) {
         outputerr(sz);
         return;
     }
@@ -2355,7 +2356,7 @@ CommandSaveMatch(char *sz)
 
     if (!strcmp(sz, "-"))
         pf = stdout;
-    else if (!(pf = g_fopen(sz, "w"))) {
+    else if (!(pf = gnubg_g_fopen(sz, "w"))) {
         outputerr(sz);
         return;
     }
@@ -2401,7 +2402,7 @@ CommandSavePosition(char *sz)
 
     if (!strcmp(sz, "-"))
         pf = stdout;
-    else if (!(pf = g_fopen(sz, "w"))) {
+    else if (!(pf = gnubg_g_fopen(sz, "w"))) {
         outputerr(sz);
         return;
     }

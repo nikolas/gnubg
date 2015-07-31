@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.92 2015/01/19 10:38:03 mdpetch Exp $
+ * $Id: dice.c,v 1.93 2015/01/19 17:22:58 mdpetch Exp $
  */
 
 #include "config.h"
@@ -47,6 +47,7 @@
 #include "mt19937ar.h"
 #include "isaac.h"
 #include <glib/gstdio.h>
+#include "glib-ext.h"
 
 #if USE_GTK
 #include "gtkgame.h"
@@ -887,7 +888,7 @@ OpenDiceFile(rngcontext * rngctx, const char *sz)
     g_free(rngctx->szDiceFilename);     /* initialized to NULL */
     rngctx->szDiceFilename = g_strdup(sz);
 
-    return (rngctx->fDice = g_fopen(sz, "r"));
+    return (rngctx->fDice = gnubg_g_fopen(sz, "r"));
 }
 
 extern void

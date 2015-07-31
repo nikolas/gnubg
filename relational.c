@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.72 2014/08/24 10:44:15 plm Exp $
+ * $Id: relational.c,v 1.73 2015/01/11 16:10:21 plm Exp $
  */
 
 #include "config.h"
@@ -38,6 +38,7 @@
 #include "util.h"
 #include <glib/gstdio.h>
 #include <glib.h>
+#include "glib-ext.h"
 
 static int
 RelationalMatchExists(DBProvider * pdb)
@@ -302,7 +303,7 @@ CreateDatabase(DBProvider * pdb)
     char line[1024];
 
     gchar *szFile = BuildFilename("gnubg.sql");
-    FILE *fp = g_fopen(szFile, "r");
+    FILE *fp = gnubg_g_fopen(szFile, "r");
 
     if (!fp) {
         g_free(szFile);

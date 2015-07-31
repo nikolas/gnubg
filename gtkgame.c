@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.889 2014/11/16 14:01:35 plm Exp $
+ * $Id: gtkgame.c,v 1.890 2015/04/02 23:40:09 plm Exp $
  */
 
 #include "config.h"
@@ -34,6 +34,7 @@
 #include <string.h>
 #include <errno.h>
 #include <locale.h>
+#include "glib-ext.h"
 
 #if HAVE_UNISTD_H
 #include <unistd.h>
@@ -5004,7 +5005,7 @@ gtk_save_rollout_settings(void)
     }
 
     errno = 0;
-    pf = g_fopen(filename, "w");
+    pf = gnubg_g_fopen(filename, "w");
     if (!pf) {
         outputerr(filename);
         g_free(filename);

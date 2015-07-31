@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.97 2014/01/09 22:15:10 plm Exp $
+ * $Id: bearoff.c,v 1.98 2014/12/03 15:43:04 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -36,6 +36,7 @@
 #include <string.h>
 #include <fcntl.h>
 #include <errno.h>
+#include "glib-ext.h"
 
 #define HEURISTIC_C 15
 #define HEURISTIC_P 6
@@ -835,7 +836,7 @@ BearoffInit(const char *szFilename, const int bo, void (*p) (unsigned int))
     }
 
 
-    if ((pbc->pf = g_fopen(szFilename, "rb")) == 0) {
+    if ((pbc->pf = gnubg_g_fopen(szFilename, "rb")) == 0) {
         g_printerr("%s\n", _("Invalid or nonexistent database"));
         InvalidDb(pbc);
         return NULL;
@@ -933,7 +934,7 @@ BearoffInit(const char *szFilename, const int bo, void (*p) (unsigned int))
         fclose(pbc->pf);
         pbc->pf = NULL;
         if ((ReadIntoMemory(pbc) == NULL))
-            if ((pbc->pf = g_fopen(szFilename, "rb")) == 0) {
+            if ((pbc->pf = gnubg_g_fopen(szFilename, "rb")) == 0) {
                 g_printerr("%s\n", _("Invalid or nonexistent database"));
                 InvalidDb(pbc);
                 return NULL;

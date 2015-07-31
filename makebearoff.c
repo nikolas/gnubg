@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.95 2014/07/26 06:23:34 mdpetch Exp $
+ * $Id: makebearoff.c,v 1.96 2014/12/03 15:43:37 plm Exp $
  */
 
 #include "config.h"
@@ -1251,7 +1251,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.95 $\n");
+    printf("makebearoff $Revision: 1.96 $\n");
 }
 
 
@@ -1330,7 +1330,7 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-    if (!(output = g_fopen(szOutput, "w+b"))) {
+    if (!(output = gnubg_g_fopen(szOutput, "w+b"))) {
         perror(szOutput);
         return EXIT_FAILURE;
     }

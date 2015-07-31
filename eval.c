@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.461 2015/04/16 22:15:40 plm Exp $
+ * $Id: eval.c,v 1.462 2015/06/07 15:26:17 plm Exp $
  */
 
 #include "config.h"
@@ -38,6 +38,7 @@
 #include "multithread.h"
 #include "util.h"
 #include "lib/simd.h"
+#include "glib-ext.h"
 
 typedef void (*classstatusfunc) (char *szOutput);
 typedef int (*cfunc) (const void *, const void *);
@@ -689,7 +690,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     }
 
     if (szWeightsBinary) {
-        pfWeights = g_fopen(szWeightsBinary, "rb");
+        pfWeights = gnubg_g_fopen(szWeightsBinary, "rb");
         if (!binary_weights_failed(szWeightsBinary, pfWeights)) {
             if (!fReadWeights && !(fReadWeights =
                                    !NeuralNetLoadBinary(&nnContact, pfWeights) &&
@@ -707,7 +708,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     }
 
     if (!fReadWeights && szWeights) {
-        pfWeights = g_fopen(szWeights, "r");
+        pfWeights = gnubg_g_fopen(szWeights, "r");
         if (!weights_failed(szWeights, pfWeights)) {
             setlocale(LC_ALL, "C");
             if (!(fReadWeights =

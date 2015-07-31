@@ -16,13 +16,14 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.h,v 1.9 2014/06/29 13:14:36 plm Exp $
+ * $Id: glib-ext.h,v 1.10 2014/07/26 06:23:34 mdpetch Exp $
  */
 
 
 #ifndef GLIB_EXT_H
 #define GLIB_EXT_H
 
+#include <stdio.h>
 #include <glib.h>
 #include <glib-object.h>
 #include "gtklocdefs.h"
@@ -50,6 +51,8 @@ void g_once_init_leave(volatile gsize * value_location, gsize initialization_val
 #if ! GLIB_CHECK_VERSION(2,28,0)
 extern void g_list_free_full(GList * list, GDestroyNotify free_func);
 #endif
+
+extern FILE *gnubg_g_fopen(const gchar * filename, const gchar * mode);
 
 typedef GList GMap;
 typedef GList GMapEntry;

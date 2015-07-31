@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.255 2014/08/07 22:26:52 mdpetch Exp $
+## $Id: Makefile.am,v 1.256 2015/01/19 10:38:03 mdpetch Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -196,7 +196,7 @@ makehyper_LDADD =  -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIB
 bearoffdump_SOURCES = bearoffdump.c $(UTILSOURCES)
 bearoffdump_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
-makeweights_SOURCES = makeweights.c
+makeweights_SOURCES = makeweights.c glib-ext.c
 makeweights_LDADD = -Llib lib/libevent.la @GLIB_LIBS@ @GTHREAD_LIBS@ @GOBJECT_LIBS@
 
 
