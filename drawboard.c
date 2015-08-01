@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.73 2015/06/26 06:39:36 mdpetch Exp $
+ * $Id: drawboard.c,v 1.74 2015/08/01 19:46:10 mdpetch Exp $
  */
 
 #include "config.h"
@@ -918,7 +918,7 @@ FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
 {
     char *sz = pch;
     int i, anOff[2];
-    int fNonCrawford = !(!fPostCrawford && (nScore == nMatchTo - 1 || nOpponent == nMatchTo - 1));
+    /* int fNonCrawford = !(!fPostCrawford && (nScore == nMatchTo - 1 || nOpponent == nMatchTo - 1));*/
 
     /* Names and match length/score */
     strcpy(sz, "board:");
