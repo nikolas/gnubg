@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnubg.py,v 1.13 2014/08/07 21:49:07 mdpetch Exp $
+# $Id: gnubg.py,v 1.14 2015/08/01 05:23:22 mdpetch Exp $
 #
 
 # Add the scripts directory to the module path to allow
@@ -97,7 +97,12 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
         sys.argv = argv
 
         # Check for IPython as it is generally the best cmdline interpreter
-        from IPython.frontend.terminal.embed import InteractiveShellEmbed
+        from IPython import version_info as ipy_version_info
+        if ipy_version_info[0] >= 1:
+            from IPython.terminal.embed import InteractiveShellEmbed
+        else:
+            from IPython.frontend.terminal.embed import InteractiveShellEmbed
+
         from IPython import __version__ as ipyversion
         from IPython.config.loader import Config
     except:
