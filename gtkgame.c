@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.890 2015/04/02 23:40:09 plm Exp $
+ * $Id: gtkgame.c,v 1.891 2015/07/31 23:40:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -3540,8 +3540,6 @@ static GtkItemFactoryEntry aife[] = {
      "<StockItem>", GTK_STOCK_ABOUT}
 };
 #endif
-
-extern int automaticTask;
 
 static void
 Stop(GtkWidget * pw, gpointer UNUSED(unused))

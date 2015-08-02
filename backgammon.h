@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.453 2015/01/24 22:30:54 plm Exp $
+ * $Id: backgammon.h,v 1.454 2015/01/25 11:27:10 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -83,8 +83,8 @@ typedef struct _player {
     evalsetup esChequer;
     evalsetup esCube;
     movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES];
-    int h;
     /* For PLAYER_EXTERNAL: */
+    int h;
     char *szSocket;
 } player;
 
@@ -299,6 +299,8 @@ extern listOLD *plLastMove;
  * lMatch.plNext->p. Same is true for games.
  */
 extern listOLD lMatch;
+
+extern int automaticTask;
 
 extern char *aszCopying[];
 extern const char *aszGameResult[];
