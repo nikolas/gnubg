@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.74 2015/08/01 19:46:10 mdpetch Exp $
+ * $Id: drawboard.c,v 1.75 2015/08/01 20:01:34 mdpetch Exp $
  */
 
 #include "config.h"
@@ -958,7 +958,7 @@ FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
             fDoubled ? (fTurn ? -1 : 1) : 0, anOff[1], anOff[0], fCrawford);
 
 /*  Temporarily remove this code as it breaks the GUI by preventing a player
-    from hitting am opponents blot. It appears to the suer as an illegal play
+    from hitting an opponents blot. It appears to the user as an illegal play
     Reported by Wolfgang Nelles
 
     sprintf(strchr(sz, 0), "%d:%d:%d:%d:%d:%d:%d:%d:1:-1:%d:%d:%d:%d:0:0:0:"
