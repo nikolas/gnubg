@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard3d.c,v 1.99 2014/07/27 11:56:23 plm Exp $
+ * $Id: drawboard3d.c,v 1.100 2014/11/23 17:35:29 plm Exp $
  */
 
 #include "config.h"
@@ -127,8 +127,6 @@ getDiceSize(const renderdata * prd)
 {
     return prd->diceSize * base_unit;
 }
-
-extern Flag3d flag;
 
 static void
 TidyShadows(BoardData3d * bd3d)

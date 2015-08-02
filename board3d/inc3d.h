@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.54 2014/11/23 17:35:29 plm Exp $
+ * $Id: inc3d.h,v 1.55 2015/01/17 21:52:24 mdpetch Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -191,6 +191,8 @@ struct _Flag3d {
     /* Control points for the flag. The Z values are modified to make it wave */
     float ctlpoints[S_NUMPOINTS][T_NUMPOINTS][3];
 };
+
+extern struct _Flag3d flag;
 
 /* Define relative sizes of objects from arbitrary unit .05 */
 #define base_unit .05f
