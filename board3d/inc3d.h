@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.55 2015/01/17 21:52:24 mdpetch Exp $
+ * $Id: inc3d.h,v 1.56 2015/08/02 20:41:02 plm Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -65,6 +65,8 @@
 
 extern int numRestrictFrames;
 extern int renderingBase;
+
+extern gboolean gtk_gl_init_success;
 
 typedef enum _BoardState {
     BOARD_CLOSED, BOARD_CLOSING, BOARD_OPENING, BOARD_OPEN

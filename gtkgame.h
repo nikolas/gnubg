@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.153 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkgame.h,v 1.154 2013/09/13 19:32:30 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -184,7 +184,7 @@ extern void ProcessInput(char *sz);
 
 #if USE_BOARD3D
 extern void SetSwitchModeMenuText(void);
-extern gboolean gtk_gl_init_success;
+#include "inc3d.h"
 #endif
 
 #endif
