@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.35 2013/06/16 02:16:19 mdpetch Exp $
+ * $Id: osr.c,v 1.36 2013/07/10 20:51:46 mdpetch Exp $
  */
 
 /*lint -e514 */
@@ -63,7 +63,7 @@ OSRQuasiRandomDice(const unsigned int iTurn, const unsigned int iGame, const uns
 /* Fill aaProb with one sided bearoff probabilities for position with */
 /* bearoff id n.                                                      */
 
-static inline void
+static void
 getBearoffProbs(const unsigned int n, unsigned short int aaProb[32])
 {
     g_assert(pbc1);
