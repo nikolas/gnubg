@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.56 $)
+AC_REVISION($Revision: 1.57 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -348,13 +348,18 @@ AC_HELP_STRING([--with-python=program],
     [
         if [ test x"$with_python" != x"no" && test x"$with_python" != x"yes" ]; then
     	    PYTHON="$with_python"
+            AC_PATH_PROG([PYTHON],[$PYTHON])
+            if test -z "$PYTHON"; then
+               AC_MSG_ERROR([Cannot find user specified Python interpreter: $with_python])
+            fi
         fi
     ])
 
 if test "x$with_python" != "xno"; then
     AM_PATH_PYTHON(2.2)
-    AM_CHECK_PYTHON_HEADERS(have_python="yes", have_python="no")
-    if test "x$have_python" = "xyes"; then
+    AX_PYTHON_DEVEL()
+    have_python=$ac_python_version
+    if test "x$have_python" != "x"; then
         AC_DEFINE(USE_PYTHON,1,[Define if you want to use Python inside gnubg])
     fi
 fi
