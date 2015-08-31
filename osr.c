@@ -20,7 +20,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: osr.c,v 1.36 2013/07/10 20:51:46 mdpetch Exp $
+ * $Id: osr.c,v 1.37 2015/08/28 22:37:22 plm Exp $
  */
 
 /*lint -e514 */
@@ -38,8 +38,8 @@
 #define MAX_PROBS        32
 #define MAX_GAMMON_PROBS 15
 
-static unsigned long mt[N];
-static int mti = N + 1;
+static unsigned long mt[MT_ARRAY_N];
+static int mti = MT_ARRAY_N + 1;
 
 static unsigned int
 OSRQuasiRandomDice(const unsigned int iTurn, const unsigned int iGame, const unsigned int cGames,

@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.98 2014/07/20 21:28:17 plm Exp $
+ * $Id: sound.c,v 1.99 2015/02/08 13:09:27 plm Exp $
  */
 
 #include "config.h"
@@ -37,7 +37,7 @@
 
 #if defined(WIN32)
 /* for PlaySound */
-#include "windows.h"
+#include <windows.h>
 #include <mmsystem.h>
 
 #elif HAVE_APPLE_QUICKTIME

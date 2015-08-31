@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.53 2013/09/05 19:45:58 plm Exp $
+ * $Id: multithread.h,v 1.54 2014/07/26 06:23:35 mdpetch Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -22,6 +22,7 @@
 
 #if defined(WIN32)
 #include <process.h>
+#include <winsock2.h>
 #include <windows.h>
 #endif
 

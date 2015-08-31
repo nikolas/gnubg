@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.93 2015/01/19 17:22:58 mdpetch Exp $
+ * $Id: dice.c,v 1.94 2015/07/31 23:40:22 mdpetch Exp $
  */
 
 #include "config.h"
@@ -94,7 +94,7 @@ struct _rngcontext {
 
     /* RNG_MERSENNE */
     int mti;
-    unsigned long mt[N];
+    unsigned long mt[MT_ARRAY_N];
 
     /* RNG_BBS */
 
@@ -545,20 +545,20 @@ InitRNGSeedMP(mpz_t n, rng rng, rngcontext * rngctx)
 
     case RNG_MERSENNE:{
             gint32 *achState;
-            unsigned long tempmtkey[N];
+            unsigned long tempmtkey[MT_ARRAY_N];
             size_t cb;
             unsigned int i;
 
             if (mpz_cmp_ui(n, UINT_MAX) > 0) {
 
                 achState = mpz_export(NULL, &cb, -1, sizeof(gint32), 0, 0, n);
-                for (i = 0; i < N && i < cb; i++) {
+                for (i = 0; i < MT_ARRAY_N && i < cb; i++) {
                     tempmtkey[i] = achState[i];
                 }
-                for (; i < N; i++) {
+                for (; i < MT_ARRAY_N; i++) {
                     tempmtkey[i] = 0;
                 }
-                init_by_array(tempmtkey, N, &rngctx->mti, rngctx->mt);
+                init_by_array(tempmtkey, MT_ARRAY_N, &rngctx->mti, rngctx->mt);
 
                 free(achState);
             } else {
@@ -745,7 +745,7 @@ InitRNG(unsigned long *pnSeed, int *pfInitFrom, const int fSet, const rng rngx)
     /* misc. initialisation */
 
     /* Mersenne-Twister */
-    rngctx->mti = N + 1;
+    rngctx->mti = MT_ARRAY_N + 1;
 
 #if HAVE_LIBGMP
     /* BBS */
