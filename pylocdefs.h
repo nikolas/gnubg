@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: pylocdefs.h,v 1.5 2014/08/07 23:30:00 mdpetch Exp $
+ * $Id: pylocdefs.h,v 1.6 2014/08/08 13:38:16 mdpetch Exp $
  */
 
 #ifndef PYLOCDEFS_H
@@ -32,7 +32,8 @@
     #define MOD_INIT(name) PyMODINIT_FUNC PyInit_##name(void)
     #define MOD_DEF(ob, name, doc, methods) \
             static struct PyModuleDef moduledef = { \
-              PyModuleDef_HEAD_INIT, name, doc, -1, methods, }; \
+              PyModuleDef_HEAD_INIT, name, doc, -1, methods, \
+              NULL, NULL, NULL, NULL, }; \
             ob = PyModule_Create(&moduledef);
 #else
     #define MOD_ERROR_VAL
