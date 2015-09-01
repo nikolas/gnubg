@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.891 2015/07/31 23:40:23 mdpetch Exp $
+ * $Id: gtkgame.c,v 1.892 2015/08/02 20:16:14 plm Exp $
  */
 
 #include "config.h"
@@ -39,7 +39,7 @@
 #if HAVE_UNISTD_H
 #include <unistd.h>
 #endif
-#if HAVE_LIBREADLINE
+#if HAVE_LIB_READLINE
 #include <readline/history.h>
 #include <readline/readline.h>
 #endif
@@ -628,7 +628,7 @@ GTKResumeInput(void)
 static gboolean
 StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer UNUSED(p))
 {
-#if HAVE_LIBREADLINE
+#if HAVE_LIB_READLINE
     /* Handle "next turn" processing before more input (otherwise we might
      * not even have a readline handler installed!) */
     while (nNextTurn)
@@ -3925,7 +3925,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
         GTKAllowStdin();
 
         if (fTTY) {
-#if HAVE_LIBREADLINE
+#if HAVE_LIB_READLINE
             fReadingCommand = TRUE;
             rl_callback_handler_install(FormatPrompt(), ProcessInput);
             atexit(rl_callback_handler_remove);

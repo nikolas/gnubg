@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.43 2015/01/24 22:30:54 plm Exp $ */
+/* $Id: commands.inc,v 1.44 2015/01/25 17:32:08 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -1442,9 +1442,9 @@ command acTop[] = {
     { "hint", CommandHint,  
       N_("Give hints on cube action or best legal moves"), 
       szOPTVALUE, NULL },
-#if HAVE_LIBREADLINE
+#if HAVE_LIB_READLINE
     { "history", CommandHistory, N_("Display current history"), NULL, NULL },
-#endif /* HAVE_LIBREADLINE */
+#endif /* HAVE_LIB_READLINE */
     { "invert", NULL, N_("invert match equity tables, etc."), 
       NULL, acSetInvert },
     { "import", NULL, 

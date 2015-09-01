@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.154 2013/09/13 19:32:30 plm Exp $
+ * $Id: gtkgame.h,v 1.155 2015/08/02 21:22:23 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -177,7 +177,7 @@ extern void ShowToolbar(void);
 extern void HideToolbar(void);
 extern void MoveListDestroy(void);
 
-#if HAVE_LIBREADLINE
+#if HAVE_LIB_READLINE
 extern int fReadingCommand;
 extern void ProcessInput(char *sz);
 #endif
