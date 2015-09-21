@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.396 2015/09/21 20:58:20 plm Exp $
+ * $Id: set.c,v 1.397 2015/09/21 21:11:43 plm Exp $
  */
 
 #include "config.h"
@@ -172,6 +172,12 @@ SetRNG(rng * prng, rngcontext * rngctx, rng rngNew, char *szSeed)
 
     if (*prng == rngNew && !*szSeed) {
         outputf(_("You are already using the %s generator.\n"), gettext(aszRNG[rngNew]));
+        return;
+    }
+
+    if (prng == &prcSet->rngRollout &&
+	(rngNew == RNG_MANUAL || rngNew == RNG_RANDOM_DOT_ORG || rngNew == RNG_FILE)) {
+        outputf(_("The %s RNG is not suitable for rollouts\n"), aszRNG[rngNew]);
         return;
     }
 
