@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.395 2015/05/04 20:52:40 plm Exp $
+ * $Id: set.c,v 1.396 2015/09/21 20:58:20 plm Exp $
  */
 
 #include "config.h"
@@ -135,8 +135,8 @@ static void
 SetSeed(const rng rngx, void *rngctx, char *sz)
 {
 
-    if (rngx == RNG_MANUAL || rngx == RNG_RANDOM_DOT_ORG) {
-        outputl(_("You can't set a seed " "if you're using manual dice generation or random.org"));
+    if (rngx == RNG_MANUAL || rngx == RNG_RANDOM_DOT_ORG || rngx == RNG_FILE) {
+        outputf(_("You can't set a seed if you're using %s as RNG\n"), aszRNG[rngx]);
         return;
     }
 
