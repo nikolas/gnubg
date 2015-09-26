@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.109 2014/02/12 21:13:53 plm Exp $
+ * $Id: text.c,v 1.110 2015/07/31 23:40:26 mdpetch Exp $
  */
 
 #include "config.h"
@@ -224,7 +224,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.109 $";
+    const char szVersion[] = "$Revision: 1.110 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -408,7 +408,7 @@ TextPrintMoveAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 
         g_string_append_printf(gsz, _("Alert: %s move"), gettext(aszSkillType[pmr->n.stMove]));
 
-        if (!pms->nMatchTo || (pms->nMatchTo && !fOutputMWC))
+        if (!pms->nMatchTo || !fOutputMWC)
             g_string_append_printf(gsz, " (%+7.3f)\n",
                                    pmr->ml.amMoves[pmr->n.iMove].rScore - pmr->ml.amMoves[0].rScore);
         else
@@ -425,7 +425,7 @@ TextPrintMoveAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 
         g_string_append_printf(gsz, _("Alert: %s roll!"), gettext(aszLuckType[pmr->lt]));
 
-        if (!pms->nMatchTo || (pms->nMatchTo && !fOutputMWC))
+        if (!pms->nMatchTo || !fOutputMWC)
             g_string_append_printf(gsz, " (%+7.3f)\n", pmr->rLuck);
         else
             g_string_append_printf(gsz, " (%+6.3f%%)\n", 100.0f * eq2mwc(pmr->rLuck, &ci) - 100.0f * eq2mwc(0.0f, &ci));

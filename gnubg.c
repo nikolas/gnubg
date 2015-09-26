@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.971 2015/07/31 23:40:23 mdpetch Exp $
+ * $Id: gnubg.c,v 1.972 2015/09/01 22:09:24 mdpetch Exp $
  */
 
 #include "config.h"
@@ -1768,7 +1768,7 @@ FormatMoveHint(char *sz, const matchstate * pms, movelist * pml,
             FormatEval(szTemp, &pml->amMoves[i].esMove),
             FormatMove(szMove, pms->anBoard,
                        pml->amMoves[i].anMove),
-            (!pms->nMatchTo || (pms->nMatchTo && !fOutputMWC)) ? _("Eq.") : _("MWC"));
+            (!pms->nMatchTo || !fOutputMWC) ? _("Eq.") : _("MWC"));
 
     /* equity or mwc for move */
 
@@ -1984,7 +1984,7 @@ HintResigned(void)
     }
 #endif
 
-    if (!ms.nMatchTo || (ms.nMatchTo && !fOutputMWC)) {
+    if (!ms.nMatchTo || !fOutputMWC) {
 
         outputf("%s : %+6.3f\n", _("Equity before resignation"), -rEqBefore);
         outputf("%s : %+6.3f (%+6.3f)\n\n", _("Equity after resignation"), -rEqAfter, rEqBefore - rEqAfter);

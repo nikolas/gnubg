@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.86 2014/08/18 20:23:06 plm Exp $
+ * $Id: gtkcube.c,v 1.87 2015/01/25 20:43:46 plm Exp $
  */
 
 #include "config.h"
@@ -241,7 +241,7 @@ TakeAnalysis(cubehintdata * pchd)
 
         /* equity */
 
-        if (!ci.nMatchTo || (ci.nMatchTo && !fOutputMWC))
+        if (!ci.nMatchTo || !fOutputMWC)
             sz = g_strdup_printf("%+7.3f", -arDouble[ai[i]]);
         else
             sz = g_strdup_printf("%7.3f%%", 100.0f * (1.0f - eq2mwc(arDouble[ai[i]], &ci)));
@@ -257,7 +257,7 @@ TakeAnalysis(cubehintdata * pchd)
 
         if (i) {
 
-            if (!ci.nMatchTo || (ci.nMatchTo && !fOutputMWC))
+            if (!ci.nMatchTo || !fOutputMWC)
                 sz = g_strdup_printf("%+7.3f", arDouble[ai[0]] - arDouble[ai[i]]);
             else
                 sz = g_strdup_printf("%+7.3f%%",
