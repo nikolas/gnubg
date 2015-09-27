@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.973 2015/09/26 20:20:12 plm Exp $
+ * $Id: gnubg.c,v 1.974 2015/09/26 20:55:21 plm Exp $
  */
 
 #include "config.h"
@@ -2792,14 +2792,8 @@ SaveRNGSettings(FILE * pf, const char *sz, rng rngCurrent, rngcontext * rngctx)
 {
 
     switch (rngCurrent) {
-    case RNG_ANSI:
-        fprintf(pf, "%s rng ansi\n", sz);
-        break;
     case RNG_BBS:
         fprintf(pf, "%s rng bbs\n", sz);        /* FIXME save modulus */
-        break;
-    case RNG_BSD:
-        fprintf(pf, "%s rng bsd\n", sz);
         break;
     case RNG_ISAAC:
         fprintf(pf, "%s rng isaac\n", sz);

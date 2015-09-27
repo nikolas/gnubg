@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.454 2015/01/25 11:27:10 plm Exp $
+ * $Id: backgammon.h,v 1.455 2015/08/02 20:16:14 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -822,9 +822,7 @@ extern void CommandSetPriorityTimeCritical(char *);
 extern void CommandSetPrompt(char *);
 extern void CommandSetRatingOffset(char *);
 extern void CommandSetRecord(char *);
-extern void CommandSetRNGAnsi(char *);
 extern void CommandSetRNGBBS(char *);
-extern void CommandSetRNGBsd(char *);
 extern void CommandSetRNG(char *);
 extern void CommandSetRNGFile(char *);
 extern void CommandSetRNGIsaac(char *);
