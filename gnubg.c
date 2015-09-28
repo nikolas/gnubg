@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.974 2015/09/26 20:55:21 plm Exp $
+ * $Id: gnubg.c,v 1.975 2015/09/27 18:55:14 plm Exp $
  */
 
 #include "config.h"
@@ -4511,6 +4511,10 @@ main(int argc, char *argv[])
 #if defined(LIBCURL_PROTOCOL_HTTPS)
     curl_global_init(CURL_GLOBAL_ALL);
 #endif
+
+    default_import_folder = g_strdup(".");
+    default_export_folder = g_strdup(".");
+    default_sgf_folder = g_strdup(".");
 
     output_initialize();
 
