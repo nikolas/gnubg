@@ -17,10 +17,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_l.l,v 1.26 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: external_l.l,v 1.27 2015/08/18 19:54:17 plm Exp $
  */
 
-#include "config.h"
+#include "common.h"
 #include "external.h"
 #include <stdio.h>
 

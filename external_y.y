@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.31 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: external_y.y,v 1.32 2015/02/08 17:23:29 plm Exp $
  */
 
 #ifndef EXTERNAL_Y_H
@@ -73,7 +73,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "config.h"
+#include "common.h"
 #include "glib-ext.h"
 #include "external.h"
 #include "backgammon.h"
