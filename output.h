@@ -16,12 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: output.h,v 1.1 2013/06/19 18:06:26 mdpetch Exp $
+ * $Id: output.h,v 1.2 2013/06/19 22:03:24 plm Exp $
  */
 
 #ifndef OUTPUT_H
 #define OUTPUT_H
 #include <stdarg.h>
+#include "common.h"
 
 /* Initialize output module */
 extern void output_initialize(void);

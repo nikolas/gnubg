@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simd.h,v 1.5 2014/07/27 15:53:09 plm Exp $
+ * $Id: simd.h,v 1.6 2014/11/09 22:57:00 plm Exp $
  */
 
 #ifndef SIMD_H
@@ -21,6 +21,7 @@
 #if USE_SIMD_INSTRUCTIONS
 
 #include <stdlib.h>
+#include "common.h"
 
 #ifdef USE_AVX
 #define ALIGN_SIZE 32

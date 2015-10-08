@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: common.h,v 1.30 2014/09/14 21:14:09 plm Exp $
+ * $Id: common.h,v 1.31 2015/01/17 21:52:23 mdpetch Exp $
  */
 
 /*! \file common.h
@@ -22,12 +22,13 @@
 #ifndef COMMON_H
 #define COMMON_H
 #include <math.h>
+#include "config.h"
 
-#if !_GNU_SOURCE && !defined (__attribute__)
-/*! \brief GNU C specific attributes, e.g. unused
- * // */
-#define __attribute__(X)
-#endif
+
+#ifndef HAVE___ATTRIBUTE__
+#define __attribute__(Spec) /* Empty */
+#endif /* HAVE___ATTRIBUTE__ */
+
 
 /*! \brief Safe double error value (and float with a cast)
  */

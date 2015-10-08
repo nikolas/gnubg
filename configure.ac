@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.59 $)
+AC_REVISION($Revision: 1.60 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -124,7 +124,7 @@ AC_SUBST(AM_YFLAGS)
 
 
 dnl
-dnl check for pkg-config controlled libs
+dnl check for compiler support
 dnl
 
 PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.6.0], have_glib="yes", AC_MSG_ERROR([You need to have glib2 to compile GNU backgammon]))
@@ -219,6 +219,13 @@ if test x"$LSB_CHECK" = x"yes" ; then
 fi
 
 dnl have_gthread, have_gtk and have_gtk are handled later, not having glib is fatal
+
+AX_C___ATTRIBUTE__()
+
+dnl
+dnl check for pkg-config controlled libs
+dnl
+
 
 dnl
 dnl Checks for libraries.

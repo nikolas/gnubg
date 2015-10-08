@@ -1,4 +1,4 @@
-# $Id: Makefile.am,v 1.18 2015/07/04 21:38:13 plm Exp $
+# $Id: Makefile.am,v 1.19 2015/08/31 04:17:50 mdpetch Exp $
 
 EXTRA_DIST = ax_python_devel.m4 codeset.m4 gettext.m4 glibc21.m4 iconv.m4 lcmessage.m4 progtest.m4 versioncompare.m4 libcurl.m4 \
-             ax_check_compile_flag.m4  ax_gcc_x86_cpuid.m4 ax_ext.m4 ax_gcc_builtin.m4 ax_gcc_x86_avx_xgetbv.m4 ax_append_flag.m4
+             ax_check_compile_flag.m4  ax_gcc_x86_cpuid.m4 ax_ext.m4 ax_gcc_builtin.m4 ax_gcc_x86_avx_xgetbv.m4 ax_append_flag.m4 ax_c___attribute__.m4
