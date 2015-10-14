@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.71 2013/12/09 19:50:06 mdpetch Exp $
+ * $Id: gtktoolbar.c,v 1.72 2014/07/20 21:15:07 plm Exp $
  */
 
 #include "config.h"
@@ -42,8 +42,6 @@
 #if USE_BOARD3D
 #include "fun3d.h"
 #endif
-
-extern void NewDialog(gpointer * p, guint n, GtkWidget * pw);
 
 typedef struct _toolbarwidget {
 
