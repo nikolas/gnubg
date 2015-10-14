@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.894 2015/10/14 21:53:45 plm Exp $
+ * $Id: gtkgame.c,v 1.895 2015/10/14 22:09:47 plm Exp $
  */
 
 #include "config.h"
@@ -6457,8 +6457,8 @@ GTKSet(void *p)
 
 
 /* Match stats variables */
-#define FORMATGS_ALL -1
-#define NUM_STAT_TYPES 4
+#define NUM_STAT_TYPES (FORMATGS_OVERALL - FORMATGS_ALL)
+
 static char *aszStatHeading[NUM_STAT_TYPES] = {
     N_("Chequer Play Statistics:"),
     N_("Cube Statistics:"),
