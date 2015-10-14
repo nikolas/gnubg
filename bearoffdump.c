@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoffdump.c,v 1.21 2014/07/09 20:32:49 plm Exp $
+ * $Id: bearoffdump.c,v 1.22 2015/02/08 15:09:09 plm Exp $
  */
 
 #include "config.h"
@@ -51,7 +51,7 @@ main(int argc, char **argv)
          "index", NULL},
         {"posid", 'p', 0, G_OPTION_ARG_STRING, &szPosID,
          "Position ID", NULL},
-        {NULL, 0, 0, 0, NULL, NULL, NULL}
+        {NULL, 0, 0, (GOptionArg) 0, NULL, NULL, NULL}
     };
     GError *error = NULL;
     GOptionContext *context;
