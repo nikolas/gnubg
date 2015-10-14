@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.47 2015/04/12 22:13:49 plm Exp $
+ * $Id: makehyper.c,v 1.48 2015/07/31 23:40:25 mdpetch Exp $
  */
 
 #include "config.h"
@@ -69,8 +69,6 @@ MT_CloseThreads(void)
 {
     return;
 }
-
-static int aiNorm[10];
 
 static hyperclass
 ClassifyHyper(TanBoard anBoard)
@@ -450,14 +448,12 @@ HyperEquity(const int nUs, const int nThem, hyperequity * phe, const int nC, con
         r = fabsf(phe->arOutput[k] - heOld.arOutput[k]);
         if (r > arNorm[k]) {
             arNorm[k] = r;
-            aiNorm[k] = nUs * nPos + nThem;
         }
     }
     for (k = 0; k < 5; ++k) {
         r = fabsf(phe->arEquity[k] - heOld.arEquity[k]);
         if (r > arNorm[5 + k]) {
             arNorm[5 + k] = r;
-            aiNorm[5 + k] = nUs * nPos + nThem;
         }
     }
 
@@ -596,7 +592,7 @@ main(int argc, char **argv)
          "Print version info and exit", NULL},
         {"outfile", 'f', 0, G_OPTION_ARG_STRING, &szOutput,
          "Output filename. Default is hyper<C>.bd.", "filename"},
-        {NULL, 0, 0, 0, NULL, NULL, NULL}
+        {NULL, 0, 0, (GOptionArg) 0, NULL, NULL, NULL}
     };
 
     GError *error = NULL;
@@ -687,10 +683,6 @@ main(int argc, char **argv)
         printf(_("*** Iteration %03d *** \n"), it);
 
         CalcNewEquity(aheEquity, nC, arNorm);
-
-        /*
-         * for ( i = 0; i < 10; ++i ) 
-         * printf( "Norm[%d]=%f (%d)\n", i, arNorm[ i ], aiNorm[ i ] ); */
 
         rNorm = NormOO(arNorm, 10);
 
