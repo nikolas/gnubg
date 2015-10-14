@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.892 2015/08/02 20:16:14 plm Exp $
+ * $Id: gtkgame.c,v 1.893 2015/09/01 22:09:24 mdpetch Exp $
  */
 
 #include "config.h"
@@ -4498,12 +4498,12 @@ NewSet(newwidget * pnw)
 extern void
 GTKNew(void)
 {
-    GtkWidget *pwDialog, *pwPage;
+    GtkWidget *pwDialog;
     newwidget nw;
     GtkAllocation allocation;
 
     pwDialog = GTKCreateDialog(_("GNU Backgammon - New"), DT_QUESTION, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(NewOK), &nw);
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwPage = NewWidget(&nw));
+    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), NewWidget(&nw));
     gtk_widget_get_allocation(pwToolbar, &allocation);
     gtk_widget_set_size_request(pwToolbar, allocation.width, allocation.height);
 
@@ -6716,19 +6716,18 @@ StatcontextCopy(GtkWidget * UNUSED(pw), GtkTreeView * view)
         GtkTreeIter iter;
         gchar *sz;
         GtkTreePath *path = row->data;
-        gchar *pc;
         gtk_tree_model_get_iter(model, &iter, path);
 
         gtk_tree_model_get(model, &iter, 0, &sz, -1);
-        sprintf(pc = strchr(szOutput, 0), "%-37s ", sz ? sz : "");
+        sprintf(strchr(szOutput, 0), "%-37s ", sz ? sz : "");
         g_free(sz);
 
         gtk_tree_model_get(model, &iter, 1, &sz, -1);
-        sprintf(pc = strchr(szOutput, 0), "%-20s ", sz ? sz : "");
+        sprintf(strchr(szOutput, 0), "%-20s ", sz ? sz : "");
         g_free(sz);
 
         gtk_tree_model_get(model, &iter, 2, &sz, -1);
-        sprintf(pc = strchr(szOutput, 0), "%-20s\n", sz ? sz : "");
+        sprintf(strchr(szOutput, 0), "%-20s\n", sz ? sz : "");
         g_free(sz);
 
         gtk_tree_path_free(path);
