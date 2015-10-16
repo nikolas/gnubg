@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.54 2015/10/14 20:58:53 plm Exp $
+ * $Id: format.c,v 1.55 2015/10/14 21:01:39 plm Exp $
  */
 
 #include "config.h"
@@ -37,7 +37,7 @@ int fOutputWinPC = FALSE;
 int fOutputMatchPC = TRUE;
 
 #define OUTPUT_SZ_LENGTH (5 + MAX_OUTPUT_DIGITS)
-unsigned int fOutputDigits = 3;
+int fOutputDigits = 3;
 
 float rErrorRateFactor = 1000.0f;
 
@@ -114,7 +114,7 @@ OutputEvalContext(const evalcontext * pec, const int fChequer)
     static char sz[1024];
     int i;
 
-    sprintf(sz, "%u-%s %s", pec->nPlies, _("ply"), (!fChequer || pec->fCubeful) ? _("cubeful") : _("cubeless"));
+    sprintf(sz, "%d-%s %s", pec->nPlies, _("ply"), (!fChequer || pec->fCubeful) ? _("cubeful") : _("cubeless"));
 
     if (pec->fUsePrune) {
         sprintf(strchr(sz, 0), " prune");
@@ -361,7 +361,7 @@ OutputRolloutContext(const char *szIndent, const rolloutcontext * prc)
     if (prc->fStopOnSTD && !prc->fStopOnJsd) {
         sprintf(strchr(sz, 0),
                 _("Stop when std.errs. are small enough: limit "
-                  "%.4g (min. %d games)"), prc->rStdLimit, prc->nMinimumGames);
+                  "%.4f (min. %u games)"), prc->rStdLimit, prc->nMinimumGames);
         strcat(sz, "\n");
     }
 
@@ -369,7 +369,7 @@ OutputRolloutContext(const char *szIndent, const rolloutcontext * prc)
     if (prc->fStopOnJsd) {
         sprintf(strchr(sz, 0),
                 _("Stop when best play is enough JSDs ahead: limit "
-                  "%.4g (min. %d games)"), prc->rJsdLimit, prc->nMinimumJsdGames);
+                  "%.4f (min. %u games)"), prc->rJsdLimit, prc->nMinimumJsdGames);
         strcat(sz, "\n");
     }
 
@@ -796,7 +796,7 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
         strcat(sz, _("n/a"));
         break;
     case EVAL_EVAL:
-        sprintf(strchr(sz, 0), "%u-%s", pes->ec.nPlies, _("ply"));
+        sprintf(strchr(sz, 0), "%d-%s", pes->ec.nPlies, _("ply"));
         break;
     case EVAL_ROLLOUT:
         strcat(sz, _("Rollout"));

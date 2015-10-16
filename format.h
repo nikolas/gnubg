@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.13 2013/06/16 02:16:12 mdpetch Exp $
+ * $Id: format.h,v 1.14 2015/05/04 20:52:39 plm Exp $
  */
 
 #ifndef FORMAT_H
@@ -25,7 +25,7 @@
 #define MAX_OUTPUT_DIGITS 6
 
 extern int fOutputMWC, fOutputWinPC, fOutputMatchPC;
-extern unsigned int fOutputDigits;
+extern int fOutputDigits;
 extern float rErrorRateFactor;
 
 /* misc. output routines used by text and HTML export */
