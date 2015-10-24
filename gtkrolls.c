@@ -16,13 +16,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.36 2012/08/28 21:44:09 plm Exp $
+ * $Id: gtkrolls.c,v 1.37 2013/06/16 02:16:16 mdpetch Exp $
  */
 
 #include "config.h"
 
 #include <string.h>
 #include <stdlib.h>
+
+#include "lib/simd.h"
 
 #include "gtkgame.h"
 #include "drawboard.h"
@@ -53,7 +55,7 @@ add_level(GtkTreeStore * model, GtkTreeIter * iter,
     GtkTreeIter child_iter;
     cubeinfo ci;
     TanBoard an;
-    float ar[NUM_ROLLOUT_OUTPUTS];
+    SSE_ALIGN(float ar[NUM_ROLLOUT_OUTPUTS]);
     int anMove[8];
     int i;
 
