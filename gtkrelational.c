@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.41 2013/09/05 18:59:32 plm Exp $
+ * $Id: gtkrelational.c,v 1.42 2014/07/20 21:04:53 plm Exp $
  */
 
 #include "config.h"
@@ -47,7 +47,7 @@ enum {
     NUM_COLUMNS
 };
 
-static gchar *titles[] = {
+static const gchar *titles[] = {
     N_("Nick"),
     N_("Gnu\nErr"),
     N_("Gnu\nMove"),
@@ -76,7 +76,7 @@ static GtkTreeIter selected_iter;
 static int optionsValid;
 static GtkWidget *playerTreeview, *adddb, *deldb, *gameStats, *dbList, *dbtype, *user, *password, *hostname, *login, *helptext;
 
-void CheckDatabase(const char *database);
+static void CheckDatabase(const char *database);
 static void DBListSelected(GtkTreeView * treeview, gpointer userdata);
 
 #define PACK_OFFSET 4
