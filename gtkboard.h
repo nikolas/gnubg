@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.100 2012/08/27 23:06:42 plm Exp $
+ * $Id: gtkboard.h,v 1.101 2013/06/16 02:16:13 mdpetch Exp $
  */
 
 #ifndef GTKBOARD_H
@@ -29,7 +29,7 @@
 #include "common.h"
 #include "render.h"
 
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
 #include "types3d.h"
 #endif
 
@@ -111,7 +111,7 @@ struct _BoardData {
     int iTargetHelpPoints[4];   /* Drag target position */
     int grayBoard;              /* Show board grayed when editing */
 
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
     BoardData3d *bd3d;          /* extra members for 3d board */
 #endif
     renderdata *rd;             /* The board colour settings */
