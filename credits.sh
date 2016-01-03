@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.150 2015/01/11 15:44:36 plm Exp $
+# $Id: credits.sh,v 1.151 2015/10/08 00:06:41 mdpetch Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -264,7 +264,7 @@ cat > credits.c <<EOF
 #include "credits.h"
 
 const char aszCOPYRIGHT[] = N_("Copyright (C) 1999, 2000, 2001, 2002, 2003, 2004 by Gary Wong.\n"
-                               "Copyright (C) 2015 by Gary Wong and the AUTHORS; for details type \`show version'.");
+                               "Copyright (C) 2016 by Gary Wong and the AUTHORS; for details type \`show version'.");
 
 credEntry ceAuthors[] = {
 EOF
