@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: common.h,v 1.31 2015/01/17 21:52:23 mdpetch Exp $
+ * $Id: common.h,v 1.32 2015/10/08 00:06:40 mdpetch Exp $
  */
 
 /*! \file common.h
@@ -30,12 +30,12 @@
 #endif /* HAVE___ATTRIBUTE__ */
 
 
-/*! \brief Safe double error value (and float with a cast)
+/*! \brief Safe error value
  */
 #if defined(HUGE_VAL)
-#define ERR_VAL (-HUGE_VAL)
+#define ERR_VAL (float)(-HUGE_VAL)
 #else
-#define ERR_VAL (-FLT_MAX)
+#define ERR_VAL (float)(-FLT_MAX)
 #endif
 
 /*! \brief Macro to extract sign
