@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.60 $)
+AC_REVISION($Revision: 1.61 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -378,9 +378,11 @@ dnl
 
 AX_EXT()
 AC_MSG_CHECKING([for SIMD CPU instructions])
-AC_ARG_ENABLE( simd, [  --enable-simd=TYPE      enable SIMD usage for newer cpus(TYPE=yes,avx,sse2,no)], simdcpu=$enableval, simdcpu="undef")
+AC_ARG_ENABLE( simd, [  --enable-simd=TYPE      enable SIMD usage for newer cpus(TYPE=yes,fma,avx,sse2,no)], simdcpu=$enableval, simdcpu="undef")
 if test "x$simdcpu" = "xundef" || test "x$simdcpu" = "xyes"; then
-    if test "x$ax_cv_have_avx_ext" = "xyes"; then 
+    if test "x$ax_cv_have_fma_ext" = "xyes"; then
+        simdcpu="fma"
+    elif test "x$ax_cv_have_avx_ext" = "xyes"; then 
         simdcpu="avx"
     elif test "x$ax_cv_have_sse2_ext" = "xyes"; then
         simdcpu="sse2"
@@ -390,8 +392,13 @@ if test "x$simdcpu" = "xundef" || test "x$simdcpu" = "xyes"; then
         simdcpu="no"
     fi
 fi
+
 if test "x$simdcpu" != "xno"; then
 	AC_DEFINE(USE_SIMD_INSTRUCTIONS,1,Define if you want to compile with SIMD support)
+	if test "x$simdcpu" = "xfma"; then
+		AC_DEFINE(USE_FMA3, 1, Define if you want to compile with FMA3 support)
+		AC_DEFINE(USE_AVX, 1, Define if you want to compile with AVX support)
+	fi
 	if test "x$simdcpu" = "xavx"; then
 		AC_DEFINE(USE_AVX, 1, Define if you want to compile with AVX support)
 	fi
@@ -400,7 +407,9 @@ if test "x$simdcpu" != "xno"; then
 	fi
 	if test x"$GCC" = "xyes"; then
 		if test "x$SIMD_CFLAGS" = x; then
-			if test "x$simdcpu" = "xavx"; then
+			if test "x$simdcpu" = "xfma"; then
+				SIMD_CFLAGS="-mfma -mavx"
+			elif test "x$simdcpu" = "xavx"; then
 				SIMD_CFLAGS="-mavx"
 			elif test "x$simdcpu" = "xsse2"; then 
 				SIMD_CFLAGS="-msse -msse2"
@@ -412,8 +421,7 @@ if test "x$simdcpu" != "xno"; then
 fi
 AM_CONDITIONAL(USE_AVX, test "x$simdcpu" = "xavx")
 
-
-AC_MSG_RESULT([$host (sse=$simdcpu, SIMD_CFLAGS="$SIMD_CFLAGS")])
+AC_MSG_RESULT([$host (simd=$simdcpu, SIMD_CFLAGS="$SIMD_CFLAGS")])
 AC_ARG_VAR(SIMD_CFLAGS, [CFLAGS needed for compiling in SIMD CPU support])
 
 AC_MSG_CHECKING([for SIMD supported CPU test])
