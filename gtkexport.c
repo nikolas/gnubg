@@ -16,11 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkexport.c,v 1.50 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkexport.c,v 1.51 2014/03/09 23:31:28 plm Exp $
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
 
 #include <stdio.h>
 #include <glib/gstdio.h>
@@ -231,7 +230,7 @@ SetExportCommands(const exportsetup * pexsOrig, const exportsetup * pexsNew)
 
     /* moves */
 
-    CHECKVALUE(pexsOrig, pexsNew, nMoves, "moves number", "%d");
+    CHECKVALUE(pexsOrig, pexsNew, nMoves, "moves number", "%u");
     CHECKFLAG(pexsOrig, pexsNew, fMovesDetailProb, "moves probabilities");
     CHECKFLAG(pexsOrig, pexsNew, afMovesParameters[0], "moves parameters evaluation");
     CHECKFLAG(pexsOrig, pexsNew, afMovesParameters[1], "moves parameters rollout");
