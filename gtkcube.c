@@ -1,4 +1,3 @@
-
 /*
  * gtkcube.c
  *
@@ -17,11 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.87 2015/01/25 20:43:46 plm Exp $
+ * $Id: gtkcube.c,v 1.88 2015/09/26 20:20:12 plm Exp $
  */
 
 #include "config.h"
-#include <gtk/gtk.h>
 
 #include <stdio.h>
 #include <stdlib.h>
