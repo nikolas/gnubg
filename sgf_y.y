@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.10 2015/01/11 15:50:26 plm Exp $
+ * $Id: sgf_y.y,v 1.11 2015/10/08 00:29:39 mdpetch Exp $
  */
 
 %{
@@ -31,6 +31,11 @@
 #include <glib/gi18n.h>
 
 #include "sgf.h"
+
+/* Resolve a warning on older GLIBC/GNU systems that have stpcpy */
+#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
+extern char *stpcpy(char *s1, const char *s2);
+#endif
 
 static listOLD *plCollection;    
     
