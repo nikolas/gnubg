@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.151 2015/10/08 00:06:41 mdpetch Exp $
+# $Id: credits.sh,v 1.152 2016/01/03 16:29:56 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -64,6 +64,7 @@ Petr Kadlec,Czech
 Joern Thyssen,Danish
 Olivier Baur,French
 Achim Mueller,German
+Vangelis Skarmoutsos,Greek
 Hlynur Sigurgislason,Icelandic
 Renzo Campagna,Italian
 Yoshito Takeuchi,Japanese

@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.61 $)
+AC_REVISION($Revision: 1.62 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -548,7 +548,7 @@ dnl internationalization macros
 dnl
 AC_SUBST(GETTEXT_PACKAGE, gnubg)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The package name, for gettext])
-ALL_LINGUAS="da de es en_US ja it fr is tr cs ro ru"
+ALL_LINGUAS="cs da de en_US el es fr is it ja ro ru tr"
 AM_GLIB_GNU_GETTEXT
 
 
