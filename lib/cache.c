@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.40 2016/04/14 20:39:46 plm Exp $
+ * $Id: cache.c,v 1.41 2016/04/14 20:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -53,6 +53,14 @@ cache_unlock(evalCache * pc, uint32_t k)
 #else
 
 static inline void
+WaitForLock(volatile int *lock)
+{
+    do {
+        MT_SafeDec(lock);
+    } while (MT_SafeIncCheck(lock));
+}
+
+static inline void
 cache_lock(evalCache * pc, uint32_t k)
 {
     if (MT_SafeIncCheck(&(pc->entries[k].lock)))
@@ -63,14 +71,6 @@ static inline void
 cache_unlock(evalCache * pc, uint32_t k)
 {
     MT_SafeDec(&(pc->entries[k].lock));
-}
-
-static inline void
-WaitForLock(volatile int *lock)
-{
-    do {
-        MT_SafeDec(lock);
-    } while (MT_SafeIncCheck(lock));
 }
 
 #endif
