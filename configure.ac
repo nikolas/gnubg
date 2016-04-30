@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.62 $)
+AC_REVISION($Revision: 1.63 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -342,8 +342,16 @@ if test "$no_gtk" = "no"; then
   if test "x$GDK_PIXBUF_CSOURCE" = "xno"; then
     AC_MSG_WARN([Could not find gdk-pixbuf-csource in your PATH, cannot rebuild pixmaps])
   fi
+
+  AC_PATH_PROG(GLIB_COMPILE_RESOURCES, glib-compile-resources, no)
+  if test "x$GLIB_COMPILE_RESOURCES" = "xno"; then
+    AC_MSG_WARN([Could not find glib-compile-resources in your PATH, will use legacy pixmaps instead])
+  else
+    AC_DEFINE(USE_GRESOURCE, 1, [Define if you want to use GResource to load images])
+  fi
 fi
 AM_CONDITIONAL(FOUND_GDK_PIXBUF_CSOURCE, test "x$GDK_PIXBUF_CSOURCE" != "xno" )
+AM_CONDITIONAL(FOUND_GLIB_COMPILE_RESOURCES, test "x$GLIB_COMPILE_RESOURCES" != "xno" )
 
 dnl
 dnl Check for Python

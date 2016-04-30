@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.12 2014/06/22 06:39:54 mdpetch Exp $
+ * $Id: gtklocdefs.h,v 1.13 2014/06/22 22:34:27 mdpetch Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -105,6 +105,11 @@ extern GtkTooltips *ptt;
 
 extern GtkWidget *get_statusbar_label(GtkStatusbar * statusbar);
 extern void toolbar_set_orientation(GtkToolbar * toolbar, GtkOrientation orientation);
+
+#ifndef USE_GRESOURCE
+#define gnubg_stock_register_resource()
+extern GdkPixbuf *gdk_pixbuf_new_from_resource(const char *resource_path, GError **error);
+#endif
 
 #ifdef GTK_DISABLE_DEPRECATED
 #define USE_GTKUIMANAGER 1
