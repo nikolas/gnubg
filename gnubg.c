@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.979 2015/10/16 19:59:06 plm Exp $
+ * $Id: gnubg.c,v 1.980 2016/05/07 22:23:28 plm Exp $
  */
 
 #include "config.h"
@@ -2305,7 +2305,7 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
     if (pmr->n.anMove[0] == -1) {
         pmr->n.iMove = UINT_MAX;
         pmr->n.stMove = SKILL_NONE;
-    } else if (pmr->n.anMove[0] != -1) {
+    } else {
         pmr->n.iMove = locateMove(msBoard(), pmr->n.anMove, &pmr->ml);
         /* Tutor mode may have called asyncFindMove() above before
          * n.iMove was known. Do it again, ensuring that the actual
