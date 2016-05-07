@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.55 2015/10/14 21:01:39 plm Exp $
+ * $Id: format.c,v 1.56 2015/10/16 19:59:06 plm Exp $
  */
 
 #include "config.h"
@@ -114,7 +114,7 @@ OutputEvalContext(const evalcontext * pec, const int fChequer)
     static char sz[1024];
     int i;
 
-    sprintf(sz, "%d-%s %s", pec->nPlies, _("ply"), (!fChequer || pec->fCubeful) ? _("cubeful") : _("cubeless"));
+    sprintf(sz, "%u-%s %s", pec->nPlies, _("ply"), (!fChequer || pec->fCubeful) ? _("cubeful") : _("cubeless"));
 
     if (pec->fUsePrune) {
         sprintf(strchr(sz, 0), " prune");
@@ -796,7 +796,7 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
         strcat(sz, _("n/a"));
         break;
     case EVAL_EVAL:
-        sprintf(strchr(sz, 0), "%d-%s", pes->ec.nPlies, _("ply"));
+        sprintf(strchr(sz, 0), "%u-%s", pes->ec.nPlies, _("ply"));
         break;
     case EVAL_ROLLOUT:
         strcat(sz, _("Rollout"));
