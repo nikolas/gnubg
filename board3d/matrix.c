@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matrix.c,v 1.22 2013/06/16 02:16:22 mdpetch Exp $
+ * $Id: matrix.c,v 1.23 2015/07/31 23:40:26 mdpetch Exp $
  */
 
 #include "config.h"
@@ -119,7 +119,7 @@ makeInverseRotateMatrixZ(float m[4][4], float degRot)
 
 /* Test functions */
 #if 0
-/* Generic rotation matrix - for comparisions */
+/* Generic rotation matrix - for comparisons */
 void
 makeInverseRotateMatrix(float m[4][4], float degRot, float x, float y, float z)
 {

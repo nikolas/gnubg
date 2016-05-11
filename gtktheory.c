@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.60 2011/10/31 09:41:13 c_anthon Exp $
+ * $Id: gtktheory.c,v 1.61 2013/06/16 02:16:17 mdpetch Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@ typedef struct _theorywidget {
 
     GtkWidget *apwRadio[2];
 
-    /* frames ("match score" and "moeny game") */
+    /* frames ("match score" and "money game") */
 
     GtkWidget *apwFrame[2];
 
@@ -569,7 +569,7 @@ PlyClicked(GtkWidget * pw, theorywidget * ptw)
  * - gammon price
  *
  * Input:
- *   fActivePage: with notebook page should recieve focus.
+ *   fActivePage: with notebook page should receive focus.
  *
  */
 

@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: misc3d.c,v 1.114 2015/07/31 23:40:26 mdpetch Exp $
+ * $Id: misc3d.c,v 1.115 2015/08/01 10:53:55 plm Exp $
  */
 
 #include "config.h"
@@ -649,7 +649,7 @@ SetTexture(BoardData3d * bd3d, Material * pMat, const char *filename)
     }
 
     if (LoadTexture(&bd3d->textureList[bd3d->numTextures], filename)) {
-        /* Remeber name */
+        /* Remember name */
         bd3d->textureName[bd3d->numTextures] = (char *) malloc(strlen(nameStart) + 1);
         strcpy(bd3d->textureName[bd3d->numTextures], nameStart);
 
@@ -2377,7 +2377,7 @@ DeleteTextureList(void)
 
 void
 InitBoard3d(BoardData * bd, BoardData3d * bd3d)
-{                               /* Initilize 3d parts of boarddata */
+{                               /* Initialize 3d parts of boarddata */
     int i, j;
     /* Assign random rotation to each board position */
     for (i = 0; i < 28; i++)

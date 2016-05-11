@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.c,v 1.96 2014/09/13 19:47:05 plm Exp $
+ * $Id: matchequity.c,v 1.97 2016/01/26 22:30:53 plm Exp $
  */
 
 #include "config.h"
@@ -398,7 +398,7 @@ GetPoints(float arOutput[5], const cubeinfo * pci, float arCP[2])
      *
      * Output:
      * - arCP : cash points with live cube
-     * These points are necesary for the linear
+     * These points are necessary for the linear
      * interpolation used in cubeless -> cubeful equity 
      * transformation.
      */

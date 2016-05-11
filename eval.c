@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.463 2015/07/31 23:40:22 mdpetch Exp $
+ * $Id: eval.c,v 1.464 2015/09/08 20:18:34 plm Exp $
  */
 
 #include "config.h"
@@ -115,7 +115,7 @@ enum {
      * 
      * 1. If board is weak (less than 3 anchors), don't consider hitting on
      * points 22 and 23.
-     * 2. Dont break anchors inside home to hit.
+     * 2. Don't break anchors inside home to hit.
      */
     I_PIPLOSS,
 

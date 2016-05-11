@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.191 2015/02/06 23:25:00 plm Exp $
+ * $Id: eval.h,v 1.192 2015/02/09 21:55:33 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -161,7 +161,7 @@ extern const char *aszVariations[NUM_VARIATIONS];
 extern const char *aszVariationCommands[NUM_VARIATIONS];
 
 /*
- * Cubeinfo contains the information necesary for evaluation
+ * Cubeinfo contains the information necessary for evaluation
  * of a position.
  * These structs are placed here so that the move struct can be defined
  */

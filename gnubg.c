@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.980 2016/05/07 22:23:28 plm Exp $
+ * $Id: gnubg.c,v 1.981 2016/05/07 22:28:22 plm Exp $
  */
 
 #include "config.h"
@@ -638,7 +638,7 @@ GetBuildInfoString(void)
  characters because they are within the single quoted string beginning
  before l and ending after q.
  It is not possible to put a single quote within a single quoted string. 
- You can have single quotes unescaped withing double quoted strings and
+ You can have single quotes unescaped within double quoted strings and
  double quotes unescaped within single quoted strings.
  */
 extern char *

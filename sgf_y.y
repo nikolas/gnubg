@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.11 2015/10/08 00:29:39 mdpetch Exp $
+ * $Id: sgf_y.y,v 1.12 2016/01/27 20:58:42 plm Exp $
  */
 
 %{
@@ -111,7 +111,7 @@ static char *Concatenate( listOLD *pl ) {
 
 %%
 		/* The specification says empty collections are illegal, but
-		   we'll try to be accomodating. */
+		   we'll try to be accommodating. */
 Collection:	GameTreeSeq
 		{ $$ = plCollection = $1; }
 	;
