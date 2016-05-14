@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: widget3d.c,v 1.52 2011/10/31 09:41:15 c_anthon Exp $
+ * $Id: widget3d.c,v 1.53 2013/06/16 02:16:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -71,7 +71,8 @@ configure_event_3d(GtkWidget * widget, GdkEventConfigure * UNUSED(eventDetails),
 
             gdk_gl_drawable_gl_end(gldrawable);
 
-            curWidth = width, curHeight = height;
+            curWidth = width;
+            curHeight = height;
         }
     }
     return TRUE;

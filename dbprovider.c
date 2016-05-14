@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.50 2016/04/08 05:09:59 plm Exp $
+ * $Id: dbprovider.c,v 1.51 2016/04/08 05:24:53 plm Exp $
  */
 
 #include "config.h"
@@ -296,7 +296,7 @@ PyMySQLConnect(const char *dbfilename, const char *user, const char *password, c
     if (ret == NULL || !PyInt_Check(ret) || (iret = PyInt_AsLong(ret)) < 0) {
         PyErr_Print();
         return -1;
-    } else if (iret == 0L) {     /* New database - populate */
+    } else if (iret == 0L) {    /* New database - populate */
         return 0;
     }
     return 1;
@@ -317,7 +317,7 @@ PyPostgreConnect(const char *dbfilename, const char *user, const char *password,
     if (ret == NULL || !PyInt_Check(ret) || (iret = PyInt_AsLong(ret)) < 0) {
         PyErr_Print();
         return -1;
-    } else if (iret == 0L) {     /* New database - populate */
+    } else if (iret == 0L) {    /* New database - populate */
         return 0;
     }
     return 1;
@@ -691,7 +691,8 @@ SQLiteDeleteDatabase(const char *dbfilename, const char *UNUSED(user), const cha
     /* Delete database file */
     ret = g_unlink(filename);
 
-    g_free(name), g_free(filename);
+    g_free(filename);
+    g_free(name);
     return (ret == 0);
 }
 #endif

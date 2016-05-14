@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.206 2015/07/31 23:40:25 mdpetch Exp $
+ * $Id: import.c,v 1.207 2016/01/17 21:33:57 plm Exp $
  */
 
 #include "config.h"
@@ -3287,7 +3287,8 @@ WritePartyGame(FILE * fp, char *gameStr, int ns)
                         src += 3;
                     } else {
                         *dest = *src;
-                        dest++, src++;
+                        dest++;
+                        src++;
                     }
                 }
                 *dest = '\0';
