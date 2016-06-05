@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.84 2014/11/23 20:07:38 plm Exp $
+ * $Id: neuralnet.c,v 1.85 2014/11/23 20:17:48 plm Exp $
  */
 
 #include "config.h"
@@ -455,7 +455,7 @@ CheckSSE(void)
     if ((cpuidchk = check_for_cpuid()) < 0)
         return cpuidchk;
 
-#if USE_AVX
+#if defined(USE_AVX)
 
     asm volatile(
 #if defined(ENVIRONMENT32) && defined(__PIC__)
@@ -514,7 +514,7 @@ CheckSSE(void)
         "mov $1, %%eax\n\t"
         "cpuid\n\t" 
         "mov $1, %%eax\n\t"
-#if USE_SSE2
+#if defined(USE_SSE2)
         "shl $26, %%eax\n\t"
 #else
         "shl $25, %%eax\n\t"
