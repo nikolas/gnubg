@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelistctrl.c,v 1.24 2014/01/24 23:50:36 plm Exp $
+ * $Id: gtkmovelistctrl.c,v 1.25 2014/07/20 21:03:22 plm Exp $
  */
 
 #include "config.h"
@@ -358,8 +358,8 @@ custom_cell_renderer_movelist_render(GtkCellRenderer * cell,
     float *ar;
     GdkColor *pFontCol, *fg;
     PangoRectangle logical_rect;
-    char *cmark_sz;
-    char *highlight_sz;
+    const char *cmark_sz;
+    const char *highlight_sz;
     cubeinfo ci;
     GetMatchStateCubeInfo(&ci, &ms);
     /*lint --e(641) */
