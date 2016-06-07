@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.52 2015/01/25 20:36:17 plm Exp $
+ * $Id: gtktempmap.c,v 1.53 2015/02/06 23:25:00 plm Exp $
  */
 
 #include "config.h"
@@ -415,7 +415,7 @@ ExposeDie(GtkWidget * pw, GdkEventExpose * pev, tempmapwidget * ptmw)
 
         CopyAppearance(&rd);
         rd.nSize = ptmw->nSizeDie = nSizeDie;
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
         Copy3dDiceColour(&rd);
 #endif
 
