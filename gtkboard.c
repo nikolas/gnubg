@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.329 2015/12/04 23:07:51 plm Exp $
+ * $Id: gtkboard.c,v 1.330 2016/05/14 22:28:32 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -1975,7 +1975,6 @@ board_button_press(GtkWidget * board, GdkEventButton * event, BoardData * bd)
 
         return TRUE;
     }
-    return FALSE;
 }
 
 /*! \brief callback for release of mouse button
