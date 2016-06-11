@@ -17,7 +17,7 @@
 # along with this program; if not, write to the Free Software
 # Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 #
-# $Id: credits.sh,v 1.152 2016/01/03 16:29:56 plm Exp $
+# $Id: credits.sh,v 1.153 2016/03/02 22:23:19 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -136,6 +136,7 @@ Tom Martin
 William Maslen
 Joachim Matussek
 Thomas Meyer
+Jeremy Moore
 Daniel Murphy
 Magnar Naustdalslid
 Dave Neary

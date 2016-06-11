@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.53 2015/02/06 23:25:00 plm Exp $
+ * $Id: gtktempmap.c,v 1.54 2016/06/07 20:35:23 plm Exp $
  */
 
 #include "config.h"
@@ -397,7 +397,6 @@ static void
 ExposeDie(GtkWidget * pw, GdkEventExpose * pev, tempmapwidget * ptmw)
 {
     int *pi = (int *) g_object_get_data(G_OBJECT(pw), "user_data");
-    GdkGC *gc = ((BoardData *) (BOARD(pwBoard))->board_data)->gc_copy;
     int x, y;
     int nSizeDie;
     GtkAllocation allocation;
@@ -436,7 +435,7 @@ ExposeDie(GtkWidget * pw, GdkEventExpose * pev, tempmapwidget * ptmw)
 
     gdk_window_clear_area(gtk_widget_get_window(pw), pev->area.x, pev->area.y, pev->area.width, pev->area.height);
     DrawDie(gtk_widget_get_window(pw), ptmw->achDice, ptmw->achPips, ptmw->nSizeDie,
-            gc, x, y, ptmw->atm[0].pms->fMove, *pi + 1, FALSE);
+            x, y, ptmw->atm[0].pms->fMove, *pi + 1, FALSE);
 }
 
 static void

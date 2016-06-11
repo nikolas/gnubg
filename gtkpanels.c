@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.79 2015/02/08 13:05:17 plm Exp $
+ * $Id: gtkpanels.c,v 1.80 2016/06/07 20:36:30 plm Exp $
  */
 
 #include "config.h"
@@ -1286,7 +1286,7 @@ ToggleDockPanels(GtkToggleAction * action, gpointer UNUSED(user_data))
 extern void
 ToggleDockPanels(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * pw)
 {
-    int newValue = GTK_CHECK_MENU_ITEM(pw)->active;
+    int newValue = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(pw));
     if (fDockPanels != newValue) {
         fDockPanels = newValue;
         DockPanels();

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.102 2015/12/04 23:00:41 plm Exp $
+ * $Id: gtkboard.h,v 1.103 2015/12/04 23:07:52 plm Exp $
  */
 
 #ifndef GTKBOARD_H
@@ -72,7 +72,6 @@ struct _BoardData {
     GtkWidget *pipcountlabel0, *pipcountlabel1;
     GtkWidget *pwvboxcnt;
 
-    GdkGC *gc_and, *gc_or, *gc_copy, *gc_cube;
     GdkPixmap *appmKey[2];
 
     gboolean playing, computer_turn;
@@ -175,7 +174,7 @@ extern void DestroyPanel(gnubgwindow window);
 extern void
 DrawDie(GdkDrawable * pd,
         unsigned char *achDice[2], unsigned char *achPip[2],
-        const int s, GdkGC * gc, int x, int y, int fColour, int n, int alpha);
+        const int s, int x, int y, int fColour, int n, int alpha);
 
 extern int UpdateMove(BoardData * bd, TanBoard anBoard);
 extern void stop_board_expose(BoardData * bd);
