@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.185 2015/04/14 22:17:28 plm Exp $
+ * $Id: gnubgmodule.c,v 1.186 2016/01/03 17:09:14 plm Exp $
  */
 
 #include "config.h"
@@ -506,8 +506,8 @@ SetPosInfo(posinfo * ppi, const int fTurn, const int fResigned,
            const int fDoubled, const gamestate gs, const int anDice[2])
 {
 
-    if (fTurn < 0 || fTurn > 1 || fResigned < 0 || fResigned > 1 ||
-        fDoubled < 0 || fDoubled > 1 || anDice[0] > 6 || anDice[0] < 0 || anDice[1] > 6 || anDice[1] < 0 || gs > 7) {
+    if (fTurn < 0 || fTurn > 1 || fResigned < 0 || fResigned > 3 ||
+        fDoubled < 0 || fDoubled > 1 || anDice[0] > 6 || anDice[0] < 0 || anDice[1] > 6 || anDice[1] < 0 || gs > GAME_DROP) {
         memset(ppi, 0, sizeof(posinfo));
         return -1;
     }
@@ -2246,8 +2246,8 @@ PyMoveAnalysis(const movelist * pml, PyMatchState * ms)
 
 SIMD_STACKALIGN static PyObject *
 PyDoubleAnalysis(const evalsetup * pes,
-                 float const aarOutput[][NUM_ROLLOUT_OUTPUTS],
-                 float const aarStdDev[][NUM_ROLLOUT_OUTPUTS], PyMatchState * ms, int const verbose)
+                 float aarOutput[][NUM_ROLLOUT_OUTPUTS],
+                 float aarStdDev[][NUM_ROLLOUT_OUTPUTS], PyMatchState * ms, int const verbose)
 {
     PyObject *dict = 0;
 
@@ -2673,7 +2673,7 @@ PythonGame(const listOLD * plGame,
                     }
 
                     if (analysis) {
-                        const cubedecisiondata *c = pmr->CubeDecPtr;
+                        cubedecisiondata *c = pmr->CubeDecPtr;
                         if (c->esDouble.et != EVAL_NONE) {
                             PyObject *d = PyDoubleAnalysis(&c->esDouble, c->aarOutput,
                                                            c->aarStdDev, ms, verbose);
