@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgamelist.c,v 1.41 2013/06/01 13:01:22 plm Exp $
+ * $Id: gtkgamelist.c,v 1.42 2013/06/16 02:16:14 mdpetch Exp $
  */
 
 #undef GDK_DISABLE_DEPRECATED
@@ -37,7 +37,7 @@
 #include "drawboard.h"
 #include "positionid.h"
 #include "gtkgame.h"
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
 #include "fun3d.h"
 #endif
 
@@ -72,7 +72,7 @@ GTKClearMoveRecord(void)
 static void
 GameListSelectRow(GtkCList * pcl, gint y, gint x, GdkEventButton * UNUSED(pev), gpointer UNUSED(p))
 {
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
     BoardData *bd = BOARD(pwBoard)->board_data;
 #endif
     gamelistrow *pglr;
@@ -132,7 +132,7 @@ GameListSelectRow(GtkCList * pcl, gint y, gint x, GdkEventButton * UNUSED(pev), 
         ms.anDice[0] = pmr->anDice[0];
         ms.anDice[1] = pmr->anDice[1];
     }
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd)) {        /* Make sure dice are shown (and not rolled) */
         bd->diceShown = DICE_ON_BOARD;
         bd->diceRoll[0] = !ms.anDice[0];
