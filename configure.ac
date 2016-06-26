@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.64 $)
+AC_REVISION($Revision: 1.65 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -144,8 +144,8 @@ else
         have_canberra="no"
     elif test "x$with_gtk" != "xno"; then
         PKG_CHECK_MODULES(CANBERRA, [libcanberra-gtk], have_canberra="yes", AC_MSG_WARN([no libcanberra-gtk support]))
-        PKG_CHECK_MODULES(GLU, [glu], have_glu="yes", AC_MSG_WARN([no glu support]))
     fi
+    PKG_CHECK_MODULES(GLU, [glu], have_glu="yes", AC_MSG_WARN([no glu support]))
 fi
 
 if test "x$with_gtk" != "xno"; then
