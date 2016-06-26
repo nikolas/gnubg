@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.899 2016/03/02 22:23:19 plm Exp $
+ * $Id: gtkgame.c,v 1.900 2016/05/14 22:28:32 plm Exp $
  */
 
 #include "config.h"
@@ -857,7 +857,6 @@ extern void
 GTKFreeze(void)
 {
 
-    GL_Freeze();
     frozen = TRUE;
 }
 
@@ -865,7 +864,6 @@ extern void
 GTKThaw(void)
 {
 
-    GL_Thaw();
     frozen = FALSE;
     /* Make sure analysis window is correct */
     if (plLastMove)
