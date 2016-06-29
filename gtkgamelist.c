@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgamelist.c,v 1.43 2016/06/26 18:47:51 plm Exp $
+ * $Id: gtkgamelist.c,v 1.44 2016/06/26 18:53:49 plm Exp $
  */
 
 #include "config.h"
@@ -408,7 +408,7 @@ GTKAddMoveRecord(moverecord * pmr)
 {
     moverecord *apmr[2] = {NULL, NULL};
     gboolean fCombined = TRUE;
-    int fPlayer, moveNum = -1;
+    int fPlayer, moveNum = 0;
     GtkTreeIter iter;
     const char *pch = GetMoveString(pmr, &fPlayer, TRUE);
     if (!pch)
