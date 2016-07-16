@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.47 2015/09/27 18:55:13 plm Exp $ */
+/* $Id: commands.inc,v 1.48 2016/07/13 19:57:33 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -1314,6 +1314,8 @@ static command acSetVariation[] = {
     { "geometry", CommandShowGeometry, N_("Show geometry settings"), 
       NULL, NULL },
 #endif
+    { "isight", CommandShowIsight, N_("Calculate Isight Count for "
+      "position"), szOPTPOSITION, NULL },
     { "jacoby", CommandShowJacoby, 
       N_("See if the Jacoby rule is used in money sessions"), NULL, NULL },
     { "8912", CommandShow8912, N_("Use 8912 rule to predict cube action"),

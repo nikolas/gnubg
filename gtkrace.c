@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrace.c,v 1.41 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtkrace.c,v 1.42 2016/07/16 21:42:59 plm Exp $
  */
 
 #include "config.h"
@@ -88,6 +88,14 @@ KeithPage(TanBoard anBoard, const int UNUSED(fMove))
 {
     char sz[500];
     show_keith(anBoard, sz);
+    return monospace_text(sz);
+}
+
+static GtkWidget *
+IsightPage(TanBoard anBoard, const int UNUSED(fMove))
+{
+    char sz[500];
+    show_isight(anBoard, sz);
     return monospace_text(sz);
 }
 
@@ -341,6 +349,10 @@ GTKShowRace(TanBoard anBoard)
     /* Keith */
 
     gtk_notebook_append_page(GTK_NOTEBOOK(pwNotebook), KeithPage(anBoard, prw->fMove), gtk_label_new(_("Keith Count")));
+
+    /* Isight */
+
+    gtk_notebook_append_page(GTK_NOTEBOOK(pwNotebook), IsightPage(anBoard, prw->fMove), gtk_label_new(_("Isight Count")));
 
     /* One sided rollout */
 

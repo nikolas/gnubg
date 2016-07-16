@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.192 2015/02/09 21:55:33 plm Exp $
+ * $Id: eval.h,v 1.193 2016/05/11 21:33:08 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -131,8 +131,8 @@ typedef struct {
     unsigned short nLate;       /* switch evaluations on move nLate of game */
     rng rngRollout;
     unsigned long nSeed;
-    unsigned int nMinimumGames; /* but always do at least this many */
-    float rStdLimit;           /* stop when abs( value / std ) < this */
+    unsigned int nMinimumGames; /* always do at least this many */
+    float rStdLimit;            /* stop when std < this */
     unsigned int nMinimumJsdGames;
     float rJsdLimit;
     unsigned int nGamesDone;
@@ -379,6 +379,9 @@ extern int
 
 extern int
  KeithCount(const TanBoard anBoard, int pn[2]);
+
+extern int
+ IsightCount(const TanBoard anBoard, int pn[2]);
 
 extern int
  DumpPosition(const TanBoard anBoard, char *szOutput,

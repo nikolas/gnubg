@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.457 2015/10/06 06:50:40 plm Exp $
+ * $Id: backgammon.h,v 1.458 2015/10/08 00:34:36 mdpetch Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -373,7 +373,7 @@ extern int log_rollouts;
 extern int nThreadPriority;
 extern int nToolbarStyle;
 extern int nTutorSkillCurrent;
-#if USE_BOARD3D
+#if defined(USE_BOARD3D)
 extern int fSync;
 extern int fResetSync;
 #endif
@@ -508,6 +508,7 @@ extern void show_bearoff(TanBoard an, char *sz);
 extern void ShowBoard(void);
 extern void show_keith(TanBoard an, char *sz);
 extern void show_kleinman(TanBoard an, char *sz);
+extern void show_isight(TanBoard an, char *sz);
 extern void show_thorp(TanBoard an, char *sz);
 extern void TextToClipboard(const char *sz);
 extern void UpdateSettings(void);
@@ -951,6 +952,7 @@ extern void CommandShowGeometry(char *);
 extern void CommandShowJacoby(char *);
 extern void CommandShowKeith(char *);
 extern void CommandShowKleinman(char *);
+extern void CommandShowIsight(char *);
 extern void CommandShowLang(char *);
 extern void CommandShowManualAbout(char *);
 extern void CommandShowManualWeb(char *);

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.285 2015/10/01 20:04:21 plm Exp $
+ * $Id: show.c,v 1.286 2015/11/02 20:31:35 plm Exp $
  */
 
 #include "config.h"
@@ -1276,6 +1276,55 @@ CommandShowKeith(char *sz)
 #endif
     show_keith(an, out);
     output(out);
+}
+
+extern void
+show_isight(TanBoard an, char *sz)
+{
+    int pn[2];
+    float gwc;
+
+    IsightCount((ConstTanBoard) an, pn);
+    sprintf(sz, _("Isight Count Leader          L: %d\n"), pn[1]);
+    sprintf(strchr(sz, 0), _("Isight Count Trailer         T: %d\n\n"), pn[0]);
+
+    gwc = 80.0f - pn[1] / 3.0f + 2.0f * (pn[0] - pn[1]);
+
+    sprintf(strchr(sz, 0), _("Estimated GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n\n"), gwc);
+
+    if (gwc > 76.0f)
+        sprintf(strchr(sz, 0), _("Double, Drop (since est. GWC > 76%%)\n"));
+    else if (gwc >= 70.0f)
+        sprintf(strchr(sz, 0), _("Redouble, Take (since 70%% <= est. GWC <= 76%%)\n"));
+    else if (gwc >= 68.0f)
+        sprintf(strchr(sz, 0), _("Double, Take (since 68%% <= est. GWC <= 70%%)\n"));
+    else
+        sprintf(strchr(sz, 0), _("No Double, Take (est. GWC < 68%%)\n"));
+}
+
+extern void
+CommandShowIsight(char *sz)
+{
+    char out[500];
+    TanBoard an;
+
+    if (!*sz && ms.gs == GAME_NONE) {
+        outputl(_("No position specified and no game in progress."));
+        return;
+    }
+
+    if (ParsePosition(an, &sz, NULL) < 0)
+        return;
+
+#if USE_GTK
+    if (fX) {
+        GTKShowRace(an);
+        return;
+    }
+#endif
+    show_isight(an, out);
+    g_print("%s", out);
+
 }
 
 extern void
