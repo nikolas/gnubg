@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.259 2016/04/30 14:12:39 plm Exp $
+## $Id: Makefile.am,v 1.260 2016/05/04 06:50:48 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -162,8 +162,8 @@ endif
 gnubg_LDADD += @GTK_LIBS@ @LIBPNG_LIBS@ @CAIRO_LIBS@ @PANGOCAIRO_LIBS@ \
 	      @GTHREAD_LIBS@ @GOBJECT_LIBS@ \
 	      @LTLIBOBJS@ \
-	      @FREETYPE2_LIBS@ @GLIB_LIBS@ @LIBPNG_LIBS@ @CANBERRA_LIBS@ \
-          @LIBCURL@ $(OTHER_LIBS)
+	      @FREETYPE2_LIBS@ @GLIB_LIBS@ @CANBERRA_LIBS@ \
+	      @LIBCURL@ $(OTHER_LIBS)
 
 if USE_SQLITE
 gnubg_LDADD += @SQLITE_LIBS@
