@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.468 2016/07/16 22:03:31 plm Exp $
+ * $Id: eval.c,v 1.469 2016/07/24 12:09:36 plm Exp $
  */
 
 #include "config.h"
@@ -887,6 +887,9 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
         int nPips;
     } aRoll[21];
 
+{
+    int n = 0;
+
     for (nOppBack = 24; nOppBack >= 0; --nOppBack) {
         if (anBoardOpp[nOppBack]) {
             break;
@@ -895,7 +898,6 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
 
     nOppBack = 23 - nOppBack;
 
-    n = 0;
     for (i = nOppBack + 1; i < 25; i++)
         if (anBoard[i])
             n += (i + 1 - nOppBack) * anBoard[i];
@@ -903,7 +905,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
     g_assert(n);
 
     afInput[I_BREAK_CONTACT] = n / (15 + 152.0f);
-
+}
     {
         unsigned int p = 0;
 
@@ -1383,15 +1385,12 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
 
                 {
                     int d = pa - np;
-                    int c = 0;
 
-                    if (d <= 6) {
-                        c = 11;
-                    } else if (d <= 11) {
-                        c = 13 - d;
-                    }
+static int ac[23] = { 11, 11, 11, 11, 11, 11, 11,
+                      6, 5, 4, 3, 2,
+                      0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
 
-                    w += c * anBoard[pa];
+                    w += ac[d] * anBoard[pa];
                     tot += anBoard[pa];
                 }
             }
