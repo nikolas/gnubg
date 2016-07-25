@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.260 2016/05/04 06:50:48 plm Exp $
+## $Id: Makefile.am,v 1.261 2016/07/24 12:02:33 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -161,7 +161,7 @@ endif
 endif
 gnubg_LDADD += @GTK_LIBS@ @LIBPNG_LIBS@ @CAIRO_LIBS@ @PANGOCAIRO_LIBS@ \
 	      @GTHREAD_LIBS@ @GOBJECT_LIBS@ \
-	      @LTLIBOBJS@ \
+	      @READLINE_LIBS@ @LTLIBOBJS@ \
 	      @FREETYPE2_LIBS@ @GLIB_LIBS@ @CANBERRA_LIBS@ \
 	      @LIBCURL@ $(OTHER_LIBS)
 

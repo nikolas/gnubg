@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.65 $)
+AC_REVISION($Revision: 1.66 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -247,16 +247,14 @@ dnl
 
 bcrl=n
 AC_CHECK_LIB(ncurses,tparm,TERMLIB=-lncurses, AC_CHECK_LIB(termcap,tgetent,TERMLIB=-ltermcap))
-LDSAVE=$LDFLAGS
-LDFLAGS="$LDFLAGS $TERMLIB"
 AC_CHECK_LIB(readline,readline,
              [AC_CHECK_HEADER(readline/readline.h,
-              READLINELIB="-lreadline $TERMLIB";bcrl=y)],
-              READLINELIB="")
+              READLINE_LIBS="-lreadline $TERMLIB";bcrl=y)],
+              READLINE_LIBS="")
 if test "$bcrl" = "y" ; then
     AC_DEFINE([HAVE_LIB_READLINE],1,Define if you have libreadline)
     fi
-LDFLAGS="$LDSAVE $READLINELIB"
+AC_SUBST(READLINE_LIBS)
 
 dnl
 dnl Checks for header files.
