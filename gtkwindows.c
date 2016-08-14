@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.52 2014/07/20 21:11:58 plm Exp $
+ * $Id: gtkwindows.c,v 1.53 2014/09/07 19:24:06 plm Exp $
  */
 
 #include "config.h"
@@ -199,7 +199,7 @@ GTKCreateDialog(const char *szTitle, const dialogtype dt,
         gtk_dialog_set_default_response(GTK_DIALOG(pwDialog), OkButton ? GTK_RESPONSE_OK : GTK_RESPONSE_CLOSE);
 
         if (!fQuestion)
-            gtk_widget_add_accelerator(DialogArea(pwDialog, DA_OK), "clicked", pag, GDK_Escape, 0, 0);
+            gtk_widget_add_accelerator(DialogArea(pwDialog, DA_OK), "clicked", pag, GDK_Escape, (GdkModifierType)0, (GtkAccelFlags)0);
     }
 
     if (fQuestion)
@@ -239,10 +239,10 @@ DialogArea(GtkWidget * pw, dialogarea da)
         }
         g_list_free(pl_org);
         return pwChild;
-
-    default:
-        return NULL;
     }
+
+    g_assert_not_reached();
+    return NULL;
 }
 
 /* Use to temporarily set the parent dialog for nested dialogs
@@ -417,10 +417,10 @@ ParseWarning(char *str)
 
     for (i = 0; i < WARN_NUM_WARNINGS; i++) {
         if (!StrCaseCmp(str, warnings[i].warningName))
-            return i;
+            return (warningType)i;
     }
 
-    return -1;
+    return (warningType)-1;
 }
 
 extern void
