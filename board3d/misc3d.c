@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: misc3d.c,v 1.115 2015/08/01 10:53:55 plm Exp $
+ * $Id: misc3d.c,v 1.116 2016/05/11 21:33:09 plm Exp $
  */
 
 #include "config.h"
@@ -2410,7 +2410,7 @@ InitBoard3d(BoardData * bd, BoardData3d * bd3d)
     bd->bd3d->fBuffers = FALSE;
 }
 
-#if HAVE_LIBPNG
+#if defined(HAVE_LIBPNG)
 
 void
 GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, unsigned int nSizeY)
