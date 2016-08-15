@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.h,v 1.103 2015/12/04 23:07:52 plm Exp $
+ * $Id: gtkboard.h,v 1.104 2016/06/11 15:46:31 plm Exp $
  */
 
 #ifndef GTKBOARD_H
@@ -140,7 +140,7 @@ extern unsigned int nGUIAnimSpeed;
 extern GType board_get_type(void);
 extern GtkWidget *board_new(renderdata * prd);
 extern GtkWidget *board_cube_widget(Board * board);
-extern void DestroySetCube(GtkObject * po, GtkWidget * pw);
+extern void DestroySetCube(GObject * po, GtkWidget * pw);
 extern void Copy3dDiceColour(renderdata * prd);
 typedef enum { MT_STANDARD, MT_FIRSTMOVE, MT_EDIT } manualDiceType;
 extern GtkWidget *board_dice_widget(Board * board, manualDiceType mdt);

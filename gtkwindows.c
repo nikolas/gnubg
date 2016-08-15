@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.53 2014/09/07 19:24:06 plm Exp $
+ * $Id: gtkwindows.c,v 1.54 2016/08/14 18:49:07 plm Exp $
  */
 
 #include "config.h"
@@ -174,7 +174,7 @@ GTKCreateDialog(const char *szTitle, const dialogtype dt,
     gtk_window_add_accel_group(GTK_WINDOW(pwDialog), pag);
 
     pwHbox = gtk_hbox_new(FALSE, 0);
-    gtk_container_add(GTK_CONTAINER(gtk_dialog_get_content_area(GTK_DIALOG(pwDialog))), pwHbox);
+    gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(pwDialog))), pwHbox, TRUE, TRUE, 0);
 
     if (dt != DT_CUSTOM) {
         pwPixmap = gtk_image_new_from_stock(aszStockItem[dt], GTK_ICON_SIZE_DIALOG);
@@ -199,7 +199,11 @@ GTKCreateDialog(const char *szTitle, const dialogtype dt,
         gtk_dialog_set_default_response(GTK_DIALOG(pwDialog), OkButton ? GTK_RESPONSE_OK : GTK_RESPONSE_CLOSE);
 
         if (!fQuestion)
+#if GTK_CHECK_VERSION(2,21,8)
+            gtk_widget_add_accelerator(DialogArea(pwDialog, DA_OK), "clicked", pag, GDK_KEY_Escape, (GdkModifierType)0, (GtkAccelFlags)0);
+#else
             gtk_widget_add_accelerator(DialogArea(pwDialog, DA_OK), "clicked", pag, GDK_Escape, (GdkModifierType)0, (GtkAccelFlags)0);
+#endif
     }
 
     if (fQuestion)

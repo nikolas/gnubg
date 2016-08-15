@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.74 2015/01/25 20:14:45 plm Exp $
+ * $Id: progress.c,v 1.75 2016/01/25 21:45:09 plm Exp $
  */
 
 #include "config.h"
@@ -636,7 +636,7 @@ GTKViewRolloutStatistics(GtkWidget * UNUSED(widget), gpointer data)
 }
 
 static void
-RolloutCancel(GtkObject * UNUSED(po), rolloutprogress * prp)
+RolloutCancel(GObject * UNUSED(po), rolloutprogress * prp)
 {
     pwGrab = pwOldGrab;
     prp->pwRolloutDialog = NULL;
@@ -647,7 +647,7 @@ RolloutCancel(GtkObject * UNUSED(po), rolloutprogress * prp)
 }
 
 static void
-RolloutStop(GtkObject * UNUSED(po), rolloutprogress * prp)
+RolloutStop(GObject * UNUSED(po), rolloutprogress * prp)
 {
     fInterrupt = TRUE;
     prp->stopped = -1;
@@ -655,7 +655,7 @@ RolloutStop(GtkObject * UNUSED(po), rolloutprogress * prp)
 
 
 static void
-RolloutStopAll(GtkObject * UNUSED(po), rolloutprogress * prp)
+RolloutStopAll(GObject * UNUSED(po), rolloutprogress * prp)
 {
     fInterrupt = TRUE;
     prp->stopped = -2;

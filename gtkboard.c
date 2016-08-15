@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.331 2016/06/07 20:32:23 plm Exp $
+ * $Id: gtkboard.c,v 1.332 2016/06/11 15:46:31 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3898,7 +3898,7 @@ cube_widget_press(GtkWidget * cube, GdkEvent * UNUSED(event), BoardData * UNUSED
 }
 
 extern void
-DestroySetCube(GtkObject * UNUSED(po), GtkWidget * pw)
+DestroySetCube(GObject * UNUSED(po), GtkWidget * pw)
 {
     free(TTachCubeFaces);
     free(TTachCube);
