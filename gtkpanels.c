@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.80 2016/06/07 20:36:30 plm Exp $
+ * $Id: gtkpanels.c,v 1.81 2016/06/11 15:46:31 plm Exp $
  */
 
 #include "config.h"
@@ -810,6 +810,7 @@ CreateGameWindow(void)
     gtk_container_add(GTK_CONTAINER(pvbox), psw);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(psw), GTK_POLICY_NEVER, GTK_POLICY_ALWAYS);
 
+    gtk_widget_set_size_request(psw, -1, 150);
     gtk_container_add(GTK_CONTAINER(psw), GL_Create());
 
     if (!woPanel[WINDOW_GAME].docked) {
