@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.73 2015/10/14 22:22:36 plm Exp $
+ * $Id: gtktoolbar.c,v 1.74 2015/10/14 22:30:27 plm Exp $
  */
 
 #include "config.h"
@@ -368,6 +368,7 @@ ToolbarNew(void)
 
     pwToolbar = gtk_ui_manager_get_widget(puim, "/MainToolBar");
     g_object_set_data_full(G_OBJECT(pwToolbar), "toolbarwidget", ptw, g_free);
+    gtk_toolbar_set_style(GTK_TOOLBAR(pwToolbar), GTK_TOOLBAR_BOTH);
 
     ptw->pwNew = gtk_ui_manager_get_widget(puim, "/MainToolBar/New");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwNew), TRUE);
