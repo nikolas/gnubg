@@ -15,7 +15,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * $Id: gtk-multiview.c,v 1.15 2013/06/16 02:16:13 mdpetch Exp $
+ * $Id: gtk-multiview.c,v 1.16 2013/07/22 18:51:01 mdpetch Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
@@ -30,9 +30,14 @@
 
 G_DEFINE_TYPE(GtkMultiview, gtk_multiview, GTK_TYPE_CONTAINER)
 
-
 static void
 gtk_multiview_size_request(GtkWidget * widget, GtkRequisition * requisition);
+#if GTK_CHECK_VERSION(3,0,0)
+static void
+gtk_multiview_get_preferred_width(GtkWidget * widget, gint * minimal_width, gint * natural_width);
+static void
+gtk_multiview_get_preferred_height(GtkWidget * widget, gint * minimal_height, gint * natural_height);
+#endif
 static void
 gtk_multiview_size_allocate(GtkWidget * widget, GtkAllocation * allocation);
 static void
@@ -67,7 +72,12 @@ gtk_multiview_class_init(GtkMultiviewClass * klass)
     widget_class = (GtkWidgetClass *) klass;
     container_class = (GtkContainerClass *) klass;
 
+#if GTK_CHECK_VERSION(3,0,0)
+    widget_class->get_preferred_width = gtk_multiview_get_preferred_width;
+    widget_class->get_preferred_height = gtk_multiview_get_preferred_height;
+#else
     widget_class->size_request = gtk_multiview_size_request;
+#endif
     widget_class->size_allocate = gtk_multiview_size_allocate;
     widget_class->map = gtk_multiview_map;
     widget_class->unmap = gtk_multiview_unmap;
@@ -106,6 +116,24 @@ gtk_multiview_size_request(GtkWidget * widget, GtkRequisition * requisition)
         }
     }
 }
+
+#if GTK_CHECK_VERSION(3,0,0)
+static void
+gtk_multiview_get_preferred_width(GtkWidget * widget, gint * minimal_width, gint * natural_width)
+{
+    GtkRequisition requisition;
+    gtk_multiview_size_request(widget, &requisition);
+    *minimal_width = *natural_width = requisition.width;
+}
+
+static void
+gtk_multiview_get_preferred_height(GtkWidget * widget, gint * minimal_height, gint * natural_height)
+{
+    GtkRequisition requisition;
+    gtk_multiview_size_request(widget, &requisition);
+    *minimal_height = *natural_height = requisition.height;
+}
+#endif
 
 static void
 gtk_multiview_size_allocate(GtkWidget * widget, GtkAllocation * allocation)
