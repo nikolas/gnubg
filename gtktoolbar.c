@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.74 2015/10/14 22:30:27 plm Exp $
+ * $Id: gtktoolbar.c,v 1.75 2016/08/16 18:51:48 plm Exp $
  */
 
 #include "config.h"
@@ -336,9 +336,8 @@ ToolbarAddButton(GtkToolbar * pwToolbar, const char *stockID, const char *label,
 
     return GTK_WIDGET(but);
 }
-#endif
 
-GtkWidget *
+static GtkWidget *
 ToolbarAddWidget(GtkToolbar * pwToolbar, GtkWidget * pWidget, const char *tooltip)
 {
     GtkToolItem *ti = gtk_tool_item_new();
@@ -350,7 +349,6 @@ ToolbarAddWidget(GtkToolbar * pwToolbar, GtkWidget * pWidget, const char *toolti
     return GTK_WIDGET(ti);
 }
 
-#if !defined(USE_GTKUIMANAGER)
 static void
 ToolbarAddSeparator(GtkToolbar * pwToolbar)
 {
