@@ -1,7 +1,7 @@
 /*
  * matchid.h
  *
- * by Jørn Thyssen <jthyssen@dk.ibm.com>, 2002
+ * by Joern Thyssen <jthyssen@dk.ibm.com>, 2002
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchid.h,v 1.15 2013/11/20 21:23:10 plm Exp $
+ * $Id: matchid.h,v 1.16 2013/11/20 23:04:14 plm Exp $
  */
 
 #ifndef MATCHID_H
@@ -52,14 +52,6 @@ MatchFromID(unsigned int anDice[2],
             int *pfResigned,
             int *pfDoubled, int *pfMove, int *pfCubeOwner, int *pfCrawford, int *pnMatchTo, int anScore[2], int *pnCube,
             int *pfJacoby, gamestate * pgs, const char *szMatchID);
-
-extern int
-MatchFromKey(int anDice[2],
-             int *pfTurn,
-             int *pfResigned,
-             int *pfDoubled,
-             int *pfMove, int *pfCubeOwner, int *pfCrawford, int *pnMatchTo, int anScore[2], int *pnCube,
-             int *pfJacoby, gamestate * pgs, const unsigned char *auchKey);
 
 extern char *MatchIDFromMatchState(const matchstate * pms);
 
