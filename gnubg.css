@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id:$
+ * $Id: gnubg.css,v 1.1 2016/08/19 22:57:23 plm Exp $
  */
 
 /*
@@ -120,4 +120,12 @@
     border-width: 1px;
     border-color: gray;
     border-style: inset;
+}
+
+/*
+ * Style for buttons underneath the move list (Eval, Rollout, etc.)
+ */
+.gnubg-analysis-button {
+    padding-left: 0.5em;
+    padding-right: 0.5em;
 }
