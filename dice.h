@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.h,v 1.33 2015/09/27 18:55:14 plm Exp $
+ * $Id: dice.h,v 1.34 2016/04/08 05:31:05 plm Exp $
  */
 
 #ifndef DICE_H
@@ -58,9 +58,6 @@ extern int InitRNGBBSFactors(char *sz0, char *sz1, rngcontext * rngctx);
 #endif
 
 extern FILE *OpenDiceFile(rngcontext * rngctx, const char *sz);
-
-extern void
- CloseDiceFile(rngcontext * rngctx);
 
 extern char *GetDiceFileName(rngcontext * rngctx);
 

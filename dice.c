@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.96 2015/09/27 18:55:13 plm Exp $
+ * $Id: dice.c,v 1.97 2016/04/08 05:31:05 plm Exp $
  */
 
 #include "config.h"
@@ -596,6 +596,13 @@ InitRNGSeedLong(char *sz, rng rng, rngcontext * rngctx)
 }
 #endif
 
+static void
+CloseDiceFile(rngcontext * rngctx)
+{
+    if (rngctx->fDice)
+        fclose(rngctx->fDice);
+}
+
 extern void
 CloseRNG(const rng rngx, rngcontext * rngctx)
 {
@@ -836,14 +843,6 @@ OpenDiceFile(rngcontext * rngctx, const char *sz)
 
     return (rngctx->fDice = gnubg_g_fopen(sz, "r"));
 }
-
-extern void
-CloseDiceFile(rngcontext * rngctx)
-{
-    if (rngctx->fDice)
-        fclose(rngctx->fDice);
-}
-
 
 static unsigned int
 ReadDiceFile(rngcontext * rngctx)
