@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.248 2015/10/23 21:45:34 plm Exp $
+ * $Id: rollout.c,v 1.249 2015/11/02 20:29:23 plm Exp $
  */
 
 #include "config.h"
@@ -178,7 +178,7 @@ log_game_over(FILE * logfp)
     fclose(logfp);
 }
 
-extern void
+static void
 QuasiRandomSeed(perArray * pArray, int n)
 {
 
