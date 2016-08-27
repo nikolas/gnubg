@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.css,v 1.1 2016/08/19 22:57:23 plm Exp $
+ * $Id: gnubg.css,v 1.2 2016/08/24 21:52:21 plm Exp $
  */
 
 /*
@@ -128,4 +128,12 @@
 .gnubg-analysis-button {
     padding-left: 0.5em;
     padding-right: 0.5em;
+}
+
+/*
+ * Style for the progress bars displayed for game analysis and rollouts.
+ * Applies only to gtk 3.20 or later.
+ */
+progressbar {
+    padding: 10px;
 }

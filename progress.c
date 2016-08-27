@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.c,v 1.75 2016/01/25 21:45:09 plm Exp $
+ * $Id: progress.c,v 1.76 2016/08/15 20:12:05 plm Exp $
  */
 
 #include "config.h"
@@ -779,6 +779,10 @@ GTKRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
     pwVbox = gtk_vbox_new(FALSE, 4);
     create_rollout_list(n, asz, &prp->pwRolloutResult, &prp->pwRolloutResultList, prc->fCubeful);
     prp->pwRolloutProgress = gtk_progress_bar_new();
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_progress_bar_set_show_text(GTK_PROGRESS_BAR(prp->pwRolloutProgress), TRUE);
+    gtk_progress_bar_set_text(GTK_PROGRESS_BAR(prp->pwRolloutProgress), "");
+#endif
 
     gtk_box_pack_start(GTK_BOX(pwVbox), prp->pwRolloutResult, TRUE, TRUE, 0);
     gtk_box_pack_start(GTK_BOX(pwVbox), prp->pwRolloutProgress, FALSE, FALSE, 0);
