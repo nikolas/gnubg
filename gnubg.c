@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.981 2016/05/07 22:28:22 plm Exp $
+ * $Id: gnubg.c,v 1.982 2016/05/11 21:33:08 plm Exp $
  */
 
 #include "config.h"
@@ -3588,6 +3588,38 @@ Prompt(void)
     fflush(stdout);
 }
 
+#if defined(HAVE_LIB_READLINE)
+static char *
+locale_from_utf8(const char *sz)
+{
+    char *ret;
+    GError *error = NULL;
+    g_assert(sz);
+    ret = g_locale_from_utf8(sz, strlen(sz), NULL, NULL, &error);
+    if (error) {
+        g_print("locale_from_utf8 failed: %s\n", error->message);
+        g_error_free(error);
+        ret = g_strdup(sz);
+    }
+    return ret;
+}
+#endif
+
+static char *
+locale_to_utf8(const char *sz)
+{
+    char *ret;
+    GError *error = NULL;
+    g_assert(sz);
+    ret = g_locale_to_utf8(sz, strlen(sz), NULL, NULL, &error);
+    if (error) {
+        g_print("locale_to_utf8 failed: %s\n", error->message);
+        g_error_free(error);
+        ret = g_strdup(sz);
+    }
+    return ret;
+}
+
 #if defined(USE_GTK)
 #if defined(HAVE_LIB_READLINE)
 extern void
@@ -5190,38 +5222,6 @@ EPC(const TanBoard anBoard, float *arEPC, float *arMu, float *arSigma, int *pfSo
 
     /* code not reachable */
     return -1;
-}
-
-#if defined(HAVE_LIB_READLINE)
-extern char *
-locale_from_utf8(const char *sz)
-{
-    char *ret;
-    GError *error = NULL;
-    g_assert(sz);
-    ret = g_locale_from_utf8(sz, strlen(sz), NULL, NULL, &error);
-    if (error) {
-        g_print("locale_from_utf8 failed: %s\n", error->message);
-        g_error_free(error);
-        ret = g_strdup(sz);
-    }
-    return ret;
-}
-#endif
-
-extern char *
-locale_to_utf8(const char *sz)
-{
-    char *ret;
-    GError *error = NULL;
-    g_assert(sz);
-    ret = g_locale_to_utf8(sz, strlen(sz), NULL, NULL, &error);
-    if (error) {
-        g_print("locale_to_utf8 failed: %s\n", error->message);
-        g_error_free(error);
-        ret = g_strdup(sz);
-    }
-    return ret;
 }
 
 #ifdef WIN32

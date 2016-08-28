@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.458 2015/10/08 00:34:36 mdpetch Exp $
+ * $Id: backgammon.h,v 1.459 2016/07/16 22:03:31 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -437,8 +437,6 @@ extern char *GetInput(char *szPrompt);
 extern char *GetLuckAnalysis(const matchstate * pms, float rLuck);
 extern const char *GetMoveString(moverecord * pmr, int *pPlayer, gboolean addSkillMarks);
 extern double get_time(void);
-extern char *locale_from_utf8(const char *sz);
-extern char *locale_to_utf8(const char *sz);
 extern char *NextToken(char **ppch);
 extern char *NextTokenGeneral(char **ppch, const char *szTokens);
 extern char *SetupLanguage(const char *newLangCode);
@@ -1002,8 +1000,6 @@ extern int CheckGameExists(void);
 extern void pmr_cubedata_set(moverecord * pmr, evalsetup * es, float output[2][NUM_ROLLOUT_OUTPUTS],
                              float stddev[2][NUM_ROLLOUT_OUTPUTS]);
 extern void pmr_movelist_set(moverecord * pmr, evalsetup * pes, movelist * pml);
-extern void current_pmr_cubedata_update(evalsetup * pes, float output[][NUM_ROLLOUT_OUTPUTS],
-                                        float stddev[][NUM_ROLLOUT_OUTPUTS]);
 extern listOLD *game_add_pmr_hint(listOLD * plGame);
 extern void game_remove_pmr_hint(listOLD * pl_hint);
 extern gboolean game_is_last(listOLD * plGame);
