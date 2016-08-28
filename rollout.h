@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.39 2015/03/01 13:14:21 plm Exp $
+ * $Id: rollout.h,v 1.40 2016/08/27 20:35:13 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -145,11 +145,9 @@ EXP_LOCK_FUN(int, BasicCubefulRollout, unsigned int aanBoard[][2][25], float aar
              FILE * logfp);
 
 
-extern FILE *log_game_start(const char *name, const cubeinfo * pci, int fCubeful, TanBoard anBoard);
 extern void log_cube(FILE * logfp, const char *action, int side);
 extern void log_move(FILE * logfp, const int *anMove, int side, int die0, int die1);
 extern int RolloutDice(int iTurn, int iGame, int fInitial, unsigned int anDice[2], rng * rngx, void *rngctx,
                        const int fRotate, const perArray * dicePerms);
 extern void ClosedBoard(int afClosedBoard[2], const TanBoard anBoard);
-extern void log_game_over(FILE * logfp);
 #endif

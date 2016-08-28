@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.249 2015/11/02 20:29:23 plm Exp $
+ * $Id: rollout.c,v 1.250 2016/08/27 20:35:13 plm Exp $
  */
 
 #include "config.h"
@@ -116,7 +116,7 @@ board_to_sgf(FILE * logfp, const unsigned int anBoard[25], int direction)
         fprintf(logfp, "[y]");
 }
 
-extern FILE *
+static FILE *
 log_game_start(const char *name, const cubeinfo * pci, int fCubeful, TanBoard anBoard)
 {
     time_t t = time(0);
@@ -169,7 +169,7 @@ log_game_start(const char *name, const cubeinfo * pci, int fCubeful, TanBoard an
     return logfp;
 }
 
-extern void
+static void
 log_game_over(FILE * logfp)
 {
     if (!logfp)
