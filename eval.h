@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.194 2016/07/16 22:03:31 plm Exp $
+ * $Id: eval.h,v 1.195 2016/08/27 20:40:00 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -480,9 +480,6 @@ extern int
 extern int
  cmp_evalcontext(const evalcontext * pec1, const evalcontext * pec2);
 
-extern int
- cmp_rolloutcontext(const rolloutcontext * prc1, const rolloutcontext * prc2);
-
 extern char
 *GetCubeRecommendation(const cubedecision cd);
 
@@ -492,9 +489,6 @@ FindBestCubeDecision(float arDouble[], float aarOutput[2][NUM_ROLLOUT_OUTPUTS], 
 extern int
  getCurrentGammonRates(float aarRates[2][2],
                       float arOutput[], const TanBoard anBoard, cubeinfo * pci, const evalcontext * pec);
-
-extern void
- calculate_gammon_rates(float aarRates[2][2], float arOutput[], cubeinfo * pci);
 
 extern void
  getMoneyPoints(float aaarPoints[2][7][2], const int fJacoby, const int fBeavers, float aarRates[2][2]);

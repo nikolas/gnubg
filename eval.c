@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.470 2016/07/24 12:18:40 plm Exp $
+ * $Id: eval.c,v 1.471 2016/08/27 20:40:00 plm Exp $
  */
 
 #include "config.h"
@@ -4273,55 +4273,6 @@ CalcCubefulEquity(positionclass pc, float arOutput[NUM_ROLLOUT_OUTPUTS], int nPl
 #endif                          /* !LOCKING_VERSION */
 
 
-
-
-/*
- * Compare two evalsetups.
- *
- * Input:
- *    - pes1, pes2: the two evalsetups to compare
- *
- * Output:
- *    None.
- *
- * Returns:
- *    -1 if  *pes1 "<" *pes2
- *     0 if  *pes1 "=" *pes2
- *    +1 if  *pes1 ">" *pes2
- *
- */
-
-extern int
-cmp_evalsetup(const evalsetup * pes1, const evalsetup * pes2)
-{
-
-    /* Check for different evaltypes */
-
-    if (pes1->et < pes2->et)
-        return -1;
-    else if (pes1->et > pes2->et)
-        return +1;
-
-    /* The two evaltypes are identical */
-
-    switch (pes1->et) {
-    case EVAL_NONE:
-        return 0;
-
-    case EVAL_EVAL:
-        return cmp_evalcontext(&pes1->ec, &pes2->ec);
-
-    case EVAL_ROLLOUT:
-        return cmp_rolloutcontext(&pes1->rc, &pes2->rc);
-
-    default:
-        g_assert_not_reached();
-    }
-
-    return 0;
-}
-
-
 /*
  * Compare two evalcontexts.
  *
@@ -4402,7 +4353,7 @@ cmp_evalcontext(const evalcontext * pec1, const evalcontext * pec2)
  *
  */
 
-extern int
+static int
 cmp_rolloutcontext(const rolloutcontext * UNUSED(prc1), const rolloutcontext * UNUSED(prc2))
 {
 
@@ -4414,7 +4365,54 @@ cmp_rolloutcontext(const rolloutcontext * UNUSED(prc1), const rolloutcontext * U
 }
 
 
-extern void
+/*
+ * Compare two evalsetups.
+ *
+ * Input:
+ *    - pes1, pes2: the two evalsetups to compare
+ *
+ * Output:
+ *    None.
+ *
+ * Returns:
+ *    -1 if  *pes1 "<" *pes2
+ *     0 if  *pes1 "=" *pes2
+ *    +1 if  *pes1 ">" *pes2
+ *
+ */
+
+extern int
+cmp_evalsetup(const evalsetup * pes1, const evalsetup * pes2)
+{
+
+    /* Check for different evaltypes */
+
+    if (pes1->et < pes2->et)
+        return -1;
+    else if (pes1->et > pes2->et)
+        return +1;
+
+    /* The two evaltypes are identical */
+
+    switch (pes1->et) {
+    case EVAL_NONE:
+        return 0;
+
+    case EVAL_EVAL:
+        return cmp_evalcontext(&pes1->ec, &pes2->ec);
+
+    case EVAL_ROLLOUT:
+        return cmp_rolloutcontext(&pes1->rc, &pes2->rc);
+
+    default:
+        g_assert_not_reached();
+    }
+
+    return 0;
+}
+
+ 
+static void
 calculate_gammon_rates(float aarRates[2][2], float arOutput[], cubeinfo * pci)
 {
 
