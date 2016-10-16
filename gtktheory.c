@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.62 2016/05/11 21:33:08 plm Exp $
+ * $Id: gtktheory.c,v 1.63 2016/08/19 22:57:24 plm Exp $
  */
 
 #include "config.h"
@@ -86,7 +86,7 @@ typedef struct _theorywidget {
 
     /* radio buttons for plies */
 
-    GtkWidget *apwPly[MAXPLY];
+    GtkWidget *apwPly[MAXPLY+1];
 
 } theorywidget;
 
@@ -786,7 +786,7 @@ GTKShowTheory(const int fActivePage)
     pwz = gtk_hbox_new(FALSE, 4);
     gtk_box_pack_start(GTK_BOX(pwx), pwz, FALSE, FALSE, 4);
 
-    for (i = 0; i < MAXPLY; ++i) {
+    for (i = 0; i <= MAXPLY; ++i) {
 
         gchar *sz = g_strdup_printf(_("%d ply"), i);
         if (!i)
