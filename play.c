@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.436 2015/10/24 21:26:53 plm Exp $
+ * $Id: play.c,v 1.437 2016/08/28 22:31:57 plm Exp $
  */
 
 #include "config.h"
@@ -2352,8 +2352,8 @@ CommandDouble(char *UNUSED(sz))
         return;
     }
 
-    if (ms.nCube >= MAX_CUBE) {
-        outputf(_("The cube is already at %d; you can't double any more.\n"), MAX_CUBE);
+    if (ms.nCube >= (ms.nMatchTo ? MAXSCORE : MAX_CUBE)) {
+        outputf(_("The cube is already at its highest supported value ; you can't double any more.\n"));
         return;
     }
 
@@ -3676,7 +3676,7 @@ CommandRedouble(char *UNUSED(sz))
     }
 
     if (ms.nCube >= (MAX_CUBE >> 1)) {
-        outputf(_("The cube is already at %d; you can't double any more.\n"), MAX_CUBE);
+        outputf(_("The cube is already at its highest supported value ; you can't double any more.\n"));
         return;
     }
 
