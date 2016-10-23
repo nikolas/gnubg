@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.333 2016/08/15 20:12:05 plm Exp $
+ * $Id: gtkboard.c,v 1.334 2016/08/19 22:57:24 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3908,7 +3908,7 @@ board_class_init(BoardClass * c)
 }
 
 
-#define N_CUBES_IN_WIDGET 8
+#define N_CUBES_IN_WIDGET 7
 static gboolean
 cube_widget_draw(GtkWidget * cube, cairo_t * cr, BoardData * bd)
 {
