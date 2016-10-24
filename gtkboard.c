@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.334 2016/08/19 22:57:24 plm Exp $
+ * $Id: gtkboard.c,v 1.335 2016/10/23 17:13:10 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3476,6 +3476,13 @@ board_edit(BoardData * bd)
             sprintf(sz, "set crawford %s", crawford ? "on" : "off");
             UserCommand(sz);
             bd->crawford_game = ms.fCrawford = crawford;
+        }
+        if (crawford) {
+            ms.fCubeOwner = -1;
+            ms.nCube = 1;
+            bd->cube_owner = 0;
+            bd->cube = 0;
+            bd->doubled = 0;
         }
 
         outputresume();
