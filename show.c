@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.286 2015/11/02 20:31:35 plm Exp $
+ * $Id: show.c,v 1.287 2016/07/16 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -902,9 +902,9 @@ CommandShowScore(char *UNUSED(sz))
                 ms.nMatchTo, ms.fCrawford ? _(", Crawford game") : (ms.fPostCrawford ? _(", post-Crawford play") : ""));
     } else {
         if (ms.fJacoby)
-            outputl(_(" (money session,\nwith Jacoby rule)."));
+            outputl(_(" (money session, with Jacoby rule)."));
         else
-            outputl(_(" (money session,\nwithout Jacoby rule)."));
+            outputl(_(" (money session, without Jacoby rule)."));
     }
 
 }
