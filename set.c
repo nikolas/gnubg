@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.401 2016/03/02 21:17:32 plm Exp $
+ * $Id: set.c,v 1.402 2016/10/31 21:00:16 plm Exp $
  */
 
 #include "config.h"
@@ -3257,9 +3257,14 @@ extern void
 CommandSetMatchLength(char *sz)
 {
 
-    unsigned int n = ParseNumber(&sz);
+    int n;
 
-    nDefaultLength = n;
+    if ((n = ParseNumber(&sz)) < 0 || n > MAXSCORE) {
+        outputf(_("Match length must be between 0 (unlimited session) and %d\n"), MAXSCORE);
+        return;
+    }
+
+    nDefaultLength = (unsigned) n;
 
     outputf(ngettext("New matches default to %u point.\n", "New matches default to %u points.\n", nDefaultLength),
             nDefaultLength);
