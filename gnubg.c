@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.982 2016/05/11 21:33:08 plm Exp $
+ * $Id: gnubg.c,v 1.983 2016/08/28 22:31:57 plm Exp $
  */
 
 #include "config.h"
@@ -515,7 +515,7 @@ static char szDICE[] = N_("<die> <die>"),
     szPOSITION[] = N_("<position>"),
     szPRIORITY[] = N_("<priority>"),
     szPROMPT[] = N_("<prompt>"),
-    szSCORE[] = N_("<score>"),
+    szSCORE[] = N_("<score> [length]"),
     szSIZE[] = N_("<size>"),
     szSTEP[] = N_("[game|roll|rolled|marked] <count>"),
     szTRIALS[] = N_("<trials>"),

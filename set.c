@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.402 2016/10/31 21:00:16 plm Exp $
+ * $Id: set.c,v 1.403 2016/11/01 14:37:59 plm Exp $
  */
 
 #include "config.h"
@@ -2457,15 +2457,24 @@ CommandSetScore(char *sz)
 
     moverecord *pmr;
     xmovegameinfo *pmgi;
-    const char *pch0, *pch1;
-    char *pchEnd0, *pchEnd1;
-    int n0, n1, fCrawford0, fCrawford1, fPostCrawford0, fPostCrawford1;
+    const char *pch0, *pch1, *pch2;
+    char *pchEnd0, *pchEnd1, *pchEnd2;
+    int n0, n1, n, fCrawford0, fCrawford1, fPostCrawford0, fPostCrawford1;
 
     if ((pch0 = NextToken(&sz)) == 0)
         pch0 = "";
 
     if ((pch1 = NextToken(&sz)) == 0)
         pch1 = "";
+
+    if ((pch2 = NextToken(&sz)) != 0) {
+        n = (int) strtol(pch2, &pchEnd2, 10);
+        if (pch2 == pchEnd2 || n < 0 || n > MAXSCORE) {
+            outputf(_("Match length must be between 0 (unlimited session) and %d\n"), MAXSCORE);
+            return;
+        } else
+            ms.nMatchTo = n;
+    }
 
     n0 = (int) strtol(pch0, &pchEnd0, 10);
     if (pch0 == pchEnd0)
