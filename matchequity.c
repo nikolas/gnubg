@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.c,v 1.97 2016/01/26 22:30:53 plm Exp $
+ * $Id: matchequity.c,v 1.98 2016/05/11 21:33:08 plm Exp $
  */
 
 #include "config.h"
@@ -478,7 +478,7 @@ GetPoints(float arOutput[5], const cubeinfo * pci, float arCP[2])
         nDead *= 2;
     }
 
-    for (nCubeValue = nDead, n = nMax; nCubeValue >= nCube; nCubeValue >>= 1, n--) {
+    for (nCubeValue = nDead, n = nMax; n >= 0; nCubeValue >>= 1, n--) {
 
         /* Calculate dead and live cube cash points.
          * See notes by me (Joern Thyssen) available from the
