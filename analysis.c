@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.243 2016/05/11 21:33:08 plm Exp $
+ * $Id: analysis.c,v 1.244 2016/07/25 21:41:36 plm Exp $
  */
 
 #include "config.h"
@@ -35,7 +35,6 @@
 #include "analysis.h"
 #include "sound.h"
 #include "matchequity.h"
-#include "export.h"
 #include "formatgs.h"
 #include "progress.h"
 #include "multithread.h"
