@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.905 2016/08/27 20:27:35 plm Exp $
+ * $Id: gtkgame.c,v 1.906 2016/10/04 21:18:30 plm Exp $
  */
 
 #include "config.h"
@@ -2629,7 +2629,7 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     for (i = 0; i < 3; i++) {
         aw.apadjSkill[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 0, 1, 0.01, 0.05, 0));
 
-        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(aw.apadjSkill[i]), 1, 2);
+        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(aw.apadjSkill[i]), 1, 3);
         gtk_table_attach(GTK_TABLE(pwTable), pwSpin, 1, 2, i, i + 1,
                          (GtkAttachOptions) (GTK_EXPAND | GTK_FILL), (GtkAttachOptions) (0), 0, 0);
         gtk_spin_button_set_numeric(GTK_SPIN_BUTTON(pwSpin), TRUE);
