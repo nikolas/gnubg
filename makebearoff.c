@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.97 2015/07/31 23:40:25 mdpetch Exp $
+ * $Id: makebearoff.c,v 1.98 2015/10/14 21:34:47 plm Exp $
  */
 
 #include "config.h"
@@ -598,7 +598,7 @@ generate_os(const int nOS, const int fHeader,
     xhash h;
     FILE *pfTmp = NULL;
     unsigned int npos;
-    char *tmpfile;
+    char *tmpfile = NULL;
     int fTTY = isatty(STDERR_FILENO);
 
     /* initialise xhash */
@@ -1263,7 +1263,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.97 $\n");
+    printf("makebearoff $Revision: 1.98 $\n");
 }
 
 
