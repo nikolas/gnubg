@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.99 2015/07/31 23:40:22 mdpetch Exp $
+ * $Id: bearoff.c,v 1.100 2016/12/30 22:18:58 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -957,7 +957,7 @@ fnd(const float x, const float mu, const float sigma)
 
         float xm = (x - mu) / sigma;
 
-        return 1.0f / (sigma * sqrtf(2.0f * (float) G_PI) * expf(-xm * xm / 2.0f));
+        return 1.0f / (sigma * sqrtf(2.0f * (float) G_PI)) * expf(-xm * xm / 2.0f);
 
     }
 
