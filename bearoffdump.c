@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoffdump.c,v 1.22 2015/02/08 15:09:09 plm Exp $
+ * $Id: bearoffdump.c,v 1.23 2015/10/14 21:39:17 plm Exp $
  */
 
 #include "config.h"
@@ -29,6 +29,7 @@
 #include "bearoff.h"
 #include "multithread.h"
 #include "backgammon.h"
+#include "drawboard.h"
 
 extern void
 MT_CloseThreads(void)
@@ -118,6 +119,15 @@ main(int argc, char **argv)
         nThem = id % n;
         PositionFromBearoff(anBoard[0], nThem, pbc->nPoints, pbc->nChequers);
         PositionFromBearoff(anBoard[1], nUs, pbc->nPoints, pbc->nChequers);
+    }
+
+    /* board */
+
+    {
+        char szOut[2048];
+        char *ap[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+
+        puts(DrawBoard(szOut, (ConstTanBoard) anBoard, TRUE, ap, NULL, 15));
     }
 
     /* dump req. position */
