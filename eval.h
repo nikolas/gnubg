@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.195 2016/08/27 20:40:00 plm Exp $
+ * $Id: eval.h,v 1.196 2016/08/28 22:28:31 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -92,6 +92,7 @@ typedef struct {
     unsigned int nPlies:4;
     unsigned int fUsePrune:1;
     unsigned int fDeterministic:1;
+    unsigned int :25;		/* padding */
     float rNoise;               /* standard deviation */
 } evalcontext;
 
