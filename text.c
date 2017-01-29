@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.110 2015/07/31 23:40:26 mdpetch Exp $
+ * $Id: text.c,v 1.111 2015/09/26 20:20:13 plm Exp $
  */
 
 #include "config.h"
@@ -81,7 +81,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
         apch[pms->fMove ? 4 : 2] = sz;
 
         if (pms->anDice[0])
-            sprintf(sz, _("Rolled %d%d"), pms->anDice[0], pms->anDice[1]);
+            sprintf(sz, _("Rolled %u%u"), pms->anDice[0], pms->anDice[1]);
         else if (!GameStatus((ConstTanBoard) anBoard, pms->bgv))
             strcpy(sz, _("On roll"));
         else
@@ -160,7 +160,7 @@ TextBoardHeader(GString * gsz, const matchstate * pms, const int UNUSED(iGame), 
 
         /* chequer play decision */
 
-        g_string_append_printf(gsz, _(" %s to play %d%d\n\n"), ap[pms->fMove].szName, pms->anDice[0], pms->anDice[1]
+        g_string_append_printf(gsz, _(" %s to play %u%u\n\n"), ap[pms->fMove].szName, pms->anDice[0], pms->anDice[1]
             );
 
     else if (pms->fDoubled)
@@ -224,7 +224,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.110 $";
+    const char szVersion[] = "$Revision: 1.111 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -434,7 +434,7 @@ TextPrintMoveAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 
     g_string_append(gsz, "\n");
 
-    g_string_append_printf(gsz, _("Rolled %d%d"), pmr->anDice[0], pmr->anDice[1]);
+    g_string_append_printf(gsz, _("Rolled %u%u"), pmr->anDice[0], pmr->anDice[1]);
 
     if (pmr->rLuck != ERR_VAL)
         g_string_append_printf(gsz, " (%s):\n", GetLuckAnalysis(pms, pmr->rLuck));
