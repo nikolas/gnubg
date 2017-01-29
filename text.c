@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.111 2015/09/26 20:20:13 plm Exp $
+ * $Id: text.c,v 1.112 2017/01/29 18:34:16 plm Exp $
  */
 
 #include "config.h"
@@ -91,7 +91,12 @@ printTextBoard(FILE * pf, const matchstate * pms)
             apch[3] = szCube;
 
             if (pms->nMatchTo)
-                sprintf(szCube, _("%d point match (Cube: %d)"), pms->nMatchTo, pms->nCube);
+                if (pms->nMatchTo == 1)
+                    sprintf(szCube, _("1 point match"));
+                else if (pms->fCrawford)
+                    sprintf(szCube, _("%d point match (Crawford game)"), pms->nMatchTo);
+                else
+                    sprintf(szCube, _("%d point match (Cube: %d)"), pms->nMatchTo, pms->nCube);
             else
                 sprintf(szCube, _("(Cube: %d)"), pms->nCube);
         } else {
@@ -224,7 +229,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.111 $";
+    const char szVersion[] = "$Revision: 1.112 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));

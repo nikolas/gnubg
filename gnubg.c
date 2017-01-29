@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.984 2016/11/01 14:56:44 plm Exp $
+ * $Id: gnubg.c,v 1.985 2017/01/08 20:39:14 plm Exp $
  */
 
 #include "config.h"
@@ -1432,7 +1432,12 @@ ShowBoard(void)
                 apch[3] = szCube;
 
                 if (ms.nMatchTo)
-                    sprintf(szCube, _("%d point match (Cube: %d)"), ms.nMatchTo, ms.nCube);
+                    if (ms.nMatchTo == 1)
+                        sprintf(szCube, _("1 point match"));
+                    else if (ms.fCrawford)
+                        sprintf(szCube, _("%d point match (Crawford game)"), ms.nMatchTo);
+                    else
+                        sprintf(szCube, _("%d point match (Cube: %d)"), ms.nMatchTo, ms.nCube);
                 else
                     sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
             } else {
@@ -2718,7 +2723,12 @@ CommandCopy(char *UNUSED(sz))
             aps[3] = szCube;
 
             if (ms.nMatchTo)
-                sprintf(szCube, _("%d point match (Cube: %d)"), ms.nMatchTo, ms.nCube);
+                if (ms.nMatchTo == 1)
+                    sprintf(szCube, _("1 point match"));
+                else if (ms.fCrawford)
+                    sprintf(szCube, _("%d point match (Crawford game)"), ms.nMatchTo);
+                else
+                    sprintf(szCube, _("%d point match (Cube: %d)"), ms.nMatchTo, ms.nCube);
             else
                 sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
         } else {
