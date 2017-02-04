@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard.c,v 1.75 2015/08/01 20:01:34 mdpetch Exp $
+ * $Id: drawboard.c,v 1.76 2015/08/02 22:09:31 mdpetch Exp $
  */
 
 #include "config.h"
@@ -914,7 +914,7 @@ FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
           const char *szPlayer, const char *szOpp, int nMatchTo,
           int nScore, int nOpponent, int nDice0, int nDice1,
           int nCube, int fCubeOwner, int fDoubled, int fTurn, int fCrawford, int nChequers, 
-          int fPostCrawford)
+          int UNUSED(fPostCrawford))
 {
     char *sz = pch;
     int i, anOff[2];
@@ -941,7 +941,7 @@ FIBSBoard(char *pch, TanBoard anBoard, int fRoll,
     }
 
     /* Player on bar */
-    sprintf(strchr(sz, 0), "%d:", anBoard[1][24]);
+    sprintf(strchr(sz, 0), "%u:", anBoard[1][24]);
 
     /* Whose turn */
     strcat(sz, fRoll ? "1:" : "-1:");
