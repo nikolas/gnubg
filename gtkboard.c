@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.335 2016/10/23 17:13:10 plm Exp $
+ * $Id: gtkboard.c,v 1.336 2016/10/24 20:52:34 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3226,10 +3226,13 @@ board_size_request(GtkWidget * pw, GtkRequisition * pr)
 
     BoardData *bd;
 
-    if (!pw || !pr)
+    if (!pr)
         return;
 
     pr->width = pr->height = 0;
+
+    if (!pw)
+        return;
 
     bd = BOARD(pw)->board_data;
 
