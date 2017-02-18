@@ -15,7 +15,7 @@
  * neuralnet.h
  *
  * by Gary Wong, 1998
- * $Id: neuralnet.h,v 1.33 2016/06/05 19:46:20 plm Exp $
+ * $Id: neuralnet.h,v 1.34 2017/02/18 16:10:15 plm Exp $
  */
 
 #ifndef NEURALNET_H
@@ -54,7 +54,7 @@ typedef struct _NNState {
     float *savedBase;
     float *savedIBase;
 #if !defined(USE_SIMD_INSTRUCTIONS)
-    int cSavedIBase;
+    unsigned int cSavedIBase;
 #endif
 } NNState;
 

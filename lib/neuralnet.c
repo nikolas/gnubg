@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.88 2016/06/07 20:31:02 plm Exp $
+ * $Id: neuralnet.c,v 1.89 2017/02/18 16:10:15 plm Exp $
  */
 
 #include "config.h"
@@ -236,7 +236,7 @@ NeuralNetEvaluate(const neuralnet * pnn, float arInput[], float arOutput[], NNSt
     case NNEVAL_FROMBASE:
         {
             unsigned int i;
-            if (pnState->cSavedIBase != (int) pnn->cInput) {
+            if (pnState->cSavedIBase != pnn->cInput) {
                 Evaluate(pnn, arInput, ar, arOutput, 0);
                 break;
             }
