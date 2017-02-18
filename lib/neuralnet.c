@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.87 2016/06/05 20:01:42 plm Exp $
+ * $Id: neuralnet.c,v 1.88 2016/06/07 20:31:02 plm Exp $
  */
 
 #include "config.h"
@@ -33,7 +33,7 @@
 #include "simd.h"
 #include "sigmoid.h"
 
-extern int
+static int
 NeuralNetCreate(neuralnet * pnn, unsigned int cInput, unsigned int cHidden,
                 unsigned int cOutput, float rBetaHidden, float rBetaOutput)
 {
