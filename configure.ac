@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.70 $)
+AC_REVISION($Revision: 1.71 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -367,7 +367,7 @@ AC_HELP_STRING([--with-python=program],
     ])
 
 if test "x$with_python" != "xno"; then
-    AM_PATH_PYTHON(2.2)
+    AM_PATH_PYTHON(2.3)
     AX_PYTHON_DEVEL()
     have_python=$ac_python_version
     if test "x$have_python" != "x"; then
