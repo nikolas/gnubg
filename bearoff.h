@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.h,v 1.31 2014/01/09 22:15:10 plm Exp $
+ * $Id: bearoff.h,v 1.32 2014/07/23 19:43:02 plm Exp $
  */
 
 #ifndef BEAROFF_H
@@ -46,9 +46,7 @@ typedef struct _bearoffcontext {
     int fHeuristic;             /* heuristic database? */
     /* two sided dbs */
     int fCubeful;               /* cubeful equities included */
-#if GLIB_CHECK_VERSION(2,8,0)
     GMappedFile *map;
-#endif
     unsigned char *p;           /* pointer to data in memory */
 } bearoffcontext;
 

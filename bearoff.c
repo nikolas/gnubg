@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.100 2016/12/30 22:18:58 plm Exp $
+ * $Id: bearoff.c,v 1.101 2016/12/30 22:22:05 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -729,7 +729,6 @@ BearoffClose(bearoffcontext * pbc)
     if (pbc->pf)
         fclose(pbc->pf);
 
-#if GLIB_CHECK_VERSION(2,8,0)
     if (pbc->map) {
 #if GLIB_CHECK_VERSION(2,22,0)
         g_mapped_file_unref(pbc->map);
@@ -738,7 +737,6 @@ BearoffClose(bearoffcontext * pbc)
 #endif
         pbc->p = NULL;
     }
-#endif
 
     if (pbc->p)
         free(pbc->p);
@@ -749,7 +747,6 @@ BearoffClose(bearoffcontext * pbc)
     g_free(pbc);
 }
 
-#if GLIB_CHECK_VERSION(2,8,0)
 static unsigned char *
 ReadIntoMemory(bearoffcontext * pbc)
 {
@@ -763,7 +760,6 @@ ReadIntoMemory(bearoffcontext * pbc)
     pbc->p = (unsigned char *) g_mapped_file_get_contents(pbc->map);
     return pbc->p;
 }
-#endif
 
 /*
  * Check whether this is a exact bearoff file 
@@ -929,7 +925,6 @@ BearoffInit(const char *szFilename, const int bo, void (*p) (unsigned int))
      * read database into memory if requested 
      */
 
-#if GLIB_CHECK_VERSION(2,8,0)
     if (bo & (int) BO_IN_MEMORY) {
         fclose(pbc->pf);
         pbc->pf = NULL;
@@ -940,7 +935,7 @@ BearoffInit(const char *szFilename, const int bo, void (*p) (unsigned int))
                 return NULL;
             }
     }
-#endif
+
     return pbc;
 }
 
