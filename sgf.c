@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.158 2016/01/17 22:17:43 plm Exp $
+ * $Id: sgf.c,v 1.159 2016/01/31 13:34:29 plm Exp $
  */
 
 #include "config.h"
@@ -646,7 +646,7 @@ RestoreRolloutRolloutContext(rolloutcontext * prc, const char *sz)
     prc->fLateEvals = 0;
     prc->fStopOnSTD = 0;
     prc->nLate = 0;
-    prc->nMinimumGames = 144;
+    prc->nMinimumGames = 324;
     prc->rStdLimit = 0.01f;
 
     if (!pc)
@@ -798,7 +798,7 @@ RestoreExtendedRolloutContext(rolloutcontext * prc, const char *sz)
     prc->fTruncBearoff2 = fTruncBearoff2;
     prc->fTruncBearoffOS = fTruncBearoffOS;
     prc->rngRollout = RNG_MERSENNE;
-    prc->nMinimumGames = 144;
+    prc->nMinimumGames = 324;
     prc->rStdLimit = 0.01f;
 
     for (i = 0; i < 2; ++i) {
