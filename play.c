@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.439 2016/10/23 20:42:56 plm Exp $
+ * $Id: play.c,v 1.440 2017/03/18 22:40:07 plm Exp $
  */
 
 #include "config.h"
@@ -3907,8 +3907,9 @@ CommandTake(char *UNUSED(sz))
     }
 
     if (!move_not_last_in_match_ok())
+        return;
 
-        playSound(SOUND_TAKE);
+    playSound(SOUND_TAKE);
 
     pmr = NewMoveRecord();
 
