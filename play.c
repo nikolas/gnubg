@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.438 2016/10/23 13:12:13 plm Exp $
+ * $Id: play.c,v 1.439 2016/10/23 20:42:56 plm Exp $
  */
 
 #include "config.h"
@@ -3502,7 +3502,7 @@ CommandPreviousRoll(char *UNUSED(sz))
 #if defined (USE_GTK)
         if (fX) {
             BoardData *bd = BOARD(pwBoard)->board_data;
-            bd->diceRoll[0] = bd->diceRoll[1] = -1;
+            bd->diceRoll[0] = bd->diceRoll[1] = 0;
         }
 #endif
 
@@ -4634,7 +4634,7 @@ CommandClearTurn(char *UNUSED(sz))
 #if defined (USE_GTK)
     if (fX) {
         BoardData *bd = BOARD(pwBoard)->board_data;
-        bd->diceRoll[0] = bd->diceRoll[1] = -1;
+        bd->diceRoll[0] = bd->diceRoll[1] = 0;
     }
 #endif
     ms.anDice[0] = ms.anDice[1] = 0;

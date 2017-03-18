@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.403 2016/11/01 14:37:59 plm Exp $
+ * $Id: set.c,v 1.404 2016/11/01 14:56:43 plm Exp $
  */
 
 #include "config.h"
@@ -310,7 +310,7 @@ SetMoveFilter(char *sz, movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
         return;
     }
 
-    if (((extras = ParseNumber(&sz)) < 0) || ((tolerance = ParseReal(&sz)) < 0.0)) {
+    if (((extras = ParseNumber(&sz)) < 0) || ((tolerance = ParseReal(&sz)) < 0.0f)) {
         outputf(_("You must set a count of extra moves and a search tolerance "
                   "(see `help set %s movefilter')."), szSetCommand);
         return;
@@ -2646,9 +2646,8 @@ SetTurn(int i)
     fNextTurn = FALSE;
 #if defined(USE_GTK)
     if (fX) {
-
         BoardData *bd = BOARD(pwBoard)->board_data;
-        bd->diceRoll[0] = bd->diceRoll[1] = -1;
+        bd->diceRoll[0] = bd->diceRoll[1] = 0;
         fJustSwappedPlayers = TRUE;
     }
 #endif
