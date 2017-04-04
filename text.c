@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.112 2017/01/29 18:34:16 plm Exp $
+ * $Id: text.c,v 1.113 2017/01/29 18:52:07 plm Exp $
  */
 
 #include "config.h"
@@ -229,7 +229,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.112 $";
+    const char szVersion[] = "$Revision: 1.113 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -851,7 +851,6 @@ CommandExportMatchText(char *sz)
     }
 
     /* Find number of games in match */
-
     for (pl = lMatch.plNext, nGames = 0; pl != &lMatch; pl = pl->plNext, nGames++);
 
     for (pl = lMatch.plNext, i = 0; pl != &lMatch; pl = pl->plNext, i++) {
@@ -860,8 +859,10 @@ CommandExportMatchText(char *sz)
 
         if (!i) {
 
-            if (!confirmOverwrite(sz, fConfirmSave))
+            if (!confirmOverwrite(sz, fConfirmSave)) {
+                g_free(szCurrent);
                 return;
+            }
 
             setDefaultFileName(sz);
 
@@ -872,6 +873,7 @@ CommandExportMatchText(char *sz)
             pf = stdout;
         else if ((pf = gnubg_g_fopen(szCurrent, "w")) == 0) {
             outputerr(szCurrent);
+            g_free(szCurrent);
             return;
         }
 
@@ -880,6 +882,7 @@ CommandExportMatchText(char *sz)
         if (pf != stdout)
             fclose(pf);
 
+        g_free(szCurrent);
     }
 
 }
