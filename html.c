@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.240 2016/05/07 20:50:52 plm Exp $
+ * $Id: html.c,v 1.241 2016/05/07 20:54:41 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.240 2016/05/07 20:50:52 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.241 2016/05/07 20:54:41 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1580,7 +1580,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.240 $";
+    const char szVersion[] = "$Revision: 1.241 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1650,7 +1650,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.240 $";
+    const char szVersion[] = "$Revision: 1.241 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -1939,7 +1939,7 @@ HTMLPrintCubeAnalysisTable(FILE * pf,
             "<td colspan=\"2\" %s>%s",
             _("Proper cube action:"), GetStyle(CLASS_CUBE_ACTION, hecss), GetCubeRecommendation(cd));
 
-    if ((r = getPercent(cd, arDouble)) >= 0.0)
+    if ((r = getPercent(cd, arDouble)) >= 0.0f)
         fprintf(pf, " (%.1f%%)", 100.0f * r);
 
 
@@ -3000,16 +3000,15 @@ CommandExportMatchHtml(char *sz)
             aszLinks[2] = g_path_get_basename(filenames[2]);
         }
 
-
-
         filenames[3] = filename_from_iGame(sz, nGames - 1);
         aszLinks[3] = g_path_get_basename(filenames[3]);
         if (!i) {
 
             if (!confirmOverwrite(sz, fConfirmSave)) {
-                for (j = 0; j < 4; j++)
+                for (j = 0; j < 4; j++) {
+                    g_free(aszLinks[j]);
                     g_free(filenames[j]);
-
+                }
                 g_free(szCurrent);
                 return;
             }
@@ -3023,9 +3022,10 @@ CommandExportMatchHtml(char *sz)
             pf = stdout;
         else if (!(pf = gnubg_g_fopen(szCurrent, "w"))) {
             outputerr(szCurrent);
-            for (j = 0; j < 4; j++)
+            for (j = 0; j < 4; j++) {
+                g_free(aszLinks[j]);
                 g_free(filenames[j]);
-
+            }
             g_free(szCurrent);
             return;
         }
@@ -3034,9 +3034,10 @@ CommandExportMatchHtml(char *sz)
                        exsExport.szHTMLPictureURL, exsExport.szHTMLExtension,
                        exsExport.het, exsExport.hecss, i, i == nGames - 1, aszLinks);
 
-        for (j = 0; j < 4; j++)
+        for (j = 0; j < 4; j++) {
+            g_free(aszLinks[j]);
             g_free(filenames[j]);
-
+        }
         g_free(szCurrent);
 
         if (pf != stdout)
