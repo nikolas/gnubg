@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.440 2017/03/18 22:40:07 plm Exp $
+ * $Id: play.c,v 1.441 2017/03/18 22:44:53 plm Exp $
  */
 
 #include "config.h"
@@ -1588,7 +1588,7 @@ CancelCubeAction(void)
 
         /* FIXME should fTurn be set to fMove? */
         /* TurnDone(); Removed. Causes problems when called during
-         * analysematch */
+         * analyse match */
         /* FIXME delete all MOVE_DOUBLE records */
     }
 }
@@ -1726,11 +1726,11 @@ NextTurn(int fPlayNext)
         else if (ms.gs == GAME_DROP)
             n = 1;
         else if (ms.gs == GAME_RESIGNED)
-            n = ms.fResigned;
+            /* FIXME: in some circumstances gs==GAME_RESIGNED but fResigned==0
+               this causes a read out of bounds in aszGameResult[] below */
+            n = MAX(ms.fResigned, 1);
         else
             n = GameStatus(msBoard(), ms.bgv);
-
-
 
         playSound(ap[pmgi->fWinner].pt == PLAYER_HUMAN ? SOUND_HUMAN_WIN_GAME : SOUND_BOT_WIN_GAME);
 
@@ -3386,7 +3386,7 @@ CommandEndGame(char *UNUSED(sz))
     fEndGame = FALSE;
 
     /* If the game ended in a resign then make sure the
-     * the state for the user truly reflects the game is over
+     * state for the user truly reflects the game is over
      * and that no further action from them is necessary */
     if (ms.fResigned) {
         ms.fResigned = 0;
