@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf.c,v 1.159 2016/01/31 13:34:29 plm Exp $
+ * $Id: sgf.c,v 1.160 2017/03/04 21:04:13 plm Exp $
  */
 
 #include "config.h"
@@ -84,8 +84,7 @@ FreeList(listOLD * pl, int nLevel)
         ListDelete(pl->plNext);
     }
 
-    if (nLevel != 4)
-        free(pl);
+    free(pl);
 }
 
 static void
