@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.12 2016/01/27 20:58:42 plm Exp $
+ * $Id: sgf_y.y,v 1.13 2016/05/11 21:33:08 plm Exp $
  */
 
 %{
@@ -33,7 +33,7 @@
 #include "sgf.h"
 
 /* Resolve a warning on older GLIBC/GNU systems that have stpcpy */
-#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
+#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE && !defined(__USE_XOPEN2K8)
 extern char *stpcpy(char *s1, const char *s2);
 #endif
 

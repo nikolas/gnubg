@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external_y.y,v 1.32 2015/02/08 17:23:29 plm Exp $
+ * $Id: external_y.y,v 1.33 2015/10/08 00:29:38 mdpetch Exp $
  */
 
 #ifndef EXTERNAL_Y_H
@@ -80,7 +80,7 @@
 #include "external_y.h"
 
 /* Resolve a warning on older GLIBC/GNU systems that have stpcpy */
-#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE
+#if defined __GLIBC__ && defined _STRING_H && defined _GNU_SOURCE && !defined(__USE_XOPEN2K8)
 extern char *stpcpy(char *s1, const char *s2);
 #endif
 
