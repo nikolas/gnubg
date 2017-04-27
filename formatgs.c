@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: formatgs.c,v 1.33 2012/09/01 18:49:57 plm Exp $
+ * $Id: formatgs.c,v 1.34 2013/06/16 02:16:12 mdpetch Exp $
  */
 
 #include "config.h"
@@ -568,9 +568,9 @@ formatGS(const statcontext * psc, const int nMatchTo, const enum _formatgs fg)
 
                 }
 
-
             }
-
+            if (list == NULL)
+                g_free(aasz);
         }
 
         break;
