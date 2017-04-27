@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: sgf_y.y,v 1.13 2016/05/11 21:33:08 plm Exp $
+ * $Id: sgf_y.y,v 1.14 2017/04/27 20:19:46 plm Exp $
  */
 
 %{
@@ -56,7 +56,7 @@ static int sgferror( const char *s ) {
 }
 
 static listOLD *NewList( void ) {
-    listOLD *pl = calloc(1,  sizeof( *pl ) );
+    listOLD *pl = malloc( sizeof( *pl ) );
     ListCreate( pl );
     return pl;
 }
