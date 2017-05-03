@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.442 2017/04/05 18:31:46 plm Exp $
+ * $Id: play.c,v 1.443 2017/04/20 20:36:46 plm Exp $
  */
 
 #include "config.h"
@@ -4088,6 +4088,14 @@ SetMatchID(const char *szMatchID)
 
     /* make sure that the hint record has the player on turn */
     get_current_moverecord(NULL);
+
+#if defined(USE_GTK)
+    if (fX) {
+        BoardData *bd = BOARD(pwBoard)->board_data;
+        bd->diceRoll[0] = anDice[0];
+        bd->diceRoll[1] = anDice[1];
+    }
+#endif
 
     ShowBoard();
 }
