@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.90 2016/08/24 21:52:22 plm Exp $
+ * $Id: gtkcube.c,v 1.91 2017/05/19 21:28:25 plm Exp $
  */
 
 #include "config.h"
@@ -1013,8 +1013,10 @@ CreateCubeAnalysis(moverecord * pmr, const matchstate * pms, int did_double, int
 
     }
 
-    if (!pchd->pwFrame)
+    if (!pchd->pwFrame) {
+        g_free(pchd);
         return NULL;
+    }
 
     gtk_box_pack_start(GTK_BOX(pw), pchd->pwFrame, FALSE, FALSE, 0);
 
