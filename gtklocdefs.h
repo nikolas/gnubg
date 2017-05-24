@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtklocdefs.h,v 1.14 2016/04/30 14:12:38 plm Exp $
+ * $Id: gtklocdefs.h,v 1.15 2016/08/19 22:57:24 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -41,7 +41,6 @@ typedef const GdkRectangle gtk_locdef_cell_area;
 #define gtk_locdef_create_rectangle(r) cairo_region_create_rectangle(r)
 #define gtk_locdef_union_rectangle(pr, r) cairo_region_union_rectangle(pr, r)
 #define gtk_locdef_region_destroy(pr) cairo_region_destroy(pr)
-#define gtk_locdef_handle_box_new() gtk_vbox_new(FALSE, 0)
 #define gtk_locdef_paint_vline(style, window, cr, state_type, area, widget, detail, y1, y2, x) \
     gtk_paint_vline(style, cr, state_type, widget, detail, y1, y2, x)
 #define gtk_locdef_paint_layout(style, window, cr, state_type, use_text, area, widget, detail, x, y, layout) \
@@ -64,7 +63,6 @@ typedef void *GtkCssProvider;
 #define gtk_locdef_create_rectangle(r) gdk_region_rectangle(r)
 #define gtk_locdef_union_rectangle(pr, r) gdk_region_union_with_rect(pr, r)
 #define gtk_locdef_region_destroy(pr) gdk_region_destroy(pr)
-#define gtk_locdef_handle_box_new() gtk_handle_box_new()
 #define gtk_locdef_paint_vline(style, window, cr, state_type, area, widget, detail, y1, y2, x) \
     gtk_paint_vline(style, window, state_type, area, widget, detail, y1, y2, x)
 #define gtk_locdef_paint_layout(style, window, cr, state_type, use_text, area, widget, detail, x, y, layout) \
