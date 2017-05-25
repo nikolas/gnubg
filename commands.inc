@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.48 2016/07/13 19:57:33 plm Exp $ */
+/* $Id: commands.inc,v 1.49 2016/07/16 22:03:31 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -210,13 +210,13 @@ static command acAnnotateRoll[] = {
       "PS format"), szFILENAME, &cFilename },
     { NULL, NULL, NULL, NULL, NULL }
 }, acExportPosition[] = {
-    { "gammonline", CommandExportPositionGammOnLine,
-      N_("Save the current position in .html format "
-         "(special for GammOnLine)"), 
-      szFILENAME, &cFilename },
-    { "gol2clipboard", CommandExportPositionGOL2Clipboard,
+    { "bgo2clipboard", CommandExportPositionGOL2Clipboard,
       N_("Copy the current position in .html format to clipboard"
-         "(special for GammOnLine)"), 
+         "(special for BGonline)"),
+      szFILENAME, &cFilename },
+    { "bgonline", CommandExportPositionGammOnLine,
+      N_("Save the current position in .html format "
+         "(special for BGonline)"),
       szFILENAME, &cFilename },
 #if defined(HAVE_PANGOCAIRO)
     { "ps", CommandExportPositionPS, N_("Save the current position in "

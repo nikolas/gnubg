@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.908 2017/02/07 22:51:53 plm Exp $
+ * $Id: gtkgame.c,v 1.909 2017/05/24 21:40:47 plm Exp $
  */
 
 #include "config.h"
@@ -1426,7 +1426,7 @@ static void
 CopyAsGOL(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
 
-    UserCommand("export position gol2clipboard");
+    UserCommand("export position bgo2clipboard");
 
 }
 
@@ -3160,7 +3160,7 @@ static GtkActionEntry actionEntries[] = {
 
     {"CopyAsMenuAction", NULL, N_("Copy as"), NULL, NULL, G_CALLBACK(NULL)},
     {"CopyPosAsAsciiAction", NULL, N_("Position as ASCII"), NULL, NULL, G_CALLBACK(CommandCopy)},
-    {"CopyAsGammOnLineAction", NULL, N_("GammOnLine (HTML)"), NULL, NULL, G_CALLBACK(CopyAsGOL)},
+    {"CopyAsGammOnLineAction", NULL, N_("BGonline (HTML)"), NULL, NULL, G_CALLBACK(CopyAsGOL)},
 
     {"PasteIDAction", GTK_STOCK_PASTE, N_("_Paste ID"), "<control>V", NULL, G_CALLBACK(PasteIDs)},
 
@@ -3355,7 +3355,7 @@ static GtkItemFactoryEntry aife[] = {
     {N_("/_Edit/Copy as"), NULL, NULL, 0, "<Branch>", NULL},
     {N_("/_Edit/Copy as/Position as ASCII"), NULL,
      CommandCopy, 0, NULL, NULL},
-    {N_("/_Edit/Copy as/GammOnLine (HTML)"), NULL,
+    {N_("/_Edit/Copy as/BGonline (HTML)"), NULL,
      CopyAsGOL, 0, NULL, NULL},
 
     {N_("/_Edit/_Paste ID"), "<control>V", PasteIDs, 0,
