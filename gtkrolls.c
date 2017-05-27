@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.38 2015/10/24 21:39:04 plm Exp $
+ * $Id: gtkrolls.c,v 1.39 2017/05/19 21:32:02 plm Exp $
  */
 
 #include "config.h"
@@ -377,7 +377,7 @@ GTKShowRolls(const gint nDepth, evalcontext * pec, matchstate * pms)
     gtk_box_pack_start(GTK_BOX(hbox), gtk_label_new(_("Depth")), FALSE, FALSE, 4);
 
     /* Set page size to 1 */
-    padj = GTK_ADJUSTMENT(gtk_adjustment_new(1., 1., 5., 1., 1., 0.));
+    padj = GTK_ADJUSTMENT(gtk_adjustment_new(1., 1., 4., 1., 1., 0.));
 #if GTK_CHECK_VERSION(3,0,0)
     prw->pScale = gtk_scale_new(GTK_ORIENTATION_HORIZONTAL, padj);
 #else
