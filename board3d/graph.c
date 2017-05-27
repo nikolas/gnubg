@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: graph.c,v 1.30 2012/12/16 18:09:01 plm Exp $
+ * $Id: graph.c,v 1.31 2013/06/16 02:16:22 mdpetch Exp $
  */
 
 
@@ -43,7 +43,6 @@ struct _GraphData {
 #define NUM_WIDTH_PER .1f
 #define NUM_HEIGHT (modelHeight * NUM_HEIGHT_PER)
 #define NUM_HEIGHT_PER .15f
-/*#define TOT_WIDTH (NUM_HEIGHT * 3) */
 
 static float modelWidth, modelHeight;
 static OGLFont *numberFont = NULL, *totalText = NULL;
@@ -360,7 +359,7 @@ CreateGraphData(void)
 void
 TidyGraphData(GraphData * pgd)
 {
-    Free3d(pgd->data, pgd->numGames, 2);
+    Free3d(pgd->data, pgd->numGames + 1, 2);
     free(pgd);
 }
 
