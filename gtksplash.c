@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtksplash.c,v 1.33 2011/08/31 00:50:44 mdpetch Exp $
+ * $Id: gtksplash.c,v 1.34 2013/06/16 02:16:16 mdpetch Exp $
  */
 
 #include "config.h"
@@ -56,7 +56,11 @@ CreateSplash(void)
 
     /* content of page */
 
+#if GTK_CHECK_VERSION(3,0,0)
+    pwvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+#else
     pwvbox = gtk_vbox_new(FALSE, 0);
+#endif
     gtk_container_add(GTK_CONTAINER(pgs->pwWindow), pwvbox);
 
     /* image */
@@ -69,7 +73,12 @@ CreateSplash(void)
     gtk_box_pack_start(GTK_BOX(pwvbox), pwFrame = gtk_frame_new(NULL), FALSE, FALSE, 0);
     gtk_frame_set_shadow_type(GTK_FRAME(pwFrame), GTK_SHADOW_ETCHED_OUT);
 
-    gtk_container_add(GTK_CONTAINER(pwFrame), pwb = gtk_vbox_new(FALSE, 0));
+#if GTK_CHECK_VERSION(3,0,0)
+    pwb = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+#else
+    pwb = gtk_vbox_new(FALSE, 0);
+#endif
+    gtk_container_add(GTK_CONTAINER(pwFrame), pwb);
 
     /* status bar */
 
