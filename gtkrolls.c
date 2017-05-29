@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.40 2017/05/27 19:48:22 plm Exp $
+ * $Id: gtkrolls.c,v 1.41 2017/05/29 15:01:56 plm Exp $
  */
 
 #include "config.h"
@@ -358,7 +358,7 @@ GTKShowRolls(const gint nDepth, evalcontext * pec, matchstate * pms)
 #if GTK_CHECK_VERSION(3,0,0)
 /* This is apparently needed in 3.18.9 (Ubuntu 16.04)
    but no longer in 3.22.15 (Fedora 25 / FreeBSD) */
-    g_object_set(G_OBJECT(prw->psw, "expand", TRUE, NULL);
+    g_object_set(G_OBJECT(prw->psw), "expand", TRUE, NULL);
 #endif
     gtk_scrolled_window_set_shadow_type(GTK_SCROLLED_WINDOW(prw->psw), GTK_SHADOW_ETCHED_IN);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(prw->psw), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
