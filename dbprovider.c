@@ -19,17 +19,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.51 2016/04/08 05:24:53 plm Exp $
+ * $Id: dbprovider.c,v 1.52 2016/05/14 22:28:32 plm Exp $
  */
 
 #include "config.h"
 #include "gnubgmodule.h"
-#include "stdlib.h"
-
 #include "backgammon.h"
+#include "dbprovider.h"
+
+#include <stdlib.h>
 #include <glib/gstdio.h>
 #include <string.h>
-#include "dbprovider.h"
 
 DBProviderType dbProviderType = (DBProviderType) 0;
 int storeGameStats = TRUE;
@@ -149,9 +149,7 @@ FreeRowset(RowSet * pRow)
     }
     free(pRow->data);
 
-    pRow->cols = pRow->rows = 0;
-    pRow->data = NULL;
-    pRow->widths = NULL;
+    free(pRow);
 }
 
 int
@@ -163,8 +161,10 @@ RunQueryValue(const DBProvider * pdb, const char *query)
         int id = (int)strtol(rs->data[1][0], NULL, 0);
         FreeRowset(rs);
         return id;
-    } else
+    } else {
+        FreeRowset(rs);
         return -1;
+    }
 }
 
 extern RowSet *

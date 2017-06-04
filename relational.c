@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.74 2015/07/31 23:40:25 mdpetch Exp $
+ * $Id: relational.c,v 1.75 2017/06/04 15:31:04 plm Exp $
  */
 
 #include "config.h"
@@ -777,6 +777,7 @@ CommandRelationalSelect(char *sz)
 
     if (rs->rows == 0) {
         outputl(_("No rows found.\n"));
+        FreeRowset(rs);
         return;
     }
 #if USE_GTK
