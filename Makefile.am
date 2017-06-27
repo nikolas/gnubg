@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.264 2017/01/04 22:55:45 plm Exp $
+## $Id: Makefile.am,v 1.265 2017/02/19 19:49:12 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -129,7 +129,6 @@ gnubg_SOURCES = \
 		sound.c \
 		sound.h \
 		speed.c \
-		speed.h \
 		text.c \
 		timer.c \
 		util.h \
