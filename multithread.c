@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.90 2014/07/26 06:23:35 mdpetch Exp $
+ * $Id: multithread.c,v 1.91 2016/01/03 17:19:04 plm Exp $
  */
 
 #include "config.h"
@@ -31,17 +31,16 @@
 #include <stdio.h>
 #include <string.h>
 #include <glib.h>
-#if USE_GTK
+#if defined(USE_GTK)
 #include <gtkgame.h>
 #endif
 
 #include "multithread.h"
-#include "speed.h"
 #include "rollout.h"
 #include "util.h"
 #include "lib/simd.h"
 
-#if USE_MULTITHREAD
+#if defined(USE_MULTITHREAD)
 extern unsigned int
 MT_GetNumThreads(void)
 {
@@ -294,7 +293,7 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
 
     /* Set total tasks to wait for */
     td.totalTasks = td.addedTasks;
-#if USE_GTK
+#if defined(USE_GTK)
     GTKSuspendInput();
 #endif
 
@@ -318,7 +317,7 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
     td.doneTasks = td.addedTasks = 0;
     td.totalTasks = -1;
 
-#if USE_GTK
+#if defined(USE_GTK)
     GTKResumeInput();
 #endif
     return td.result;
@@ -386,8 +385,7 @@ MT_SyncEnd(void)
 #else
 #include "multithread.h"
 #include <stdlib.h>
-#if USE_GTK
-#include <gtk/gtk.h>
+#if defined(USE_GTK)
 #include <gtkgame.h>
 #endif
 
@@ -428,7 +426,7 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
     (void) callbackTime;        /* silence compiler warning */
     td.doneTasks = 0;
 
-#if USE_GTK
+#if defined(USE_GTK)
     GTKSuspendInput();
 #endif
 
@@ -454,7 +452,7 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
     g_source_remove(cb_source);
     td.tasks = NULL;
 
-#if USE_GTK
+#if defined(USE_GTK)
     GTKResumeInput();
 #endif
     return td.result;
