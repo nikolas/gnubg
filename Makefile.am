@@ -1,4 +1,4 @@
-## $Id: Makefile.am,v 1.265 2017/02/19 19:49:12 plm Exp $
+## $Id: Makefile.am,v 1.266 2017/06/27 19:34:18 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -160,7 +160,7 @@ endif
 endif
 gnubg_LDADD += @GTK_LIBS@ @LIBPNG_LIBS@ @CAIRO_LIBS@ @PANGOCAIRO_LIBS@ \
 	      @GTHREAD_LIBS@ @GOBJECT_LIBS@ \
-	      @READLINE_LIBS@ @LTLIBOBJS@ \
+	      @READLINE_LIBS@ @GMP_LIB@ @LTLIBOBJS@ \
 	      @FREETYPE2_LIBS@ @GLIB_LIBS@ @CANBERRA_LIBS@ \
 	      @LIBCURL@ $(OTHER_LIBS)
 
@@ -168,7 +168,7 @@ if USE_SQLITE
 gnubg_LDADD += @SQLITE_LIBS@
 endif
 if USE_PYTHON
-gnubg_LDADD += @PYTHON_LIBS@ 
+gnubg_LDADD += @PYTHON_LIBS@
 endif
 if USE_BOARD3D
 gnubg_LDADD += -L$(srcdir)/board3d board3d/libboard3d.la $(GTKGLEXT_LIBS) $(GLU_LIBS)

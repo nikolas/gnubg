@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.71 $)
+AC_REVISION($Revision: 1.72 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -229,7 +229,6 @@ dnl Checks for libraries.
 dnl
 
 AC_CHECK_LIB(m,sqrt)
-AC_CHECK_LIB(gmp, __gmpz_import)
 AC_SEARCH_LIBS(gethostbyname,nsl)
 AC_SEARCH_LIBS(inet_aton,resolv)
 if test "x$win32" = "xyes"; then
@@ -252,6 +251,20 @@ if test "$bcrl" = "y" ; then
     AC_DEFINE([HAVE_LIB_READLINE],1,Define if you have libreadline)
     fi
 AC_SUBST(READLINE_LIBS)
+
+dnl
+dnl Check for gmp
+dnl 
+
+bcgmp=n
+AC_CHECK_LIB(gmp,__gmpz_import,
+             [AC_CHECK_HEADER(gmp.h,
+              GMP_LIB="-lgmp";bcgmp=y)],
+              GMP_LIB="")
+if test "$bcgmp" = "y" ; then
+    AC_DEFINE([HAVE_LIBGMP],1,Define if you have libgmp)
+    fi
+AC_SUBST(GMP_LIB)
 
 dnl
 dnl Checks for header files.
