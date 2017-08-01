@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.443 2017/04/20 20:36:46 plm Exp $
+ * $Id: play.c,v 1.444 2017/05/03 20:17:48 plm Exp $
  */
 
 #include "config.h"
@@ -785,10 +785,11 @@ NewGame(void)
         ms.fCrawford = fCrawfordState & 0x1;
         ms.fPostCrawford = (fCrawfordState & 0x2) >> 1;
     } else {
-       if (ms.nMatchTo && fAutoCrawford) {
+        if (ms.nMatchTo && fAutoCrawford) {
             ms.fPostCrawford |= ms.fCrawford && MAX(ms.anScore[0], ms.anScore[1]) < ms.nMatchTo;
             ms.fCrawford = !ms.fPostCrawford && !ms.fCrawford &&
-                MAX(ms.anScore[0], ms.anScore[1]) == ms.nMatchTo - 1 && MIN(ms.anScore[0], ms.anScore[1]) < ms.nMatchTo - 1;
+                MAX(ms.anScore[0], ms.anScore[1]) == ms.nMatchTo - 1
+                && MIN(ms.anScore[0], ms.anScore[1]) < ms.nMatchTo - 1;
         }
     }
 
@@ -1738,7 +1739,7 @@ NextTurn(int fPlayNext)
             n = 1;
         else if (ms.gs == GAME_RESIGNED)
             /* FIXME: in some circumstances gs==GAME_RESIGNED but fResigned==0
-               this causes a read out of bounds in aszGameResult[] below */
+             * this causes a read out of bounds in aszGameResult[] below */
             n = MAX(ms.fResigned, 1);
         else
             n = GameStatus(msBoard(), ms.bgv);
@@ -3040,7 +3041,8 @@ CommandFirstMove(char *UNUSED(sz))
 extern void
 CommandFirstGame(char *UNUSED(sz))
 {
-    ChangeGame(lMatch.plNext->p);
+    if (lMatch.plNext->p)       /* Match not empty */
+        ChangeGame(lMatch.plNext->p);
 }
 
 static void
@@ -3186,7 +3188,7 @@ ShowMark(moverecord * pmr)
 
 }
 
-int
+extern int
 InternalCommandNext(int mark, int cmark, int n)
 {
     int done = 0;

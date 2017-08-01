@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.187 2016/06/22 21:06:57 plm Exp $
+ * $Id: gnubgmodule.c,v 1.188 2017/02/19 15:36:16 plm Exp $
  */
 
 #include "config.h"
@@ -37,6 +37,7 @@
 #include "matchid.h"
 #include "util.h"
 #include "lib/gnubg-types.h"
+#include "lib/simd.h"
 
 #if defined(USE_GTK)
 #include "gtkgame.h"
@@ -3023,7 +3024,8 @@ PythonNavigate(PyObject * UNUSED(self), PyObject * args, PyObject * keywds)
 
     if (nextRecord == INT_MIN && nextGame == INT_MIN) {
         /* no args, go to start */
-        ChangeGame(lMatch.plNext->p);
+        if (lMatch.plNext->p)       /* Match not empty */
+            ChangeGame(lMatch.plNext->p);
     } else {
 
         if (nextRecord != INT_MIN && nextRecord < 0) {
