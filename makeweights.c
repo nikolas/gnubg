@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makeweights.c,v 1.24 2013/06/16 02:16:18 mdpetch Exp $
+ * $Id: makeweights.c,v 1.25 2015/07/31 23:40:25 mdpetch Exp $
  */
 
 #include "config.h"
@@ -100,6 +100,7 @@ main(int argc, /*lint -e{818} */ char *argv[])
             fprintf(stderr, "Failed to save neural net!");
             return EXIT_FAILURE;
         }
+        NeuralNetDestroy(&nn);
     }
 
     fprintf(stderr, _("%d nets converted\n"), c);
