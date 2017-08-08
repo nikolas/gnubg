@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makebearoff.c,v 1.98 2015/10/14 21:34:47 plm Exp $
+ * $Id: makebearoff.c,v 1.99 2016/12/30 22:22:50 plm Exp $
  */
 
 #include "config.h"
@@ -675,6 +675,7 @@ generate_os(const int nOS, const int fHeader,
         fclose(pfTmp);
 
         g_unlink(tmpfile);
+        g_free(tmpfile);
 
     }
     putc('\n', stderr);
@@ -1254,6 +1255,7 @@ generate_ts(const int nTSP, const int nTSC,
     fclose(pfTmp);
 
     g_unlink(tmpfile);
+    g_free(tmpfile);
 
 }
 
@@ -1263,7 +1265,7 @@ generate_ts(const int nTSP, const int nTSC,
 static void
 version(void)
 {
-    printf("makebearoff $Revision: 1.98 $\n");
+    printf("makebearoff $Revision: 1.99 $\n");
 }
 
 
