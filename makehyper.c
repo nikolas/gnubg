@@ -1,7 +1,7 @@
 /*
  * makehyper.c
  *
- * by Jørn Thyssen <jth@gnubg.org>, 2003
+ * by Joern Thyssen <jth@gnubg.org>, 2003
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.48 2015/07/31 23:40:25 mdpetch Exp $
+ * $Id: makehyper.c,v 1.49 2015/10/14 21:29:40 plm Exp $
  */
 
 #include "config.h"
@@ -473,7 +473,7 @@ CalcNewEquity(hyperequity ahe[], const int nC, float arNorm[])
 
     for (i = 0; i < nPos; ++i) {
 
-        printf("\r%d/%d              ", i, nPos);
+        printf("\r%d/%d              ", i + 1, nPos);
         fflush(stdout);
 
         for (j = 0; j < nPos; ++j) {
@@ -674,7 +674,7 @@ main(int argc, char **argv)
 
     printf(_("Time for start guess: %d seconds\n"), (int) (t1 - t0));
 
-    it = 0;
+    it = 1;
 
     do {
 
@@ -712,6 +712,9 @@ main(int argc, char **argv)
     time(&t1);
 
     printf(_("Time for writing final file: %d seconds\n"), (int) (t1 - t0));
+
+    free(aheEquity);
+    g_free(szOutput);
 
     time(&t3);
 
