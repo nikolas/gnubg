@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.89 2017/02/18 16:10:15 plm Exp $
+ * $Id: neuralnet.c,v 1.90 2017/02/18 16:19:44 plm Exp $
  */
 
 #include "config.h"
@@ -373,6 +373,8 @@ SIMD_Supported(void)
 
 #else
 
+#if defined(HAVE_SSE)
+
 #if defined(__APPLE__) || defined(__FreeBSD__)
 #include <sys/sysctl.h>
 #endif
@@ -546,13 +548,19 @@ CheckSSE(void)
     return result;
 }
 
+#endif /* HAVE_SSE */
+
 int
 SIMD_Supported(void)
 {
     static int state = -3;
 
     if (state == -3)
+#if defined(HAVE_SSE)
         state = CheckSSE();
+#else
+        state = -2;
+#endif
 
     return state;
 }
