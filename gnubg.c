@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.985 2017/01/08 20:39:14 plm Exp $
+ * $Id: gnubg.c,v 1.986 2017/01/29 18:52:07 plm Exp $
  */
 
 #include "config.h"
@@ -234,11 +234,10 @@ float arLuckLevel[] = {
     0.3f,                       /* LUCK_GOOD */
     0.6f                        /* LUCK_VERYGOOD */
 }, arSkillLevel[] = {
-
     0.16f,                      /* SKILL_VERYBAD */
-        0.08f,                  /* SKILL_BAD */
-        0.04f,                  /* SKILL_DOUBTFUL */
-        0,                      /* SKILL_NONE */
+    0.08f,                      /* SKILL_BAD */
+    0.04f,                      /* SKILL_DOUBTFUL */
+    0                           /* SKILL_NONE */
 };
 
 #include "movefilters.inc"
@@ -1116,6 +1115,7 @@ PortableSignal(int nSignal, void (*p) (int), psighandler * pOld, int fRestart)
 
     sigvec(nSignal, p ? &sv : NULL, pOld);
 #else
+    (void) fRestart;            /* silence compiler warning */
     if (pOld)
         *pOld = signal(nSignal, p);
     else if (p)
