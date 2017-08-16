@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.251 2016/08/28 22:29:38 plm Exp $
+ * $Id: rollout.c,v 1.252 2017/03/07 22:51:27 plm Exp $
  */
 
 #include "config.h"
@@ -243,7 +243,7 @@ RolloutDice(int iTurn, int iGame,
                 int n;
                 if ((n = RollDice(anDice, rngx, rngctx)) != 0)
                     return n;
-            } while (fInitial && !iTurn && anDice[0] == anDice[1]);
+            } while (anDice[0] == anDice[1]);
 
             return 0;
         }
