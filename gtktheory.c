@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.64 2016/10/16 15:42:13 plm Exp $
+ * $Id: gtktheory.c,v 1.65 2017/08/19 22:05:04 plm Exp $
  */
 
 #include "config.h"
@@ -604,14 +604,15 @@ GTKShowTheory(const int fActivePage)
 
     theorywidget *ptw;
 
-    ptw = malloc(sizeof(theorywidget));
-
     /* create dialog */
 
     pwDialog = GTKCreateDialog(_("GNU Backgammon - Theory"), DT_INFO,
                                NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_NOTIDY, NULL, NULL);
 
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), 660, 300);
+
+    ptw = malloc(sizeof(theorywidget));
+    g_object_set_data_full(G_OBJECT(pwDialog), "theorywidget", ptw, free);
 
 #if GTK_CHECK_VERSION(3,0,0)
     pwOuterHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
