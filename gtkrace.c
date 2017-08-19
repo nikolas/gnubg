@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrace.c,v 1.43 2016/07/16 22:03:31 plm Exp $
+ * $Id: gtkrace.c,v 1.44 2017/08/19 21:50:09 plm Exp $
  */
 
 #include "config.h"
@@ -388,6 +388,8 @@ GTKShowRace(TanBoard anBoard)
                              TwoSidedPage(anBoard, prw->fMove), gtk_label_new(_("Two-Sided Database")));
 
     g_signal_connect_after(G_OBJECT(pwNotebook), "switch-page", G_CALLBACK(set_current_page), pwNotebook);
+
+    g_object_set_data_full(G_OBJECT(pwDialog), "racewidget", prw, free);
 
     /* show dialog */
 
