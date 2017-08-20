@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.340 2017/07/24 21:31:59 plm Exp $
+ * $Id: gtkboard.c,v 1.341 2017/08/19 20:38:07 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -4193,6 +4193,7 @@ DestroySetDice(GtkWidget * po, void *data)
     free(sdd->TTachGrayDice);
     free(sdd->TTachGrayPip);
     gtk_widget_destroy(gtk_widget_get_toplevel(po));
+    free(sdd);
 }
 
 #if defined(USE_BOARD3D)
