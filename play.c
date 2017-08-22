@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.444 2017/05/03 20:17:48 plm Exp $
+ * $Id: play.c,v 1.445 2017/08/01 21:52:14 plm Exp $
  */
 
 #include "config.h"
@@ -683,12 +683,6 @@ SetMoveRecord(void *pv)
 extern void
 ClearMoveRecord(void)
 {
-
-#if defined (USE_GTK)
-    if (fX)
-        GTKClearMoveRecord();
-#endif
-
     plLastMove = plGame = malloc(sizeof(*plGame));
     ListCreate(plGame);
 }
@@ -770,6 +764,11 @@ NewGame(void)
 
         PopGame(lMatch.plNext->p, TRUE);
     }
+
+#if defined (USE_GTK)
+    if (fX)
+        GTKClearMoveRecord();
+#endif
 
     InitBoard(ms.anBoard, ms.bgv);
 
@@ -2827,6 +2826,11 @@ CommandNewMatch(char *sz)
     if (!get_input_discard())
         return;
 
+#if defined (USE_GTK)
+    if (fX)
+        GTKClearMoveRecord();
+#endif
+
     FreeMatch();
     ClearMatch();
 
@@ -2862,6 +2866,11 @@ CommandNewSession(char *UNUSED(sz))
 {
     if (!get_input_discard())
         return;
+
+#if defined (USE_GTK)
+    if (fX)
+        GTKClearMoveRecord();
+#endif
 
     FreeMatch();
     ClearMatch();
@@ -4006,6 +4015,11 @@ SetMatchID(const char *szMatchID)
     fCrawfordState = -1;
 
     /* start new match or session */
+
+#if defined (USE_GTK)
+    if (fX)
+        GTKClearMoveRecord();
+#endif
 
     FreeMatch();
 
