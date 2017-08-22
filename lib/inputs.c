@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inputs.c,v 1.8 2013/07/18 02:01:24 mdpetch Exp $
+ * $Id: inputs.c,v 1.9 2014/07/20 21:18:29 plm Exp $
  */
 
 #include "config.h"
@@ -23,7 +23,7 @@
 #include "simd.h"
 #include "eval.h"
 
-#if USE_SIMD_INSTRUCTIONS
+#if defined(USE_SIMD_INSTRUCTIONS)
 #if defined(USE_AVX)
 #include <immintrin.h>
 #elif defined(USE_SSE2)
@@ -105,7 +105,7 @@ SSE_ALIGN(static float_vec_aligned inpvecb[16]) = {
         /* 15 */  {
 1.0, 1.0, 1.0, 6.0}};
 
-#if USE_SIMD_INSTRUCTIONS
+#if defined(USE_SIMD_INSTRUCTIONS)
 extern SIMD_AVX_STACKALIGN void
 baseInputs(const TanBoard anBoard, float arInput[])
 {
@@ -190,7 +190,7 @@ baseInputs(const TanBoard anBoard, float arInput[])
 
         /* Points */
         for (i = 0; i < 24; i++) {
-            int nc = board[i];
+            const unsigned int nc = board[i];
 
             afInput[i * 4 + 0] = inpvec[nc][0];
             afInput[i * 4 + 1] = inpvec[nc][1];
@@ -200,7 +200,7 @@ baseInputs(const TanBoard anBoard, float arInput[])
 
         /* Bar */
         {
-            int nc = board[24];
+            const unsigned int nc = board[24];
 
             afInput[24 * 4 + 0] = inpvecb[nc][0];
             afInput[24 * 4 + 1] = inpvecb[nc][1];
