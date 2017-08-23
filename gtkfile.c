@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.66 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkfile.c,v 1.67 2014/07/20 21:10:26 plm Exp $
  */
 
 #include "config.h"
@@ -381,8 +381,14 @@ GTKOpen(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
         } else {
             import_type--;      /* Ignore auto option */
             if (import_type == N_IMPORT_TYPES) {        /* Load command file */
-                CommandLoadCommands(fn);
-                UserCommand("save settings");
+                gchar *cmd = NULL;
+
+                cmd = g_strdup_printf("load commands \"%s\"", fn);
+                if (cmd) {
+                    UserCommand(cmd);
+                    UserCommand("save settings");
+                }
+                g_free(cmd);
             } else {            /* Import as specific type */
                 do_import_file(import_type, fn);
             }
@@ -398,16 +404,18 @@ GTKOpen(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 extern void
 GTKCommandsOpen(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
-    gchar *filename = NULL;
-    gchar *quoted = NULL;
+    gchar *filename = NULL, *cmd = NULL;
     GtkWidget *fc = GnuBGFileDialog(_("Open Commands file"), NULL, NULL, GTK_FILE_CHOOSER_ACTION_OPEN);
 
     if (gtk_dialog_run(GTK_DIALOG(fc)) == GTK_RESPONSE_ACCEPT) {
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fc));
-        quoted = g_strdup_printf("'%s'", filename);
-        CommandLoadCommands(quoted);
+        cmd = g_strdup_printf("load commands \"%s\"", filename);
+        if (cmd) {
+            UserCommand(cmd);
+            UserCommand("save settings");
+        }
+        g_free(cmd);
         g_free(filename);
-        g_free(quoted);
     }
     gtk_widget_destroy(fc);
 }
