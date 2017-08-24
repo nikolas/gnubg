@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.69 2017/08/23 20:58:21 plm Exp $
+ * $Id: gtkfile.c,v 1.70 2017/08/23 21:13:05 plm Exp $
  */
 
 #include "config.h"
@@ -315,7 +315,7 @@ import_types_combo(void)
         gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(type_combo), import_format[i].description);
 
     /* Extra option 'command file' */
-    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(type_combo), _("Gnubg Command file"));
+    gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(type_combo), _("GNUbg Command file"));
 
     return type_combo;
 }
@@ -334,10 +334,11 @@ do_import_file(gint import_type, gchar * fn)
     } else {
         cmd = g_strdup_printf("import %s \"%s\"", import_format[import_type].clname, fn);
     }
-    if (cmd)
+    if (cmd) {
         if (ToolbarIsEditing(NULL))
             click_edit();
         UserCommand(cmd);
+    }
     g_free(cmd);
 }
 
