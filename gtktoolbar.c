@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.75 2016/08/16 18:51:48 plm Exp $
+ * $Id: gtktoolbar.c,v 1.76 2016/08/24 21:55:31 plm Exp $
  */
 
 #include "config.h"
@@ -212,9 +212,8 @@ click_edit(void)
 {
     if (!inCallback) {
 #if defined(USE_GTKUIMANAGER)
-        gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(gtk_ui_manager_get_action(puim,
-                                                                                 "/MainMenu/EditMenu/EditPosition")),
-                                     TRUE);
+        GtkAction *editstatus = gtk_ui_manager_get_action(puim, "/MainMenu/EditMenu/EditPosition");
+        gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(editstatus), !gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(editstatus)));
 #else
         toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar), "toolbarwidget");
         gtk_button_clicked(GTK_BUTTON(ptw->pwEdit));
