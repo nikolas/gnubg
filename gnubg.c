@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.986 2017/01/29 18:52:07 plm Exp $
+ * $Id: gnubg.c,v 1.987 2017/08/16 19:31:40 plm Exp $
  */
 
 #include "config.h"
@@ -2355,7 +2355,7 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
         if (show)
             output(FormatMoveHint(szBuf, &ms, &pmr->ml, i, TRUE, TRUE, TRUE));
         else if (procdatarec && procdatarec->pfProcessRecord) {
-            procdatarec->avOutputData[PROCREC_HINT_ARGOUT_INDEX] = (void *) (long) i;
+            procdatarec->avOutputData[PROCREC_HINT_ARGOUT_INDEX] = (void *) (ptrdiff_t) i;
             if (!procdatarec->pfProcessRecord(procdatarec))
                 break;
         }
