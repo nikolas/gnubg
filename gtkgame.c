@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.912 2017/08/19 16:45:04 plm Exp $
+ * $Id: gtkgame.c,v 1.913 2017/08/26 15:32:33 plm Exp $
  */
 
 #include "config.h"
@@ -3278,7 +3278,7 @@ SetLanguage(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(w))
 static void
 ReportBug(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pwEvent))
 {
-    OpenURL("http://savannah.gnu.org/bugs/?func=additem&group=gnubg");
+    OpenURL("https://savannah.gnu.org/bugs/?func=additem&group=gnubg");
 }
 
 #if defined(USE_GTKUIMANAGER)
