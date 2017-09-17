@@ -1,10 +1,4 @@
-## $Id:$
-
-if WIN32
-# Redefine docdir from its autoconf value on win32 to match what is done
-# in util.c:getDocDir(). Expect a warning from automake for this hack.
-docdir = $(datadir)/gnubg/doc
-endif
+## $Id: Makefile.am,v 1.44 2017/09/10 13:43:58 plm Exp $
 
 AM_CPPFLAGS = -DAC_DOCDIR='"$(docdir)"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
 
