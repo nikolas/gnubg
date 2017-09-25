@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.31 2014/03/09 23:34:17 plm Exp $
+ * $Id: file.c,v 1.32 2015/07/31 23:40:23 mdpetch Exp $
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ ExportFormat export_format[] = {
 ImportFormat import_format[] = {
     {IMPORT_SGF, ".sgf", N_("GNU Backgammon File"), "sgf"}
     ,                           /*must be the first element */
-    {IMPORT_SGG, ".sgg", N_("GamesGrid Save Game"), "sgg"}
+    {IMPORT_SGG, ".sgg", N_("GridGammon Save Game"), "sgg"}
     ,
     {IMPORT_MAT, ".mat", N_("Jellyfish Match"), "mat"}
     ,

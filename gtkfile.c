@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkfile.c,v 1.70 2017/08/23 21:13:05 plm Exp $
+ * $Id: gtkfile.c,v 1.71 2017/08/24 19:35:31 plm Exp $
  */
 
 #include "config.h"
@@ -89,7 +89,7 @@ GnuBGFileDialog(const gchar * prompt, const gchar * folder, const gchar * name, 
     if ((pc = strrchr(programdir, G_DIR_SEPARATOR)) != NULL) {
         *pc = '\0';
 
-        tmp = g_build_filename(programdir, "GamesGrid", "SaveGame", NULL);
+        tmp = g_build_filename(programdir, "GridGammon", "SaveGame", NULL);
         gtk_file_chooser_add_shortcut_folder(GTK_FILE_CHOOSER(fc), tmp, NULL);
         g_free(tmp);
 
