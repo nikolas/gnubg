@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.242 2017/04/04 04:50:39 plm Exp $
+ * $Id: html.c,v 1.243 2017/05/25 20:29:46 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.242 2017/04/04 04:50:39 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.243 2017/05/25 20:29:46 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -337,7 +337,7 @@ printRolloutTable(FILE * pf,
         fputs("<tr>", pf);
 
         if (asz)
-            fprintf(pf, "<td>%s</td>", _("Standard error"));
+            fprintf(pf, "<td>%s</td>", _("Standard deviation"));
 
         fprintf(pf, "<td %s>%s</td>", GetStyle(CLASS_PERCENT, hecss), OutputPercent(aarStdDev[ici][OUTPUT_WIN]));
         fprintf(pf, "<td %s>%s</td>", GetStyle(CLASS_PERCENT, hecss), OutputPercent(aarStdDev[ici][OUTPUT_WINGAMMON]));
@@ -1580,7 +1580,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.242 $";
+    const char szVersion[] = "$Revision: 1.243 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1650,7 +1650,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.242 $";
+    const char szVersion[] = "$Revision: 1.243 $";
     int iMajor, iMinor;
     char *pc;
 
