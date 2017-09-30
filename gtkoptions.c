@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.118 2015/10/16 19:59:06 plm Exp $
+ * $Id: gtkoptions.c,v 1.119 2016/01/31 12:56:01 plm Exp $
  */
 
 #include "config.h"
@@ -1081,7 +1081,7 @@ append_dice_options(optionswidget * pow)
                                   "how to double aggressively after a good opening "
                                   "sequence, (b) learn to control your temper "
                                   "while things are going bad, (c) learn to play "
-                                  "very good or very bad rolls, or (d) just have fun. "));
+                                  "very good or very bad rolls, or (d) just have fun."));
 
     pow->pwHigherDieFirst = gtk_check_button_new_with_label(_("Show higher die on left"));
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pow->pwHigherDieFirst), fGUIHighDieFirst);
