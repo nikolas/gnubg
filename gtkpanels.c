@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.82 2016/08/16 18:53:45 plm Exp $
+ * $Id: gtkpanels.c,v 1.83 2017/05/29 15:13:32 plm Exp $
  */
 
 #include "config.h"
@@ -387,7 +387,7 @@ CreateTheoryWindow(void)
 
     store = gtk_list_store_new(2, G_TYPE_STRING, G_TYPE_STRING, -1);
     gtk_list_store_append(store, &iter);
-    gtk_list_store_set(store, &iter, 0, _("Pip_Count"), 1, "", -1);
+    gtk_list_store_set(store, &iter, 0, _("Pip count"), 1, "", -1);
     gtk_list_store_append(store, &iter);
     gtk_list_store_set(store, &iter, 0, _("EPC"), 1, "", -1);
     gtk_list_store_append(store, &iter);
