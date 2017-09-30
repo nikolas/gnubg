@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: relational.c,v 1.75 2017/06/04 15:31:04 plm Exp $
+ * $Id: relational.c,v 1.76 2017/06/04 15:33:28 plm Exp $
  */
 
 #include "config.h"
@@ -767,7 +767,7 @@ CommandRelationalSelect(char *sz)
     RowSet *rs;
 
     if (!sz || !*sz) {
-        outputl(_("You must specify a sql query to run."));
+        outputl(_("You must specify a SQL query to run."));
         return;
     }
 
