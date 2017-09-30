@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.404 2016/11/01 14:56:43 plm Exp $
+ * $Id: set.c,v 1.405 2017/03/18 22:40:07 plm Exp $
  */
 
 #include "config.h"
@@ -1616,7 +1616,7 @@ CommandSetDefaultNames(char *sz)
     for (i = 0; i < 2; i++) {
         char *pch = names[i];
         if (!pch || !*pch) {
-            outputl(_("You must specify two player names use."));
+            outputl(_("You must specify two player names."));
             return;
         }
 
@@ -3308,6 +3308,7 @@ CommandSetMatchRound(char *sz)
 {
 
     SetMatchInfo(&mi.pchRound, sz, _("Match round"));
+
 }
 
 extern void
