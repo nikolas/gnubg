@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.c,v 1.101 2016/12/30 22:22:05 plm Exp $
+ * $Id: bearoff.c,v 1.102 2017/02/19 13:55:51 plm Exp $
  */
 #include "config.h"
 /*must be first here because of strange warning from mingw */
@@ -753,7 +753,7 @@ ReadIntoMemory(bearoffcontext * pbc)
     GError *error = NULL;
     pbc->map = g_mapped_file_new(pbc->szFilename, FALSE, &error);
     if (!pbc->map) {
-        g_printerr(_("%s: Failed to map bearoffdatabase %s\n"), pbc->szFilename, error->message);
+        g_printerr(_("%s: Failed to map bearoff database %s\n"), pbc->szFilename, error->message);
         g_error_free(error);
         return NULL;
     }
