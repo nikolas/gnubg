@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnubg.gtkrc.in,v 1.2 2004/06/16 18:53:20 thyssen Exp $
+# $Id:$
 #
 # style <name> [= <name>]
 # {
@@ -54,6 +54,7 @@ bg[PRELIGHT] = { 0.80, 0.82, 0.84 }
 
 fg[NORMAL] = { 0.0, 0.0, 0.0 }
 fg[SELECTED] = { 0.9, 0.9, 0.9 }
+fg[INSENSITIVE] =  { 0.95, 0.95, 0.95 }
 fg[ACTIVE] = { 0.0, 0.0, 0.0 }
 fg[PRELIGHT] = { 0.2, 0.1, 0.0 }
 
