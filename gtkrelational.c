@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.46 2017/06/27 19:21:00 plm Exp $
+ * $Id: gtkrelational.c,v 1.47 2017/06/27 21:58:06 plm Exp $
  */
 
 #include "config.h"
@@ -49,9 +49,9 @@ enum {
 
 static const gchar *titles[] = {
     N_("Nick"),
-    N_("Gnu\nErr"),
-    N_("Gnu\nMove"),
-    N_("Gnu\nCube"),
+    N_("GNU\nErr"),
+    N_("GNU\nMove"),
+    N_("GNU\nCube"),
     N_("Snw\nErr"),
     N_("Snw\nMove"),
     N_("Snw\nCube"),
@@ -109,7 +109,7 @@ create_model(void)
                                      G_TYPE_FLOAT,
                                      G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_FLOAT, G_TYPE_FLOAT);
 
-    /* prepare the sql query */
+    /* prepare the SQL query */
     rs = RunQuery("name,"
                   "SUM(total_moves),"
                   "SUM(unforced_moves),"
