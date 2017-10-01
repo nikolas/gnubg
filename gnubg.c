@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.988 2017/09/10 13:02:08 plm Exp $
+ * $Id: gnubg.c,v 1.989 2017/10/01 10:54:43 plm Exp $
  */
 
 #include "config.h"
@@ -4519,7 +4519,7 @@ main(int argc, char *argv[])
         {"splash", 'S', 0, G_OPTION_ARG_NONE, &fSplash,
          N_("Show gtk splash screen"), NULL},
         {"tty", 't', 0, G_OPTION_ARG_NONE, &fNoX,
-         N_("Start the command line instead of using the graphical interface"), NULL},
+         N_("Start the command-line instead of using the graphical interface"), NULL},
         {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
          N_("Show version information and exit"), NULL},
         {"window-system-only", 'w', 0, G_OPTION_ARG_NONE, &fNoTTY,
@@ -4563,7 +4563,7 @@ main(int argc, char *argv[])
     textdomain(PACKAGE);
     bind_textdomain_codeset(PACKAGE, GNUBG_CHARSET);
 
-    /* parse command line options */
+    /* parse command-line options */
     context = g_option_context_new("[file.sgf]");
     g_option_context_add_main_entries(context, ao, PACKAGE);
 #if defined(USE_GTK)
