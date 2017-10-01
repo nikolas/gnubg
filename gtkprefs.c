@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.206 2017/05/29 15:14:09 plm Exp $
+ * $Id: gtkprefs.c,v 1.207 2017/05/29 15:15:34 plm Exp $
  */
 
 #include "config.h"
@@ -1803,7 +1803,7 @@ GeneralPage(BoardData * bd, GtkWidget * UNUSED(bdMain))
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwAnimateFlag), bd->rd->animateFlag);
 
     pwCloseBoard = gtk_check_button_new_with_label(_("Close board on exit"));
-    gtk_widget_set_tooltip_text(pwCloseBoard, _("When you quit gnubg, the board will close"));
+    gtk_widget_set_tooltip_text(pwCloseBoard, _("When you quit GNUbg, the board will close"));
     gtk_box_pack_start(GTK_BOX(pw), pwCloseBoard, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwCloseBoard), bd->rd->closeBoardOnExit);
 
@@ -2179,7 +2179,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.206 2017/05/29 15:14:09 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.207 2017/05/29 15:15:34 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
