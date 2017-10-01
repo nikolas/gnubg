@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.243 2017/05/25 20:29:46 plm Exp $
+ * $Id: html.c,v 1.244 2017/09/30 22:06:11 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.243 2017/05/25 20:29:46 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.244 2017/09/30 22:06:11 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1580,7 +1580,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.243 $";
+    const char szVersion[] = "$Revision: 1.244 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1612,7 +1612,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
 
     fprintf(pf,
             _("Output generated %s by "
-              "<a href=\"http://www.gnu.org/software/gnubg/\">%s</a>"), ctime(&t), VERSION_STRING);
+              "<a href=\"https://www.gnu.org/software/gnubg/\">%s</a>"), ctime(&t), VERSION_STRING);
 
     fputs(" ", pf);
 
@@ -1650,7 +1650,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.243 $";
+    const char szVersion[] = "$Revision: 1.244 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -1665,13 +1665,13 @@ HTMLEpilogueComment(FILE * pf)
 
     fputs("\n<!-- Epilogue -->\n\n", pf);
 
-    fprintf(pf, _("<!-- Output generated %s by %s " "(http://www.gnu.org/software/gnubg/) "), pc, VERSION_STRING);
+    fprintf(pf, _("<!-- Output generated %s by %s " "(https://www.gnu.org/software/gnubg/) "), pc, VERSION_STRING);
 
     fputs(" ", pf);
 
-    fprintf(pf, _("(HTML Export version %d.%d) -->"), iMajor, iMinor);
+    fprintf(pf, _("(HTML Export version %d.%d)"), iMajor, iMinor);
 
-
+    fputs(" -->", pf);
 }
 
 /*
