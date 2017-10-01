@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.987 2017/08/16 19:31:40 plm Exp $
+ * $Id: gnubg.c,v 1.988 2017/09/10 13:02:08 plm Exp $
  */
 
 #include "config.h"
@@ -549,7 +549,11 @@ static char const *aszBuildInfo[] = {
     N_("SQLite database supported."),
 #endif
 #if defined(USE_GTK)
-    N_("GTK graphical interface supported."),
+#if GTK_CHECK_VERSION(3,0,0)
+    N_("GTK3 graphical interface supported."),
+#else
+    N_("GTK2 graphical interface supported."),
+#endif
 #endif
 #if defined(HAVE_SOCKETS)
     N_("External players supported."),
