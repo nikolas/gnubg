@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.989 2017/10/01 10:54:43 plm Exp $
+ * $Id: gnubg.c,v 1.990 2017/10/01 12:06:15 plm Exp $
  */
 
 #include "config.h"
@@ -543,7 +543,13 @@ const char *szHomeDirectory;
 
 static char const *aszBuildInfo[] = {
 #if defined(USE_PYTHON)
-    N_("Python supported."),
+#if (PY_MAJOR_VERSION == 2)
+    N_("Python 2 supported."),
+#elif (PY_MAJOR_VERSION == 3)
+    N_("Python 3 supported."),
+#else
+    #error "Unsupported python version"
+#endif
 #endif
 #if defined(USE_SQLITE)
     N_("SQLite database supported."),
