@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.244 2016/07/25 21:41:36 plm Exp $
+ * $Id: analysis.c,v 1.245 2016/12/03 20:44:11 plm Exp $
  */
 
 #include "config.h"
@@ -2424,7 +2424,7 @@ check_cube_in_pmr(const moverecord * pmr)
     }
 
     if (pmr->mt != MOVE_NORMAL && pmr->mt != MOVE_DOUBLE && pmr->mt != MOVE_TAKE && pmr->mt != MOVE_DROP) {
-        outputerrf(_("This move doesn't imply a cubeaction. Cannot mark."));
+        outputerrf(_("This move doesn't imply a cube action. Cannot mark."));
         return 0;
     }
     return 1;
