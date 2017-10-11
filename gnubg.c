@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.990 2017/10/01 12:06:15 plm Exp $
+ * $Id: gnubg.c,v 1.991 2017/10/08 16:12:44 plm Exp $
  */
 
 #include "config.h"
@@ -484,7 +484,7 @@ char player1aliases[256] = "";
 static char szDICE[] = N_("<die> <die>"),
     szCOMMAND[] = N_("<command>"),
     szCOMMENT[] = N_("<comment>"),
-    szER[] = N_("evaluation|rollout"),
+    szER[] = "evaluation|rollout",
     szFILENAME[] = N_("<filename>"),
     szKEYVALUE[] = N_("[<key>=<value> ...]"),
     szLENGTH[] = N_("<length>"),
@@ -494,9 +494,9 @@ static char szDICE[] = N_("<die> <die>"),
     szFILTER[] = N_("<ply> <num.xjoin to accept (0 = skip)> "
                     "[<num. of extra moves to accept> <tolerance>]"),
     szNAME[] = N_("<name>"),
-    szQUIET[] = N_("[quiet]"),
+    szQUIET[] = "[quiet]",
     szLANG[] = N_("system|<language code>"),
-    szONOFF[] = N_("on|off"),
+    szONOFF[] = "on|off",
     szOPTCOMMAND[] = N_("[command]"),
     szOPTDATE[] = N_("[yyyy-mm-dd]"),
     szOPTDEPTH[] = N_("[depth]"),
