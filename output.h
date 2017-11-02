@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: output.h,v 1.2 2013/06/19 22:03:24 plm Exp $
+ * $Id: output.h,v 1.3 2015/10/08 00:06:41 mdpetch Exp $
  */
 
 #ifndef OUTPUT_H
@@ -32,20 +32,33 @@ extern void output(const char *sz);
 extern void outputl(const char *sz);
 /* Write a character to stdout/status bar/popup window */
 extern void outputc(const char ch);
+/* Write an error message, perror() style */
+extern void outputerr(const char *sz);
+
+#if defined(HAVE_FUNC_ATTRIBUTE_FORMAT)
 /* Write a string to stdout/status bar/popup window, printf style */
 extern void outputf(const char *sz, ...)
     __attribute__ ((format(printf, 1, 2)));
 /* Write a string to stdout/status bar/popup window, vprintf style */
 extern void outputv(const char *sz, va_list val)
     __attribute__ ((format(printf, 1, 0)));
-/* Write an error message, perror() style */
-extern void outputerr(const char *sz);
 /* Write an error message, fprintf() style */
 extern void outputerrf(const char *sz, ...)
     __attribute__ ((format(printf, 1, 2)));
 /* Write an error message, vfprintf() style */
 extern void outputerrv(const char *sz, va_list val)
     __attribute__ ((format(printf, 1, 0)));
+#else
+/* Write a string to stdout/status bar/popup window, printf style */
+extern void outputf(const char *sz, ...);
+/* Write a string to stdout/status bar/popup window, vprintf style */
+extern void outputv(const char *sz, va_list val);
+/* Write an error message, fprintf() style */
+extern void outputerrf(const char *sz, ...);
+/* Write an error message, vfprintf() style */
+extern void outputerrv(const char *sz, va_list val);
+#endif
+
 /* Signifies that all output for the current command is complete */
 extern void outputx(void);
 /* Temporarily disable outputx() calls */
