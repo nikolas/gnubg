@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.52 2016/05/14 22:28:32 plm Exp $
+ * $Id: dbprovider.c,v 1.53 2017/06/04 15:33:27 plm Exp $
  */
 
 #include "config.h"
@@ -31,7 +31,7 @@
 #include <glib/gstdio.h>
 #include <string.h>
 
-DBProviderType dbProviderType = (DBProviderType) 0;
+DBProviderType dbProviderType = (DBProviderType)INVALID_PROVIDER ;
 int storeGameStats = TRUE;
 
 #if defined(USE_PYTHON)
@@ -138,16 +138,22 @@ SetRowsetData( /*lint -e{818} */ RowSet * rs, size_t row, size_t col, const char
 extern void
 FreeRowset(RowSet * pRow)
 {
-    unsigned int i, j;
-    free(pRow->widths);
+    if (pRow != NULL) {
+        free(pRow->widths);
 
-    for (i = 0; i < pRow->rows; i++) {
-        for (j = 0; j < pRow->cols; j++) {
-            free(pRow->data[i][j]);
+        if (pRow->data != NULL) {
+            unsigned int i, j;
+
+            for (i = 0; i < pRow->rows; i++) {
+                for (j = 0; j < pRow->cols; j++) {
+                    free(pRow->data[i][j]);
+                }
+            free(pRow->data[i]);
+            }
         }
-        free(pRow->data[i]);
-    }
-    free(pRow->data);
+
+        free(pRow->data);
+    }   
 
     free(pRow);
 }
@@ -242,6 +248,11 @@ RelationalSaveSettings(FILE * pf)
         fprintf(pf, "relational setup dbtype=%s\n", providers[dbProviderType].shortname);
     for (i = 0; i < NUM_PROVIDERS; i++) {
         DBProvider *pdb = GetDBProvider((DBProviderType) i);
+
+        g_assert(pdb != NULL);
+        if (pdb == NULL)
+            return;
+
         fprintf(pf, "relational setup %s-database=%s\n", providers[i].shortname, pdb->database);
         fprintf(pf, "relational setup %s-username=%s\n", providers[i].shortname, pdb->username);
         fprintf(pf, "relational setup %s-password=%s\n", providers[i].shortname, pdb->password);
