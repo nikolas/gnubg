@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: output.c,v 1.3 2013/09/12 22:14:45 plm Exp $
+ * $Id: output.c,v 1.4 2014/07/29 15:19:44 plm Exp $
  */
 
 #include "config.h"
@@ -39,11 +39,11 @@
 #include <io.h>
 #endif
 
-#if USE_GTK_UNDEF
+#if defined(USE_GTK_UNDEF)
 #undef USE_GTK
 #endif
 
-#if USE_GTK
+#if defined(USE_GTK)
 #include "gtkgame.h"
 #endif
 
@@ -67,7 +67,7 @@ output(const char *sz)
     if (cOutputDisabled || !foutput_on)
         return;
 
-#if USE_GTK
+#if defined(USE_GTK)
     if (fX) {
         GTKOutput(sz);
         return;
@@ -88,7 +88,7 @@ outputl(const char *sz)
     if (cOutputDisabled || !foutput_on)
         return;
 
-#if USE_GTK
+#if defined(USE_GTK)
     if (fX) {
         char *szOut = g_strdup_printf("%s\n", sz);
         GTKOutput(szOut);
@@ -168,7 +168,7 @@ outputerrv(const char *sz, va_list val)
     char *szFormatted;
     szFormatted = g_strdup_vprintf(sz, val);
 
-#if USE_GTK
+#if defined(USE_GTK)
     if (fX)
         GTKOutputErr(szFormatted);
 #endif
@@ -187,7 +187,7 @@ outputx(void)
     if (cOutputDisabled || cOutputPostponed || !foutput_on)
         return;
 
-#if USE_GTK
+#if defined(USE_GTK)
     if (fX)
         GTKOutputX();
 #endif
@@ -201,7 +201,7 @@ outputnew(void)
     if (cOutputDisabled || !foutput_on)
         return;
 
-#if USE_GTK
+#if defined(USE_GTK)
     if (fX)
         GTKOutputNew();
 #endif
@@ -244,5 +244,3 @@ outputresume(void)
         outputx();
     }
 }
-
-
