@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: common.h,v 1.32 2015/10/08 00:06:40 mdpetch Exp $
+ * $Id: common.h,v 1.33 2016/01/03 17:26:05 plm Exp $
  */
 
 /*! \file common.h
@@ -74,7 +74,7 @@ typedef void (*psighandler) (int);
 
 /* Macro to mark parameters that aren't used in the function */
 #ifdef UNUSED
-#elif defined(__GNUC__)
+#elif defined(HAVE_FUNC_ATTRIBUTE_UNUSED)
 #define UNUSED(x) UNUSED_ ## x __attribute__((unused))
 #elif defined(_lint)
 #define UNUSED(x) /*lint -e{715, 818}*/ _unused_##x

@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.72 $)
+AC_REVISION($Revision: 1.73 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.05.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -218,6 +218,10 @@ fi
 dnl have_gthread, have_gtk and have_gtk are handled later, not having glib is fatal
 
 AX_C___ATTRIBUTE__()
+
+if test "x$ax_cv___attribute__" = "xyes"; then
+AX_GCC_FUNC_ATTRIBUTE(unused)
+fi
 
 dnl
 dnl check for pkg-config controlled libs
