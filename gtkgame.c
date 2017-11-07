@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.915 2017/10/01 11:02:35 plm Exp $
+ * $Id: gtkgame.c,v 1.916 2017/10/11 21:48:20 plm Exp $
  */
 
 #include "config.h"
@@ -2244,7 +2244,7 @@ EvalWidget(evalcontext * pec, movefilter * pmf, int *pfOK, const int fMoveFilter
         gtk_widget_set_tooltip_text(pwev,
                                     _("GNU Backgammon will evaluate all moves at "
                                       "0-ply. The move filter controls how many "
-                                      "moves will be evaluted at higher plies. "
+                                      "moves will be evaluated at higher plies. "
                                       "A \"smaller\" filter will be faster, but "
                                       "GNU Backgammon may not find the best move. "
                                       "Power users may set up their own filters "
