@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.65 2017/08/19 22:05:04 plm Exp $
+ * $Id: gtktheory.c,v 1.66 2017/08/19 22:14:27 plm Exp $
  */
 
 #include "config.h"
@@ -471,6 +471,11 @@ GraphDraw(GtkWidget * pwGraph, cairo_t * cr, theorywidget * ptw)
     int i, x, y, cx, cy, iPlayer, ax[3];
     char sz[4];
     PangoLayout *layout;
+
+#if ! GTK_CHECK_VERSION(3,0,0)
+    /* The gtk_locdef_* below don't use cr with GTK2. Avoid compiler warning inthis case. */
+    (void)cr;
+#endif
 
     gtk_widget_get_allocation(pwGraph, &allocation);
     x = 8;
