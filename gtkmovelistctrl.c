@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovelistctrl.c,v 1.27 2016/06/11 15:46:31 plm Exp $
+ * $Id: gtkmovelistctrl.c,v 1.28 2016/08/19 22:57:24 plm Exp $
  */
 
 #include "config.h"
@@ -265,6 +265,8 @@ custom_cell_renderer_movelist_get_size(GtkCellRenderer * cell,
         PangoLayout *layout;
         char buf[100];
 
+        g_assert(fOutputDigits <= MAX_OUTPUT_DIGITS);
+
         sprintf(buf, "%.*f", fOutputDigits, 0.888888);
         layout = gtk_widget_create_pango_layout(widget, buf);
         pango_layout_get_pixel_extents(layout, NULL, &logical_rect);
@@ -275,7 +277,7 @@ custom_cell_renderer_movelist_get_size(GtkCellRenderer * cell,
 
         _s_Z = logical_rect.width;
 
-        sprintf(buf, "%.*f%%", fOutputDigits > 1 ? fOutputDigits - 1 : 0, 0.888888);
+        sprintf(buf, "%.*f%%", fOutputDigits > 1 ? MIN(fOutputDigits, MAX_OUTPUT_DIGITS) - 1 : 0, 0.888888);
         layout = gtk_widget_create_pango_layout(widget, buf);
         pango_layout_get_pixel_extents(layout, NULL, &logical_rect);
         g_object_unref(layout);
@@ -311,7 +313,7 @@ custom_cell_renderer_movelist_get_size(GtkCellRenderer * cell,
         pango_layout_get_pixel_extents(layout, NULL, &logical_rect);
         g_object_unref(layout);
         _s_c = logical_rect.width;
-        sprintf(buf, "0%.*f%%", fOutputDigits > 1 ? fOutputDigits - 1 : 0, 0.888888);
+        sprintf(buf, "0%.*f%%", fOutputDigits > 1 ? MIN(fOutputDigits, MAX_OUTPUT_DIGITS) - 1 : 0, 0.888888);
         layout = gtk_widget_create_pango_layout(widget, buf);
         pango_layout_get_pixel_extents(layout, NULL, &logical_rect);
         g_object_unref(layout);
