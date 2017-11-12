@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnubg.py,v 1.15 2015/08/01 05:37:31 mdpetch Exp $
+# $Id: gnubg.py,v 1.16 2017/02/19 15:49:57 plm Exp $
 #
 
 # Add the scripts directory to the module path to allow
@@ -104,7 +104,11 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
             from IPython.frontend.terminal.embed import InteractiveShellEmbed
 
         from IPython import __version__ as ipyversion
-        from traitlets.config.loader import Config
+        if ipy_version_info[0] >= 4:
+            from traitlets.config.loader import Config
+        else:
+            from IPython.config.loader import Config
+
     except:
         # Otherwise use standard interpreter
         if (banner == None):
