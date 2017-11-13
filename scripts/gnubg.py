@@ -22,7 +22,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id: gnubg.py,v 1.16 2017/02/19 15:49:57 plm Exp $
+# $Id: gnubg.py,v 1.17 2017/11/12 17:11:50 plm Exp $
 #
 
 # Add the scripts directory to the module path to allow
@@ -161,12 +161,18 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
 
     try:
         # Launch IPython interpreter
-        cfg = Config()
-        prompt_config = cfg.PromptManager
-        prompt_config.in_template = 'In <\\#> > '
-        prompt_config.in2_template = '   .\\D. > '
-        prompt_config.out_template = 'Out<\\#> > '
-        cfg.InteractiveShell.confirm_exit = False
+        if ipy_version_info[0] <= 4:
+            cfg = Config()
+            prompt_config = cfg.PromptManager
+            prompt_config.in_template = 'In <\\#> > '
+            prompt_config.in2_template = '   .\\D. > '
+            prompt_config.out_template = 'Out<\\#> > '
+            cfg.InteractiveShell.confirm_exit = False
+        else:
+            # FIXME:
+            # As of IPython 5.0 `PromptManager` config will have no effect and
+            # has been replaced by TerminalInteractiveShell.prompts_class
+            cfg = None
 
         if banner == None:
             banner = 'IPython ' + ipyversion + ', Python ' + sys.version
