@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.341 2017/08/19 20:38:07 plm Exp $
+ * $Id: gtkboard.c,v 1.342 2017/08/20 13:36:52 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3356,7 +3356,7 @@ UpdateCrawfordToggle(GtkWidget * UNUSED(pw), BoardData * bd)
                      (((nMatchLen - anScoreNew[0]) == 1) ||
                       ((nMatchLen - anScoreNew[1]) == 1)) && (anScoreNew[0] < nMatchLen && anScoreNew[1] < nMatchLen));
     gtk_widget_set_sensitive(bd->crawford, allowCrawford);
-    if (!allowCrawford)
+    if (!allowCrawford && gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(bd->crawford)) == TRUE)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(bd->crawford), FALSE);
 }
 
