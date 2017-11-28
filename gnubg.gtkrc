@@ -19,7 +19,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
-# $Id$
+# $Id: gnubg.gtkrc,v 1.25 2017/10/01 10:16:11 plm Exp $
 #
 # style <name> [= <name>]
 # {
@@ -54,7 +54,6 @@ bg[PRELIGHT] = { 0.80, 0.82, 0.84 }
 
 fg[NORMAL] = { 0.0, 0.0, 0.0 }
 fg[SELECTED] = { 0.9, 0.9, 0.9 }
-fg[INSENSITIVE] =  { 0.95, 0.95, 0.95 }
 fg[ACTIVE] = { 0.0, 0.0, 0.0 }
 fg[PRELIGHT] = { 0.2, 0.1, 0.0 }
 
