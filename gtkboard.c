@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.343 2017/11/28 22:28:04 plm Exp $
+ * $Id: gtkboard.c,v 1.344 2017/11/30 21:17:32 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -306,10 +306,9 @@ board_draw_area(cairo_t * cr, gint x, gint y, gint cx, gint cy, BoardData * bd)
 {
     unsigned char *puch;
 
-    puch = malloc(cx * cy * 3);
+    puch = g_alloca(cx * cy * 3);
     RenderArea(bd, puch, x, y, cx, cy);
     draw_rgb_image(cr, puch, x, y, cx, cy);
-    free(puch);
 }
 
 #if GTK_CHECK_VERSION(3,0,0)
