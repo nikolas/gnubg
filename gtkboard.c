@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.342 2017/08/20 13:36:52 plm Exp $
+ * $Id: gtkboard.c,v 1.343 2017/11/28 22:28:04 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -782,7 +782,7 @@ update_move(BoardData * bd)
     }
 
 #if GTK_CHECK_VERSION(3,0,0)
-    gtk_widget_set_state_flags(bd->wmove, fIncomplete ? GTK_STATE_FLAG_ACTIVE : GTK_STATE_NORMAL, TRUE);
+    gtk_widget_set_state_flags(bd->wmove, fIncomplete ? GTK_STATE_FLAG_ACTIVE : GTK_STATE_FLAG_NORMAL, TRUE);
 #else
     gtk_widget_set_state(bd->wmove, fIncomplete ? GTK_STATE_ACTIVE : GTK_STATE_NORMAL);
 #endif
