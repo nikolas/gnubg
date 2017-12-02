@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.344 2017/11/30 21:17:32 plm Exp $
+ * $Id: gtkboard.c,v 1.345 2017/11/30 22:07:47 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3172,7 +3172,9 @@ board_size_allocate(GtkWidget * board, GtkAllocation * allocation)
     GtkAllocation child_allocation;
     GtkRequisition requisition;
 
+#if GTK_CHECK_VERSION(3,0,0)
     GTK_WIDGET_CLASS(board_parent_class)->size_allocate(board, allocation);
+#endif
     gtk_widget_set_allocation(board, allocation);
 
     /* position ID, match ID: just below toolbar */
