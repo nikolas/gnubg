@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.97 2016/04/08 05:31:05 plm Exp $
+ * $Id: dice.c,v 1.98 2016/08/24 22:00:57 plm Exp $
  */
 
 #include "config.h"
@@ -714,7 +714,10 @@ extern void *
 InitRNG(unsigned long *pnSeed, int *pfInitFrom, const int fSet, const rng rngx)
 {
     int f = FALSE;
-    rngcontext *rngctx = g_new0(rngcontext, 1);
+    rngcontext *rngctx = g_try_new0(rngcontext, 1);
+
+    if (rngctx == NULL)
+        return NULL;
 
     /* misc. initialisation */
 
@@ -739,7 +742,6 @@ InitRNG(unsigned long *pnSeed, int *pfInitFrom, const int fSet, const rng rngx)
         *pfInitFrom = f;
 
     return rngctx;
-
 }
 
 extern int
