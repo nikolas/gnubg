@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.31 2016/02/17 20:22:57 plm Exp $
+ * $Id: neuralnetsse.c,v 1.32 2017/02/12 21:39:08 plm Exp $
  */
 
 #include "config.h"
@@ -404,10 +404,9 @@ EvaluateSSE(const neuralnet * pnn, const float arInput[], float ar[], float arOu
         vec1 = _mm256_hadd_ps(vec0, vec0);
         _mm256_store_ps(r, vec1);
 
-        _mm256_zeroupper();
-
         arOutput[i] = sigmoid(-pnn->rBetaOutput * (r[0] + r[4] + pnn->arOutputThreshold[i]));
 
+        _mm256_zeroupper();
 #else
         vec0 = _mm_shuffle_ps(sum, sum, _MM_SHUFFLE(2, 3, 0, 1));
         vec1 = _mm_add_ps(sum, vec0);
