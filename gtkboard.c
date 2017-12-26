@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.345 2017/11/30 22:07:47 plm Exp $
+ * $Id: gtkboard.c,v 1.346 2017/12/02 19:02:19 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -1446,7 +1446,7 @@ board_quick_edit(GtkWidget * board, BoardData * bd, int x, int y, int dragging)
             bd->diceRoll[0] = bd->diceRoll[1] = 0;
             bd->diceShown = DICE_BELOW_BOARD;
             bd->turn = 1;
-            ms.nCube = 0;
+            ms.nCube = 1;
             bd->cube = 0;
             ms.fCubeOwner = -1;
             bd->cube_owner = 0;
@@ -1462,7 +1462,7 @@ board_quick_edit(GtkWidget * board, BoardData * bd, int x, int y, int dragging)
             bd->diceRoll[0] = bd->diceRoll[1] = 0;
             bd->diceShown = DICE_BELOW_BOARD;
             bd->turn = 1;
-            ms.nCube = 0;
+            ms.nCube = 1;
             bd->cube = 0;
             ms.fCubeOwner = -1;
             bd->cube_owner = 0;
