@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.12 2018/01/01 19:52:55 plm Exp $
+ * $Id: mtsupport.c,v 1.13 2018/01/06 19:53:27 plm Exp $
  */
 
 #include "config.h"
@@ -344,7 +344,8 @@ MT_InitThreads(void)
     g_assert(g_thread_supported());
 #endif
     td.tasks = NULL;
-    td.doneTasks = td.addedTasks = 0;
+    MT_SafeSet(&td.doneTasks, 0);
+    td.addedTasks = 0;
     td.totalTasks = -1;
     InitManualEvent(&td.activity);
     TLSCreate(&td.tlsItem);
