@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.92 2017/06/28 20:11:50 plm Exp $
+ * $Id: multithread.c,v 1.93 2018/01/06 19:53:27 plm Exp $
  */
 
 #include "config.h"
@@ -171,7 +171,7 @@ MT_CreateThreads(void)
 
 #if defined(GLIB_THREADS)
 #if GLIB_CHECK_VERSION (2,32,0)
-        if (!g_thread_try_new("Worker", MT_WorkerThreadFunction, pTLD, NULL))
+        if (!g_thread_try_new(NULL, MT_WorkerThreadFunction, pTLD, NULL))
 #else
         if (!g_thread_create(MT_WorkerThreadFunction, pTLD, FALSE, NULL))
 #endif
