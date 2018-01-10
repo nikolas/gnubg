@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.55 2015/08/31 05:36:26 mdpetch Exp $
+ * $Id: multithread.h,v 1.56 2018/01/06 19:53:27 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -100,8 +100,8 @@ extern void Mutex_Lock(Mutex mutex);
 #endif
 
 typedef struct _ThreadData {
-    int doneTasks;
     GList *tasks;
+    int doneTasks;
     int result;
     ThreadLocalData *tld;
 
@@ -195,6 +195,9 @@ extern unsigned int MT_GetNumThreads(void);
 #define MT_SafeAdd(x, y) g_atomic_int_add(x, y)
 #define MT_SafeDec(x) g_atomic_int_add(x, -1)
 #define MT_SafeDecCheck(x) g_atomic_int_dec_and_test(x)
+#define MT_SafeGet(x) g_atomic_int_get(x)
+#define MT_SafeSet(x, y) g_atomic_int_set(x, y)
+#define MT_SafeCompare(x, y) g_atomic_int_compare_and_exchange(x, y, y)
 #else
 #define MT_SafeInc(x) (void)InterlockedIncrement((long*)x)
 #define MT_SafeIncValue(x) InterlockedIncrement((long*)x)
@@ -202,6 +205,9 @@ extern unsigned int MT_GetNumThreads(void);
 #define MT_SafeAdd(x, y) InterlockedExchangeAdd((long*)x, y)
 #define MT_SafeDec(x) (void)InterlockedDecrement((long*)x)
 #define MT_SafeDecCheck(x) (InterlockedDecrement((long*)x) == 0)
+#define MT_SafeGet(x) InterlockedExchangeAdd((long*)x, 0)
+#define MT_SafeSet(x, y) (void)InterlockedExchange((long*)x, y)
+#define MT_SafeCompare(x, y) (InterlockedCompareExchange((long*)x, y, y) == y)
 #endif
 
 #else                           /*USE_MULTITHREAD */
