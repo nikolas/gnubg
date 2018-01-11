@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.56 2018/01/06 19:53:27 plm Exp $
+ * $Id: multithread.h,v 1.57 2018/01/10 23:24:15 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -225,6 +225,9 @@ extern int asyncRet;
 #define MT_SafeAdd(x, y) ((*x) += y)
 #define MT_SafeDec(x) (--(*x))
 #define MT_SafeDecCheck(x) ((--(*x)) == 0)
+#define MT_SafeGet(x) (*x)
+#define MT_SafeSet(x, y) ((*x) = y)
+#define MT_SafeCompare(x, y) ((*x) == y)
 #define MT_GetThreadID() 0
 #define MT_Get_nnState() td.tld->pnnState
 #define MT_Get_aMoves() td.tld->aMoves
