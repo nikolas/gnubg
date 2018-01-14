@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.77 $)
+AC_REVISION($Revision: 1.78 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -37,6 +37,11 @@ dnl
 dnl host specifics
 dnl
 
+dnl Only relevant for win32 but the macro has to be executed unconditionally
+dnl -Wl since libtool uses gcc as linker
+dnl
+AX_APPEND_LINK_FLAGS([-Wl,--large-address-aware],,,)
+
 win32=no
 
 AC_MSG_CHECKING([for host])
@@ -44,7 +49,7 @@ case "$host" in
   *-*-mingw*)
     win32=yes
     CFLAGS="$CFLAGS -mms-bitfields"
-	LDFLAGS="$LDFLAGS -lws2_32 -lwinmm"
+    LDFLAGS="$LDFLAGS -lws2_32 -lwinmm"
     ;;
   *-*-darwin*)
     darwin=yes
