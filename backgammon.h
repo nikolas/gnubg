@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: backgammon.h,v 1.459 2016/07/16 22:03:31 plm Exp $
+ * $Id: backgammon.h,v 1.460 2016/08/28 22:31:57 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -466,7 +466,11 @@ extern int ParsePosition(TanBoard an, char **ppch, char *pchDesc);
 extern int SetToggle(const char *szName, int *pf, char *sz, const char *szOn, const char *szOff);
 extern moverecord *get_current_moverecord(int *pfHistory);
 extern moverecord *LinkToDouble(moverecord * pmr);
+#if defined(HAVE_FUNC_ATTRIBUTE_RETURNS_NONNULL)
+extern moverecord *NewMoveRecord(void) __attribute__((returns_nonnull));
+#else
 extern moverecord *NewMoveRecord(void);
+#endif
 extern void HandleInterrupt(int idSignal);
 extern void AddGame(moverecord * pmr);
 extern void AddMoveRecord(void *pmr);
