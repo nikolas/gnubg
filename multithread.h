@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: multithread.h,v 1.58 2018/01/11 20:29:11 plm Exp $
+ * $Id: multithread.h,v 1.59 2018/01/15 20:58:19 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -26,13 +26,13 @@
 #include <windows.h>
 #endif
 
+#define UI_UPDATETIME 250
+
 #if defined(USE_MULTITHREAD)
 #include <glib.h>
 #endif
 
 #include "backgammon.h"
-
-#define UI_UPDATETIME 250
 
 /* #define DEBUG_MULTITHREADED 1 */
 
@@ -127,8 +127,6 @@ extern void InitManualEvent(ManualEvent * pME);
 extern void FreeManualEvent(ManualEvent ME);
 extern void InitMutex(Mutex * pMutex);
 extern void FreeMutex(Mutex * mutex);
-
-#define UI_UPDATETIME 250
 
 #define TLSGet(item) *((size_t*)g_private_get(item))
 
