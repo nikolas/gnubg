@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.15 2018/01/11 21:41:43 plm Exp $
+ * $Id: mtsupport.c,v 1.16 2018/01/15 20:58:19 plm Exp $
  */
 
 #include "config.h"
@@ -215,6 +215,7 @@ InitMutex(Mutex * pMutex)
 extern void
 FreeMutex(Mutex * mutex)
 {
+    g_assert(MT_GetThreadID() == -1);
     g_mutex_clear(mutex);
 }
 #else
@@ -227,6 +228,7 @@ InitMutex(Mutex * pMutex)
 extern void
 FreeMutex(Mutex * mutex)
 {
+    g_assert(MT_GetThreadID() == -1);
     g_mutex_free(*mutex);
 }
 #endif
@@ -265,7 +267,7 @@ MT_InitThreads(void)
     td.totalTasks = -1;
     InitManualEvent(&td.activity);
     TLSCreate(&td.tlsItem);
-    TLSSetValue(td.tlsItem, (size_t) MT_CreateThreadLocalData(0));      /* Main thread shares id 0 */
+    TLSSetValue(td.tlsItem, (size_t) MT_CreateThreadLocalData(-1));
 
 #if defined(DEBUG_MULTITHREADED) && defined(WIN32)
     mainThreadID = GetCurrentThreadId();
@@ -365,9 +367,9 @@ multi_debug(const char *str, ...)
 
     id = MT_GetThreadID();
 #if defined(WIN32)
-    if (id == 0 && GetCurrentThreadId() == mainThreadID)
+    if (id == -1 && GetCurrentThreadId() == mainThreadID)
 #else
-    if (id == 0)
+    if (id == -1)
 #endif
         strcpy(tn, "MT");
     else
@@ -398,7 +400,7 @@ multi_debug(const char *str, ...)
 extern void
 MT_InitThreads(void)
 {
-    td.tld = MT_CreateThreadLocalData(0);       /* Main thread shares id 0 */
+    td.tld = MT_CreateThreadLocalData(-1);
 }
 
 extern void
