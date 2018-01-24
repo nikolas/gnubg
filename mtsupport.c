@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: mtsupport.c,v 1.16 2018/01/15 20:58:19 plm Exp $
+ * $Id: mtsupport.c,v 1.17 2018/01/22 21:32:47 plm Exp $
  */
 
 #include "config.h"
@@ -289,7 +289,7 @@ CloseThread(void *UNUSED(unused))
     int i;
     NNState *pnnState = ((ThreadLocalData *) TLSGet(td.tlsItem))->pnnState;
 
-    g_assert(td.closingThreads);
+    g_assert(MT_SafeCompare(&td.closingThreads, TRUE));
 
     ThreadLocalData *pTLD = (ThreadLocalData *) TLSGet(td.tlsItem);
     if (pTLD->aMoves)
@@ -303,18 +303,6 @@ CloseThread(void *UNUSED(unused))
     free((void *) TLSGet(td.tlsItem));
     MT_SafeInc(&td.result);
 }
-
-/* Revisit this later for inclusion */
-#if 0
-extern void
-MT_CloseThreads(void)
-{
-    td.closingThreads = TRUE;
-    mt_add_tasks(td.numThreads, CloseThread, NULL, NULL);
-    if (MT_WaitForTasks(NULL, 0, FALSE) != (int) td.numThreads)
-        g_print("Error closing threads!\n");
-}
-#endif
 
 extern void
 MT_Close(void)
