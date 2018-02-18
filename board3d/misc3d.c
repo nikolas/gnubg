@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: misc3d.c,v 1.117 2016/08/14 19:22:01 plm Exp $
+ * $Id: misc3d.c,v 1.118 2016/08/28 22:24:49 plm Exp $
  */
 
 #include "config.h"
@@ -583,7 +583,7 @@ LoadTexture(Texture * texture, const char *filename)
     }
 
     if (pix_error) {
-        g_print("Failed to open texture: %s\n", filename);
+        g_print("Failed to open texture: %s, %s\n", filename, pix_error->message);
         return 0;               /* failed to load file */
     }
 
@@ -618,8 +618,7 @@ LoadTexture(Texture * texture, const char *filename)
     return 1;
 }
 
-static
-    void
+static void
 SetTexture(BoardData3d * bd3d, Material * pMat, const char *filename)
 {
     /* See if already loaded */
