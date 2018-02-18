@@ -21,7 +21,7 @@
  */
 
 /*
- * $Id:$
+ * $Id: gnubgstock.c,v 1.10 2016/04/30 16:35:26 plm Exp $
  */
 
 #include "config.h"
@@ -43,6 +43,7 @@ icon_set_from_resource_path(GtkIconSet * set,
 {
     GtkIconSource *source;
     GdkPixbuf *pixbuf;
+    GError *pixbuf_error = NULL;
 
     source = gtk_icon_source_new();
 
@@ -54,9 +55,13 @@ icon_set_from_resource_path(GtkIconSet * set,
     gtk_icon_source_set_size(source, size);
     gtk_icon_source_set_size_wildcarded(source, FALSE);
 
-    pixbuf = gdk_pixbuf_new_from_resource(resource_path, NULL);
+    pixbuf = gdk_pixbuf_new_from_resource(resource_path, &pixbuf_error);
 
-    g_assert(pixbuf);
+    if (pixbuf == NULL) {
+        g_print("Failed to create pixbuf from %s, %s\n", resource_path, pixbuf_error->message);
+        g_assert_not_reached();
+        return;
+    }
 
     gtk_icon_source_set_pixbuf(source, pixbuf);
 
