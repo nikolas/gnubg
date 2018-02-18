@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: drawboard3d.c,v 1.101 2015/08/02 20:41:02 plm Exp $
+ * $Id: drawboard3d.c,v 1.102 2015/08/02 20:59:06 plm Exp $
  */
 
 #include "config.h"
@@ -3742,7 +3742,7 @@ getCheqSize(renderdata * prd)
     unsigned int i, accuracy = (prd->curveAccuracy / 4) - 1;
     prd->acrossCheq = prd->downCheq = 1;
     for (i = 1; i < accuracy; i++) {
-        if (((float) prd->acrossCheq) / prd->downCheq > .5)
+        if (2 * prd->acrossCheq > prd->downCheq)
             prd->downCheq++;
         else
             prd->acrossCheq++;
