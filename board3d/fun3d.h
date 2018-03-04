@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: fun3d.h,v 1.35 2015/02/03 23:01:21 plm Exp $
+ * $Id: fun3d.h,v 1.36 2016/08/28 22:24:49 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -96,7 +96,6 @@ extern void SetupVisual(void);
 extern void SetupViewingVolume3d(const BoardData * bd, BoardData3d * bd3d, const renderdata * prd);
 extern void DisplayCorrectBoardType(BoardData * bd, BoardData3d * bd3d, renderdata * prd);
 extern int CreateGLWidget(BoardData * bd);
-extern int DoAcceleratedCheck(const BoardData3d * bd3d, GtkWidget * pwParent);
 
 extern void RollDice3d(BoardData * bd, BoardData3d * bd3d, const renderdata * prd);
 extern void AnimateMove3d(BoardData * bd, BoardData3d * bd3d);

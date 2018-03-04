@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.207 2017/05/29 15:15:34 plm Exp $
+ * $Id: gtkprefs.c,v 1.208 2017/10/01 08:32:05 plm Exp $
  */
 
 #include "config.h"
@@ -1296,7 +1296,6 @@ toggle_display_type(GtkWidget * widget, BoardData * bd)
     rdPrefs.fDisplayType = state ? DT_3D : DT_2D;
 
     if (display_is_3d(&rdPrefs)) {
-        DoAcceleratedCheck(bd->bd3d, widget);
         updateDiceOccPos(bd, bd->bd3d);
     } else {
         board_free_pixmaps(bd);
@@ -2179,7 +2178,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.207 2017/05/29 15:15:34 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.208 2017/10/01 08:32:05 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
