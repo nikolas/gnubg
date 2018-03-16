@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.83 2017/05/29 15:13:32 plm Exp $
+ * $Id: gtkpanels.c,v 1.84 2017/09/30 22:09:54 plm Exp $
  */
 
 #include "config.h"
@@ -567,14 +567,12 @@ Capitalize(char *str)
     int cap = 1;
     while (*str) {
         if (cap) {
-            if (*str >= 'a' && *str <= 'z')
-                *str += 'A' - 'a';
+            *str = g_ascii_toupper(*str);
             cap = 0;
         } else {
             if (*str == ' ')
                 cap = 1;
-            if (*str >= 'A' && *str <= 'Z')
-                *str -= 'A' - 'a';
+            *str = g_ascii_tolower(*str);
         }
         str++;
     }
