@@ -15,7 +15,7 @@
  * cache.h
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.h,v 1.24 2014/07/29 15:21:48 plm Exp $
+ * $Id: cache.h,v 1.25 2016/04/14 20:39:46 plm Exp $
  */
 
 #ifndef CACHE_H
@@ -46,7 +46,7 @@ typedef struct _cacheNode {
     cacheNodeDetail nd_primary;
     cacheNodeDetail nd_secondary;
 #if defined(USE_MULTITHREAD)
-    volatile int lock;
+    int lock;
 #endif
 } cacheNode;
 
@@ -71,11 +71,13 @@ int CacheCreate(evalCache * pc, unsigned int size);
 int CacheResize(evalCache * pc, unsigned int cNew);
 
 #define CACHEHIT ((uint32_t)-1)
+
 /* returns a value which is passed to CacheAdd (if a miss) */
 unsigned int CacheLookupWithLocking(evalCache * pc, const cacheNodeDetail * e, float *arOut, float *arCubeful);
 unsigned int CacheLookupNoLocking(evalCache * pc, const cacheNodeDetail * e, float *arOut, float *arCubeful);
 
 void CacheAddWithLocking(evalCache * pc, const cacheNodeDetail * e, uint32_t l);
+
 static inline void
 CacheAddNoLocking(evalCache * pc, const cacheNodeDetail * e, const uint32_t l)
 {
