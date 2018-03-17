@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.991 2017/10/08 16:12:44 plm Exp $
+ * $Id: gnubg.c,v 1.992 2017/10/11 20:53:28 plm Exp $
  */
 
 #include "config.h"
@@ -5361,7 +5361,7 @@ RunAsyncProcess(AsyncFun fn, void *data, const char *msg)
     pt->pLinkedTask = NULL;
     pt->fun = fn;
     pt->data = data;
-    MT_AddTask(pt, FALSE);
+    MT_AddTask(pt, TRUE);
 #endif
 
     ProgressStart(msg);
