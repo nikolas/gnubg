@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.48 2017/10/01 08:34:35 plm Exp $
+ * $Id: gtkrelational.c,v 1.49 2018/03/29 20:01:12 plm Exp $
  */
 
 #include "config.h"
@@ -462,7 +462,7 @@ TryConnection(DBProvider * pdb, GtkWidget * dbList)
         gtk_widget_set_sensitive(deldb, FALSE);
     } else {                    /* Test ok */
         GList *pl = pdb->GetDatabaseList(pdb->username, pdb->password, pdb->hostname);
-        if (g_list_find_custom(pl, pdb->database, (GCompareFunc) g_ascii_strncasecmp) == NULL) {        /* Somehow selected database not in list, so add it */
+        if (g_list_find_custom(pl, pdb->database, (GCompareFunc) g_ascii_strcasecmp) == NULL) {        /* Somehow selected database not in list, so add it */
             pl = g_list_append(pl, g_strdup(pdb->database));
         }
         while (pl) {
