@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrelational.c,v 1.47 2017/06/27 21:58:06 plm Exp $
+ * $Id: gtkrelational.c,v 1.48 2017/10/01 08:34:35 plm Exp $
  */
 
 #include "config.h"
@@ -857,14 +857,15 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 ** Start of (left hand side) of player screen...
 *******************************************************/
 
-    pwPaned = gtk_vpaned_new();
-    gtk_paned_set_position(GTK_PANED(pwPaned), (int) (REL_DIALOG_HEIGHT * 0.6));
-    gtk_notebook_append_page(GTK_NOTEBOOK(pwn), pwPaned, gtk_label_new(_("Players")));
 #if GTK_CHECK_VERSION(3,0,0)
+    pwPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
     pwVbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 #else
+    pwPaned = gtk_vpaned_new();
     pwVbox = gtk_vbox_new(FALSE, 0);
 #endif
+    gtk_paned_set_position(GTK_PANED(pwPaned), (int) (REL_DIALOG_HEIGHT * 0.6));
+    gtk_notebook_append_page(GTK_NOTEBOOK(pwn), pwPaned, gtk_label_new(_("Players")));
     gtk_container_set_border_width(GTK_CONTAINER(pwVbox), INSIDE_FRAME_GAP);
     gtk_paned_add1(GTK_PANED(pwPaned), pwVbox);
     gtk_box_pack_start(GTK_BOX(pwVbox), GtkRelationalShowStats(), TRUE, TRUE, 0);
