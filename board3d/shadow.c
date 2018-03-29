@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: shadow.c,v 1.20 2013/06/16 02:16:23 mdpetch Exp $
+ * $Id: shadow.c,v 1.21 2014/09/03 21:47:23 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@ shadowInit(BoardData3d * bd3d, renderdata * prd)
     prd->dimness = ((prd->lightLevels[1] / 100.0f) * (100 - prd->shadowDarkness)) / 100;
 
     for (i = 0; i < NUM_OCC; i++)
-        bd3d->Occluders[i].handle = 0;
+        bd3d->Occluders[i].handle = NULL;
 
     /* Check the stencil buffer is present */
     glGetIntegerv(GL_STENCIL_BITS, &stencilBits);
