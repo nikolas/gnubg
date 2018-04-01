@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.120 2016/01/03 17:24:57 plm Exp $
+ * $Id: gtkchequer.c,v 1.121 2016/08/24 21:52:22 plm Exp $
  */
 
 #include "config.h"
@@ -506,7 +506,11 @@ CreateMoveListTools(hintdata * phd)
     gtk_table_attach(GTK_TABLE(pwTools), pwEvalSettings, 1, 2, 0, 1,
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0);
 
+#if GTK_CHECK_VERSION(3,0,0)
+    phd->pwEvalPly = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     phd->pwEvalPly = gtk_hbox_new(FALSE, 0);
+#endif
     gtk_table_attach(GTK_TABLE(pwTools), phd->pwEvalPly, 2, 3, 0, 1,
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0);
 
@@ -545,7 +549,11 @@ CreateMoveListTools(hintdata * phd)
     gtk_table_attach(GTK_TABLE(pwTools), pwRolloutSettings, 1, 2, 1, 2,
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0);
 
+#if GTK_CHECK_VERSION(3,0,0)
+    phd->pwRolloutPresets = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
     phd->pwRolloutPresets = gtk_hbox_new(FALSE, 0);
+#endif
     gtk_table_attach(GTK_TABLE(pwTools), phd->pwRolloutPresets, 2, 3, 1, 2,
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0);
 
@@ -703,7 +711,11 @@ CreateMoveList(moverecord * pmr, const int fButtonsValid, const int fDestroyOnMo
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(pw), phd->pwMoves);
 
+#if GTK_CHECK_VERSION(3,0,0)
+    pwVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+#else
     pwVBox = gtk_vbox_new(FALSE, 0);
+#endif
     gtk_box_pack_start(GTK_BOX(pwVBox), pw, TRUE, TRUE, 0);
     gtk_box_pack_end(GTK_BOX(pwVBox), mlt, FALSE, FALSE, 0);
 
