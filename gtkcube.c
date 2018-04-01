@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.91 2017/05/19 21:28:25 plm Exp $
+ * $Id: gtkcube.c,v 1.92 2017/05/19 21:29:10 plm Exp $
  */
 
 #include "config.h"
@@ -955,9 +955,11 @@ CreateCubeAnalysisTools(cubehintdata * pchd)
 
     gtk_widget_set_tooltip_text(pwMWC, _("Toggle output as MWC or equity"));
 
-    gtk_widget_set_tooltip_text(pwCopy, _("Copy"));
+    gtk_widget_set_tooltip_text(pwCopy, _("Copy cube decision to clipboard"));
 
-    gtk_widget_set_tooltip_text(pwTempMap, _("Show Sho Sengoku Temperature Map of position " "after selected move"));
+    gtk_widget_set_tooltip_text(pwCmark, _("Mark cube decision for later rollout"));
+
+    gtk_widget_set_tooltip_text(pwTempMap, _("Show Sho Sengoku Temperature Map of position"));
 
     return pwTools;
 
