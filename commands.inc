@@ -1,4 +1,4 @@
-/* $Id: commands.inc,v 1.51 2017/08/16 19:33:21 plm Exp $ */
+/* $Id: commands.inc,v 1.52 2017/09/30 22:31:29 plm Exp $ */
 
 /* All the commands are in this file */
 
@@ -1017,7 +1017,7 @@ static command acSetExportHTMLType[] = {
   { "humanwinsmatch", CommandSetSoundSoundHumanWinMatch, 
     N_("Human wins match"), szOPTFILENAME, &cFilename },
   { "move", CommandSetSoundSoundMove, 
-    N_("Move"), szOPTFILENAME, &cFilename },
+    N_("noun|Move"), szOPTFILENAME, &cFilename },
   { "redouble", CommandSetSoundSoundRedouble, 
     N_("Redouble"), szOPTFILENAME, &cFilename },
   { "resign", CommandSetSoundSoundResign, 

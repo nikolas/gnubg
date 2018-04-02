@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.41 2017/05/29 15:01:56 plm Exp $
+ * $Id: gtkrolls.c,v 1.42 2017/05/29 15:33:04 plm Exp $
  */
 
 #include "config.h"
@@ -197,7 +197,7 @@ RollsTree(const int n, evalcontext * pec, const matchstate * pms)
     GtkCellRenderer *renderer;
     static const char *aszColumn[] = {
         N_("Roll"),
-        N_("Move"),
+        N_("noun|Move"),
         N_("Equity")
     };
 

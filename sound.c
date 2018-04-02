@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.99 2015/02/08 13:09:27 plm Exp $
+ * $Id: sound.c,v 1.100 2015/08/31 05:36:26 mdpetch Exp $
  */
 
 #include "config.h"
@@ -348,7 +348,7 @@ const char *sound_description[NUM_SOUNDS] = {
     N_("Doubling"),
     N_("Drop"),
     N_("Chequer movement"),
-    N_("Move"),
+    N_("noun|Move"),
     N_("Redouble"),
     N_("Resign"),
     N_("Roll"),

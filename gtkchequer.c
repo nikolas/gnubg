@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.122 2018/04/01 22:14:16 plm Exp $
+ * $Id: gtkchequer.c,v 1.123 2018/04/01 22:44:18 plm Exp $
  */
 
 #include "config.h"
@@ -463,7 +463,7 @@ CreateMoveListTools(hintdata * phd)
     GtkWidget *pwRollout = gtk_button_new_with_label(_("Rollout"));
     GtkWidget *pwRolloutSettings = gtk_button_new_with_label(_("..."));
     GtkWidget *pwMWC = gtk_toggle_button_new_with_label(_("MWC"));
-    GtkWidget *pwMove = gtk_button_new_with_label(_("Move"));
+    GtkWidget *pwMove = gtk_button_new_with_label(Q_("verb|Move"));
     GtkWidget *pwShow = gtk_toggle_button_new_with_label(_("Show"));
     GtkWidget *pwCopy = gtk_button_new_with_label(_("Copy"));
     GtkWidget *pwTempMap = gtk_button_new_with_label(_("TM"));
