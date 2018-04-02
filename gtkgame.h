@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.158 2016/01/11 21:36:30 plm Exp $
+ * $Id: gtkgame.h,v 1.159 2016/06/26 18:53:49 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -72,7 +72,9 @@ extern int ArePanelsDocked(void);
 extern int ArePanelsShowing(void);
 extern int DockedPanelsShowing(void);
 extern int edit_new(unsigned int length);
+#if ! GTK_CHECK_VERSION(3,0,0)
 extern int GetPanelWidth(gnubgwindow panel);
+#endif
 extern int GTKGetManualDice(unsigned int an[2]);
 extern int GTKGetMove(int anMove[8]);
 extern int GtkTutor(char *sz);

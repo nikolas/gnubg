@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.84 2017/09/30 22:09:54 plm Exp $
+ * $Id: gtkpanels.c,v 1.85 2018/03/16 11:56:46 plm Exp $
  */
 
 #include "config.h"
@@ -365,7 +365,7 @@ UpdateTheoryData(BoardData * bd, int UpdateType, const TanBoard points)
             PipCount(points, anPip);
 
             fKC = KleinmanCount(anPip[1], anPip[0]);
-            if (fKC != -1) {
+            if (fKC >= 0) {
                 pc = g_strdup_printf("%.4f", fKC);
                 gtk_tree_model_iter_nth_child(GTK_TREE_MODEL(store), &iter, NULL, 3);
                 gtk_list_store_set(store, &iter, 1, pc, -1);
@@ -1705,11 +1705,13 @@ IsPanelDocked(gnubgwindow window)
     return woPanel[window].docked;
 }
 
+#if ! GTK_CHECK_VERSION(3,0,0)
 int
 GetPanelWidth(gnubgwindow panel)
 {
     return woPanel[panel].wg.nWidth;
 }
+#endif
 
 int
 IsPanelShowVar(gnubgwindow panel, void *p)
