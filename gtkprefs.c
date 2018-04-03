@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.208 2017/10/01 08:32:05 plm Exp $
+ * $Id: gtkprefs.c,v 1.209 2018/03/04 14:52:43 plm Exp $
  */
 
 #include "config.h"
@@ -2178,7 +2178,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.208 2017/10/01 08:32:05 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.209 2018/03/04 14:52:43 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -3240,10 +3240,8 @@ SetBoardPreferences(GtkWidget * pwBoard, char *sz)
     if (fX) {
         BoardData *bd = BOARD(pwBoard)->board_data;
 
-        if (gtk_widget_get_realized(pwBoard))
-            board_free_pixmaps(bd);
-
         if (gtk_widget_get_realized(pwBoard)) {
+            board_free_pixmaps(bd);
             board_create_pixmaps(pwBoard, bd);
 #if defined(USE_BOARD3D)
             DisplayCorrectBoardType(bd, bd->bd3d, bd->rd);
