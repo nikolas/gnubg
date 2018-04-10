@@ -20,7 +20,7 @@
  * File modified by Joern Thyssen <jthyssen@dk.ibm.com> for use with
  * GNU Backgammon.
  *
- * $Id: sound.c,v 1.100 2015/08/31 05:36:26 mdpetch Exp $
+ * $Id: sound.c,v 1.101 2018/04/02 19:36:15 plm Exp $
  */
 
 #include "config.h"
@@ -551,9 +551,9 @@ SetSoundFile(const gnubgsound sound, const char *file)
     g_free(old_file);
 
     if (!*new_file) {
-        outputf(_("No sound played for: %s\n"), gettext(sound_description[sound]));
+        outputf(_("No sound played for: %s\n"), Q_(sound_description[sound]));
     } else {
-        outputf(_("Sound for: %s: %s\n"), gettext(sound_description[sound]), new_file);
+        outputf(_("Sound for: %s: %s\n"), Q_(sound_description[sound]), new_file);
     }
     g_free(sound_file[sound]);
     sound_file[sound] = g_strdup(new_file);

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.287 2016/07/16 22:03:31 plm Exp $
+ * $Id: show.c,v 1.288 2016/11/01 14:41:44 plm Exp $
  */
 
 #include "config.h"
@@ -2006,9 +2006,9 @@ CommandShowSound(char *UNUSED(sz))
     for (i = (gnubgsound) 0; i < NUM_SOUNDS; ++i) {
         char *sound = GetSoundFile(i);
         if (!*sound)
-            outputf(_("   %-30.30s : no sound\n"), gettext(sound_description[i]));
+            outputf(_("   %-30.30s : no sound\n"), Q_(sound_description[i]));
         else
-            outputf("   %-30.30s : \"%s\"\n", gettext(sound_description[i]), sound);
+            outputf("   %-30.30s : \"%s\"\n", Q_(sound_description[i]), sound);
         g_free(sound);
     }
 }
