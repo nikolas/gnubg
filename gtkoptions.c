@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.121 2017/11/01 09:06:24 plm Exp $
+ * $Id: gtkoptions.c,v 1.122 2018/04/10 22:11:41 plm Exp $
  */
 
 #include "config.h"
@@ -1493,6 +1493,7 @@ OptionsOK(GtkWidget * pw, optionswidget * pow)
         else
 #endif
         if (gtk_widget_get_realized(pwBoard)) {
+            board_free_pixmaps(bd);
             board_create_pixmaps(pwBoard, bd);
             gtk_widget_queue_draw(bd->drawing_area);
         }
