@@ -1,7 +1,7 @@
 /*
  * boardpos.c
  *
- * by Jørn Thyssen <jth@gnubg.org>, 2003.
+ * by Joern Thyssen <jth@gnubg.org>, 2003.
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of version 3 or later of the GNU General Public License as
@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boardpos.c,v 1.17 2009/03/07 20:49:42 c_anthon Exp $
+ * $Id: boardpos.c,v 1.18 2013/06/16 02:16:10 mdpetch Exp $
  */
 
 #include "config.h"
