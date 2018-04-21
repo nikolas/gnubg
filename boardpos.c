@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: boardpos.c,v 1.18 2013/06/16 02:16:10 mdpetch Exp $
+ * $Id: boardpos.c,v 1.19 2018/04/21 16:14:51 plm Exp $
  */
 
 #include "config.h"
@@ -48,9 +48,10 @@ ChequerPosition(const int clockwise, const int point, const int chequer, int *px
 extern void
 PointArea(const int fClockwise, const int nSize, const int n, int *px, int *py, int *pcx, int *pcy)
 {
-
     /* max chequer in column */
     int c_chequer = (n == 0 || n == 25) ? 3 : 5;
+
+    g_assert(n >= 0);
 
     *px = positions[fClockwise][n][0] * nSize;
     *py = positions[fClockwise][n][1] * nSize;
