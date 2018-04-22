@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.122 2018/04/10 22:11:41 plm Exp $
+ * $Id: gtkoptions.c,v 1.123 2018/04/15 14:42:22 plm Exp $
  */
 
 #include "config.h"
@@ -947,7 +947,7 @@ append_dice_options(optionswidget * pow)
 #endif
     int rngsAdded = 0, rngSelected = -1;
 
-    InitRNG(&nRandom, NULL, FALSE, rngCurrent);
+    free(InitRNG(&nRandom, NULL, TRUE, rngCurrent));
 
     pwp = gtk_alignment_new(0, 0, 0, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pwp), 4);
