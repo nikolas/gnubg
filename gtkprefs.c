@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.209 2018/03/04 14:52:43 plm Exp $
+ * $Id: gtkprefs.c,v 1.210 2018/04/03 20:39:53 plm Exp $
  */
 
 #include "config.h"
@@ -1372,13 +1372,13 @@ DoTestPerformance(GtkWidget * pw, GtkWidget * board)
 
     fps = TestPerformance3d(bd);
 
-    if (fps >= 30)
-        msg = _("3d Performance is very fast.\n");
-    else if (fps >= 15)
+    if (fps >= 120)
+        msg = _("3d Performance is very good.\n");
+    else if (fps >= 60)
         msg = _("3d Performance is good.\n");
-    else if (fps >= 10)
+    else if (fps >= 30)
         msg = _("3d Performance is ok.\n");
-    else if (fps >= 5)
+    else if (fps >= 15)
         msg = _("3d Performance is poor.\n");
     else
         msg = _("3d Performance is very poor.\n");
@@ -2178,7 +2178,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.209 2018/03/04 14:52:43 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.210 2018/04/03 20:39:53 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
