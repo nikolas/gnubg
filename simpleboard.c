@@ -11,7 +11,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: simpleboard.c,v 1.24 2013/11/20 21:23:10 plm Exp $
+ * $Id: simpleboard.c,v 1.25 2015/01/11 22:48:14 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -19,7 +19,7 @@
  */
 
 #include "config.h"
-#if HAVE_PANGOCAIRO
+#if defined(HAVE_PANGOCAIRO)
 #include <cairo.h>
 #include <pango/pangocairo.h>
 #include <glib.h>
@@ -236,7 +236,7 @@ draw_cube(SimpleBoard * board)
     fill_and_stroke(cr, color);
     text = g_strdup_printf("%d", cube);
     cairo_move_to(cr, x, y);
-    draw_centered_text(cr, color.text, 10.0f - 2 * floorf(log10f(cube)), text);
+    draw_centered_text(cr, color.text, (gfloat) (12 - 2 * strlen(text)), text);
     g_free(text);
 }
 
