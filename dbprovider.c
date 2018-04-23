@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dbprovider.c,v 1.53 2017/06/04 15:33:27 plm Exp $
+ * $Id: dbprovider.c,v 1.54 2017/11/02 21:59:58 plm Exp $
  */
 
 #include "config.h"
@@ -86,7 +86,7 @@ static DBProvider providers[NUM_PROVIDERS] = {
 #if !defined(WIN32)
     {PyPostgreConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, PyPostgreGetDatabaseList,
      PyPostgreDeleteDatabase,
-     "Postgres (Python)", "PythonPostgre", "PostgreSQL connection via PyGreSQL Python module", TRUE, TRUE, "gnubg", "",
+     "PostgreSQL (Python)", "PythonPostgre", "PostgreSQL connection via PyGreSQL Python module", TRUE, TRUE, "gnubg", "",
      "", "localhost:5432"},
 #endif
 #endif
