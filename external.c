@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.95 2015/06/26 06:39:37 mdpetch Exp $
+ * $Id: external.c,v 1.96 2015/06/26 06:46:41 mdpetch Exp $
  */
 
 #include "config.h"
@@ -554,7 +554,8 @@ extern void
 CommandExternal(char *sz)
 {
 
-#if !HAVE_SOCKETS
+#if !defined(HAVE_SOCKETS)
+    (void) sz;		/* silence compiler warning */
     outputl(_("This installation of GNU Backgammon was compiled without\n"
               "socket support, and does not implement external controllers."));
 #else
@@ -567,7 +568,7 @@ CommandExternal(char *sz)
     scancontext scanctx;
     int fExit;
     int fRestart = TRUE;
-    int retval;
+    int retval = 0;
 
     sz = NextToken(&sz);
 
