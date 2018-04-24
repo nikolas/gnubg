@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: speed.c,v 1.33 2015/10/24 21:10:26 plm Exp $
+ * $Id: speed.c,v 1.34 2017/06/27 19:34:18 plm Exp $
  */
 
 #include "config.h"
@@ -84,7 +84,7 @@ RunEvals(void *UNUSED(notused))
     }
 
 #if defined(USE_MULTITHREAD)
-    if ((t = MT_SyncEnd()) != 0)
+    if ((t = MT_SyncEnd()) > 0)
         timeTaken += t;
 #else
     timeTaken += (get_time() - t);
