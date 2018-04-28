@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.h,v 1.32 2014/07/23 19:43:02 plm Exp $
+ * $Id: bearoff.h,v 1.33 2017/02/19 13:55:51 plm Exp $
  */
 
 #ifndef BEAROFF_H
@@ -58,7 +58,7 @@ enum _bearoffoptions {
     BO_HEURISTIC = 8
 };
 
-extern bearoffcontext *BearoffInit(const char *szFilename, const int bo, void (*p) (unsigned int));
+extern bearoffcontext *BearoffInit(const char *szFilename, const unsigned int bo, void (*p) (unsigned int));
 
 extern int
  BearoffEval(const bearoffcontext * pbc, const TanBoard anBoard, float arOutput[]);
@@ -79,7 +79,7 @@ BearoffDist(const bearoffcontext * pbc, const unsigned int nPosID,
 extern int
  BearoffCubeful(const bearoffcontext * pbc, const unsigned int iPos, float ar[4], unsigned short int aus[4]);
 
-extern void BearoffClose(bearoffcontext * ppbc);
+extern void BearoffClose(bearoffcontext * pbc);
 
 extern int
  isBearoff(const bearoffcontext * pbc, const TanBoard anBoard);

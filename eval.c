@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.475 2017/12/03 22:00:35 plm Exp $
+ * $Id: eval.c,v 1.476 2018/04/21 20:31:36 plm Exp $
  */
 
 #include "config.h"
@@ -649,7 +649,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     if (!fNoBearoff) {
         gnubg_bearoff_os = BuildFilename("gnubg_os0.bd");
         if (!pbc1)
-            pbc1 = BearoffInit(gnubg_bearoff_os, (int) BO_IN_MEMORY, NULL);
+            pbc1 = BearoffInit(gnubg_bearoff_os, BO_IN_MEMORY|BO_MUST_BE_ONE_SIDED, NULL);
         g_free(gnubg_bearoff_os);
 
         if (!pbc1)
@@ -671,12 +671,12 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
 
         gnubg_bearoff_os = BuildFilename("gnubg_os.bd");
         /* init one-sided db */
-        pbcOS = BearoffInit(gnubg_bearoff_os, BO_IN_MEMORY, NULL);
+        pbcOS = BearoffInit(gnubg_bearoff_os, BO_IN_MEMORY|BO_MUST_BE_ONE_SIDED, NULL);
         g_free(gnubg_bearoff_os);
 
         gnubg_bearoff = BuildFilename("gnubg_ts.bd");
         /* init two-sided db */
-        pbcTS = BearoffInit(gnubg_bearoff, BO_IN_MEMORY, NULL);
+        pbcTS = BearoffInit(gnubg_bearoff, BO_IN_MEMORY|BO_MUST_BE_TWO_SIDED, NULL);
         g_free(gnubg_bearoff);
 
         /* hyper-gammon databases */
