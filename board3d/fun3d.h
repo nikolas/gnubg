@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: fun3d.h,v 1.36 2016/08/28 22:24:49 plm Exp $
+ * $Id: fun3d.h,v 1.37 2018/03/04 14:52:43 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -85,7 +85,7 @@ extern void FindNamedTexture(TextureInfo ** textureInfo, char *name);
 float Dist2d(float a, float b);
 float ***Alloc3d(unsigned int x, unsigned int y, unsigned int z);
 void Free3d(float ***array, unsigned int x, unsigned int y);
-int LoadTexture(Texture * texture, const char *Filename);
+int LoadTexture(Texture *texture, const char *filename);
 void CheckOpenglError(void);
 
 /* Functions for 3d board */

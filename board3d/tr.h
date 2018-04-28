@@ -1,4 +1,4 @@
-/* $Id: tr.h,v 1.5 2013/07/22 18:51:01 mdpetch Exp $ */
+/* $Id: tr.h,v 1.6 2014/05/11 15:15:10 plm Exp $ */
 
 /*
  * $originalLog: tr.h,v $
@@ -141,11 +141,11 @@ extern "C" {
 #endif
 
     extern void trOrtho(TRcontext * tr,
-                        GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble zNearx, GLdouble zFarx);
+                        GLdouble left, GLdouble right, GLdouble bottom, GLdouble top, GLdouble znear, GLdouble zfar);
 
     extern void trFrustum(TRcontext * tr,
                           GLdouble left, GLdouble right,
-                          GLdouble bottom, GLdouble top, GLdouble zNearx, GLdouble zFarx);
+                          GLdouble bottom, GLdouble top, GLdouble znear, GLdouble zfar);
 
 #if 0
     extern void trPerspective(TRcontext * tr, GLdouble fovy, GLdouble aspect, GLdouble zNearx, GLdouble zFarx);

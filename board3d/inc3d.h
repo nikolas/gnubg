@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.56 2015/08/02 20:41:02 plm Exp $
+ * $Id: inc3d.h,v 1.57 2015/08/02 21:22:23 plm Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -249,7 +249,7 @@ void circleRevTex(float radius, float height, unsigned int accuracy, const Textu
 void circleOutlineOutward(float radius, float height, unsigned int accuracy);
 void circleOutline(float radius, float height, unsigned int accuracy);
 void circleSloped(float radius, float startHeight, float endHeight, unsigned int accuracy);
-void drawBox(int boxType, float x, float y, float z, float w, float h, float d, const Texture * texture);
+void drawBox(int type, float x, float y, float z, float w, float h, float d, const Texture * texture);
 void drawCube(float size);
 void drawRect(float x, float y, float z, float w, float h, const Texture * texture);
 void drawSplitRect(float x, float y, float z, float w, float h, const Texture * texture);
