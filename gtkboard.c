@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.351 2018/04/24 19:33:30 plm Exp $
+ * $Id: gtkboard.c,v 1.352 2018/05/05 20:52:19 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3511,12 +3511,11 @@ board_edit(BoardData * bd)
         if (nMatchToNew != ms.nMatchTo || changed) {
             /* new match length; issue "set matchid ..." command */
             gchar *sz;
-            int i;
 
             if (nMatchToNew)
-                for (i = 0; i < 2; ++i)
-                    if (anScoreNew[i] >= nMatchToNew)
-                        anScoreNew[i] = 0;
+                if ((anScoreNew[0] >= nMatchToNew) || (anScoreNew[1] >= nMatchToNew))
+                    anScoreNew[0] = anScoreNew[1] = 0;
+
             if ((bd->diceRoll[0] > 6) || (bd->diceRoll[1] > 6)) {
                 bd->diceRoll[0] = bd->diceRoll[1] = 0;
             }
