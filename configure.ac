@@ -17,7 +17,7 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program; if not, write to the Free Software
 dnl Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 
-AC_REVISION($Revision: 1.80 $)
+AC_REVISION($Revision: 1.81 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -346,7 +346,7 @@ fi
 AC_CHECK_HEADERS(GL/glx.h)
 
 if test  "$with_board3d" != "no" && test "$with_gtk" != "no" && test "x$have_gtk" = "xyes" && test "x$have_gtkglext" = "xyes" -a "x$have_glu" = "xyes"; then
-	AC_DEFINE(USE_BOARD3D,1, [Define if you want to use the 3d boards])
+	AC_DEFINE(USE_BOARD3D,1, [Define if you want to use the 3D boards])
 	no_board3d="no"
 fi
 

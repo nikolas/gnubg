@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.992 2017/10/11 20:53:28 plm Exp $
+ * $Id: gnubg.c,v 1.993 2018/03/17 21:40:13 plm Exp $
  */
 
 #include "config.h"
@@ -568,7 +568,7 @@ static char const *aszBuildInfo[] = {
     N_("Long RNG seeds supported."),
 #endif
 #if defined(USE_BOARD3D)
-    N_("3d Boards supported."),
+    N_("3D boards supported."),
 #endif
 #if defined(WIN32)
     N_("Windows sound system supported."),

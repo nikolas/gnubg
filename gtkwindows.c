@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.54 2016/08/14 18:49:07 plm Exp $
+ * $Id: gtkwindows.c,v 1.55 2016/08/15 20:12:05 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@ static Warning warnings[WARN_NUM_WARNINGS] = {
      N_("Press escape to exit full screen mode"),
      "fullscreenexit", TRUE, FALSE},
     {
-     N_("This option will speed up the 3d drawing, but may not work correctly on all machines"),
+     N_("This option will speed up the 3D drawing, but may not work correctly on all machines"),
      "quickdraw", TRUE, FALSE},
     {
      N_("Drawing shadows is only supported on the latest graphics cards\n"
