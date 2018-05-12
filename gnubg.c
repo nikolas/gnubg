@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.994 2018/05/10 17:38:48 plm Exp $
+ * $Id: gnubg.c,v 1.995 2018/05/12 20:59:35 plm Exp $
  */
 
 #include "config.h"
@@ -43,15 +43,8 @@
 
 #if defined(HAVE_LIB_READLINE)
 static char *gnubg_histfile;
-#if defined(__clang__) || defined(__GNUC__) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 406 )
-#pragma GCC diagnostic push
-#pragma GCC diagnostic ignored "-Wstrict-prototypes"
-#endif
 #include <readline/history.h>
 #include <readline/readline.h>
-#if defined(__clang__) || defined(__GNUC__) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 406 )
-#pragma GCC diagnostic pop
-#endif
 static int fReadingOther;
 static char szCommandSeparators[] = " \t\n\r\v\f";
 #endif
@@ -4170,7 +4163,7 @@ HandleInterrupt(int UNUSED(idSignal))
 {
     /* NB: It is safe to write to fInterrupt even if it cannot be read
      * atomically, because it is only used to hold a binary value. */
-    MT_SafeSet(&fInterrupt, TRUE);
+    fInterrupt = TRUE;
 }
 
 static void
@@ -4769,10 +4762,10 @@ CommandEq2MWC(char *sz)
 
     GetMatchStateCubeInfo(&ci, &ms);
 
-    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), -1.0, 100.0f * eq2mwc(-1.0, &ci));
-    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), +1.0, 100.0f * eq2mwc(+1.0, &ci));
+    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), -1.0, 100.0 * eq2mwc(-1.0, &ci));
+    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), +1.0, 100.0 * eq2mwc(+1.0, &ci));
     outputf("%s:\n", _("By linear interpolation"));
-    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), rEq, 100.0f * eq2mwc(rEq, &ci));
+    outputf("%s = %+6.3f: %6.2f%%\n", _("MWC for equity"), rEq, 100.0 * eq2mwc(rEq, &ci));
 
 }
 
@@ -4814,10 +4807,10 @@ CommandMWC2Eq(char *sz)
     if (rMwc > 1.0f)
         rMwc /= 100.0f;
 
-    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0f * eq2mwc(-1.0, &ci), -1.0);
-    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0f * eq2mwc(+1.0, &ci), +1.0);
+    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0 * eq2mwc(-1.0, &ci), -1.0);
+    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0 * eq2mwc(+1.0, &ci), +1.0);
     outputf("%s:\n", _("By linear interpolation"));
-    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0f * rMwc, mwc2eq(rMwc, &ci));
+    outputf("%s = %6.2f%%: %+6.3f\n", _("Equity for MWC"), 100.0 * rMwc, mwc2eq(rMwc, &ci));
 
 
 }

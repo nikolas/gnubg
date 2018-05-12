@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.34 2017/12/16 18:53:01 plm Exp $
+ * $Id: neuralnetsse.c,v 1.35 2018/05/12 20:59:35 plm Exp $
  */
 
 #include "config.h"
@@ -314,7 +314,7 @@ for (j = (cHidden >> LOG2VEC_SIZE); j; j--, pr += VEC_SIZE, prWeight += VEC_SIZE
 #endif
 
 static void
-EvaluateSSE(const neuralnet * restrict pnn, const float arInput[], float ar[], float arOutput[])
+EvaluateSSE(const neuralnet * pnn, const float arInput[], float ar[], float arOutput[])
 {
     const unsigned int cHidden = pnn->cHidden;
     unsigned int i, j;
@@ -555,7 +555,7 @@ EvaluateSSE(const neuralnet * restrict pnn, const float arInput[], float ar[], f
 
 
 extern int
-NeuralNetEvaluateSSE(const neuralnet * restrict pnn, /*lint -e{818} */ float arInput[],
+NeuralNetEvaluateSSE(const neuralnet * pnn, /*lint -e{818} */ float arInput[],
                      float arOutput[], NNState * UNUSED(pnState))
 {
     SSE_ALIGN(float ar[pnn->cHidden]);
