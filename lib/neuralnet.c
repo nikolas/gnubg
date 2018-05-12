@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.90 2017/02/18 16:19:44 plm Exp $
+ * $Id: neuralnet.c,v 1.91 2017/08/13 20:29:16 plm Exp $
  */
 
 #include "config.h"
@@ -235,7 +235,6 @@ NeuralNetEvaluate(const neuralnet * pnn, float arInput[], float arOutput[], NNSt
         }
     case NNEVAL_FROMBASE:
         {
-            unsigned int i;
             if (pnState->cSavedIBase != pnn->cInput) {
                 Evaluate(pnn, arInput, ar, arOutput, 0);
                 break;
@@ -245,6 +244,7 @@ NeuralNetEvaluate(const neuralnet * pnn, float arInput[], float arOutput[], NNSt
             {
                 float *r = arInput;
                 float *s = pnState->savedIBase;
+                unsigned int i;
 
                 for (i = 0; i < pnn->cInput; ++i, ++r, ++s) {
                     if (*r != *s /*lint --e(777) */ ) {
@@ -500,7 +500,7 @@ CheckSSE(void)
 #if defined(__FreeBSD__)
     int error = sysctlbyname("hw.instruction_sse", &result, &length, NULL, 0);
 #endif
-    if (0 != error)
+    if (error != 0)
         result = 0;
 
 #else
@@ -555,12 +555,15 @@ SIMD_Supported(void)
 {
     static int state = -3;
 
-    if (state == -3)
-#if defined(HAVE_SSE)
+    if (state == -3) {
+#if defined(HAVE_NEON)
+        state = CheckNEON();
+#elif defined(HAVE_SSE)
         state = CheckSSE();
 #else
         state = -2;
 #endif
+    }
 
     return state;
 }
