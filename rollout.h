@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.40 2016/08/27 20:35:13 plm Exp $
+ * $Id: rollout.h,v 1.41 2016/08/28 22:29:38 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -131,11 +131,12 @@ extern void RolloutLoopMT(void *unused);
 
 /* Quasi-random permutation array: the first index is the "generation" of the
  * permutation (0 permutes each set of 36 rolls, 1 permutes those sets of 36
- * into 1296, etc.); the second is the roll within the game (limited to 128,
+ * into 1296, etc.); the second is the roll within the game (limited to QRLEN,
  * so we use pseudo-random dice after that); the last is the permutation
  * itself.  6 generations are enough for 36^6 > 2^31 trials. */
+#define QRLEN 128
 typedef struct _perArray {
-    unsigned char aaanPermutation[6][128][36];
+    unsigned char aaanPermutation[6][QRLEN][36];
     int nPermutationSeed;
 } perArray;
 

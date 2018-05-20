@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.252 2017/03/07 22:51:27 plm Exp $
+ * $Id: rollout.c,v 1.253 2017/08/16 19:36:19 plm Exp $
  */
 
 #include "config.h"
@@ -197,7 +197,7 @@ QuasiRandomSeed(perArray * pArray, int n)
     irandinit(&rc, TRUE);
 
     for (i = 0; i < 6; i++)
-        for (j = i /* no need for permutations below the diagonal */ ; j < 128; j++) {
+        for (j = i /* no need for permutations below the diagonal */ ; j < QRLEN; j++) {
             for (k = 0; k < 36; k++)
                 pArray->aaanPermutation[i][j][k] = k;
             for (k = 0; k < 35; k++) {
@@ -247,7 +247,7 @@ RolloutDice(int iTurn, int iGame,
 
             return 0;
         }
-    } else if (fRotate && iTurn < 128) {
+    } else if (fRotate && iTurn < QRLEN) {
         unsigned int i,         /* the "generation" of the permutation */
          j,                     /* the number we're permuting */
          k;                     /* 36**i */
