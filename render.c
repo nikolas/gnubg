@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.103 2017/04/02 20:19:18 plm Exp $
+ * $Id: render.c,v 1.104 2017/04/05 18:19:39 plm Exp $
  */
 
 #include "config.h"
@@ -1390,7 +1390,11 @@ RenderGlyph(unsigned char *puch, int nStride, FT_Glyph pftg,
 
     FT_BitmapGlyph pftbg;
     FT_Bitmap *pb;
+#if (FREETYPE_MAJOR * 10000 + FREETYPE_MINOR * 100 + FREETYPE_PATCH >= 20504)
     unsigned int x, y, x0 = 0, y0 = 0;
+#else
+    int x, y, x0 = 0, y0 = 0;
+#endif
 
     g_assert(pftg->format == FT_GLYPH_FORMAT_BITMAP);
 
