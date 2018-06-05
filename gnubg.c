@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.995 2018/05/12 20:59:35 plm Exp $
+ * $Id: gnubg.c,v 1.996 2018/05/12 21:42:33 plm Exp $
  */
 
 #include "config.h"
@@ -450,23 +450,23 @@ exportsetup exsExport = {
     {FALSE, TRUE}
     ,
     /* display all moves */
-    {TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE}
+    {TRUE, TRUE, TRUE, TRUE}
     ,
 
     TRUE,                       /* show detailed prob. for cube decisions */
     {FALSE, TRUE}
     ,                           /* do not show move parameters */
     /* display all cube decisions */
-    {TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE}
+    {TRUE, TRUE, TRUE, TRUE, TRUE, TRUE, TRUE}
     ,
 
-    NULL,                       /* HTML url to pictures */
+    NULL,                       /* HTML URL to pictures */
     HTML_EXPORT_TYPE_GNU,
     NULL,                       /* HTML extension */
     HTML_EXPORT_CSS_HEAD,       /* write CSS stylesheet in <head> */
 
     4,                          /* PNG size */
-    4                           /* Html size */
+    4                           /* HTML size */
 };
 
 
