@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkexport.c,v 1.52 2016/01/25 21:38:18 plm Exp $
+ * $Id: gtkexport.c,v 1.53 2018/06/05 19:07:11 plm Exp $
  */
 
 #include "config.h"
@@ -774,6 +774,8 @@ GTKShowExport(exportsetup * pexs)
 
     g_signal_connect(G_OBJECT(genHtml), "clicked", G_CALLBACK(GenHtmlImages), pew->adjHtmlSize);
     g_signal_connect(G_OBJECT(pew->adjHtmlSize), "value-changed", G_CALLBACK(SizeChanged), pew->pwHtmlSize);
+
+    g_object_set_data_full(G_OBJECT(pwDialog), "exportwidget", pew, free);
 
     /* show dialog */
 
