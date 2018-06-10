@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.446 2017/08/22 06:26:45 plm Exp $
+ * $Id: play.c,v 1.447 2018/01/16 21:39:44 plm Exp $
  */
 
 #include "config.h"
@@ -609,9 +609,9 @@ add_moverecord_sanity_check(moverecord * pmr)
 }
 
 extern void
-AddMoveRecord(void *pv)
+AddMoveRecord(moverecord *pmr)
 {
-    moverecord *pmr = pv, *pmrOld;
+    moverecord *pmrOld;
 
     add_moverecord_get_cur(pmr);
 
@@ -669,14 +669,14 @@ move_not_last_in_match_ok(void)
 }
 
 extern void
-SetMoveRecord(void *pv)
+SetMoveRecord(moverecord *pmr)
 {
 
 #if defined (USE_GTK)
     if (fX)
-        GTKSetMoveRecord(pv);
+        GTKSetMoveRecord(pmr);
 #else
-    (void) pv;                  /* suppress unused parameter compiler warning */
+    (void) pmr;                 /* suppress unused parameter compiler warning */
 #endif
 }
 
