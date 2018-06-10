@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matchequity.h,v 1.26 2013/06/12 21:50:44 plm Exp $
+ * $Id: matchequity.h,v 1.27 2013/06/16 02:16:18 mdpetch Exp $
  */
 
 
@@ -119,7 +119,7 @@ extern void
 
 
 getMEMultiple(const int nScore0, const int nScore1, const int nMatchTo,
-              const int nPoints,
+              const int nCube,
               const int nCubePrime0, const int nCubePrime1,
               const int fCrawford,
               float aafMET[MAXSCORE][MAXSCORE], float aafMETPostCrawford[2][MAXSCORE], float *player0, float *player1);
