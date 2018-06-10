@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.h,v 1.159 2016/06/26 18:53:49 plm Exp $
+ * $Id: gtkgame.h,v 1.160 2018/04/02 16:41:12 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -113,12 +113,12 @@ extern void GTKOutput(const char *sz);
 extern void GTKOutputErr(const char *sz);
 extern void GTKOutputNew(void);
 extern void GTKOutputX(void);
-extern void GTKPopGame(int c);
+extern void GTKPopGame(int i);
 extern void GTKPopMoveRecord(moverecord * pmr);
 extern void GTKProgressEnd(void);
 extern void GTKProgressStart(const char *sz);
 extern void GTKProgressStartValue(char *sz, int iMax);
-extern void GTKProgressValue(int fValue, int iMax);
+extern void GTKProgressValue(int iValue, int iMax);
 extern void GTKProgress(void);
 extern void GTKRecordShow(FILE * pfIn, char *sz, char *szPlayer);
 extern void GTKRegenerateGames(void);
@@ -136,7 +136,7 @@ extern void GTKShowCalibration(void);
 extern void GTKShowScoreSheet(void);
 extern void GTKShowVersion(void);
 extern void GTKSuspendInput(void);
-extern void GTKTextToClipboard(const char *sz);
+extern void GTKTextToClipboard(const char *text);
 extern void GTKTextWindow(const char *szOutput, const char *title, const dialogtype type, GtkWidget * parent);
 extern void GTKThaw(void);
 extern void HideAllPanels(gpointer p, guint n, GtkWidget * pw);
@@ -173,7 +173,7 @@ extern void ToggleDockPanels(GtkToggleAction * action, gpointer user_data);
 extern void ToggleDockPanels(gpointer p, guint n, GtkWidget * pw);
 #endif
 extern void GTKUndo(void);
-extern void UserCommand(const char *sz);
+extern void UserCommand(const char *szCommand);
 extern void ShowToolbar(void);
 extern void HideToolbar(void);
 extern void MoveListDestroy(void);
