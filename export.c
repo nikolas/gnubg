@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.87 2017/03/18 22:12:04 plm Exp $
+ * $Id: export.c,v 1.88 2017/04/27 20:31:15 plm Exp $
  */
 
 #include "config.h"
@@ -1143,7 +1143,7 @@ ExportGameJF(FILE * pf, listOLD * plGame, int iGame, int withScore, int fSst)
 
                 /* I don't understand why we need to swap this field! */
                 ct = strstr(buffer, ";");
-                ct[7] = '0' + ('1' - ct[7]);
+                ct[7] = (ct[7] == '0') ? '1' : '0';
             }
             if (!(i & 1))
                 if (fSst)
