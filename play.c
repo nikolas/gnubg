@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.448 2018/06/10 18:17:59 plm Exp $
+ * $Id: play.c,v 1.449 2018/06/15 19:31:55 plm Exp $
  */
 
 #include "config.h"
@@ -4364,12 +4364,10 @@ EvaluateRoll(float ar[NUM_ROLLOUT_OUTPUTS], int nDie1, int nDie2, const TanBoard
 moverecord *
 LinkToDouble(moverecord * pmr)
 {
-
     moverecord *prev;
 
-
-    if (!plLastMove || ((prev = plLastMove->p) == 0) || prev->mt != MOVE_DOUBLE)
-        return 0;
+    if (!plLastMove || ((prev = plLastMove->p) == NULL) || prev->mt != MOVE_DOUBLE)
+        return NULL;
 
     /* link the evaluation data */
     pmr->CubeDecPtr = prev->CubeDecPtr;
@@ -4381,7 +4379,12 @@ LinkToDouble(moverecord * pmr)
     if (pmr->mt == MOVE_DOUBLE)
         pmr->nAnimals = 1 + prev->nAnimals;
 
-    return pmr;
+    /* We used to return pmr here and callers merely tested if the return
+     * value is null (above) or not (here).
+     * On the other hand, prev can be used by the caller (that already
+     * knows pmr) in the case of import of games with beavers.
+     */
+    return prev;
 }
 
 /*
