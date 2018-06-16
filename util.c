@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.36 2015/02/08 15:44:43 plm Exp $
+ * $Id: util.c,v 1.37 2017/09/17 20:44:00 plm Exp $
  */
 
 #include "config.h"
@@ -114,9 +114,9 @@ getDocDir(void)
 
 
 void
-PrintError(const char *str)
+PrintError(const char *message)
 {
-    g_printerr("%s: %s", str, strerror(errno));
+    g_printerr("%s: %s", message, strerror(errno));
 }
 
 /* Non-Ansi compliant function */
