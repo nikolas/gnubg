@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.996 2018/05/12 21:42:33 plm Exp $
+ * $Id: gnubg.c,v 1.997 2018/06/05 19:24:05 plm Exp $
  */
 
 #include "config.h"
@@ -5355,13 +5355,13 @@ asyncCubeDecision(decisionData * pdd)
 }
 
 extern int
-RunAsyncProcess(AsyncFun fn, void *data, const char *msg)
+RunAsyncProcess(AsyncFun fun, void *data, const char *msg)
 {
     int ret;
 #if defined(USE_MULTITHREAD)
     Task *pt = (Task *) malloc(sizeof(Task));
     pt->pLinkedTask = NULL;
-    pt->fun = fn;
+    pt->fun = fun;
     pt->data = data;
     MT_AddTask(pt, TRUE);
 #endif
@@ -5372,7 +5372,7 @@ RunAsyncProcess(AsyncFun fn, void *data, const char *msg)
     ret = MT_WaitForTasks(Progress, 100, FALSE);
 #else
     asyncRet = 0;
-    fn(data);                   /* Just call function in single threaded build */
+    fun(data);                  /* Just call function in single threaded build */
     ret = asyncRet;
 #endif
 
