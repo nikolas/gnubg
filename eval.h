@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.h,v 1.196 2016/08/28 22:28:31 plm Exp $
+ * $Id: eval.h,v 1.197 2017/01/05 07:50:16 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -453,16 +453,16 @@ extern int
  GetDPEq(int *pfCube, float *prDPEq, const cubeinfo * pci);
 
 extern float
- mwc2eq(const float rMwc, const cubeinfo * ci);
+ mwc2eq(const float rMwc, const cubeinfo * pci);
 
 extern float
- eq2mwc(const float rEq, const cubeinfo * ci);
+ eq2mwc(const float rEq, const cubeinfo * pci);
 
 extern float
- se_mwc2eq(const float rMwc, const cubeinfo * ci);
+ se_mwc2eq(const float rMwc, const cubeinfo * pci);
 
 extern float
- se_eq2mwc(const float rEq, const cubeinfo * ci);
+ se_eq2mwc(const float rEq, const cubeinfo * pci);
 
 extern char
 *FormatEval(char *sz, evalsetup * pes);
