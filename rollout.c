@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.c,v 1.253 2017/08/16 19:36:19 plm Exp $
+ * $Id: rollout.c,v 1.254 2018/05/20 16:32:58 plm Exp $
  */
 
 #include "config.h"
@@ -1813,7 +1813,7 @@ getResignEquities(float arResign[NUM_ROLLOUT_OUTPUTS], cubeinfo * pci, int nResi
 
 
 extern int
-ScoreMoveRollout(move ** ppm, cubeinfo ** ppci, int cMoves, rolloutprogressfunc * pf, void *p)
+ScoreMoveRollout(move ** ppm, cubeinfo ** ppci, int cMoves, rolloutprogressfunc * pfRolloutProgress, void * pUserData)
 {
 
     const cubeinfo *pci;
@@ -1850,7 +1850,7 @@ ScoreMoveRollout(move ** ppm, cubeinfo ** ppci, int cMoves, rolloutprogressfunc 
     }
 
     nGamesDone = RolloutGeneral(apBoard,
-                                apOutput, apStdDev, NULL, apes, apci, apCubeDecTop, cMoves, TRUE, FALSE, pf, p);
+                                apOutput, apStdDev, NULL, apes, apci, apCubeDecTop, cMoves, TRUE, FALSE, pfRolloutProgress, pUserData);
     /* put fMove back again */
     for (i = 0; i < cMoves; ++i) {
         aci[i].fMove = !aci[i].fMove;
