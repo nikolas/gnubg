@@ -18,15 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: timer.c,v 1.18 2015/08/31 05:36:26 mdpetch Exp $
+ * $Id: timer.c,v 1.19 2018/04/23 22:05:30 plm Exp $
  */
 
 #include "config.h"
+
 #include <time.h>
-#include <backgammon.h>
 #if HAVE_SYS_TIME_H
 #include <sys/time.h>
 #endif
+
+#include "backgammon.h"
 
 #ifdef WIN32
 #include <windows.h>
