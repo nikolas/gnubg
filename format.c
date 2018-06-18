@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.56 2015/10/16 19:59:06 plm Exp $
+ * $Id: format.c,v 1.57 2016/05/07 21:14:28 plm Exp $
  */
 
 #include "config.h"
@@ -328,11 +328,11 @@ OutputRolloutContext(const char *szIndent, const rolloutcontext * prc)
         sprintf(strchr(sz, 0), prc->fCubeful ? _("Full cubeful rollout") : _("Full cubeless rollout"));
 
     if (prc->fTruncBearoffOS && !prc->fCubeful)
-        sprintf(strchr(sz, 0), " (%s)", _("trunc. at one-sided bearoff"));
+        sprintf(strchr(sz, 0), " (%s)", _("truncated at one-sided bearoff"));
     else if (prc->fTruncBearoff2 && !prc->fCubeful)
-        sprintf(strchr(sz, 0), " (%s)", _("trunc. at exact bearoff"));
+        sprintf(strchr(sz, 0), " (%s)", _("truncated at exact bearoff"));
 
-    sprintf(strchr(sz, 0), " %s", prc->fVarRedn ? _("with var.redn.") : _("without var.redn."));
+    sprintf(strchr(sz, 0), " %s", prc->fVarRedn ? _("with variance reduction") : _("without variance reduction"));
 
     strcat(sz, "\n");
 
@@ -419,7 +419,7 @@ OutputEquity(const float r, const cubeinfo * pci, const int f)
         if (f)
             sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, r);
         else
-            sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits, r);
+            sprintf(sz, "% *.*f", fOutputDigits + 2, fOutputDigits, r);
     } else {
         if (fOutputMatchPC) {
             sprintf(sz, "%*.*f%%", fOutputDigits + 3, fOutputDigits > 1 ? fOutputDigits - 1 : 0,
@@ -445,7 +445,7 @@ OutputMoneyEquity(const float ar[], const int f)
     if (f)
         sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, eq);
     else
-        sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits, eq);
+        sprintf(sz, "% *.*f", fOutputDigits + 2, fOutputDigits, eq);
 
 
     return sz;
@@ -477,7 +477,7 @@ OutputEquityScale(const float r, const cubeinfo * pci, const cubeinfo * pciBase,
         if (f)
             sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, pci->nCube / pciBase->nCube * r);
         else
-            sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits, pci->nCube / pciBase->nCube * r);
+            sprintf(sz, "% *.*f", fOutputDigits + 2, fOutputDigits, pci->nCube / pciBase->nCube * r);
     } else {
 
         if (fOutputMWC) {
@@ -493,7 +493,7 @@ OutputEquityScale(const float r, const cubeinfo * pci, const cubeinfo * pciBase,
             if (f)
                 sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, mwc2eq(eq2mwc(r, pci), pciBase));
             else
-                sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits, se_mwc2eq(se_eq2mwc(r, pci), pciBase));
+                sprintf(sz, "% *.*f", fOutputDigits + 2, fOutputDigits, se_mwc2eq(se_eq2mwc(r, pci), pciBase));
         }
 
 
@@ -558,21 +558,21 @@ OutputMWC(const float r, const cubeinfo * pci, const int f)
         if (f)
             sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, r);
         else
-            sprintf(sz, "%*.*f", fOutputDigits + 2, fOutputDigits, r);
+            sprintf(sz, "% *.*f", fOutputDigits + 2, fOutputDigits, r);
     } else {
 
         if (!fOutputMWC) {
             if (f)
                 sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits, mwc2eq(r, pci));
             else
-                sprintf(sz, "%*.*f", fOutputDigits + 3, fOutputDigits, se_mwc2eq(r, pci));
+                sprintf(sz, "% *.*f", fOutputDigits + 3, fOutputDigits, se_mwc2eq(r, pci));
         } else if (fOutputMatchPC) {
             sprintf(sz, "%*.*f%%", fOutputDigits + 3, fOutputDigits > 1 ? fOutputDigits - 1 : 0, 100.0f * r);
         } else {
             if (f)
                 sprintf(sz, "%+*.*f", fOutputDigits + 3, fOutputDigits + 1, r);
             else
-                sprintf(sz, "%*.*f", fOutputDigits + 3, fOutputDigits + 1, r);
+                sprintf(sz, "% *.*f", fOutputDigits + 3, fOutputDigits + 1, r);
         }
     }
 
