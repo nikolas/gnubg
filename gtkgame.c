@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.918 2018/04/02 19:36:15 plm Exp $
+ * $Id: gtkgame.c,v 1.919 2018/05/13 19:04:08 plm Exp $
  */
 
 #include "config.h"
@@ -5179,16 +5179,8 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
     gtk_container_set_border_width(GTK_CONTAINER(pw), 8);
     gtk_container_add(GTK_CONTAINER(pwFrame), pw);
 
-    /* a vbox for the check boxes */
-#if GTK_CHECK_VERSION(3,0,0)
-    pwv = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
-#else
-    pwv = gtk_vbox_new(FALSE, 0);
-#endif
-    gtk_container_add(GTK_CONTAINER(pw), pwv);
-
     prpw->pwJsdDoStop = gtk_check_button_new_with_label(_("Enable Stop on JSD"));
-    gtk_container_add(GTK_CONTAINER(pwv), prpw->pwJsdDoStop);
+    gtk_container_add(GTK_CONTAINER(pw), prpw->pwJsdDoStop);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prw->prwGeneral->pwJsdDoStop), prw->rcRollout.fStopOnJsd);
     g_signal_connect(G_OBJECT(prw->prwGeneral->pwJsdDoStop), "toggled", G_CALLBACK(JsdStopToggled), prw);
 
