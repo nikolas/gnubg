@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.352 2018/05/05 20:52:19 plm Exp $
+ * $Id: gtkboard.c,v 1.353 2018/05/05 21:13:51 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -90,6 +90,7 @@ static gint board_set(Board * board, gchar * board_text, const gint resigned, co
 static void InitialPos(BoardData * bd);
 
 #if GTK_CHECK_VERSION(3,0,0)
+/* default orientation is horizontal, set to vertical in board_init() */
 G_DEFINE_TYPE(Board, board, GTK_TYPE_BOX)
 #else
 G_DEFINE_TYPE(Board, board, GTK_TYPE_VBOX)
@@ -3697,6 +3698,10 @@ board_init(Board * board)
     GtkWidget *pw;
     GtkWidget *pwFrame;
     GtkWidget *pwvbox;
+
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_orientable_set_orientation(GTK_ORIENTABLE (board), GTK_ORIENTATION_VERTICAL);
+#endif
 
     board->board_data = bd;
     bd->widget = GTK_WIDGET(board);
