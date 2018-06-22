@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.353 2018/05/05 21:13:51 plm Exp $
+ * $Id: gtkboard.c,v 1.354 2018/06/21 18:10:14 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3725,6 +3725,10 @@ board_init(Board * board)
     gtk_widget_add_events(GTK_WIDGET(bd->drawing_area), GDK_EXPOSURE_MASK |
                           GDK_BUTTON_MOTION_MASK | GDK_BUTTON_PRESS_MASK |
                           GDK_BUTTON_RELEASE_MASK | GDK_STRUCTURE_MASK);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_hexpand(bd->drawing_area, TRUE);
+    gtk_widget_set_vexpand(bd->drawing_area, TRUE);
+#endif
     gtk_container_add(GTK_CONTAINER(board), bd->drawing_area);
 
 #if defined(USE_BOARD3D)
