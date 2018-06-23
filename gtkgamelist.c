@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgamelist.c,v 1.47 2016/08/15 19:08:59 plm Exp $
+ * $Id: gtkgamelist.c,v 1.48 2016/08/19 22:57:24 plm Exp $
  */
 
 #include "config.h"
@@ -335,6 +335,7 @@ GL_Create(void)
         gtk_tree_view_column_pack_start(column, renderer, FALSE);
         gtk_tree_view_column_set_cell_data_func(column, renderer, RenderMoveString, NULL, NULL);
         gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);
+        gtk_tree_view_column_set_expand(column, TRUE);
         gtk_tree_view_append_column(GTK_TREE_VIEW(pwGameList), column);
     }
 
