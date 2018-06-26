@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.76 2016/08/24 21:55:31 plm Exp $
+ * $Id: gtktoolbar.c,v 1.77 2017/08/26 18:51:22 plm Exp $
  */
 
 #include "config.h"
@@ -64,7 +64,6 @@ typedef struct _toolbarwidget {
     GtkWidget *pwNextMarked;    /* button for "Next CMarked" */
     GtkWidget *pwReset;         /* button for "Reset" */
     GtkWidget *pwEdit;          /* button for "Edit" */
-    GtkWidget *pwHideShowPanel; /* button hide/show panel */
     GtkWidget *pwButtonClockwise;       /* button for clockwise */
 
 } toolbarwidget;
