@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.50 2017/08/08 19:11:07 plm Exp $
+ * $Id: makehyper.c,v 1.51 2017/11/09 22:15:31 plm Exp $
  */
 
 #include "config.h"
@@ -152,7 +152,9 @@ StartGuessHyper(hyperequity ahe[], const int nC, bearoffcontext * UNUSED(pbc))
             case HYPER_CONTACT:
                 ++ai[1];
                 --ai[2];
-                /* FALLTHRU */
+#if defined(HAVE_FUNC_ATTRIBUTE_FALLTHROUGH)
+                __attribute__((fallthrough));
+#endif
             case HYPER_BEAROFF:
 
                 memset(&ahe[i * nPos + j], 0, sizeof(hyperequity));
