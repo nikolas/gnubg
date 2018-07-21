@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkexport.c,v 1.53 2018/06/05 19:07:11 plm Exp $
+ * $Id: gtkexport.c,v 1.54 2018/06/05 19:25:33 plm Exp $
  */
 
 #include "config.h"
@@ -524,7 +524,12 @@ GTKShowExport(exportsetup * pexs)
     gtk_container_add(GTK_CONTAINER(pwFrame), pwTableX);
 
     gtk_table_attach(GTK_TABLE(pwTableX), pw = gtk_label_new(_("Board")), 0, 1, 0, 1, GTK_FILL, GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pw, GTK_ALIGN_START);
+    gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pw), 0, 0.5);
+#endif
 
 #if GTK_CHECK_VERSION(3,0,0)
     pw = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
@@ -542,7 +547,12 @@ GTKShowExport(exportsetup * pexs)
 
 
     gtk_table_attach(GTK_TABLE(pwTableX), pw = gtk_label_new(_("Players")), 0, 1, 1, 2, GTK_FILL, GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pw, GTK_ALIGN_START);
+    gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pw), 0, 0.5);
+#endif
 
     gtk_table_attach(GTK_TABLE(pwTableX),
                      pew->apwSide[0] =
@@ -661,7 +671,12 @@ GTKShowExport(exportsetup * pexs)
 
 
     gtk_box_pack_start(GTK_BOX(pwVBox), pw = gtk_label_new(_("URL to pictures")), TRUE, TRUE, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pw, GTK_ALIGN_START);
+    gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pw), 0, 0.5);
+#endif
 
     gtk_box_pack_start(GTK_BOX(pwVBox), pew->pwHTMLPictureURL = gtk_entry_new(), TRUE, TRUE, 0);
 
