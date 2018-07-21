@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.86 2018/04/02 16:41:12 plm Exp $
+ * $Id: gtkpanels.c,v 1.87 2018/06/23 21:16:18 plm Exp $
  */
 
 #include "config.h"
@@ -663,7 +663,13 @@ CreateAnalysisWindow(void)
     GtkWidget *pHbox, *sw;
     GtkTextBuffer *buffer;
     if (!woPanel[WINDOW_ANALYSIS].docked) {
-        GtkWidget *pwPaned = gtk_vpaned_new();
+        GtkWidget *pwPaned;
+
+#if GTK_CHECK_VERSION(3,0,0)
+        pwPaned = gtk_paned_new(GTK_ORIENTATION_VERTICAL);
+#else
+        pwPaned = gtk_vpaned_new();
+#endif
 
         woPanel[WINDOW_ANALYSIS].pwWin = gtk_window_new(GTK_WINDOW_TOPLEVEL);
 
@@ -768,8 +774,8 @@ GTKRegenerateGames(void)
     GL_SetNames();
     GTKPopGame(0);
     for (pl = lMatch.plNext; pl->p; pl = pl->plNext) {
-        listOLD *plGame = pl->p;
-        GTKAddGame(plGame->plNext->p);
+        listOLD *plg = pl->p;
+        GTKAddGame(plg->plNext->p);
     }
 
     GTKSetGame(i);
