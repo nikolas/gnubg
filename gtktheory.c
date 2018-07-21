@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktheory.c,v 1.66 2017/08/19 22:14:27 plm Exp $
+ * $Id: gtktheory.c,v 1.67 2017/11/09 22:16:44 plm Exp $
  */
 
 #include "config.h"
@@ -676,8 +676,12 @@ GTKShowTheory(const int fActivePage)
         gtk_table_attach(GTK_TABLE(pwTable),
                          pwx = gtk_label_new(ap[i].szName),
                          0, 1, 0 + i, 1 + i, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_set_halign(pwx, GTK_ALIGN_START);
+        gtk_widget_set_valign(pwx, GTK_ALIGN_CENTER);
+#else
         gtk_misc_set_alignment(GTK_MISC(pwx), 0, 0.5);
-
+#endif
 
         ptw->apwScoreAway[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 1, 64, 1, 5, 0));
 
@@ -689,7 +693,12 @@ GTKShowTheory(const int fActivePage)
         gtk_table_attach(GTK_TABLE(pwTable),
                          pwx = gtk_label_new(_("-away")),
                          2, 3, 0 + i, 1 + i, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_set_halign(pwx, GTK_ALIGN_START);
+        gtk_widget_set_valign(pwx, GTK_ALIGN_CENTER);
+#else
         gtk_misc_set_alignment(GTK_MISC(pwx), 0, 0.5);
+#endif
 
         g_signal_connect(G_OBJECT(ptw->apwScoreAway[i]), "value-changed", G_CALLBACK(TheoryUpdated), ptw);
 
@@ -747,12 +756,26 @@ GTKShowTheory(const int fActivePage)
     gtk_container_add(GTK_CONTAINER(pwFrame), pwx);
 
     gtk_box_pack_start(GTK_BOX(pwx), pwz = gtk_label_new((char *) miCurrent.szName), FALSE, FALSE, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pwz, GTK_ALIGN_START);
+    gtk_widget_set_valign(pwz, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pwz), 0, 0.5);
+#endif
     gtk_box_pack_start(GTK_BOX(pwx), pwz = gtk_label_new((char *) miCurrent.szFileName), FALSE, FALSE, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pwz, GTK_ALIGN_START);
+    gtk_widget_set_valign(pwz, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pwz), 0, 0.5);
+#endif
     gtk_box_pack_start(GTK_BOX(pwx), pwz = gtk_label_new((char *) miCurrent.szDescription), FALSE, FALSE, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_halign(pwz, GTK_ALIGN_START);
+    gtk_widget_set_valign(pwz, GTK_ALIGN_CENTER);
+#else
     gtk_misc_set_alignment(GTK_MISC(pwz), 0, 0.5);
-
+#endif
 
     /* money play widget */
 
@@ -798,7 +821,12 @@ GTKShowTheory(const int fActivePage)
         gtk_table_attach(GTK_TABLE(pwTable),
                          pw = gtk_label_new(ap[i].szName),
                          0, 1, 1 + i, 2 + i, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_set_halign(pw, GTK_ALIGN_START);
+        gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
         gtk_misc_set_alignment(GTK_MISC(pw), 0, 0.5);
+#endif
 
         /* column title */
 
@@ -806,7 +834,12 @@ GTKShowTheory(const int fActivePage)
                          pw = gtk_label_new(i ? _("bg rate(%)") :
                                             _("gammon rate(%)")),
                          1 + i, 2 + i, 0, 1, GTK_EXPAND | GTK_FILL, GTK_EXPAND | GTK_FILL, 4, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_set_halign(pw, GTK_ALIGN_START);
+        gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
         gtk_misc_set_alignment(GTK_MISC(pw), 0, 0.5);
+#endif
 
         for (j = 0; j < 2; j++) {
 
