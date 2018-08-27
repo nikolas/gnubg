@@ -15,7 +15,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: file.c,v 1.32 2015/07/31 23:40:23 mdpetch Exp $
+ * $Id: file.c,v 1.33 2017/09/25 19:05:52 plm Exp $
  */
 
 #include "config.h"
@@ -129,6 +129,7 @@ CloseFileHelper( /*lint -e{818} */ FileHelper * fh)
 {
     fclose(fh->fp);
     free(fh->data);
+    g_free(fh);
 }
 
 static void
