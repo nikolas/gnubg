@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.923 2018/06/28 19:15:34 plm Exp $
+ * $Id: gtkgame.c,v 1.924 2018/07/21 14:52:54 plm Exp $
  */
 
 #include "config.h"
@@ -6851,8 +6851,7 @@ GTKSet(void *p)
     } else if (p == &ms.nCube) {
         ShowBoard();            /* this is overkill, but it works */
     } else if (IsPanelShowVar(WINDOW_ANNOTATION, p)) {
-        if (PanelShowing(WINDOW_ANNOTATION))
-            ShowHidePanel(WINDOW_ANNOTATION);
+        ShowHidePanel(WINDOW_ANNOTATION);
     } else if (IsPanelShowVar(WINDOW_GAME, p)) {
         ShowHidePanel(WINDOW_GAME);
     } else if (IsPanelShowVar(WINDOW_ANALYSIS, p)) {
