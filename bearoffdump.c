@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoffdump.c,v 1.23 2015/10/14 21:39:17 plm Exp $
+ * $Id: bearoffdump.c,v 1.24 2017/01/04 22:55:45 plm Exp $
  */
 
 #include "config.h"
@@ -125,9 +125,9 @@ main(int argc, char **argv)
 
     {
         char szOut[2048];
-        char *ap[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+        char *apc[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
 
-        puts(DrawBoard(szOut, (ConstTanBoard) anBoard, TRUE, ap, NULL, 15));
+        puts(DrawBoard(szOut, (ConstTanBoard) anBoard, TRUE, apc, NULL, 15));
     }
 
     /* dump req. position */
