@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.210 2018/06/15 20:07:06 plm Exp $
+ * $Id: import.c,v 1.211 2018/07/09 19:44:23 plm Exp $
  */
 
 #include "config.h"
@@ -854,6 +854,8 @@ ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warn
 
     /* Process player score line, avoid fscanf(%nn) as buffer may overrun */
     szLine = GetMatLine(fp);
+    if (!szLine)
+        return 1;
     psz = szLine;
     while (isspace(*psz))
         psz++;
