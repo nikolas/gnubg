@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: rollout.h,v 1.41 2016/08/28 22:29:38 plm Exp $
+ * $Id: rollout.h,v 1.42 2018/05/20 16:32:58 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -75,9 +75,9 @@ RolloutGeneral(ConstTanBoard * apBoard,
                float (*apOutput[])[NUM_ROLLOUT_OUTPUTS],
                float (*apStdDev[])[NUM_ROLLOUT_OUTPUTS],
                rolloutstat apStatistics[][2],
-               evalsetup(*apes[]),
-               const cubeinfo(*apci[]),
-               int (*apCubeDecTop[]), int alternatives,
+               evalsetup *apes[],
+               const cubeinfo *apci[],
+               int *apCubeDecTop[], int alternatives,
                int fInvert, int fCubeRollout, rolloutprogressfunc * pfRolloutProgress, void *pUserData);
 
 extern int
