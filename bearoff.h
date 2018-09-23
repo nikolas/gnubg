@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: bearoff.h,v 1.33 2017/02/19 13:55:51 plm Exp $
+ * $Id: bearoff.h,v 1.34 2018/04/28 22:14:46 plm Exp $
  */
 
 #ifndef BEAROFF_H
@@ -34,11 +34,9 @@ typedef enum _bearofftype {
 } bearofftype;
 
 typedef struct _bearoffcontext {
-    FILE *pf;                   /* file pointer */
     bearofftype bt;             /* type of bearoff database */
     unsigned int nPoints;       /* number of points covered by database */
     unsigned int nChequers;     /* number of chequers for one-sided database */
-    char *szFilename;           /* filename */
     /* one sided dbs */
     int fCompressed;            /* is database compressed? */
     int fGammon;                /* gammon probs included */
@@ -46,6 +44,8 @@ typedef struct _bearoffcontext {
     int fHeuristic;             /* heuristic database? */
     /* two sided dbs */
     int fCubeful;               /* cubeful equities included */
+    FILE *pf;                   /* file pointer */
+    char *szFilename;           /* filename */
     GMappedFile *map;
     unsigned char *p;           /* pointer to data in memory */
 } bearoffcontext;
