@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.56 2018/05/10 17:38:48 plm Exp $
+ * $Id: gtkwindows.c,v 1.57 2018/07/21 08:59:01 plm Exp $
  */
 
 #include "config.h"
@@ -332,9 +332,9 @@ GTKMessage(const char *sz, dialogtype dt)
 }
 
 extern int
-GTKGetInputYN(char *szPrompt)
+GTKGetInputYN(char *sz)
 {
-    return GTKMessage(szPrompt, DT_AREYOUSURE);
+    return GTKMessage(sz, DT_AREYOUSURE);
 }
 
 static char *inputString;
@@ -452,6 +452,12 @@ extern void
 SetWarningEnabled(warningType warning, int value)
 {
     warnings[warning].warningEnabled = value;
+}
+
+extern int
+GetWarningEnabled(warningType warning)
+{
+    return warnings[warning].warningEnabled;
 }
 
 extern void
