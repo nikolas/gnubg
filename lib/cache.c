@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.42 2016/04/23 19:33:45 plm Exp $
+ * $Id: cache.c,v 1.43 2018/03/17 20:52:22 plm Exp $
  */
 
 #include "config.h"
@@ -33,8 +33,12 @@
 #if defined(USE_MULTITHREAD)
 #include "multithread.h"
 
-#if defined(__GNUC__) && ( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 ) \
-  && (defined (__i386) || defined (__x86_64))
+#if defined(__GNUC__) && ( \
+    (( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 ) \
+      && (defined (__i486) || defined (__x86_64))) \
+  || (( __GNUC__ * 100 + __GNUC_MINOR__ >= 404 ) \
+      && (defined (__i386) || defined (__x86_64))) \
+  )
 
 static inline void
 cache_lock(evalCache * pc, uint32_t k)
