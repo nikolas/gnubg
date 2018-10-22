@@ -15,7 +15,7 @@
  * cache.c
  *
  * by Gary Wong, 1997-2000
- * $Id: cache.c,v 1.43 2018/03/17 20:52:22 plm Exp $
+ * $Id: cache.c,v 1.44 2018/10/10 20:10:37 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@ cache_lock(evalCache * pc, uint32_t k)
 {
     while (__sync_lock_test_and_set(&(pc->entries[k].lock), 1))
         while (__sync_fetch_and_add(&pc->entries[k].lock, 0))
-            __asm volatile ("pause":::"memory");
+            __asm__ __volatile__ ("pause":::"memory");
 }
 
 static inline void

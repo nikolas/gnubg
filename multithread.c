@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.98 2018/01/24 20:47:27 plm Exp $
+ * $Id: multithread.c,v 1.99 2018/01/24 21:32:55 plm Exp $
  */
 
 #include "config.h"
@@ -117,10 +117,10 @@ MT_WorkerThreadFunction(void *tld)
     /* Align stack pointer on 16/32 byte boundary so SSE/AVX variables work correctly */
     int align_offset;
 #if defined(USE_AVX)
-    asm __volatile__("andl $-32, %%esp":::"%esp");
+    __asm__ __volatile__("andl $-32, %%esp":::"%esp");
     align_offset = ((int) (&align_offset)) % 32;
 #else
-    asm __volatile__("andl $-16, %%esp":::"%esp");
+    __asm__ __volatile__("andl $-16, %%esp":::"%esp");
     align_offset = ((int) (&align_offset)) % 16;
 #endif
 #endif
@@ -145,7 +145,7 @@ MT_WorkerThreadFunction(void *tld)
 #if 0
 #if __GNUC__ && defined(WIN32)
         /* De-align stack pointer to avoid crash on exit */
-        asm __volatile__("addl %0, %%esp"::"r"(align_offset):"%esp");
+        __asm__ __volatile__("addl %0, %%esp"::"r"(align_offset):"%esp");
 #endif
 #endif
         return NULL;

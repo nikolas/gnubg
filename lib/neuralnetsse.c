@@ -17,7 +17,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnetsse.c,v 1.35 2018/05/12 20:59:35 plm Exp $
+ * $Id: neuralnetsse.c,v 1.36 2018/05/12 21:42:33 plm Exp $
  */
 
 #include "config.h"
@@ -95,10 +95,10 @@ CheckNEON(void)
    } else {
 #if defined(__ARM_FEATURE_SIMD32)
        /* v7 */
-       asm volatile ("vmin.f32 q0, q0, q0");
+       __asm__ __volatile__ ("vmin.f32 q0, q0, q0");
 #elif defined(__ARM_NEON)
        /* aarch64 */
-       asm volatile ("fmin v0.4s, v0.4s, v0.4s");
+       __asm__ __volatile__ ("fmin v0.4s, v0.4s, v0.4s");
 #else
        #error "Unexpected ARM architecture"
 #endif
