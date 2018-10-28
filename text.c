@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.114 2017/04/04 04:49:32 plm Exp $
+ * $Id: text.c,v 1.115 2018/10/28 16:57:02 plm Exp $
  */
 
 #include "config.h"
@@ -209,7 +209,7 @@ TextPrologue(GString * gsz, const matchstate * pms, const int UNUSED(iGame))
             g_string_append(gsz, _(", post-Crawford play"));
     }
 
-    g_string_append(gsz, "\n");
+    g_string_append(gsz, "\n\n");
 
 }
 
@@ -229,7 +229,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.114 $";
+    const char szVersion[] = "$Revision: 1.115 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -585,7 +585,7 @@ TextMatchInfo(FILE * pf, const matchinfo * pmi)
 
     int i;
 
-    fputs(_("Match Information:\n\n"), pf);
+    fputs(_("Match Information:\n"), pf);
 
     /* ratings */
 
@@ -683,8 +683,10 @@ ExportGameText(FILE * pf, listOLD * plGame, const int iGame, const int fLastGame
             fputs(gsz->str, pf);
             g_string_free(gsz, TRUE);
 
-            if (exsExport.fIncludeMatchInfo)
+            if (exsExport.fIncludeMatchInfo) {
                 TextMatchInfo(pf, &mi);
+                fputs("\n", pf);
+            }
 
             msOrig = msExport;
             pmgi = &pmr->g;
