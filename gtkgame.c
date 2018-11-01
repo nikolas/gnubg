@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.926 2018/08/30 20:08:16 plm Exp $
+ * $Id: gtkgame.c,v 1.927 2018/11/01 18:57:02 plm Exp $
  */
 
 #include "config.h"
@@ -6310,7 +6310,7 @@ GTKCommandShowCredits(GtkWidget * UNUSED(pw), GtkWidget * pwParent)
 #else
         pwVBox = gtk_vbox_new(FALSE, 0);
 #endif
-        gtk_box_pack_start(GTK_BOX(pwHBox), pwVBox, FALSE, FALSE, 0);
+        gtk_box_pack_start(GTK_BOX(pwHBox), pwVBox, TRUE, FALSE, 0);
 
         AddTitle(pwVBox, _(credit->Title));
 
