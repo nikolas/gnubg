@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.476 2018/04/21 20:31:36 plm Exp $
+ * $Id: eval.c,v 1.477 2018/04/28 22:14:46 plm Exp $
  */
 
 #include "config.h"
@@ -2637,7 +2637,7 @@ ApplySubMove(TanBoard anBoard, const int iSrc, const int nRoll, const int fCheck
         return -1;
     }
 
-    if (iSrc < 0 || iSrc > 24 || iDest > 24 || anBoard[1][iSrc] < 1) {
+    if (iSrc < 0 || iSrc > 24 || iDest >= iSrc || anBoard[1][iSrc] < 1) {
         /* Invalid point number, or source point is empty */
         errno = EINVAL;
         return -1;
