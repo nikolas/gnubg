@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.190 2017/09/10 13:02:08 plm Exp $
+ * $Id: gnubgmodule.c,v 1.191 2018/09/03 20:51:36 plm Exp $
  */
 
 #include "config.h"
@@ -2459,10 +2459,10 @@ PyGameStats(const statcontext * sc, const int fIsMatch, const int nMatchTo)
         for (side = 0; side < 2; ++side) {
             PyObject *d = Py_BuildValue("{s:f,s:f,s:f,s:f}",
                                         "actual", sc->arActualResult[side] / sc->nGames,
-                                        "actual-ci", 1.95996f * sqrt(sc->arVarianceActual[side] / sc->nGames),
+                                        "actual-ci", 1.95996f * sqrtf(sc->arVarianceActual[side] / sc->nGames),
                                         "luck-adjusted",
                                         sc->arLuckAdj[side] / sc->nGames,
-                                        "luck-adjusted-ci", 1.95996f * sqrt(sc->arVarianceLuckAdj[side] / sc->nGames));
+                                        "luck-adjusted-ci", 1.95996f * sqrtf(sc->arVarianceLuckAdj[side] / sc->nGames));
 
             DictSetItemSteal(p[side], "ppg-advantage", d);
         }
