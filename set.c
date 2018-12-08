@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.407 2018/05/10 17:38:48 plm Exp $
+ * $Id: set.c,v 1.408 2018/12/08 10:08:23 plm Exp $
  */
 
 #include "config.h"
@@ -2543,18 +2543,10 @@ CommandSetScore(char *sz)
         return;
     }
 
-    if (ms.nMatchTo && n0 >= ms.nMatchTo && n1 >= ms.nMatchTo) {
-        outputl(_("Only one player may win the match."));
+    if (ms.nMatchTo && (n0 >= ms.nMatchTo || n1 >= ms.nMatchTo)) {
+        outputl(_("You cannot set a score where the match is " "already over."));
         return;
     }
-
-    if ((fCrawford0 || fCrawford1) && (n0 >= ms.nMatchTo || n1 >= ms.nMatchTo)) {
-        outputl(_("You cannot play the Crawford game once the match is " "already over."));
-        return;
-    }
-
-    /* allow scores above the match length, since that doesn't really
-     * hurt anything */
 
     CancelCubeAction();
 
