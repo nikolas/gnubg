@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.245 2017/10/01 08:41:51 plm Exp $
+ * $Id: html.c,v 1.246 2018/04/02 19:36:15 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.245 2017/10/01 08:41:51 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.246 2018/04/02 19:36:15 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1580,7 +1580,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.245 $";
+    const char szVersion[] = "$Revision: 1.246 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1650,7 +1650,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.245 $";
+    const char szVersion[] = "$Revision: 1.246 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2681,7 +2681,7 @@ HTMLMatchInfo(FILE * pf, const matchinfo * pmi, const htmlexportcss UNUSED(hecss
         tmx.tm_year = pmi->nYear - 1900;
         tmx.tm_mon = pmi->nMonth - 1;
         tmx.tm_mday = pmi->nDay;
-        strftime(sz, sizeof(sz), "%B %d, %Y", &tmx);
+        strftime(sz, sizeof(sz), "%x", &tmx);
         HTMLPrintMI(pf, _("Date"), sz);
     }
 
