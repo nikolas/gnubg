@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.998 2018/06/16 15:24:05 plm Exp $
+ * $Id: gnubg.c,v 1.999 2018/11/27 22:08:00 plm Exp $
  */
 
 #include "config.h"
@@ -4950,8 +4950,10 @@ confirmOverwrite(const char *sz, const int f)
 
     if (f && !access(sz, F_OK)) {
 
-        szPrompt = (char *) malloc(50 + strlen(sz));
-        sprintf(szPrompt, _("File \"%s\" exists. Overwrite? "), sz);
+        size_t buflen = 64 + strlen(sz);
+
+        szPrompt = (char *) malloc(buflen);
+        snprintf(szPrompt, buflen, _("File \"%s\" exists. Overwrite? "), sz);
         i = GetInputYN(szPrompt);
         free(szPrompt);
         return i;
