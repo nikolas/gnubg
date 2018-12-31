@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.212 2018/09/23 16:29:54 plm Exp $
+ * $Id: import.c,v 1.213 2018/12/31 13:53:41 plm Exp $
  */
 
 #include "config.h"
@@ -3356,7 +3356,7 @@ ConvertPartyGammonFileToMat(FILE * partyFP, FILE * matFP)
                 else if (!StrCaseCmp(key, "PLAYER_2"))
                     strcpy(p2, value);
                 else if (!StrCaseCmp(key, "GAMEPLAY")) {
-                    pg.gameStr = (char *) malloc(strlen(value) + 1);
+                    pg.gameStr = (char *) realloc(pg.gameStr, strlen(value) + 1);
                     strcpy(pg.gameStr, value);
                 } else if (!StrCaseCmp(key, "SCORE1"))
                     pg.s1 = atoi(value);
