@@ -18,14 +18,17 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: timer.c,v 1.19 2018/04/23 22:05:30 plm Exp $
+ * $Id: timer.c,v 1.20 2018/06/16 14:51:38 plm Exp $
  */
 
 #include "config.h"
 
 #include <time.h>
+
+#if !HAVE_CLOCK_GETTIME
 #if HAVE_SYS_TIME_H
 #include <sys/time.h>
+#endif
 #endif
 
 #include "backgammon.h"
@@ -59,6 +62,17 @@ get_time()
 
     QueryPerformanceCounter(&timer);
     return timer.QuadPart / perFreq;
+}
+
+#elif HAVE_CLOCK_GETTIME
+
+extern double
+get_time(void)
+{                               /* Return elapsed time in milliseconds */
+    struct timespec ts;
+    clock_gettime(CLOCK_MONOTONIC, &ts);
+
+    return 1000.0 * ts.tv_sec + 0.000001 * ts.tv_nsec;
 }
 
 #else
