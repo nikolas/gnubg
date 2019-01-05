@@ -16,11 +16,10 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.408 2018/12/08 10:08:23 plm Exp $
+ * $Id: set.c,v 1.409 2018/12/08 10:51:54 plm Exp $
  */
 
 #include "config.h"
-#include "gtklocdefs.h"
 
 #ifdef WIN32
 /* Needed for thread priority defines */
@@ -64,6 +63,7 @@
 #include "export.h"
 
 #if defined(USE_GTK)
+#include "gtklocdefs.h"
 #include "gtkgame.h"
 #include "gtkprefs.h"
 #include "gtkchequer.h"
