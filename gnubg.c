@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.999 2018/11/27 22:08:00 plm Exp $
+ * $Id: gnubg.c,v 1.1000 2018/12/16 20:59:48 plm Exp $
  */
 
 #include "config.h"
@@ -234,9 +234,9 @@ float arLuckLevel[] = {
     0.3f,                       /* LUCK_GOOD */
     0.6f                        /* LUCK_VERYGOOD */
 }, arSkillLevel[] = {
-    0.16f,                      /* SKILL_VERYBAD */
-    0.08f,                      /* SKILL_BAD */
-    0.04f,                      /* SKILL_DOUBTFUL */
+    0.12f,                      /* SKILL_VERYBAD */
+    0.06f,                      /* SKILL_BAD */
+    0.03f,                      /* SKILL_DOUBTFUL */
     0                           /* SKILL_NONE */
 };
 
