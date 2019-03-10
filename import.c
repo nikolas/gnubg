@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: import.c,v 1.213 2018/12/31 13:53:41 plm Exp $
+ * $Id: import.c,v 1.214 2018/12/31 13:55:01 plm Exp $
  */
 
 #include "config.h"
@@ -2924,7 +2924,7 @@ ParseSnowieTxt(char *sz,
 
             memset(aszPlayer[j], 0, MAX_NAME_LEN);
             if (*pc)
-                strncpy(aszPlayer[j], pc, MAX_NAME_LEN - 1);
+                g_strlcpy(aszPlayer[j], pc, MAX_NAME_LEN);
             else
                 sprintf(aszPlayer[j], "Player %d", j);
             break;
