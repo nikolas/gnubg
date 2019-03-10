@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.1000 2018/12/16 20:59:48 plm Exp $
+ * $Id: gnubg.c,v 1.1001 2019/02/24 21:28:43 plm Exp $
  */
 
 #include "config.h"
@@ -3889,26 +3889,6 @@ GetInputYN(char *szPrompt)
         outputl(_("Please answer `y' or `n'."));
     }
     return FALSE;
-}
-
-/* Like strncpy, except it does the right thing */
-extern char *
-strcpyn(char *szDest, const char *szSrc, int cch)
-{
-
-    char *pchDest = szDest;
-    const char *pchSrc = szSrc;
-
-    if (cch-- < 1)
-        return szDest;
-
-    while (cch--)
-        if (!(*pchDest++ = *pchSrc++))
-            return szDest;
-
-    *pchDest = 0;
-
-    return szDest;
 }
 
 extern void
