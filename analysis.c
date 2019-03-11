@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.250 2019/03/11 17:29:33 plm Exp $
+ * $Id: analysis.c,v 1.251 2019/03/11 18:02:20 plm Exp $
  */
 
 #include "config.h"
@@ -1007,8 +1007,10 @@ AnalyzeGame(listOLD * plGame, int wait)
     g_assert(pl->plNext == plGame);
 
     if (wait) {
+        int result;
+
         multi_debug("wait for all task: analysis");
-        int result = MT_WaitForTasks(UpdateProgressBar, 250, fAutoSaveAnalysis);
+        result = MT_WaitForTasks(UpdateProgressBar, 250, fAutoSaveAnalysis);
 
         if (result == -1)
             IniStatcontext(psc);
