@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.248 2018/04/21 20:12:08 plm Exp $
+ * $Id: analysis.c,v 1.249 2018/11/27 22:25:35 plm Exp $
  */
 
 #include "config.h"
@@ -1500,7 +1500,7 @@ DumpStatcontext(char *szOutput, const statcontext * psc, const char *player, con
 extern void
 CommandShowStatisticsMatch(char *UNUSED(sz))
 {
-    char szOutput[4096];
+    char szOutput[STATCONTEXT_MAXSIZE];
 
     updateStatisticsMatch(&lMatch);
 
@@ -1530,7 +1530,7 @@ CommandShowStatisticsGame(char *UNUSED(sz))
 {
 
     moverecord *pmr;
-    char szOutput[4096];
+    char szOutput[STATCONTEXT_MAXSIZE];
 
     if (!CheckGameExists())
         return;

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.h,v 1.48 2013/06/16 02:16:09 mdpetch Exp $
+ * $Id: analysis.h,v 1.49 2018/06/16 15:22:55 plm Exp $
  */
 
 #ifndef ANALYSIS_H
@@ -106,27 +106,22 @@ extern ratingtype GetRating(const float rError);
 extern void IniStatcontext(statcontext * psc);
 extern void AddStatcontext(const statcontext * pscA, statcontext * pscB);
 
+#define STATCONTEXT_MAXSIZE 4096
 extern void DumpStatcontext(char *szOutput, const statcontext * psc, const char *player, const char *op, int nMatchTo);
 
-extern void
- updateStatisticsGame(const listOLD * plGame);
+extern void updateStatisticsGame(const listOLD * plGame);
 
-extern void
- updateStatisticsMatch(listOLD * plMatch);
+extern void updateStatisticsMatch(listOLD * plMatch);
 
 extern lucktype getLuckRating(float rLuck);
 
-extern float
- relativeFibsRating(float r, int n);
+extern float relativeFibsRating(float r, int n);
 
-extern float
- absoluteFibsRating(const float rChequer, const float rCube, const int n, const float rOffset);
+extern float absoluteFibsRating(const float rChequer, const float rCube, const int n, const float rOffset);
 
-extern float
- absoluteFibsRatingChequer(const float rChequer, const int n);
+extern float absoluteFibsRatingChequer(const float rChequer, const int n);
 
-extern float
- absoluteFibsRatingCube(const float rCube, const int n);
+extern float absoluteFibsRatingCube(const float rCube, const int n);
 
 
 #define CHEQUERPLAY  0
@@ -142,8 +137,7 @@ extern float
 #define NORMALISED   0
 #define UNNORMALISED 1
 
-extern void
- getMWCFromError(const statcontext * psc, float aaaar[3][2][2][2]);
+extern void getMWCFromError(const statcontext * psc, float aaaar[3][2][2][2]);
 
 extern skilltype Skill(float r);
 
