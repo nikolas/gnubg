@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.930 2019/03/10 21:49:50 plm Exp $
+ * $Id: gtkgame.c,v 1.931 2019/03/17 16:25:33 plm Exp $
  */
 
 #include "config.h"
@@ -6286,7 +6286,7 @@ GTKCommandShowCredits(GtkWidget * UNUSED(pw), GtkWidget * pwParent)
         credEntry *ce;
 
         /* Two columns, so new hbox every-other one */
-        if (i % 2 == 1) {
+        if (i % 2 == 0) {
 #if GTK_CHECK_VERSION(3,0,0)
             pwHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 #else
