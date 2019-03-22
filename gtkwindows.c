@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.57 2018/07/21 08:59:01 plm Exp $
+ * $Id: gtkwindows.c,v 1.58 2018/09/28 15:08:29 plm Exp $
  */
 
 #include "config.h"
@@ -309,7 +309,11 @@ GTKMessage(const char *sz, dialogtype dt)
     sw = gtk_scrolled_window_new(NULL, NULL);
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(sw), pwText);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), NULL, &req);
+#else
     gtk_widget_size_request(GTK_WIDGET(pwText), &req);
+#endif
     if (strlen(sz) > MAXSTRLEN || req.height > MAXWINSIZE) {
         int wz = MIN(MAXWINSIZE, req.height + 100);
         gtk_window_set_default_size(GTK_WINDOW(pwDialog), -1, wz);

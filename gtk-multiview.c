@@ -15,7 +15,7 @@
  * Free Software Foundation, Inc., 59 Temple Place - Suite 330,
  * Boston, MA 02111-1307, USA.
  *
- * $Id: gtk-multiview.c,v 1.16 2013/07/22 18:51:01 mdpetch Exp $
+ * $Id: gtk-multiview.c,v 1.17 2016/08/19 22:57:24 plm Exp $
  */
 
 /* License changed from the GNU LGPL to the GNU GPL (as permitted
@@ -107,7 +107,11 @@ gtk_multiview_size_request(GtkWidget * widget, GtkRequisition * requisition)
         tmp_list = tmp_list->next;
 
         if (gtk_widget_get_visible(child)) {
+#if GTK_CHECK_VERSION(3,0,0)
+            gtk_widget_get_preferred_size(child, NULL, &child_requisition);
+#else
             gtk_widget_size_request(child, &child_requisition);
+#endif
             requisition->width = MAX(requisition->width, child_requisition.width);
             requisition->height = MAX(requisition->height, child_requisition.height);
             if (gtk_widget_get_mapped(child) && child != multiview->current) {

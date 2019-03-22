@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.931 2019/03/17 16:25:33 plm Exp $
+ * $Id: gtkgame.c,v 1.932 2019/03/17 21:02:53 plm Exp $
  */
 
 #include "config.h"
@@ -5718,7 +5718,11 @@ GTKTextWindow(const char *szOutput, const char *title, const dialogtype type, Gt
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(sw), pwText);
 
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), NULL, &req);
+#else
     gtk_widget_size_request(GTK_WIDGET(pwText), &req);
+#endif
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), -1, MIN(500, req.height + 200));
     gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), sw);
     gtk_window_set_modal(GTK_WINDOW(pwDialog), TRUE);
@@ -7331,7 +7335,11 @@ GTKDumpStatcontext(int game)
         gtk_window_set_default_size(GTK_WINDOW(pwStatDialog), 0, 300);
     else {
         GtkRequisition req;
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_get_preferred_size(GTK_WIDGET(pwStatDialog), NULL, &req);
+#else
         gtk_widget_size_request(GTK_WIDGET(pwStatDialog), &req);
+#endif
         if (req.height < 600)
             gtk_window_set_default_size(GTK_WINDOW(pwStatDialog), 0, 600);
     }
