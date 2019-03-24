@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: html.c,v 1.247 2018/12/15 21:57:23 plm Exp $
+ * $Id: html.c,v 1.248 2019/03/23 21:05:27 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.247 2018/12/15 21:57:23 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.248 2019/03/23 21:05:27 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1580,7 +1580,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.247 $";
+    const char szVersion[] = "$Revision: 1.248 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1650,7 +1650,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.247 $";
+    const char szVersion[] = "$Revision: 1.248 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2107,7 +2107,7 @@ HTMLPrintMoveAnalysis(FILE * pf, matchstate * pms, moverecord * pmr,
                       const char *UNUSED(szImageDir), const char *UNUSED(szExtension),
                       const htmlexporttype UNUSED(het), const htmlexportcss hecss)
 {
-    char sz[64];
+    char sz[FORMATEDMOVESIZE];
 
     cubeinfo ci;
 
@@ -2410,7 +2410,7 @@ HTMLAnalysis(FILE * pf, matchstate * pms, moverecord * pmr,
             printImage(pf, szImageDir, "b-indent", szExtension, "", hecss, het);
 
         if (pmr->n.anMove[0] >= 0) {
-            char sz[1024];
+            char sz[FORMATEDMOVESIZE];
 
             fprintf(pf,
                     _("%s%s moves %s"), bullet,

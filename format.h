@@ -16,11 +16,13 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.h,v 1.14 2015/05/04 20:52:39 plm Exp $
+ * $Id: format.h,v 1.15 2015/10/16 19:59:06 plm Exp $
  */
 
 #ifndef FORMAT_H
 #define FORMAT_H
+
+#include "drawboard.h"
 
 #define MAX_OUTPUT_DIGITS 6
 
@@ -64,6 +66,6 @@ extern char *OutputMoneyEquity(const float ar[], const int f);
 
 extern char *FormatCubePosition(char *sz, cubeinfo * pci);
 extern void
- FormatCubePositions(const cubeinfo * pci, char asz[2][40]);
+ FormatCubePositions(const cubeinfo * pci, char asz[2][FORMATEDMOVESIZE]);
 
 #endif                          /* FORMAT_H */

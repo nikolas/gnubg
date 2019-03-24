@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkboard.c,v 1.358 2018/07/21 21:28:18 plm Exp $
+ * $Id: gtkboard.c,v 1.359 2019/03/22 23:41:54 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -730,7 +730,7 @@ update_pipcount(BoardData * bd, const TanBoard points)
 static int
 update_move(BoardData * bd)
 {
-    char *move = _("Illegal move"), move_buf[40];
+    char *move = _("Illegal move"), move_buf[FORMATEDMOVESIZE];
     unsigned int i;
     TanBoard points;
     positionkey key;
@@ -796,7 +796,7 @@ static void
 Confirm(BoardData * bd)
 {
 
-    char move[40];
+    char move[FORMATEDMOVESIZE];
     TanBoard points;
 
     read_board(bd, points);

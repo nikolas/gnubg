@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.191 2018/09/03 20:51:36 plm Exp $
+ * $Id: gnubgmodule.c,v 1.192 2018/11/27 22:39:47 plm Exp $
  */
 
 #include "config.h"
@@ -783,7 +783,7 @@ PythonNextTurn(PyObject * UNUSED(self), PyObject * UNUSED(args))
 static int
 PythonHint_Callback (procrecorddata *pr)
 {
-    char szMove[25];
+    char szMove[FORMATEDMOVESIZE];
     PyObject *list = (PyObject *)pr->pvUserData;
     PyObject *hintdict = NULL, *ctxdict = NULL, *details = NULL;
 
@@ -1103,7 +1103,7 @@ PythonMoveTuple2String(PyObject * UNUSED(self), PyObject * args)
     PyObject *pyBoard = NULL;
     PyObject *pyMove = NULL;
 
-    char szMove[32];
+    char szMove[FORMATEDMOVESIZE];
     signed int anMove[8];
     TanBoard anBoard;
 

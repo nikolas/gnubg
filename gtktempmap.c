@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktempmap.c,v 1.57 2017/11/12 21:09:42 plm Exp $
+ * $Id: gtktempmap.c,v 1.58 2018/07/01 20:39:10 plm Exp $
  */
 
 #include "config.h"
@@ -246,7 +246,7 @@ UpdateTempMapEquities(tempmapwidget * ptmw)
     float rMax, rMin, r;
     cubeinfo ci;
     int m;
-    char szMove[100];
+    char szMove[FORMATEDMOVESIZE];
 
     /* calc. min, max and average */
 
@@ -373,7 +373,8 @@ DrawQuadrant(GtkWidget * pw, cairo_t * cr, tempmapwidget * ptmw)
     /* move */
 
     if (j >= 0 && ptmw->fShowBestMove) {
-        char szMove[100];
+        char szMove[FORMATEDMOVESIZE];
+
         FormatMovePlain(szMove, ptmw->atm[m].pms->anBoard, ptmw->atm[m].aaanMove[i][j]);
         if (ptmw->fShowEquity)
             g_string_append_printf(str, " %s", szMove);

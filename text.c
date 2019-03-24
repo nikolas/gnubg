@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.117 2019/03/11 17:29:33 plm Exp $
+ * $Id: text.c,v 1.118 2019/03/11 18:00:20 plm Exp $
  */
 
 #include "config.h"
@@ -229,7 +229,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.117 $";
+    const char szVersion[] = "$Revision: 1.118 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -391,8 +391,7 @@ TextPrintCubeAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 static void
 TextPrintMoveAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 {
-
-    char sz[64];
+    char sz[FORMATEDMOVESIZE];
 
     cubeinfo ci;
 
@@ -506,7 +505,7 @@ TextAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
     case MOVE_NORMAL:
 
         if (pmr->n.anMove[0] >= 0) {
-            char sz[1024];
+            char sz[FORMATEDMOVESIZE];
 
             g_string_append_printf(gsz,
                                    _("* %s moves %s"),

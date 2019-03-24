@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.123 2018/04/01 22:44:18 plm Exp $
+ * $Id: gtkchequer.c,v 1.124 2018/04/02 19:36:15 plm Exp $
  */
 
 #include "config.h"
@@ -67,7 +67,7 @@ MoveListRolloutClicked(GtkWidget * pw, hintdata * phd)
     {
         move **ppm = (move **) malloc(c * sizeof(move *));
         cubeinfo **ppci = (cubeinfo **) malloc(c * sizeof(cubeinfo *));
-        char (*asz)[40] = (char (*)[40]) malloc(40 * c);
+        char (*asz)[FORMATEDMOVESIZE] = (char (*)[FORMATEDMOVESIZE]) malloc(FORMATEDMOVESIZE * c);
 
         for (i = 0, pl = plSelList; i < c; pl = pl->next, i++) {
             m = ppm[i] = MoveListGetMove(phd, pl);
@@ -154,7 +154,7 @@ static void
 MoveListTempMapClicked(GtkWidget * pw, hintdata * phd)
 {
     GList *pl;
-    char szMove[100];
+    char szMove[FORMATEDMOVESIZE];
     matchstate *ams;
     int i, c;
     gchar **asz;

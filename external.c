@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.96 2015/06/26 06:46:41 mdpetch Exp $
+ * $Id: external.c,v 1.97 2018/04/23 21:36:20 plm Exp $
  */
 
 #include "config.h"
@@ -515,7 +515,7 @@ ExtFIBSBoard(scancontext * pec)
 
         } else if (processedBoard.anDice[0]) {
             /* move */
-            char szMove[64];
+            char szMove[FORMATEDMOVESIZE];
             if (FindBestMove(anMove, processedBoard.anDice[0], processedBoard.anDice[1],
                              processedBoard.anBoard, &ci, &GetEvalChequer()->ec, *GetEvalMoveFilter()) < 0)
                 return NULL;

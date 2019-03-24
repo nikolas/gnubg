@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.1001 2019/02/24 21:28:43 plm Exp $
+ * $Id: gnubg.c,v 1.1002 2019/03/10 21:49:50 plm Exp $
  */
 
 #include "config.h"
@@ -1752,7 +1752,7 @@ FormatMoveHint(char *sz, const matchstate * pms, movelist * pml,
 {
 
     cubeinfo ci;
-    char szTemp[2048], szMove[32];
+    char szTemp[2048], szMove[FORMATEDMOVESIZE];
     float *ar, *arStdDev;
     float rEq, rEqTop;
 
@@ -2569,7 +2569,7 @@ CommandRollout(char *sz)
     rolloutstat arsStatistics[2];
     TanBoard anBoard;
     cubeinfo ci;
-    char asz[1][40];
+    char asz[1][FORMATEDMOVESIZE];
     void *p;
 
     if (CountTokens(sz) > 0) {

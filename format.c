@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: format.c,v 1.59 2018/11/27 21:51:18 plm Exp $
+ * $Id: format.c,v 1.60 2018/11/28 14:04:10 plm Exp $
  */
 
 #include "config.h"
@@ -896,7 +896,7 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
 
 
 extern void
-FormatCubePositions(const cubeinfo * pci, char asz[2][40])
+FormatCubePositions(const cubeinfo * pci, char asz[2][FORMATEDMOVESIZE])
 {
 
     cubeinfo aci[2];

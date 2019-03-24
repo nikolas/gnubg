@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkrolls.c,v 1.43 2018/04/02 19:36:15 plm Exp $
+ * $Id: gtkrolls.c,v 1.44 2018/04/10 22:11:41 plm Exp $
  */
 
 #include "config.h"
@@ -60,7 +60,7 @@ add_level(GtkTreeStore * model, GtkTreeIter * iter,
     int anMove[8];
     int i;
 
-    char szRoll[3], szMove[100], *szEquity;
+    char szRoll[3], szMove[FORMATEDMOVESIZE], *szEquity;
 
     /* cubeinfo for opponent on roll */
 

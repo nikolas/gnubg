@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: progress.h,v 1.10 2012/08/27 23:06:40 plm Exp $
+ * $Id: progress.h,v 1.11 2013/06/16 02:16:20 mdpetch Exp $
  */
 
 #ifndef PROGRESS_H
@@ -24,12 +24,13 @@
 
 #include "eval.h"
 #include "rollout.h"
+#include "drawboard.h"
 
 extern void
 
 
 RolloutProgressStart(const cubeinfo * pci, const int n,
-                     rolloutstat aars[][2], rolloutcontext * pes, char asz[][40], gboolean multiple, void **pp);
+                     rolloutstat aars[][2], rolloutcontext * pes, char asz[][FORMATEDMOVESIZE], gboolean multiple, void **pp);
 
 extern void
 

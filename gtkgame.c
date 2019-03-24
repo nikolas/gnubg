@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.932 2019/03/17 21:02:53 plm Exp $
+ * $Id: gtkgame.c,v 1.933 2019/03/22 23:41:54 plm Exp $
  */
 
 #include "config.h"
@@ -1933,7 +1933,7 @@ FinishMove(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
 
     int anMove[8];
-    char sz[65];
+    char sz[FORMATEDMOVESIZE];
 
     if (!GTKGetMove(anMove))
         /* no valid move */

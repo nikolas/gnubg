@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.449 2018/06/15 19:31:55 plm Exp $
+ * $Id: play.c,v 1.450 2018/06/15 19:37:01 plm Exp $
  */
 
 #include "config.h"
@@ -889,8 +889,7 @@ NewGame(void)
 static void
 ShowAutoMove(const TanBoard anBoard, int anMove[8])
 {
-
-    char sz[40];
+    char sz[FORMATEDMOVESIZE];
 
     if (!fDisplay)
         return;
@@ -2470,7 +2469,7 @@ DumpGameList(GString * gsz, listOLD * plGame)
     moverecord *pmr;
     int nFileCube = 1;
     TanBoard anBoard;
-    char tmp[100];
+    char tmp[FORMATEDMOVESIZE];
     int column = 0;
     InitBoard(anBoard, ms.bgv);
     for (pl = plGame->plNext; pl != plGame; pl = pl->plNext) {

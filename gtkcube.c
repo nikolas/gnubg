@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcube.c,v 1.93 2018/04/01 22:44:18 plm Exp $
+ * $Id: gtkcube.c,v 1.94 2018/07/21 22:10:42 plm Exp $
  */
 
 #include "config.h"
@@ -695,7 +695,7 @@ CubeAnalysisRollout(GtkWidget * pw, cubehintdata * pchd)
     cubedecisiondata *cdec = pchd->pmr->CubeDecPtr;
     rolloutstat aarsStatistics[2][2];
     evalsetup *pes = &cdec->esDouble;
-    char asz[2][40];
+    char asz[2][FORMATEDMOVESIZE];
     void *p;
 
     if (pes->et != EVAL_ROLLOUT) {
