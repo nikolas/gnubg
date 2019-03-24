@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.c,v 1.91 2019/02/28 21:20:30 plm Exp $
+ * $Id: export.c,v 1.92 2019/02/28 21:56:12 plm Exp $
  */
 
 #include "config.h"
@@ -223,7 +223,7 @@ draw_cairo_pages(cairo_t * cairo, listOLD * game_ptr)
     psc = &pmr->g.sc;
     AddStatcontext(psc, &scTotal);
     iGame = getGameNumber(game_ptr);
-    if (game_is_last(plGame))
+    if (game_is_last(game_ptr))
         pl_hint = game_add_pmr_hint(game_ptr);
     for (pl = pl->plNext, page = 1; pl != game_ptr; pl = pl->plNext, page++) {
         export_boards(pl->p, &msExport, &iMove, iGame, cairo, SIZE_2PERPAGE);
