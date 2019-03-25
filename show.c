@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.289 2018/04/10 22:11:41 plm Exp $
+ * $Id: show.c,v 1.290 2018/11/27 22:00:38 plm Exp $
  */
 
 #include "config.h"
@@ -172,6 +172,11 @@ show_evals(const char *text,
     if (!fLateEvals)
         return;
 
+    if (late == NULL) {
+        g_assert_not_reached();
+        return;
+    }
+
     outputf(_("%s after %d plies:\n"), text, nLate);
     if (fPlayersAreSame)
         ShowEvaluation(late);
@@ -281,8 +286,8 @@ ShowRollout(rolloutcontext * prc)
     }
 
     if (fDoTruncate) {
-        show_evals(_("Truncation point Chequer play evaluation:"), &prc->aecChequerTrunc, 0, 1, 0, 0);
-        show_evals(_("Truncation point Cube evaluation:"), &prc->aecCubeTrunc, 0, 1, 0, 0);
+        show_evals(_("Truncation point Chequer play evaluation:"), &prc->aecChequerTrunc, NULL, TRUE, FALSE, 0);
+        show_evals(_("Truncation point Cube evaluation:"), &prc->aecCubeTrunc, NULL, TRUE, FALSE, 0);
     }
 
     if (prc->fStopOnSTD) {
