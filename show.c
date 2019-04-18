@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: show.c,v 1.290 2018/11/27 22:00:38 plm Exp $
+ * $Id: show.c,v 1.291 2019/03/25 22:06:42 plm Exp $
  */
 
 #include "config.h"
@@ -990,10 +990,6 @@ CommandShowScoreSheet(char *UNUSED(sz))
     char *data[2];
     listOLD *pl;
 
-    if (ms.gs == GAME_NONE) {
-        outputl(_("No game in progress (type `new game' to start one)."));
-        return;
-    }
 #if USE_GTK
     if (fX) {
         GTKShowScoreSheet();
