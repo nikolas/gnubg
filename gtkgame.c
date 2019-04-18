@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.933 2019/03/22 23:41:54 plm Exp $
+ * $Id: gtkgame.c,v 1.934 2019/03/24 15:43:54 plm Exp $
  */
 
 #include "config.h"
@@ -6064,7 +6064,7 @@ GTKShowScoreSheet(void)
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(ap[1].szName, renderer, "text", 0, NULL);
+    column = gtk_tree_view_column_new_with_attributes(ap[1].szName, renderer, "text", 1, NULL);
     gtk_tree_view_column_set_min_width(column, 75);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
