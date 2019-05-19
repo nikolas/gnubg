@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.478 2018/11/03 22:46:53 plm Exp $
+ * $Id: eval.c,v 1.479 2019/05/18 17:52:15 plm Exp $
  */
 
 #include "config.h"
@@ -1303,9 +1303,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
         }
     }
 
-    if (j) {
-        n = (n + j - 1) / j;
-    }
+    n = (n + j - 1) / j;
 
     j = 0;
     for (k = 0, i = n + 1; i < 25; i++) {
