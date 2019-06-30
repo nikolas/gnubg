@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.452 2019/04/27 16:35:57 plm Exp $
+ * $Id: play.c,v 1.453 2019/06/30 14:50:20 plm Exp $
  */
 
 #include "config.h"
@@ -1400,12 +1400,12 @@ ComputerTurn(void)
                 free(pmr);
                 return -1;
             }
-            /* resorts the moves according to cubeful (if applicable),
-             * cubeless and chequer on highest point to avoid some silly
-             * looking moves */
+
+            /* resort the moves according to cubeful (if applicable),
+             * cubeless equities and tie-breaking heuristics to avoid
+             * some silly looking moves */
 
             RefreshMoveList(&pmr->ml, NULL);
-
 
             /* make the move found above */
             if (pmr->ml.cMoves) {

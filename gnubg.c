@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.1002 2019/03/10 21:49:50 plm Exp $
+ * $Id: gnubg.c,v 1.1003 2019/03/24 15:43:54 plm Exp $
  */
 
 #include "config.h"
@@ -2338,6 +2338,17 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
         pmr_movelist_set(pmr, GetEvalChequer(), &ml);
         find_skills(pmr, &ms, FALSE, -1);
     }
+
+    /* resort the moves according to cubeful (if applicable),
+     * cubeless equities and tie-breaking heuristics to avoid
+     * suggesting some silly looking moves */
+
+    if (pmr->ml.cMoves > 0) {
+        int *ai = (int *) malloc(pmr->ml.cMoves * sizeof(int));
+        RefreshMoveList(&pmr->ml, ai);
+        free(ai);
+    }
+
 #if defined(USE_GTK)
     if (!procdatarec && fX) {
         if (hist && show)
