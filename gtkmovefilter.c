@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkmovefilter.c,v 1.33 2013/06/16 02:16:15 mdpetch Exp $
+ * $Id: gtkmovefilter.c,v 1.34 2018/07/21 07:09:23 plm Exp $
  */
 
 #include "config.h"
@@ -284,7 +284,6 @@ MoveFilterSetup(movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES], int *pfOK)
     int i, j;
     movefiltersetupwidget *pmfsw;
     GtkWidget *pwNotebook;
-    GtkWidget *pwvbox;
 
 #if GTK_CHECK_VERSION(3,0,0)
     pwSetup = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
@@ -320,6 +319,7 @@ MoveFilterSetup(movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES], int *pfOK)
 
     for (i = 0; i < MAX_FILTER_PLIES; ++i) {
 
+        GtkWidget *pwvbox;
         char *sz = g_strdup_printf(_("%d-ply"), i + 1);
 
 #if GTK_CHECK_VERSION(3,0,0)
