@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.c,v 1.58 2018/09/28 15:08:29 plm Exp $
+ * $Id: gtkwindows.c,v 1.59 2019/03/22 23:41:54 plm Exp $
  */
 
 #include "config.h"
@@ -146,7 +146,7 @@ GTKCreateDialog(const char *szTitle, const dialogtype dt,
                 GtkWidget * parent, int flags, GCallback okFun, void *okFunData)
 {
     CallbackStruct *cbData;
-    GtkWidget *pwDialog, *pwHbox, *pwPixmap;
+    GtkWidget *pwDialog, *pwHbox;
     GtkAccelGroup *pag;
     int fQuestion = (dt == DT_QUESTION || dt == DT_AREYOUSURE);
 
@@ -181,7 +181,7 @@ GTKCreateDialog(const char *szTitle, const dialogtype dt,
     gtk_box_pack_start(GTK_BOX(gtk_dialog_get_content_area(GTK_DIALOG(pwDialog))), pwHbox, TRUE, TRUE, 0);
 
     if (dt != DT_CUSTOM) {
-        pwPixmap = gtk_image_new_from_stock(aszStockItem[dt], GTK_ICON_SIZE_DIALOG);
+        GtkWidget *pwPixmap = gtk_image_new_from_stock(aszStockItem[dt], GTK_ICON_SIZE_DIALOG);
 #if GTK_CHECK_VERSION(3,0,0)
         g_object_set(pwPixmap, "margin", 8, NULL);
 #else
