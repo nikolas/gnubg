@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcolour3d.c,v 1.58 2018/05/10 17:51:31 plm Exp $
+ * $Id: gtkcolour3d.c,v 1.59 2018/09/16 20:49:31 plm Exp $
  */
 
 #include "config.h"
@@ -102,7 +102,7 @@ SetupLight(void)
 static void
 Draw(Material * pMat)
 {
-    Texture texture;
+    static Texture texture;
     int tempShin = pMat->shine;
     const double edge = STRIP_HEIGHT / PREVIEW_HEIGHT;
     /* Accentuate shiness - so visible in preview */
@@ -357,14 +357,13 @@ static void
 DialogClose(GtkDialog * UNUSED(dialog), gint response, void *UNUSED(data))
 {
     if ((GtkResponseType) response == GTK_RESPONSE_OK) {        /* Apply new settings */
-        char *texStr;
 
         /* Copy new settings to preview material */
         curDetails->mat = col3d;
         *curDetails->pBoardMat = col3d;
 
         if (useTexture) {
-            texStr = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(textureComboBox));
+            char *texStr = gtk_combo_box_text_get_active_text(GTK_COMBO_BOX_TEXT(textureComboBox));
 
             if (!strcmp(texStr, NO_TEXTURE_STRING))
                 col3d.textureInfo = 0;
