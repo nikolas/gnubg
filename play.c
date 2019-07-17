@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: play.c,v 1.454 2019/06/30 14:55:15 plm Exp $
+ * $Id: play.c,v 1.455 2019/07/07 13:13:55 plm Exp $
  */
 
 #include "config.h"
@@ -2682,7 +2682,12 @@ CommandMove(char *sz)
 
     if (fTutor && fTutorChequer) {
         moverecord *pmr_cur = get_current_moverecord(NULL);
-        g_assert(pmr_cur);
+
+        if (!pmr_cur) {
+            g_assert_not_reached();
+            free(pmr);
+            return;
+        }
         /* update or set the move */
         memcpy(pmr_cur->n.anMove, an, sizeof an);
         hint_move("", FALSE, NULL);
@@ -3095,7 +3100,7 @@ CommandNextRoll(char *UNUSED(sz))
 
 #if defined (USE_GTK)
     /* Make sure dice are shown */
-    if (fX) {
+    if (fX && bd) {
         bd->diceRoll[0] = !ms.anDice[0];
     }
 #endif
