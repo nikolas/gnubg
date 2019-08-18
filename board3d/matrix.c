@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matrix.c,v 1.23 2015/07/31 23:40:26 mdpetch Exp $
+ * $Id: matrix.c,v 1.24 2016/05/11 21:33:09 plm Exp $
  */
 
 #include "config.h"
@@ -44,10 +44,6 @@ mult_matrix_vec(const float mat[4][4], const float src[4], float dst[4])
     dst[3] = (src[0] * mat[3][0] + src[1] * mat[3][1] + src[2] * mat[3][2] + src[3] * mat[3][3]);
 }
 
-/*
- * void matrixmult(float m[4][4], const float b[4][4])
- * Causes compiler warnings on gcc/linux
- */
 void
 matrixmult(float m[4][4], const float b[4][4])
 {
