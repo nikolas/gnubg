@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.193 2019/03/24 15:43:54 plm Exp $
+ * $Id: gnubgmodule.c,v 1.194 2019/08/15 20:33:22 plm Exp $
  */
 
 #include "config.h"
@@ -3455,7 +3455,11 @@ PythonInitialise(char *argv0)
     python_dir = g_build_filename(working_dir, "PythonLib", NULL);
     if (access(python_dir, F_OK) == 0) {
         /* Set Python to use this directory */
+#if PY_MAJOR_VERSION >= 3
+        Py_SetPythonHome(Py_DecodeLocale(python_dir, NULL));
+#else
         Py_SetPythonHome(python_dir);
+#endif
     }
     g_free(working_dir);
 #endif
