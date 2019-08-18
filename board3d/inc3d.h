@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: inc3d.h,v 1.57 2015/08/02 21:22:23 plm Exp $
+ * $Id: inc3d.h,v 1.58 2018/04/28 21:40:58 plm Exp $
  */
 #ifndef INC3D_H
 #define INC3D_H
@@ -27,11 +27,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#if HAVE_UNISTD_H
+#if defined(HAVE_UNISTD_H)
 #include <unistd.h>
 #endif
-
-#include <gtk/gtk.h>
 
 #if defined(WIN32)
 /* MS gl.h needs windows.h to be included first */
