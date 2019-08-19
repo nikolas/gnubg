@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: util.c,v 1.38 2018/06/16 15:24:20 plm Exp $
+ * $Id: util.c,v 1.39 2018/12/12 19:37:19 plm Exp $
  */
 
 #include "config.h"
@@ -39,7 +39,7 @@ char *docdir = NULL;
 /* Default build on WIN32, including msys, installs something not
  * nearly usable as is (it is rather destined to be repackaged in a
  * standalone installer).
- * Define this for the binaries to be more similar to a linux build.
+ * Define this for the binaries to be more similar to a GNU/Linux build.
  */
 /* #define USABLE_UNDER_MSYS 1 */
 
