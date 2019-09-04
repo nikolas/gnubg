@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkgame.c,v 1.935 2019/04/18 20:00:48 plm Exp $
+ * $Id: gtkgame.c,v 1.936 2019/08/25 16:58:23 plm Exp $
  */
 
 #include "config.h"
@@ -780,10 +780,10 @@ GTKSetDice(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 extern void
 GTKSetCube(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
-    int valChanged;
-    int an[2];
-    char sz[20];                /* "set cube value 4096" */
+    gchar *sz;
     GtkWidget *pwDialog, *pwCube;
+    int an[2];
+    int valChanged;
 
     if (ms.gs != GAME_PLAYING || ms.fCrawford || !ms.fCubeUse)
         return;
@@ -806,17 +806,16 @@ GTKSetCube(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
     valChanged = (1 << an[0] != ms.nCube);
     if (valChanged) {
-        sprintf(sz, "set cube value %d", 1 << an[0]);
+        sz = g_strdup_printf("set cube value %d", 1 << an[0]);
         UserCommand(sz);
+        g_free(sz);
     }
 
     if (an[1] != ms.fCubeOwner) {
         if (an[1] >= 0) {
-            /* gcc 8+ issues a warning if we print an[1] since the buffer
-             * is too small for large integers. With !! it knows that the
-             * number is only one char long and small enough to fit in. */
-            sprintf(sz, "set cube owner %d", !!an[1]);
+            sz = g_strdup_printf("set cube owner %d", an[1]);
             UserCommand(sz);
+            g_free(sz);
         } else
             UserCommand("set cube centre");
     }
