@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.11 2015/07/31 23:40:23 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.12 2015/07/31 23:57:55 mdpetch Exp $
  */
 
 
@@ -226,24 +226,6 @@ create_str2gvalue_tuple(char *str, GValue * gv)
     GVALUE_CREATE(G_TYPE_GSTRING, boxed, tmpstr, gvstr);
     g_string_free(tmpstr, TRUE);
     return g_list_prepend(g_list_prepend(NULL, gv), gvstr);
-}
-
-GList *
-create_str2double_tuple(char *str, double value)
-{
-    GString *tmpstr = g_string_new(str);
-    GVALUE_CREATE(G_TYPE_DOUBLE, double, value, gvdouble);
-    GVALUE_CREATE(G_TYPE_GSTRING, boxed, tmpstr, gvstr);
-    g_string_free(tmpstr, TRUE);
-    return g_list_prepend(g_list_prepend(NULL, gvdouble), gvstr);
-}
-
-void
-free_strmap_tuple(GList * tuple)
-{
-    g_string_free(g_list_nth_data(tuple, 0), TRUE);
-    g_free(g_list_nth_data(tuple, 1));
-    g_list_free(tuple);
 }
 
 void
