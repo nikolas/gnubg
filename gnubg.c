@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubg.c,v 1.1005 2019/07/28 15:40:57 plm Exp $
+ * $Id: gnubg.c,v 1.1006 2019/08/22 20:30:28 plm Exp $
  */
 
 #include "config.h"
@@ -4174,8 +4174,8 @@ BearoffProgress(unsigned int i)
 static void
 VersionMessage(void)
 {
-    g_print("%s\n%s\n", _(VERSION_STRING), _(aszCOPYRIGHT));
-    g_print("%s", _(intro_string));
+    g_print("%s\n\n%s\n\n", _(VERSION_STRING), _(aszCOPYRIGHT));
+    g_print("%s\n", _(intro_string));
 }
 
 #if defined(HAVE_LIB_READLINE)
