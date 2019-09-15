@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: eval.c,v 1.482 2019/06/23 20:56:30 plm Exp $
+ * $Id: eval.c,v 1.483 2019/06/30 14:55:13 plm Exp $
  */
 
 #include "config.h"
@@ -37,7 +37,6 @@
 #include "multithread.h"
 #include "util.h"
 #include "lib/simd.h"
-#include "glib-ext.h"
 
 typedef void (*classstatusfunc) (char *szOutput);
 typedef int (*cfunc) (const void *, const void *);
@@ -690,7 +689,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     }
 
     if (szWeightsBinary) {
-        pfWeights = gnubg_g_fopen(szWeightsBinary, "rb");
+        pfWeights = g_fopen(szWeightsBinary, "rb");
         if (!binary_weights_failed(szWeightsBinary, pfWeights)) {
             if (!fReadWeights && !(fReadWeights =
                                    !NeuralNetLoadBinary(&nnContact, pfWeights) &&
@@ -708,7 +707,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
     }
 
     if (!fReadWeights && szWeights) {
-        pfWeights = gnubg_g_fopen(szWeights, "r");
+        pfWeights = g_fopen(szWeights, "r");
         if (!weights_failed(szWeights, pfWeights)) {
             setlocale(LC_ALL, "C");
             if (!(fReadWeights =
@@ -4463,7 +4462,7 @@ getCurrentGammonRates(float aarRates[2][2],
 /*
  * Get take, double, beaver, etc points for money game using
  * Rick Janowski's formulae:
- *   http://www.bkgm.com/articles/Janowski/cubeformulae.pdf
+ *   https://www.bkgm.com/articles/Janowski/cubeformulae.pdf
  *
  * Input:
  *   fJacoby, fBeavers: flags for different flavours of money game

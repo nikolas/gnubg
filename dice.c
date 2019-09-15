@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: dice.c,v 1.99 2017/12/13 21:25:21 plm Exp $
+ * $Id: dice.c,v 1.100 2019/07/01 21:24:03 plm Exp $
  */
 
 #include "config.h"
@@ -842,7 +842,7 @@ OpenDiceFile(rngcontext * rngctx, const char *sz)
     g_free(rngctx->szDiceFilename);     /* initialized to NULL */
     rngctx->szDiceFilename = g_strdup(sz);
 
-    return (rngctx->fDice = gnubg_g_fopen(sz, "r"));
+    return (rngctx->fDice = g_fopen(sz, "r"));
 }
 
 static unsigned int

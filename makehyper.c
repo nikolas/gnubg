@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: makehyper.c,v 1.51 2017/11/09 22:15:31 plm Exp $
+ * $Id: makehyper.c,v 1.52 2018/07/01 20:48:21 plm Exp $
  */
 
 #include "config.h"
@@ -207,7 +207,7 @@ StartFromDatabase(hyperequity ahe[], const int nC, const char *szFilename)
     int i, j, k;
     float r;
 
-    if (!(pf = gnubg_g_fopen(szFilename, "r+b"))) {
+    if (!(pf = g_fopen(szFilename, "r+b"))) {
         perror(szFilename);
         exit(2);
     }
@@ -530,7 +530,7 @@ WriteHyperFile(const char *szFilename, const hyperequity ahe[], const int nC)
     FILE *pf;
 
 
-    if (!(pf = gnubg_g_fopen(szFilename, "w+b"))) {
+    if (!(pf = g_fopen(szFilename, "w+b"))) {
         perror(szFilename);
         return;
     }

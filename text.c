@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: text.c,v 1.118 2019/03/11 18:00:20 plm Exp $
+ * $Id: text.c,v 1.119 2019/03/24 15:43:54 plm Exp $
  */
 
 #include "config.h"
@@ -28,7 +28,6 @@
 #include <glib.h>
 #include <glib/gstdio.h>
 #include <stdarg.h>
-#include "glib-ext.h"
 
 #include "backgammon.h"
 #include "drawboard.h"
@@ -37,7 +36,6 @@
 #include "positionid.h"
 #include "matchid.h"
 #include "relational.h"
-
 
 
 /* "Color" of chequers */
@@ -229,7 +227,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.118 $";
+    const char szVersion[] = "$Revision: 1.119 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -819,7 +817,7 @@ CommandExportGameText(char *sz)
 
     if (!strcmp(sz, "-"))
         pf = stdout;
-    else if ((pf = gnubg_g_fopen(sz, "w")) == 0) {
+    else if ((pf = g_fopen(sz, "w")) == 0) {
         outputerr(sz);
         return;
     }
@@ -869,7 +867,7 @@ CommandExportMatchText(char *sz)
 
         if (!strcmp(szCurrent, "-"))
             pf = stdout;
-        else if ((pf = gnubg_g_fopen(szCurrent, "w")) == 0) {
+        else if ((pf = g_fopen(szCurrent, "w")) == 0) {
             outputerr(szCurrent);
             g_free(szCurrent);
             return;
@@ -915,7 +913,7 @@ CommandExportPositionText(char *sz)
 
     if (!strcmp(sz, "-"))
         pf = stdout;
-    else if ((pf = gnubg_g_fopen(sz, "w")) == 0) {
+    else if ((pf = g_fopen(sz, "w")) == 0) {
         outputerr(sz);
         return;
     }

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkprefs.c,v 1.214 2019/05/18 20:03:27 plm Exp $
+ * $Id: gtkprefs.c,v 1.215 2019/09/10 05:58:55 plm Exp $
  */
 
 #include "config.h"
@@ -32,7 +32,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "glib-ext.h"
 #include "drawboard.h"
 #include "gtkboard.h"
 #include "gtkgame.h"
@@ -2179,7 +2178,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.214 2019/05/18 20:03:27 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.215 2019/09/10 05:58:55 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2204,7 +2203,7 @@ DesignSave(GtkWidget * UNUSED(pw), gpointer data)
 
     szFile = g_build_filename(szHomeDirectory, "boards.xml", NULL);
 
-    if ((pf = gnubg_g_fopen(szFile, "w+")) == 0) {
+    if ((pf = g_fopen(szFile, "w+")) == 0) {
         outputerr(szFile);
         g_free(szFile);
         return;
@@ -2632,7 +2631,7 @@ ExportDesign(GtkWidget * UNUSED(pw), gpointer UNUSED(data))
 
     /* write designs to file */
 
-    if ((pf = gnubg_g_fopen(szFile, "w+")) == 0) {
+    if ((pf = g_fopen(szFile, "w+")) == 0) {
         outputerr(szFile);
         free_board_design(pbde, NULL);
         g_free(pch);

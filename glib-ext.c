@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: glib-ext.c,v 1.12 2015/07/31 23:57:55 mdpetch Exp $
+ * $Id: glib-ext.c,v 1.13 2019/09/11 20:03:35 plm Exp $
  */
 
 
@@ -26,44 +26,6 @@
 #include <string.h>
 #include "glib-ext.h"
 
-/*  Based on glib's g_fopen to work around issues with WIN32 
- *  versions of g_fopen 
- */
-
-FILE *
-gnubg_g_fopen(const gchar * filename, const gchar * mode)
-{
-#if defined(WIN32)
-    wchar_t *wfilename = g_utf8_to_utf16(filename, -1, NULL, NULL, NULL);
-    wchar_t *wmode;
-    FILE *retval;
-    int save_errno;
-
-    if (wfilename == NULL) {
-        errno = EINVAL;
-        return NULL;
-    }
-
-    wmode = g_utf8_to_utf16(mode, -1, NULL, NULL, NULL);
-
-    if (wmode == NULL) {
-        g_free(wfilename);
-        errno = EINVAL;
-        return NULL;
-    }
-
-    retval = _wfopen(wfilename, wmode);
-    save_errno = errno;
-
-    g_free(wfilename);
-    g_free(wmode);
-
-    errno = save_errno;
-    return retval;
-#else
-    return fopen(filename, mode);
-#endif
-}
 
 #if ! GLIB_CHECK_VERSION(2,14,0)
 

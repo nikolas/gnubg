@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: matrix.c,v 1.24 2016/05/11 21:33:09 plm Exp $
+ * $Id: matrix.c,v 1.25 2019/08/18 16:19:42 plm Exp $
  */
 
 #include "config.h"
@@ -187,9 +187,9 @@ dumpMatrix(const float m[4][4])
 
     if (create) {
         create = 0;
-        fp = gnubg_g_fopen("test.txt", "w");
+        fp = g_fopen("test.txt", "w");
     } else {
-        fp = gnubg_g_fopen("test.txt", "a");
+        fp = g_fopen("test.txt", "a");
     }
     if (!fp)
         return;
