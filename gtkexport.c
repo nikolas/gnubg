@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkexport.c,v 1.54 2018/06/05 19:25:33 plm Exp $
+ * $Id: gtkexport.c,v 1.55 2018/07/21 22:04:35 plm Exp $
  */
 
 #include "config.h"
@@ -396,7 +396,7 @@ static void
 ExportHTMLImages(void)
 {
     GtkWidget *fc;
-    gchar *message, *expfolder, *folder, *command;
+    gchar *message, *expfolder, *command;
     gint ok = FALSE;
     fc = gtk_file_chooser_dialog_new(_
                                      ("Select top folder for HTML export"),
@@ -407,6 +407,8 @@ ExportHTMLImages(void)
     gtk_window_set_transient_for(GTK_WINDOW(fc), GTK_WINDOW(pwMain));
 
     while (!ok) {
+        gchar *folder;
+
         if (gtk_dialog_run(GTK_DIALOG(fc)) == GTK_RESPONSE_CANCEL) {
             gtk_widget_destroy(fc);
             return;
