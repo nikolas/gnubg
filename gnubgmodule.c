@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gnubgmodule.c,v 1.194 2019/08/15 20:33:22 plm Exp $
+ * $Id: gnubgmodule.c,v 1.195 2019/08/18 16:18:32 plm Exp $
  */
 
 #include "config.h"
@@ -743,7 +743,7 @@ static PyObject *
 PythonPosInfo(PyObject * UNUSED(self), PyObject * args)
 {
 
-    posinfo pi;
+    static posinfo pi;
     int fTurn = ms.fTurn;
     int fResigned = ms.fResigned;
     int fDoubled = ms.fDoubled;
