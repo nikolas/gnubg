@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkoptions.c,v 1.126 2018/09/28 15:08:29 plm Exp $
+ * $Id: gtkoptions.c,v 1.127 2019/02/24 21:06:17 plm Exp $
  */
 
 #include "config.h"
@@ -1522,15 +1522,7 @@ OptionsOK(GtkWidget * pw, optionswidget * pow)
     unsigned int u, i;
     gchar *filename, *command, *tmp, *newfolder;
     const gchar *new_browser;
-    static const char *set_rng_cmds[NUM_RNGS] = {
-        "set rng bbs",
-        "set rng isaac",
-        "set rng md5",
-        "set rng mersenne",
-        "set rng manual",
-        "set rng random.org",
-        NULL,
-    };
+
     BoardData *bd = BOARD(pwBoard)->board_data;
 
     gtk_widget_hide(gtk_widget_get_toplevel(pw));
@@ -1630,7 +1622,19 @@ OptionsOK(GtkWidget * pw, optionswidget * pow)
         }
     }
     if (i < RNG_FILE && i != (unsigned int) rngCurrent) {
+
+        static const char *set_rng_cmds[NUM_RNGS] = {
+            "set rng bbs",
+            "set rng isaac",
+            "set rng md5",
+            "set rng mersenne",
+            "set rng manual",
+            "set rng random.org",
+            NULL,
+        };
+
         UserCommand(set_rng_cmds[i]);
+
     } else if (i == RNG_FILE && i != (unsigned int) rngCurrent) {
         filename = GTKFileSelect(_("Select file with dice"), NULL, NULL, NULL, GTK_FILE_CHOOSER_ACTION_OPEN);
         if (filename) {
