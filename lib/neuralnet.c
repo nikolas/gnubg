@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: neuralnet.c,v 1.92 2018/05/12 20:59:35 plm Exp $
+ * $Id: neuralnet.c,v 1.93 2018/10/22 20:25:30 plm Exp $
  */
 
 #include "config.h"
@@ -270,7 +270,7 @@ NeuralNetLoad(neuralnet * pnn, FILE * pf)
     float *pr;
     char dummy[16];
 
-    if (fscanf(pf, "%u %u %u %s %f %f\n", &pnn->cInput, &pnn->cHidden,
+    if (fscanf(pf, "%u %u %u %15s %f %f\n", &pnn->cInput, &pnn->cHidden,
                &pnn->cOutput, dummy, &pnn->rBetaHidden,
                &pnn->rBetaOutput) < 5 || pnn->cInput < 1 ||
         pnn->cHidden < 1 || pnn->cOutput < 1 || pnn->rBetaHidden <= 0.0f || pnn->rBetaOutput <= 0.0f) {
