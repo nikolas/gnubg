@@ -44,7 +44,8 @@
  * 
  * (1) #UNDEF main(), and other unused functions.
  * (2) make mt and mti parameters
- * $Id: mt19937ar.c,v 1.9 2014/05/11 15:41:28 plm Exp $
+ *
+ * $Id: mt19937ar.c,v 1.10 2015/08/31 05:36:26 mdpetch Exp $
  */
 
 /* No configuration used in this file
@@ -58,8 +59,8 @@
 #define LOWER_MASK 0x7fffffffUL /* least significant r bits */
 
 
-                                                                   /* static unsigned long mt[MT_ARRAY_N]; *//* the array for the state vector  */
-                                                   /* static int mti=N+1; *//* mti==N+1 means mt[MT_ARRAY_N] is not initialized */
+/* static unsigned long mt[MT_ARRAY_N]; *//* the array for the state vector  */
+/* static int mti=N+1; *//* mti==N+1 means mt[MT_ARRAY_N] is not initialized */
 
 /* initializes mt[MT_ARRAY_N] with a seed */
 void
@@ -121,10 +122,10 @@ unsigned long
 genrand_int32(int *mti, unsigned long mt[MT_ARRAY_N])
 {
     unsigned long y;
-    static unsigned long mag01[2] = { 0x0UL, MATRIX_A };
-    /* mag01[x] = x * MATRIX_A  for x=0,1 */
 
     if (*mti >= MT_ARRAY_N) {            /* generate N words at one time */
+        static unsigned long mag01[2] = { 0x0UL, MATRIX_A };
+        /* mag01[x] = x * MATRIX_A  for x=0,1 */
         int kk;
 
         if (*mti == MT_ARRAY_N + 1)      /* if init_genrand() has not been called, */
