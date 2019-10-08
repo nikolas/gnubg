@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.87 2018/06/23 21:16:18 plm Exp $
+ * $Id: gtkpanels.c,v 1.88 2018/07/21 09:18:12 plm Exp $
  */
 
 #include "config.h"
@@ -342,9 +342,10 @@ UpdateTheoryData(BoardData * bd, int UpdateType, const TanBoard points)
     }
 
     if (UpdateType & TT_RETURNHITS) {
-        TanBoard anBoard;
         pc = NULL;
         if (bd->valid_move) {
+            TanBoard anBoard;
+
             PositionFromKey(anBoard, &bd->valid_move->key);
             pc = ReturnHits(anBoard);
         }
