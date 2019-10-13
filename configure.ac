@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.89 2019/09/15 17:54:57 plm Exp $
+dnl $Id: configure.ac,v 1.90 2019/09/15 18:09:37 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.89 $)
+AC_REVISION($Revision: 1.90 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -160,12 +160,12 @@ dnl check for compiler support
 dnl
 
 if test "x$win32" = "xyes"; then
-glib2minrev=13
+glib2minrev=18.4
 else
-glib2minrev=8
+glib2minrev=8.0
 fi
 
-PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.$glib2minrev.0], have_glib="yes", AC_MSG_ERROR([You need to have glib2 version 2.$glib2minrev or higher to compile GNU Backgammon]))
+PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.$glib2minrev], have_glib="yes", AC_MSG_ERROR([You need to have glib2 version 2.$glib2minrev or higher to compile GNU Backgammon]))
 
 PKG_CHECK_MODULES(GOBJECT, [gobject-2.0], have_gobject="yes", AC_MSG_WARN([no gobject support in glib]))
 PKG_CHECK_MODULES(GTHREAD, [gthread-2.0], have_gthread="yes", AC_MSG_WARN([no thread support in glib]))
