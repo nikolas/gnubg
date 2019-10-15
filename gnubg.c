@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1008 2019/09/15 20:05:04 plm Exp $
+ * $Id: gnubg.c,v 1.1009 2019/10/15 20:01:26 plm Exp $
  */
 
 #include "config.h"
@@ -3787,7 +3787,6 @@ NextTurnNotify(gpointer UNUSED(p))
 extern char *
 GetInput(char *szPrompt)
 {
-
     char *sz;
     char *pch;
     char *pchConverted;
@@ -3861,7 +3860,6 @@ GetInput(char *szPrompt)
 extern int
 GetInputYN(char *szPrompt)
 {
-
     char *pch;
 
     if (nConfirmDefault != -1) {
@@ -3880,20 +3878,19 @@ GetInputYN(char *szPrompt)
     if (fInterrupt)
         return FALSE;
 
-    while ((pch = GetInput(szPrompt)) != 0) {
-        if (pch)
-            switch (*pch) {
-            case 'y':
-            case 'Y':
-                g_free(pch);
-                return TRUE;
-            case 'n':
-            case 'N':
-                g_free(pch);
-                return FALSE;
-            default:
-                g_free(pch);
-            }
+    while ((pch = GetInput(szPrompt)) != NULL) {
+        switch (*pch) {
+        case 'y':
+        case 'Y':
+            g_free(pch);
+            return TRUE;
+        case 'n':
+        case 'N':
+            g_free(pch);
+            return FALSE;
+        default:
+            g_free(pch);
+        }
 
         outputl(_("Please answer `y' or `n'."));
     }
@@ -5013,7 +5010,6 @@ DisectPath(const char *path, const char *extension, char **name, char **folder)
 static int
 GetAdviceAnswer(char *sz)
 {
-
     char *pch;
 #if defined(USE_GTK)
     if (fX)
@@ -5023,20 +5019,19 @@ GetAdviceAnswer(char *sz)
     if (fInterrupt)
         return FALSE;
 
-    while ((pch = GetInput(sz)) != 0) {
-        if (pch)
-            switch (*pch) {
-            case 'y':
-            case 'Y':
-                free(pch);
-                return TRUE;
-            case 'n':
-            case 'N':
-                free(pch);
-                return FALSE;
-            default:
-                free(pch);
-            }
+    while ((pch = GetInput(sz)) != NULL) {
+        switch (*pch) {
+        case 'y':
+        case 'Y':
+            free(pch);
+            return TRUE;
+        case 'n':
+        case 'N':
+            free(pch);
+            return FALSE;
+        default:
+            free(pch);
+        }
 
         outputl(_("Please answer `y' or `n'."));
     }
