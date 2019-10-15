@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: analysis.c,v 1.252 2019/03/11 18:05:46 plm Exp $
+ * $Id: analysis.c,v 1.253 2019/03/24 15:43:54 plm Exp $
  */
 
 #include "config.h"
@@ -1299,7 +1299,7 @@ IniStatcontext(statcontext * psc)
 extern float
 relativeFibsRating(float r, int n)
 {
-    float const x = -2000.0f / sqrtf(n) * log10f(1.0f / r - 1.0f);
+    float const x = -2000.0f / sqrtf((float)n) * log10f(1.0f / r - 1.0f);
 
     return (x < -2100.0f) ? -2100.0f : x;
 }

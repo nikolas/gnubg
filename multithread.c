@@ -19,7 +19,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  * 
- * $Id: multithread.c,v 1.99 2018/01/24 21:32:55 plm Exp $
+ * $Id: multithread.c,v 1.100 2018/10/22 20:25:29 plm Exp $
  */
 
 #include "config.h"
@@ -32,7 +32,7 @@
 #include <string.h>
 #include <glib.h>
 #if defined(USE_GTK)
-#include <gtkgame.h>
+#include "gtkgame.h"
 #endif
 
 #include "multithread.h"

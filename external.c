@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: external.c,v 1.97 2018/04/23 21:36:20 plm Exp $
+ * $Id: external.c,v 1.98 2019/03/24 15:43:54 plm Exp $
  */
 
 #include "config.h"
@@ -55,6 +55,7 @@
 #include <winsock2.h>
 #include <ws2tcpip.h>
 
+#ifndef _MSC_VER
 #define EWOULDBLOCK             WSAEWOULDBLOCK
 #define EINPROGRESS             WSAEINPROGRESS
 #define EALREADY                WSAEALREADY
@@ -94,6 +95,7 @@
 #define EREMOTE                 WSAEREMOTE
 #define EINVAL                  WSAEINVAL
 #define EINTR                   WSAEINTR
+#endif
 
 #define inet_aton(ip,addr)  (addr)->s_addr = inet_addr(ip), 1
 #define inet_pton(fam,ip,addr) (addr)->s_addr = inet_addr(ip), 1
