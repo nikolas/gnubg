@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: fun3d.h,v 1.37 2018/03/04 14:52:43 plm Exp $
+ * $Id: fun3d.h,v 1.38 2018/04/28 21:40:58 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -106,8 +106,14 @@ extern void CloseBoard3d(BoardData * bd, BoardData3d * bd3d, renderdata * prd);
 extern int BoardPoint3d(const BoardData * bd, int x, int y);
 extern int BoardSubPoint3d(const BoardData * bd, int x, int y, guint point);
 extern int MouseMove3d(const BoardData * bd, BoardData3d * bd3d, const renderdata * prd, int x, int y);
-extern void RenderToBuffer3d(const BoardData * bd, BoardData3d * bd3d, unsigned int width, unsigned int height,
-                             unsigned char *buf);
+typedef struct _RenderToBufferData
+{
+	unsigned int width;
+	unsigned int height;
+	BoardData* bd;
+	unsigned char* puch;
+} RenderToBufferData;
+extern gboolean RenderToBuffer3d(GtkWidget* widget, GdkEventExpose* eventData, const RenderToBufferData* renderToBufferData);
 extern void Tidy3dObjects(BoardData3d * bd3d, const renderdata * prd);
 extern float TestPerformance3d(BoardData * bd);
 extern void Set3dSettings(renderdata * prdnew, const renderdata * prd);
