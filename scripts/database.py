@@ -1,14 +1,6 @@
-#
-# database.py
-#
-# by Joern Thyssen <jth@gnubg.org>, 2004
-#    Michael Petch <mpetch@gnubg.org>, 2013
-#
-# This file contains the functions for adding matches to a relational
-# database.
-#
-# The modules use the DB API V2 python modules.
-#
+# Copyright (C) 2004 Joern Thyssen <jth@gnubg.org>
+# Copyright (C) 2004-2013 the AUTHORS
+
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
@@ -20,9 +12,10 @@
 # GNU General Public License for more details.
 #
 # You should have received a copy of the GNU General Public License
-# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 #
-# $Id: database.py,v 1.33 2013/06/16 03:03:07 mdpetch Exp $
+# $Id: database.py,v 1.34 2013/08/21 03:45:23 mdpetch Exp $
 #
 
 connection = 0
