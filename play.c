@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.457 2019/07/22 20:49:41 plm Exp $
+ * $Id: play.c,v 1.458 2019/10/21 21:07:38 plm Exp $
  */
 
 #include "config.h"
@@ -2486,6 +2486,8 @@ CommandDrop(char *UNUSED(sz))
 
     AddMoveRecord(pmr);
 
+    memset(&currentkey, 0, sizeof(positionkey));
+
     TurnDone();
 }
 
@@ -2831,7 +2833,7 @@ SetMatchDate(matchinfo * pmi)
     time_t t = time(NULL);
     struct tm *ptm = localtime(&t);
 
-    pmi->nYear = ptm->tm_year + 1900;;
+    pmi->nYear = ptm->tm_year + 1900;
     pmi->nMonth = ptm->tm_mon + 1;
     pmi->nDay = ptm->tm_mday;
 }
@@ -3673,7 +3675,6 @@ CommandPrevious(char *sz)
                 p = ((listOLD *) pgame->p)->plNext;
                 while (p->plNext->p)
                     p = p->plNext;
-                ;
             }
         }
 
@@ -3993,6 +3994,8 @@ CommandTake(char *UNUSED(sz))
 
     UpdateSetting(&ms.nCube);
     UpdateSetting(&ms.fCubeOwner);
+
+    memset(&currentkey, 0, sizeof(positionkey));
 
     TurnDone();
 }
