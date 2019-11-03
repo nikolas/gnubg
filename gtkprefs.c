@@ -1,11 +1,11 @@
 /*
- * gtkprefs.c
+ * Copyright (C) 2001-2003 Gary Wong <gtw@gnu.org>
+ * Copyright (C) 2002-2019 the AUTHORS
  *
- * by Gary Wong <gtw@gnu.org>, 2000, 2001, 2002.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,10 +13,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.215 2019/09/10 05:58:55 plm Exp $
+ * $Id: gtkprefs.c,v 1.216 2019/09/15 20:05:05 plm Exp $
  */
 
 #include "config.h"
@@ -2178,7 +2177,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.215 2019/09/10 05:58:55 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.216 2019/09/15 20:05:05 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2969,8 +2968,8 @@ GetPrefs(renderdata * prd)
         prd->lightLevels[1] = (int) gtk_adjustment_get_value(padjLightLevelDiffuse);
         prd->lightLevels[2] = (int) gtk_adjustment_get_value(padjLightLevelSpecular);
 
-        prd->boardAngle = (int) gtk_adjustment_get_value(padjBoardAngle);
-        prd->skewFactor = (int) gtk_adjustment_get_value(padjSkewFactor);
+        prd->boardAngle = (float) gtk_adjustment_get_value(padjBoardAngle);
+        prd->skewFactor = (float) gtk_adjustment_get_value(padjSkewFactor);
         prd->pieceType = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pwRoundedPiece)) ? PT_ROUNDED : PT_FLAT;
         prd->pieceTextureType = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pwTextureAllPiece)) ? PTT_ALL : PTT_TOP;
         prd->diceSize = (float) gtk_adjustment_get_value(padjDiceSize);
