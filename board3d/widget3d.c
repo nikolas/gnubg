@@ -18,10 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: widget3d.c,v 1.56 2018/03/04 14:56:06 plm Exp $
+ * $Id: widget3d.c,v 1.57 2019/10/15 20:13:18 Superfly_Jon Exp $
  */
 
 #include "config.h"
+#include "legacyGLinc.h"
 #include "inc3d.h"
 #include "tr.h"
 #include "gtklocdefs.h"
@@ -42,9 +43,6 @@ configure_3dCB(GtkWidget * widget, BoardData *bd)
 		{
             glViewport(0, 0, width, height);
             SetupViewingVolume3d(bd, bd->bd3d, bd->rd);
-
-            RestrictiveRedraw();
-            RerenderBase(bd->bd3d);
 
             curWidth = width;
             curHeight = height;
@@ -88,36 +86,13 @@ expose_3dCB(GtkWidget* widget, GdkEventExpose* exposeEvent, const BoardData * bd
         updateOccPos(bd);
     }
 #ifdef TEST_HARNESS
-    TestHarnessDraw(bd);
-	return TRUE;
+	// Test harness for 3d board development
+	TestHarnessDraw(bd);
+#else
+	// Normal drawing
+	Draw3d(bd);
 #endif
-	if (bd->rd->quickDraw) {    /* Quick drawing mode */
-        if (numRestrictFrames >= 0) {
-            if (numRestrictFrames == 0) {       /* Redraw obscured part of window - need to flip y co-ord */
-                GtkAllocation allocation;
-                gtk_widget_get_allocation(widget, &allocation);
-                RestrictiveDrawFrameWindow(exposeEvent->area.x,
-                                           allocation.height - (exposeEvent->area.y + exposeEvent->area.height),
-                                           exposeEvent->area.width, exposeEvent->area.height);
-            }
-
-            /* Draw updated regions directly to screen */
-            glDrawBuffer(GL_FRONT);
-            RestrictiveRender(bd, bd->bd3d, bd->rd);
-            glFlush();
-			return FALSE;
-		} else {                /* Full screen redraw (to back buffer and then swap) */
-            glDrawBuffer(GL_BACK);
-            numRestrictFrames = 0;
-            drawBoard(bd, bd->bd3d, bd->rd);
-			return TRUE;
-		}
-    }
-	else
-	{	// Normal drawing
-		Draw3d(bd);
-		return TRUE;
-	}
+	return TRUE;
 }
 
 extern int

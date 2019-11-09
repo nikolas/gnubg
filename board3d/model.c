@@ -18,10 +18,11 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: model.c,v 1.22 2018/04/28 21:44:35 plm Exp $
+ * $Id: model.c,v 1.23 2019/03/24 20:07:26 plm Exp $
  */
 
 #include "config.h"
+#include "legacyGLinc.h"
 #include "inc3d.h"
 
 #define TOP_EDGE (-2)
@@ -456,7 +457,7 @@ addCubeCentered(Occluder * pOcc, float x, float y, float z, float w, float h, fl
 void
 addCylinder(Occluder * pOcc, float x, float y, float z, float r, float d, unsigned int numSteps)
 {
-    float step = (2 * (float) G_PI) / (float) numSteps;
+    float step = (2 * F_PI) / (float) numSteps;
     float *xPts = (float *) malloc(sizeof(float) * numSteps);
     float *yPts = (float *) malloc(sizeof(float) * numSteps);
     unsigned int i;
@@ -498,14 +499,14 @@ addHalfTube(Occluder * pOcc, float r, float h, unsigned int numSteps)
         return;
     }
 
-    step = (float) G_PI / (float) numSteps;
+    step = F_PI / (float) numSteps;
 
     xPts = (float *) malloc(sizeof(float) * (numSteps + 1));
     yPts = (float *) malloc(sizeof(float) * (numSteps + 1));
     g_assert(xPts && yPts);
 
     for (i = 0; i <= numSteps; i++) {
-        float ang = step * (float) i - (float) G_PI_2;
+        float ang = step * (float) i - F_PI_2;
         xPts[i] = sinf(ang) * r;
         yPts[i] = cosf(ang) * r;
     }
@@ -566,7 +567,7 @@ void
 addDice(Occluder * pOcc, float size)
 {                               /* Hard-coded numSteps to keep model simple + doesn't work correctly when > 8... */
     unsigned int numSteps = 8;
-    float step = (2.0f * (float) G_PI) / (float) numSteps;
+    float step = (2.0f * F_PI) / (float) numSteps;
     float *xPts = (float *) malloc(sizeof(float) * numSteps);
     float *yPts = (float *) malloc(sizeof(float) * numSteps);
     unsigned int i, c, f;

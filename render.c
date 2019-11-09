@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: render.c,v 1.104 2017/04/05 18:19:39 plm Exp $
+ * $Id: render.c,v 1.105 2018/05/21 19:43:14 plm Exp $
  */
 
 #include "config.h"
@@ -159,13 +159,11 @@ static renderdata rdDefault = {
 #if defined(USE_BOARD3D)
         , DT_2D,                /* Display type */
     TRUE,                       /* fHinges3d */
-    FALSE,                      /* Show shadows */
+    TRUE,                      /* Show shadows */
     50,                         /* Shadow darkness */
     0,                          /* Darnkess as percentage of ambient light */
-    0,                          /* Animate roll */
-    0,                          /* Animate flag */
-    0,                          /* Close board on exit */
-    0,                          /* Quick draw */
+    1,                          /* Animate roll */
+    1,                          /* Animate flag */
     36,                         /* Curve accuracy */
     LT_POSITIONAL,              /* light source type */
     {0, 2, 3.5f},               /* x,y,z pos of light source */

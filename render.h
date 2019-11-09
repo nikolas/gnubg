@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.h,v 1.40 2017/04/02 20:19:19 plm Exp $
+ * $Id: render.h,v 1.41 2019/11/03 15:24:41 plm Exp $
  */
 
 #ifndef RENDER_H
@@ -75,8 +75,6 @@ typedef struct _renderdata {
 
     int animateRoll;            /* Animate dice rolls */
     int animateFlag;            /* Animate resignation flag */
-    int closeBoardOnExit;       /* Animate board close on quit */
-    int quickDraw;              /* Cut down 3d drawing to improve performance */
     unsigned int curveAccuracy; /* Round curve approximation accuracy */
     lighttype lightType;        /* Positional/Directional light source */
     float lightPos[3];          /* x,y,z pos of light source */

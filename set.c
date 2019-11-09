@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: set.c,v 1.413 2019/07/28 10:29:27 plm Exp $
+ * $Id: set.c,v 1.414 2019/08/18 20:49:01 plm Exp $
  */
 
 #include "config.h"
@@ -744,10 +744,6 @@ CommandSetClockwise(char *sz)
 #if defined(USE_BOARD3D)
         BoardData *bd = BOARD(pwBoard)->board_data;
         ShowBoard();
-        if (display_is_3d(bd->rd)) {
-            RestrictiveRedraw();
-            RerenderBase(bd->bd3d);
-        }
 #else
         ShowBoard();
 #endif
@@ -1007,9 +1003,6 @@ CommandSetDice(char *sz)
 
     outputf(_("The dice have been set to %d and %d.\n"), n0, n1);
 
-#if defined(USE_BOARD3D)
-    RestrictiveRedraw();
-#endif
 #if defined(USE_GTK)
     if (fX)
         ShowBoard();

@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkchequer.c,v 1.125 2019/03/24 15:43:54 plm Exp $
+ * $Id: gtkchequer.c,v 1.126 2019/09/22 14:40:39 plm Exp $
  */
 
 #include "config.h"
@@ -147,9 +147,6 @@ ShowMove(hintdata * phd, const int f)
         g_free(sz);
 
     }
-#if defined(USE_BOARD3D)
-    RestrictiveRedraw();
-#endif
 }
 
 static void
@@ -431,10 +428,6 @@ MoveListMove(GtkWidget * pw, hintdata * phd)
 
     FormatMove(szMove, msBoard(), m.anMove);
     UserCommand(szMove);
-
-#if defined(USE_BOARD3D)
-    RestrictiveRedraw();
-#endif
 }
 
 static void

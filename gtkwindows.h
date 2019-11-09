@@ -12,7 +12,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkwindows.h,v 1.23 2014/05/01 22:19:08 plm Exp $
+ * $Id: gtkwindows.h,v 1.24 2018/09/28 15:08:29 plm Exp $
  */
 
 #ifndef GTKWINDOWS_H
@@ -62,7 +62,6 @@ extern GtkWidget *GTKGetCurrentParent(void);
 
 typedef enum _warningType {
     WARN_FULLSCREEN_EXIT = 0,
-    WARN_QUICKDRAW_MODE,
     WARN_SET_SHADOWS,
     WARN_UNACCELERATED,
     WARN_STOP,

@@ -18,10 +18,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkcolour3d.c,v 1.60 2019/07/07 13:13:15 plm Exp $
+ * $Id: gtkcolour3d.c,v 1.61 2019/10/15 20:13:18 Superfly_Jon Exp $
  */
 
 #include "config.h"
+
+#include <windows.h>
+#include <gl/gl.h>
+#include <GL/glu.h>
+
 #include "inc3d.h"
 #include "gtklocdefs.h"
 
