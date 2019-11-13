@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtkpanels.c,v 1.88 2018/07/21 09:18:12 plm Exp $
+ * $Id: gtkpanels.c,v 1.89 2019/10/08 19:48:57 plm Exp $
  */
 
 #include "config.h"
@@ -33,7 +33,7 @@
 #include "gtktoolbar.h"
 #include "positionid.h"
 #if defined(USE_BOARD3D)
-#include "fun3d.h"
+#include "inc3d.h"
 #endif
 
 static int fDisplayPanels = TRUE;

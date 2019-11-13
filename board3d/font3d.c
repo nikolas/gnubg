@@ -18,12 +18,12 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: font3d.c,v 1.34 2019/03/23 20:59:18 plm Exp $
+ * $Id: font3d.c,v 1.35 2019/11/09 22:23:54 Superfly_Jon Exp $
  */
 
 #include "config.h"
 
-#include "inc3d.h"
+#include "fun3d.h"
 #include "util.h"
 
 #include <ft2build.h>

@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.34 2019/11/09 22:23:54 Superfly_Jon Exp $
+# $Id: Makefile.am,v 1.35 2019/11/12 07:25:34 plm Exp $
 # 
 
 ##
@@ -33,8 +33,6 @@ noinst_LTLIBRARIES = libboard3d.la
 libboard3d_la_LIBADD = @FREETYPE2_LIBS@ 
 endif
 
-EXTRA_DIST = wglBuffer.c wglBuffer.h
-
 libboard3d_la_SOURCES = DrawOGL.c font3dOGL.c ModelOGL.c Occluders.c PickOGL.c \
 			ShimOGL.c ShimOGL.h legacyGLinc.h BoardDimensions.h \
 			Shapes.inc GLwidget.c \
@@ -43,9 +41,5 @@ libboard3d_la_SOURCES = DrawOGL.c font3dOGL.c ModelOGL.c Occluders.c PickOGL.c \
 			shadow.c types3d.h widget3d.c tr.c tr.h
 			
 libboard3d_la_CFLAGS = $(AM_CFLAGS)
-
-if WIN32
-libboard3d_la_SOURCES += $(EXTRA_DIST)
-endif
 
 noinst_HEADERS = fun3d.h inc3d.h matrix.h model.h types3d.h 

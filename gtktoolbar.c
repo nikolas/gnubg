@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: gtktoolbar.c,v 1.77 2017/08/26 18:51:22 plm Exp $
+ * $Id: gtktoolbar.c,v 1.78 2018/06/26 20:02:21 plm Exp $
  */
 
 #include "config.h"
@@ -39,9 +39,6 @@
 #include "drawboard.h"
 #include "renderprefs.h"
 #include "gnubgstock.h"
-#if defined(USE_BOARD3D)
-#include "fun3d.h"
-#endif
 
 typedef struct _toolbarwidget {
 

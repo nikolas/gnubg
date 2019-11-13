@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: $
+ * $Id: ShimOGL.c,v 1.2 2019/11/12 07:26:32 plm Exp $
  */
 
 #include "config.h"
@@ -22,8 +22,7 @@
 #include "render.h"
 #include <cglm/affine.h>
 #include "ShimOGL.h"
-
-#include "stdlib.h"	//TODO: Remove exit() test calls and this include...
+#include "fun3d.h"
 
 typedef struct _MatStack
 {

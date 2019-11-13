@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.217 2019/11/03 15:24:41 plm Exp $
+ * $Id: gtkprefs.c,v 1.218 2019/11/09 22:23:53 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -43,7 +43,7 @@
 #include "util.h"
 
 #if defined(USE_BOARD3D)
-#include "fun3d.h"
+#include "inc3d.h"
 #define NUM_NONPREVIEW_PAGES 2
 #else
 #define NUM_NONPREVIEW_PAGES 1
@@ -1163,7 +1163,7 @@ BoardPrefsOK(GtkWidget * pw, GtkWidget * mainBoard)
     GetPrefs(&rdPrefs);
 
 #if defined(USE_BOARD3D)
-    if (gtk_gl_init_success) {
+    if (widget3dValid) {
         redrawChange = FALSE;
     }
     if (display_is_3d(&rdPrefs)) {
@@ -1687,7 +1687,7 @@ GeneralPage(BoardData * bd, GtkWidget * UNUSED(bdMain))
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwBoardType), (display_is_2d(bd->rd)));
 
     button = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(pwBoardType), _("3D board"));
-    if (!gtk_gl_init_success)
+    if (!widget3dValid)
         gtk_widget_set_sensitive(button, FALSE);
     gtk_box_pack_start(GTK_BOX(dtBox), button, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(button), (display_is_3d(bd->rd)));
@@ -2139,7 +2139,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.216 2019/09/15 20:05:05 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.218 2019/11/09 22:23:53 Superfly_Jon Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -3142,7 +3142,7 @@ BoardPreferences(GtkWidget * pwBoard)
                         DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, G_CALLBACK(BoardPrefsOK), pwBoard);
 
 #if defined(USE_BOARD3D)
-    if (gtk_gl_init_success) {
+    if (widget3dValid) {
         SetPreviewLightLevel(bd->rd->lightLevels);
         setDicePos(bd, bd->bd3d);
     }

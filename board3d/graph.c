@@ -15,20 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.35 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: graph.c,v 1.36 2019/11/12 07:28:31 plm Exp $
  */
 
 
 #include "config.h"
-
-#if defined(WIN32)
-#include <windows.h>
-#include <gl/gl.h>
-#endif
-#include <GL/glu.h>
-
-#include "inc3d.h"
-
+#include "legacyGLinc.h"
+#include "fun3d.h"
 #include "renderprefs.h"
 #include "gtklocdefs.h"
 

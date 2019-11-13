@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.h,v 1.41 2019/11/03 15:24:41 plm Exp $
+ * $Id: render.h,v 1.42 2019/11/09 22:23:54 Superfly_Jon Exp $
  */
 
 #ifndef RENDER_H
@@ -24,16 +24,7 @@
 #include "gnubg-types.h"
 
 #if defined(USE_BOARD3D)
-#include "types3d.h"
-struct _Material {
-    float ambientColour[4];
-    float diffuseColour[4];
-    float specularColour[4];
-    int shine;
-    int alphaBlend;
-    TextureInfo *textureInfo;
-    Texture *pTexture;
-};
+#include "inc3d.h"
 #endif
 
 typedef enum _woodtype {
@@ -171,5 +162,13 @@ extern void CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
                           int anResignPosition[2],
                           int fResign, int fResignOrientation,
                           int anArrowPosition[2], int fPlaying, int nPlayer, int x, int y, int cx, int cy);
+
+#if defined(USE_BOARD3D)
+extern gboolean widget3dValid;
+extern gboolean display_is_2d(const renderdata* prd);
+extern gboolean display_is_3d(const renderdata* prd);
+extern void SuspendDiceRolling(renderdata* prd);
+extern void ResumeDiceRolling(renderdata* prd);
+#endif
 
 #endif

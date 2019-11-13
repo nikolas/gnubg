@@ -15,18 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcolour3d.c,v 1.62 2019/11/09 22:23:55 Superfly_Jon Exp $
+ * $Id: gtkcolour3d.c,v 1.63 2019/11/12 07:28:31 plm Exp $
  */
 
 #include "config.h"
-
-#if defined(WIN32)
-#include <windows.h>
-#include <gl/gl.h>
-#endif
-#include <GL/glu.h>
-
-#include "inc3d.h"
+#include "legacyGLinc.h"
+#include "fun3d.h"
 #include "gtklocdefs.h"
 
 #include "gtkprefs.h"
@@ -60,8 +54,8 @@ static int curDetail;
 #define PREVIEW_HEIGHT 40
 
 /* World sizes */
-#define STRIP_WIDTH 100.0
-#define STRIP_HEIGHT 10.0
+#define STRIP_WIDTH 100.0f
+#define STRIP_HEIGHT 10.0f
 
 static int previewLightLevels[3];
 
@@ -108,7 +102,7 @@ Draw(Material * pMat)
 {
     static Texture texture;
     int tempShin = pMat->shine;
-    const double edge = STRIP_HEIGHT / PREVIEW_HEIGHT;
+    const float edge = STRIP_HEIGHT / PREVIEW_HEIGHT;
     /* Accentuate shiness - so visible in preview */
     pMat->shine = tempShin / 3;
 

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.415 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: set.c,v 1.416 2019/11/12 20:51:59 plm Exp $
  */
 
 #include "config.h"
@@ -80,7 +80,7 @@
 #include "openurl.h"
 
 #if defined(USE_BOARD3D)
-#include "fun3d.h"
+#include "inc3d.h"
 #endif
 #include "multithread.h"
 

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1010 2019/10/15 20:09:28 plm Exp $
+ * $Id: gnubg.c,v 1.1011 2019/11/09 22:23:53 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -103,7 +103,7 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #endif
 
 #if defined(USE_BOARD3D)
-#include "fun3d.h"
+#include "inc3d.h"
 #endif
 #include "multithread.h"
 #include "openurl.h"
@@ -2529,7 +2529,7 @@ PromptForExit(void)
         board_free_pixmaps(bd);
     }
 #if defined(USE_BOARD3D)
-    if (fX && gtk_gl_init_success && bd)
+    if (fX && bd)
         Tidy3dObjects(bd->bd3d, bd->rd);
 #endif
 #endif

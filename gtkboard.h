@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.h,v 1.107 2018/05/05 20:52:19 plm Exp $
+ * $Id: gtkboard.h,v 1.108 2019/11/12 20:52:51 plm Exp $
  */
 
 #ifndef GTKBOARD_H
@@ -28,10 +28,6 @@
 #include "common.h"
 #include "render.h"
 #include "gtklocdefs.h"
-
-#if defined(USE_BOARD3D)
-#include "types3d.h"
-#endif
 
 #define TYPE_BOARD			(board_get_type ())
 #define BOARD(obj)			(G_TYPE_CHECK_INSTANCE_CAST ((obj), TYPE_BOARD, Board))

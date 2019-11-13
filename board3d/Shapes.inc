@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: Shapes.inc,v 1.1 2019/11/11 22:03:05 plm Exp $
+ * $Id: Shapes.inc,v 1.2 2019/11/13 20:11:18 plm Exp $
  */
 
 /*
@@ -731,7 +731,6 @@ static void gluDiskMine(GLfloat innerRadius, GLfloat outerRadius, int slices, in
 	GLfloat radiusLow, radiusHigh;
 	GLfloat texLow = 0.0, texHigh = 0.0;
 	GLfloat angleOffset;
-	int  slices2;
 	int  finish;
 
 	if (slices >= CACHE_SIZE) slices = CACHE_SIZE - 1;
@@ -745,13 +744,6 @@ static void gluDiskMine(GLfloat innerRadius, GLfloat outerRadius, int slices, in
 	if (sweepAngle < 0) {
 		startAngle += sweepAngle;
 		sweepAngle = -sweepAngle;
-	}
-
-	if (sweepAngle == 360.0) {
-		slices2 = slices;
-	}
-	else {
-		slices2 = slices + 1;
 	}
 
 	/* Compute length (needed for normal calculations) */

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.459 2019/11/01 22:03:28 plm Exp $
+ * $Id: play.c,v 1.460 2019/11/09 22:23:54 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@
 #include "gtkwindows.h"
 #endif
 #if defined(USE_BOARD3D)
-#include "fun3d.h"
+#include "inc3d.h"
 #endif
 
 static moverecord *pmr_hint = NULL;

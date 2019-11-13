@@ -18,16 +18,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: widget3d.c,v 1.57 2019/10/15 20:13:18 Superfly_Jon Exp $
+ * $Id: widget3d.c,v 1.58 2019/11/09 22:23:55 Superfly_Jon Exp $
  */
 
 #include "config.h"
 #include "legacyGLinc.h"
-#include "inc3d.h"
+#include "fun3d.h"
 #include "tr.h"
 #include "gtklocdefs.h"
-
-gboolean gtk_gl_init_success = FALSE;
+#include "gtkboard.h"
 
 static void
 configure_3dCB(GtkWidget * widget, BoardData *bd)
@@ -116,13 +115,18 @@ CreateGLWidget(BoardData * bd)
     return TRUE;
 }
 
-void
+gboolean
 InitGTK3d(int *argc, char ***argv)
 {
-	gtk_gl_init_success = GLInit(argc, argv);
-    /* Call LoadTextureInfo to get texture details from textures.txt */
-    LoadTextureInfo();
-    SetupFlag();
+	gboolean initOkay = GLInit(argc, argv);
+	if (initOkay)
+	{
+		/* Call LoadTextureInfo to get texture details from textures.txt */
+		LoadTextureInfo();
+		SetupFlag();
+	}
+
+	return initOkay;
 }
 
 gboolean

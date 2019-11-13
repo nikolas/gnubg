@@ -15,17 +15,18 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.106 2019/11/01 22:25:36 plm Exp $
+ * $Id: drawboard3d.c,v 1.107 2019/11/09 22:23:54 Superfly_Jon Exp $
  */
 
 #include "config.h"
 
-#include "inc3d.h"
+#include "fun3d.h"
 #include "boardpos.h"
 #include "gtklocdefs.h"
 #include "BoardDimensions.h"
 #include "ShimOGL.h"
 #include "Shapes.inc"
+#include "gtkboard.h"
 
 float
 getBoardWidth(void)
@@ -48,16 +49,19 @@ getDiceSize(const renderdata * prd)
 void
 Tidy3dObjects(BoardData3d * bd3d, const renderdata * prd)
 {
-    bd3d->shadowsInitialised = FALSE;
+	if (widget3dValid)
+	{
+		bd3d->shadowsInitialised = FALSE;
 
-	FreeNumberFont(&bd3d->numberFont);
-    FreeNumberFont(&bd3d->cubeFont);
+		FreeNumberFont(&bd3d->numberFont);
+		FreeNumberFont(&bd3d->cubeFont);
 
-    freeEigthPoints(&bd3d->boardPoints);
+		freeEigthPoints(&bd3d->boardPoints);
 
-    TidyShadows(bd3d);
-    ClearTextures(bd3d);
-    DeleteTextureList();
+		TidyShadows(bd3d);
+		ClearTextures(bd3d);
+		DeleteTextureList();
+	}
 }
 
 void

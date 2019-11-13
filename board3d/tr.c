@@ -1,4 +1,4 @@
-/* $Id: tr.c,v 1.11 2019/02/24 21:34:15 plm Exp $ */
+/* $Id: tr.c,v 1.12 2019/11/09 22:23:55 Superfly_Jon Exp $ */
 
 /*
  * $originalLog: tr.c,v $
@@ -56,7 +56,7 @@
 
 #include "config.h"
 #include "legacyGLinc.h"
-#include "inc3d.h"
+#include "fun3d.h"
 #include "tr.h"
 
 #define DEFAULT_TILE_WIDTH  256
