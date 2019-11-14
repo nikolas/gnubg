@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.35 2019/11/12 07:25:34 plm Exp $
+# $Id: Makefile.am,v 1.36 2019/11/13 21:41:03 Superfly_Jon Exp $
 # 
 
 ##
@@ -37,9 +37,9 @@ libboard3d_la_SOURCES = DrawOGL.c font3dOGL.c ModelOGL.c Occluders.c PickOGL.c \
 			ShimOGL.c ShimOGL.h legacyGLinc.h BoardDimensions.h \
 			Shapes.inc GLwidget.c \
 			drawboard3d.c font3d.c fun3d.h graph.c gtkcolour3d.c \
-			inc3d.h matrix.c matrix.h misc3d.c model.c model.h \
-			shadow.c types3d.h widget3d.c tr.c tr.h
+			matrix.c matrix.h misc3d.c model.c model.h \
+			shadow.c widget3d.c tr.c tr.h
 			
 libboard3d_la_CFLAGS = $(AM_CFLAGS)
 
-noinst_HEADERS = fun3d.h inc3d.h matrix.h model.h types3d.h 
+noinst_HEADERS = fun3d.h matrix.h model.h
