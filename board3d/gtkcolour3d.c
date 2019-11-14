@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2003-2019 Jon Kinsey <jonkinsey@gmail.com
+ * Copyright (C) 2003-2019 Jon Kinsey <jonkinsey@gmail.com>
  * Copyright (C) 2006-2011 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcolour3d.c,v 1.63 2019/11/12 07:28:31 plm Exp $
+ * $Id: gtkcolour3d.c,v 1.64 2019/11/13 21:41:05 Superfly_Jon Exp $
  */
 
 #include "config.h"
