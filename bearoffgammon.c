@@ -1,6 +1,11 @@
-/* This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+/*
+ * Copyright (C) 2000-2002 Joseph Heled <joseph@gnubg.org>
+ * Copyright (C) 2006-2019 the AUTHORS
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -8,11 +13,10 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
-
- * $Id: bearoffgammon.c,v 1.12 2014/01/09 22:17:31 Superfly_Jon Exp $ */
+ * $Id: bearoffgammon.c,v 1.13 2014/07/20 21:34:34 plm Exp $ */
+ */
 
 #include "config.h"
 #include "bearoffgammon.h"
@@ -7826,7 +7830,7 @@ getRaceBGprobs(const unsigned int board[6])
 
     for (i = 4; i >= 0; --i) {
         if (board[i])
-            group += (0x1 << i);
+            group += (0x1u << i);
         tot += board[i];
     }
 
@@ -7841,7 +7845,7 @@ getRaceBGprobs(const unsigned int board[6])
         unsigned int k;
 
         for (k = 0; k < 5; ++k) {
-            if ((group & (0x1 << k))) {
+            if ((group & (0x1u << k))) {
                 g_assert(board[k] > 0);
                 b1[grpSize] = board[k] - 1;
                 ++grpSize;
