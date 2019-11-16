@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.941 2019/11/09 22:23:53 Superfly_Jon Exp $
+ * $Id: gtkgame.c,v 1.942 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -7748,6 +7748,7 @@ MoveListDestroy(void)
     }
 }
 
+#if defined(USE_BOARD3D)
 extern gboolean
 display_is_3d(const renderdata* prd)
 {
@@ -7762,3 +7763,4 @@ display_is_2d(const renderdata* prd)
 	g_assert(fdt == DT_2D || fdt == DT_3D);
 	return (fdt == DT_2D ? TRUE : FALSE);
 }
+#endif
