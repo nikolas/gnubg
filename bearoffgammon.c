@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: bearoffgammon.c,v 1.13 2014/07/20 21:34:34 plm Exp $ */
+ * $Id: bearoffgammon.c,v 1.14 2019/11/16 22:45:16 plm Exp $
  */
 
 #include "config.h"
