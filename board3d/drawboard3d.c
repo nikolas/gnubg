@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.107 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: drawboard3d.c,v 1.108 2019/11/13 21:41:05 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -47,7 +47,7 @@ getDiceSize(const renderdata * prd)
 }
 
 void
-Tidy3dObjects(BoardData3d * bd3d, const renderdata * prd)
+Tidy3dObjects(BoardData3d * bd3d, const renderdata * UNUSED(prd))
 {
 	if (widget3dValid)
 	{
@@ -270,7 +270,7 @@ preRenderPiece(const renderdata* prd, int display, PieceTextureType ptt)
 }
 
 void
-preDrawPiece(const BoardData3d* bd3d, const renderdata* prd, PieceTextureType ptt)
+preDrawPiece(const BoardData3d* UNUSED(bd3d), const renderdata* prd, PieceTextureType ptt)
 {
 	setMaterial(&prd->ChequerMat[0]);
 
@@ -1998,7 +1998,7 @@ getCheqSize(renderdata * prd)
     }
 }
 
-void Create3dModels(const BoardData* bd, BoardData3d* bd3d, renderdata* prd)
+void Create3dModels(const BoardData* UNUSED(bd), BoardData3d* bd3d, renderdata* prd)
 {
 	CALL_OGL(bd3d->modelHolder.boardBase, drawBoardBase, prd);
 	CALL_OGL(bd3d->modelHolder.oddPoints, drawPoints, prd, 0);

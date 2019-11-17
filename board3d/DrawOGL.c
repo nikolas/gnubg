@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: $
+ * $Id: DrawOGL.c,v 1.3 2019/11/17 12:02:07 plm Exp $
  */
 
 #include "config.h"
@@ -947,7 +947,7 @@ void MAApoints(const renderdata* prd)
 }
 
 extern void
-drawDC(const OglModelHolder* modelHolder, const BoardData* bd, const BoardData3d* bd3d, const renderdata* prd)
+drawDC(const OglModelHolder* modelHolder, const BoardData* bd, const BoardData3d* UNUSED(bd3d), const renderdata* prd)
 {
 	glPushMatrix();
 	moveToDoubleCubePos(bd);

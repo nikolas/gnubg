@@ -15,9 +15,8 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.37 2019/11/13 21:41:05 Superfly_Jon Exp $
+ * $Id: graph.c,v 1.38 2019/11/14 20:08:41 plm Exp $
  */
-
 
 #include "config.h"
 #include "legacyGLinc.h"
@@ -75,7 +74,7 @@ configureCB(GtkWidget *widget, const GraphData * gd)
 }
 
 static void
-realizeCB(void* data)
+realizeCB(void* UNUSED(data))
 {
     /* Deep blue background colour */
     glClearColor(.2f, .2f, .4f, 1.f);
@@ -264,11 +263,11 @@ DrawGraph(const GraphData * gd)
 }
 
 static gboolean
-exposeCB(GtkWidget* widget, GdkEventExpose* eventData, const GraphData * gd)
+exposeCB(GtkWidget* UNUSED(widget), GdkEventExpose* UNUSED(eventData), const GraphData * gd)
 {
     glClear(GL_COLOR_BUFFER_BIT);
     DrawGraph(gd);
-	return TRUE;
+    return TRUE;
 }
 
 static void
