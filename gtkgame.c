@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.942 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: gtkgame.c,v 1.943 2019/11/16 22:18:25 plm Exp $
  */
 
 #include "config.h"
@@ -6856,8 +6856,8 @@ GTKSet(void *p)
         if (gtk_widget_get_realized(pwBoard)) {
 #if defined(USE_BOARD3D)
             /* If in 3d mode may need to update sizes */
-            if (display_is_3d(bd->rd))
-                SetupViewingVolume3d(bd, bd->bd3d, bd->rd);
+			if (display_is_3d(bd->rd))
+				RecalcViewingVolume(bd);
             else
 #endif
             {

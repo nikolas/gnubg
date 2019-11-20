@@ -18,13 +18,15 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: font3d.c,v 1.35 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: font3d.c,v 1.36 2019/11/13 21:41:05 Superfly_Jon Exp $
  */
 
 #include "config.h"
 
 #include "fun3d.h"
 #include "util.h"
+#include "output.h"
+#include <glib/gi18n.h>
 
 #include <ft2build.h>
 #include FT_FREETYPE_H

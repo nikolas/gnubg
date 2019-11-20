@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.38 2019/11/14 20:08:41 plm Exp $
+ * $Id: graph.c,v 1.39 2019/11/17 15:58:37 plm Exp $
  */
 
 #include "config.h"
@@ -23,6 +23,9 @@
 #include "fun3d.h"
 #include "renderprefs.h"
 #include "gtklocdefs.h"
+#include <glib/gi18n.h>
+#include "common.h"
+#include "analysis.h"
 
 struct _GraphData {
     float ***data;
@@ -50,8 +53,9 @@ graph_button_press_event(void)
 }
 
 static void
-configureCB(GtkWidget *widget, const GraphData * gd)
+configureCB(GtkWidget *widget, void* data)
 {
+	const GraphData* gd = (const GraphData*)data;
 	int width, height;
     float maxY, maxX;
     GtkAllocation allocation;
@@ -263,8 +267,9 @@ DrawGraph(const GraphData * gd)
 }
 
 static gboolean
-exposeCB(GtkWidget* UNUSED(widget), GdkEventExpose* UNUSED(eventData), const GraphData * gd)
+exposeCB(GtkWidget* UNUSED(widget), GdkEventExpose* UNUSED(eventData), void* data)
 {
+	const GraphData* gd = (const GraphData*)data;
     glClear(GL_COLOR_BUFFER_BIT);
     DrawGraph(gd);
     return TRUE;

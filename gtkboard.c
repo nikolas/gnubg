@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.363 2019/11/12 20:52:15 plm Exp $
+ * $Id: gtkboard.c,v 1.364 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 /*! \file gtkboard.c
@@ -2573,7 +2573,7 @@ board_set(Board * board, gchar * board_text, const gint resigned, const gint cub
 
 #if defined(USE_BOARD3D)
         if (display_is_3d(bd->rd)) {
-            SetupViewingVolume3d(bd, bd->bd3d, bd->rd); /* Cube may be out of top of screen */
+			RecalcViewingVolume(bd); /* Cube may be out of top of screen */
         } else
 #endif
         {
@@ -4281,7 +4281,7 @@ InitBoardData(BoardData * bd)
 
         UpdateShadows(bd->bd3d);
         updateFlagOccPos(bd, bd->bd3d);
-        SetupViewingVolume3d(bd, bd->bd3d, bd->rd);
+        RecalcViewingVolume(bd);
     }
 }
 #endif

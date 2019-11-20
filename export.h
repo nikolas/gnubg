@@ -16,7 +16,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: export.h,v 1.39 2018/04/23 21:33:34 plm Exp $
+ * $Id: export.h,v 1.40 2018/06/05 19:24:05 plm Exp $
  */
 
 #include "render.h"
@@ -30,6 +30,7 @@
 #define EXPORT_CUBE_MISSED   5
 #define EXPORT_CUBE_CLOSE    6
 
+typedef struct _moverecord moverecord;
 
 typedef enum _htmlexporttype {
     HTML_EXPORT_TYPE_GNU,

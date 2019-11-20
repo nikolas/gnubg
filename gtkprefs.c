@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.218 2019/11/09 22:23:53 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.219 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -371,7 +371,7 @@ option_changed(GtkWidget * UNUSED(widget), GtkWidget * UNUSED(pw))
             GetPrefs(&rdPrefs);
             GetTextures(bd3d, prd);
 
-            SetupViewingVolume3d(bd, bd3d, prd);
+			RecalcViewingVolume(bd);
             preDraw3d(bd, bd3d, prd);
         } else
 #endif
@@ -1197,7 +1197,7 @@ BoardPrefsOK(GtkWidget * pw, GtkWidget * mainBoard)
             MakeCurrent3d(bd3d);
             GetTextures(bd3d, prd);
             preDraw3d(bd, bd3d, prd);
-            SetupViewingVolume3d(bd, bd3d, prd);
+			RecalcViewingVolume(bd);
             ShowFlag3d(bd, bd3d, prd);
             if (bd->diceShown == DICE_ON_BOARD)
                 setDicePos(bd, bd3d);   /* Make sure dice appear ok */
@@ -2139,7 +2139,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.218 2019/11/09 22:23:53 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.219 2019/11/13 21:41:03 Superfly_Jon Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
