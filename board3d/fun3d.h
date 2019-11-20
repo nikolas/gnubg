@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.42 2019/11/17 12:02:07 plm Exp $
+ * $Id: fun3d.h,v 1.43 2019/11/20 14:36:35 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -29,6 +29,7 @@
 #include <unistd.h>
 #endif
 
+#include "common.h"
 #include "inc3d.h"
 #include "matrix.h"
 #include "gtkwindows.h"
