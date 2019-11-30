@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.460 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: play.c,v 1.461 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1475,8 +1475,8 @@ ComputerTurn(void)
             SwapSides(anBoardTemp);
 
         FIBSBoard(szBoard, anBoardTemp, ms.fMove,
-                  ap[ms.fMove].szName, ap[!ms.fMove].szName,
-                  ms.nMatchTo, ms.anScore[ms.fMove], ms.anScore[!ms.fMove],
+                  ap[ms.fTurn^ms.fMove].szName, ap[ms.fTurn^!ms.fMove].szName,
+                  ms.nMatchTo, ms.anScore[ms.fTurn^ms.fMove], ms.anScore[ms.fTurn^!ms.fMove],
                   ms.anDice[0], ms.anDice[1], ms.nCube, ms.fCubeOwner, ms.fDoubled, 0 /* turn */ , ms.fCrawford,
                   anChequers[ms.bgv], ms.fPostCrawford);
         strcat(szBoard, "\n");
