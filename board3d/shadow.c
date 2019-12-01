@@ -18,7 +18,7 @@
  * along with this program; if not, write to the Free Software
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  *
- * $Id: shadow.c,v 1.25 2019/11/09 22:23:55 Superfly_Jon Exp $
+ * $Id: shadow.c,v 1.27 2019/12/01 20:21:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -40,12 +40,13 @@ ShadowsInitilised(const BoardData3d * bd3d)
 void
 shadowInit(BoardData3d * bd3d, renderdata * prd)
 {
-    int stencilBits;
-
     if (bd3d->shadowsInitialised)
         return;
 
-    /* Darkness as percentage of ambient light */
+#ifndef USE_GTK3
+	int stencilBits;
+	
+	/* Darkness as percentage of ambient light */
     prd->dimness = (float)(prd->lightLevels[1] * (100 - prd->shadowDarkness)) / (100.0f * 100.0f);
 
 	initOccluders(bd3d);
@@ -60,6 +61,7 @@ shadowInit(BoardData3d * bd3d, renderdata * prd)
     glClearStencil(midStencilVal);
 
     bd3d->shadowsInitialised = TRUE;
+#endif
 }
 
 #ifdef TEST_HARNESS
