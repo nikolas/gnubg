@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.46 2019/12/01 20:21:03 Superfly_Jon Exp $
+ * $Id: fun3d.h,v 1.47 2019/12/01 20:30:20 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -99,9 +99,6 @@ extern OglModel* curModel;
 	OglModelAlloc(modelManager, modelNumber);\
 	fun(__VA_ARGS__); \
 }
-
-#define F_PI (float)G_PI
-#define F_PI_2 (float)G_PI_2
 
 typedef signed long  FT_Pos;
 
