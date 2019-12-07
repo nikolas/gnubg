@@ -1,11 +1,11 @@
 /*
- * export.c
+ * Copyright (C) 2002-2003 Joern Thyssen <jthyssen@dk.ibm.com>
+ * Copyright (C) 2002-2019 the AUTHORS
  *
- * by Joern Thyssen  <jthyssen@dk.ibm.com>, 2002
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,10 +13,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: export.c,v 1.93 2019/03/24 16:56:37 plm Exp $
+ * $Id: export.c,v 1.94 2019/09/15 20:05:04 plm Exp $
  */
 
 #include "config.h"
@@ -537,7 +536,7 @@ WritePNG(const char *sz, unsigned char *puch, unsigned int nStride, unsigned int
     png_write_info(ppng, pinfo);
 
     {
-        png_bytep *aprow = (png_bytep *) g_alloca(nSizeY * sizeof(png_bytep));;
+        png_bytep *aprow = (png_bytep *) g_alloca(nSizeY * sizeof(png_bytep));
         unsigned int i;
 
         for (i = 0; i < nSizeY; ++i)
