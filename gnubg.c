@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1011 2019/11/09 22:23:53 Superfly_Jon Exp $
+ * $Id: gnubg.c,v 1.1012 2019/11/13 21:41:02 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -55,7 +55,6 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include "eval.h"
 #include "sgf.h"
 #include "export.h"
-#include "import.h"
 #include "matchequity.h"
 #include "matchid.h"
 #include "positionid.h"

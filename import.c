@@ -1,11 +1,11 @@
 /*
- * import.c
+ * Copyright (C) 2000-2003 Oystein Johansen <oystein@gnubg.org>
+ * Copyright (C) 2001-2019 the AUTHORS
  *
- * by Oystein Johansen, 2000, 2001, 2002
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,10 +13,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.215 2019/03/10 23:12:45 plm Exp $
+ * $Id: import.c,v 1.216 2019/09/15 20:05:05 plm Exp $
  */
 
 #include "config.h"
@@ -35,7 +34,6 @@
 #if USE_GTK
 #include "gtkgame.h"
 #endif
-#include "import.h"
 #include "file.h"
 #include "positionid.h"
 #include "matchequity.h"
@@ -3698,7 +3696,7 @@ ConvertBGRoomFileToMat(FILE * bgrFP, FILE * matFP)
     while (fgets(buffer, sizeof(buffer), bgrFP) != NULL) {
         if (strncmp(buffer, BGR_STRING, strlen(BGR_STRING)) == 0)
             break;
-    };
+    }
 
     if (ferror(bgrFP)) {
         outputerr("Error opening file");

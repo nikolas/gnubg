@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## $Id: Makefile.am,v 1.270 2019/11/13 21:41:02 Superfly_Jon Exp $
+## $Id: Makefile.am,v 1.271 2019/11/14 20:47:55 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -105,7 +105,6 @@ gnubg_SOURCES = \
 		html.c \
 		htmlimages.c \
 		import.c \
-		import.h \
 		inc3d.h \
 		latex.c \
 		matchequity.c \
