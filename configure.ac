@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.90 2019/09/15 18:09:37 plm Exp $
+dnl $Id: configure.ac,v 1.91 2019/10/13 20:53:59 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.90 $)
+AC_REVISION($Revision: 1.91 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -313,6 +313,15 @@ if test "$bcgmp" = "y" ; then
 AC_SUBST(GMP_LIB)
 
 dnl
+dnl Check for cglm
+dnl
+have_cglm="no"
+CPPFLAGS_bak="$CPPFLAGS"
+CPPFLAGS="-I. $CPPFLAGS"
+AC_CHECK_HEADER([cglm/version.h],[have_cglm="yes"])
+CPPFLAGS="$CPPFLAGS_bak"
+
+dnl
 dnl Checks for header files.
 dnl
 
@@ -381,13 +390,17 @@ fi
 
 AC_CHECK_HEADERS(GL/glx.h)
 
-if test  "$with_board3d" != "no" && test "$with_gtk" != "no" && test "x$have_gtk" = "xyes" && test "x$have_gtkglext" = "xyes" -a "x$have_glu" = "xyes"; then
+if test "$with_board3d" != "no" && test "$with_gtk" != "no" && test "x$have_gtk" = "xyes" && test "x$have_gtkglext" = "xyes" && test "x$have_glu" = "xyes"; then
 	AC_DEFINE(USE_BOARD3D,1, [Define if you want to use the 3D boards])
 	no_board3d="no"
 fi
 
 if test "$with_board3d" = "yes" && test "$no_board3d" = "yes"; then
 	AC_MSG_ERROR([board3d requested but gtk or gtkglext not found])
+fi
+
+if test "$with_board3d" != "no" && test "$have_cglm" = "no"; then
+	AC_MSG_ERROR([board3d requested but cglm headers not found ; extract GNUbg-provided snapshot of them with 'sh non-src/cglm.shar' and rerun configure])
 fi
 
 AM_CONDITIONAL(USE_GTK, test "$no_gtk" != "yes" )

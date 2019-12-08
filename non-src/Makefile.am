@@ -15,9 +15,10 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: $
+# $Id: Makefile.am,v 1.7 2019/09/15 17:54:57 plm Exp $
 # 
 
 nonsrc = copying.c credits.c credits.h AUTHORS external_l.c external_y.c \
-	    external_y.h README sgf_l.c sgf_y.c sgf_y.h gnubg-stock-pixbufs.h 
+	    external_y.h README sgf_l.c sgf_y.c sgf_y.h gnubg-stock-pixbufs.h \
+	    cglm.shar
 EXTRA_DIST = $(nonsrc)
