@@ -1,11 +1,11 @@
 /*
- * speed.c
+ * Copyright (C) 2003 Gary Wong <gtw@gnu.org>
+ * Copyright (C) 2004-2018 the AUTHORS
  *
- * by Gary Wong <gtw@gnu.org>, 2003
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,10 +13,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: speed.c,v 1.34 2017/06/27 19:34:18 plm Exp $
+ * $Id: speed.c,v 1.35 2018/04/24 19:18:59 plm Exp $
  */
 
 #include "config.h"
@@ -169,7 +168,7 @@ CommandCalibrate(char *sz)
 #endif
 
     if (timeTaken > 0.0) {
-        rEvalsPerSec = iIter * (float) (EVALS_PER_ITERATION * 1000 / timeTaken);
+        rEvalsPerSec = (float) iIter * (float) (EVALS_PER_ITERATION * 1000 / timeTaken);
         outputf("\rCalibration result: %.0f static evaluations/second.\n", rEvalsPerSec);
     } else
         outputl(_("Calibration incomplete."));
