@@ -1,11 +1,11 @@
 /*
- * htmlimages.c
+ * Copyright (C) 1997-2003 Gary Wong <gtw@gnu.org>
+ * Copyright (C) 2002-2009 the AUTHORS
  *
- * by Gary Wong <gtw@gnu.org>, 1997-2002.
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -13,10 +13,9 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: htmlimages.c,v 1.55 2014/07/20 20:56:28 plm Exp $
+ * $Id: htmlimages.c,v 1.56 2017/04/02 20:01:23 plm Exp $
  */
 
 #include "config.h"
@@ -72,7 +71,7 @@ static unsigned char *auchMidlb;
 static void
 WriteImageStride(unsigned char *img, int stride, int cx, int cy)
 {
-    if (WritePNG(szFile, img, stride, cx, cy) == -1)
+    if (WritePNG(szFile, img, (unsigned int) stride, (unsigned int) cx, (unsigned int) cy) == -1)
         outputf("Error creating file %s\n", szFile);
     imagesWritten++;
     ProgressValueAdd(1);
