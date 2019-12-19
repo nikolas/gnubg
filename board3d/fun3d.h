@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.47 2019/12/01 20:30:20 Superfly_Jon Exp $
+ * $Id: fun3d.h,v 1.48 2019/12/02 10:56:01 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -453,5 +453,6 @@ extern void DrawBackDice(const ModelManager* modelHolder, const BoardData3d* bd3
 extern void DrawDots(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd, diceTest* dt, int diceCol);
 extern void gluNurbFlagRender(int curveAccuracy);
 extern void RenderCharAA(unsigned int glyph);
+extern void moveToDicePos(const BoardData* bd, int num, float diceRotation);
 
 #endif
