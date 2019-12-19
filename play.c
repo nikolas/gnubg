@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.462 2019/11/30 22:01:09 plm Exp $
+ * $Id: play.c,v 1.463 2019/12/12 21:58:30 plm Exp $
  */
 
 #include "config.h"
@@ -4103,10 +4103,9 @@ SetMatchID(const char *szMatchID)
     ms.fJacoby = lfJacoby;
 
     if (anDice[0]) {
-        char sz[10];
-        sprintf(sz, "%u %u", anDice[0], anDice[1]);
+        gchar *sz = g_strdup_printf("%u %u", anDice[0], anDice[1]);
         CommandSetDice(sz);
-
+        g_free(sz);
     }
 
     if (fCubeOwner != -1) {
@@ -4117,9 +4116,9 @@ SetMatchID(const char *szMatchID)
     }
 
     if (nCube != 1) {
-        char sz[10];
-        sprintf(sz, "%d", nCube);
+        gchar *sz = g_strdup_printf("%d", nCube);
         CommandSetCubeValue(sz);
+        g_free(sz);
     }
 
     if (strlen(szID))
