@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.48 2019/12/02 10:56:01 plm Exp $
+ * $Id: fun3d.h,v 1.49 2019/12/19 22:09:03 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -444,7 +444,6 @@ extern void MAAmoveIndicator(void);
 extern void drawPiece(const ModelManager* modelHolder, const BoardData3d* bd3d, unsigned int point, unsigned int pos, int rotate, int roundPiece, int curveAccuracy, int separateTop);
 extern void MAAdie(const renderdata* prd);
 extern void renderFlag(const ModelManager* modelHolder, const BoardData3d* bd3d, int curveAccuracy);
-extern void MoveToFlagPos(const BoardData* bd);
 extern void MoveToFlagMiddle(void);
 extern void PopMatrix(void);
 extern void MAApiece(int roundPiece, int curveAccuracy);
@@ -453,6 +452,5 @@ extern void DrawBackDice(const ModelManager* modelHolder, const BoardData3d* bd3
 extern void DrawDots(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd, diceTest* dt, int diceCol);
 extern void gluNurbFlagRender(int curveAccuracy);
 extern void RenderCharAA(unsigned int glyph);
-extern void moveToDicePos(const BoardData* bd, int num, float diceRotation);
 
 #endif
