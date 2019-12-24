@@ -1,5 +1,5 @@
-# Copyright (C) 2003-2006 Jon Kinsey
-# Copyright (C) 2006-2018 the AUTHORS
+# Copyright (C) 2003-2019 Jon Kinsey <jonkinsey@gmail.com>
+# Copyright (C) 2006-2019 the AUTHORS
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.36 2019/11/13 21:41:03 Superfly_Jon Exp $
+# $Id: Makefile.am,v 1.37 2019/11/14 20:47:55 plm Exp $
 # 
 
 ##
