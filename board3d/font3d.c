@@ -1,13 +1,11 @@
 /*
- * font3d.c
- * by Jon Kinsey, 2005
+ * Copyright (C) 2005-2019 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2006-2016 the AUTHORS
  *
- * Draw 3d numbers using luxi font and freetype library
- *
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of version 3 or later of the GNU General Public License as
- * published by the Free Software Foundation.
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -15,11 +13,12 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3d.c,v 1.38 2019/12/01 20:21:03 Superfly_Jon Exp $
+ * $Id: font3d.c,v 1.39 2019/12/01 20:30:20 Superfly_Jon Exp $
  */
+
+/* Draw 3d numbers using vera font and freetype library */
 
 #include "config.h"
 
