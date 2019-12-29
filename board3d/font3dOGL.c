@@ -1,3 +1,21 @@
+/*
+ * Copyright (C) 2019 Jon Kinsey <jonkinsey@gmail.com>
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ *
+ * $Id: $
+ */
 
 #include "config.h"
 #include "legacyGLinc.h"
@@ -18,33 +36,9 @@ extern void TESS_CALLBACK tcbCombine(const double coords[3], const double* UNUSE
 extern void TESS_CALLBACK tcbBegin(GLenum type, Mesh* UNUSED(pMesh));
 extern void TESS_CALLBACK tcbEnd( /*lint -e{818} */ Mesh* pMesh);
 
-int RenderGlyph(const FT_Outline* pOutline, int AA);
+int MAArenderGlyph(const FT_Outline* pOutline, int AA);
 void PopulateMesh(const Vectoriser* pVect, Mesh* pMesh);
-extern int RenderGlyphX(const FT_Outline* pOutline);
-
-extern void
-RenderString3d(const OGLFont* pFont, const char* str, float scale, int MAA)
-{
-	glScalef(scale, scale * pFont->heightRatio, 1.f);
-
-	while (*str) {
-		int offset = *str - '0';
-		if (!MAA)
-		{
-			/* Draw character */
-			OglModelDraw(&pFont->modelManager, offset);
-		}
-		else
-		{
-			/* AA outline of character */
-			glCallList(pFont->AAglyphs + (unsigned int)offset);
-		}
-		/* Move on to next place */
-		glTranslatef((float)(pFont->advance + GetKern(pFont, str[0], str[1])) / 64.0f, 0.f, 0.f);
-
-		str++;
-	}
-}
+extern int RenderGlyph(const FT_Outline* pOutline);
 
 int
 RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float scale,
@@ -79,8 +73,7 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 		if (pFont->height == 0)
 			pFont->height = (float)face->glyph->metrics.height * scale * heightRatio / 64;
 
-
-		if (!RenderGlyph(&face->glyph->outline, 0))
+		if (!MAArenderGlyph(&face->glyph->outline, 0))
 			return 0;
 
 		text++;
@@ -131,12 +124,12 @@ CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize
 	unsigned int i, j;
 	FT_Face face;
 
-	ModelManagerInit(&pFont->modelManager);
-	ModelManagerStart(&pFont->modelManager);
-
 	memset(pFont, 0, sizeof(OGLFont));
 	pFont->scale = scale;
 	pFont->heightRatio = heightRatio;
+
+	ModelManagerInit(&pFont->modelManager);
+	ModelManagerStart(&pFont->modelManager);
 
 	if (FT_New_Face(ftLib, pPath, 0, &face))
 		return 0;
@@ -157,7 +150,9 @@ CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize
 	}
 
 	/* Create digit glyphs */
+#ifndef USE_GTK3
 	pFont->AAglyphs = glGenLists(10);
+#endif
 
 	for (i = 0; i < 10; i++) {
 		unsigned int glyphIndex = FT_Get_Char_Index(face, '0' + i);
@@ -168,12 +163,14 @@ CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize
 			return 0;
 		g_assert(face->glyph->format == ft_glyph_format_outline);
 
-		CALL_OGL(&pFont->modelManager, i, RenderGlyphX, &face->glyph->outline);
+		CALL_OGL(&pFont->modelManager, i, RenderGlyph, &face->glyph->outline);
 
+#ifndef USE_GTK3
 		glNewList(pFont->AAglyphs + i, GL_COMPILE);
-		if (!RenderGlyph(&face->glyph->outline, 1))
+		if (!MAArenderGlyph(&face->glyph->outline, 1))
 			return 0;
 		glEndList();
+#endif
 
 		/* Calculate kerning table */
 		for (j = 0; j < 10; j++) {
@@ -191,7 +188,7 @@ CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize
 }
 
 int
-RenderGlyph(const FT_Outline* pOutline, int AA)
+MAArenderGlyph(const FT_Outline* pOutline, int AA)
 {
 	Mesh mesh;
 	unsigned int index, point;
@@ -204,6 +201,7 @@ RenderGlyph(const FT_Outline* pOutline, int AA)
 	/* Solid font */
 	PopulateMesh(&vect, &mesh);
 
+	glNormal3f(0.f, 0.f, 1.f);
 	if (!AA)
 	{	// Inner part of font
 		for (index = 0; index < mesh.tesselations->len; index++) {
@@ -306,20 +304,6 @@ PopulateMesh(const Vectoriser* pVect, Mesh* pMesh)
 	gluTessEndPolygon(tobj);
 
 	gluDeleteTess(tobj);
-}
-
-extern void
-glPrintCube(const OGLFont* cubeFont, const char* text, int MAA)
-{
-	/* Align horizontally and vertically */
-	float scale = cubeFont->scale;
-	float heightOffset = cubeFont->height;
-	if (strlen(text) > 1) {     /* Make font smaller for 2 digit cube numbers */
-		scale *= CUBE_TWODIGIT_FACTOR;
-		heightOffset *= CUBE_TWODIGIT_FACTOR;
-	}
-	glTranslatef(-getTextLen3d(cubeFont, text) / 2.0f, -heightOffset / 2.0f, 0.f);
-	RenderString3d(cubeFont, text, scale, MAA);
 }
 
 extern void
