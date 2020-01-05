@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.294 2019/10/15 20:14:46 Superfly_Jon Exp $
+ * $Id: show.c,v 1.295 2019/12/29 20:55:42 plm Exp $
  */
 
 #include "config.h"
@@ -206,23 +206,20 @@ show_movefilters(movefilter aaamf[2][MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 static void
 ShowRollout(rolloutcontext * prc)
 {
-    int fDoTruncate = FALSE;
+    int fDoTruncate = prc->fDoTruncate;
     int fLateEvals = FALSE;
     int nTruncate = prc->nTruncate;
     int nLate = prc->nLate;
     int fPlayersSameSettings = TRUE;
     int fCubeChequerSameSettings = TRUE;
 
-    if (prc->fDoTruncate && (nTruncate > 0))
-        fDoTruncate = TRUE;
-
-    if (prc->fLateEvals && (!fDoTruncate || ((nTruncate > nLate) && (nLate > 2))))
+    if (prc->fLateEvals && (!fDoTruncate || (nTruncate > nLate) ))
         fLateEvals = TRUE;
 
     outputf(ngettext("%u game will be played per rollout.\n",
                      "%u games will be played per rollout.\n", prc->nTrials), prc->nTrials);
 
-    if (!fDoTruncate || nTruncate < 1)
+    if (!fDoTruncate)
         outputl(_("No truncation."));
     else
         outputf(ngettext("Truncation after %d ply.\n", "Truncation after %d plies.\n", nTruncate), nTruncate);
