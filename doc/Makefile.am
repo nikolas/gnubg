@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.46 2017/12/07 00:28:46 mdpetch Exp $
+# $Id: Makefile.am,v 1.47 2019/09/15 17:54:57 plm Exp $
 #
 
 AM_CPPFLAGS = -DAC_DOCDIR='"$(docdir)"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
@@ -51,7 +51,7 @@ gnubg_image_DATA = images/1540d81e.png images/16d7944c.png images/1805dc7d.png \
 		   images/m68ad25e2.png images/m6e32590b.png images/m6e43baca.png \
 		   images/m6fc19da0.png images/m707a2772.png images/m72075f4e.png \
 		   images/m76e2d010.png images/m7bf4f29.png images/m7cee1bfc.png \
-		   images/m93f2ca3.png images/mb4b1284.png images/md9b1995.png images/mgcd.png \
+		   images/m93f2ca3.png images/mb4b1284.png images/mgcd.png \
 		   images/mgtp.png images/movefilter1.png images/movefilter2.png \
 		   images/movefilter3.png images/movefilterex.png images/mptp.png \
 		   images/newbox.png images/rolldice.png images/rulfig1.png images/rulfig2.png \
