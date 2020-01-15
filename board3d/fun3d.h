@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.49 2019/12/19 22:09:03 Superfly_Jon Exp $
+ * $Id: fun3d.h,v 1.50 2019/12/20 22:18:05 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -366,7 +366,7 @@ struct _BoardData3d {
     unsigned int dotTexture;    /* Holds texture used to draw dots on dice */
 };
 
-extern struct _Flag3d flag;
+extern Flag3d flag;
 
 /* Define relative sizes of objects from arbitrary unit .05 */
 #define base_unit .05f
