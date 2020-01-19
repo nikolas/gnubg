@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: inc3d.h,v 1.2 2019/11/14 20:39:10 plm Exp $
+ * $Id: inc3d.h,v 1.3 2019/11/20 14:36:34 Superfly_Jon Exp $
  */
 
 #ifndef INC3D3D_H
@@ -49,7 +49,7 @@ typedef enum _PieceType {
 } PieceType;
 
 typedef enum _PieceTextureType {
-	PTT_TOP, PTT_BOTTOM, PTT_ALL, NUM_TEXTURE_TYPES
+	PTT_TOP, PTT_ALL, PTT_BOTTOM, NUM_TEXTURE_TYPES
 } PieceTextureType;
 
 typedef enum _TextureType {
