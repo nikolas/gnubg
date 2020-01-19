@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.220 2019/11/20 14:36:34 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.221 2019/12/02 13:25:01 plm Exp $
  */
 
 #include "config.h"
@@ -371,8 +371,8 @@ option_changed(GtkWidget * UNUSED(widget), GtkWidget * UNUSED(pw))
             GetPrefs(&rdPrefs);
             GetTextures(bd3d, prd);
 
-			RecalcViewingVolume(bd);
             preDraw3d(bd, bd3d, prd);
+            RecalcViewingVolume(bd);
         } else
 #endif
         {
@@ -2139,7 +2139,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.220 2019/11/20 14:36:34 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.221 2019/12/02 13:25:01 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
