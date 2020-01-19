@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: inc3d.h,v 1.3 2019/11/20 14:36:34 Superfly_Jon Exp $
+ * $Id: inc3d.h,v 1.4 2020/01/19 19:00:27 Superfly_Jon Exp $
  */
 
 #ifndef INC3D3D_H
@@ -89,7 +89,7 @@ extern void RecalcViewingVolume(const BoardData* bd);
 extern void ShowFlag3d(BoardData* bd, BoardData3d* bd3d, const renderdata* prd);
 extern void AnimateMove3d(BoardData* bd, BoardData3d* bd3d);
 extern void UpdateShadows(BoardData3d* bd3d);
-extern int CreateGLWidget(BoardData* bd);
+extern int CreateGLWidget(BoardData* bd, int useMouseEvents);
 extern void InitColourSelectionDialog(void);
 extern void MakeCurrent3d(const BoardData3d* bd3d);
 extern void preDraw3d(const BoardData* bd, BoardData3d* bd3d, renderdata* prd);

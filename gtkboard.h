@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.h,v 1.108 2019/11/12 20:52:51 plm Exp $
+ * $Id: gtkboard.h,v 1.109 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 #ifndef GTKBOARD_H
@@ -134,7 +134,7 @@ extern int fGUIGrayEdit;
 extern unsigned int nGUIAnimSpeed;
 
 extern GType board_get_type(void);
-extern GtkWidget *board_new(renderdata * prd);
+extern GtkWidget *board_new(renderdata * prd, int inPreview);
 extern GtkWidget *board_cube_widget(Board * board);
 extern void DestroySetCube(GObject * po, GtkWidget * pw);
 extern void Copy3dDiceColour(renderdata * prd);

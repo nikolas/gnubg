@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.222 2020/01/19 14:46:35 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.223 2020/01/19 16:45:09 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.222 2020/01/19 14:46:35 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.223 2020/01/19 16:45:09 Superfly_Jon Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -3126,7 +3126,7 @@ BoardPreferences(GtkWidget * pwBoard)
     rdPrefs.fDiceArea = FALSE;
     rdPrefs.fShowGameInfo = FALSE;
     /* Create preview board */
-    pwPrevBoard = board_new(&rdPrefs);
+    pwPrevBoard = board_new(&rdPrefs, TRUE);
 
     bd = BOARD(pwPrevBoard)->board_data;
 #if defined(USE_BOARD3D)

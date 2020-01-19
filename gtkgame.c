@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.945 2019/12/11 20:23:20 plm Exp $
+ * $Id: gtkgame.c,v 1.946 2020/01/05 19:47:15 plm Exp $
  */
 
 #include "config.h"
@@ -3935,7 +3935,7 @@ CreateMainWindow(void)
     gtk_container_add(GTK_CONTAINER(pwPanelGameBox), pwEventBox = gtk_event_box_new());
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(pwEventBox), FALSE);
 
-    gtk_container_add(GTK_CONTAINER(pwEventBox), pwBoard = board_new(GetMainAppearance()));
+    gtk_container_add(GTK_CONTAINER(pwEventBox), pwBoard = board_new(GetMainAppearance(), FALSE));
     g_signal_connect(G_OBJECT(pwEventBox), "button-press-event", G_CALLBACK(board_button_press),
                      BOARD(pwBoard)->board_data);
 
