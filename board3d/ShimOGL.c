@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ShimOGL.c,v 1.5 2019/11/17 12:02:07 plm Exp $
+ * $Id: ShimOGL.c,v 1.7 2019/12/01 20:21:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -40,12 +40,16 @@ static void MatStackInit(MatStack* matStack)
 
 static void MatStackPush(MatStack* matStack)
 {
+	g_assert(matStack->level < (MAX_STACK_LEVEL - 1));
+
 	matStack->level++;
 	glm_mat4_copy(matStack->stack[matStack->level - 1], matStack->stack[matStack->level]);
 }
 
 static void MatStackPop(MatStack* matStack)
 {
+	g_assert(matStack->level > 0);
+
 	matStack->level--;
 }
 
@@ -83,11 +87,6 @@ float curNormal[3], curTexture[2];
 OglModel* curModel = NULL;
 GLenum curMode;
 int modeVerts;
-
-void SHIMsetMaterial(const Material* pMat)
-{
-	curModel->modelUsesTexture = (pMat && pMat->pTexture != 0);
-}
 
 void SHIMglBegin(GLenum mode)
 {
@@ -160,17 +159,13 @@ static void AddData(float data)
 
 static void AddVertex(int offset)
 {
-	int vertexSize = 6;
-	if (curModel->modelUsesTexture)
-		vertexSize += 2;
-
 	if (curModel->data)
 	{
 		float* curPtr = &curModel->data[curModel->dataLength];
-		memcpy(curPtr, curPtr + (offset * vertexSize), vertexSize * sizeof(float));
+		memcpy(curPtr, curPtr + (offset * VERTEX_STRIDE), VERTEX_STRIDE * sizeof(float));
 	}
 
-	curModel->dataLength += vertexSize;
+	curModel->dataLength += VERTEX_STRIDE;
 }
 
 void SHIMglVertex3f(GLfloat x, GLfloat y, GLfloat z)
@@ -234,13 +229,11 @@ void SHIMglVertex3f(GLfloat x, GLfloat y, GLfloat z)
 	{
 		vec3 mv;
 
-		if (curModel->modelUsesTexture)
-		{
-			vec3 tv = { curTexture[0], curTexture[1], 1 };
-			glm_mat4_mulv3(txMatStack.stack[txMatStack.level], tv, 1, mv);
-			AddData(mv[0]);
-			AddData(mv[1]);
-		}
+		vec3 tv = { curTexture[0], curTexture[1], 1 };
+		glm_mat4_mulv3(txMatStack.stack[txMatStack.level], tv, 1, mv);
+		AddData(mv[0]);
+		AddData(mv[1]);
+
 		vec3 nv = { curNormal[0], curNormal[1], curNormal[2] };
 		//TODO: May need to multiple by inverse transpose matrix when scaling is being used...
 		glm_mat4_mulv3(*GetCurMatStackMat(), nv, 0, mv);
@@ -257,7 +250,7 @@ void SHIMglVertex3f(GLfloat x, GLfloat y, GLfloat z)
 	}
 	else
 	{
-		curModel->dataLength += (curModel->modelUsesTexture) ? 8 : 6;
+		curModel->dataLength += VERTEX_STRIDE;
 	}
 }
 
@@ -285,12 +278,12 @@ void SHIMglLoadIdentity()
 	glm_mat4_identity(*GetCurMatStackMat());
 }
 
-float* SHIMGetModelViewMatrix()
+float* GetModelViewMatrix()
 {
 	return (float*)mvMatStack.stack[mvMatStack.level];
 }
 
-float* SHIMGetProjectionMatrix()
+float* GetProjectionMatrix()
 {
 	return (float*)pjMatStack.stack[pjMatStack.level];
 }
