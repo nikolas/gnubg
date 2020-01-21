@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: $
+ * $Id: Occluders.c,v 1.3 2019/12/24 09:48:45 plm Exp $
  */
 
 #include "config.h"
@@ -209,7 +209,7 @@ updateFlagOccPos(const BoardData* bd, BoardData3d* bd3d)
 
 		bd3d->Occluders[OCC_FLAG].show = 1;
 
-		getFlagPos(bd, bd3d->Occluders[OCC_FLAG].trans);
+		getFlagPos(bd->turn, bd3d->Occluders[OCC_FLAG].trans);
 		makeInverseTransposeMatrix(bd3d->Occluders[OCC_FLAG].invMat, bd3d->Occluders[OCC_FLAG].trans);
 
 		/* Flag pole */

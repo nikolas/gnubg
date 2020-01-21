@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.7 2019/12/01 20:21:03 Superfly_Jon Exp $
+ * $Id: DrawOGL.c,v 1.8 2019/12/19 22:09:03 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -810,11 +810,7 @@ drawFlag(const ModelManager* modelHolder, const BoardData* bd, const BoardData3d
 
 	waveFlag(bd3d->flagWaved);
 
-	glPushMatrix();
-		MoveToFlagPos(bd);
-		renderFlag(modelHolder, bd3d, bd->rd->curveAccuracy);
-		renderFlagNumbers(bd3d, bd->resigned);
-	PopMatrix();	/* Move back to origin */
+	renderFlag(modelHolder, bd3d, bd->rd->curveAccuracy, bd->turn, bd->resigned);
 
 	if (isStencil)
 		glEnable(GL_STENCIL_TEST);

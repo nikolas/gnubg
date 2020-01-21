@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: PickOGL.c,v 1.8 2019/12/29 15:13:21 plm Exp $
+ * $Id: PickOGL.c,v 1.9 2020/01/15 21:22:55 plm Exp $
  */
 
 #include "config.h"
@@ -39,7 +39,7 @@ drawFlagPick(const BoardData* bd, void* UNUSED(data))
 
 	glPushMatrix();
 
-	MoveToFlagPos(bd);
+	MoveToFlagPos(bd->turn);
 
 	/* Draw flag surface (approximation) */
 	glBegin(GL_QUAD_STRIP);
@@ -278,7 +278,6 @@ PickDraw(int x, int y, PickDrawFun drawFun, const BoardData* bd, void* data)
 	glPopMatrix();
 	glMatrixMode(GL_MODELVIEW);
 
-	PopMatrix();
 	return hits;
 }
 

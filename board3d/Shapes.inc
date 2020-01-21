@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: Shapes.inc,v 1.5 2019/12/19 22:09:03 Superfly_Jon Exp $
+ * $Id: Shapes.inc,v 1.6 2020/01/19 14:30:21 plm Exp $
  */
 
 /*
@@ -909,10 +909,10 @@ moveToDicePos(const BoardData * bd, int num, float diceRotation)
 }
 
 static void
-MoveToFlagPos(const BoardData * bd)
+MoveToFlagPos(int turn)
 {
     float v[3];
-    getFlagPos(bd, v);
+    getFlagPos(turn, v);
     glTranslatef(v[0], v[1], v[2]);
 }
 
