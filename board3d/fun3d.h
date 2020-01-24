@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.51 2020/01/15 21:22:55 plm Exp $
+ * $Id: fun3d.h,v 1.52 2020/01/21 19:22:19 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -61,7 +61,7 @@ typedef struct _OglModel
 	int dataStart;
 } OglModel;
 
-enum ModelType { MT_BACKGROUND, MT_BASE, MT_ODDPOINTS, MT_EVENPOINTS, MT_TABLE, MT_HINGE, MT_CUBE, MT_MOVEINDICATOR, MT_PIECE, MT_PIECETOP, MT_DICE, MT_FLAG };
+enum ModelType { MT_BACKGROUND, MT_BASE, MT_ODDPOINTS, MT_EVENPOINTS, MT_TABLE, MT_HINGE, MT_HINGEGAP, MT_CUBE, MT_MOVEINDICATOR, MT_PIECE, MT_PIECETOP, MT_DICE, MT_FLAG };
 
 #define MAX_MODELS 12
 typedef struct _ModelManager

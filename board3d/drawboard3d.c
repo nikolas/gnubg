@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.115 2020/01/19 16:45:10 Superfly_Jon Exp $
+ * $Id: drawboard3d.c,v 1.116 2020/01/21 19:22:19 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -716,6 +716,12 @@ drawHinge(const renderdata* prd)
 	gluDiskMine(0.f, HINGE_WIDTH, prd->curveAccuracy, 1, (prd->HingeMat.pTexture != NULL));
 
 	glPopMatrix();
+}
+
+void
+drawHingeGap()
+{
+	drawRect((TOTAL_WIDTH - HINGE_GAP * 1.5f) / 2.0f, 0.f, BASE_DEPTH + EDGE_DEPTH, HINGE_GAP * 1.5f, TOTAL_HEIGHT + LIFT_OFF, 0);
 }
 
 #define M_X(x, y, z) if (tuv != 0.0f) glTexCoord2f((z) * tuv, (y) * tuv); glVertex3f(x, y, z);
@@ -1998,10 +2004,12 @@ void Create3dModels(BoardData3d* bd3d, renderdata* prd)
 	if (prd->fHinges3d)
 	{
 		CALL_OGL(&bd3d->modelHolder, MT_HINGE, drawHinge, prd);
+		CALL_OGL(&bd3d->modelHolder, MT_HINGEGAP, drawHingeGap);
 	}
 	else
 	{
 		OglModelInit(&bd3d->modelHolder, MT_HINGE);
+		OglModelInit(&bd3d->modelHolder, MT_HINGEGAP);
 	}
 
 	CALL_OGL(&bd3d->modelHolder, MT_CUBE, renderCube, prd, DOUBLECUBE_SIZE);
@@ -2214,21 +2222,16 @@ void drawTableBase(const ModelManager* modelHolder, const BoardData3d* bd3d, con
 	glPopMatrix();
 }
 
-extern void drawTableBox(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd)
+extern void drawHinges(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd)
 {
-	OglModelDraw(modelHolder, MT_TABLE, &prd->BoxMat);
-
-	if (prd->fHinges3d)
-	{
-		glPushMatrix();
-			glTranslatef((TOTAL_WIDTH) / 2.0f, ((TOTAL_HEIGHT / 2.0f) - HINGE_HEIGHT) / 2.0f, BASE_DEPTH + EDGE_DEPTH);
-			OglModelDraw(modelHolder, MT_HINGE, &prd->HingeMat);
-		glPopMatrix();
-		glPushMatrix();
-			glTranslatef((TOTAL_WIDTH) / 2.0f, ((TOTAL_HEIGHT / 2.0f) - HINGE_HEIGHT + TOTAL_HEIGHT) / 2.0f, BASE_DEPTH + EDGE_DEPTH);
-			OglModelDraw(modelHolder, MT_HINGE, &prd->HingeMat);
-		glPopMatrix();
-	}
+	glPushMatrix();
+		glTranslatef((TOTAL_WIDTH) / 2.0f, ((TOTAL_HEIGHT / 2.0f) - HINGE_HEIGHT) / 2.0f, BASE_DEPTH + EDGE_DEPTH);
+		OglModelDraw(modelHolder, MT_HINGE, &prd->HingeMat);
+	glPopMatrix();
+	glPushMatrix();
+		glTranslatef((TOTAL_WIDTH) / 2.0f, ((TOTAL_HEIGHT / 2.0f) - HINGE_HEIGHT + TOTAL_HEIGHT) / 2.0f, BASE_DEPTH + EDGE_DEPTH);
+		OglModelDraw(modelHolder, MT_HINGE, &prd->HingeMat);
+	glPopMatrix();
 }
 
 extern void

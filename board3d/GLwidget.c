@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.5 2019/12/06 19:25:06 plm Exp $
+ * $Id: GLwidget.c,v 1.6 2019/12/19 09:23:04 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -248,7 +248,7 @@ void OglModelDraw(const ModelManager* modelManager, int modelNumber, const Mater
 	/* use the buffers in the VAO */
 	glBindVertexArray(modelManager->vao);
 
-	/* draw the three vertices as a triangle */
+	/* draw the vertices in the model */
 	glDrawArrays(GL_TRIANGLES, modelManager->models[modelNumber].dataStart / VERTEX_STRIDE, modelManager->models[modelNumber].dataLength / VERTEX_STRIDE);
 }
 
