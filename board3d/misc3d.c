@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.130 2019/12/19 09:23:04 Superfly_Jon Exp $
+ * $Id: misc3d.c,v 1.131 2020/01/19 15:48:58 plm Exp $
  */
 
 #include "config.h"
@@ -956,7 +956,7 @@ freeEigthPoints(EigthPoints* eigthPoints)
 void
 SetColour3d(float r, float g, float b, float a)
 {
-    Material col;
+    static Material col;
     SetupSimpleMatAlpha(&col, r, g, b, a);
     setMaterial(&col);
 }
