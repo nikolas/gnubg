@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.464 2019/12/19 20:53:24 plm Exp $
+ * $Id: play.c,v 1.465 2020/02/18 21:02:34 plm Exp $
  */
 
 #include "config.h"
@@ -109,7 +109,7 @@ GetDice(unsigned int anDice[2], int fTurn, rng * prng, rngcontext * rngctx, TanB
     static int dice0, dice1, turn;
     positionkey key;
 
-    PositionKey(anBoard, &key);
+    PositionKey((ConstTanBoard) anBoard, &key);
 
     if (fTurn == turn && EqualKeys(key, currentkey)) {
         anDice[0] = dice0;
