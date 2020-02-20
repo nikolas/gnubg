@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external_y.y,v 1.34 2017/04/27 20:19:46 plm Exp $
+ * $Id: external_y.y,v 1.35 2019/11/05 21:07:43 plm Exp $
  */
 
 #ifndef EXTERNAL_Y_H
@@ -102,7 +102,7 @@ void yyerror(scancontext *scanner, const char *str)
 #endif
 
 %}
-%pure-parser
+%define api.pure
 %file-prefix "y"
 %lex-param   {void *scanner}
 %parse-param {scancontext *scanner}
@@ -579,7 +579,7 @@ list_elements:
 #ifdef EXTERNAL_TEST
 
 /* 
- * Test code can be built by configuring GNUBG with --without-gtk option and doing the following:
+ * Test code can be built by configuring GNUbg with --without-gtk option and doing the following:
  *
  * ./ylwrap external_l.l lex.yy.c external_l.c -- flex 
  * ./ylwrap external_y.y y.tab.c external_y.c y.tab.h test1_y.h -- bison 
