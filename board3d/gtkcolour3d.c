@@ -15,13 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcolour3d.c,v 1.66 2019/11/17 15:58:37 plm Exp $
+ * $Id: gtkcolour3d.c,v 1.67 2019/11/20 14:36:35 Superfly_Jon Exp $
  */
 
 #include "config.h"
 #include "legacyGLinc.h"
 #include "fun3d.h"
 #include "gtklocdefs.h"
+
+#include <GL/glu.h>	/* Used for colour widget - todo: remove? */
 
 #include "gtkprefs.h"
 

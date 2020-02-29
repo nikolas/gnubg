@@ -1,4 +1,4 @@
-/* $Id: tr.c,v 1.12 2019/11/09 22:23:55 Superfly_Jon Exp $ */
+/* $Id: tr.c,v 1.13 2019/11/13 21:41:05 Superfly_Jon Exp $ */
 
 /*
  * $originalLog: tr.c,v $
@@ -309,6 +309,7 @@ trPerspective(TRcontext * tr, GLdouble fovy, GLdouble aspect, GLdouble znear, GL
 void
 trBeginTile(TRcontext * tr)
 {
+#ifndef USE_GTK3
     int matrixMode;
     int tileWidth, tileHeight, border;
     GLdouble left, right, bottom, top;
@@ -373,6 +374,7 @@ trBeginTile(TRcontext * tr)
 
     /* restore user's matrix mode */
     glMatrixMode((GLenum) matrixMode);
+#endif
 }
 
 
