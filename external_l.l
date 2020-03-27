@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external_l.l,v 1.28 2015/10/08 00:29:38 mdpetch Exp $
+ * $Id: external_l.l,v 1.29 2019/11/05 21:02:30 plm Exp $
  */
 
 #include "common.h"
@@ -25,8 +25,6 @@
 #define EXTERNAL_Y_H
 #include "external_y.h"
 
-extern int ext_get_column (yyscan_t yyscanner );
-extern void ext_set_column (int column_no, yyscan_t yyscanner );
 extern int ext_parse(yyscan_t scanner);
 
 void escapes(const char *cp, char *tp);
