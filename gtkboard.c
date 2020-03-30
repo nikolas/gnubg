@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.365 2019/11/20 14:36:34 Superfly_Jon Exp $
+ * $Id: gtkboard.c,v 1.366 2020/01/19 19:26:05 Superfly_Jon Exp $
  */
 
 /*! \file gtkboard.c
@@ -94,7 +94,7 @@ G_DEFINE_TYPE(Board, board, GTK_TYPE_BOX)
 G_DEFINE_TYPE(Board, board, GTK_TYPE_VBOX)
 #endif
 
-int inPreviewWindow;
+static int inPreviewWindow;
 
 extern GtkWidget *
 board_new(renderdata * prd, int inPreview)
@@ -685,9 +685,9 @@ show_pip_pwe(BoardData * bd, const TanBoard points, GString * gst[4])
     PipCount(points, anPip);
     f = (bd->turn > 0);
     g_string_append_printf(gst[0], " %u + %.2f = %.2f(%+.2f)", anPip[!f],
-                           arEPC[!f] - anPip[!f], arEPC[!f], arEPC[!f] - arEPC[f]);
+                           arEPC[!f] - (float) anPip[!f], arEPC[!f], arEPC[!f] - arEPC[f]);
     g_string_append_printf(gst[1], " %u + %.2f = %.2f(%+.2f)", anPip[f],
-                           arEPC[f] - anPip[f], arEPC[f], arEPC[f] - arEPC[!f]);
+                           arEPC[f] - (float) anPip[f], arEPC[f], arEPC[f] - arEPC[!f]);
     g_string_append_printf(gst[2], _("EPC: "));
     g_string_append_printf(gst[3], _("EPC: "));
 }
@@ -2909,7 +2909,7 @@ update_buttons(BoardData * bd)
 
 extern gint
 game_set(Board * board, TanBoard points, int roll,
-         const gchar * name, const gchar * opp_name, gint match,
+         const gchar * name, const gchar * opp_name, gint matchto,
          gint score, gint opp_score, gint die0, gint die1, gint computer_turn, gint nchequers)
 {
     gchar board_str[256];
@@ -2927,7 +2927,7 @@ game_set(Board * board, TanBoard points, int roll,
     } else
         memcpy(bd->old_board, points, sizeof(bd->old_board));
 
-    FIBSBoard(board_str, points, roll, name, opp_name, match, score,
+    FIBSBoard(board_str, points, roll, name, opp_name, matchto, score,
               opp_score, die0, die1, ms.nCube, ms.fCubeOwner, ms.fDoubled, ms.fTurn, ms.fCrawford, nchequers,
               ms.fPostCrawford);
 
