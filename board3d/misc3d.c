@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.132 2020/01/26 15:24:14 plm Exp $
+ * $Id: misc3d.c,v 1.133 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1200,7 +1200,6 @@ EmptyPos(BoardData * bd)
     updatePieceOccPos(bd, bd->bd3d);
 }
 
-extern OglModel* curModel;
 void
 SetupViewingVolume3d(const BoardData * bd, BoardData3d * bd3d, const renderdata * prd, int viewport[4])
 {
