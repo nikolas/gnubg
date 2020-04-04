@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.117 2020/01/24 21:05:46 Superfly_Jon Exp $
+ * $Id: drawboard3d.c,v 1.118 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -752,7 +752,7 @@ drawHinge(const renderdata* prd)
 }
 
 void
-drawHingeGap()
+drawHingeGap(void)
 {
 	drawRect((TOTAL_WIDTH - HINGE_GAP * 1.5f) / 2.0f, 0.f, BASE_DEPTH + EDGE_DEPTH, HINGE_GAP * 1.5f, TOTAL_HEIGHT + LIFT_OFF, 0);
 }
