@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3dOGL.c,v 1.6 2019/12/29 15:14:13 plm Exp $
+ * $Id: font3dOGL.c,v 1.7 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -56,7 +56,7 @@ int
 RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float scale,
 	float heightRatio)
 {
-	int len = 0;
+	FT_Pos len = 0;
 	FT_Face face;
 
 	if (FT_New_Face(ftLib, pPath, 0, &face))
@@ -93,20 +93,20 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 		/* Move on to next place */
 		if (*text) {
 			unsigned int nextGlyphIndex;
-			int kern = 0;
+			FT_Pos kern = 0;
 			FT_Vector kernAdvance;
 			charCode = (FT_ULong)(int)(*text);
 			nextGlyphIndex = FT_Get_Char_Index(face, charCode);
 			if (nextGlyphIndex && !FT_Get_Kerning(face, glyphIndex, nextGlyphIndex, ft_kerning_unfitted, &kernAdvance))
 				kern = kernAdvance.x;
 
-			glTranslatef((face->glyph->advance.x + kern) / 64.0f, 0.f, 0.f);
+			glTranslatef((float) (face->glyph->advance.x + kern) / 64.0f, 0.f, 0.f);
 			len += kern;
 		}
 	}
 	glEndList();
 
-	pFont->length = (len / 64.0f) * pFont->scale;
+	pFont->length = ((float) len / 64.0f) * pFont->scale;
 
 	return !FT_Done_Face(face);
 }
