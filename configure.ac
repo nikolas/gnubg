@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.91 2019/10/13 20:53:59 plm Exp $
+dnl $Id: configure.ac,v 1.92 2019/12/08 21:44:10 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.91 $)
+AC_REVISION($Revision: 1.92 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -295,6 +295,7 @@ AC_CHECK_LIB(readline,readline,
               READLINE_LIBS="")
 if test "$bcrl" = "y" ; then
     AC_DEFINE([HAVE_LIB_READLINE],1,Define if you have libreadline)
+    AC_CHECK_HEADERS(stdarg.h)
     fi
 AC_SUBST(READLINE_LIBS)
 
