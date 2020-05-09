@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004 Joern Thyssen <jthyssen@dk.ibm.com>
- * Copyright (C) 2004-2017 the AUTHORS
+ * Copyright (C) 2004-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: bearoffdump.c,v 1.25 2018/09/23 17:45:14 plm Exp $
+ * $Id: bearoffdump.c,v 1.26 2019/12/12 22:17:50 plm Exp $
  */
 
 #include "config.h"
@@ -125,8 +125,9 @@ main(int argc, char **argv)
     {
         char szOut[2048];
         char *apc[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
+        int nc = pbc->bt == BEAROFF_HYPERGAMMON ? pbc->nChequers : 15;
 
-        puts(DrawBoard(szOut, (ConstTanBoard) anBoard, TRUE, apc, NULL, 15));
+        puts(DrawBoard(szOut, (ConstTanBoard) anBoard, TRUE, apc, NULL, nc));
     }
 
     /* dump req. position */
