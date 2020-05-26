@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2005-2019 Jon Kinsey <jonkinsey@gmail.com>
- * Copyright (C) 2006-2016 the AUTHORS
+ * Copyright (C) 2006-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,13 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3d.c,v 1.40 2019/12/29 15:35:43 plm Exp $
+ * $Id: font3d.c,v 1.41 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 /* Draw 3d numbers using vera font and freetype library */
 
 #include "config.h"
 
+#include "types3d.h"
 #include "fun3d.h"
 #include "util.h"
 #include "output.h"

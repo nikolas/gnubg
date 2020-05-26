@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1997-2002 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2003-2015 the AUTHORS
+ * Copyright (C) 2003-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.h,v 1.42 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: render.h,v 1.43 2019/11/13 21:41:03 Superfly_Jon Exp $
  */
 
 #ifndef RENDER_H
@@ -24,7 +24,7 @@
 #include "gnubg-types.h"
 
 #if defined(USE_BOARD3D)
-#include "inc3d.h"
+#include "board3d/types3d.h"
 #endif
 
 typedef enum _woodtype {

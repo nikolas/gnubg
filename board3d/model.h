@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2016-2019 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2019-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: $
+ * $Id: model.h,v 1.10 2019/11/14 20:39:10 plm Exp $
  */
 
 #ifndef MODEL_H
@@ -22,7 +23,7 @@
 
 #include <glib.h>
 
-/* Occulsion model */
+/* Occlusion model */
 typedef struct _OccModel {
     GArray *planes;
     GArray *edges;
