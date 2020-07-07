@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000-2003 Oystein Johansen <oystein@gnubg.org>
- * Copyright (C) 2001-2019 the AUTHORS
+ * Copyright (C) 2001-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.217 2019/12/07 14:56:57 plm Exp $
+ * $Id: import.c,v 1.218 2020/04/12 18:47:23 plm Exp $
  */
 
 #include "config.h"
@@ -498,8 +498,6 @@ ExpandMatMove(const TanBoard anBoard, int anMove[8], int *pc, const unsigned int
 
     if (anDice[0] != anDice[1]) {
 
-        /* FIXME: accept bearoff moves with overage, like 65: 9/Off */
-
         if ((unsigned int) (anMove[0] - anMove[1]) == (anDice[0] + anDice[1])) {
 
             int an[8];
@@ -513,6 +511,34 @@ ExpandMatMove(const TanBoard anBoard, int anMove[8], int *pc, const unsigned int
 
                 an[2] = an[1];
                 an[3] = an[2] - anDice[!i];
+
+                an[4] = -1;
+                an[5] = -1;
+
+                /* no hits on the first part of the move */
+                if (anBoard[0][23 - an[1]] != 0)
+                    continue;
+
+                if (IsValidMove(anBoard, an)) {
+                    memcpy(anMove, an, sizeof(an));
+                    ++*pc;
+                    break;
+                }
+
+            }
+
+        } else if (anMove[1] == -1 && (unsigned int) anMove[0] >= anDice[0] && (unsigned int) anMove[0] >= anDice[1]) {
+
+            int an[8];
+
+            /* consolidated bearoff move with overage, like 65: 9/Off */
+
+            for (i = 0; i < 2; ++i) {
+                an[0] = anMove[0];
+                an[1] = an[0] - anDice[i];
+
+                an[2] = an[1];
+                an[3] = -1;
 
                 an[4] = -1;
                 an[5] = -1;
