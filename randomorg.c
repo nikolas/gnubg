@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: randomorg.c,v 1.6 2020/08/17 21:35:17 plm Exp $
+ * $Id: randomorg.c,v 1.7 2020/08/17 21:40:32 plm Exp $
  */
 
 #include "config.h"
@@ -38,7 +38,7 @@ RandomOrgCallBack(void *pvRawData, size_t nSize, size_t nNumMemb, void *pvUserDa
     size_t nNewDataLen = nSize * nNumMemb;
     RandomData *pvRandomData = (RandomData *) pvUserData;
     unsigned int i;
-    unsigned int iNumRead = pvRandomData->nNumRolls;
+    size_t iNumRead = pvRandomData->nNumRolls;
     char *szRawData = (char *) pvRawData;
 
 #if defined(RANDOMORG_DEBUG)
