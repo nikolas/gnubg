@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2004 Joern Thyssen <jth@gnubg.org>
- * Copyright (C) 2004-2019 the AUTHORS
+ * Copyright (C) 2004-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: relational.c,v 1.80 2019/09/15 20:05:05 plm Exp $
+ * $Id: relational.c,v 1.81 2019/12/24 09:02:14 plm Exp $
  */
 
 #include "config.h"
@@ -128,9 +128,9 @@ MatchResult(int nMatchTo)
     int result = 0;
     int anFinalScore[2];
     if (nMatchTo && getFinalScore(anFinalScore)) {
-        if (anFinalScore[0] > nMatchTo)
+        if (anFinalScore[0] >= nMatchTo)
             result = -1;
-        else if (anFinalScore[1] > nMatchTo)
+        else if (anFinalScore[1] >= nMatchTo)
             result = 1;
     }
     return result;
