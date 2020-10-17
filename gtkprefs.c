@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.224 2020/01/19 19:26:05 Superfly_Jon Exp $
+ * $Id: gtkprefs.c,v 1.225 2020/02/20 21:17:21 plm Exp $
  */
 
 #include "config.h"
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.224 2020/01/19 19:26:05 Superfly_Jon Exp $\n"
+          "    $Id: gtkprefs.c,v 1.225 2020/02/20 21:17:21 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2414,8 +2414,7 @@ WriteDesignString(boarddesign * pbde, renderdata * prd)
             WriteMaterial(&prd->HingeMat), WriteMaterial(&prd->PointNumberMat), WriteMaterial(&prd->BackGroundMat));
 #endif
 
-    pbde->szBoardDesign = g_malloc(strlen(szTemp) + 1);
-    strcpy(pbde->szBoardDesign, szTemp);
+    pbde->szBoardDesign = strdup(szTemp);
 }
 
 #if defined(USE_BOARD3D)

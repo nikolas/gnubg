@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.134 2020/04/04 19:14:01 plm Exp $
+ * $Id: misc3d.c,v 1.135 2020/06/23 19:50:13 plm Exp $
  */
 
 #include "config.h"
@@ -629,8 +629,7 @@ SetTexture(BoardData3d * bd3d, Material * pMat, const char *filename)
 
     if (LoadTexture(&bd3d->textureList[bd3d->numTextures], filename)) {
         /* Remember name */
-        bd3d->textureName[bd3d->numTextures] = (char *) malloc(strlen(nameStart) + 1);
-        strcpy(bd3d->textureName[bd3d->numTextures], nameStart);
+        bd3d->textureName[bd3d->numTextures] = strdup(nameStart);
 
         pMat->pTexture = &bd3d->textureList[bd3d->numTextures];
         bd3d->numTextures++;

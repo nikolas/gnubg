@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.c,v 1.90 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: gtkpanels.c,v 1.91 2020/02/23 21:00:20 plm Exp $
  */
 
 #include "config.h"
@@ -416,8 +416,7 @@ ShowHelp(GtkWidget * pwText, char *pStr)
     GtkTextIter iter;
 
     /* Copy string as token striping corrupts string */
-    pTemp = malloc(strlen(pStr) + 1);
-    strcpy(pTemp, pStr);
+    pTemp = strdup(pStr);
     cc = CheckCommand(pTemp, acTop);
 
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pwText));
@@ -508,8 +507,7 @@ CommandOK(GtkWidget * UNUSED(pw), CommandEntryData_T * pData)
     for (i = pData->numHistory; i > 0; i--)
         pData->cmdHistory[i] = pData->cmdHistory[i - 1];
 
-    pData->cmdHistory[0] = malloc(strlen(pData->cmdString) + 1);
-    strcpy(pData->cmdHistory[0], pData->cmdString);
+    pData->cmdHistory[0] = strdup(pData->cmdString);
     pData->numHistory++;
     PopulateCommandHistory(pData);
     gtk_entry_set_text(GTK_ENTRY(pData->pwEntry), "");

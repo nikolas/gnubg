@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.417 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: set.c,v 1.418 2020/01/05 19:47:15 plm Exp $
  */
 
 #include "config.h"
@@ -1431,7 +1431,7 @@ CommandSetPlayerExternal(char *sz)
         return;
     }
 
-    pch = strcpy(malloc(strlen(sz) + 1), sz);
+    pch = strdup(sz);
 
     if ((h = ExternalSocket(&psa, &cb, sz)) < 0) {
         SockErr(pch);
