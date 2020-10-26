@@ -14,15 +14,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ModelOGL.c,v 1.5 2019/12/01 20:21:03 Superfly_Jon Exp $
+ * $Id: ModelOGL.c,v 1.6 2020/01/15 21:22:55 plm Exp $
  */
 
 #include "config.h"
 #include "legacyGLinc.h"
 #include <stdlib.h>
 #include "fun3d.h"
-
-extern void InitMatStacks(void);
+#include "ShimOGL.h"
 
 void OglModelInit(ModelManager* modelHolder, int modelNumber)
 {
