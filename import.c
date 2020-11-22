@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.218 2020/04/12 18:47:23 plm Exp $
+ * $Id: import.c,v 1.219 2020/07/07 21:53:32 plm Exp $
  */
 
 #include "config.h"
@@ -3880,8 +3880,6 @@ ConvertBGRoomFileToMat(FILE * bgrFP, FILE * matFP)
         }
     }
   done:
-    fclose(bgrFP);
-    fclose(matFP);
     free(player2);
     free(player1);
 
@@ -3901,13 +3899,13 @@ CommandImportBGRoom(char *sz)
         return;
     }
 
-    if ((gamf = g_fopen(sz, "r")) == 0) {
+    if ((gamf = g_fopen(sz, "r")) == NULL) {
         outputerr(sz);
         return;
     }
 
     matfile = g_strdup_printf("%s.mat", sz);
-    if ((matf = g_fopen(matfile, "w")) == 0) {
+    if ((matf = g_fopen(matfile, "w")) == NULL) {
         outputerr(matfile);
         g_free(matfile);
         fclose(gamf);
@@ -3916,7 +3914,7 @@ CommandImportBGRoom(char *sz)
 
     if (ConvertBGRoomFileToMat(gamf, matf)) {
         FILE *pf;
-        if ((pf = g_fopen(matfile, "r")) != 0) {
+        if ((pf = g_fopen(matfile, "r")) != NULL) {
             int rc = ImportMat(pf, matfile);
             fclose(pf);
             if (!rc) {
@@ -3931,4 +3929,6 @@ CommandImportBGRoom(char *sz)
 
     g_unlink(matfile);
     g_free(matfile);
+    fclose(matf);
+    fclose(gamf);
 }
