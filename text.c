@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.120 2019/09/15 20:05:05 plm Exp $
+ * $Id: text.c,v 1.121 2020/01/05 19:49:14 plm Exp $
  */
 
 #include "config.h"
@@ -226,7 +226,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.120 $";
+    const char szVersion[] = "$Revision: 1.121 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -798,6 +798,7 @@ CommandExportGameText(char *sz)
 {
 
     FILE *pf;
+    int fDontClose = FALSE;
 
     sz = NextToken(&sz);
 
@@ -814,16 +815,17 @@ CommandExportGameText(char *sz)
     if (!confirmOverwrite(sz, fConfirmSave))
         return;
 
-    if (!strcmp(sz, "-"))
+    if (!strcmp(sz, "-")) {
         pf = stdout;
-    else if ((pf = g_fopen(sz, "w")) == 0) {
+        fDontClose = TRUE;
+    } else if ((pf = g_fopen(sz, "w")) == 0) {
         outputerr(sz);
         return;
     }
 
     ExportGameText(pf, plGame, getGameNumber(plGame), FALSE);
 
-    if (pf != stdout)
+    if (!fDontClose)
         fclose(pf);
 
     setDefaultFileName(sz);

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.250 2019/09/15 20:05:05 plm Exp $
+ * $Id: html.c,v 1.251 2019/12/11 19:19:27 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.250 2019/09/15 20:05:05 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.251 2019/12/11 19:19:27 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.250 $";
+    const char szVersion[] = "$Revision: 1.251 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.250 $";
+    const char szVersion[] = "$Revision: 1.251 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2905,6 +2905,7 @@ CommandExportGameHtml(char *sz)
 {
 
     FILE *pf;
+    int fDontClose = FALSE;
 
     sz = NextToken(&sz);
 
@@ -2921,9 +2922,10 @@ CommandExportGameHtml(char *sz)
     if (!confirmOverwrite(sz, fConfirmSave))
         return;
 
-    if (!strcmp(sz, "-"))
+    if (!strcmp(sz, "-")) {
         pf = stdout;
-    else if (!(pf = g_fopen(sz, "w"))) {
+        fDontClose = TRUE;
+    } else if (!(pf = g_fopen(sz, "w"))) {
         outputerr(sz);
         return;
     }
@@ -2936,7 +2938,7 @@ CommandExportGameHtml(char *sz)
                    exsExport.het, exsExport.hecss, getGameNumber(plGame), FALSE, NULL);
 
 
-    if (pf != stdout)
+    if (!fDontClose)
         fclose(pf);
 
     setDefaultFileName(sz);
@@ -3171,6 +3173,7 @@ CommandExportPositionGammOnLine(char *sz)
 {
 
     FILE *pf;
+    int fDontClose = FALSE;
 
     sz = NextToken(&sz);
 
@@ -3187,16 +3190,17 @@ CommandExportPositionGammOnLine(char *sz)
     if (!confirmOverwrite(sz, fConfirmSave))
         return;
 
-    if (!strcmp(sz, "-"))
+    if (!strcmp(sz, "-")) {
         pf = stdout;
-    else if (!(pf = g_fopen(sz, "w"))) {
+        fDontClose = TRUE;
+    } else if (!(pf = g_fopen(sz, "w"))) {
         outputerr(sz);
         return;
     }
 
     ExportPositionGammOnLine(pf);
 
-    if (pf != stdout)
+    if (!fDontClose)
         fclose(pf);
 
 }
