@@ -14,14 +14,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ModelOGL.c,v 1.6 2020/01/15 21:22:55 plm Exp $
+ * $Id: ModelOGL.c,v 1.7 2020/10/26 22:27:30 plm Exp $
  */
 
 #include "config.h"
 #include "legacyGLinc.h"
 #include <stdlib.h>
 #include "fun3d.h"
-#include "ShimOGL.h"
 
 void OglModelInit(ModelManager* modelHolder, int modelNumber)
 {
