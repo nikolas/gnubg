@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: simpleboard.c,v 1.27 2019/01/21 21:43:41 plm Exp $
+ * $Id: simpleboard.c,v 1.28 2019/12/11 21:54:20 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -543,14 +543,18 @@ main(int argc, char *argv[])
     SimpleBoard *board;
     cairo_surface_t *surface;
     cairo_t *cr;
-    if (argc != 4)
+    if (argc != 4) {
         g_error("wrong number of arguments %d, expected 3\n", argc - 1);
+        return;
+    }
 
     surface = cairo_svg_surface_create(argv[3], SIMPLE_BOARD_SIZE, SIMPLE_BOARD_SIZE);
     cr = cairo_create(surface);
     board = simple_board_new_from_ids(argv[1], argv[2], cr);
-    if (!board)
+    if (!board) {
         g_error("Failed to create simple board from ids %s and %s", argv[1], argv[2]);
+        return;
+    }
     simple_board_draw(board);
     cairo_surface_destroy(surface);
     cairo_destroy(board->cr);
