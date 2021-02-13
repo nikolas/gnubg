@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.11 2020/02/29 20:21:44 Superfly_Jon Exp $
+ * $Id: DrawOGL.c,v 1.12 2020/09/09 20:24:44 plm Exp $
  */
 
 #include "config.h"
@@ -47,7 +47,7 @@ extern void drawFlag(const ModelManager* modelHolder, const BoardData* bd, const
 
 void LegacyStartAA(float width)
 {
-	glLineWidth(.5f);
+	glLineWidth(width);
 	glEnable(GL_LINE_SMOOTH);
 	glEnable(GL_BLEND);
 }
