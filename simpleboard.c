@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: simpleboard.c,v 1.29 2021/02/07 20:59:53 plm Exp $
+ * $Id: simpleboard.c,v 1.30 2021/02/07 21:01:02 plm Exp $
  */
 
 /*! \file simpleboard.c
@@ -387,7 +387,7 @@ draw_checkers_on_point(cairo_t * cr, gint point, guint number, SimpleBoardColor 
 {
     gint x, y, direction;
 
-    g_assert(number >= 0 && number <= 15);
+    g_assert(number <= 15);
 
     if (!number)
         return;
