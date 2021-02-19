@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.9 2020/10/25 21:00:59 plm Exp $
+ * $Id: GLwidget.c,v 1.10 2020/10/25 21:16:11 plm Exp $
  */
 
 #include "config.h"
@@ -50,6 +50,13 @@ setMaterial(const Material* pMat)
 		currentMat = pMat;
 		glUniform3fv(colour_location, 1, pMat->diffuseColour);
 	}
+}
+
+void
+setMaterialReset(const Material* pMat)
+{
+	currentMat = NULL;
+	setMaterial(pMat);
 }
 
 void ModelManagerCopyModelToBuffer(ModelManager* modelHolder, int modelNumber)

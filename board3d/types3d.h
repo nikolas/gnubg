@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: $
+ * $Id: types3d.h,v 1.11 2020/05/26 19:55:54 plm Exp $
  */
 
 #ifndef TYPES3D_H
@@ -88,7 +88,7 @@ typedef struct _OglModel
         int dataStart;
 } OglModel;
 
-enum ModelType { MT_BACKGROUND, MT_BASE, MT_ODDPOINTS, MT_EVENPOINTS, MT_TABLE, MT_HINGE, MT_HINGEGAP, MT_CUBE, MT_MOVEINDICATOR, MT_PIECE, MT_PIECETOP, MT_DICE, MT_FLAG, MT_FLAGPOLE, MAX_MODELS };
+enum ModelType { MT_BACKGROUND, MT_BASE, MT_ODDPOINTS, MT_EVENPOINTS, MT_TABLE, MT_HINGE, MT_HINGEGAP, MT_CUBE, MT_MOVEINDICATOR, MT_PIECE, MT_PIECETOP, MT_DICE, MT_DOT, MT_FLAG, MT_FLAGPOLE, MT_RECT, MAX_MODELS };
 
 typedef struct _ModelManager
 {

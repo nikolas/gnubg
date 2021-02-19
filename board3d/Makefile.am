@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.38 2019/12/24 08:43:58 plm Exp $
+# $Id: Makefile.am,v 1.39 2020/05/26 19:55:54 plm Exp $
 # 
 
 ##
@@ -35,7 +35,7 @@ endif
 
 libboard3d_la_SOURCES = DrawOGL.c font3dOGL.c ModelOGL.c Occluders.c PickOGL.c \
 			ShimOGL.c ShimOGL.h legacyGLinc.h BoardDimensions.h \
-			Shapes.inc GLwidget.c \
+			GLwidget.c \
 			drawboard3d.c font3d.c fun3d.h graph.c gtkcolour3d.c \
 			matrix.c matrix.h misc3d.c model.c model.h \
 			shadow.c widget3d.c tr.c tr.h types3d.h
