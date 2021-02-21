@@ -3,7 +3,7 @@ dnl     autoconf
 dnl in the directory containing this script.
 
 dnl Copyright (C) 1999-2002 Gary Wong <gtw@gnu.org>
-dnl Copyright (C) 2002-2019 the AUTHORS
+dnl Copyright (C) 2002-2021 the AUTHORS
 
 dnl This program is free software: you can redistribute it and/or modify
 dnl it under the terms of the GNU General Public License as published by
@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.92 2019/12/08 21:44:10 plm Exp $
+dnl $Id: configure.ac,v 1.93 2020/05/03 11:58:54 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.92 $)
+AC_REVISION($Revision: 1.93 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -200,6 +200,9 @@ if test "x$with_gtk" != "xno"; then
 
     if test "x$with_board3d" != "xno"; then
         PKG_CHECK_MODULES(GTKGLEXT, [gtkglext-1.0 >= 1.0], have_gtkglext="yes" , AC_MSG_WARN([no gtkglext support]))
+        if test "x$with_gtk3" = "xyes"; then
+            PKG_CHECK_MODULES(EPOXY, [epoxy], have_epoxy="yes", AC_MSG_WARN([no epoxy support]))
+        fi
     fi
 fi
 
