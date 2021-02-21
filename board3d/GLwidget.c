@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2019-2021 Jon Kinsey <jonkinsey@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.10 2020/10/25 21:16:11 plm Exp $
+ * $Id: GLwidget.c,v 1.11 2021/02/19 21:19:55 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -158,15 +158,16 @@ guint CreateShader(int shader_type, const char* shader_name)
 	int status;
 	char* source;
 	char* pathname = BuildFilename(shader_name);
-	char filename[_MAX_PATH];
-	strcpy(filename, pathname);
+	char* filename;
+
 	if (shader_type == GL_VERTEX_SHADER)
-		strcat(filename, "-vertex.glsl");
+		filename = g_strdup_printf("%s-vertex.glsl", pathname);
 	else
-		strcat(filename, "-fragment.glsl");
+		filename = g_strdup_printf("%s-fragment.glsl", pathname);
 	g_free(pathname);
 
 	source = LoadFile(filename);
+	g_free(filename);
 
 	guint shader = glCreateShader(shader_type);
 	glShaderSource(shader, 1, &source, NULL);
