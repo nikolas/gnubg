@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: Occluders.c,v 1.4 2020/01/21 19:22:19 Superfly_Jon Exp $
+ * $Id: Occluders.c,v 1.5 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -38,7 +38,7 @@ extern void initOccluders(BoardData3d* bd3d)
 extern void
 DrawShadows(const BoardData3d* bd3d)
 {
-#ifndef USE_GTK3
+#if !GTK_CHECK_VERSION(3,0,0)
 	for (int i = 0; i < NUM_OCC; i++) {
 		if (bd3d->Occluders[i].show)
 			glCallList(bd3d->Occluders[i].shadow_list);

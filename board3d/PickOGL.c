@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2019 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2019-2021 Jon Kinsey <jonkinsey@gmail.com>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: PickOGL.c,v 1.11 2020/02/29 20:21:44 Superfly_Jon Exp $
+ * $Id: PickOGL.c,v 1.12 2021/02/19 21:19:55 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -26,7 +26,7 @@
 
 typedef void (*PickDrawFun) (const BoardData* bd, void* data);
 
-#ifndef USE_GTK3
+#if !GTK_CHECK_VERSION(3,0,0)
 void SetPickObject(int value)
 {
 	glLoadName(value);
@@ -216,7 +216,7 @@ drawPickPointCheck(const BoardData* bd, void* data)
 	DrawPickIndividualPoint(bd, pointB);
 }
 
-#ifndef USE_GTK3
+#if !GTK_CHECK_VERSION(3,0,0)
 /* 20 allows for 5 hit records (more than enough) */
 #define BUFSIZE 20
 static unsigned int selectBuf[BUFSIZE];

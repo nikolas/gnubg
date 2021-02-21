@@ -14,13 +14,17 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.11 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: GLwidget.c,v 1.12 2021/02/21 10:15:59 plm Exp $
  */
 
 #include "config.h"
-#ifdef USE_GTK3
+
+#include <gtk/gtk.h>
+
+#if GTK_CHECK_VERSION(3,0,0)
 #include <epoxy/gl.h>
 #endif
+
 #include "fun3d.h"
 #include "util.h"
 #include "common.h"
@@ -35,7 +39,7 @@ typedef struct _GLWidgetData
 	void* cbData;
 } GLWidgetData;
 
-#ifdef USE_GTK3
+#if GTK_CHECK_VERSION(3,0,0)
 
 guint basicShader;
 guint projection_location;

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ModelOGL.c,v 1.7 2020/10/26 22:27:30 plm Exp $
+ * $Id: ModelOGL.c,v 1.8 2020/11/28 22:06:56 plm Exp $
  */
 
 #include "config.h"
@@ -43,7 +43,7 @@ void ModelManagerInit(ModelManager* modelHolder)
 	modelHolder->allocNumVertices = 0;
 	modelHolder->vertexData = NULL;
 
-#ifdef USE_GTK3
+#if GTK_CHECK_VERSION(3,0,0)
 	modelHolder->vao = GL_INVALID_VALUE;
 #endif
 }
@@ -56,7 +56,7 @@ void ModelManagerStart(ModelManager* modelHolder)
 	modelHolder->numModels = 0;
 }
 
-#ifndef USE_GTK3
+#if !GTK_CHECK_VERSION(3,0,0)
 void OglModelDraw(const ModelManager* modelManager, int modelNumber, const Material* pMat)
 {
 	float* data = &modelManager->vertexData[modelManager->models[modelNumber].dataStart];
