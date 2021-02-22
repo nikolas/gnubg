@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.14 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: DrawOGL.c,v 1.15 2021/02/21 10:56:47 plm Exp $
  */
 
 #include "config.h"
@@ -163,7 +163,7 @@ static int dots6[] = { 1, 1, 1, 3, 2, 1, 2, 3, 3, 1, 3, 3, 0 };
 static int* dots[6] = { dots1, dots2, dots3, dots4, dots5, dots6 };
 static float dot_pos[] = { 0, 20, 50, 80 };       /* percentages across face */
 
-extern DrawDotTemp(const ModelManager* modelHolder, float dotSize, float ds, float zOffset, int* dp, int c);
+extern void DrawDotTemp(const ModelManager* modelHolder, float dotSize, float ds, float zOffset, int* dp, int c);
 
 extern void
 drawDots(const ModelManager* modelHolder, const BoardData3d* bd3d, float diceSize, float dotOffset, const diceTest* dt, int showFront)

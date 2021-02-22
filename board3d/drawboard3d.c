@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.120 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: drawboard3d.c,v 1.121 2021/02/21 10:56:48 plm Exp $
  */
 
 #include "config.h"
@@ -3311,7 +3311,7 @@ renderSpecialPieces(const ModelManager* modelHolder, const BoardData* bd, const 
 	}
 }
 
-extern DrawDotTemp(const ModelManager* modelHolder, float dotSize, float ds, float zOffset, int* dp, int c)
+extern void DrawDotTemp(const ModelManager* modelHolder, float dotSize, float ds, float zOffset, int* dp, int c)
 {
 	float hds = (ds / 2);
 
