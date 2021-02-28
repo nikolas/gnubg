@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.13 2021/02/21 10:56:47 plm Exp $
+ * $Id: GLwidget.c,v 1.14 2021/02/28 09:27:26 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -344,6 +344,16 @@ resize_event(GtkGLArea* widget, gint width, gint height, const GLWidgetData* glw
 	glwData->configureCB(GTK_WIDGET(widget), glwData->cbData);
 }
 
+int drawMode = GL_TRIANGLES;
+
+void SetLineDrawingmode(int enable)
+{
+	if (enable == GL_TRUE)
+		drawMode = GL_LINES;
+	else
+		drawMode = GL_TRIANGLES;
+}
+
 void OglModelDraw(const ModelManager* modelManager, int modelNumber, const Material* pMat)
 {
 	setMaterial(pMat);
@@ -362,7 +372,7 @@ void OglModelDraw(const ModelManager* modelManager, int modelNumber, const Mater
 	glBindVertexArray(modelManager->vao);
 
 	/* draw the vertices in the model */
-	glDrawArrays(GL_TRIANGLES, modelManager->models[modelNumber].dataStart / VERTEX_STRIDE, modelManager->models[modelNumber].dataLength / VERTEX_STRIDE);
+	glDrawArrays(drawMode, modelManager->models[modelNumber].dataStart / VERTEX_STRIDE, modelManager->models[modelNumber].dataLength / VERTEX_STRIDE);
 }
 
 gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkEventExpose* eventDetails, void* data)
