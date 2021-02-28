@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.15 2021/02/21 10:56:47 plm Exp $
+ * $Id: DrawOGL.c,v 1.16 2021/02/22 21:58:17 plm Exp $
  */
 
 #include "config.h"
@@ -203,11 +203,7 @@ drawDots(const ModelManager* modelHolder, const BoardData3d* bd3d, float diceSiz
 #endif
 		{
 #if GTK_CHECK_VERSION(3,0,0)
-			float zOffset = 0;
-			if (dot == dt->top)
-				zOffset = LIFT_OFF;
-			zOffset += hds + radius;
-			DrawDotTemp(modelHolder, dotSize, ds, zOffset, dots[dot], c);
+			DrawDotTemp(modelHolder, dotSize, ds, hds + radius + LIFT_OFF, dots[dot], c);
 #else
 			if (nd)
 				glDisable(GL_DEPTH_TEST);

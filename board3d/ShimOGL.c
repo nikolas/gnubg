@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ShimOGL.c,v 1.10 2020/10/26 21:29:50 plm Exp $
+ * $Id: ShimOGL.c,v 1.11 2021/02/19 21:19:55 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -302,6 +302,11 @@ float* GetModelViewMatrix()
 float* GetProjectionMatrix()
 {
 	return (float*)pjMatStack.stack[pjMatStack.level];
+}
+
+void GetTextureMatrix(mat3 *textureMat)
+{
+	glm_mat4_pick3(txMatStack.stack[txMatStack.level], *textureMat);
 }
 
 void GetModelViewMatrixMat(mat4 ret)

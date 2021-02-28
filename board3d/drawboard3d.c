@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.121 2021/02/21 10:56:48 plm Exp $
+ * $Id: drawboard3d.c,v 1.122 2021/02/22 21:58:17 plm Exp $
  */
 
 #include "config.h"
@@ -1279,7 +1279,7 @@ renderCube(const renderdata* prd, float size)
 		glTranslatef(hds, -hds, -radius);
 		glRotatef(-90.f, 0.f, 0.f, 1.f);
 
-		drawCornerEigth(&corner_points, radius, prd->BoxMat.pTexture);
+		drawCornerEigth(&corner_points, radius, NULL);
 
 		glPopMatrix();
 		if (c == 3)
@@ -3450,9 +3450,6 @@ drawFlag(const ModelManager* modelHolder, const BoardData* bd, const BoardData3d
 	if (bd->resigned)
 	{
 		waveFlag(bd->bd3d->flagWaved);
-#if GTK_CHECK_VERSION(3,0,0)
-		OglBindBuffer(&bd->bd3d->modelHolder);
-#endif
 		UPDATE_OGL(&bd->bd3d->modelHolder, MT_FLAG, drawFlagVertices, bd->rd->curveAccuracy);	/* Update waving flag */
 	}
 

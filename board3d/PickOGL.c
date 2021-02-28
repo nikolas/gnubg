@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: PickOGL.c,v 1.12 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: PickOGL.c,v 1.13 2021/02/21 10:56:47 plm Exp $
  */
 
 #include "config.h"
@@ -34,7 +34,7 @@ void SetPickObject(int value)
 #else
 void SetPickObject(int value)
 {
-	SetColour3d(((value + 1) & 0xFF) / (float)0xFF, 0.f, 0.f, 0.f);
+	SetPickColour(((value + 1) & 0xFF) / (float)0xFF);
 }
 #endif
 
@@ -289,6 +289,8 @@ PickDraw(int x, int y, PickDrawFun drawFun, const BoardData* bd, void* data)
 static int
 PickDraw(int x, int y, PickDrawFun drawFun, const BoardData* bd, void* data)
 {                               /* Identify if anything is below point (x,y) */
+	SelectPickProgram();
+
 	glClearColor(0, 0, 0, 0);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 

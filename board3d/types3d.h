@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2006-2021 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2006-2019 Jon Kinsey <jonkinsey@gmail.com>
  * Copyright (C) 2007-2020 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: types3d.h,v 1.12 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: types3d.h,v 1.11 2020/05/26 19:55:54 plm Exp $
  */
 
 #ifndef TYPES3D_H

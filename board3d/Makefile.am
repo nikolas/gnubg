@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.40 2021/02/19 21:19:55 Superfly_Jon Exp $
+# $Id: Makefile.am,v 1.41 2021/02/21 08:45:52 plm Exp $
 # 
 
 ##
@@ -44,7 +44,7 @@ libboard3d_la_CFLAGS = $(AM_CFLAGS)
 
 noinst_HEADERS = fun3d.h matrix.h model.h
 
-shadersfiles = Shaders/basic-fragment.glsl Shaders/basic-vertex.glsl
+shadersfiles = Shaders/basic-fragment.glsl Shaders/basic-vertex.glsl Shaders/main-fragment.glsl Shaders/main-vertex.glsl
 shadersdir = $(pkgdatadir)/Shaders
 shaders_DATA = $(shadersfiles)
 EXTRA_DIST = $(shadersfiles)
