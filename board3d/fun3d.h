@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.59 2021/02/28 09:27:27 Superfly_Jon Exp $
+ * $Id: fun3d.h,v 1.60 2021/02/28 18:17:23 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -274,9 +274,9 @@ typedef void (*ConfigureCB)(GtkWidget*, void*);
 typedef gboolean (*ExposeCB)(GtkWidget*, GdkEventExpose*, void*);
 extern GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, void* data);
 extern void GLWidgetMakeCurrent(GtkWidget* widget);
-extern void SelectPickProgram();
+extern void SelectPickProgram(void);
 extern void SetLightPos(float* lp);
-extern void SetViewPos();
+extern void SetViewPos(void);
 gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkEventExpose* eventDetails, void* data);
 gboolean GLInit(int* argc, char*** argv);
 extern void SetLineDrawingmode(int enable);
@@ -317,7 +317,6 @@ extern void MoveToFlagMiddle(void);
 extern void MAApiece(int roundPiece, int curveAccuracy);
 extern void renderPiece(const ModelManager* modelHolder, int separateTop);
 extern void DrawBackDice(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd, diceTest* dt, int diceCol);
-extern void DrawDots(const ModelManager* modelHolder, const BoardData3d* bd3d, const renderdata* prd, diceTest* dt, int diceCol);
 extern void RenderCharAA(unsigned int glyph);
 extern void renderFlagNumbers(const BoardData3d* bd3d, int resignedValue);
 extern void computeNormal(vec3 a, vec3 b, vec3 c, vec3 ret);
