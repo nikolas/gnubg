@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.107 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: render.c,v 1.108 2019/12/02 18:51:06 plm Exp $
  */
 
 #include "config.h"
@@ -2595,7 +2595,7 @@ extern void
 RenderBoardLabels(renderdata * prd, unsigned char *achLo, unsigned char *achHi, int UNUSED(nStride))
 {
 
-    unsigned char *achTemp = malloc(BOARD_WIDTH * prd->nSize * 5 * prd->nSize * 5);
+    unsigned char *achTemp = g_malloc(BOARD_WIDTH * prd->nSize * 5 * prd->nSize * 5);
 
     /* 12 11 10 9 8 7 - 6 5 4 3 2 1 */
 
@@ -2613,7 +2613,7 @@ RenderBoardLabels(renderdata * prd, unsigned char *achLo, unsigned char *achHi, 
     Copy_RGB_to_RGBA(achHi, prd->nSize * BOARD_WIDTH * 4,
                      achTemp, prd->nSize * BOARD_WIDTH * 3, prd->nSize * BOARD_WIDTH, prd->nSize * 3, 0xFF);
 
-    free(achTemp);
+    g_free(achTemp);
 
 }
 
