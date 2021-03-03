@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkexport.c,v 1.56 2019/09/22 14:44:37 plm Exp $
+ * $Id: gtkexport.c,v 1.57 2020/01/25 21:41:14 plm Exp $
  */
 
 #include "config.h"
@@ -474,7 +474,7 @@ GTKShowExport(exportsetup * pexs)
 
     exportwidget *pew;
 
-    pew = (exportwidget *) malloc(sizeof(exportwidget));
+    pew = (exportwidget *) g_malloc(sizeof(exportwidget));
 
     pew->pexs = pexs;
 
@@ -791,7 +791,7 @@ GTKShowExport(exportsetup * pexs)
     g_signal_connect(G_OBJECT(genHtml), "clicked", G_CALLBACK(GenHtmlImages), pew->adjHtmlSize);
     g_signal_connect(G_OBJECT(pew->adjHtmlSize), "value-changed", G_CALLBACK(SizeChanged), pew->pwHtmlSize);
 
-    g_object_set_data_full(G_OBJECT(pwDialog), "exportwidget", pew, free);
+    g_object_set_data_full(G_OBJECT(pwDialog), "exportwidget", pew, g_free);
 
     /* show dialog */
 
