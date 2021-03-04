@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.418 2020/01/05 19:47:15 plm Exp $
+ * $Id: set.c,v 1.419 2020/10/17 21:44:45 plm Exp $
  */
 
 #include "config.h"
@@ -1443,7 +1443,7 @@ CommandSetPlayerExternal(char *sz)
         if (errno == EINTR) {
             if (fInterrupt) {
                 closesocket(h);
-                free(psa);
+                g_free(psa);
                 free(pch);
                 return;
             }
@@ -1452,7 +1452,7 @@ CommandSetPlayerExternal(char *sz)
 
         SockErr(pch);
         closesocket(h);
-        free(psa);
+        g_free(psa);
         free(pch);
         return;
     }
@@ -1463,7 +1463,7 @@ CommandSetPlayerExternal(char *sz)
         free(ap[iPlayerSet].szSocket);
     ap[iPlayerSet].szSocket = pch;
 
-    free(psa);
+    g_free(psa);
 #endif                          /* !HAVE_SOCKETS */
 }
 

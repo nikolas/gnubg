@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external.c,v 1.102 2020/02/23 20:54:56 plm Exp $
+ * $Id: external.c,v 1.103 2020/04/04 19:53:14 plm Exp $
  */
 
 #include "config.h"
@@ -160,7 +160,7 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
 #endif                          /* WIN32 */
             return -1;
 
-        psin = malloc(*pcb = sizeof(struct sockaddr_in));
+        psin = g_malloc(*pcb = sizeof(struct sockaddr_in));
         memset(psin, 0, sizeof(*psin));
 
         psin->sin_family = AF_INET;
@@ -179,7 +179,7 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
             if ((phe = gethostbyname(sz)) == 0) {
                 *pch = ':';
                 errno = EINVAL;
-                free(psin);
+                g_free(psin);
                 return -1;
             }
             memcpy(&(psin->sin_addr), phe->h_addr, phe->h_length);
@@ -198,7 +198,7 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
 
         /* yuck... there's no portable way to obtain the necessary
          * sockaddr_un size, but this is a conservative estimate */
-        psun = malloc(*pcb = 16 + (int) strlen(sz));
+        psun = g_malloc(*pcb = 16 + (int) strlen(sz));
 
         psun->sun_family = AF_LOCAL;
         strcpy(psun->sun_path, sz);
@@ -637,12 +637,12 @@ CommandExternal(char *sz)
         if (bind(h, psa, cb) < 0) {
             SockErr(sz);
             closesocket(h);
-            free(psa);
+            g_free(psa);
             ExtDestroyParse(scanctx.scanner);
             return;
         }
 
-        free(psa);
+        g_free(psa);
 
         if (listen(h, 1) < 0) {
             SockErr("listen");
