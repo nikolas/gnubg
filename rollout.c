@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: rollout.c,v 1.258 2019/12/30 19:37:25 plm Exp $
+ * $Id: rollout.c,v 1.259 2020/04/26 12:36:24 plm Exp $
  */
 
 #include "config.h"
@@ -1247,7 +1247,7 @@ RolloutLoopMT(void *UNUSED(unused))
         multi_debug("exclusive release: rollout cycle update");
         MT_Release();
     }
-    free(rngctxMTRollout);
+    g_free(rngctxMTRollout);
 }
 
 static rolloutprogressfunc *ro_pfProgress;
