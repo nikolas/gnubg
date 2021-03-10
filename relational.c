@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: relational.c,v 1.82 2020/10/07 19:31:50 plm Exp $
+ * $Id: relational.c,v 1.83 2021/01/14 21:30:22 plm Exp $
  */
 
 #include "config.h"
@@ -811,7 +811,7 @@ CommandRelationalSelect(char *sz)
                     if (k != 0)
                         totalwidth += 2;
                 }
-                line = malloc(totalwidth + 1);
+                line = g_malloc(totalwidth + 1);
                 memset(line, '-', totalwidth);
                 p = line;
                 for (k = 0; k < rs->cols - 1; k++) {
@@ -821,7 +821,7 @@ CommandRelationalSelect(char *sz)
                 }
                 line[totalwidth] = '\0';
                 outputl(line);
-                free(line);
+                g_free(line);
             }
 
             for (unsigned int j = 0; j < rs->cols; j++) {
