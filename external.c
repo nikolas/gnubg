@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2001-2002 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2001-2019 the AUTHORS
+ * Copyright (C) 2001-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external.c,v 1.103 2020/04/04 19:53:14 plm Exp $
+ * $Id: external.c,v 1.104 2021/03/04 21:47:21 plm Exp $
  */
 
 #include "config.h"
@@ -567,6 +567,8 @@ ExtFIBSBoard(scancontext * pec)
         case TOOGOODRE_PASS:
         case NODOUBLE_BEAVER:
         case NO_REDOUBLE_BEAVER:
+        case NODOUBLE_DEADCUBE:
+        case NO_REDOUBLE_DEADCUBE:
             szResponse = g_strdup("roll\n");
             break;
 
