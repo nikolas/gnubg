@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.251 2019/12/11 19:19:27 plm Exp $
+ * $Id: html.c,v 1.252 2020/11/25 21:34:56 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.251 2019/12/11 19:19:27 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.252 2020/11/25 21:34:56 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1562,7 +1562,7 @@ HTMLPrologue(FILE * pf, const matchstate * pms,
 
 
 /*
- * Print html header: dtd, head etc.
+ * Print html footer
  *
  * Input:
  *   pf: output file
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.251 $";
+    const char szVersion[] = "$Revision: 1.252 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1634,7 +1634,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
 
 
 /*
- * Print html header: dtd, head etc.
+ * Print html footer.
  *
  * Input:
  *   pf: output file
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.251 $";
+    const char szVersion[] = "$Revision: 1.252 $";
     int iMajor, iMinor;
     char *pc;
 
