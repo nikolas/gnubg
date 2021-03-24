@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external_l.l,v 1.29 2019/11/05 21:02:30 plm Exp $
+ * $Id: external_l.l,v 1.30 2020/03/27 14:27:49 plm Exp $
  */
 
 #include "common.h"
@@ -35,8 +35,6 @@ void escapes(const char *cp, char *tp);
             escapes(yytext+1, yytext); \
         } \
         yylval->str = g_string_new(yytext)
-
-#define BUFFERSIZE 2048
 
 %}
 
