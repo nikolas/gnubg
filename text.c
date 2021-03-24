@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.121 2020/01/05 19:49:14 plm Exp $
+ * $Id: text.c,v 1.122 2020/11/25 21:34:56 plm Exp $
  */
 
 #include "config.h"
@@ -132,7 +132,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
 
 
 /*
- * Print html header for board: move or cube decision 
+ * Print text header for board: move or cube decision 
  *
  * Input:
  *   pf: output file
@@ -180,7 +180,7 @@ TextBoardHeader(GString * gsz, const matchstate * pms, const int UNUSED(iGame), 
 
 
 /*
- * Print html header: dtd, head etc.
+ * Print text header
  *
  * Input:
  *   pf: output file
@@ -212,7 +212,7 @@ TextPrologue(GString * gsz, const matchstate * pms, const int UNUSED(iGame))
 
 
 /*
- * Print html header: dtd, head etc.
+ * Print text footer
  *
  * Input:
  *   pf: output file
@@ -226,7 +226,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.121 $";
+    const char szVersion[] = "$Revision: 1.122 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -629,7 +629,7 @@ TextMatchInfo(FILE * pf, const matchinfo * pmi)
 }
 
 /*
- * Export a game in HTML
+ * Export a game in text
  *
  * Input:
  *   pf: output file
@@ -839,6 +839,7 @@ CommandExportMatchText(char *sz)
     listOLD *pl;
     int nGames;
     int i;
+    int fDontClose = FALSE;
 
     sz = NextToken(&sz);
 
@@ -866,9 +867,10 @@ CommandExportMatchText(char *sz)
         }
 
 
-        if (!strcmp(szCurrent, "-"))
+        if (!strcmp(szCurrent, "-")) {
             pf = stdout;
-        else if ((pf = g_fopen(szCurrent, "w")) == 0) {
+            fDontClose = TRUE;
+        } else if ((pf = g_fopen(szCurrent, "w")) == 0) {
             outputerr(szCurrent);
             g_free(szCurrent);
             return;
@@ -876,7 +878,7 @@ CommandExportMatchText(char *sz)
 
         ExportGameText(pf, pl->p, i, i == nGames - 1);
 
-        if (pf != stdout)
+        if (!fDontClose)
             fclose(pf);
 
         g_free(szCurrent);
@@ -895,6 +897,7 @@ CommandExportPositionText(char *sz)
     moverecord *pmr;
     int iMove;
     GString *gsz;
+    int fDontClose = FALSE;
 
     sz = NextToken(&sz);
 
@@ -912,9 +915,10 @@ CommandExportPositionText(char *sz)
     if (!confirmOverwrite(sz, fConfirmSave))
         return;
 
-    if (!strcmp(sz, "-"))
+    if (!strcmp(sz, "-")) {
         pf = stdout;
-    else if ((pf = g_fopen(sz, "w")) == 0) {
+        fDontClose = TRUE;
+    } else if ((pf = g_fopen(sz, "w")) == 0) {
         outputerr(sz);
         return;
     }
@@ -956,7 +960,7 @@ CommandExportPositionText(char *sz)
 
     TextEpilogue(pf, &ms);
 
-    if (pf != stdout)
+    if (!fDontClose)
         fclose(pf);
 
     setDefaultFileName(sz);
