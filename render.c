@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.108 2019/12/02 18:51:06 plm Exp $
+ * $Id: render.c,v 1.109 2021/03/03 21:10:44 plm Exp $
  */
 
 #include "config.h"
@@ -2383,7 +2383,7 @@ DrawChequers(renderdata * prd, unsigned char *puch, int nStride,
 extern void
 CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
               renderimages * pri, TanBoard anBoard,
-              int *anOff, const unsigned int anDice[2],
+              int anOff[2], const unsigned int anDice[2],
               int anDicePosition[2][2],
               int fDiceColour, int anCubePosition[2],
               int nLogCube, int nCubeOrientation,
