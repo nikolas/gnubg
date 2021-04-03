@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: progress.c,v 1.81 2019/12/16 22:20:55 plm Exp $
+ * $Id: progress.c,v 1.82 2021/03/07 18:11:07 plm Exp $
  */
 
 #include "config.h"
@@ -1055,7 +1055,7 @@ TextRolloutProgress(float aarOutput[][NUM_ROLLOUT_OUTPUTS],
         outputl("");
 
     pch = OutputRolloutResult(NULL,
-                              (char (*)[1024]) prp->ppch[iAlternative],
+                              (char (*)[FORMATEDMOVESIZE]) prp->ppch[iAlternative],
                               (float (*)[NUM_ROLLOUT_OUTPUTS]) aarOutput[iAlternative],
                               (float (*)[NUM_ROLLOUT_OUTPUTS]) aarStdDev[iAlternative],
                               &aci[0], iAlternative, 1, prc->fCubeful);

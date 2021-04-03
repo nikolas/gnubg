@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: format.c,v 1.62 2019/07/01 21:51:07 plm Exp $
+ * $Id: format.c,v 1.63 2019/12/21 23:32:37 plm Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@ typedef int (*classdumpfunc) (const TanBoard anBoard, char *szOutput, const bgva
 
 extern char *
 OutputRolloutResult(const char *szIndent,
-                    char asz[][1024],
+                    char asz[][FORMATEDMOVESIZE],
                     float aarOutput[][NUM_ROLLOUT_OUTPUTS],
                     float aarStdDev[][NUM_ROLLOUT_OUTPUTS],
                     const cubeinfo aci[], const int alt, const int cci, const int fCubeful)
@@ -892,7 +892,7 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
 
     if (pes->et == EVAL_ROLLOUT && exsExport.fCubeDetailProb) {
 
-        char asz[2][1024];
+        char asz[2][FORMATEDMOVESIZE];
         cubeinfo aci[2];
 
         for (i = 0; i < 2; i++) {
