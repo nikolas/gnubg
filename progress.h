@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: progress.h,v 1.12 2019/03/24 15:43:54 plm Exp $
+ * $Id: progress.h,v 1.13 2019/12/16 22:21:25 plm Exp $
  */
 
 #ifndef PROGRESS_H
@@ -27,7 +27,7 @@
 
 extern void
 RolloutProgressStart(const cubeinfo * pci, const int n,
-                     rolloutstat aars[][2], rolloutcontext * pes, char asz[][FORMATEDMOVESIZE], gboolean multiple,
+                     rolloutstat aars[2][2], rolloutcontext * pes, char asz[][FORMATEDMOVESIZE], gboolean multiple,
                      void **pp);
 
 extern void
