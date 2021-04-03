@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.467 2020/03/08 14:44:38 plm Exp $
+ * $Id: play.c,v 1.468 2021/03/07 13:48:14 plm Exp $
  */
 
 #include "config.h"
@@ -1017,7 +1017,7 @@ parse_move_is_legal(char *sz, const matchstate * pms, int *an)
 
 
 static void
-current_pmr_cubedata_update(evalsetup * pes, float output[][NUM_ROLLOUT_OUTPUTS], float stddev[][NUM_ROLLOUT_OUTPUTS])
+current_pmr_cubedata_update(evalsetup * pes, float output[2][NUM_ROLLOUT_OUTPUTS], float stddev[2][NUM_ROLLOUT_OUTPUTS])
 {
     moverecord *pmr = get_current_moverecord(NULL);
     if (!pmr)
@@ -4172,8 +4172,8 @@ FixMatchState(matchstate * pms, const moverecord * pmr)
 }
 
 extern void
-pmr_cubedata_set(moverecord * pmr, evalsetup * pes, float output[][NUM_ROLLOUT_OUTPUTS],
-                 float stddev[][NUM_ROLLOUT_OUTPUTS])
+pmr_cubedata_set(moverecord * pmr, evalsetup * pes, float output[2][NUM_ROLLOUT_OUTPUTS],
+                 float stddev[2][NUM_ROLLOUT_OUTPUTS])
 {
     pmr->CubeDecPtr->esDouble = *pes;
     pmr->stCube = SKILL_NONE;
