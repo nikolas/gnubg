@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.53 2018/04/02 19:36:15 plm Exp $
+ * $Id: commands.inc,v 1.54 2019/12/29 16:04:04 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1265,9 +1265,9 @@ static command acSetVariation[] = {
       N_("Compute statistics for every game in the session"), NULL, NULL },
     { NULL, NULL, NULL, NULL, NULL }
 }, acShowManual[] = {
-    { "about", CommandShowManualAbout, N_("Show all about gnu backgammon in a web browser"), 
+    { "about", CommandShowManualAbout, N_("Show All about GNU Backgammon tutorial in a web browser"), 
       NULL, NULL },
-    { "web", CommandShowManualWeb, N_("Show manual in a web browser"), 
+    { "web", CommandShowManualWeb, N_("Show reference manual in a web browser"), 
       NULL, NULL },
     { NULL, NULL, NULL, NULL, NULL }
 }, acShow[] = {
