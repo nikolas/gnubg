@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtk-multiview.c,v 1.18 2019/03/22 23:41:54 plm Exp $
+ * $Id: gtk-multiview.c,v 1.19 2019/11/21 22:04:25 plm Exp $
  */
 
 #include "config.h"
@@ -143,7 +143,6 @@ gtk_multiview_size_allocate(GtkWidget * widget, GtkAllocation * allocation)
 {
     GtkMultiview *multiview;
     GList *tmp_list;
-    GtkWidget *child;
 
     g_return_if_fail(widget != NULL);
     g_return_if_fail(GTK_IS_MULTIVIEW(widget));
@@ -153,7 +152,8 @@ gtk_multiview_size_allocate(GtkWidget * widget, GtkAllocation * allocation)
 
     tmp_list = multiview->children;
     while (tmp_list) {
-        child = GTK_WIDGET(tmp_list->data);
+        GtkWidget *child = GTK_WIDGET(tmp_list->data);
+
         tmp_list = tmp_list->next;
 
         if (gtk_widget_get_visible(child)) {
@@ -204,7 +204,6 @@ static void
 gtk_multiview_forall(GtkContainer * container,
                      gboolean UNUSED(include_internals), GtkCallback callback, gpointer callback_data)
 {
-    GtkWidget *child;
     GtkMultiview *multiview;
     GList *tmp_list;
 
@@ -216,7 +215,8 @@ gtk_multiview_forall(GtkContainer * container,
 
     tmp_list = multiview->children;
     while (tmp_list) {
-        child = GTK_WIDGET(tmp_list->data);
+        GtkWidget *child = GTK_WIDGET(tmp_list->data);
+
         tmp_list = tmp_list->next;
         (*callback) (GTK_WIDGET(child), callback_data);
     }
