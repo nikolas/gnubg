@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1998-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2019 the AUTHORS
+ * Copyright (C) 1999-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1016 2020/10/17 21:44:45 plm Exp $
+ * $Id: gnubg.c,v 1.1017 2021/03/03 21:44:59 plm Exp $
  */
 
 #include "config.h"
@@ -1291,7 +1291,7 @@ DisplayCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
 
     GetMatchStateCubeInfo(&ci, &ms);
 
-    outputl(OutputCubeAnalysis(aarOutput, aarStdDev, pes, &ci));
+    outputl(OutputCubeAnalysis(aarOutput, aarStdDev, pes, &ci, -1));
 }
 
 extern char *
@@ -2226,7 +2226,7 @@ hint_double(int show, int did_double)
     }
 #endif
     outputl(OutputCubeAnalysis
-            (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci));
+            (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci, -1));
 }
 
 extern void
@@ -2265,7 +2265,7 @@ hint_take(int show, int did_take)
 #endif
 
     outputl(OutputCubeAnalysis
-            (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci));
+            (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci, 1));
 }
 
 extern void
