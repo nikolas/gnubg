@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: htmlimages.c,v 1.57 2019/12/11 19:20:09 plm Exp $
+ * $Id: htmlimages.c,v 1.58 2021/03/03 20:50:29 plm Exp $
  */
 
 #include "config.h"
@@ -723,8 +723,8 @@ CommandExportHTMLImages(char *sz)
     AllocObjects();
     RenderObjects();
     WriteImages();
-    ProgressEnd();
     TidyObjects();
+    ProgressEnd();
 }
 
 #else                           /* not HAVE_LIBPNG */
