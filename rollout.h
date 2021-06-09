@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: rollout.h,v 1.43 2018/09/23 17:50:04 plm Exp $
+ * $Id: rollout.h,v 1.44 2019/12/30 19:37:50 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -24,7 +24,7 @@
 #define MAXHIT 50               /* for statistics */
 #define STAT_MAXCUBE 10
 
-typedef struct _rolloutstat {
+typedef struct {
 
     /* Regular win statistics (dimension is cube turns) */
 
@@ -134,7 +134,7 @@ extern void RolloutLoopMT(void *unused);
  * so we use pseudo-random dice after that); the last is the permutation
  * itself.  6 generations are enough for 36^6 > 2^31 trials. */
 #define QRLEN 128
-typedef struct _perArray {
+typedef struct {
     unsigned char aaanPermutation[6][QRLEN][36];
     int nPermutationSeed;
 } perArray;
