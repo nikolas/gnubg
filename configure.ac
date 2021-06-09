@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.94 2021/02/21 13:30:55 plm Exp $
+dnl $Id: configure.ac,v 1.95 2021/02/22 21:48:15 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.94 $)
+AC_REVISION($Revision: 1.95 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -263,8 +263,10 @@ dnl have_gthread, have_gtk and have_gtk are handled later, not having glib is fa
 AX_C___ATTRIBUTE__()
 
 if test "x$ax_cv___attribute__" = "xyes"; then
+AX_GCC_FUNC_ATTRIBUTE(const)
 AX_GCC_FUNC_ATTRIBUTE(fallthrough)
 AX_GCC_FUNC_ATTRIBUTE(format)
+AX_GCC_FUNC_ATTRIBUTE(pure)
 AX_GCC_FUNC_ATTRIBUTE(returns_nonnull)
 AX_GCC_FUNC_ATTRIBUTE(unused)
 fi
