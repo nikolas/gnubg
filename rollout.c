@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2000-2020 the AUTHORS
+ * Copyright (C) 2000-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: rollout.c,v 1.259 2020/04/26 12:36:24 plm Exp $
+ * $Id: rollout.c,v 1.260 2021/03/07 14:03:21 plm Exp $
  */
 
 #include "config.h"
@@ -1872,6 +1872,20 @@ ScoreMoveRollout(move ** ppm, cubeinfo ** ppci, int cMoves, rolloutprogressfunc 
     }
 
     return 0;
+}
+
+extern void
+InvertStdDev(float ar[NUM_ROLLOUT_OUTPUTS])
+{
+    float r;
+
+    r = ar[OUTPUT_WINGAMMON];
+    ar[OUTPUT_WINGAMMON] = ar[OUTPUT_LOSEGAMMON];
+    ar[OUTPUT_LOSEGAMMON] = r;
+
+    r = ar[OUTPUT_WINBACKGAMMON];
+    ar[OUTPUT_WINBACKGAMMON] = ar[OUTPUT_LOSEBACKGAMMON];
+    ar[OUTPUT_LOSEBACKGAMMON] = r;
 }
 
 #endif

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2001 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2000-2016 the AUTHORS
+ * Copyright (C) 2000-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: rollout.h,v 1.44 2019/12/30 19:37:50 plm Exp $
+ * $Id: rollout.h,v 1.45 2021/06/09 19:43:19 plm Exp $
  */
 
 #ifndef ROLLOUT_H
@@ -150,4 +150,5 @@ extern void log_move(FILE * logfp, const int *anMove, int side, int die0, int di
 extern int RolloutDice(int iTurn, int iGame, int fInitial, unsigned int anDice[2], rng * rngx, void *rngctx,
                        const int fRotate, const perArray * dicePerms);
 extern void ClosedBoard(int afClosedBoard[2], const TanBoard anBoard);
+extern void InvertStdDev(float ar[NUM_ROLLOUT_OUTPUTS]);
 #endif

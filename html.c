@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.253 2021/03/24 22:33:22 plm Exp $
+ * $Id: html.c,v 1.254 2021/06/08 20:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.253 2021/03/24 22:33:22 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.254 2021/06/08 20:56:30 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1578,7 +1578,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.253 $";
+    const char szVersion[] = "$Revision: 1.254 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1648,7 +1648,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.253 $";
+    const char szVersion[] = "$Revision: 1.254 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -1738,6 +1738,10 @@ HTMLPrintCubeAnalysisTable(FILE * pf,
     if (fTake >= 0) { /* take or drop */
         InvertEvaluationR(aarOutput[0], pci);
         InvertEvaluationR(aarOutput[1], pci);
+        if (pes->et == EVAL_ROLLOUT) {
+            InvertStdDev(aarStdDev[0]);
+            InvertStdDev(aarStdDev[1]);
+        }
     }
 
     /* print alerts */
@@ -1994,6 +1998,10 @@ HTMLPrintCubeAnalysisTable(FILE * pf,
     if (fTake >= 0) { /* take or drop */
         InvertEvaluationR(aarOutput[0], pci);
         InvertEvaluationR(aarOutput[1], pci);
+        if (pes->et == EVAL_ROLLOUT) {
+            InvertStdDev(aarStdDev[0]);
+            InvertStdDev(aarStdDev[1]);
+        }
     }
 
     if (pes->et == EVAL_ROLLOUT && exsExport.afCubeParameters[1]) {

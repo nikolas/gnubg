@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: format.c,v 1.64 2021/04/03 19:38:28 plm Exp $
+ * $Id: format.c,v 1.65 2021/06/08 20:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -833,6 +833,10 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
     if (fTake >= 0) { /* take or drop */
         InvertEvaluationR(aarOutput[0], pci);
         InvertEvaluationR(aarOutput[1], pci);
+        if (pes->et == EVAL_ROLLOUT) {
+            InvertStdDev(aarStdDev[0]);
+            InvertStdDev(aarStdDev[1]);
+        }
     }
 
     if (pci->nMatchTo)
@@ -930,6 +934,10 @@ OutputCubeAnalysis(float aarOutput[2][NUM_ROLLOUT_OUTPUTS],
     if (fTake >= 0) { /* take or drop */
         InvertEvaluationR(aarOutput[0], pci);
         InvertEvaluationR(aarOutput[1], pci);
+        if (pes->et == EVAL_ROLLOUT) {
+            InvertStdDev(aarStdDev[0]);
+            InvertStdDev(aarStdDev[1]);
+        }
     }
 
     if (pes->et == EVAL_ROLLOUT && exsExport.afCubeParameters[1])
