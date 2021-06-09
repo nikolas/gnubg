@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: neuralnet.h,v 1.35 2017/02/18 16:19:44 plm Exp $
+ * $Id: neuralnet.h,v 1.36 2020/06/05 20:08:31 plm Exp $
  */
 
 #ifndef NEURALNET_H
@@ -24,7 +24,7 @@
 #include <stdio.h>
 #include "common.h"
 
-typedef struct _neuralnet {
+typedef struct {
     unsigned int cInput;
     unsigned int cHidden;
     unsigned int cOutput;
@@ -49,7 +49,7 @@ typedef enum {
     NNSTATE_DONE
 } NNStateType;
 
-typedef struct _NNState {
+typedef struct {
     NNStateType state;
     float *savedBase;
     float *savedIBase;
