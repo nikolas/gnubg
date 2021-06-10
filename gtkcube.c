@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.c,v 1.97 2020/01/25 21:40:13 plm Exp $
+ * $Id: gtkcube.c,v 1.98 2021/06/08 20:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -37,7 +37,7 @@
 #include "gtklocdefs.h"
 
 
-typedef struct _cubehintdata {
+typedef struct {
     GtkWidget *pwFrame;         /* the table */
     GtkWidget *pw;              /* the box */
     GtkWidget *pwTools;         /* the tools */
@@ -870,9 +870,26 @@ GetContent(cubehintdata * pchd)
     static char *pc;
     cubeinfo ci;
     cubedecisiondata *cdec = pchd->pmr->CubeDecPtr;
+    int fTake;
 
     GetMatchStateCubeInfo(&ci, &pchd->ms);
-    pc = OutputCubeAnalysis(cdec->aarOutput, cdec->aarStdDev, &cdec->esDouble, &ci, -1);
+
+    switch (pchd->pmr->mt) {
+    case MOVE_DOUBLE:
+        fTake = -1;
+        break;
+    case MOVE_DROP:
+        fTake = 0;
+        break;
+    case MOVE_TAKE:
+        fTake = 1;
+        break;
+    default:
+        g_assert_not_reached();
+        break;
+    }
+
+    pc = OutputCubeAnalysis(cdec->aarOutput, cdec->aarStdDev, &cdec->esDouble, &ci, fTake);
 
     return pc;
 }
