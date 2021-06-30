@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.947 2020/01/19 19:26:05 Superfly_Jon Exp $
+ * $Id: gtkgame.c,v 1.948 2021/01/17 20:23:23 plm Exp $
  */
 
 #include "config.h"
@@ -4855,7 +4855,7 @@ typedef struct _rolloutwidget {
 static void
 GetRolloutSettings(GtkWidget * pw, rolloutwidget * prw)
 {
-    int fCubeEqChequer, fPlayersAreSame;
+    int fCubeEqChequer, fSamePlayers;
 
     prw->rcRollout.nTrials = (int) gtk_adjustment_get_value(prw->prwGeneral->padjTrials);
 
@@ -4883,7 +4883,7 @@ GetRolloutSettings(GtkWidget * pw, rolloutwidget * prw)
 
     fCubeEqChequer = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prw->prwGeneral->pwCubeEqualChequer));
 
-    fPlayersAreSame = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prw->prwGeneral->pwPlayersAreSame));
+    fSamePlayers = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prw->prwGeneral->pwPlayersAreSame));
 
     prw->rcRollout.fStopOnSTD = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(prw->prwGeneral->pwDoSTDStop));
     prw->rcRollout.nMinimumGames =
@@ -4896,7 +4896,7 @@ GetRolloutSettings(GtkWidget * pw, rolloutwidget * prw)
     prw->rcRollout.rJsdLimit = (float) gtk_spin_button_get_value(GTK_SPIN_BUTTON(prw->prwGeneral->pwJsdLimit));
 
     /* if the players are the same, copy player 0 settings to player 1 */
-    if (fPlayersAreSame) {
+    if (fSamePlayers) {
         int p0, p1;
 
         for (p0 = 0, p1 = 1; p0 < 4; p0 += 2, p1 += 2) {
