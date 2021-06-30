@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: formatgs.h,v 1.7 2015/10/14 22:19:23 plm Exp $
+ * $Id: formatgs.h,v 1.8 2019/12/21 23:33:11 plm Exp $
  */
 
 #ifndef FORMATGS_H
@@ -25,15 +25,15 @@
 
 #include "analysis.h"
 
-enum _formatgs {
+typedef enum {
     FORMATGS_ALL = -1,
     FORMATGS_CHEQUER = 0,
     FORMATGS_CUBE = 1,
     FORMATGS_LUCK = 2,
     FORMATGS_OVERALL = 3
-};
+} formatgs;
 
-extern GList *formatGS(const statcontext * psc, const int nMatchTo, const enum _formatgs fg);
+extern GList *formatGS(const statcontext * psc, const int nMatchTo, const formatgs fg);
 
 extern void freeGS(GList * list);
 
