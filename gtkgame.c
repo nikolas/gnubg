@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.949 2021/06/30 21:44:12 plm Exp $
+ * $Id: gtkgame.c,v 1.950 2021/06/30 22:02:39 plm Exp $
  */
 
 #include "config.h"
@@ -1094,12 +1094,9 @@ SetAnnotation(moverecord * pmr)
             pch = sz + sprintf(sz, _("Rolled %u%u"), pmr->anDice[0], pmr->anDice[1]);
 
             if (pmr->rLuck != ERR_VAL) {
-                if (fOutputMWC && ms.nMatchTo) {
-                    cubeinfo ci;
-
-                    GetMatchStateCubeInfo(&ci, &ms);
+                if (fOutputMWC && ms.nMatchTo)
                     sprintf(pch, " (%+0.3f%%)", 100.0f * (eq2mwc(pmr->rLuck, &ci) - eq2mwc(0.0f, &ci)));
-                } else
+                else
                     sprintf(pch, " (%+0.3f)", pmr->rLuck);
             }
             gtk_table_attach_defaults(GTK_TABLE(pwBox), gtk_label_new(sz), 1, 2, 0, 1);
