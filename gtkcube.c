@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.c,v 1.98 2021/06/08 20:56:30 plm Exp $
+ * $Id: gtkcube.c,v 1.99 2021/06/10 22:19:27 plm Exp $
  */
 
 #include "config.h"
@@ -886,7 +886,7 @@ GetContent(cubehintdata * pchd)
         break;
     default:
         g_assert_not_reached();
-        break;
+        return NULL;
     }
 
     pc = OutputCubeAnalysis(cdec->aarOutput, cdec->aarStdDev, &cdec->esDouble, &ci, fTake);
