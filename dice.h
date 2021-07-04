@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dice.h,v 1.36 2018/06/16 14:57:41 plm Exp $
+ * $Id: dice.h,v 1.37 2019/12/09 19:59:49 plm Exp $
  */
 
 #ifndef DICE_H
@@ -23,13 +23,13 @@
 
 #include <stdio.h>
 
-typedef enum _rng {
+typedef enum {
     RNG_BBS, RNG_ISAAC, RNG_MD5, RNG_MERSENNE,
     RNG_MANUAL, RNG_RANDOM_DOT_ORG, RNG_FILE,
     NUM_RNGS
 } rng;
 
-typedef struct _rngcontext rngcontext;
+typedef struct rngcontext rngcontext;
 
 extern const char *aszRNG[NUM_RNGS];
 extern const char *aszRNGTip[NUM_RNGS];

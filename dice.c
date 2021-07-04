@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dice.c,v 1.103 2020/08/24 16:17:53 plm Exp $
+ * $Id: dice.c,v 1.104 2021/03/07 14:03:21 plm Exp $
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ const char *aszRNGTip[NUM_RNGS] = {
 rng rngCurrent = RNG_MERSENNE;
 rngcontext *rngctxCurrent = NULL;
 
-struct _rngcontext {
+struct rngcontext {
 
     /* RNG_FILE */
     FILE *fDice;
