@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.199 2020/01/01 14:11:24 plm Exp $
+ * $Id: gnubgmodule.c,v 1.200 2020/08/04 20:59:13 plm Exp $
  */
 
 #include "config.h"
@@ -3045,7 +3045,7 @@ PythonNavigate(PyObject * UNUSED(self), PyObject * args, PyObject * keywds)
                         pl = pl->plNext;
                         --n;
                     }
-                } else if (n < 0) {
+                } else { /* n < 0 since n = nextGame != 0 */
                     while (n < 0 && pl->plPrev->p) {
                         pl = pl->plPrev;
                         ++n;
