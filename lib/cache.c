@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: cache.c,v 1.46 2018/10/26 22:24:27 plm Exp $
+ * $Id: cache.c,v 1.47 2021/06/09 21:26:50 plm Exp $
  */
 
 #include "config.h"
@@ -37,7 +37,7 @@
     (( __GNUC__ * 100 + __GNUC_MINOR__ >= 401 ) \
       && (defined (__i486) || defined (__x86_64))) \
   || (( __GNUC__ * 100 + __GNUC_MINOR__ >= 404 ) \
-      && (defined (__i386) || defined (__x86_64))) \
+      && defined (__i386))			 \
   )
 
 static inline void
