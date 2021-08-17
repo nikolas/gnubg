@@ -37,19 +37,19 @@
  * 
  * 
  * Any feedback is very welcome.
- * http://www.math.keio.ac.jp/matumoto/emt.html
- * email: matumoto@math.keio.ac.jp
- * 
+ * http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/emt.html
+ * email: m-mat @ math.sci.hiroshima-u.ac.jp (remove space)
+ */
+
+/* 
  * Modified by Joern Thyssen  <jth@gnubg.org> for usage with GNU Backgammon:
  * 
  * (1) #UNDEF main(), and other unused functions.
  * (2) make mt and mti parameters
  *
- * $Id: mt19937ar.c,v 1.10 2015/08/31 05:36:26 mdpetch Exp $
+ * $Id: mt19937ar.c,v 1.11 2019/10/08 19:30:01 plm Exp $
  */
 
-/* No configuration used in this file
- * #include "config.h" */
 #include "mt19937ar.h"
 /* Period parameters */
 /* #define N 624 */
