@@ -1,10 +1,16 @@
 /*
- * ------------------------------------------------------------------------------
- * Standard definitions and types, Bob Jenkins
- * Modified for inclusion with GNU Backgammon by Gary Wong
- * $Id: isaacs.h,v 1.4 2013/06/16 02:16:24 mdpetch Exp $
- * ------------------------------------------------------------------------------
+ * -----------------------------------------------------------------------------
+ * standard.hi: Standard definitions and types, Bob Jenkins
+ * -----------------------------------------------------------------------------
  */
+
+/*
+ * Minor modifications for use with GNU Backgammon.
+ * Copyright (C) 1999-2013 the AUTHORS
+ *
+ * $Id: isaacs.h,v 1.5 2013/09/09 21:06:21 plm Exp $
+ */
+
 #ifndef ISAACS_H
 #define ISAACS_H
 

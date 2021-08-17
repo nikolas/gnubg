@@ -1,14 +1,19 @@
 /*
- * ------------------------------------------------------------------------------
- * isaac.c: By Bob Jenkins.  My random number generator, ISAAC.
+ * -----------------------------------------------------------------------------
+ * rand.c: By Bob Jenkins.  My random number generator, ISAAC.  Public Domain.
  * MODIFIED:
  * 960327: Creation (addition of randinit, really)
  * 970719: use context, not global variables, for internal state
- * 980324: make a portable version
- * 991209: modified for inclusion with GNU Backgammon by Gary Wong  
- * ------------------------------------------------------------------------------
- * 
- * $Id: isaac.c,v 1.7 2007/12/12 23:08:22 Superfly_Jon Exp $
+ * 980324: added main (ifdef'ed out), also rearranged randinit()
+ * 010626: Note that this is public domain
+ * -----------------------------------------------------------------------------
+ */
+
+/*
+ * Minor modifications for use with GNU Backgammon.
+ * Copyright (C) 1999-2007 the AUTHORS
+ *
+ * $Id: isaac.c,v 1.8 2013/06/16 02:16:24 mdpetch Exp $
  */
 
 /*lint --e{661,662}      Ignore warnings of out of bounds array access (as ok) */
