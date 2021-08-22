@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: glib-ext.h,v 1.14 2019/09/15 20:05:04 plm Exp $
+ * $Id: glib-ext.h,v 1.15 2020/11/08 22:26:24 plm Exp $
  */
 
 /* Map/GList extensions and utility functions for GLIB */
@@ -81,6 +81,7 @@ extern void g_value_tostring(GString * str, GValue * gv, int depth);
 #define g_value_get_gstring(gvalue) ((GString *)g_value_get_boxed(gvalue))
 
 
+#if ! GLIB_CHECK_VERSION(2,67,1)
 #define GLIBEXT_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) \
         GType \
         type_name##_get_type (void) \
@@ -95,7 +96,22 @@ extern void g_value_tostring(GString * str, GValue * gv, int depth);
             } \
             return g_define_type_id__volatile; \
         }
-
+#else
+#define GLIBEXT_DEFINE_BOXED_TYPE(TypeName, type_name, copy_func, free_func) \
+        GType \
+        type_name##_get_type (void) \
+        { \
+            static gsize static_g_define_type_id = 0; \
+            if (g_once_init_enter (&static_g_define_type_id)) { \
+                    GType g_define_type_id = \
+                        g_boxed_type_register_static (g_intern_static_string (#TypeName), \
+                                                     (GBoxedCopyFunc) copy_func, \
+                                                     (GBoxedFreeFunc) free_func); \
+                g_once_init_leave (&static_g_define_type_id, g_define_type_id); \
+            } \
+            return static_g_define_type_id; \
+        }
+#endif
 
 #define GVALUE_CREATE(typeval,typename,value,gvobject) \
             GValue * gvobject = (GValue *)g_malloc0(sizeof(GValue)); \
