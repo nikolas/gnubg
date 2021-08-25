@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.254 2021/06/08 20:56:30 plm Exp $
+ * $Id: html.c,v 1.255 2021/06/09 20:48:49 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@
 #endif
 #include "util.h"
 
-typedef enum _stylesheetclass {
+typedef enum {
     CLASS_MOVETABLE,
     CLASS_MOVEHEADER,
     CLASS_MOVENUMBER,
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.254 2021/06/08 20:56:30 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.255 2021/06/09 20:48:49 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -383,16 +383,14 @@ printStatTableRow(FILE * pf, const char *format1, const char *format2, ...)
 
     va_list val;
     char *sz;
-    size_t l = 100 + strlen(format1) + 2 * strlen(format2);
 
     va_start(val, format2);
 
-    sprintf(sz = (char *) malloc(l),
-            "<tr>\n" "<td>%s</td>\n" "<td>%s</td>\n" "<td>%s</td>\n" "</tr>\n", format1, format2, format2);
+    sz = g_strdup_printf("<tr>\n" "<td>%s</td>\n" "<td>%s</td>\n" "<td>%s</td>\n" "</tr>\n", format1, format2, format2);
 
     vfprintf(pf, sz, val);
 
-    free(sz);
+    g_free(sz);
 
     va_end(val);
 
@@ -1578,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.254 $";
+    const char szVersion[] = "$Revision: 1.255 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1648,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.254 $";
+    const char szVersion[] = "$Revision: 1.255 $";
     int iMajor, iMinor;
     char *pc;
 
