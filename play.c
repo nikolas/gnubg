@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.468 2021/03/07 13:48:14 plm Exp $
+ * $Id: play.c,v 1.469 2021/04/03 19:41:29 plm Exp $
  */
 
 #include "config.h"
@@ -94,7 +94,7 @@ static int fEndGame = FALSE;
 static int fCrawfordState = -1;
 int automaticTask = FALSE;
 
-typedef enum _annotatetype {
+typedef enum {
     ANNOTATE_ACCEPT, ANNOTATE_CUBE, ANNOTATE_DOUBLE, ANNOTATE_DROP,
     ANNOTATE_MOVE, ANNOTATE_ROLL, ANNOTATE_RESIGN, ANNOTATE_REJECT
 } annotatetype;
@@ -464,7 +464,7 @@ FreeGame(listOLD * pl)
         ListDelete(pl->plNext);
     }
 
-    free(pl);
+    g_free(pl);
 }
 
 static int
@@ -709,7 +709,7 @@ SetMoveRecord(moverecord * pmr)
 extern void
 ClearMoveRecord(void)
 {
-    plLastMove = plGame = malloc(sizeof(*plGame));
+    plLastMove = plGame = g_malloc(sizeof(*plGame));
     ListCreate(plGame);
 }
 
@@ -4303,7 +4303,7 @@ CheatDice(unsigned int anDice[2], matchstate * pms, const int fBest)
  *
  */
 
-typedef struct _rollequity {
+typedef struct {
     float r;
     int anDice[2];
 } rollequity;

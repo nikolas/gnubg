@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: list.c,v 1.13 2013/06/16 02:16:24 mdpetch Exp $
+ * $Id: list.c,v 1.14 2021/06/09 21:11:55 plm Exp $
  */
 
 /* No configuration used in this file
@@ -23,6 +23,8 @@
 #include "list.h"
 #include <stddef.h>
 #include <stdlib.h>
+
+#include <glib.h>
 
 int
 ListCreate(listOLD * pl)
@@ -38,10 +40,7 @@ listOLD *
 ListInsert(listOLD * pl, void *p)
 {
 
-    listOLD *plNew;
-
-    if ((plNew = (listOLD *) malloc(sizeof(*plNew))) == NULL)
-        return NULL;
+    listOLD *plNew = g_malloc(sizeof(listOLD));
 
     plNew->p = p;
 
@@ -61,7 +60,7 @@ ListDelete(listOLD * pl)
     pl->plPrev->plNext = pl->plNext;
     pl->plNext->plPrev = pl->plPrev;
 
-    free(pl);
+    g_free(pl);
 }
 
 void
@@ -69,7 +68,7 @@ ListDeleteAll(const listOLD * pl)
 {
 
     while (pl->plNext->p) {
-        free(pl->plNext->p);
+        g_free(pl->plNext->p);
         ListDelete(pl->plNext);
     }
 }
