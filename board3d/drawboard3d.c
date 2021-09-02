@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.122 2021/02/22 21:58:17 plm Exp $
+ * $Id: drawboard3d.c,v 1.123 2021/02/28 09:27:27 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -1216,7 +1216,7 @@ renderDot(const renderdata* prd)
 	circle(1, 0, prd->curveAccuracy);
 }
 
-static void drawSimpleRect()
+static void drawSimpleRect(void)
 {
 	glBegin(GL_QUADS);
 	glVertex3f(-1.f, -1.f, 0.f);
