@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2001-2019 the AUTHORS
+ * Copyright (C) 2001-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.950 2021/06/30 22:02:39 plm Exp $
+ * $Id: gtkgame.c,v 1.951 2021/06/30 22:09:36 plm Exp $
  */
 
 #include "config.h"
@@ -1128,9 +1128,9 @@ SetAnnotation(moverecord * pmr)
 
                 gtk_box_pack_start(GTK_BOX(pwAnalysis), pw, TRUE, TRUE, 0);
 
-                gtk_notebook_append_page(GTK_NOTEBOOK(pw), pwMoveAnalysis, gtk_label_new(_("Chequer play")));
-
                 gtk_notebook_append_page(GTK_NOTEBOOK(pw), pwCubeAnalysis, gtk_label_new(_("Cube decision")));
+
+                gtk_notebook_append_page(GTK_NOTEBOOK(pw), pwMoveAnalysis, gtk_label_new(_("Chequer play")));
 
 
             } else if (pwMoveAnalysis) {
@@ -1266,6 +1266,8 @@ SetAnnotation(moverecord * pmr)
     if (pmr && pmr->mt == MOVE_NORMAL && pwMoveAnalysis && pwCubeAnalysis) {
 
         if (badSkill(pmr->stCube))
+            gtk_notebook_set_current_page(GTK_NOTEBOOK(pw), 0);
+        else
             gtk_notebook_set_current_page(GTK_NOTEBOOK(pw), 1);
 
     }
