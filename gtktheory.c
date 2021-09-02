@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktheory.c,v 1.71 2019/09/25 19:50:35 plm Exp $
+ * $Id: gtktheory.c,v 1.72 2019/12/24 08:38:15 plm Exp $
  */
 
 #include "config.h"
@@ -35,7 +35,7 @@
 
 #define MAXPLY 4
 
-typedef struct _theorywidget {
+typedef struct {
 
     cubeinfo ci;
 
@@ -348,7 +348,7 @@ TheoryUpdated(GtkWidget * UNUSED(pw), theorywidget * ptw)
     for (i = 0; i < 2; ++i)
         gtk_adjustment_set_upper(ptw->aapwRates[i][1], 100.0 - gtk_adjustment_get_value(ptw->aapwRates[i][0]));
 
-    SetCubeInfo(&ci, ci.nCube, 0, 0, ci.nMatchTo, ci.anScore, ci.fCrawford, ci.fJacoby, ci.fBeavers, ci.bgv);
+    SetCubeInfo(&ci, ci.nCube, 0, 0, ci.nMatchTo, ci.anScore, ci.fCrawford, ci.fJacoby, ci.fBeavers, ms.bgv);
 
     /* hide show widgets */
 
