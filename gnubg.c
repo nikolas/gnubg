@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1017 2021/03/03 21:44:59 plm Exp $
+ * $Id: gnubg.c,v 1.1018 2021/06/08 20:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -1429,7 +1429,7 @@ ShowBoard(void)
             apch[ms.fMove ? 4 : 2] = sz;
 
             if (ms.anDice[0])
-                sprintf(sz, _("%s %u%u"), _("Rolled"), ms.anDice[0], ms.anDice[1]);
+                sprintf(sz, "%s %u%u", _("Rolled"), ms.anDice[0], ms.anDice[1]);
             else if (!GameStatus(msBoard(), ms.bgv))
                 strcpy(sz, _("On roll"));
             else
