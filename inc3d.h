@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: inc3d.h,v 1.5 2020/01/19 19:26:05 Superfly_Jon Exp $
+ * $Id: inc3d.h,v 1.6 2020/05/26 19:55:54 plm Exp $
  */
 
 #ifndef INC3D3D_H
@@ -30,7 +30,7 @@
 
 #include "board3d/types3d.h"
 
-typedef struct _GraphData GraphData;
+typedef struct GraphData GraphData;
 
 #define DF_VARIABLE_OPACITY 1
 #define DF_NO_ALPHA 2
