@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.951 2021/06/30 22:09:36 plm Exp $
+ * $Id: gtkgame.c,v 1.952 2021/09/02 20:49:44 plm Exp $
  */
 
 #include "config.h"
@@ -3057,6 +3057,7 @@ static char *aaszLang[][3] = {
     {N_("Danish"), "da_DK", "flags/denmark.png"},
     {N_("English (GB)"), "en_GB", "flags/england.png"},
     {N_("English (US)"), "en_US", "flags/usa.png"},
+    {N_("Finnish"), "fi_FI", "flags/finland.png"},
     {N_("French"), "fr_FR", "flags/france.png"},
     {N_("German"), "de_DE", "flags/germany.png"},
     {N_("Greek"), "el_GR", "flags/greece.png"},

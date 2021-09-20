@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: credits.sh,v 1.162 2021/04/03 21:05:18 plm Exp $
+# $Id: credits.sh,v 1.163 2021/09/17 21:29:09 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -63,6 +63,7 @@ EOF
 cat > $translations <<EOF
 Petr Kadlec,Czech
 Joern Thyssen,Danish
+Matti Kamppinen,Finnish
 Olivier Baur,French
 Achim Mueller,German
 Vangelis Skarmoutsos,Greek
