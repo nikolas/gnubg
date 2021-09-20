@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard.c,v 1.81 2019/11/29 19:29:46 plm Exp $
+ * $Id: drawboard.c,v 1.82 2020/02/23 20:20:37 plm Exp $
  */
 
 #include "config.h"
@@ -530,7 +530,7 @@ FormatPointPlain(char *pch, int n)
 }
 
 extern char *
-FormatMovePlain(char *sz, TanBoard anBoard, int anMove[8])
+FormatMovePlain(char *sz, const TanBoard anBoard, const int anMove[8])
 {
 
     char *pch = sz;
@@ -583,7 +583,7 @@ CanonicalMoveOrder(int an[])
 }
 
 extern char *
-FormatMove(char *sz, const TanBoard anBoard, int anMove[8])
+FormatMove(char *sz, const TanBoard anBoard, const int anMove[8])
 {
 
     char *pch = sz;
