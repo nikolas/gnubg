@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.420 2021/03/04 21:47:21 plm Exp $
+ * $Id: set.c,v 1.421 2021/08/25 21:26:05 plm Exp $
  */
 
 #include "config.h"
@@ -1150,7 +1150,7 @@ CommandSetGUIGrayEdit(char *sz)
 {
 
     SetToggle("gui grayedit", &fGUIGrayEdit, sz,
-              _("Board will be grayed in edit mode."), _("Board will not change color in edit mode."));
+              _("Board will be grayed in edit mode."), _("Board will not change colour in edit mode."));
 }
 
 

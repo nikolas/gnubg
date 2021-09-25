@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.255 2021/06/09 20:48:49 plm Exp $
+ * $Id: html.c,v 1.256 2021/08/25 21:08:52 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.255 2021/06/09 20:48:49 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.256 2021/08/25 21:08:52 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.255 $";
+    const char szVersion[] = "$Revision: 1.256 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.255 $";
+    const char szVersion[] = "$Revision: 1.256 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2513,7 +2513,7 @@ HTMLDumpStatcontext(FILE * pf, const statcontext * psc,
         GList *list = formatGS(psc, nMatchTo, FORMATGS_CHEQUER);
         GList *pl;
 
-        printStatTableHeader(pf, hecss, _("Checker play statistics"));
+        printStatTableHeader(pf, hecss, _("Chequer play statistics"));
 
         for (pl = g_list_first(list); pl; pl = g_list_next(pl)) {
 
