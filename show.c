@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.297 2020/10/26 21:40:29 plm Exp $
+ * $Id: show.c,v 1.298 2021/09/25 21:33:38 plm Exp $
  */
 
 #include "config.h"
@@ -82,7 +82,8 @@ ShowMoveFilter(const movefilter * pmf, const int ply)
         return;
     }
 
-    outputf(_(" and up to %d more moves within equity %0.3g\n"), pmf->Extra, pmf->Threshold);
+    outputf(_(" and up to %d more moves within equity %0.3g"), pmf->Extra, pmf->Threshold);
+    outputf("\n");
 }
 
 
