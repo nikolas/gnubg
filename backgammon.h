@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2019 the AUTHORS
+ * Copyright (C) 1999-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.463 2019/03/10 21:49:50 plm Exp $
+ * $Id: backgammon.h,v 1.464 2019/11/17 16:34:55 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -193,6 +193,7 @@ typedef struct _moverecord {
     /* the evaluation and settings */
     cubedecisiondata *CubeDecPtr;
     cubedecisiondata CubeDec;
+    cubedecisiondata *MoneyCubeDecPtr; /* In case the cube has been evaluated at money. */
     /* skill for the cube decision */
     skilltype stCube;
     /* "private" data */

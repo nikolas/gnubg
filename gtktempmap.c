@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002-2003 Joern Thyssen <jth@gnubg.org>
- * Copyright (C) 2003-2017 the AUTHORS
+ * Copyright (C) 2003-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktempmap.c,v 1.60 2019/09/22 15:35:16 plm Exp $
+ * $Id: gtktempmap.c,v 1.61 2021/06/30 20:27:28 plm Exp $
  */
 
 /*
@@ -43,6 +43,7 @@
 #include "renderprefs.h"
 #include "gtkboard.h"
 #include "gtkwindows.h"
+#include "gtkcube.h"
 
 #define SIZE_QUADRANT 52
 
@@ -587,9 +588,14 @@ GTKShowTempMap(const matchstate ams[], const int n, gchar * aszTitle[], const in
     int k, l, km, lm, m;
 
     /* dialog */
-
-    pwDialog = GTKCreateDialog(_("Sho Sengoku Temperature Map - Distribution of rolls"),
+    if (!cubeTempMapAtMoney) {
+        pwDialog = GTKCreateDialog(_("Sho Sengoku Temperature Map - Distribution of Rolls"),
                                DT_INFO, NULL, DIALOG_FLAG_MODAL, NULL, NULL);
+    } else {
+        pwDialog = GTKCreateDialog(_("Temperature Map in Hypothetical Money Play"),
+                               DT_INFO, NULL, DIALOG_FLAG_MODAL, NULL, NULL);
+    }
+                               
 
     ptmw = (tempmapwidget *) g_malloc(sizeof(tempmapwidget));
     ptmw->fShowBestMove = fShowBestMove;

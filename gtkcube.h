@@ -15,12 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.h,v 1.11 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkcube.h,v 1.12 2020/01/25 21:40:13 plm Exp $
  */
 
 #ifndef GTKCUBE_H
 #define GTKCUBE_H
 
 extern GtkWidget *CreateCubeAnalysis(moverecord * pmr, const matchstate * pms, int did_double, int did_take, int hist);
+
+extern int cubeTempMapAtMoney;   // extern: for the temperature map when the MoneyEval button is toggled on
+extern int cubeTempMapJacoby;    // extern: also for the temperature map when the MoneyEval button is toggled on 
 
 #endif
