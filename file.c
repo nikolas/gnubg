@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: file.c,v 1.35 2019/09/15 20:05:04 plm Exp $
+ * $Id: file.c,v 1.36 2019/12/19 20:54:40 plm Exp $
  */
 
 #include "config.h"
@@ -95,7 +95,7 @@ ImportFormat import_format[] = {
     {N_IMPORT_TYPES, NULL, N_("Unknown file format"), NULL}
 };
 
-typedef struct _FileHelper {
+typedef struct {
     FILE *fp;
     size_t dataRead;
     unsigned int dataPos;
@@ -146,7 +146,7 @@ fhDataGetChar(FileHelper * fh)
 
 #define BLOCK_SIZE 1024
 #define MAX_READ_SIZE 5000
-    fh->data = realloc(fh->data, fh->dataRead + BLOCK_SIZE);
+    fh->data = g_realloc(fh->data, fh->dataRead + BLOCK_SIZE);
     if (fh->dataRead > MAX_READ_SIZE)
         numRead = 0;            /* Too big - should have worked things out by now! */
     else
