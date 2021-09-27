@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2019-2020 Jon Kinsey <jonkinsey@gmail.com>
- * Copyright (C) 2019-2020 the AUTHORS
+ * Copyright (C) 2019-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: inc3d.h,v 1.6 2020/05/26 19:55:54 plm Exp $
+ * $Id: inc3d.h,v 1.7 2021/09/18 22:13:14 plm Exp $
  */
 
 #ifndef INC3D3D_H
@@ -29,8 +29,6 @@
 #include "render.h"	/* for renderdata */
 
 #include "board3d/types3d.h"
-
-typedef struct GraphData GraphData;
 
 #define DF_VARIABLE_OPACITY 1
 #define DF_NO_ALPHA 2
