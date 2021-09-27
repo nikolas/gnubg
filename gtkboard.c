@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.370 2021/02/28 18:17:23 Superfly_Jon Exp $
+ * $Id: gtkboard.c,v 1.371 2021/03/03 21:02:12 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -73,7 +73,7 @@ int animate_player, *animate_move_list, animation_finished = TRUE;
 
 static GtkVBoxClass *parent_class = NULL;
 
-typedef struct _SetDiceData {
+typedef struct {
     unsigned char *TTachDice[2], *TTachPip[2], *TTachGrayDice, *TTachGrayPip;
     BoardData *bd;
     manualDiceType mdt;
@@ -806,7 +806,7 @@ Confirm(BoardData * bd)
         UserCommand("move");
     else if (bd->valid_move &&
              bd->valid_move->cMoves == bd->move_list.cMaxMoves && bd->valid_move->cPips == bd->move_list.cMaxPips) {
-        FormatMovePlain(move, bd->old_board, bd->valid_move->anMove);
+        FormatMovePlain(move, (ConstTanBoard)bd->old_board, bd->valid_move->anMove);
 
         UserCommand(move);
     } else

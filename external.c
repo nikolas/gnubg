@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external.c,v 1.104 2021/03/04 21:47:21 plm Exp $
+ * $Id: external.c,v 1.105 2021/03/24 22:17:49 plm Exp $
  */
 
 #include "config.h"
@@ -541,7 +541,7 @@ ExtFIBSBoard(scancontext * pec)
                          processedBoard.anBoard, &ci, &GetEvalChequer()->ec, *GetEvalMoveFilter()) < 0)
             return NULL;
 
-        FormatMovePlain(szMove, anBoardOrig, anMove);
+        FormatMovePlain(szMove, (ConstTanBoard)anBoardOrig, anMove);
         szResponse = g_strconcat(szMove, "\n", NULL);
     } else {
         /* double decision */

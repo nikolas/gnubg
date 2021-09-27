@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktempmap.c,v 1.61 2021/06/30 20:27:28 plm Exp $
+ * $Id: gtktempmap.c,v 1.62 2021/09/26 19:13:42 plm Exp $
  */
 
 /*
@@ -376,7 +376,7 @@ DrawQuadrant(GtkWidget * pw, cairo_t * cr, tempmapwidget * ptmw)
     if (j >= 0 && ptmw->fShowBestMove) {
         char szMove[FORMATEDMOVESIZE];
 
-        FormatMovePlain(szMove, ptmw->atm[m].pms->anBoard, ptmw->atm[m].aaanMove[i][j]);
+        FormatMovePlain(szMove, (ConstTanBoard)ptmw->atm[m].pms->anBoard, ptmw->atm[m].aaanMove[i][j]);
         if (ptmw->fShowEquity)
             g_string_append_printf(str, " %s", szMove);
         else
