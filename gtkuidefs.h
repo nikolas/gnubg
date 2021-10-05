@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 Michael Petch <mpetch@capp-sysware.com>
- * Copyright (C) 2013-2017 the AUTHORS
+ * Copyright (C) 2013-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkuidefs.h,v 1.4 2017/05/25 20:02:09 plm Exp $
+ * $Id: gtkuidefs.h,v 1.5 2021/06/30 20:29:23 plm Exp $
  */
 
 #define GNUBG_MAIN_UI \
@@ -175,6 +175,7 @@
 	      "<menuitem name='DistributionOfRolls' action='DistributionOfRollsAction' />" \
 	      "<menuitem name='TemperatureMap' action='TemperatureMapAction' />" \
 	      "<menuitem name='TemperatureMapCube' action='TemperatureMapCubeAction' />" \
+	      "<menuitem name='ScoreMapCube' action='ScoreMapAction' />" \
 	      "<separator/>" \
 	      "<menuitem name='RaceTheory' action='RaceTheoryAction' />" \
 	      "<separator/>" \

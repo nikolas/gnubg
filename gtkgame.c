@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.953 2021/09/20 20:36:22 plm Exp $
+ * $Id: gtkgame.c,v 1.954 2021/09/28 21:25:52 plm Exp $
  */
 
 #include "config.h"
@@ -175,6 +175,7 @@ typedef enum {
     CMD_SHOW_TEMPERATURE_MAP,
     CMD_SHOW_TEMPERATURE_MAP_CUBE,
     CMD_SHOW_SCORE_MAP,    
+    CMD_SHOW_SCORE_MAP_MOVE,    
     CMD_SHOW_VERSION,
     CMD_SHOW_WARRANTY,
     CMD_SWAP_PLAYERS,
@@ -381,6 +382,7 @@ CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_STATISTICS_MATCH, "show statistics match");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_TEMPERATURE_MAP, "show temperaturemap");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_TEMPERATURE_MAP_CUBE, "show temperaturemap =cube");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP, "show scoremap");
+CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP_MOVE, "show scoremap =move");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_VERSION, "show version");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_WARRANTY, "show warranty");
 CREATE_CMD_ACTION_CALLBACK(CMD_SWAP_PLAYERS, "swap players");
@@ -460,6 +462,7 @@ static const char *aszCommands[NUM_CMDS] = {
     "show temperaturemap",
     "show temperaturemap =cube",
     "show scoremap",  
+    "show scoremap =move",  
     "show version",
     "show warranty",
     "swap players",
