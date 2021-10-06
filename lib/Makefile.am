@@ -1,5 +1,5 @@
 # Copyright (C) 1999-2000 Gary Wong <gtw@gnu.org>
-# Copyright (C) 2004-2018 the AUTHORS
+# Copyright (C) 2004-2021 the AUTHORS
 
 # This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: $
+# $Id: Makefile.am,v 1.28 2019/09/15 17:54:57 plm Exp $
 # 
 
 ##
@@ -33,9 +33,9 @@ noinst_LTLIBRARIES = libevent.la libsimd.la
 libsimd_la_SOURCES = neuralnetsse.c inputs.c output.c
 libsimd_la_CFLAGS = $(AM_CFLAGS) $(SIMD_CFLAGS)
 
-libevent_la_SOURCES = list.c neuralnet.c mt19937ar.c isaac.c md5.c simd.h mm_malloc.h cache.c \
-		      cache.h list.h neuralnet.h mt19937ar.h isaac.h isaacs.h md5.h simd.h mm_malloc.h $(srcdir)/../eval.h gnubg-types.h sigmoid.h
+libevent_la_SOURCES = list.c neuralnet.c mt19937ar.c isaac.c md5.c simd.h cache.c \
+		      cache.h list.h neuralnet.h mt19937ar.h isaac.h isaacs.h md5.h $(srcdir)/../eval.h gnubg-types.h sigmoid.h
 libevent_la_LIBADD = libsimd.la
 
-noinst_HEADERS = cache.h list.h neuralnet.h mt19937ar.h isaac.h isaacs.h md5.h simd.h mm_malloc.h $(srcdir)/../eval.h $(srcdir)/../output.h 
+noinst_HEADERS = cache.h list.h neuralnet.h mt19937ar.h isaac.h isaacs.h md5.h simd.h $(srcdir)/../eval.h $(srcdir)/../output.h 
 

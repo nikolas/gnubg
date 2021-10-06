@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.97 2021/09/20 20:36:22 plm Exp $
+dnl $Id: configure.ac,v 1.98 2021/09/29 18:59:23 Superfly_Jon Exp $
 dnl
 
-AC_REVISION($Revision: 1.97 $)
+AC_REVISION($Revision: 1.98 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -349,10 +349,16 @@ dnl
 dnl Checks for library functions.
 dnl
 
-AC_CHECK_FUNCS(sigaction sigvec,break)
+AC_CHECK_FUNCS(sigaction sigvec break)
 AC_CHECK_FUNCS(strptime setpriority)
 AC_CHECK_FUNCS(mtrace)
 AC_CHECK_FUNCS(clock_gettime)
+
+dnl 
+dnl Check for aligned allocation functions
+dnl 
+
+AC_CHECK_FUNCS(posix_memalign _aligned_malloc)
 
 dnl
 dnl Checks for compiler builtins
