@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.98 2021/09/29 18:59:23 Superfly_Jon Exp $
+dnl $Id: configure.ac,v 1.99 2021/10/06 21:17:00 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.98 $)
+AC_REVISION($Revision: 1.99 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -633,7 +633,7 @@ dnl internationalization macros
 dnl
 AC_SUBST(GETTEXT_PACKAGE, gnubg)
 AC_DEFINE_UNQUOTED(GETTEXT_PACKAGE, "$GETTEXT_PACKAGE", [The package name, for gettext])
-ALL_LINGUAS="cs da de en_US el es fi fr is it ja ro ru tr"
+ALL_LINGUAS="cs da de en_GB en_US el es fi fr is it ja ro ru tr"
 AM_GLIB_GNU_GETTEXT
 
 
