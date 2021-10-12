@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.131 2020/03/04 21:59:38 plm Exp $
+ * $Id: gtkoptions.c,v 1.132 2021/09/17 21:38:09 plm Exp $
  */
 
 #include "config.h"
@@ -995,7 +995,7 @@ append_sound_options(optionswidget * pow)
     pwvboxDetails = gtk_vbox_new(FALSE, 4);
 #endif
     gtk_container_set_border_width(GTK_CONTAINER(pwvboxDetails), 4);
-    soundEnabled = gtk_check_button_new_with_label("Enabled");
+    soundEnabled = gtk_check_button_new_with_label(_("Enabled"));
     g_signal_connect(soundEnabled, "clicked", G_CALLBACK(SoundEnabledClicked), NULL);
     gtk_box_pack_start(GTK_BOX(pwvboxDetails), soundEnabled, FALSE, FALSE, 0);
 
