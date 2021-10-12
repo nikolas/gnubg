@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.c,v 1.101 2021/09/26 19:13:41 plm Exp $
+ * $Id: gtkcube.c,v 1.102 2021/10/05 20:58:46 plm Exp $
  */
 
 #include "config.h"
@@ -67,7 +67,7 @@ int cubeTempMapAtMoney = 0;
 int cubeTempMapJacoby = 0;     
 
 // Text to display when using MoneyEval
-static const char *MONEY_EVAL_TEXT=" (Hypothetical money game)";
+static const char *MONEY_EVAL_TEXT=N_("(Hypothetical money game)");
 
 // here we can set an initial default preference for Jacoby -- else we use the system preference fJacoby
 #define UNDEF (-1000) // Different from TRUE
@@ -172,8 +172,8 @@ TakeAnalysis(cubehintdata * pchd)
     
     /* header */
 
-    sz=g_strdup_printf("Take analysis%s", pchd->evalAtMoney ? MONEY_EVAL_TEXT : "");
-    pwFrame = gtk_frame_new(_(sz));
+    sz = g_strdup_printf("%s %s", _("Take analysis"), pchd->evalAtMoney ? Q_(MONEY_EVAL_TEXT) : "");
+    pwFrame = gtk_frame_new(sz);
     g_free(sz);
     gtk_container_set_border_width(GTK_CONTAINER(pwFrame), 8);
 
@@ -506,8 +506,8 @@ CubeAnalysis(cubehintdata * pchd)
 
     /* header */
 
-    sz = g_strdup_printf("Cube analysis%s", pchd->evalAtMoney ? MONEY_EVAL_TEXT : "");
-    pwFrame = gtk_frame_new(_(sz));
+    sz = g_strdup_printf("%s %s", _("Cube analysis"), pchd->evalAtMoney ? Q_(MONEY_EVAL_TEXT) : "");
+    pwFrame = gtk_frame_new(sz);
     g_free(sz);
     gtk_container_set_border_width(GTK_CONTAINER(pwFrame), 8);
 
