@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovelist.c,v 1.39 2021/06/20 18:03:46 plm Exp $
+ * $Id: gtkmovelist.c,v 1.40 2021/10/11 22:07:00 plm Exp $
  */
 
 #include "config.h"
@@ -113,7 +113,7 @@ MoveListCreate(hintdata * phd)
                                                         ML_COL_FGCOL + offset, NULL);
         }
 
-        gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _(aszTitleDetails[ML_COL_EQUITY]),
+        gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, aszTitleDetails[ML_COL_EQUITY],
                                                     renderer, "text", ML_COL_EQUITY + offset, "foreground",
                                                     ML_COL_FGCOL + offset, NULL);
         gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _(aszTitleDetails[ML_COL_DIFF]), renderer,
