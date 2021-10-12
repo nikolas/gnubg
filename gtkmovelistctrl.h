@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovelistctrl.h,v 1.7 2013/06/16 02:16:15 mdpetch Exp $
+ * $Id: gtkmovelistctrl.h,v 1.8 2019/12/08 20:55:55 plm Exp $
  */
 
 #ifndef GTKMOVELISTCTRL_H
@@ -32,22 +32,19 @@
 #define CUSTOM_IS_CELL_MOVELIST_MOVELIST_CLASS(klass)  (G_TYPE_CHECK_CLASS_TYPE ((klass),  CUSTOM_TYPE_CELL_RENDERER_MOVELIST))
 #define CUSTOM_CELL_RENDERER_MOVELIST_GET_CLASS(obj)   (G_TYPE_INSTANCE_GET_CLASS ((obj),  CUSTOM_TYPE_CELL_RENDERER_MOVELIST, CustomCellRendererMovelistClass))
 
-typedef struct _CustomCellRendererMovelist CustomCellRendererMovelist;
-typedef struct _CustomCellRendererMovelistClass CustomCellRendererMovelistClass;
-
 /* CustomCellRendererMovelist: Our custom cell renderer
  *   structure. Extend according to need */
 
-struct _CustomCellRendererMovelist {
+typedef struct {
     GtkCellRenderer parent;
     move *pml;
     unsigned int rank;
-};
+} CustomCellRendererMovelist;
 
 
-struct _CustomCellRendererMovelistClass {
+typedef struct {
     GtkCellRendererClass parent_class;
-};
+} CustomCellRendererMovelistClass;
 
 extern GtkCellRenderer *custom_cell_renderer_movelist_new(void);
 
