@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ShimOGL.h,v 1.9 2020/10/26 22:27:30 plm Exp $
+ * $Id: ShimOGL.h,v 1.10 2020/11/28 22:06:56 plm Exp $
  */
 
 #ifndef SHIMOGL_H
@@ -48,11 +48,11 @@ void SHIMglRotatef(GLfloat angle, GLfloat x, GLfloat y, GLfloat z);
 void SHIMglTranslatef(GLfloat x, GLfloat y, GLfloat z);
 void SHIMglScalef(GLfloat x, GLfloat y, GLfloat z);
 void SHIMglNormal3f(GLfloat nx, GLfloat ny, GLfloat nz);
-void SHIMglNormal3fv(vec3 normal);
+void SHIMglNormal3fv(const vec3 normal);
 void SHIMglTexCoord2f(GLfloat s, GLfloat t);
 void SHIMglVertex2f(GLfloat x, GLfloat y);
 void SHIMglVertex3f(GLfloat x, GLfloat y, GLfloat z);
-void SHIMglVertex3fv(vec3 vertex);
+void SHIMglVertex3fv(const vec3 vertex);
 void SHIMglFrustum(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
 void SHIMglOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLfloat zNear, GLfloat zFar);
 void SHIMglLoadIdentity(void);
