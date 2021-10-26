@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.60 2021/02/28 18:17:23 Superfly_Jon Exp $
+ * $Id: fun3d.h,v 1.61 2021/03/03 21:48:21 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -197,6 +197,7 @@ void shadowDisplay(const BoardData* bd, const BoardData3d* bd3d, const renderdat
 /* font functions */
 int CreateFonts(BoardData3d* bd3d);
 int CreateFontText(OGLFont* ppFont, const char* text, const char* fontFile, int pitch, float size, float heightRatio);
+int CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float size, float heightRatio);
 float GetFontHeight3d(const OGLFont* font);
 void glPrintPointNumbers(const OGLFont* numberFont, const char* text, int MAA);
 void glPrintCube(const OGLFont* cubeFont, const char* text, int MAA);

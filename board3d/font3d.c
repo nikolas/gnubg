@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3d.c,v 1.43 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: font3d.c,v 1.44 2021/02/21 10:56:47 plm Exp $
  */
 
 /* Draw 3d numbers using vera font and freetype library */
@@ -30,8 +30,6 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-extern int CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float size, float heightRatio);
 
 #define BEZIER_STEPS 5
 #define BEZIER_STEP_SIZE 0.2
