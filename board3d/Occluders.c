@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: Occluders.c,v 1.5 2020/02/29 20:21:44 Superfly_Jon Exp $
+ * $Id: Occluders.c,v 1.6 2021/02/21 10:56:47 plm Exp $
  */
 
 #include "config.h"
@@ -43,6 +43,8 @@ DrawShadows(const BoardData3d* bd3d)
 		if (bd3d->Occluders[i].show)
 			glCallList(bd3d->Occluders[i].shadow_list);
 	}
+#else
+	(void)bd3d;	/* suppress unused parameter compiler warning */
 #endif
 }
 
