@@ -15,16 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: shadow.c,v 1.30 2020/02/29 20:21:44 Superfly_Jon Exp $
+ * $Id: shadow.c,v 1.31 2021/02/21 10:56:48 plm Exp $
  */
 
 #include "config.h"
 #include "legacyGLinc.h"
 #include "fun3d.h"
 #include "render.h"
-
-extern void
-DrawShadows(const BoardData3d* bd3d);
 
 static int midStencilVal;
 
