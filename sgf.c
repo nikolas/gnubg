@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sgf.c,v 1.167 2020/11/25 21:34:56 plm Exp $
+ * $Id: sgf.c,v 1.168 2021/03/07 19:07:55 plm Exp $
  */
 
 #include "config.h"
@@ -318,7 +318,7 @@ CopyEscapedString(const char *pchOrig)
 
     char *sz, *pch;
 
-    for (pch = sz = malloc(strlen(pchOrig) + 1); *pchOrig; pchOrig++) {
+    for (pch = sz = g_malloc(strlen(pchOrig) + 1); *pchOrig; pchOrig++) {
         if (*pchOrig == '\\') {
             if (pchOrig[1] == '\\') {
                 *pch++ = '\\';
