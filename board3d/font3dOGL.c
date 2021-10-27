@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3dOGL.c,v 1.10 2021/10/26 22:30:57 plm Exp $
+ * $Id: font3dOGL.c,v 1.11 2021/10/27 14:52:41 plm Exp $
  */
 
 #include "config.h"
@@ -40,7 +40,6 @@ CheckOpenglError(void)
 
 int MAArenderGlyph(const FT_Outline* pOutline, int AA);
 void PopulateMesh(const Vectoriser* pVect, Mesh* pMesh);
-extern int RenderGlyph(const FT_Outline* pOutline);
 
 #if !GTK_CHECK_VERSION(3,0,0)
 static int
