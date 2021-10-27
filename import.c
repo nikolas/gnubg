@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.221 2020/11/22 21:38:54 plm Exp $
+ * $Id: import.c,v 1.222 2021/09/27 22:02:21 plm Exp $
  */
 
 #include "config.h"
@@ -2267,8 +2267,7 @@ ParseSGGOptions(const char *sz, matchinfo * pmi, int *pfCrawfordRule,
             break;
 
         for (i = 0; i < 2; ++i) {
-            if (pmi->pchRating[i])
-                free(pmi->pchRating[i]);
+            g_free(pmi->pchRating[i]);
             sprintf(szTemp, "%.6g (Exp %d)", arRating[i], anExp[i]);
             pmi->pchRating[i] = g_strdup(szTemp);
         }
