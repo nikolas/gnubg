@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.19 2021/09/02 19:32:24 plm Exp $
+ * $Id: DrawOGL.c,v 1.20 2021/10/26 22:22:10 plm Exp $
  */
 
 #include "config.h"
@@ -333,8 +333,6 @@ void DrawBackDice(const ModelManager* modelHolder, const BoardData3d* bd3d, cons
 #else
 void DrawBackDice(const ModelManager* UNUSED(modelHolder), const BoardData3d* UNUSED(bd3d), const renderdata* UNUSED(prd), diceTest* UNUSED(dt), int UNUSED(diceCol)) {}
 #endif
-
-extern void DrawNumbers(const OGLFont* numberFont, unsigned int sides, int swapNumbers, int MAA);
 
 static void
 drawNumbers(const BoardData* bd, int MAA)

@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3dOGL.c,v 1.9 2021/02/21 10:56:47 plm Exp $
+ * $Id: font3dOGL.c,v 1.10 2021/10/26 22:30:57 plm Exp $
  */
 
 #include "config.h"
@@ -37,15 +37,6 @@ CheckOpenglError(void)
 	if (glErr != GL_NO_ERROR)
 		g_print("OpenGL Error: %s\n", gluErrorString(glErr));
 }
-
-extern void PopulateVectoriser(Vectoriser* pVect, const FT_Outline* pOutline);
-extern void TidyMemory(const Vectoriser* pVect, const Mesh* pMesh);
-
-extern void TESS_CALLBACK tcbError(GLenum error);
-extern void TESS_CALLBACK tcbVertex(void* data, Mesh* UNUSED(pMesh));
-extern void TESS_CALLBACK tcbCombine(const double coords[3], const double* UNUSED(vertex_data[4]), float UNUSED(weight[4]), void** outData);
-extern void TESS_CALLBACK tcbBegin(GLenum type, Mesh* UNUSED(pMesh));
-extern void TESS_CALLBACK tcbEnd( /*lint -e{818} */ Mesh* pMesh);
 
 int MAArenderGlyph(const FT_Outline* pOutline, int AA);
 void PopulateMesh(const Vectoriser* pVect, Mesh* pMesh);
