@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.64 2021/10/27 14:52:41 plm Exp $
+ * $Id: fun3d.h,v 1.65 2021/10/27 19:57:33 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -193,6 +193,9 @@ void updateOccPos(const BoardData* bd);
 int ShadowsInitilised(const BoardData3d* bd3d);
 void shadowInit(BoardData3d* bd3d, renderdata* prd);
 void shadowDisplay(const BoardData* bd, const BoardData3d* bd3d, const renderdata* prd);
+
+/* font-related global variables */
+extern GList* combineList;
 
 /* font functions */
 int CreateFonts(BoardData3d* bd3d);

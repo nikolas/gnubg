@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3dOGL.c,v 1.11 2021/10/27 14:52:41 plm Exp $
+ * $Id: font3dOGL.c,v 1.12 2021/10/27 19:57:34 plm Exp $
  */
 
 #include "config.h"
@@ -272,7 +272,6 @@ typedef APIENTRY GLvoid(*_GLUfuncptr) ();
 #define GLUFUN(X) X
 #endif
 
-extern GList* combineList;
 
 void
 PopulateMesh(const Vectoriser* pVect, Mesh* pMesh)
