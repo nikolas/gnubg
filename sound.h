@@ -15,13 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sound.h,v 1.25 2019/04/27 17:21:53 plm Exp $
+ * $Id: sound.h,v 1.26 2020/01/05 19:51:24 plm Exp $
  */
 
 #ifndef SOUND_H
 #define SOUND_H
 
-typedef enum _gnubgsound {
+typedef enum {
     /* start & exit of gnubg */
     SOUND_START = 0,
     SOUND_EXIT,
