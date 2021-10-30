@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: model.c,v 1.28 2021/02/19 21:19:55 Superfly_Jon Exp $
+ * $Id: model.c,v 1.29 2021/02/21 10:56:48 plm Exp $
  */
 
 #include "config.h"
@@ -24,15 +24,15 @@
 
 #define TOP_EDGE (-2)
 
-typedef struct _position {
+typedef struct {
     float x, y, z;
 } position;
 
-typedef struct _plane {
+typedef struct {
     float a, b, c, d;
 } plane;
 
-typedef struct _winged_edge {
+typedef struct {
     unsigned int e[2];          /* vertex index */
     int w[2];                   /* plane index */
 } winged_edge;

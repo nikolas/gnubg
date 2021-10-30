@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: model.h,v 1.10 2019/11/14 20:39:10 plm Exp $
+ * $Id: model.h,v 1.11 2020/05/26 19:55:54 plm Exp $
  */
 
 #ifndef MODEL_H
@@ -24,13 +24,13 @@
 #include <glib.h>
 
 /* Occlusion model */
-typedef struct _OccModel {
+typedef struct {
     GArray *planes;
     GArray *edges;
     GArray *points;
 } OccModel;
 
-typedef struct Occluder_T {
+typedef struct {
     float invMat[4][4];
     float trans[3];
     float rot[3];
