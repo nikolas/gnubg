@@ -1,4 +1,4 @@
-/* $Id: tr.c,v 1.15 2021/02/21 10:56:48 plm Exp $ */
+/* $Id: tr.c,v 1.16 2021/10/30 13:46:21 plm Exp $ */
 
 /*
  * $originalLog: tr.c,v $
@@ -339,6 +339,8 @@ trBeginTile(TRcontext * tr)
 
     /* restore user's matrix mode */
     glMatrixMode((GLenum) matrixMode);
+#else
+    (void)tr;	/* suppress unused parameter compiler warning */
 #endif
 }
 
