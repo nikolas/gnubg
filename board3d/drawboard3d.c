@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.125 2021/10/27 14:52:41 plm Exp $
+ * $Id: drawboard3d.c,v 1.126 2021/10/27 19:57:33 plm Exp $
  */
 
 #include "config.h"
@@ -3284,6 +3284,9 @@ drawPiece(const ModelManager* modelHolder, const BoardData3d* bd3d, unsigned int
 
 #if !GTK_CHECK_VERSION(3,0,0)
 	MAApiece(roundPiece, curveAccuracy);
+#else
+	(void)roundPiece;	/* suppress unused parameter compiler warning */
+	(void)curveAccuracy;	/* suppress unused parameter compiler warning */
 #endif
 
 	glPopMatrix();
