@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.955 2021/10/05 20:58:46 plm Exp $
+ * $Id: gtkgame.c,v 1.956 2021/10/20 20:12:11 plm Exp $
  */
 
 #include "config.h"
@@ -3954,7 +3954,7 @@ CreateMainWindow(void)
 #else
     pwPanelHbox = gtk_hbox_new(FALSE, 0);
 #endif
-    gtk_paned_pack2(GTK_PANED(hpaned), pwPanelHbox, FALSE, FALSE);
+    gtk_paned_pack2(GTK_PANED(hpaned), pwPanelHbox, TRUE, FALSE);
 #if GTK_CHECK_VERSION(3,0,0)
     pwPanelVbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 1);
 #else
