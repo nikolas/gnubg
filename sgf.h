@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sgf.h,v 1.10 2013/06/16 02:16:20 mdpetch Exp $
+ * $Id: sgf.h,v 1.11 2019/10/27 20:06:54 plm Exp $
  */
 
 #ifndef SGF_H
@@ -24,7 +24,7 @@
 #include "list.h"
 #include <stdio.h>
 
-typedef struct _property {
+typedef struct {
     char ach[2];                /* 2 character tag; ach[ 1 ] = 0 for 1 character tags */
     listOLD *pl;                /* Values */
 } property;
