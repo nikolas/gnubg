@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: shadow.c,v 1.31 2021/02/21 10:56:48 plm Exp $
+ * $Id: shadow.c,v 1.32 2021/10/26 23:00:31 plm Exp $
  */
 
 #include "config.h"
@@ -23,7 +23,9 @@
 #include "fun3d.h"
 #include "render.h"
 
+#if !GTK_CHECK_VERSION(3,0,0)
 static int midStencilVal;
+#endif
 
 extern int
 ShadowsInitilised(const BoardData3d * bd3d)
@@ -55,6 +57,8 @@ shadowInit(BoardData3d * bd3d, renderdata * prd)
     glClearStencil(midStencilVal);
 
     bd3d->shadowsInitialised = TRUE;
+#else
+    (void)prd;	/* suppress unused parameter compiler warning */
 #endif
 }
 
@@ -90,6 +94,8 @@ draw_shadow_volume_extruded_edges( /*lint -e{818} */ Occluder * pOcc, const floa
         glEnd();
         glPopMatrix();
         glEndList();
+#else
+        (void)prim;	/* suppress unused parameter compiler warning */
 #endif
     }
 }
@@ -156,5 +162,9 @@ shadowDisplay(const BoardData * bd, const BoardData3d * bd3d, const renderdata *
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
 
     glDisable(GL_STENCIL_TEST);
+#else
+    (void)bd;	/* suppress unused parameter compiler warning */
+    (void)bd3d;	/* suppress unused parameter compiler warning */
+    (void)prd;	/* suppress unused parameter compiler warning */
 #endif
 }
