@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: neuralnetsse.c,v 1.41 2021/10/06 21:17:00 plm Exp $
+ * $Id: neuralnetsse.c,v 1.42 2021/10/26 23:06:38 plm Exp $
  */
 
 #include "config.h"
@@ -56,8 +56,6 @@ sse_malloc(size_t size)
     
     ret = posix_memalign(&ptr, ALIGN_SIZE, size);
     
-    g_assert(ret != EINVAL);
-
     if (ret == 0)
         return (float *)ptr;
 
