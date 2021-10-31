@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.3 2021/10/17 15:25:15 plm Exp $
+ * $Id: gtkscoremap.c,v 1.4 2021/10/20 21:53:23 plm Exp $
  */
 
 /* TBD
@@ -1368,7 +1368,6 @@ Specifically: (1) The color of each square (2) The hover text of each square (3)
     if  (psm->cubeScoreMap){
         /* update gauge */
         for (i = 0; i < GAUGE_SIZE; i++) {
-g_print("%d: ",i);
             DrawGauge(psm->apwFullGauge[i],i,colourBasedOn);
         }
         /* update labels on gauge */
