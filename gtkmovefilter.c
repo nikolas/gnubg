@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovefilter.c,v 1.35 2019/07/01 21:30:23 plm Exp $
+ * $Id: gtkmovefilter.c,v 1.36 2021/06/20 18:02:23 plm Exp $
  */
 
 #include "config.h"
@@ -535,11 +535,12 @@ extern void
 MoveFilterSetPredefined(GtkWidget * pwMoveFilter, const int i)
 {
 
-
     movefilterwidget *pmfw = (movefilterwidget *)
         g_object_get_data(G_OBJECT(pwMoveFilter), "user_data");
 
-    if (i < 0)
+    g_assert(i < NUM_MOVEFILTER_SETTINGS);
+
+    if (i < 0 || i >= NUM_MOVEFILTER_SETTINGS)
         return;
 
     memcpy(pmfw->pmf, aaamfMoveFilterSettings[i], MAX_FILTER_PLIES * MAX_FILTER_PLIES * sizeof(movefilter));
