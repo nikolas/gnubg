@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.957 2021/10/30 19:53:33 plm Exp $
+ * $Id: gtkgame.c,v 1.958 2021/11/01 20:24:00 plm Exp $
  */
 
 #include "config.h"
@@ -3829,7 +3829,7 @@ static void
 CreateMainWindow(void)
 {
     GtkWidget *pwVbox, *pwHbox, *pwHbox2, *pwHandle, *pwPanelHbox, *pwStopButton, *idMenu, *menu_item, *pwFrame;
-#if defined(GTK_TARGET_OTHER_APP)       /* gtk 2.12+ */
+#if GTK_CHECK_VERSION(2,12,0)
     GtkTargetEntry fileDrop = { "text/uri-list", GTK_TARGET_OTHER_APP, 1 };
 #else
     GtkTargetEntry fileDrop = { "text/uri-list", 0, 1 };
