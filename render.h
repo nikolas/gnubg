@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.h,v 1.43 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: render.h,v 1.44 2020/05/26 19:55:54 plm Exp $
  */
 
 #ifndef RENDER_H
@@ -27,13 +27,13 @@
 #include "board3d/types3d.h"
 #endif
 
-typedef enum _woodtype {
+typedef enum {
     WOOD_ALDER, WOOD_ASH, WOOD_BASSWOOD, WOOD_BEECH, WOOD_CEDAR,
     WOOD_EBONY, WOOD_FIR, WOOD_MAPLE, WOOD_OAK, WOOD_PINE, WOOD_REDWOOD,
     WOOD_WALNUT, WOOD_WILLOW, WOOD_PAINT
 } woodtype;
 
-typedef struct _renderdata {
+typedef struct {
     woodtype wt;
     float aarColour[2][4];     /* RGBA for each player */
     float aarDiceColour[2][4];  /* RGB(A) of dice for each player */
@@ -92,7 +92,7 @@ typedef struct _renderdata {
 #endif
 } renderdata;
 
-typedef struct _renderimages {
+typedef struct {
     unsigned char *ach, *achChequer[2], *achChequerLabels, *achDice[2], *achPip[2], *achCube, *achCubeFaces;
     unsigned char *achResign;
     unsigned char *achResignFaces;
@@ -157,9 +157,9 @@ extern void CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
                           renderimages * pri, TanBoard anBoard,
                           int anOff[2], const unsigned int anDice[2],
                           int anDicePosition[2][2],
-                          int fDiceColour, int anCubePosition[2],
+                          int fDiceColour, const int anCubePosition[2],
                           int nLogCube, int nCubeOrientation,
-                          int anResignPosition[2],
+                          const int anResignPosition[2],
                           int fResign, int fResignOrientation,
                           int anArrowPosition[2], int fPlaying, int nPlayer, int x, int y, int cx, int cy);
 
