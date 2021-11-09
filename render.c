@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.111 2021/09/25 21:19:05 plm Exp $
+ * $Id: render.c,v 1.112 2021/11/08 22:40:38 plm Exp $
  */
 
 #include "config.h"
@@ -1953,7 +1953,7 @@ RenderCubeFaces(renderdata * prd, unsigned char *puch, int nStride, unsigned cha
             FT_Get_Glyph(ftf->glyph, aftg + i);
         }
 
-        FT_Set_Pixel_Sizes(ftf, 0, 2 * prd->nSize);
+        FT_Set_Pixel_Sizes(ftf, 0, (15 * prd->nSize) / 8);
 
         for (i = 0; i < 10; i++) {
             FT_Load_Char(ftf, '0' + i, FT_LOAD_RENDER);
