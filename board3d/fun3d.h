@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006-2021 Jon Kinsey <jonkinsey@gmail.com>
- * Copyright (C) 2007-2020 the AUTHORS
+ * Copyright (C) 2007-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.65 2021/10/27 19:57:33 plm Exp $
+ * $Id: fun3d.h,v 1.66 2021/10/28 23:05:39 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -258,6 +258,8 @@ extern Flag3d flag;
 #define HINGE_SEGMENTS 6.f
 
 #define CUBE_TWODIGIT_FACTOR .9f
+#define CUBE_THREEDIGIT_FACTOR .6f
+#define CUBE_FOURDIGIT_FACTOR .45f
 
 /* Draw board parts (boxes) specially */
 enum { /*boxType */ BOX_ALL = 0, BOX_NOSIDES = 1, BOX_NOENDS = 2, BOX_SPLITTOP = 4, BOX_SPLITWIDTH = 8 };

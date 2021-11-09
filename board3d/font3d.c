@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2005-2019 Jon Kinsey <jonkinsey@gmail.com>
- * Copyright (C) 2006-2020 the AUTHORS
+ * Copyright (C) 2006-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: font3d.c,v 1.44 2021/02/21 10:56:47 plm Exp $
+ * $Id: font3d.c,v 1.45 2021/10/26 22:36:45 plm Exp $
  */
 
 /* Draw 3d numbers using vera font and freetype library */
@@ -311,11 +311,32 @@ glPrintCube(const OGLFont* cubeFont, const char* text, int MAA)
 	/* Align horizontally and vertically */
 	float scale = cubeFont->scale;
 	float heightOffset = cubeFont->height;
-	if (strlen(text) > 1) {     /* Make font smaller for 2 digit cube numbers */
+	float xFactor = 1.0;
+
+	switch (strlen(text)) {     /* Make font smaller for multi-digit cube numbers */
+	case 1:
+		/* base values are fine */
+		break;
+	case 2:
 		scale *= CUBE_TWODIGIT_FACTOR;
 		heightOffset *= CUBE_TWODIGIT_FACTOR;
+		xFactor = CUBE_TWODIGIT_FACTOR;
+		break;
+	case 3:
+		scale *= CUBE_THREEDIGIT_FACTOR;
+		heightOffset *= CUBE_THREEDIGIT_FACTOR;
+		xFactor = CUBE_THREEDIGIT_FACTOR;
+		break;
+	case 4:
+		scale *= CUBE_FOURDIGIT_FACTOR;
+		heightOffset *= CUBE_FOURDIGIT_FACTOR;
+		xFactor = CUBE_FOURDIGIT_FACTOR;
+		break;
+	default:
+		g_assert_not_reached();
 	}
-	glTranslatef(-getTextLen3d(cubeFont, text) / 2.0f, -heightOffset / 2.0f, 0.f);
+
+	glTranslatef(-getTextLen3d(cubeFont, text) * xFactor /2.0f, -heightOffset / 2.0f, 0.f);
 	RenderString3d(cubeFont, text, scale, MAA);
 }
 
