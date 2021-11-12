@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: analysis.c,v 1.255 2019/11/05 20:49:22 plm Exp $
+ * $Id: analysis.c,v 1.256 2020/01/01 13:56:47 plm Exp $
  */
 
 #include "config.h"
@@ -2624,7 +2624,8 @@ CommandAnalyseRolloutMove(char *sz)
         cmark_move_set(pmr, sz, CMARK_ROLLOUT);
 
     if (cmark_move_rollout(pmr, FALSE) == 0) {
-        outputerrf("No moves marked for rollout\n");
+        outputerrf(_("No moves marked for rollout"));
+        outputerrf("\n");
         return;
     }
 
