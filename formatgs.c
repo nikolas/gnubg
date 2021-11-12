@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: formatgs.c,v 1.38 2021/05/27 20:50:56 plm Exp $
+ * $Id: formatgs.c,v 1.39 2021/06/30 22:02:39 plm Exp $
  */
 
 #include "config.h"
@@ -142,7 +142,7 @@ formatGS(const statcontext * psc, const int nMatchTo, const formatgs fg)
     case FORMATGS_CHEQUER:
         {
 
-            static int ai[4] = { SKILL_NONE, SKILL_DOUBTFUL,
+            static const int ai[4] = { SKILL_NONE, SKILL_DOUBTFUL,
                 SKILL_BAD, SKILL_VERYBAD
             };
             static const char *asz[4] = {
