@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.222 2021/09/27 22:02:21 plm Exp $
+ * $Id: import.c,v 1.223 2021/10/27 20:52:31 plm Exp $
  */
 
 #include "config.h"
@@ -1950,7 +1950,7 @@ ImportSGGGame(FILE * pf, int i, int nLength, int n0, int n1,
                             pmr->sz = szComment;
                             pmr->fPlayer = fPlayer;
                             if (!LinkToDouble(pmr)) {
-                                outputl(_("Beaver found but doesn't follow a double"));
+                                outputl(_("Beaver record found but doesn't follow a double"));
                                 free(pmr);
                                 return;
                             }
@@ -1970,7 +1970,7 @@ ImportSGGGame(FILE * pf, int i, int nLength, int n0, int n1,
                             pmr->sz = szComment;
                             pmr->fPlayer = fPlayer;
                             if (!LinkToDouble(pmr)) {
-                                outputl(_("Raccoon found but doesn't follow a double"));
+                                outputl(_("Raccoon record found but doesn't follow a double"));
                                 free(pmr);
                                 return;
                             }
