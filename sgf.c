@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sgf.c,v 1.169 2021/10/27 20:45:19 plm Exp $
+ * $Id: sgf.c,v 1.170 2021/10/30 14:11:41 plm Exp $
  */
 
 #include "config.h"
@@ -348,7 +348,7 @@ RestoreText(char *sz, char **ppch)
     if (!sz || !*sz)
         return;
 
-    free(*ppch);
+    g_free(*ppch);
 
     *ppch = CopyEscapedString(sz);
 }
