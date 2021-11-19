@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.225 2020/02/20 21:17:21 plm Exp $
+ * $Id: gtkprefs.c,v 1.226 2020/10/17 21:44:45 plm Exp $
  */
 
 #include "config.h"
@@ -49,7 +49,7 @@
 #define NUM_NONPREVIEW_PAGES 1
 #endif
 
-typedef enum _pixmapindex {
+typedef enum {
     PI_DESIGN, PI_CHEQUERS0, PI_CHEQUERS1, PI_BOARD, PI_BORDER, PI_DICE0,
     PI_DICE1, PI_CUBE, NUM_PIXMAPS
 } pixmapindex;
@@ -106,7 +106,7 @@ static void AddDesignRowIfNew(gpointer data, gpointer user_data);
 
 static GList *ParseBoardDesigns(const char *szFile, const int fDeletable);
 
-typedef struct _boarddesign {
+typedef struct {
     gchar *szTitle;             /* Title of board design */
     gchar *szAuthor;            /* Name of author */
     gchar *szBoardDesign;       /* Command for setting board */
@@ -633,7 +633,7 @@ BoardPage3d(BoardData * bd)
                        TT_PIECE);
 
     pwRoundPoints = gtk_check_button_new_with_label(_("Rounded points"));
-    gtk_widget_set_tooltip_text(pwBgTrays, _("Display the points with a rounded end"));
+    gtk_widget_set_tooltip_text(pwRoundPoints, _("Display the points with a rounded end"));
     gtk_box_pack_start(GTK_BOX(pw), pwRoundPoints, FALSE, FALSE, 0);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwRoundPoints), bd->rd->roundedPoints);
     g_signal_connect(G_OBJECT(pwRoundPoints), "toggled", G_CALLBACK(option_changed), 0);
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.225 2020/02/20 21:17:21 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.226 2020/10/17 21:44:45 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -3321,7 +3321,7 @@ typedef enum {
     STATE_DESIGN
 } parserstate;
 
-typedef struct _DesignParser {
+typedef struct {
     gchar *filename;
     parserstate state;
     boarddesign *current_design;
