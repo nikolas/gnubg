@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.373 2021/10/06 20:28:18 plm Exp $
+ * $Id: gtkboard.c,v 1.374 2021/10/24 15:10:41 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -1662,7 +1662,7 @@ ShowBoardPopup(GdkEventButton * event)
         GtkWidget *menu_item;
         boardMenu = gtk_menu_new();
 
-        menu_item = gtk_menu_item_new_with_label("Undo Move");
+        menu_item = gtk_menu_item_new_with_label(_("Undo Move"));
         gtk_menu_shell_append(GTK_MENU_SHELL(boardMenu), menu_item);
         gtk_widget_show(menu_item);
         g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(GTKUndo), NULL);
@@ -1671,7 +1671,7 @@ ShowBoardPopup(GdkEventButton * event)
         gtk_menu_shell_append(GTK_MENU_SHELL(boardMenu), menu_item);
         gtk_widget_show(menu_item);
 
-        menu_item = gtk_menu_item_new_with_label("Score Sheet");
+        menu_item = gtk_menu_item_new_with_label(_("Score Sheet"));
         gtk_menu_shell_append(GTK_MENU_SHELL(boardMenu), menu_item);
         gtk_widget_show(menu_item);
         g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(GTKShowScoreSheet), NULL);

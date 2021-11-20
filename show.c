@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.300 2021/09/26 19:13:42 plm Exp $
+ * $Id: show.c,v 1.301 2021/10/05 20:58:46 plm Exp $
  */
 
 #include "config.h"
@@ -998,7 +998,7 @@ CommandShowScoreSheet(char *UNUSED(sz))
     }
 #endif
 
-    output(_("Score Sheet - "));
+    outputf("%s - ", _("Score Sheet"));
     if (ms.nMatchTo > 0)
         outputf(ms.nMatchTo == 1 ? _("Match to %d point") : _("Match to %d points"), ms.nMatchTo);
     else
