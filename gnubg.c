@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1019 2021/09/17 21:26:03 plm Exp $
+ * $Id: gnubg.c,v 1.1020 2021/11/20 22:34:53 plm Exp $
  */
 
 #include "config.h"
@@ -2775,7 +2775,7 @@ CommandCopy(char *UNUSED(sz))
         char szPipCount[32];
 
         PipCount((ConstTanBoard) anBoardTemp, anPips);
-        sprintf(szPipCount, "Pip counts : O %u, X %u\n", anPips[0], anPips[1]);
+        sprintf(szPipCount, "%s O %u, X %u\n", _("Pip counts:"), anPips[0], anPips[1]);
 
         strcat(szOut, "                    ");
         strcat(szOut, szPipCount);

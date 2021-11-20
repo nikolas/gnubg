@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.122 2020/11/25 21:34:56 plm Exp $
+ * $Id: text.c,v 1.123 2021/03/24 22:31:05 plm Exp $
  */
 
 #include "config.h"
@@ -126,7 +126,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
 
     PipCount((ConstTanBoard) anBoard, anPips);
 
-    fprintf(pf, "Pip counts: O %u, X %u\n\n", anPips[0], anPips[1]);
+    fprintf(pf, "%s O %u, X %u\n\n", _("Pip counts:"), anPips[0], anPips[1]);
 
 }
 
@@ -226,7 +226,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.122 $";
+    const char szVersion[] = "$Revision: 1.123 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));

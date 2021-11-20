@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.256 2021/08/25 21:08:52 plm Exp $
+ * $Id: html.c,v 1.257 2021/09/25 21:33:38 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.256 2021/08/25 21:08:52 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.257 2021/09/25 21:33:38 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -948,7 +948,7 @@ printHTMLBoardF2H(FILE * pf, matchstate * pms, int fTurn,
     printImage(pf, szImageDir, "b-indent", szExtension, "", hecss, HTML_EXPORT_TYPE_FIBS2HTML);
 
     PipCount((ConstTanBoard) anBoard, anPips);
-    fprintf(pf, _("Pip counts: %s %u, %s %u<br/>\n"), ap[0].szName, anPips[1], ap[1].szName, anPips[0]);
+    fprintf(pf, "%s %s %u, %s %u<br/>\n", _("Pip counts:"), ap[0].szName, anPips[1], ap[1].szName, anPips[0]);
 
     /* position ID */
 
@@ -1370,7 +1370,7 @@ printHTMLBoardGNU(FILE * pf, matchstate * pms, int fTurn,
     fputs("<p>", pf);
 
     PipCount((ConstTanBoard) anBoard, anPips);
-    fprintf(pf, _("Pip counts: %s %u, %s %u<br/>\n"), ap[0].szName, anPips[1], ap[1].szName, anPips[0]);
+    fprintf(pf, "%s %s %u, %s %u<br/>\n", _("Pip counts:"), ap[0].szName, anPips[1], ap[1].szName, anPips[0]);
 
     /* position ID */
 
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.256 $";
+    const char szVersion[] = "$Revision: 1.257 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.256 $";
+    const char szVersion[] = "$Revision: 1.257 $";
     int iMajor, iMinor;
     char *pc;
 
