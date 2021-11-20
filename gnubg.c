@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1018 2021/06/08 20:56:30 plm Exp $
+ * $Id: gnubg.c,v 1.1019 2021/09/17 21:26:03 plm Exp $
  */
 
 #include "config.h"
@@ -1722,7 +1722,7 @@ CommandHelp(char *sz)
     }
 
     if (szHelp) {
-        outputf("%s- %s\n\n%s: %s", szCommand, szHelp, _("Usage"), szUsage);
+        outputf("%s- %s\n\n%s %s", szCommand, szHelp, _("Usage:"), szUsage);
 
         if (pc->pc && pc->pc->sz)
             outputf("<%s>\n", _("subcommand"));

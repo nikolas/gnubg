@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.c,v 1.91 2020/02/23 21:00:20 plm Exp $
+ * $Id: gtkpanels.c,v 1.92 2020/10/17 21:44:45 plm Exp $
  */
 
 #include "config.h"
@@ -440,10 +440,10 @@ ShowHelp(GtkWidget * pwText, char *pStr)
                 }
             }
 
-            sprintf(szBuf, "Command: %s\n", szCommand);
+            sprintf(szBuf, "%s %s\n", _("Command:"), szCommand);
             gtk_text_buffer_insert(buffer, &iter, szBuf, -1);
             gtk_text_buffer_insert(buffer, &iter, gettext(pc->szHelp), -1);
-            sprintf(szBuf, "\n\nUsage: %s", szUsage);
+            sprintf(szBuf, "\n\n%s %s", _("Usage:"), szUsage);
             gtk_text_buffer_insert(buffer, &iter, szBuf, -1);
 
             if (!(pc->pc && pc->pc->sz))
