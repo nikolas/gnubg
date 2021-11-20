@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: progress.c,v 1.83 2021/04/03 19:38:28 plm Exp $
+ * $Id: progress.c,v 1.84 2021/09/25 21:47:21 plm Exp $
  */
 
 #include "config.h"
@@ -158,7 +158,7 @@ add_stat_columns(GtkTreeView * treeview, const char *title, const char **headers
 
     for (i = 0; i < 2; i++) {
         for (j = 0; j < n; j++) {
-            char *header = g_strdup_printf("%s%s", headers[j], ap[i].szName);
+            char *header = g_strdup_printf("%s%s", (strlen(headers[j]) > 0) ? gettext(headers[j]) : "", ap[i].szName);
             renderer = gtk_cell_renderer_text_new();
             g_object_set(renderer, "xalign", 1.0, NULL);
             column = gtk_tree_view_column_new_with_attributes(header, renderer, "text", 1 + j + i * n, NULL);
@@ -1020,7 +1020,7 @@ TextRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
 }
 
 static int
-TextRolloutProgressEnd(void **pp)
+TextRolloutProgressEnd(void * const *pp)
 {
 
     rolloutprogress *prp = *pp;
