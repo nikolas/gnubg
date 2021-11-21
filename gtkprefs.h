@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.h,v 1.17 2015/01/01 16:42:05 plm Exp $
+ * $Id: gtkprefs.h,v 1.18 2019/11/03 15:25:18 plm Exp $
  */
 
 #ifndef GTKPREFS_H
@@ -28,7 +28,7 @@ extern void SetBoardPreferences(GtkWidget * pwBoard, char *sz);
 extern void Default3dSettings(BoardData * bd);
 extern void UpdatePreview(void);
 extern void gtk_color_button_get_array(GtkColorButton * button, float array[4]);
-extern void gtk_color_button_set_from_array(GtkColorButton * button, float array[4]);
+extern void gtk_color_button_set_from_array(GtkColorButton * button, float const array[4]);
 
 extern GtkWidget *pwPrevBoard;
 
