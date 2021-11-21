@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000-2003 Joern Thyssen <joern@thyssen.nu>
- * Copyright (C) 2001-2019 the AUTHORS
+ * Copyright (C) 2001-2021 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: analysis.h,v 1.50 2019/03/11 17:29:33 plm Exp $
+ * $Id: analysis.h,v 1.51 2019/11/05 20:49:22 plm Exp $
  */
 
 #ifndef ANALYSIS_H
@@ -24,11 +24,11 @@
 #include "list.h"
 #include "gnubg-types.h"
 
-typedef enum _lucktype {
+typedef enum {
     LUCK_VERYBAD, LUCK_BAD, LUCK_NONE, LUCK_GOOD, LUCK_VERYGOOD
 } lucktype;
 
-typedef enum _skilltype {
+typedef enum {
     SKILL_VERYBAD,
     SKILL_BAD,
     SKILL_DOUBTFUL,
@@ -40,7 +40,7 @@ typedef enum _skilltype {
 #define N_SKILLS ((int)SKILL_NONE + 1)
 #define N_LUCKS ((int)LUCK_VERYGOOD + 1)
 
-typedef struct _statcontext {
+typedef struct {
     int fMoves, fCube, fDice;   /* which statistics have been computed? */
 
     int anUnforcedMoves[2];
@@ -105,7 +105,8 @@ extern ratingtype GetRating(const float rError);
 extern void IniStatcontext(statcontext * psc);
 extern void AddStatcontext(const statcontext * pscA, statcontext * pscB);
 
-#define STATCONTEXT_MAXSIZE 4096
+#define STATCONTEXT_MAXSIZE 8192
+
 extern void DumpStatcontext(char *szOutput, const statcontext * psc, const char *player, const char *op, int nMatchTo);
 
 extern void updateStatisticsGame(const listOLD * plGame);
