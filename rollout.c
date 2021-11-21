@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: rollout.c,v 1.260 2021/03/07 14:03:21 plm Exp $
+ * $Id: rollout.c,v 1.261 2021/06/09 20:48:49 plm Exp $
  */
 
 #include "config.h"
@@ -350,6 +350,8 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
 
     int nLateEvals = prc->fLateEvals ? prc->nLate : 0x7fffffff;
 
+    int useVarRedn = prc->fVarRedn;
+
     /* Make local copy of cubeinfo struct, since it
      * may be modified */
     cubeinfo *pciLocal = g_alloca(cci * sizeof(cubeinfo));
@@ -376,7 +378,7 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
     /* local pointers to the eval contexts to use */
     evalcontext *pecCube[2], *pecChequer[2];
 
-    if (prc->fVarRedn) {
+    if (useVarRedn) {
 
         /*
          * Create evaluation context one ply deep
@@ -576,7 +578,7 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
 
                 /* Find best move :-) */
 
-                if (prc->fVarRedn) {
+                if (useVarRedn) {
 
                     /* Variance reduction */
 
@@ -810,7 +812,7 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
         if (!pci->nMatchTo)
             aarOutput[ici][OUTPUT_CUBEFUL_EQUITY] *= (float) (pci->nCube / aci[ici].nCube);
 
-        if (prc->fVarRedn)
+        if (useVarRedn)
             for (i = 0; i < NUM_ROLLOUT_OUTPUTS; i++)
                 aarOutput[ici][i] += aarVarRedn[ici][i];
 
