@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.201 2021/07/31 21:34:32 plm Exp $
+ * $Id: gnubgmodule.c,v 1.202 2021/10/10 19:26:39 plm Exp $
  */
 
 #include "config.h"
@@ -839,7 +839,7 @@ PythonHint(PyObject * UNUSED(self), PyObject * args)
 {
     PyObject *retval = NULL, *gnubgid = NULL, *tmpobj;
     procrecorddata prochint;
-    char szNumber[6];
+    char szNumber[11];
     char *szHintType = NULL;
     int nMaxMoves = -1;
 
@@ -2245,7 +2245,8 @@ PyMoveAnalysis(const movelist * pml, PyMatchState * ms)
 SIMD_STACKALIGN static PyObject *
 PyDoubleAnalysis(const evalsetup * pes,
                  float aarOutput[][NUM_ROLLOUT_OUTPUTS],
-                 float aarStdDev[][NUM_ROLLOUT_OUTPUTS], PyMatchState * ms, const int verbose)
+                 float const aarStdDev[][NUM_ROLLOUT_OUTPUTS],
+                 PyMatchState * ms, const int verbose)
 {
     PyObject *dict = 0;
 
