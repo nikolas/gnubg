@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: speed.c,v 1.35 2018/04/24 19:18:59 plm Exp $
+ * $Id: speed.c,v 1.36 2019/12/08 20:24:41 plm Exp $
  */
 
 #include "config.h"
@@ -155,7 +155,9 @@ CommandCalibrate(char *sz)
         else
 #endif
         if (fShowProgress) {
-            outputf("        \rCalibrating: %.0f static evaluations/second", spd);
+            outputf("        \r");
+            outputf(_("Calibrating: "));
+            outputf(_("%.0f static evaluations/second"), spd);
             fflush(stdout);
         }
     }
@@ -169,7 +171,11 @@ CommandCalibrate(char *sz)
 
     if (timeTaken > 0.0) {
         rEvalsPerSec = (float) iIter * (float) (EVALS_PER_ITERATION * 1000 / timeTaken);
-        outputf("\rCalibration result: %.0f static evaluations/second.\n", rEvalsPerSec);
-    } else
+        outputf("\r");
+        outputf(_("Calibration result: "));
+        outputf(_("%.0f static evaluations/second.\n"), rEvalsPerSec);
+    } else {
+        outputf("\r");
         outputl(_("Calibration incomplete."));
+    }
 }
