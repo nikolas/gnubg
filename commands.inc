@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.56 2021/10/05 20:58:46 plm Exp $
+ * $Id: commands.inc,v 1.57 2021/11/20 22:34:53 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1388,7 +1388,7 @@ static command acSetVariation[] = {
       N_("View the score sheet for the match or session"), NULL, NULL },
     { "seed", CommandShowSeed, N_("Show the dice generator seed"), 
       NULL, NULL },
-    { "sound", CommandShowSound, N_("Show information abount sounds"), 
+    { "sound", CommandShowSound, N_("Show information about sounds"), 
       NULL, NULL },
     { "statistics", NULL, N_("Show statistics"), NULL, acShowStatistics },
     { "temperaturemap", CommandShowTemperatureMap, 
