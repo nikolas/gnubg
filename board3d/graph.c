@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.42 2021/09/18 22:13:14 plm Exp $
+ * $Id: graph.c,v 1.43 2021/09/27 21:37:08 plm Exp $
  */
 
 #include "config.h"
@@ -152,7 +152,7 @@ DrawBars(unsigned int num, float *const *values, int totalBar)
 static void
 PrintBottomNumber(unsigned int num, float width, float height, float x, float y)
 {
-    char numStr[10];
+    char numStr[11];
     sprintf(numStr, "%u", num);
 
     glPushMatrix();
