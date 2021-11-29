@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktheory.c,v 1.72 2019/12/24 08:38:15 plm Exp $
+ * $Id: gtktheory.c,v 1.73 2021/09/02 19:21:06 plm Exp $
  */
 
 #include "config.h"
@@ -613,7 +613,7 @@ GTKShowTheory(const int fActivePage)
 
     /* create dialog */
 
-    pwDialog = GTKCreateDialog(_("GNU Backgammon - Theory"), DT_INFO,
+    pwDialog = GTKCreateDialog(_("GNU Backgammon - Market window"), DT_INFO,
                                NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_NOTIDY, NULL, NULL);
 
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), 660, 300);
