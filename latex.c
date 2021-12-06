@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: latex.c,v 1.58 2020/11/25 21:34:56 plm Exp $
+ * $Id: latex.c,v 1.59 2021/06/08 20:56:30 plm Exp $
  */
 
 #include "config.h"
@@ -441,7 +441,7 @@ ExportGameLaTeX(FILE * pf, listOLD * plGame)
         case MOVE_DOUBLE:
             dt = DoubleType(msExport.fDoubled, msExport.fMove, msExport.fTurn);
             if (dt != DT_NORMAL) {
-                fprintf(pf, "\\begin{center}\\emph{Cannot analyse doubles nor raccoons!}\\end{center}");
+                fprintf(pf, "\\begin{center}\\emph{%s}\\end{center}", _("Cannot analyse beaver nor raccoons!"));
                 break;
             }
             PrintLaTeXBoard(pf, &msExport, pmr->fPlayer);
@@ -460,7 +460,7 @@ ExportGameLaTeX(FILE * pf, listOLD * plGame)
         case MOVE_TAKE:
             if (dt != DT_NORMAL) {
                 dt = DT_NORMAL;
-                fprintf(pf, "\\begin{center}\\emph{Cannot analyse doubles nor raccoons!}\\end{center}");
+                fprintf(pf, "\\begin{center}\\emph{%s}\\end{center}", _("Cannot analyse beaver nor raccoons!"));
                 break;
             }
             fTook = TRUE;
@@ -474,7 +474,7 @@ ExportGameLaTeX(FILE * pf, listOLD * plGame)
         case MOVE_DROP:
             if (dt != DT_NORMAL) {
                 dt = DT_NORMAL;
-                fprintf(pf, "\\begin{center}\\emph{Cannot analyse doubles nor raccoons!}\\end{center}");
+                fprintf(pf, "\\begin{center}\\emph{%s}\\end{center}", _("Cannot analyse beaver nor raccoons!"));
                 break;
             }
             fprintf(pf, "\\begin{center}%s %s%s\\end{center}\n\n",

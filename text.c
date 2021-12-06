@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.124 2021/11/20 23:09:35 plm Exp $
+ * $Id: text.c,v 1.125 2021/12/06 22:16:07 plm Exp $
  */
 
 #include "config.h"
@@ -226,7 +226,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.124 $";
+    const char szVersion[] = "$Revision: 1.125 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -336,7 +336,8 @@ TextPrintCubeAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 
         dt = DoubleType(pms->fDoubled, pms->fMove, pms->fTurn);
         if (dt != DT_NORMAL) {
-            g_string_append(gsz, _("Cannot analyse beaver nor raccoons!\n"));
+            g_string_append(gsz, _("Cannot analyse beaver nor raccoons!"));
+            g_string_append(gsz, "\n");
             break;
         }
         TextPrintCubeAnalysisTable(gsz,
@@ -353,7 +354,8 @@ TextPrintCubeAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
 
         if (dt != DT_NORMAL) {
             dt = DT_NORMAL;
-            g_string_append(gsz, _("Cannot analyse beaver nor raccoons!\n"));
+            g_string_append(gsz, _("Cannot analyse beaver nor raccoons!"));
+            g_string_append(gsz, "\n");
             break;
         }
         TextPrintCubeAnalysisTable(gsz, pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, pmr->fPlayer, &pmr->CubeDecPtr->esDouble, &ci, TRUE, pmr->mt == MOVE_TAKE, SKILL_NONE,  /* FIXME: skill from prev. cube */
