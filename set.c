@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.421 2021/08/25 21:26:05 plm Exp $
+ * $Id: set.c,v 1.422 2021/09/25 21:33:38 plm Exp $
  */
 
 #include "config.h"
@@ -372,7 +372,7 @@ SetLuckThreshold(lucktype lt, char *sz)
 {
 
     float r = ParseReal(&sz);
-    char *szCommand = gettext(aszLuckTypeCommand[lt]);
+    const char *szCommand = aszLuckTypeCommand[lt];
 
     if (r <= 0.0f) {
         outputf(_("You must specify a positive number for the threshold (see "
@@ -390,7 +390,7 @@ SetSkillThreshold(skilltype lt, char *sz)
 {
 
     float r = ParseReal(&sz);
-    char *szCommand = gettext(aszSkillTypeCommand[lt]);
+    const char *szCommand = aszSkillTypeCommand[lt];
 
     if (r < 0.0f) {
         outputf(_("You must specify a semi-positive number for the threshold (see "
