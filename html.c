@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.257 2021/09/25 21:33:38 plm Exp $
+ * $Id: html.c,v 1.258 2021/11/20 23:09:35 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.257 2021/09/25 21:33:38 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.258 2021/11/20 23:09:35 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.257 $";
+    const char szVersion[] = "$Revision: 1.258 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1595,7 +1595,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
                 fputs("<p>\n", pf);
                 fFirst = FALSE;
             }
-            fprintf(pf, "<a href=\"%s\">%s</a>\n", aszLinks[i], aszLinkText[i]);
+            fprintf(pf, "<a href=\"%s\">%s</a>\n", aszLinks[i], gettext(aszLinkText[i]));
         }
 
 
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.257 $";
+    const char szVersion[] = "$Revision: 1.258 $";
     int iMajor, iMinor;
     char *pc;
 
