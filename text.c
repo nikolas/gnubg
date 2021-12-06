@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.123 2021/03/24 22:31:05 plm Exp $
+ * $Id: text.c,v 1.124 2021/11/20 23:09:35 plm Exp $
  */
 
 #include "config.h"
@@ -226,7 +226,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.123 $";
+    const char szVersion[] = "$Revision: 1.124 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -525,7 +525,7 @@ TextAnalysis(GString * gsz, const matchstate * pms, moverecord * pmr)
     case MOVE_DROP:
 
         if (pmr->mt == MOVE_DOUBLE)
-            g_string_append_printf(gsz, "* %s doubles\n\n", ap[pmr->fPlayer].szName);
+            g_string_append_printf(gsz, "* %s %s\n\n", ap[pmr->fPlayer].szName, _("doubles"));
         else
             g_string_append_printf(gsz,
                                    "* %s %s\n\n",

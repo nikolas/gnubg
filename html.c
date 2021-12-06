@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.258 2021/11/20 23:09:35 plm Exp $
+ * $Id: html.c,v 1.259 2021/12/06 20:46:47 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.258 2021/11/20 23:09:35 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.259 2021/12/06 20:46:47 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.258 $";
+    const char szVersion[] = "$Revision: 1.259 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.258 $";
+    const char szVersion[] = "$Revision: 1.259 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -2462,7 +2462,7 @@ HTMLAnalysis(FILE * pf, matchstate * pms, moverecord * pmr,
             printImage(pf, szImageDir, "b-indent", szExtension, "", hecss, het);
 
         if (pmr->mt == MOVE_DOUBLE)
-            fprintf(pf, "%s%s doubles</p>\n", bullet, ap[pmr->fPlayer].szName);
+            fprintf(pf, "%s%s %s</p>\n", bullet, ap[pmr->fPlayer].szName, _("doubles"));
         else
             fprintf(pf,
                     "%s%s %s</p>\n", bullet,
