@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.963 2021/11/20 19:19:23 plm Exp $
+ * $Id: gtkgame.c,v 1.964 2021/11/20 22:34:53 plm Exp $
  */
 
 #include "config.h"
@@ -5303,7 +5303,7 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
     pwTable = gtk_table_new(2, 2, TRUE);
     gtk_container_add(GTK_CONTAINER(pwPage), pwTable);
 
-    prpw->pwCubeful = gtk_check_button_new_with_label(_("Cubeful"));
+    prpw->pwCubeful = gtk_check_button_new_with_label(_("Cubeful rollout"));
     gtk_table_attach(GTK_TABLE(pwTable), prpw->pwCubeful, 0, 1, 0, 1, GTK_FILL, GTK_FILL, 2, 2);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(prpw->pwCubeful), prw->rcRollout.fCubeful);
