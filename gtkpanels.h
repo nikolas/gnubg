@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.h,v 1.7 2013/06/16 02:16:16 mdpetch Exp $
+ * $Id: gtkpanels.h,v 1.8 2020/02/23 21:00:47 plm Exp $
  */
 
 /* position of windows: main window, game list, and annotation */
@@ -23,7 +23,7 @@
 #ifndef GTKPANELS_H
 #define GTKPANELS_H
 
-typedef enum _gnubgwindow {
+typedef enum {
     WINDOW_MAIN = 0,
     WINDOW_GAME,
     WINDOW_ANALYSIS,
@@ -35,7 +35,7 @@ typedef enum _gnubgwindow {
     NUM_WINDOWS
 } gnubgwindow;
 
-typedef struct _windowgeometry {
+typedef struct {
     int nWidth, nHeight;
     int nPosX, nPosY, max;
 } windowgeometry;
