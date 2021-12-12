@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.301 2021/10/05 20:58:46 plm Exp $
+ * $Id: show.c,v 1.302 2021/11/20 19:19:23 plm Exp $
  */
 
 #include "config.h"
@@ -897,8 +897,8 @@ extern void
 CommandShowScore(char *UNUSED(sz))
 {
 
-    outputf((ms.cGames == 1 ? _("The score (after %d game) is: %s %d, %s %d")
-             : _("The score (after %d games) is: %s %d, %s %d")),
+    outputf(ngettext("The score (after %d game) is: %s %d, %s %d",
+           "The score (after %d games) is: %s %d, %s %d", ms.cGames),
             ms.cGames, ap[0].szName, ms.anScore[0], ap[1].szName, ms.anScore[1]);
 
     if (ms.nMatchTo > 0) {
