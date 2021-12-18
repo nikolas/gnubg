@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: mtsupport.c,v 1.20 2020/04/26 19:27:01 plm Exp $
+ * $Id: mtsupport.c,v 1.21 2021/03/07 20:56:59 plm Exp $
  */
 
 /*
@@ -88,11 +88,6 @@ TLSCreate(TLSItem * pItem)
     *pItem = g_private_new(g_free);
 }
 #endif
-
-extern void
-TLSFree(TLSItem UNUSED(pItem))
-{                               /* Done automaticaly by glib */
-}
 
 extern void
 TLSSetValue(TLSItem pItem, size_t value)

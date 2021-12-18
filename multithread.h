@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: multithread.h,v 1.60 2018/01/21 16:14:38 plm Exp $
+ * $Id: multithread.h,v 1.61 2020/04/26 19:27:35 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -125,7 +125,6 @@ extern void Mutex_Release(Mutex *mutex);
 extern void WaitForManualEvent(ManualEvent ME);
 extern void SetManualEvent(ManualEvent ME);
 extern void TLSSetValue(TLSItem pItem, size_t value);
-extern void TLSFree(TLSItem pItem);
 extern void InitManualEvent(ManualEvent * pME);
 extern void FreeManualEvent(ManualEvent ME);
 extern void InitMutex(Mutex * pMutex);
