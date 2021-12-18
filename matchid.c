@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchid.c,v 1.29 2021/07/14 19:22:36 plm Exp $
+ * $Id: matchid.c,v 1.30 2021/12/18 22:06:37 plm Exp $
  */
 
 #include "config.h"
@@ -110,7 +110,7 @@ GetBits(const unsigned char *pc, const unsigned int bitPos, const unsigned int n
 }
 
 
-extern char *
+static char *
 MatchIDFromKey(unsigned char auchKey[9])
 {
     unsigned char *puch = auchKey;

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchid.h,v 1.17 2016/08/24 21:58:36 plm Exp $
+ * $Id: matchid.h,v 1.18 2021/07/14 19:21:45 plm Exp $
  */
 
 #ifndef MATCHID_H
@@ -31,8 +31,7 @@ typedef struct {
     gamestate gs;
 } posinfo;
 
-extern int
- LogCube(int n);
+extern int LogCube(int n);
 
 extern char *MatchID(const unsigned int anDice[2],
                      const int fTurn,
@@ -43,10 +42,7 @@ extern char *MatchID(const unsigned int anDice[2],
                      const int fCrawford, const int nMatchTo, const int anScore[2], const int nCube,
                      const int fJacoby, const gamestate gs);
 
-extern char *MatchIDFromKey(unsigned char auchKey[9]);
-
-extern int
-MatchFromID(unsigned int anDice[2],
+extern int MatchFromID(unsigned int anDice[2],
             int *pfTurn,
             int *pfResigned,
             int *pfDoubled, int *pfMove, int *pfCubeOwner, int *pfCrawford, int *pnMatchTo, int anScore[2], int *pnCube,
