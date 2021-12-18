@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.964 2021/11/20 22:34:53 plm Exp $
+ * $Id: gtkgame.c,v 1.965 2021/12/12 21:39:36 plm Exp $
  */
 
 #include "config.h"
@@ -4378,7 +4378,6 @@ OK(GtkWidget * pw, int *pf)
 static void
 TutorEnd(GtkWidget * pw, int *pf)
 {
-
     if (pf)
         *pf = TRUE;
 
@@ -4407,7 +4406,7 @@ GtkTutor(char *sz)
     GtkWidget *pwTutorDialog, *pwOK, *pwCancel, *pwEndTutor, *pwButtons, *pwPrompt, *pwHint;
 
     pwTutorDialog = GTKCreateDialog(_("GNU Backgammon - Tutor"),
-                                    DT_QUESTION, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(OK), (void *) &f);
+                                    DT_CUSTOM, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(OK), (void *) &f);
 
     pwOK = DialogArea(pwTutorDialog, DA_OK);
     gtk_button_set_label(GTK_BUTTON(pwOK), _("Play Anyway"));
