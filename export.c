@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: export.c,v 1.96 2020/11/25 21:34:55 plm Exp $
+ * $Id: export.c,v 1.97 2021/09/27 22:07:04 plm Exp $
  */
 
 #include "config.h"
@@ -1191,7 +1191,11 @@ ExportGameJF(FILE * pf, listOLD * plGame, int iGame, int withScore, int fSst)
 
                     /* I don't understand why we need to swap this field! */
                     ct = strstr(buffer, ";");
-                    ct[7] = (ct[7] == '0') ? '1' : '0';
+                    if (ct == NULL || strlen(ct) < 8) {
+                        g_assert_not_reached();
+                        fprintf(pf, "Corrupt Snowie position string (%s)\n", buffer);
+                    } else
+                        ct[7] = (ct[7] == '0') ? '1' : '0';
                 }
             }
             if (!(i & 1))
