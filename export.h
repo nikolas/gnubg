@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: export.h,v 1.42 2019/12/07 22:56:54 plm Exp $
+ * $Id: export.h,v 1.43 2021/03/24 22:20:56 plm Exp $
  */
 
 #include <glib.h>
@@ -30,14 +30,14 @@
 #define EXPORT_CUBE_MISSED   5
 #define EXPORT_CUBE_CLOSE    6
 
-typedef enum _htmlexporttype {
+typedef enum {
     HTML_EXPORT_TYPE_GNU,
     HTML_EXPORT_TYPE_BBS,
     HTML_EXPORT_TYPE_FIBS2HTML,
     NUM_HTML_EXPORT_TYPES
 } htmlexporttype;
 
-typedef enum _htmlexportcss {
+typedef enum {
     HTML_EXPORT_CSS_HEAD,
     HTML_EXPORT_CSS_INLINE,
     HTML_EXPORT_CSS_EXTERNAL,
@@ -48,7 +48,7 @@ extern const char *aszHTMLExportType[];
 extern const char *aszHTMLExportCSS[];
 extern const char *aszHTMLExportCSSCommand[];
 
-typedef struct _exportsetup {
+typedef struct {
 
     int fIncludeAnnotation;
     int fIncludeAnalysis;
