@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.223 2021/10/27 20:52:31 plm Exp $
+ * $Id: import.c,v 1.224 2021/11/12 19:51:01 plm Exp $
  */
 
 #include "config.h"
@@ -668,7 +668,7 @@ ParseMatMove(char *sz, int iPlayer, int *warned)
         if (!StrNCaseCmp(sz + 4, "illegal play", 12)) {
             /* Snowie type illegal play */
 
-            int nMatchTo, fJacobyRule, fUnused1, fUnused2, fTurn, fCrawfordGame;
+            int nMatchTo, fJacobyRule, fUnused1, fUnused2, fTurn = 0, fCrawfordGame;
             int anScore[2], nCube, fCubeOwner, anDice[2];
             TanBoard anBoard;
             char aszPlayer[2][MAX_NAME_LEN];
