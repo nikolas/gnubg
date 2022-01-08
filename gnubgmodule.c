@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.202 2021/10/10 19:26:39 plm Exp $
+ * $Id: gnubgmodule.c,v 1.203 2021/11/26 22:33:10 plm Exp $
  */
 
 #include "config.h"
@@ -2245,7 +2245,7 @@ PyMoveAnalysis(const movelist * pml, PyMatchState * ms)
 SIMD_STACKALIGN static PyObject *
 PyDoubleAnalysis(const evalsetup * pes,
                  float aarOutput[][NUM_ROLLOUT_OUTPUTS],
-                 float const aarStdDev[][NUM_ROLLOUT_OUTPUTS],
+                 float aarStdDev[][NUM_ROLLOUT_OUTPUTS],
                  PyMatchState * ms, const int verbose)
 {
     PyObject *dict = 0;
