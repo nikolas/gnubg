@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmet.c,v 1.31 2017/05/29 20:05:19 plm Exp $
+ * $Id: gtkmet.c,v 1.32 2020/01/25 21:44:05 plm Exp $
  */
 
 #include "config.h"
@@ -25,7 +25,7 @@
 #include "gtkmet.h"
 #include "gtkwindows.h"
 
-typedef struct _mettable {
+typedef struct {
     GtkWidget *pwTable;
     GtkWidget *pwName;
     GtkWidget *pwFileName;
@@ -33,7 +33,7 @@ typedef struct _mettable {
     GtkWidget *aapwLabel[MAXSCORE][MAXSCORE];
 } mettable;
 
-typedef struct _metwidget {
+typedef struct {
     GtkWidget *apwPostCrawford[2];
     GtkWidget *pwPreCrawford;
     unsigned int nMatchTo;
@@ -209,6 +209,13 @@ GTKShowMatchEquityTable(const unsigned int nMatchTo, const int anScore[2])
     GtkWidget *pwLoad = gtk_button_new_with_label(_("Load table..."));
 
     GtkWidget *pwInvertButton = gtk_toggle_button_new_with_label(_("Invert table"));
+
+    /* similar tooltip is used in gtkoptions.c:append_match_options() */
+    gtk_widget_set_tooltip_text(pwInvertButton,
+                                _("Use the specified match equity table "
+                                  "around the other way (i.e., swap the players before "
+                                  "looking up equities in the table)."));
+
     metwidget mw;
 
     mw.nMatchTo = nMatchTo;

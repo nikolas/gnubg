@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.132 2021/09/17 21:38:09 plm Exp $
+ * $Id: gtkoptions.c,v 1.133 2021/10/12 20:59:09 plm Exp $
  */
 
 #include "config.h"
@@ -894,6 +894,8 @@ append_match_options(optionswidget * pow)
 
     pow->pwCubeInvert = gtk_check_button_new_with_label(_("Invert table"));
     gtk_box_pack_start(GTK_BOX(pwb), pow->pwCubeInvert, FALSE, FALSE, 0);
+
+    /* similar tooltip is used in gtkmet.c:GTKShowMatchEquityTable() */
     gtk_widget_set_tooltip_text(pow->pwCubeInvert,
                                 _("Use the specified match equity table "
                                   "around the other way (i.e., swap the players before "
