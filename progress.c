@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: progress.c,v 1.84 2021/09/25 21:47:21 plm Exp $
+ * $Id: progress.c,v 1.85 2021/11/20 15:18:32 plm Exp $
  */
 
 #include "config.h"
@@ -738,6 +738,8 @@ create_rollout_list(int n, char asz[][FORMATEDMOVESIZE], GtkWidget ** View, GtkL
         renderer = gtk_cell_renderer_text_new();
         column = gtk_tree_view_column_new_with_attributes(aszTemp[i], renderer, "text", i, NULL);
         gtk_tree_view_append_column(GTK_TREE_VIEW(*View), column);
+        if (i == 0)
+            gtk_tree_view_column_set_expand(column, TRUE);
         gtk_tree_view_column_set_sort_column_id(column, i);
     }
     gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(sort_model), RANK_C, GTK_SORT_ASCENDING);
