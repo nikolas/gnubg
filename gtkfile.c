@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.73 2019/08/22 20:25:06 plm Exp $
+ * $Id: gtkfile.c,v 1.74 2019/10/27 21:17:06 plm Exp $
  */
 
 #include "config.h"
@@ -139,7 +139,7 @@ GTKFileSelect(const gchar * prompt, const gchar * extension, const gchar * folde
     return filename;
 }
 
-typedef struct _SaveOptions {
+typedef struct {
     GtkWidget *fc, *description, *mgp, *upext;
 } SaveOptions;
 
@@ -655,7 +655,7 @@ batch_create_view(GSList * filenames)
 
     gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _("Type"), renderer, "text", COL_DESC, NULL);
 
-    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, ("File"), renderer, "text", COL_FILE, NULL);
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _("File"), renderer, "text", COL_FILE, NULL);
     model = batch_create_model(filenames);
 
     gtk_tree_view_set_model(GTK_TREE_VIEW(view), model);
