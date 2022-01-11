@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: format.c,v 1.67 2021/11/12 20:08:21 plm Exp $
+ * $Id: format.c,v 1.68 2021/11/21 20:12:21 plm Exp $
  */
 
 #include "config.h"
@@ -346,10 +346,12 @@ OutputRolloutContext(const char *szIndent, const rolloutcontext * prc)
     if (szIndent && *szIndent)
         strcat(sz, szIndent);
 
-    sprintf(strchr(sz, 0), "%u games", prc->nGamesDone);
+    sprintf(strchr(sz, 0), _("%u games"), prc->nGamesDone);
 
-    if (prc->fInitial)
-        strcat(sz, ", rollout as initial position");
+    if (prc->fInitial) {
+        strcat(sz, ", ");
+        strcat(sz, _("rollout as initial position"));
+    }
 
     strcat(sz, ", ");
     if (prc->fRotate)
