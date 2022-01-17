@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.43 2021/09/27 21:37:08 plm Exp $
+ * $Id: graph.c,v 1.44 2021/11/26 20:19:28 plm Exp $
  */
 
 #include "config.h"
@@ -58,7 +58,7 @@ configureCB(GtkWidget * widget, void *data)
     width = allocation.width;
     height = allocation.height;
     maxX = (float) gd->numGames * RES_WIDTH + RES_WIDTH + TOTAL_GAP;
-    modelWidth = maxX * (1 + NUM_WIDTH_PER);
+    modelWidth = maxX * (NUM_WIDTH_PER + 1 + NUM_WIDTH_PER);
 
     maxY = gd->maxY * 1.05f + 1;
     modelHeight = maxY * (1 + NUM_HEIGHT_PER);
