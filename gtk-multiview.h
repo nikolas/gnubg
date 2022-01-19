@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtk-multiview.h,v 1.9 2013/07/22 18:51:01 mdpetch Exp $
+ * $Id: gtk-multiview.h,v 1.10 2019/11/21 22:04:25 plm Exp $
  */
 
 #ifndef __GTK_MULTIVIEW_H__
@@ -32,20 +32,17 @@
 #define GTK_MULTIVIEW_GET_CLASS(obj)  		(G_TYPE_INSTANCE_GET_CLASS((obj), GTK_TYPE_MULTIVIEW, GtkMultiviewClass))
 
 
-typedef struct _GtkMultiview GtkMultiview;
-typedef struct _GtkMultiviewClass GtkMultiviewClass;
-
-struct _GtkMultiview {
+typedef struct {
     GtkContainer parent;
 
     /*< private > */
     GtkWidget *current;
     GList *children;
-};
+} GtkMultiview;
 
-struct _GtkMultiviewClass {
+typedef struct {
     GtkContainerClass parent_class;
-};
+} GtkMultiviewClass;
 
 GType gtk_multiview_get_type(void);
 GtkWidget *gtk_multiview_new(void);
