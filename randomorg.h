@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: randomorg.h,v 1.3 2019/10/17 20:15:51 plm Exp $
+ * $Id: randomorg.h,v 1.4 2020/02/23 21:07:07 plm Exp $
  */
 
 #ifndef RANDOMORG_H
@@ -37,7 +37,7 @@
 #define RANDOMORG_CERTPATH ".\\etc\\ssl\\"
 #define RANDOMORG_CABUNDLE "ca-bundle.crt"
 
-typedef struct _RandomData {
+typedef struct {
     size_t nNumRolls;
     int nCurrent;
     unsigned int anBuf[BUFLENGTH];
