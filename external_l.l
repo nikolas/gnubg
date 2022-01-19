@@ -15,14 +15,12 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external_l.l,v 1.30 2020/03/27 14:27:49 plm Exp $
+ * $Id: external_l.l,v 1.31 2021/03/24 22:18:40 plm Exp $
  */
 
 #include "common.h"
 #include "external.h"
-#include <stdio.h>
 
-#define EXTERNAL_Y_H
 #include "external_y.h"
 
 extern int ext_parse(yyscan_t scanner);
