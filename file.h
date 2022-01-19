@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: file.h,v 1.10 2013/11/13 23:39:51 plm Exp $
+ * $Id: file.h,v 1.11 2019/12/19 20:55:30 plm Exp $
  */
 
 #ifndef FILE_H
@@ -51,27 +51,25 @@ typedef enum {
     N_IMPORT_TYPES
 } ImportType;
 
-typedef struct _ExportFormat ExportFormat;
-struct _ExportFormat {
+typedef struct {
     ExportType type;
     const char *extension;
     const char *description;
     const char *clname;
     int exports[3];
-};
+} ExportFormat;
 
-typedef struct _ImportFormat ImportFormat;
-struct _ImportFormat {
+typedef struct {
     ImportType type;
     const char *extension;
     const char *description;
     const char *clname;
-};
+} ImportFormat;
 
 extern ExportFormat export_format[];
 extern ImportFormat import_format[];
 
-typedef struct _FilePreviewData {
+typedef struct {
     ImportType type;
 } FilePreviewData;
 
