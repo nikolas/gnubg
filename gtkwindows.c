@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkwindows.c,v 1.61 2019/11/09 22:23:53 Superfly_Jon Exp $
+ * $Id: gtkwindows.c,v 1.62 2019/11/14 20:40:11 plm Exp $
  */
 
 #include "config.h"
@@ -30,7 +30,7 @@
 #include <glib/gi18n.h>
 typedef void (*dialog_func_ty) (GtkWidget *, void *);
 
-typedef struct _Warning {
+typedef struct {
     char *warningString;
     char *warningName;
     int warningEnabled;
@@ -80,7 +80,7 @@ quitter(GtkWidget * UNUSED(widget), GtkWidget * parent)
         gtk_window_present(GTK_WINDOW(parent));
 }
 
-typedef struct _CallbackStruct {
+typedef struct {
     void (*DialogFun) (GtkWidget *, void *);
     gpointer data;
 } CallbackStruct;
