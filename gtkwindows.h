@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkwindows.h,v 1.25 2019/11/09 22:23:54 Superfly_Jon Exp $
+ * $Id: gtkwindows.h,v 1.26 2019/11/14 20:39:10 plm Exp $
  */
 
 #ifndef GTKWINDOWS_H
@@ -37,13 +37,13 @@ enum {                          /* Dialog flags */
     DIALOG_FLAG_NORESPONSE = 32
 };
 
-typedef enum _dialogarea {
+typedef enum {
     DA_MAIN,
     DA_BUTTONS,
     DA_OK
 } dialogarea;
 
-typedef enum _dialogtype {
+typedef enum {
     DT_INFO,
     DT_QUESTION,
     DT_AREYOUSURE,
@@ -65,7 +65,7 @@ extern int GTKMessage(const char *sz, dialogtype dt);
 extern void GTKSetCurrentParent(GtkWidget * parent);
 extern GtkWidget *GTKGetCurrentParent(void);
 
-typedef enum _warningType {
+typedef enum {
     WARN_FULLSCREEN_EXIT = 0,
     WARN_SET_SHADOWS,
     WARN_UNACCELERATED,
