@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkexport.c,v 1.57 2020/01/25 21:41:14 plm Exp $
+ * $Id: gtkexport.c,v 1.58 2021/03/03 20:58:20 plm Exp $
  */
 
 #include "config.h"
@@ -64,7 +64,7 @@ static char *aszCubeDisplay[] = {
 
 #define NUM_CUBES (sizeof(aszCubeDisplay)/sizeof(aszCubeDisplay[0]))
 
-typedef struct _exportwidget {
+typedef struct {
 
     /* export settings */
 
