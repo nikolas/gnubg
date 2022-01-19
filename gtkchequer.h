@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkchequer.h,v 1.22 2020/01/25 21:37:08 plm Exp $
+ * $Id: gtkchequer.h,v 1.23 2021/10/05 20:58:46 plm Exp $
  */
 
 #ifndef GTKCHEQUER_H
@@ -23,7 +23,7 @@
 
 #include "backgammon.h"
 
-typedef struct hintdata {
+typedef struct {
     GtkWidget *pwMoves;         /* the movelist */
     GtkWidget *pwRollout, *pwRolloutSettings;   /* rollout buttons */
     GtkWidget *pwEval, *pwEvalSettings; /* evaluation buttons */
