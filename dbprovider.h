@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dbprovider.h,v 1.19 2018/07/31 20:15:11 plm Exp $
+ * $Id: dbprovider.h,v 1.20 2019/12/09 19:54:47 plm Exp $
  */
 
 #ifndef DBPROVIDER_H
@@ -25,13 +25,13 @@
 #include <glib.h>
 extern int storeGameStats;
 
-typedef struct _RowSet {
+typedef struct {
     size_t cols, rows;
     char ***data;
     size_t *widths;
 } RowSet;
 
-typedef struct _DBProvider {
+typedef struct {
     int (*Connect) (const char *database, const char *user, const char *password, const char *hostname);
     void (*Disconnect) (void);
     RowSet *(*Select) (const char *str);
@@ -51,7 +51,7 @@ typedef struct _DBProvider {
     const char *hostname;
 } DBProvider;
 
-typedef enum _DBProviderType {
+typedef enum {
     INVALID_PROVIDER = -1,
 #if defined(USE_SQLITE)
     SQLITE,
