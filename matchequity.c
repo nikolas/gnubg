@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchequity.c,v 1.103 2020/07/15 20:45:47 plm Exp $
+ * $Id: matchequity.c,v 1.104 2021/03/10 20:53:48 plm Exp $
  */
 
 #include "config.h"
@@ -39,22 +39,18 @@
 #include "backgammon.h"
 
 
-typedef struct _parameter {
-
+typedef struct {
     char *szName;
     float value;
-
 } parameter;
 
 
-typedef struct _metparameters {
-
+typedef struct {
     char *szName;
     listOLD lParameters;
-
 } metparameters;
 
-typedef struct _metdata {
+typedef struct {
 
     /* Data saved */
 
@@ -1024,7 +1020,7 @@ typedef enum {
     MP_PLAYER_BOTH = 2
 } metplayer;
 
-typedef struct _MatchEquityParser {
+typedef struct {
     parserstate state;
     tabletype type;
     metplayer player;
