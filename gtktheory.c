@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktheory.c,v 1.73 2021/09/02 19:21:06 plm Exp $
+ * $Id: gtktheory.c,v 1.74 2021/11/29 19:57:24 plm Exp $
  */
 
 #include "config.h"
@@ -618,8 +618,8 @@ GTKShowTheory(const int fActivePage)
 
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), 660, 300);
 
-    ptw = malloc(sizeof(theorywidget));
-    g_object_set_data_full(G_OBJECT(pwDialog), "theorywidget", ptw, free);
+    ptw = g_malloc(sizeof(theorywidget));
+    g_object_set_data_full(G_OBJECT(pwDialog), "theorywidget", ptw, g_free);
 
 #if GTK_CHECK_VERSION(3,0,0)
     pwOuterHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
