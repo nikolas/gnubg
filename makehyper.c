@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: makehyper.c,v 1.55 2021/09/02 19:26:18 plm Exp $
+ * $Id: makehyper.c,v 1.56 2022/01/16 15:30:16 plm Exp $
  */
 
 #include "config.h"
@@ -627,12 +627,12 @@ main(int argc, char **argv)
     if (szEpsilon)
         rEpsilon = (float) g_strtod(szEpsilon, NULL);
     if (rEpsilon > 1.0f || rEpsilon < 0.0f) {
-        g_printerr("Valid threadholds are 0.0 - 1.0\n");
+        g_printerr(_("Valid threadholds are 0.0 - 1.0\n"));
         exit(1);
     }
 
     if (nC < 1 || nC > 3) {
-        g_printerr("Illegal options. Try `makehyper --help' for usage " "information\n");
+        g_printerr(_("Illegal options. Try `makehyper --help' for usage information\n"));
         exit(1);
     }
 

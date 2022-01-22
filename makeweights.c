@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: makeweights.c,v 1.27 2019/09/15 20:05:05 plm Exp $
+ * $Id: makeweights.c,v 1.28 2019/12/27 22:29:46 plm Exp $
  */
 
 #include "config.h"
@@ -31,8 +31,8 @@
 static void
 usage(char *prog)
 {
-    fprintf(stderr, "Usage: %s [[-f] outputfile [inputfile]]\n"
-            "  outputfile: Output to file instead of stdout\n" "  inputfile: Input from file instead of stdin\n", prog);
+    fprintf(stderr, _("Usage: %s [[-f] outputfile [inputfile]]\n"
+            "  outputfile: Output to file instead of stdout\n" "  inputfile: Input from file instead of stdin\n"), prog);
 
     exit(1);
 }
@@ -85,17 +85,17 @@ main(int argc, /*lint -e{818} */ char *argv[])
     }
 
     if (fwrite(ar, sizeof(ar[0]), 2, output) != 2) {
-        fprintf(stderr, "Failed to write neural net!");
+        fprintf(stderr, _("Failed to write neural net!"));
         return EXIT_FAILURE;
     }
 
     for (c = 0; !feof(input); c++) {
         if (NeuralNetLoad(&nn, input) == -1) {
-            fprintf(stderr, "Failed to load neural net!");
+            fprintf(stderr, _("Failed to load neural net!"));
             return EXIT_FAILURE;
         }
         if (NeuralNetSaveBinary(&nn, output) == -1) {
-            fprintf(stderr, "Failed to save neural net!");
+            fprintf(stderr, _("Failed to save neural net!"));
             return EXIT_FAILURE;
         }
         NeuralNetDestroy(&nn);
