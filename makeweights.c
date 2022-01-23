@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: makeweights.c,v 1.28 2019/12/27 22:29:46 plm Exp $
+ * $Id: makeweights.c,v 1.29 2022/01/22 20:11:58 plm Exp $
  */
 
 #include "config.h"
@@ -74,6 +74,8 @@ main(int argc, /*lint -e{818} */ char *argv[])
 
     if (fscanf(input, "GNU Backgammon %15s\n", szFileVersion) != 1) {
         fprintf(stderr, _("%s: invalid weights file\n"), argv[0]);
+        fclose(input);
+        fclose(output);
         return EXIT_FAILURE;
     }
 
@@ -81,27 +83,38 @@ main(int argc, /*lint -e{818} */ char *argv[])
         fprintf(stderr, _("%s: incorrect weights version\n"
                           "(version %s is required, "
                           "but these weights are %s)\n"), argv[0], WEIGHTS_VERSION, szFileVersion);
+        fclose(input);
+        fclose(output);
         return EXIT_FAILURE;
     }
 
     if (fwrite(ar, sizeof(ar[0]), 2, output) != 2) {
         fprintf(stderr, _("Failed to write neural net!"));
+        fclose(input);
+        fclose(output);
         return EXIT_FAILURE;
     }
 
     for (c = 0; !feof(input); c++) {
         if (NeuralNetLoad(&nn, input) == -1) {
             fprintf(stderr, _("Failed to load neural net!"));
+            fclose(input);
+            fclose(output);
             return EXIT_FAILURE;
         }
         if (NeuralNetSaveBinary(&nn, output) == -1) {
             fprintf(stderr, _("Failed to save neural net!"));
+            fclose(input);
+            fclose(output);
             return EXIT_FAILURE;
         }
         NeuralNetDestroy(&nn);
     }
 
     fprintf(stderr, _("%d nets converted\n"), c);
+
+    fclose(input);
+    fclose(output);
 
     return EXIT_SUCCESS;
 
