@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external.c,v 1.105 2021/03/24 22:17:49 plm Exp $
+ * $Id: external.c,v 1.106 2021/09/27 22:07:04 plm Exp $
  */
 
 #include "config.h"
@@ -158,7 +158,10 @@ ExternalSocket(struct sockaddr **ppsa, int *pcb, char *sz)
 #else
         if (setsockopt(sock, SOL_SOCKET, SO_REUSEADDR, &f, sizeof f))
 #endif                          /* WIN32 */
-            return -1;
+            {
+                close(sock);
+                return -1;
+            }
 
         psin = g_malloc(*pcb = sizeof(struct sockaddr_in));
         memset(psin, 0, sizeof(*psin));
