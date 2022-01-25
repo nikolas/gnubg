@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sgf.c,v 1.170 2021/10/30 14:11:41 plm Exp $
+ * $Id: sgf.c,v 1.171 2021/11/14 21:41:22 plm Exp $
  */
 
 #include "config.h"
@@ -1620,7 +1620,7 @@ WriteEscapedString(FILE * pf, char *pch, int fEscapeColons)
             break;
         }
 
-    *pc++ = 0;
+    *pc = 0;
 
     fputs(sz, pf);
     g_free(sz);
