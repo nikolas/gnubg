@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.472 2022/01/11 20:59:17 plm Exp $
+ * $Id: play.c,v 1.473 2022/01/23 20:25:58 plm Exp $
  */
 
 #include "config.h"
@@ -441,7 +441,7 @@ FreeMoveRecord(moverecord * pmr)
     switch (pmr->mt) {
     case MOVE_NORMAL:
         if (pmr->ml.cMoves && pmr->ml.amMoves) {
-            free(pmr->ml.amMoves);
+            g_free(pmr->ml.amMoves);
             pmr->ml.amMoves = NULL;
         }
         break;
@@ -543,7 +543,7 @@ copy_from_pmr_cur(moverecord * pmr, gboolean get_move, gboolean get_cube)
         return;
     if (get_move && pmr_cur->ml.cMoves > 0) {
         if (pmr->ml.cMoves > 0)
-            free(pmr->ml.amMoves);
+            g_free(pmr->ml.amMoves);
         CopyMoveList(&pmr->ml, &pmr_cur->ml);
         pmr->n.iMove = locateMove(msBoard(), pmr->n.anMove, &pmr->ml);
     }

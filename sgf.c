@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sgf.c,v 1.171 2021/11/14 21:41:22 plm Exp $
+ * $Id: sgf.c,v 1.172 2022/01/25 20:17:17 plm Exp $
  */
 
 #include "config.h"
@@ -970,7 +970,7 @@ RestoreMoveAnalysis(property * pp, int fPlayer,
     pml->cMaxMoves = pml->cMaxPips = pml->iMoveBest = 0;
     pml->rBestScore = 0;
 
-    pm = pml->amMoves = calloc(pml->cMoves, sizeof(move));
+    pm = pml->amMoves = g_malloc0(pml->cMoves * sizeof(move));
 
     pesChequer->et = EVAL_NONE;
 

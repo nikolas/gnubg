@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.967 2022/01/11 20:56:42 plm Exp $
+ * $Id: gtkgame.c,v 1.968 2022/01/13 21:14:18 plm Exp $
  */
 
 #include "config.h"
@@ -5773,7 +5773,7 @@ DestroyHint(gpointer p, GObject * UNUSED(obj))
 
     if (pml) {
         if (pml->amMoves)
-            free(pml->amMoves);
+            g_free(pml->amMoves);
 
         free(pml);
     }
