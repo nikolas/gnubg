@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: output.c,v 1.5 2017/11/02 21:32:12 plm Exp $
+ * $Id: output.c,v 1.6 2019/11/21 22:05:37 plm Exp $
  */
 
 #include "config.h"
@@ -72,7 +72,7 @@ output(const char *sz)
         return;
     }
 #endif
-    fprintf(stdout, "%s", sz);
+    g_print("%s", sz);
     if (!isatty(STDOUT_FILENO))
         fflush(stdout);
 }
@@ -227,4 +227,26 @@ outputresume(void)
     if (!--cOutputPostponed) {
         outputx();
     }
+}
+
+extern void
+print_utf8_to_locale(const gchar *sz)
+{
+    GError *error = NULL;
+    gchar *szl = g_locale_from_utf8(sz, -1, NULL, NULL, &error);
+
+#if 0
+    if (error) {
+        g_printerr("g_locale_from_utf8 failed: %s\n", error->message);
+        g_error_free(error);
+    }
+#endif
+
+    if (szl != NULL)
+        printf("%s", szl);
+    else
+        /* conversion failed, showing original string seems better than nothing */
+        printf("%s", sz);
+
+    g_free(szl);
 }

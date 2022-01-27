@@ -15,12 +15,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: output.h,v 1.4 2017/11/02 21:49:05 plm Exp $
+ * $Id: output.h,v 1.5 2019/11/21 22:05:38 plm Exp $
  */
 
 #ifndef OUTPUT_H
 #define OUTPUT_H
+
 #include <stdarg.h>
+#include <glib.h>
 #include "common.h"
 
 /* Initialize output module */
@@ -74,5 +76,7 @@ extern void outputon(void);
 extern int cOutputDisabled;
 extern int cOutputPostponed;
 extern int foutput_on;
+
+extern void print_utf8_to_locale(const gchar *sz);
 
 #endif
