@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: renderprefs.c,v 1.59 2019/12/02 13:25:02 plm Exp $
+ * $Id: renderprefs.c,v 1.60 2021/11/06 22:06:57 plm Exp $
  */
 
 #include "config.h"
@@ -103,7 +103,7 @@ SetColourF(float arColour[4], const char *sz)
     unsigned char anColour[3];
 
     if ((pch = strchr(sz, ';')))
-        *pch++ = 0;
+        *pch = 0;
 
     if (!SetColour(sz, anColour)) {
         arColour[0] = anColour[0] / 255.0f;
@@ -243,7 +243,7 @@ SetColourARSS(float aarColour[2][4],
             arExponent[i] = (float) g_ascii_strtod(pch, NULL);
 
             if ((pch = strchr(pch, ';')))
-                *pch++ = 0;
+                *pch = 0;
         } else
             arExponent[i] = 10.0f;
 
@@ -288,7 +288,7 @@ SetColourSSF(float aarColour[2][4], gfloat arCoefficient[2], gfloat arExponent[2
             afDieColour[i] = (toupper(*pch) == 'Y');
 
             if ((pch = strchr(pch, ';')))
-                *pch++ = 0;
+                *pch = 0;
         } else
             afDieColour[i] = TRUE;
 
