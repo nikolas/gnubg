@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.203 2021/11/26 22:33:10 plm Exp $
+ * $Id: gnubgmodule.c,v 1.204 2022/01/08 22:36:50 plm Exp $
  */
 
 #include "config.h"
@@ -247,7 +247,7 @@ PyToCubeInfo(PyObject * p, cubeinfo * pci)
     apv[i++] = &pci->bgv;
     apv[i++] = &pci->fCubeOwner;
     apv[i++] = pci->anScore;
-    apv[i++] = pci->arGammonPrice;
+    apv[i] = pci->arGammonPrice;
 
     while (PyDict_Next(p, &iPos, &pyKey, &pyValue)) {
         char *pchKey;
@@ -331,7 +331,7 @@ PyToMoveFilter(PyObject * p, movefilter * pmf, int *ply, int *level)
     apv[i++] = level;
     apv[i++] = &pmf->Accept;
     apv[i++] = &pmf->Extra;
-    apv[i++] = &pmf->Threshold;
+    apv[i] = &pmf->Threshold;
 
     if (!PyDict_Check(p))
         return -1;
@@ -545,7 +545,7 @@ PyToPosInfo(PyObject * p, posinfo * ppi)
     apv[i++] = &ppi->fResigned;
     apv[i++] = &ppi->fDoubled;
     apv[i++] = &ppi->gs;
-    apv[i++] = &ppi->anDice;
+    apv[i] = &ppi->anDice;
 
     while (PyDict_Next(p, &iPos, &pyKey, &pyValue)) {
         char *pchKey;
@@ -2929,7 +2929,7 @@ PythonMatch(PyObject * UNUSED(self), PyObject * args, PyObject * keywds)
                 PyTuple_SET_ITEM(rules, n++, PyUnicode_FromString("Crawford"));
             }
             if (g->fJacoby) {
-                PyTuple_SET_ITEM(rules, n++, PyUnicode_FromString("Jacoby"));
+                PyTuple_SET_ITEM(rules, n, PyUnicode_FromString("Jacoby"));
             }
 
             DictSetItemSteal(matchInfoDict, "rules", rules);
