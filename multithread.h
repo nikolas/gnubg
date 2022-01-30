@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: multithread.h,v 1.61 2020/04/26 19:27:35 plm Exp $
+ * $Id: multithread.h,v 1.62 2021/12/18 19:37:38 plm Exp $
  */
 
 #ifndef MULTITHREAD_H
@@ -45,13 +45,13 @@ void multi_debug(const char *str, ...);
 #define multi_debug(x)
 #endif
 
-typedef struct _Task {
+typedef struct Task {
     AsyncFun fun;
     void *data;
-    struct _Task *pLinkedTask;
+    struct Task *pLinkedTask;
 } Task;
 
-typedef struct _AnalyseMoveTask {
+typedef struct {
     Task task;
     moverecord *pmr;
     listOLD *plGame;
@@ -59,20 +59,20 @@ typedef struct _AnalyseMoveTask {
     matchstate ms;
 } AnalyseMoveTask;
 
-typedef struct _ThreadLocalData {
+typedef struct {
     int id;
     move *aMoves;
     NNState *pnnState;
 } ThreadLocalData;
 
-typedef struct _ManualEvent {
+typedef struct {
 #if GLIB_CHECK_VERSION (2,32,0)
     GCond cond;
 #else
     GCond *cond;
 #endif
     int signalled;
-} *ManualEvent;
+} * ManualEvent;	/* a ManualEvent is a pointer to this struct */
 
 typedef GPrivate *TLSItem;
 
@@ -82,7 +82,7 @@ typedef GMutex Mutex;
 typedef GMutex *Mutex;
 #endif
 
-typedef struct _ThreadData {
+typedef struct {
     GList *tasks;
     int doneTasks;
     int result;
