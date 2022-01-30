@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: bearoff.h,v 1.35 2018/09/23 17:43:06 plm Exp $
+ * $Id: bearoff.h,v 1.36 2019/12/02 12:46:26 plm Exp $
  */
 
 #ifndef BEAROFF_H
@@ -25,14 +25,14 @@
 
 #include <glib.h>
 
-typedef enum _bearofftype {
+typedef enum {
     BEAROFF_INVALID,
     BEAROFF_ONESIDED,
     BEAROFF_TWOSIDED,
     BEAROFF_HYPERGAMMON
 } bearofftype;
 
-typedef struct _bearoffcontext {
+typedef struct {
     bearofftype bt;             /* type of bearoff database */
     unsigned int nPoints;       /* number of points covered by database */
     unsigned int nChequers;     /* number of chequers for one-sided database */
@@ -49,7 +49,7 @@ typedef struct _bearoffcontext {
     unsigned char *p;           /* pointer to data in memory */
 } bearoffcontext;
 
-enum _bearoffoptions {
+enum bearoffoptions {
     BO_NONE = 0,
     BO_IN_MEMORY = 1,
     BO_MUST_BE_ONE_SIDED = 2,
