@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.968 2022/01/13 21:14:18 plm Exp $
+ * $Id: gtkgame.c,v 1.969 2022/01/26 20:40:57 plm Exp $
  */
 
 #include "config.h"
@@ -5940,7 +5940,7 @@ static void
 SetMouseCursor(GdkCursorType cursorType)
 {
     if (!GDK_IS_WINDOW(gtk_widget_get_window(pwMain))) {
-        g_print("no window\n");
+        g_assert_not_reached();
         return;
     }
     if (cursorType) {
