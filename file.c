@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: file.c,v 1.36 2019/12/19 20:54:40 plm Exp $
+ * $Id: file.c,v 1.37 2021/09/27 21:59:35 plm Exp $
  */
 
 #include "config.h"
@@ -423,7 +423,7 @@ IsBGRFile(FileHelper * fh)
     if (fhReadStringNC(fh, "bgf version")) {
         fhSkipWS(fh);
         if (!fhReadString(fh, "1.2"))
-            printf("Unexpected version of bgroom file!\n");
+            g_print(_("Unexpected version of BGRoom file!\n"));
 
         return TRUE;
     }
