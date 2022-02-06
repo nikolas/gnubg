@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.227 2021/11/19 21:43:03 plm Exp $
+ * $Id: gtkprefs.c,v 1.228 2021/11/21 20:18:12 plm Exp $
  */
 
 #include "config.h"
@@ -852,7 +852,7 @@ ChequerPrefs(BoardData * bd, int f)
 
         gtk_box_pack_start(GTK_BOX(pwBox), gtk_label_new(_("Flat")), FALSE, FALSE, 4);
         gtk_box_pack_start(GTK_BOX(pwBox), pwScale, FALSE, FALSE, 0);
-        gtk_box_pack_start(GTK_BOX(pwBox), gtk_label_new(_("Round")), FALSE, FALSE, 4);
+        gtk_box_pack_start(GTK_BOX(pwBox), gtk_label_new(_("Rounded")), FALSE, FALSE, 4);
 
         gtk_box_pack_start(GTK_BOX(pw), pwBox, FALSE, FALSE, 4);
     }
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.227 2021/11/19 21:43:03 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.228 2021/11/21 20:18:12 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
