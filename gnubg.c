@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1022 2022/01/27 22:14:46 plm Exp $
+ * $Id: gnubg.c,v 1.1023 2022/02/02 21:55:46 plm Exp $
  */
 
 #include "config.h"
@@ -4422,7 +4422,7 @@ init_winsock()
     WSADATA wsaData;
     wVersionRequested = MAKEWORD(1, 1);
     if (WSAStartup(wVersionRequested, &wsaData) != 0) {
-        outputerr("Windows sockets initialisation");
+        outputerr(_("Windows sockets initialisation error"));
     }
 }
 #endif
