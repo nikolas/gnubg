@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.226 2022/01/03 22:55:07 plm Exp $
+ * $Id: import.c,v 1.227 2022/01/29 22:08:42 plm Exp $
  */
 
 #include "config.h"
@@ -1150,12 +1150,11 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
             n = sscanf(szLine, "%10d %*1[Pp]oint %*1[Mm]atch%c", &nLength, &ch);
     } while (n != 2);
 
-    if (nLength < 0) {
-        outputerrf(_("Invalid match length %d found in mat file\n"), nLength);
+    if (nLength < 0 || nLength > MAXSCORE) {
+        outputerrf(_("Invalid match length %d found in mat file"), nLength);
+        outputerrf(_("Match length must be between 0 (unlimited session) and %d\n"), MAXSCORE);
         return -1;
-    } else if (nLength > MAXSCORE)
-        outputerrf(("GNU Backgammon doesn't support the match length(%d), "
-                    "maximum is %d. Proceeding anyway, but expect the " "roof to fall down!"), nLength, MAXSCORE);
+    }
 
 #if USE_GTK
     if (fX) {                   /* Clear record to avoid ugly updates */
