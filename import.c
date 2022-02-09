@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.229 2022/02/09 21:55:19 plm Exp $
+ * $Id: import.c,v 1.230 2022/02/09 22:03:40 plm Exp $
  */
 
 #include "config.h"
@@ -3575,7 +3575,7 @@ CommandImportParty(char *sz)
 
     tmpfile = g_strdup_printf("%s.mat", sz);
     if (g_file_test(tmpfile, G_FILE_TEST_EXISTS)) {
-        outputerrf(_("%s already exists. Cannot import %s\n)", tmpfile, sz);
+        outputerrf(_("%s already exists. Cannot import %s\n"), tmpfile, sz);
         g_free(tmpfile);
         fclose(gamf);
         return;
