@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmet.c,v 1.33 2022/01/09 14:55:27 plm Exp $
+ * $Id: gtkmet.c,v 1.34 2022/01/13 21:16:03 plm Exp $
  */
 
 #include "config.h"
@@ -44,7 +44,7 @@ typedef struct {
 
 static void
 UpdateTable(const mettable * pmt,
-            /*lint -e{818} */ float met[MAXSCORE][MAXSCORE],
+            /*lint -e{818} */ float met[][MAXSCORE],
             const metinfo * pmi, const unsigned int nRows, const unsigned int nCols, const int fInvert)
 {
 
@@ -88,6 +88,7 @@ UpdateAllTables(const metwidget * pmw)
 
     for (i = 0; i < 2; ++i) {
         pmt = (const mettable *) g_object_get_data(G_OBJECT(pmw->apwPostCrawford[i]), "mettable");
+        /* Ugly cast to pass the the aafMETPostCrawford[i] vector as a [1][] array */
         UpdateTable(pmt, (float (*)[MAXSCORE]) (void *) aafMETPostCrawford[i], &miCurrent, pmw->nMatchTo, 1, TRUE);
     }
 }
