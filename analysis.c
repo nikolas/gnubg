@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: analysis.c,v 1.258 2021/11/22 20:34:22 plm Exp $
+ * $Id: analysis.c,v 1.259 2022/01/26 20:40:17 plm Exp $
  */
 
 #include "config.h"
@@ -2143,7 +2143,7 @@ cmark_move_set(moverecord * pmr, gchar * sz, CMark cmark)
     while ((n = (int) strtoll(sz, &sz, 10)) != 0) {
 #endif
         if (n > c) {
-            outputerrf("Only %d moves in movelist\n", c);
+            outputerrf(_("Only %d legal moves, cannot mark move %d\n"), c, n);
             g_slist_free(list);
             return;
         }
@@ -2151,7 +2151,7 @@ cmark_move_set(moverecord * pmr, gchar * sz, CMark cmark)
             list = g_slist_append(list, GINT_TO_POINTER(n));
     }
     if (g_slist_length(list) == 0) {
-        outputerrf("Not a valid list of moves\n");
+        outputerrf(_("Not a valid list of moves\n"));
         return;
     }
 
