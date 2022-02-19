@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchequity.c,v 1.104 2021/03/10 20:53:48 plm Exp $
+ * $Id: matchequity.c,v 1.105 2022/01/19 22:51:57 plm Exp $
  */
 
 #include "config.h"
@@ -1161,7 +1161,7 @@ SetNameFromType(char **pName, tabletype type)
         *pName = g_strdup("zadeh");
         break;
     default:
-        g_error("Invalid met table type");
+        g_error(_("Invalid MET table type"));
     }
 }
 
