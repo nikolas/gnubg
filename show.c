@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.303 2021/12/12 21:48:55 plm Exp $
+ * $Id: show.c,v 1.304 2022/01/27 22:58:01 plm Exp $
  */
 
 #include "config.h"
@@ -524,6 +524,7 @@ CommandShowAliases(char *UNUSED(sz))
     outputf(_("Aliases for player 1 when importing MAT files is set to \"%s\".\n "), player1aliases);
 }
 
+#if CACHE_STATS
 extern void
 CommandShowCache(char *UNUSED(sz))
 {
@@ -549,6 +550,7 @@ CommandShowCache(char *UNUSED(sz))
 
     outputc('\n');
 }
+#endif
 
 extern void
 CommandShowCalibration(char *UNUSED(sz))

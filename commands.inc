@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.57 2021/11/20 22:34:53 plm Exp $
+ * $Id: commands.inc,v 1.58 2021/11/26 22:33:52 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1288,8 +1288,10 @@ static command acSetVariation[] = {
       N_("Display details of this build of GNUbg"), NULL, NULL },
     { "browser", CommandShowBrowser, 
       N_("Display the currently used web browser"), NULL, NULL },
+#if CACHE_STATS
     { "cache", CommandShowCache, N_("Display statistics on the evaluation "
       "cache"), NULL, NULL },
+#endif
     { "calibration", CommandShowCalibration,
       N_("Show the previously recorded evaluation speed"), NULL, NULL },
     { "cheat", CommandShowCheat,

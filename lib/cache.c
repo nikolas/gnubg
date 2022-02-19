@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: cache.c,v 1.47 2021/06/09 21:26:50 plm Exp $
+ * $Id: cache.c,v 1.48 2021/07/31 21:34:40 plm Exp $
  */
 
 #include "config.h"
@@ -271,10 +271,10 @@ CacheResize(evalCache * pc, unsigned int cNew)
     return (int) pc->size;
 }
 
+#if CACHE_STATS
 void
 CacheStats(const evalCache * pc, unsigned int *pcLookup, unsigned int *pcHit, unsigned int *pcUsed)
 {
-#if CACHE_STATS
     if (pcLookup)
         *pcLookup = pc->cLookup;
 
@@ -283,16 +283,5 @@ CacheStats(const evalCache * pc, unsigned int *pcLookup, unsigned int *pcHit, un
 
     if (pcUsed)
         *pcUsed = pc->nAdds;
-#else
-    (void) pc;                  /* suppress unused parameter compiler warning */
-
-    if (pcLookup)
-        *pcLookup = 0;
-
-    if (pcHit)
-        *pcHit = 0;
-
-    if (pcUsed)
-        *pcUsed = 0;
-#endif
 }
+#endif
