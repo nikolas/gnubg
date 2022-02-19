@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovelist.c,v 1.40 2021/10/11 22:07:00 plm Exp $
+ * $Id: gtkmovelist.c,v 1.41 2021/10/12 22:22:24 plm Exp $
  */
 
 #include "config.h"
@@ -330,14 +330,19 @@ MoveListGetMove(const hintdata * phd, GList * pl)
     GtkTreeModel *model = gtk_tree_view_get_model(GTK_TREE_VIEW(phd->pwMoves));
 
     gboolean check = gtk_tree_model_get_iter(model, &iter, (GtkTreePath *) (pl->data));
-    if (check == 0)
-        printf("Error in move list!\n");
+
+    g_assert(check == TRUE);
+#if defined(G_DISABLE_ASSERT)
+    (void)check;      /* silence warning about unused variable */
+#endif
 
     if (showWLTree)
         col = 0;
     else
         col = ML_COL_DATA + offset;
+
     gtk_tree_model_get(model, &iter, col, &m, -1);
+
     return m;
 }
 
