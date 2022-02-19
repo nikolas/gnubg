@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovelistctrl.c,v 1.31 2019/12/08 20:55:55 plm Exp $
+ * $Id: gtkmovelistctrl.c,v 1.32 2022/02/06 16:22:01 plm Exp $
  */
 
 #include "config.h"
@@ -152,11 +152,11 @@ custom_cell_renderer_movelist_class_init(CustomCellRendererMovelistClass * klass
     /* Install our very own properties */
     g_object_class_install_property(object_class, 1,
                                     g_param_spec_pointer("movelist",
-                                                         ("Move List"), ("The move list entry"), G_PARAM_WRITABLE));
+                                                         (_("Move List")), (_("The move list entry")), G_PARAM_WRITABLE));
 
     g_object_class_install_property(object_class, 2,
                                     g_param_spec_int("rank",
-                                                     ("Rank"), ("The moves rank"), -1, 1000000, 0, G_PARAM_WRITABLE));
+                                                     (_("Rank")), (_("The moves rank")), -1, 1000000, 0, G_PARAM_WRITABLE));
 }
 
 
