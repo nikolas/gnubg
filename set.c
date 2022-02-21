@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.423 2021/12/06 21:33:34 plm Exp $
+ * $Id: set.c,v 1.424 2022/01/23 20:29:13 plm Exp $
  */
 
 #include "config.h"
@@ -762,7 +762,7 @@ CommandSetConfirmDefault(char *sz)
 {
 
     if (!sz || !*sz) {
-        outputf("Needs an argument!\n");
+        outputf(_("Needs an argument!\n"));
         return;
     }
     if (strcmp(sz, "yes") == 0)
