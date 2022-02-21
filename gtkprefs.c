@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.228 2021/11/21 20:18:12 plm Exp $
+ * $Id: gtkprefs.c,v 1.229 2022/02/06 15:51:18 plm Exp $
  */
 
 #include "config.h"
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.228 2021/11/21 20:18:12 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.229 2022/02/06 15:51:18 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2747,14 +2747,14 @@ AddDesignRowIfNew(gpointer data, gpointer user_data)
 
     ParsePreferences(pbde, &rdNew);
     if (FindDesign(plBoardDesigns, &rdNew)) {
-        outputf("Design %s already present\n", pbde->szTitle);
+        outputf(_("Design %s already present\n"), pbde->szTitle);
         return;
     }
 
     AddDesignRow(data, user_data);
     plBoardDesigns = g_list_append(plBoardDesigns, (gpointer) pbde);
 
-    outputf("Design %s added\n", pbde->szTitle);
+    outputf(_("Design %s added\n"), pbde->szTitle);
 }
 
 static void
@@ -3431,7 +3431,7 @@ static void
 design_parser_error(GMarkupParseContext * UNUSED(context), GError * UNUSED(error), gpointer user_data)
 {
     DesignParser *parser = (DesignParser *) user_data;
-    g_warning("An error occurred while parsing file: %s\n", parser->filename);
+    g_warning(_("An error occurred while parsing file: %s\n"), parser->filename);
 }
 
 static GList *
@@ -3476,7 +3476,7 @@ ParseBoardDesigns(const char *szFile, const int fDeletable)
 
     /* parse document */
     if (!g_markup_parse_context_parse(context, contents, size, &error)) {
-        g_warning("Error parsing XML: %s\n", error->message);
+        g_warning(_("Error parsing XML: %s\n"), error->message);
         g_error_free(error);
         free_board_designs(parser->designs);
         g_markup_parse_context_free(context);
