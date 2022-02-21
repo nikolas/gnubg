@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.260 2021/12/06 22:16:07 plm Exp $
+ * $Id: html.c,v 1.261 2021/12/06 23:15:16 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.260 2021/12/06 22:16:07 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.261 2021/12/06 23:15:16 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.260 $";
+    const char szVersion[] = "$Revision: 1.261 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.260 $";
+    const char szVersion[] = "$Revision: 1.261 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -1887,10 +1887,12 @@ HTMLPrintCubeAnalysisTable(FILE * pf,
                 GetStyle(CLASS_CUBE_EQUITY, hecss),
                 OutputEquity(aarOutput[0][OUTPUT_EQUITY], pci, TRUE),
                 GetStyle(CLASS_CUBE_CUBELESS_TEXT, hecss),
-                _("Money"), GetStyle(CLASS_CUBE_EQUITY, hecss), OutputMoneyEquity(aarOutput[0], TRUE));
+                _("Money"), GetStyle(CLASS_CUBE_EQUITY, hecss),
+		OutputMoneyEquity(aarOutput[0], TRUE));
     else
-        fprintf(pf, " cubeless equity</td><td>%s</td><td>&nbsp;</td>\n", OutputMoneyEquity(aarOutput[0], TRUE));
-
+        fprintf(pf, " %s</td><td>%s</td><td>&nbsp;</td>\n",
+		_("cubeless equity"),
+		OutputMoneyEquity(aarOutput[0], TRUE));
 
     fprintf(pf, "</tr>\n");
 
