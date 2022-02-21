@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.54 2021/10/11 22:05:43 plm Exp $
+ * $Id: gtkrelational.c,v 1.55 2022/01/09 14:34:07 plm Exp $
  */
 
 #include "config.h"
@@ -566,7 +566,7 @@ CheckDatabase(const char *database)
                           gtk_entry_get_text(GTK_ENTRY(hostname))) >= 0);
 
     if (!dbok)
-        gtk_label_set_text(GTK_LABEL(helptext), "Failed to connect to database!");
+        gtk_label_set_text(GTK_LABEL(helptext), _("Failed to connect to database!"));
     else {
         int version = RunQueryValue(pdb, "next_id FROM control WHERE tablename = 'version'");
         int matchcount = RunQueryValue(pdb, "count(*) FROM session");
