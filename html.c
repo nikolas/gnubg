@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.261 2021/12/06 23:15:16 plm Exp $
+ * $Id: html.c,v 1.262 2022/02/21 21:22:03 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.261 2021/12/06 23:15:16 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.262 2022/02/21 21:22:03 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1576,7 +1576,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.261 $";
+    const char szVersion[] = "$Revision: 1.262 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1646,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.261 $";
+    const char szVersion[] = "$Revision: 1.262 $";
     int iMajor, iMinor;
     char *pc;
 
@@ -3248,6 +3248,11 @@ CommandExportPositionGOL2Clipboard(char *UNUSED(sz))
 
     pf = GetTemporaryFile(NULL, &tmpFile);
 
+    if (pf == NULL) {
+        outputerr(_("Error creating temporary file"));
+        return;
+    }
+
     /* generate file */
 
     ExportPositionGammOnLine(pf);
@@ -3255,14 +3260,14 @@ CommandExportPositionGOL2Clipboard(char *UNUSED(sz))
     /* find size of file */
 
     if (fseek(pf, 0L, SEEK_END)) {
-        outputerr("temporary file");
+        outputerr(_("Error reading temporary file"));
         return;
     }
 
     l = ftell(pf);
 
     if (fseek(pf, 0L, SEEK_SET)) {
-        outputerr("temporary file");
+        outputerr(_("Error reading temporary file"));
         return;
     }
 
@@ -3271,7 +3276,7 @@ CommandExportPositionGOL2Clipboard(char *UNUSED(sz))
     szClipboard = (char *) malloc(l + 1);
 
     if (fread(szClipboard, 1, l, pf) != (unsigned long) l) {
-        outputerr("temporary file");
+        outputerr(_("Error reading temporary file"));
     } else {
         szClipboard[l] = 0;
         TextToClipboard(szClipboard);
