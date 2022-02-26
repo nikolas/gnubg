@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgstock.c,v 1.11 2018/02/18 18:36:25 plm Exp $
+ * $Id: gnubgstock.c,v 1.12 2019/11/05 22:01:25 plm Exp $
  */
 
 #include "config.h"
@@ -56,7 +56,7 @@ icon_set_from_resource_path(GtkIconSet * set,
     pixbuf = gdk_pixbuf_new_from_resource(resource_path, &pixbuf_error);
 
     if (pixbuf == NULL) {
-        g_print("Failed to create pixbuf from %s, %s\n", resource_path, pixbuf_error->message);
+        g_print(_("Failed to create pixbuf from %s, %s\n"), resource_path, pixbuf_error->message);
         g_assert_not_reached();
         return;
     }
