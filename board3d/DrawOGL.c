@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.21 2021/10/27 14:52:41 plm Exp $
+ * $Id: DrawOGL.c,v 1.22 2021/10/27 19:57:34 plm Exp $
  */
 
 #include "config.h"
@@ -882,6 +882,8 @@ calculateBackgroundSize(BoardData3d* bd3d, const int viewport[4])
 
 void renderFlagNumbers(const BoardData3d* bd3d, int resignedValue)
 {
+	OGLFont flagfont;
+
 	/* Draw number on flag */
 	setMaterial(&bd3d->flagNumberMat);
 
@@ -900,12 +902,12 @@ void renderFlagNumbers(const BoardData3d* bd3d, int resignedValue)
 
 	flagValue[0] = '0' + (char)abs(resignedValue);
 
-	float oldScale = bd3d->cubeFont.scale;
-	((BoardData3d*)bd3d)->cubeFont.scale *= 1.3f;
+	memcpy(&flagfont, &bd3d->cubeFont, sizeof(OGLFont));
+
+	flagfont.scale *= 1.3f;
 
 	glLineWidth(.5f);
-	glPrintCube(&bd3d->cubeFont, flagValue, /*MAA*/0);
-	((BoardData3d*)bd3d)->cubeFont.scale = oldScale;
+	glPrintCube(&flagfont, flagValue, /*MAA*/0);
 
 #if !GTK_CHECK_VERSION(3,0,0)
 	glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
