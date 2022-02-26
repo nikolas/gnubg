@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchequity.c,v 1.105 2022/01/19 22:51:57 plm Exp $
+ * $Id: matchequity.c,v 1.106 2022/02/19 21:52:48 plm Exp $
  */
 
 #include "config.h"
@@ -1371,7 +1371,7 @@ static void
 met_parser_error(GMarkupParseContext * UNUSED(context), GError * UNUSED(error), gpointer user_data)
 {
     MatchEquityParser *parser = (MatchEquityParser *) user_data;
-    g_warning("An error occurred while parsing file: %s\n", parser->filename);
+    g_warning(_("An error occurred while parsing file: %s\n"), parser->filename);
 }
 
 /*
