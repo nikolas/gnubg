@@ -18,7 +18,7 @@
  *
  * Inspired from osr.cc from fibs2html <fibs2html.sourceforge.net>
  *
- * $Id: osr.c,v 1.42 2021/01/23 19:47:11 plm Exp $
+ * $Id: osr.c,v 1.43 2021/07/12 21:24:08 plm Exp $
  */
 
 /*lint -e514 */
@@ -60,9 +60,8 @@ OSRQuasiRandomDice(const unsigned int iTurn, const unsigned int iGame, const uns
 static void
 getBearoffProbs(const unsigned int n, unsigned short int aaProb[32])
 {
-    g_assert(pbc1);
     if (BearoffDist(pbc1, n, NULL, NULL, NULL, aaProb, NULL))
-        puts("BearoffDist failed?");
+        g_assert_not_reached();
 }
 
 
