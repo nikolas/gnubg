@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.970 2022/02/06 15:47:30 plm Exp $
+ * $Id: gtkgame.c,v 1.971 2022/02/19 21:47:03 plm Exp $
  */
 
 #include "config.h"
@@ -5775,7 +5775,7 @@ DestroyHint(gpointer p, GObject * UNUSED(obj))
         if (pml->amMoves)
             g_free(pml->amMoves);
 
-        free(pml);
+        g_free(pml);
     }
 
     SetPanelWidget(WINDOW_HINT, NULL);
