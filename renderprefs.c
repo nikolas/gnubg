@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: renderprefs.c,v 1.60 2021/11/06 22:06:57 plm Exp $
+ * $Id: renderprefs.c,v 1.61 2022/01/29 22:12:20 plm Exp $
  */
 
 #include "config.h"
@@ -488,9 +488,17 @@ RenderPreferencesParam(renderdata * prd, const char *szParam, char *szValue)
         prd->bgInTrays = toupper(*szValue) == 'Y';
     else if (!StrNCaseCmp(szParam, "roundedpoints", c))
         prd->roundedPoints = toupper(*szValue) == 'Y';
-    else if (!StrNCaseCmp(szParam, "piecetype", c))
+    else if (!StrNCaseCmp(szParam, "piecetype", c)) {
         prd->pieceType = (PieceType) atoi(szValue);
-    else if (!StrNCaseCmp(szParam, "piecetexturetype", c))
+        if (prd->pieceType < PT_ROUNDED) {
+            prd->pieceType = PT_ROUNDED;
+            fValueError = TRUE;
+        }
+        if (prd->pieceType > PT_FLAT) {
+            prd->pieceType = PT_FLAT;
+            fValueError = TRUE;
+        }
+    } else if (!StrNCaseCmp(szParam, "piecetexturetype", c))
         prd->pieceTextureType = (PieceTextureType) atoi(szValue);
     else if ((!StrNCaseCmp(szParam, "chequers3d", strlen("chequers3d")) ||
               !StrNCaseCmp(szParam, "checkers3d", strlen("checkers3d"))) &&

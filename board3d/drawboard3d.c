@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.129 2021/11/08 22:46:32 plm Exp $
+ * $Id: drawboard3d.c,v 1.130 2021/12/19 19:50:49 plm Exp $
  */
 
 #include "config.h"
@@ -1110,7 +1110,7 @@ preRenderPiece(const renderdata* prd, int display, PieceTextureType ptt)
 		preDrawPiece1(prd, display, ptt);
 		break;
 	default:
-		g_print("Error: Unhandled piece type\n");
+		g_assert_not_reached();
 	}
 }
 
