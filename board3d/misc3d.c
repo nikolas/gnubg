@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.142 2022/02/15 21:44:11 plm Exp $
+ * $Id: misc3d.c,v 1.143 2022/02/19 21:55:41 plm Exp $
  */
 
 #include "config.h"
@@ -1368,6 +1368,8 @@ InitBoard3d(BoardData * bd, BoardData3d * bd3d)
 
 #if defined(HAVE_LIBPNG)
 
+/* Used by ../export.c to export positions to PNG format */
+
 void
 GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, unsigned int nSizeY)
 {
@@ -1399,7 +1401,7 @@ GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, uns
 
     gdk_pixbuf_save(pixbuf, szName, "png", &error, NULL);
     if (error) {
-        outputerrf("png failed: %s\n", error->message);
+        outputerrf(_("PNG file creation failed: %s\n"), error->message);
         g_error_free(error);
     }
     g_object_unref(pixbuf);

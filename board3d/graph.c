@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: graph.c,v 1.44 2021/11/26 20:19:28 plm Exp $
+ * $Id: graph.c,v 1.45 2022/01/17 20:21:44 plm Exp $
  */
 
 #include "config.h"
@@ -78,10 +78,10 @@ realizeCB(void *UNUSED(data))
     glClearColor(.2f, .2f, .4f, 1.f);
 
     if (!CreateNumberFont(&numberFont, FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
-        g_print("Error creating font\n");
+        g_print(_("Error creating font\n"));
 
     if (!CreateFontText(&totalText, _("Totals"), FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
-        g_print("Error creating font\n");
+        g_print(_("Error creating font\n"));
 
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }

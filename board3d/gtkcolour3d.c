@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcolour3d.c,v 1.67 2019/11/20 14:36:35 Superfly_Jon Exp $
+ * $Id: gtkcolour3d.c,v 1.68 2020/02/29 20:21:44 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -461,8 +461,8 @@ gtk_colour_picker_new3d(Material * pMat, int opacity, TextureType textureType)
 {
     GtkWidget *previewWidget, *button = gtk_button_new();
 
-    if (curDetail == MAX_DETAILS) {
-        outputerrf("Error: Too many 3D colour previews\n");
+    if (curDetail >= MAX_DETAILS) {
+        outputerrf(_("Error: Too many 3D colour previews\n"));
         return 0;
     }
     details[curDetail].mat = *pMat;
