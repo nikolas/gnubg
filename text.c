@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.126 2021/12/06 23:15:16 plm Exp $
+ * $Id: text.c,v 1.127 2021/12/12 21:48:55 plm Exp $
  */
 
 #include "config.h"
@@ -55,9 +55,9 @@ printTextBoard(FILE * pf, const matchstate * pms)
     apch[0] = szPlayer0;
     apch[6] = szPlayer1;
 
-    sprintf(apch[1] = szScore0, ngettext("%d point", "%d points", pms->anScore[0]), pms->anScore[0]);;
+    sprintf(apch[1] = szScore0, ngettext("%d point", "%d points", pms->anScore[0]), pms->anScore[0]);
 
-    sprintf(apch[5] = szScore1, ngettext("%d point", "%d points", pms->anScore[1]), pms->anScore[1]);;
+    sprintf(apch[5] = szScore1, ngettext("%d point", "%d points", pms->anScore[1]), pms->anScore[1]);
 
     if (pms->fDoubled) {
         apch[pms->fTurn ? 4 : 2] = szCube;
@@ -81,13 +81,15 @@ printTextBoard(FILE * pf, const matchstate * pms)
         if (pms->fCubeOwner < 0) {
             apch[3] = szCube;
 
+            /* Using ngettext() below looks awkward, but it matters in case of multiple plurals, as in many eastern european languages */
+
             if (pms->nMatchTo)
                 if (pms->nMatchTo == 1)
-                    sprintf(szCube, _("1 point match"));
+                    sprintf(szCube, ngettext("%d point match", "%d points match", pms->nMatchTo), pms->nMatchTo);
                 else if (pms->fCrawford)
-                    sprintf(szCube, _("%d point match (Crawford game)"), pms->nMatchTo);
+                    sprintf(szCube, ngettext("%d point match (Crawford game)", "%d points match (Crawford game)", pms->nMatchTo), pms->nMatchTo);
                 else
-                    sprintf(szCube, _("%d point match (Cube: %d)"), pms->nMatchTo, pms->nCube);
+                    sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", pms->nMatchTo), pms->nMatchTo, pms->nCube);
             else
                 sprintf(szCube, _("(Cube: %d)"), pms->nCube);
         } else {
@@ -102,7 +104,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
             apch[pms->fCubeOwner ? 6 : 0] = szCube;
 
             if (pms->nMatchTo)
-                sprintf(apch[3] = szMatch, _("%d point match"), pms->nMatchTo);
+                sprintf(apch[3] = szMatch, ngettext("%d point match", "%d points match", pms->nMatchTo), pms->nMatchTo);
         }
     }
 
@@ -217,7 +219,7 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.126 $";
+    const char szVersion[] = "$Revision: 1.127 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));

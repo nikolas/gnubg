@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.304 2022/01/27 22:58:01 plm Exp $
+ * $Id: show.c,v 1.305 2022/02/19 21:39:59 plm Exp $
  */
 
 #include "config.h"
@@ -904,9 +904,9 @@ CommandShowScore(char *UNUSED(sz))
             ms.cGames, ap[0].szName, ms.anScore[0], ap[1].szName, ms.anScore[1]);
 
     if (ms.nMatchTo > 0) {
-        outputf(ms.nMatchTo == 1 ?
-                _(" (match to %d point%s).\n") :
-                _(" (match to %d points%s).\n"),
+        outputf(ngettext(" (match to %d point%s)",
+                         " (match to %d points%s)",
+                         ms.nMatchTo),
                 ms.nMatchTo, ms.fCrawford ? _(", Crawford game") : (ms.fPostCrawford ? _(", post-Crawford play") : ""));
     } else {
         if (ms.fJacoby)

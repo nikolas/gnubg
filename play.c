@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.474 2022/01/26 20:41:07 plm Exp $
+ * $Id: play.c,v 1.475 2022/02/26 20:22:14 plm Exp $
  */
 
 #include "config.h"
@@ -2872,7 +2872,7 @@ CommandNewMatch(char *sz)
     UpdateSetting(&ms.fJacoby);
     UpdateSetting(&ms.gs);
 
-    outputf(_("A new %u point match has been started.\n"), n);
+    outputf(ngettext("A new %d point match has been started.\n", "A new %d points match has been started.\n", n), n);
 
 #if defined (USE_GTK)
     if (fX)
