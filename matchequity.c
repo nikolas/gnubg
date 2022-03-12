@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: matchequity.c,v 1.106 2022/02/19 21:52:48 plm Exp $
+ * $Id: matchequity.c,v 1.107 2022/02/26 20:34:43 plm Exp $
  */
 
 #include "config.h"
@@ -1080,20 +1080,20 @@ readMET(metdata * met, const char *filename)
     parser->j = 0;
 
     if (!(context = g_markup_parse_context_new(&markup_parser, (GMarkupParseFlags) 0, parser, met_parser_destroy))) {
-        g_warning("Can't create XML parser\n");
+        g_warning(_("Can't create XML parser\n"));
         g_free(parser);
         return -1;
     }
 
     /* Read the file */
     if (!g_file_get_contents(filename, &contents, &size, &error)) {
-        g_warning("Error reading XML file: %s\n", error->message);
+        g_warning(_("Error reading XML file: %s\n"), error->message);
         goto err;
     }
 
     /* Parse the content */
     if (!g_markup_parse_context_parse(context, contents, size, &error)) {
-        g_warning("Error parsing XML file: %s\n", error->message);
+        g_warning(_("Error parsing XML file: %s\n"), error->message);
         goto err;
     }
 
