@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: external.c,v 1.106 2021/09/27 22:07:04 plm Exp $
+ * $Id: external.c,v 1.107 2022/01/23 12:15:45 plm Exp $
  */
 
 #include "config.h"
@@ -129,7 +129,7 @@ OutputWin32SocketError(const char *action)
                       (LPTSTR) & lpMsgBuf, 0, NULL) != 0) {
         outputerrf("%s (%s):\n%s", _("Windows socket error"), action, (LPCTSTR) lpMsgBuf);
         if (LocalFree(lpMsgBuf) != NULL)
-            g_print("LocalFree() failed\n");
+            g_print("win32 LocalFree() failed\n");
     }
 }
 #endif
