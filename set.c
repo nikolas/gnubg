@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.424 2022/01/23 20:29:13 plm Exp $
+ * $Id: set.c,v 1.425 2022/02/21 22:17:26 plm Exp $
  */
 
 #include "config.h"
@@ -238,7 +238,7 @@ SetRNG(rng * prng, rngcontext * rngctx, rng rngNew, char *szSeed)
             }
 
             if (!OpenDiceFile(rngctx, sz)) {
-                outputf(_("File %s does not exist or is not readable"), sz);
+                outputf(_("File %s does not exist or is not readable\n"), sz);
                 return;
             }
 
@@ -651,7 +651,7 @@ CommandSetCache(char *sz)
                 ("The position cache has been sized to %d entry.\n",
                  "The position cache has been sized to %d entries.\n", n), n);
     else
-        outputerr("EvalCacheResize");
+        outputerr(_("Evaluation cache allocation failed"));
 }
 
 #if defined(USE_MULTITHREAD)
