@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.229 2022/02/06 15:51:18 plm Exp $
+ * $Id: gtkprefs.c,v 1.230 2022/02/21 22:11:58 plm Exp $
  */
 
 #include "config.h"
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.229 2022/02/06 15:51:18 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.230 2022/02/21 22:11:58 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
@@ -2500,10 +2500,7 @@ DesignAdd(GtkWidget * pw, gpointer data)
     GList *plBDs = data;
     renderdata rdNew;
 
-    if ((pbde = (boarddesign *) g_malloc(sizeof(boarddesign))) == 0) {
-        outputerr("allocate boarddesign");
-        return;
-    }
+    pbde = (boarddesign *) g_malloc(sizeof(boarddesign));
 
     /* name and author of board */
 
@@ -2558,10 +2555,7 @@ ExportDesign(GtkWidget * UNUSED(pw), gpointer UNUSED(data))
      * Copy current design 
      */
 
-    if ((pbde = (boarddesign *) g_malloc(sizeof(boarddesign))) == 0) {
-        outputerr("allocate boarddesign");
-        return;
-    }
+    pbde = (boarddesign *) g_malloc(sizeof(boarddesign));
 
     if (pbdeSelected) {         /* Exporting current design so just get settings */
         pbde->szTitle = g_strdup(pbdeSelected->szTitle);
