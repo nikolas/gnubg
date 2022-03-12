@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: mtsupport.c,v 1.21 2021/03/07 20:56:59 plm Exp $
+ * $Id: mtsupport.c,v 1.22 2021/12/18 19:37:38 plm Exp $
  */
 
 /*
@@ -356,7 +356,7 @@ multi_debug(const char *str, ...)
 #endif
         strcpy(tn, "MT");
     else
-        sprintf(tn, "T%d", id + 1);
+        sprintf(tn, "T%d", id);
 
 #if GLIB_CHECK_VERSION (2,28,0)
     printf("%" G_GINT64_FORMAT " %s: %s\n", g_get_monotonic_time(), tn, buf);
