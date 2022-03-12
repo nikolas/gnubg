@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.207 2022/02/27 21:35:14 plm Exp $
+ * $Id: gnubgmodule.c,v 1.208 2022/03/06 22:59:34 plm Exp $
  */
 
 #include "config.h"
@@ -2881,7 +2881,7 @@ PythonMatch(PyObject * UNUSED(self), PyObject * args, PyObject * keywds)
     }
 
     if (g->i != 0) {
-        PyErr_SetString(PyExc_StandardError, "First game missing from match");
+        PyErr_SetString(PyExc_StandardError, _("First game missing from match"));
         return NULL;
     }
 
