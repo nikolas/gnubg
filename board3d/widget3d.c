@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: widget3d.c,v 1.62 2020/01/19 16:45:10 Superfly_Jon Exp $
+ * $Id: widget3d.c,v 1.63 2020/01/19 19:26:05 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -98,7 +98,7 @@ extern int
 CreateGLWidget(BoardData * bd, int useMouseEvents)
 {
     GtkWidget *p3dWidget;
-    bd->bd3d = (BoardData3d *) malloc(sizeof(BoardData3d));
+    bd->bd3d = (BoardData3d *) g_malloc(sizeof(BoardData3d));
     InitBoard3d(bd, bd->bd3d);
     /* Drawing area for OpenGL */
 	p3dWidget = bd->bd3d->drawing_area3d = GLWidgetCreate(realize_3dCB, configure_3dCB, expose_3dCB, bd);
