@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: bearoffdump.c,v 1.28 2022/01/22 20:11:58 plm Exp $
+ * $Id: bearoffdump.c,v 1.29 2022/01/27 22:14:49 plm Exp $
  */
 
 #include "config.h"
@@ -75,7 +75,7 @@ main(int argc, char **argv)
     }
 
     if ((szPosID && id) || (!szPosID && !id)) {
-        g_printerr(_("Either Position ID or index is required. Not Both.\n" "For more help try `bearoffdump --help'\n"));
+        g_printerr(_("Either Position ID or index is required.\n" "For more help try `bearoffdump --help'\n"));
         exit(EXIT_FAILURE);
     }
 
