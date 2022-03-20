@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: util.c,v 1.42 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: util.c,v 1.43 2022/02/26 20:31:23 plm Exp $
  */
 
 #include "config.h"
@@ -84,16 +84,16 @@ getDataDir(void)
 
             datadir = g_strdup(buf);
 
-			char* testFile = BuildFilename("gnubg.weights");
-			if (access(testFile, F_OK) != 0) {
-				if (_getcwd(buf, FILENAME_MAX) != 0) {	// Try the current working directory instead
-					g_free(pkg_datadir);
-					pkg_datadir = NULL;	// Reset this (set in BuildFilename)
-					g_free(datadir);
-					datadir = g_strdup(buf);
-				}
-			}
-			g_free(testFile);
+            char *testFile = BuildFilename("gnubg.wd");
+            if (access(testFile, F_OK) != 0) {
+                if (_getcwd(buf, FILENAME_MAX) != 0) {  // Try the current working directory instead
+                    g_free(pkg_datadir);
+                    pkg_datadir = NULL; // Reset this (set in BuildFilename)
+                    g_free(datadir);
+                    datadir = g_strdup(buf);
+                }
+            }
+            g_free(testFile);
         }
 #endif
     }
