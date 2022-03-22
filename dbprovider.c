@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dbprovider.c,v 1.59 2021/03/07 15:53:56 plm Exp $
+ * $Id: dbprovider.c,v 1.60 2022/03/06 22:53:43 plm Exp $
  */
 
 #include "config.h"
@@ -603,7 +603,7 @@ SQLiteSelect(const char *str)
     RowSet *rs = NULL;
 
     sqlite3_stmt *pStmt;
-#if SQLITE3_VERSION_NUMBER >= 3003011
+#if SQLITE_VERSION_NUMBER >= 3003011
     ret = sqlite3_prepare_v2(connection, buf, -1, &pStmt, NULL);
 #else
     ret = sqlite3_prepare(connection, buf, -1, &pStmt, NULL);
