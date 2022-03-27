@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1024 2022/02/06 15:38:24 plm Exp $
+ * $Id: gnubg.c,v 1.1025 2022/03/12 20:14:14 plm Exp $
  */
 
 #include "config.h"
@@ -2763,7 +2763,7 @@ CommandCopy(char *UNUSED(sz))
             aps[ms.fCubeOwner ? 6 : 0] = szCube;
 
             if (ms.nMatchTo)
-                sprintf(aps[3] = szMatch, _("%d point match"), ms.nMatchTo);
+                sprintf(aps[3] = szMatch, ngettext("%d point match", "%d points match", ms.nMatchTo), ms.nMatchTo);
         }
     }
 
