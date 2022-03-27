@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.100 2021/10/10 21:14:12 plm Exp $
+dnl $Id: configure.ac,v 1.101 2021/10/27 14:56:03 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.100 $)
+AC_REVISION($Revision: 1.101 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -523,7 +523,10 @@ if test "x$simdcpu" != "xno"; then
 			elif test "x$simdcpu" = "xsse2"; then
 				SIMD_CFLAGS="-msse -msse2"
 			elif test "x$simdcpu" = "xneon"; then
-				SIMD_CFLAGS="-mfpu=neon"
+				case $host_cpu in
+				arm*)     SIMD_CFLAGS="-mfpu=neon" ;;
+				aarch64*) SIMD_CFLAGS="-march=armv8-a+simd" ;;
+				esac
 			else
 				SIMD_CFLAGS="-msse"
 			fi
