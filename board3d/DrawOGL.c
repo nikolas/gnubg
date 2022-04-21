@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.22 2021/10/27 19:57:34 plm Exp $
+ * $Id: DrawOGL.c,v 1.23 2022/02/26 20:49:04 plm Exp $
  */
 
 #include "config.h"
@@ -727,7 +727,6 @@ static void MAApoints(const renderdata* prd)
 		tuv = 0;
 
 	LegacyStartAA(1.0f);
-	LegacyEndAA();
 
 	drawPointLegacy(prd, tuv, 0, 0, 1);
 	drawPointLegacy(prd, tuv, 0, 1, 1);
