@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: randomorg.c,v 1.7 2020/08/17 21:40:32 plm Exp $
+ * $Id: randomorg.c,v 1.8 2020/08/25 17:29:27 plm Exp $
  */
 
 #include "config.h"
@@ -50,6 +50,10 @@ RandomOrgCallBack(void *pvRawData, size_t nSize, size_t nNumMemb, void *pvUserDa
     output("Random rolls received:");
 #endif
     for (i = 0; i < nNewDataLen; i++) {
+        if (iNumRead >= BUFLENGTH) {
+            /* Prevent buffer overflow if random.org sent more than we asked */
+            break;
+        }
         if ((szRawData[i] >= '0') && (szRawData[i] <= '5')) {
             /* Get a number */
             pvRandomData->anBuf[iNumRead] = 1 + (unsigned int) (szRawData[i] - '0');
