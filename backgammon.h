@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2021 the AUTHORS
+ * Copyright (C) 1999-2022 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.466 2021/10/05 20:58:46 plm Exp $
+ * $Id: backgammon.h,v 1.467 2022/03/20 19:40:21 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -414,6 +414,7 @@ extern command acSetRolloutLatePlayer[];
 extern command acSetRolloutLimit[];
 extern command acSetRolloutPlayer[];
 extern command acSetTruncation[];
+extern command acShow[];
 extern command acTop[];
 
 extern int fInteractive;

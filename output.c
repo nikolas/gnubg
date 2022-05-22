@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1998-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2013-2014 the AUTHORS
+ * Copyright (C) 2013-2022 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: output.c,v 1.7 2022/01/27 22:14:47 plm Exp $
+ * $Id: output.c,v 1.8 2022/03/27 18:05:58 plm Exp $
  */
 
 #include "config.h"
@@ -51,6 +51,11 @@ int cOutputDisabled;
 int cOutputPostponed;
 int foutput_on;
 
+#if defined(USE_PYTHON)
+char* szMemOutput = NULL;
+int foutput_to_mem = FALSE;
+#endif
+
 extern void
 output_initialize(void)
 {
@@ -63,6 +68,20 @@ output_initialize(void)
 extern void
 output(const char *sz)
 {
+#if defined(USE_PYTHON)
+    if (foutput_to_mem) {
+        char *szt = g_strdup_printf("%s", sz);
+
+        if (szMemOutput)
+            szMemOutput = g_strconcat(szMemOutput, szt, NULL);
+        else
+            szMemOutput = g_strdup(szt);
+
+        g_free(szt);
+        return;
+    }
+#endif
+
     if (cOutputDisabled || !foutput_on)
         return;
 
@@ -81,6 +100,16 @@ output(const char *sz)
 extern void
 outputl(const char *sz)
 {
+#if defined(USE_PYTHON)
+    if (foutput_to_mem) {
+        char *szt = g_strdup_printf("%s\n", sz);
+
+        szMemOutput = g_strconcat("", szMemOutput, szt, NULL);
+        g_free(szt);
+        return;
+    }
+#endif
+
     if (cOutputDisabled || !foutput_on)
         return;
 
