@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.102 2022/03/27 20:12:38 plm Exp $
+dnl $Id: configure.ac,v 1.103 2022/05/22 20:31:33 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.102 $)
+AC_REVISION($Revision: 1.103 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -84,13 +84,6 @@ dnl Deprecated, but replacement depends on AC_USE_SYSTEM_EXTENSIONS that
 dnl depends on autoconf 2.60. For now we require only 2.59 (as in RHEL5)
 AC_GNU_SOURCE
 
-# the following needs to come before the expansion of AC_PROG_CC
-cflags_were_set=false
-if test "${CFLAGS+set}" = set; then
-  AM_CFLAGS=$CFLAGS
-  CFLAGS=
-  cflags_were_set=:
-fi
 AC_PROG_CC
 AM_PROG_CC_C_O
 dnl Deprecated but RHEL6/gcc 4.4 needs it
@@ -115,12 +108,6 @@ return 0;
     AC_MSG_ERROR([Could not find a C99 compatible compiler])
   fi
 fi
-fi
-
-# the following needs to come after the expansion of AC_PROG_CC
-if $cflags_were_set; then :; else
-  AM_CFLAGS=$CFLAGS
-  CFLAGS=
 fi
 
 AM_CONDITIONAL(CROSS_COMPILING, test "x$cross_compiling" = "xyes")
@@ -624,9 +611,15 @@ dnl For instance, some match analysis on a Core i5 CPU (gcc 4.4.7, -mavx) :
 dnl -O2             1:23
 dnl -O3             1:14
 dnl -O3 -ffast-math 1:11
-AM_CFLAGS="$AM_CFLAGS -O3"
+AM_CFLAGS="$AM_CFLAGS -g -O3"
 if test x"$GCC" = "xyes"; then
     AM_CFLAGS="$AM_CFLAGS -ffast-math"
+fi
+
+# Don't let automake's default override the above settings
+# If you really want -O2 -g, use ./configure CFLAGS="-O2 -fno-fast-math"
+if test x"$CFLAGS" = "x-g -O2"; then
+    CFLAGS=""
 fi
 
 AC_SUBST(AM_CFLAGS)
