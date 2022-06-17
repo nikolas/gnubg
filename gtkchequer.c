@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkchequer.c,v 1.131 2021/10/05 20:58:46 plm Exp $
+ * $Id: gtkchequer.c,v 1.132 2022/06/06 20:50:41 plm Exp $
  */
 
 #include "config.h"
@@ -676,6 +676,8 @@ HintSelect(GtkTreeSelection * selection, hintdata * phd)
 extern int
 CheckHintButtons(hintdata * phd)
 {
+    BoardData *bd;
+
     GList *plSelList = MoveListGetSelectionList(phd);
     int c = g_list_length(plSelList);
     MoveListFreeSelectionList(plSelList);
@@ -688,6 +690,9 @@ CheckHintButtons(hintdata * phd)
     gtk_widget_set_sensitive(phd->pwRolloutPresets, c && phd->fButtonsValid);
     gtk_widget_set_sensitive(phd->pwEval, c && phd->fButtonsValid);
     gtk_widget_set_sensitive(phd->pwEvalPly, c && phd->fButtonsValid);
+
+    bd = BOARD(pwBoard)->board_data;
+    gtk_widget_set_sensitive(phd->pwScoreMap, (bd->diceShown == DICE_ON_BOARD));
 
     return c;
 }
