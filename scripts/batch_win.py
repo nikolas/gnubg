@@ -14,15 +14,12 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: batch_win.py,v 1.4 2013/08/21 03:45:23 mdpetch Exp $
+# $Id: batch_win.py,v 1.5 2019/10/28 21:18:50 plm Exp $
 #
 
 # This file is inspired of the batch.py file of Jon Kinsey. The code
 # contains MS-Windows specific code and will therefore only work on MS-Windows
 # together with GNU Backgammon and Python.
-
-import win32ui
-import win32con
 
 # file extensions, names and gnubg import commands
 

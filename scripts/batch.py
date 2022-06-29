@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: batch.py,v 1.8 2014/08/08 10:55:50 mdpetch Exp $
+# $Id: batch.py,v 1.9 2019/10/28 21:18:50 plm Exp $
 #
 
 """
@@ -32,6 +32,7 @@
 # Enjoy the analysis
 
 import os
+import sys
 
 if sys.version_info >= (3, 0):
     def python3_raw_input(prompt):

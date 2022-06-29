@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: gnubg.py,v 1.18 2017/11/13 21:07:43 plm Exp $
+# $Id: gnubg.py,v 1.19 2019/10/28 20:52:20 plm Exp $
 #
 
 # This file is read by GNU Backgammon during startup.
@@ -65,7 +65,6 @@ def gnubg_find_msvcrt():
 supports_readline = True
 
 try:
-    from ctypes.util import find_msvcrt
     import ctypes.util
     ctypes.util.find_msvcrt = gnubg_find_msvcrt
     import platform
@@ -206,6 +205,8 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
 
 def gnubg_InteractivePyShell_gui(argv=['', '-n']):
     import sys
+    import traceback
+
     sys.argv = argv
 
     try:
