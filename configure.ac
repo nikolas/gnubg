@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.103 2022/05/22 20:31:33 plm Exp $
+dnl $Id: configure.ac,v 1.104 2022/06/08 20:48:02 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.103 $)
+AC_REVISION($Revision: 1.104 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -260,7 +260,6 @@ AX_GCC_FUNC_ATTRIBUTE(const)
 AX_GCC_FUNC_ATTRIBUTE(fallthrough)
 AX_GCC_FUNC_ATTRIBUTE(format)
 AX_GCC_FUNC_ATTRIBUTE(pure)
-AX_GCC_FUNC_ATTRIBUTE(returns_nonnull)
 AX_GCC_FUNC_ATTRIBUTE(unused)
 fi
 
