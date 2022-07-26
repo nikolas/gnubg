@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.230 2022/02/21 22:11:58 plm Exp $
+ * $Id: gtkprefs.c,v 1.231 2022/03/12 21:09:52 plm Exp $
  */
 
 #include "config.h"
@@ -1553,7 +1553,7 @@ LightingPage(BoardData * bd)
         padjLightPosZ = GTK_ADJUSTMENT(gtk_adjustment_new(bd->rd->lightPos[2], .5, 5, .1, 1, 0));
         g_signal_connect(G_OBJECT(padjLightPosZ), "value-changed", G_CALLBACK(option_changed), NULL);
 #if GTK_CHECK_VERSION(3,0,0)
-        pwLightPosZ = gtk_vscale_new(padjLightPosZ);
+        pwLightPosZ = gtk_scale_new(GTK_ORIENTATION_VERTICAL, padjLightPosZ);
 #else
         pwLightPosZ = gtk_vscale_new(padjLightPosZ);
 #endif
@@ -2137,7 +2137,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.230 2022/02/21 22:11:58 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.231 2022/03/12 21:09:52 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
