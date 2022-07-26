@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: bearoff.c,v 1.107 2019/12/02 12:45:57 plm Exp $
+ * $Id: bearoff.c,v 1.108 2022/03/12 22:39:41 plm Exp $
  */
 
 #include "config.h"
@@ -204,11 +204,8 @@ HeuristicBearoff(unsigned int anBoard[6], const unsigned int anRoll[2])
 static void
 GenerateBearoff(unsigned char *p, unsigned int nId)
 {
-    unsigned int anRoll[2], anBoard[6], aProb[32];
+    unsigned int anRoll[2], anBoard[6], aProb[32] = { 0 };
     unsigned int i, iBest;
-
-    for (i = 0; i < 32; i++)
-        aProb[i] = 0;
 
     for (anRoll[0] = 1; anRoll[0] <= 6; anRoll[0]++)
         for (anRoll[1] = 1; anRoll[1] <= anRoll[0]; anRoll[1]++) {
@@ -375,7 +372,7 @@ BearoffEvalOneSided(const bearoffcontext * pbc, const TanBoard anBoard, float ar
     float aarProb[2][32];
     float aarGammonProb[2][32];
     float r;
-    unsigned int anOn[2];
+    unsigned int anOn[2] = { 0 };
     unsigned int an[2];
     float ar[2][4];
 
@@ -400,7 +397,7 @@ BearoffEvalOneSided(const bearoffcontext * pbc, const TanBoard anBoard, float ar
     /* calculate gammon chances */
 
     for (i = 0; i < 2; ++i)
-        for (j = 0, anOn[i] = 0; j < 25; ++j)
+        for (j = 0; j < 25; ++j)
             anOn[i] += anBoard[i][j];
 
     if (anOn[0] == 15 || anOn[1] == 15) {
