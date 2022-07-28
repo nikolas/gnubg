@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.55 2022/01/09 14:34:07 plm Exp $
+ * $Id: gtkrelational.c,v 1.56 2022/02/21 22:13:56 plm Exp $
  */
 
 #include "config.h"
@@ -94,7 +94,7 @@ create_model(void)
 
     int moves[4];
     unsigned int i, j;
-    gfloat stats[14];
+    gfloat stats[9];
 
     /* create list store */
     playerStore = gtk_list_store_new(NUM_COLUMNS,
