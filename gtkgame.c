@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.976 2022/08/07 13:03:52 plm Exp $
+ * $Id: gtkgame.c,v 1.977 2022/08/07 14:13:04 plm Exp $
  */
 
 #include "config.h"
@@ -4221,7 +4221,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
 
         /* Set the default arrow cursor in the stop window so obvious it can be clicked */
         gdk_window_set_cursor(gtk_widget_get_window(pwStop),
-                              gdk_cursor_new_for_display(gtk_widget_get_display(pwStop), GDK_ARROW));
+                              gdk_cursor_new_for_display(gtk_widget_get_display(pwStop), GDK_LEFT_PTR));
 
         /* Make sure toolbar looks correct */
         {
