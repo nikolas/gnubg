@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.974 2022/03/19 22:35:34 plm Exp $
+ * $Id: gtkgame.c,v 1.975 2022/04/13 20:19:32 plm Exp $
  */
 
 #include "config.h"
@@ -3821,7 +3821,11 @@ ContextMenu(GtkWidget * UNUSED(widget), GdkEventButton * event, GtkWidget * menu
     if (event->type != GDK_BUTTON_PRESS || event->button != 3)
         return FALSE;
 
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_menu_popup_at_pointer(GTK_MENU(menu), (GdkEvent *)event);
+#else
     gtk_menu_popup(GTK_MENU(menu), NULL, NULL, NULL, NULL, event->button, event->time);
+#endif
 
     return TRUE;
 }

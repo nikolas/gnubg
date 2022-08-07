@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.375 2021/11/20 19:19:23 plm Exp $
+ * $Id: gtkboard.c,v 1.376 2022/01/03 22:37:09 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -1664,7 +1664,11 @@ ShowBoardPopup(GdkEventButton * event)
         gtk_widget_show(menu_item);
         g_signal_connect(G_OBJECT(menu_item), "activate", G_CALLBACK(GTKShowScoreSheet), NULL);
     }
+#if GTK_CHECK_VERSION(3,22,0)
+    gtk_menu_popup_at_pointer(GTK_MENU(boardMenu), (GdkEvent *)event);
+#else
     gtk_menu_popup(GTK_MENU(boardMenu), NULL, NULL, NULL, NULL, event->button, event->time);
+#endif
 }
 
 extern gboolean
