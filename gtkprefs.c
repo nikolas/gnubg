@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.231 2022/03/12 21:09:52 plm Exp $
+ * $Id: gtkprefs.c,v 1.232 2022/07/26 20:32:22 plm Exp $
  */
 
 #include "config.h"
@@ -719,6 +719,16 @@ BorderPage3d(BoardData * bd)
 extern void
 gtk_color_button_get_array(GtkColorButton * button, float array[4])
 {
+#if GTK_CHECK_VERSION(3,4,0)
+    GdkRGBA color;
+
+    gtk_color_chooser_get_rgba(GTK_COLOR_CHOOSER(button), &color);
+
+    array[0] = (float) color.red;
+    array[1] = (float) color.green;
+    array[2] = (float) color.blue;
+    array[3] = (float) color.alpha;
+#else
     GdkColor color;
     guint16 alpha;
 
@@ -729,11 +739,22 @@ gtk_color_button_get_array(GtkColorButton * button, float array[4])
     array[1] = (float) color.green / 65535.0f;
     array[2] = (float) color.blue / 65535.0f;
     array[3] = (float) alpha / 65535.0f;
+#endif
 }
 
 extern void
 gtk_color_button_set_from_array(GtkColorButton * button, float const colarray[4])
 {
+#if GTK_CHECK_VERSION(3,4,0)
+    GdkRGBA color;
+
+    color.red = (gdouble) colarray[0];
+    color.green = (gdouble) colarray[1];
+    color.blue = (gdouble) colarray[2];
+    color.alpha = (gdouble) colarray[3];
+
+    gtk_color_chooser_set_rgba(GTK_COLOR_CHOOSER(button), &color);
+#else
     GdkColor color;
     guint16 alpha;
 
@@ -744,6 +765,7 @@ gtk_color_button_set_from_array(GtkColorButton * button, float const colarray[4]
 
     gtk_color_button_set_color(button, &color);
     gtk_color_button_set_alpha(button, alpha);
+#endif
 }
 
 static GtkWidget *
@@ -2137,7 +2159,7 @@ WriteDesignHeader(const char *szFile, FILE * pf)
     time(&t);
     fputs(ctime(&t), pf);
     fputs("\n"
-          "    $Id: gtkprefs.c,v 1.231 2022/03/12 21:09:52 plm Exp $\n"
+          "    $Id: gtkprefs.c,v 1.232 2022/07/26 20:32:22 plm Exp $\n"
           "\n" " -->\n" "\n" "\n" "<board-designs>\n" "\n", pf);
 
 }
