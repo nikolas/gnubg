@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktheory.c,v 1.74 2021/11/29 19:57:24 plm Exp $
+ * $Id: gtktheory.c,v 1.75 2022/01/22 21:37:17 plm Exp $
  */
 
 #include "config.h"
@@ -646,16 +646,15 @@ GTKShowTheory(const int fActivePage)
 #endif
     gtk_box_pack_start(GTK_BOX(pwVBox), pwHBox, FALSE, FALSE, 0);
 
-    gtk_container_add(GTK_CONTAINER(pwHBox), ptw->apwRadio[0] = gtk_radio_button_new_with_label(NULL, _("Match play")));
-    gtk_container_add(GTK_CONTAINER(pwHBox),
-                      ptw->apwRadio[1] =
-                      gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(ptw->apwRadio[0]), _("Money game")));
+    gtk_box_pack_start(GTK_BOX(pwHBox), ptw->apwRadio[0] = gtk_radio_button_new_with_label(NULL, _("Match play")), TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(pwHBox), ptw->apwRadio[1] =
+                      gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(ptw->apwRadio[0]), _("Money game")), TRUE, TRUE, 0);
 
     g_signal_connect(G_OBJECT(ptw->apwRadio[0]), "toggled", G_CALLBACK(TheoryUpdated), ptw);
     g_signal_connect(G_OBJECT(ptw->apwRadio[1]), "toggled", G_CALLBACK(TheoryUpdated), ptw);
 
 
-    gtk_container_add(GTK_CONTAINER(pwHBox), ptw->pwReset = gtk_button_new_with_label(_("Reset")));
+    gtk_box_pack_end(GTK_BOX(pwHBox), ptw->pwReset = gtk_button_new_with_label(_("Reset")), TRUE, TRUE, 0);
     g_signal_connect(G_OBJECT(ptw->pwReset), "clicked", G_CALLBACK(ResetTheory), ptw);
 
     /* match score widget */
