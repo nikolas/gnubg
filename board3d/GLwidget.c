@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.19 2022/04/10 19:30:46 plm Exp $
+ * $Id: GLwidget.c,v 1.20 2022/09/05 19:44:07 plm Exp $
  */
 
 #include "config.h"
@@ -39,6 +39,10 @@ typedef struct {
 } GLWidgetData;
 
 #if GTK_CHECK_VERSION(3,0,0)
+
+#if !GTK_CHECK_VERSION(3,16,0)
+#error GTK 3 OpenGL related functions used here are not available until version 3.16
+#endif
 
 typedef struct {
 	guint shader;
@@ -181,7 +185,7 @@ void SelectPickProgram(void)
 	SelectProgram(&basicShader);
 }
 
-static char* LoadFile(const char* filename)
+static const char* LoadFile(const char* filename)
 {
 	long lSize;
 	char* buffer;
@@ -218,7 +222,7 @@ static char* LoadFile(const char* filename)
 static guint CreateShader(int shader_type, const char* shader_name)
 {
 	int status;
-	char* source;
+	const char* source;
 	char* pathname = BuildFilename(shader_name);
 	char* filename;
 
@@ -247,7 +251,7 @@ static guint CreateShader(int shader_type, const char* shader_name)
 		return 0;
 	}
 
-	free(source);
+	free((void *)source);
 	return shader;
 }
 
