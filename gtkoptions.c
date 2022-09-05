@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.136 2022/09/04 19:33:42 plm Exp $
+ * $Id: gtkoptions.c,v 1.137 2022/09/04 22:09:31 plm Exp $
  */
 
 #include "config.h"
@@ -962,6 +962,7 @@ append_sound_options(optionswidget * pow)
 #else
     pwvboxMain = gtk_vbox_new(FALSE, 0);
 #endif
+    gtk_container_set_border_width(GTK_CONTAINER(pwvboxMain), 4);
     gtk_notebook_append_page(GTK_NOTEBOOK(pow->pwNoteBook), pwvboxMain, gtk_label_new(_("Sound")));
 #if GTK_CHECK_VERSION(3,0,0)
     pwhboxTop = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
