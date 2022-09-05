@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: ShimOGL.c,v 1.12 2021/02/28 09:27:27 Superfly_Jon Exp $
+ * $Id: ShimOGL.c,v 1.13 2021/10/24 14:50:53 plm Exp $
  */
 
 #include "config.h"
@@ -25,8 +25,7 @@
 #include <cglm/cam.h>
 #include "ShimOGL.h"
 
-typedef struct
-{
+typedef struct {
 #define MAX_STACK_LEVEL 10	// Probably only using 3 or so...
 	mat4 stack[MAX_STACK_LEVEL];
 	int level;
@@ -289,17 +288,17 @@ void SHIMglOrtho(GLfloat left, GLfloat right, GLfloat bottom, GLfloat top, GLflo
 	glm_mat4_mul(*GetCurMatStackMat(), frustrum, *GetCurMatStackMat());
 }
 
-void SHIMglLoadIdentity()
+void SHIMglLoadIdentity(void)
 {
 	glm_mat4_identity(*GetCurMatStackMat());
 }
 
-float* GetModelViewMatrix()
+float* GetModelViewMatrix(void)
 {
 	return (float*)mvMatStack.stack[mvMatStack.level];
 }
 
-float* GetProjectionMatrix()
+float* GetProjectionMatrix(void)
 {
 	return (float*)pjMatStack.stack[pjMatStack.level];
 }

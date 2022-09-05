@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: drawboard3d.c,v 1.131 2022/03/06 22:32:01 plm Exp $
+ * $Id: drawboard3d.c,v 1.132 2022/08/05 21:07:23 plm Exp $
  */
 
 #include "config.h"
@@ -1576,7 +1576,7 @@ drawPoint(const renderdata* prd, float tuv, unsigned int i, int p, int outline)
 }
 
 void
-drawMoveIndicator()
+drawMoveIndicator(void)
 {
 	glBegin(GL_QUADS);
 	glNormal3f(0.f, 0.f, 1.f);
@@ -3420,7 +3420,7 @@ drawDie(const ModelManager* modelHolder, const BoardData* bd, const BoardData3d*
 	glPopMatrix();
 }
 
-extern void MoveToFlagMiddle()
+extern void MoveToFlagMiddle(void)
 {
 	float v[3];
 	/* Move to middle of flag */

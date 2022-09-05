@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.143 2022/02/19 21:55:41 plm Exp $
+ * $Id: misc3d.c,v 1.144 2022/03/06 22:45:43 plm Exp $
  */
 
 #include "config.h"
@@ -334,7 +334,7 @@ InitGL(const BoardData * bd)
 
 const Material* currentMat = NULL;
 
-const Material* GetCurrentMaterial()
+const Material* GetCurrentMaterial(void)
 {
     return currentMat;
 }

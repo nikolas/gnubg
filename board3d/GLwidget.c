@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: GLwidget.c,v 1.18 2022/03/06 21:40:16 plm Exp $
+ * $Id: GLwidget.c,v 1.19 2022/04/10 19:30:46 plm Exp $
  */
 
 #include "config.h"
@@ -91,7 +91,7 @@ static void GetViewPos(float* viewPos)
 	glm_mat4_mulv3(mvInv, origin, 1, viewPos);
 }
 
-void SetViewPos()
+void SetViewPos(void)
 {
 	float viewPos[3];
 	GetViewPos(viewPos);
@@ -176,7 +176,7 @@ static void SelectProgram(ShaderDetails* pShader)
 	glUseProgram(currentShader->shader);
 }
 
-void SelectPickProgram()
+void SelectPickProgram(void)
 {
 	SelectProgram(&basicShader);
 }
