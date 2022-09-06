@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkexport.c,v 1.59 2022/01/19 22:45:48 plm Exp $
+ * $Id: gtkexport.c,v 1.60 2022/08/30 18:38:35 plm Exp $
  */
 
 #include "config.h"
@@ -401,7 +401,18 @@ ExportHTMLImages(void)
                                      ("Select top folder for HTML export"),
                                      NULL,
                                      GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,
-                                     GTK_STOCK_CANCEL, GTK_RESPONSE_CANCEL, GTK_STOCK_OPEN, GTK_RESPONSE_ACCEPT, NULL);
+#if GTK_CHECK_VERSION(3,0,0)
+                                     "_Cancel",
+#else
+                                     GTK_STOCK_CANCEL,
+#endif
+                                     GTK_RESPONSE_CANCEL,
+#if GTK_CHECK_VERSION(3,0,0)
+                                     "_Open",
+#else
+                                     GTK_STOCK_OPEN,
+#endif
+                                     GTK_RESPONSE_ACCEPT, NULL);
     gtk_window_set_modal(GTK_WINDOW(fc), TRUE);
     gtk_window_set_transient_for(GTK_WINDOW(fc), GTK_WINDOW(pwMain));
 
