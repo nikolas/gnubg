@@ -17,9 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-# $Id: autogen.sh,v 1.11 2018/10/14 20:01:44 plm Exp $
-
-set -x
+# $Id: autogen.sh,v 1.12 2019/09/15 17:54:57 plm Exp $
 
 # If we use libtool-2, libtoolize below will recreate them, but if we use
 # libtool-1 we don't want them, which could happen if we use a shared
@@ -45,5 +43,11 @@ $LIBTOOLIZE --force --copy
 aclocal -I m4
 
 autoheader
+
+# automake will replace them by its local version.
+#
+rm -f compile config.guess config.sub install-sh missing ylwrap
+
 automake --add-missing --copy -Wno-portability
+
 autoconf
