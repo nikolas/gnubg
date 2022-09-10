@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: DrawOGL.c,v 1.23 2022/02/26 20:49:04 plm Exp $
+ * $Id: DrawOGL.c,v 1.24 2022/04/21 20:50:21 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@ void LegacyStartAA(float width)
 	glEnable(GL_BLEND);
 }
 
-void LegacyEndAA()
+void LegacyEndAA(void)
 {
 	glDisable(GL_LINE_SMOOTH);
 	glDisable(GL_BLEND);
