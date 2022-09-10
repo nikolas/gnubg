@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.17 2022/08/30 18:38:35 plm Exp $
+ * $Id: gtkscoremap.c,v 1.18 2022/09/02 13:43:30 plm Exp $
  */
 
 /* TBD
@@ -86,6 +86,7 @@ and come back, it works again. It may be a movelist construction issue.
 */
 
 #include "config.h"
+#include "gtklocdefs.h"
 
 #include <gtk/gtk.h>
 
