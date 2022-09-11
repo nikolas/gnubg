@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.379 2022/09/10 10:35:02 plm Exp $
+ * $Id: gtkboard.c,v 1.380 2022/09/11 13:18:26 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3269,7 +3269,7 @@ board_realize(GtkWidget * board)
 static void
 board_show_child(GtkWidget * pwChild, BoardData * pbd)
 {
-    if (pwChild != pbd->dice_area && !GTK_IS_HBUTTON_BOX(pwChild))
+    if (pwChild != pbd->dice_area)
         gtk_widget_show_all(pwChild);
 
 }
