@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.h,v 1.18 2021/11/06 21:40:47 plm Exp $
+ * $Id: gtklocdefs.h,v 1.19 2022/09/02 13:43:30 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -40,8 +40,6 @@ typedef const GdkRectangle gtk_locdef_cell_area;
 #define gtk_locdef_create_rectangle(r) cairo_region_create_rectangle(r)
 #define gtk_locdef_union_rectangle(pr, r) cairo_region_union_rectangle(pr, r)
 #define gtk_locdef_region_destroy(pr) cairo_region_destroy(pr)
-#define gtk_locdef_paint_vline(style, window, cr, state_type, area, widget, detail, y1, y2, x) \
-    gtk_paint_vline(style, cr, state_type, widget, detail, y1, y2, x)
 #define gtk_locdef_paint_box(style, window, cr, state_type, shadow_type, area, widget, detail, x, y, width, height) \
     gtk_paint_box(style, cr, state_type, shadow_type, widget, detail, x, y, width, height)
 #define gdk_colormap_alloc_color(cm, c, w, bm)
@@ -60,8 +58,6 @@ typedef void *GtkCssProvider;
 #define gtk_locdef_create_rectangle(r) gdk_region_rectangle(r)
 #define gtk_locdef_union_rectangle(pr, r) gdk_region_union_with_rect(pr, r)
 #define gtk_locdef_region_destroy(pr) gdk_region_destroy(pr)
-#define gtk_locdef_paint_vline(style, window, cr, state_type, area, widget, detail, y1, y2, x) \
-    gtk_paint_vline(style, window, state_type, area, widget, detail, y1, y2, x)
 #define gtk_locdef_paint_box(style, window, cr, state_type, shadow_type, area, widget, detail, x, y, width, height) \
     gtk_paint_box(style, window, state_type, shadow_type, area, widget, detail, x, y, width, height)
 #endif
