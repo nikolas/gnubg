@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.983 2022/09/04 22:09:31 plm Exp $
+ * $Id: gtkgame.c,v 1.984 2022/09/11 13:12:49 plm Exp $
  */
 
 #include "config.h"
@@ -6063,7 +6063,7 @@ GTKTextWindow(const char *szOutput, const char *title, const dialogtype type, Gt
     gtk_container_add(GTK_CONTAINER(sw), pwText);
 
 #if GTK_CHECK_VERSION(3,0,0)
-    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), NULL, &req);
+    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), &req, NULL);
 #else
     gtk_widget_size_request(GTK_WIDGET(pwText), &req);
 #endif
@@ -7752,7 +7752,7 @@ GTKDumpStatcontext(int game)
     else {
         GtkRequisition req;
 #if GTK_CHECK_VERSION(3,0,0)
-        gtk_widget_get_preferred_size(GTK_WIDGET(pwStatDialog), NULL, &req);
+        gtk_widget_get_preferred_size(GTK_WIDGET(pwStatDialog), &req, NULL);
 #else
         gtk_widget_size_request(GTK_WIDGET(pwStatDialog), &req);
 #endif

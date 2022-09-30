@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkboard.c,v 1.380 2022/09/11 13:18:26 plm Exp $
+ * $Id: gtkboard.c,v 1.381 2022/09/11 15:11:51 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -3198,7 +3198,7 @@ AddChild(GtkWidget * pw, GtkRequisition * pr)
     GtkRequisition r;
 
 #if GTK_CHECK_VERSION(3,0,0)
-    gtk_widget_get_preferred_size(pw, NULL, &r);
+    gtk_widget_get_preferred_size(pw, &r, NULL);
 #else
     gtk_widget_size_request(pw, &r);
 #endif

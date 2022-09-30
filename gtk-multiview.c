@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtk-multiview.c,v 1.19 2019/11/21 22:04:25 plm Exp $
+ * $Id: gtk-multiview.c,v 1.20 2021/04/03 21:09:26 plm Exp $
  */
 
 #include "config.h"
@@ -107,7 +107,7 @@ gtk_multiview_size_request(GtkWidget * widget, GtkRequisition * requisition)
 
         if (gtk_widget_get_visible(child)) {
 #if GTK_CHECK_VERSION(3,0,0)
-            gtk_widget_get_preferred_size(child, NULL, &child_requisition);
+            gtk_widget_get_preferred_size(child, &child_requisition, NULL);
 #else
             gtk_widget_size_request(child, &child_requisition);
 #endif

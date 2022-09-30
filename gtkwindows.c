@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkwindows.c,v 1.62 2019/11/14 20:40:11 plm Exp $
+ * $Id: gtkwindows.c,v 1.63 2022/01/19 22:47:40 plm Exp $
  */
 
 #include "config.h"
@@ -304,7 +304,7 @@ GTKMessage(const char *sz, dialogtype dt)
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(sw), pwText);
 #if GTK_CHECK_VERSION(3,0,0)
-    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), NULL, &req);
+    gtk_widget_get_preferred_size(GTK_WIDGET(pwText), &req, NULL);
 #else
     gtk_widget_size_request(GTK_WIDGET(pwText), &req);
 #endif
