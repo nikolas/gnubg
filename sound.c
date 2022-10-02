@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sound.c,v 1.102 2018/04/10 22:11:41 plm Exp $
+ * $Id: sound.c,v 1.103 2021/02/07 22:16:25 plm Exp $
  */
 
 #include "config.h"
@@ -173,7 +173,7 @@ static Float64 fileDuration = 0.0;
 			return ret; \
 		} \
 	}
-void CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat, AudioFileID audioFile);
+Float64 CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat, AudioFileID audioFile);
 void CoreAudio_MakeSimpleGraph(AUGraph * theGraph, AudioUnit * fileAU,
                                AudioStreamBasicDescription * fileFormat, AudioFileID audioFile);
 
@@ -247,7 +247,7 @@ CoreAudio_PlayFile(char *const fileName)
     }
 }
 
-void
+Float64
 CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat, AudioFileID audioFile)
 {
     UInt64 nPackets;
@@ -289,7 +289,7 @@ CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat
                                            kAudioUnitScope_Global, 0, &startTime, sizeof(startTime)),
                       "AudioUnitSetproperty StartTime", 0.0);
 
-    return;
+    return fileDuration;
 }
 
 void
