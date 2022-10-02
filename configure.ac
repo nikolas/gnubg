@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.104 2022/06/08 20:48:02 plm Exp $
+dnl $Id: configure.ac,v 1.105 2022/07/23 15:33:45 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.104 $)
+AC_REVISION($Revision: 1.105 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -477,7 +477,7 @@ if test "x$simdcpu" = "xundef" || test "x$simdcpu" = "xyes"; then
         simdcpu="sse2"
     elif test "x$ax_cv_have_sse_ext" = "xyes"; then
         simdcpu="sse"
-# not yet
+# This seems slightly useful on 64bit Raspberry Pi but not on Apple M1
 #    elif test "x$ax_cv_have_neon_ext" = "xyes"; then
 #        simdcpu="neon"
     else
