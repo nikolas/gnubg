@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.488 2022/02/19 21:39:59 plm Exp $
+ * $Id: eval.c,v 1.489 2022/03/12 20:28:42 plm Exp $
  */
 
 #include "config.h"
@@ -1416,7 +1416,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
                 /* g_assert( tot >= 4 ); */
 
                 afInput[I_BACKG] = (float) (tot - 3) / 4.0f;
-            } else if (nAc == 1) {
+            } else {	/* nAc == 1 */
                 afInput[I_BACKG1] = (float) tot / 8.0f;
             }
         }
