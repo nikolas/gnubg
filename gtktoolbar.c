@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.79 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: gtktoolbar.c,v 1.80 2021/06/30 21:10:50 plm Exp $
  */
 
 #include "config.h"
@@ -279,7 +279,7 @@ ToolbarUpdate(GtkWidget * pwToolbar,
 
     c = C_NONE;
 
-    if (diceShown == DICE_BELOW_BOARD)
+    if (diceShown <= DICE_BELOW_BOARD)
         c = C_ROLLDOUBLE;
 
     if (pms->fDoubled)
