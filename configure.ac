@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.105 2022/07/23 15:33:45 plm Exp $
+dnl $Id: configure.ac,v 1.106 2022/10/02 12:52:16 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.105 $)
+AC_REVISION($Revision: 1.106 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.06.002$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -626,6 +626,9 @@ AC_SUBST(AM_CFLAGS)
 dnl *************
 dnl Misc. settings
 dnl *************
+
+AX_BUILD_DATE_EPOCH(BUILD_DATE, [%Y%m%d])
+AC_SUBST([BUILD_DATE])
 
 dnl internationalization macros
 dnl

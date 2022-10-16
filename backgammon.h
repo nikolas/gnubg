@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.468 2022/05/22 21:35:51 plm Exp $
+ * $Id: backgammon.h,v 1.469 2022/07/23 15:33:45 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -33,11 +33,8 @@
 
 #define MAX_CUBE ( 1 << 12 )
 #define MAX_NAME_LEN 32
-#ifndef BUILD_DATE
-#define BUILD_DATE_STR " " __DATE__
-#else
+
 #define BUILD_DATE_STR STRINGIZE(BUILD_DATE)
-#endif
 
 #define VERSION_STRING "GNU Backgammon " VERSION " " BUILD_DATE_STR
 #define GNUBG_CHARSET "UTF-8"

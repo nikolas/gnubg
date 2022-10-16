@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-## $Id: Makefile.am,v 1.273 2021/02/21 13:30:55 plm Exp $
+## $Id: Makefile.am,v 1.274 2021/10/05 20:58:46 plm Exp $
 
 ACLOCAL_AMFLAGS = -I m4
 
@@ -49,6 +49,8 @@ endif
 
 
 AM_CPPFLAGS += -DAC_DOCDIR='"$(docdir)"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
+
+AM_CPPFLAGS += -DBUILD_DATE=@BUILD_DATE@
 
 OTHER_LIBS =
 if WIN32
