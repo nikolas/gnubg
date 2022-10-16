@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: renderprefs.c,v 1.63 2022/07/23 15:35:27 plm Exp $
+ * $Id: renderprefs.c,v 1.64 2022/10/02 12:46:41 plm Exp $
  */
 
 #include "config.h"
@@ -490,14 +490,7 @@ RenderPreferencesParam(renderdata * prd, const char *szParam, char *szValue)
         prd->roundedPoints = toupper(*szValue) == 'Y';
     else if (!StrNCaseCmp(szParam, "piecetype", c)) {
         prd->pieceType = (PieceType) atoi(szValue);
-        /* Use <= to avoid compiler warning if enums are unsigned:
-         * unsigned expression < 0 is always false
-         */
-        if (prd->pieceType <= PT_ROUNDED) {
-            prd->pieceType = PT_ROUNDED;
-            fValueError = TRUE;
-        }
-        if (prd->pieceType > PT_FLAT) {
+        if ((unsigned int)prd->pieceType > PT_FLAT) {
             prd->pieceType = PT_FLAT;
             fValueError = TRUE;
         }
