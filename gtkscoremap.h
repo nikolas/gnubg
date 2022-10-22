@@ -15,13 +15,15 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id:$
+ * $Id: gtkscoremap.h,v 1.2 2021/10/05 20:58:46 plm Exp $
  */
 
 #ifndef GTKSCOREMAP_H
 #define GTKSCOREMAP_H
 
+#include "gnubg-types.h"        /* for matchstate */
+
 extern void
- GTKShowScoreMap(const matchstate ams[], int cube); //, gchar * aszTitle[], const int fInvert);
+ GTKShowScoreMap(const matchstate ams[], int cube);
 
 #endif                          /* GTKSCOREMAP_H */
