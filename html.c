@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.262 2022/02/21 21:22:03 plm Exp $
+ * $Id: html.c,v 1.263 2022/02/26 20:31:23 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.262 2022/02/21 21:22:03 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.263 2022/02/26 20:31:23 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -501,7 +501,7 @@ printHTMLBoardBBS(FILE * pf, matchstate * pms, int fTurn,
 
     TanBoard anBoard;
     unsigned int anPips[2];
-    int acOff[2];
+    int acOff[2] = { 15, 15 };
     int i, j;
     char sz[1024];
 
@@ -512,7 +512,6 @@ printHTMLBoardBBS(FILE * pf, matchstate * pms, int fTurn,
     PipCount((ConstTanBoard) anBoard, anPips);
 
     for (i = 0; i < 2; i++) {
-        acOff[i] = 15;
         for (j = 0; j < 25; j++)
             acOff[i] -= anBoard[i][j];
     }
@@ -1025,7 +1024,7 @@ printHTMLBoardGNU(FILE * pf, matchstate * pms, int fTurn,
 
     TanBoard anBoard;
     unsigned int anPips[2];
-    int acOff[2];
+    int acOff[2] = { 15, 15 };
 
     memcpy(anBoard, pms->anBoard, sizeof(anBoard));
 
@@ -1033,7 +1032,6 @@ printHTMLBoardGNU(FILE * pf, matchstate * pms, int fTurn,
         SwapSides(anBoard);
 
     for (i = 0; i < 2; i++) {
-        acOff[i] = 15;
         for (j = 0; j < 25; j++)
             acOff[i] -= anBoard[i][j];
     }
@@ -1576,7 +1574,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.262 $";
+    const char szVersion[] = "$Revision: 1.263 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1646,7 +1644,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.262 $";
+    const char szVersion[] = "$Revision: 1.263 $";
     int iMajor, iMinor;
     char *pc;
 

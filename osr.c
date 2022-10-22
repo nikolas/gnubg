@@ -18,7 +18,7 @@
  *
  * Inspired from osr.cc from fibs2html <fibs2html.sourceforge.net>
  *
- * $Id: osr.c,v 1.43 2021/07/12 21:24:08 plm Exp $
+ * $Id: osr.c,v 1.44 2022/02/26 20:36:31 plm Exp $
  */
 
 /*lint -e514 */
@@ -812,7 +812,7 @@ raceProbs(const TanBoard anBoard, const unsigned int nGames, float arOutput[NUM_
     TanBoard an;
     float aarProbs[2][MAX_PROBS];
     float aarGammonProbs[2][MAX_PROBS];
-    float arG[2], arBG[2];
+    float arG[2] = { 0.0f, 0.0f }, arBG[2] = { 0.0f, 0.0f };
 
     unsigned int anTotal[2];
 
@@ -824,7 +824,7 @@ raceProbs(const TanBoard anBoard, const unsigned int nGames, float arOutput[NUM_
 
     init_genrand(0, &mti, mt);
 
-    for (i = 0; i < 5; ++i)
+    for (i = 0; i < NUM_OUTPUTS; ++i)
         arOutput[i] = 0.0f;
 
     for (i = 0; i < 2; ++i)
@@ -855,9 +855,6 @@ raceProbs(const TanBoard anBoard, const unsigned int nGames, float arOutput[NUM_
     /* calculate gammon and backgammon probs */
 
     for (i = 0; i < 2; ++i) {
-
-        arG[i] = 0.0f;
-        arBG[i] = 0.0f;
 
         if (anTotal[!i] == 15) {
 
