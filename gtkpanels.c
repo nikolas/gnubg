@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.c,v 1.93 2021/11/20 22:34:53 plm Exp $
+ * $Id: gtkpanels.c,v 1.94 2021/12/12 21:44:38 plm Exp $
  */
 
 #include "config.h"
@@ -864,7 +864,7 @@ CreateHeadWindow(gnubgwindow panel, const char *sz, GtkWidget * pwWidge)
     pwHbox = gtk_hbox_new(FALSE, 0);
 #endif
 
-    gtk_button_set_image(GTK_BUTTON(pwX), gtk_image_new_from_stock(GTK_STOCK_CLOSE, GTK_ICON_SIZE_MENU));
+    gtk_button_set_image(GTK_BUTTON(pwX), gtk_image_new_from_icon_name("window-close", GTK_ICON_SIZE_MENU));
     g_signal_connect(G_OBJECT(pwX), "clicked", G_CALLBACK(woPanel[panel].hideFun), NULL);
 
     gtk_box_pack_start(GTK_BOX(pwVbox), pwHbox, FALSE, FALSE, 0);
