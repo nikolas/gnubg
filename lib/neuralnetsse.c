@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: neuralnetsse.c,v 1.42 2021/10/26 23:06:38 plm Exp $
+ * $Id: neuralnetsse.c,v 1.43 2021/10/30 19:42:20 plm Exp $
  */
 
 #include "config.h"
@@ -61,6 +61,10 @@ sse_malloc(size_t size)
 
     /* mimic g_malloc() error message */
     g_error("%s: failed to allocate %"G_GSIZE_FORMAT" bytes", G_STRLOC, size);
+
+    /* avoid warning: "control reaches end of non-void function" for
+       compilers that don't understand that g_error() never returns. */
+    return NULL;
 
 #elif defined(HAVE__ALIGNED_MALLOC)
     return (float *) _aligned_malloc(size, ALIGN_SIZE);
