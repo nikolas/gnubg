@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: Makefile.am,v 1.48 2020/01/09 20:44:34 plm Exp $
+# $Id: Makefile.am,v 1.49 2022/03/26 21:39:34 plm Exp $
 #
 
 AM_CPPFLAGS = -DAC_DOCDIR='"$(docdir)"' -DAC_DATADIR='"$(datadir)"' -DAC_PKGDATADIR='"$(datadir)/gnubg"'
@@ -98,6 +98,8 @@ allabout.html: allabout.xml
 		$< || \
 		cp $(srcdir)/gnubg/allabout.html .
 
+# encoding=UTF-8 needs texinfo 4.9 (partial support, western european languages
+# that should be good enough for GNUbg documentation) or 4.13 (full support)
 gnubg.texi: gnubgdb.xml
 	$(DOCBOOK2TEXI) --encoding=UTF-8 --string-param prefer-textobjects=1 $< || \
 	cp $(srcdir)/gnubg/gnubg.texi .
