@@ -15,13 +15,11 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: cache.h,v 1.27 2021/06/09 21:25:43 plm Exp $
+ * $Id: cache.h,v 1.28 2022/02/19 21:39:59 plm Exp $
  */
 
 #ifndef CACHE_H
 #define CACHE_H
-
-#include <stdlib.h>
 
 #include "config.h"
 

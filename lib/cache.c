@@ -15,17 +15,13 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: cache.c,v 1.49 2022/02/19 21:39:59 plm Exp $
+ * $Id: cache.c,v 1.50 2022/02/20 16:54:43 plm Exp $
  */
 
 #include "config.h"
 
-#include <stddef.h>
 #include <stdlib.h>
 #include <string.h>
-#ifndef WIN32
-#include <stdio.h>
-#endif
 
 #include "cache.h"
 #include "positionid.h"
@@ -103,7 +99,7 @@ CacheCreate(evalCache * pc, unsigned int s)
     pc->hashMask = (pc->size >> 1) - 1;
 
     pc->entries = (cacheNode *) malloc((pc->size / 2) * sizeof(*pc->entries));
-    if (pc->entries == 0)
+    if (pc->entries == NULL)
         return -1;
 
     CacheFlush(pc);
