@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.489 2022/03/12 20:28:42 plm Exp $
+ * $Id: eval.c,v 1.490 2022/10/06 21:32:41 plm Exp $
  */
 
 #include "config.h"
@@ -25,8 +25,9 @@
 #include <locale.h>
 #include <string.h>
 #include <errno.h>
+#include <stdlib.h>
 #include "isaac.h"
-#include <md5.h>
+#include "md5.h"
 #include "bearoffgammon.h"
 #include "positionid.h"
 #include "matchid.h"
