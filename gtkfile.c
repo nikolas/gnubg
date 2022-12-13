@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.75 2022/01/11 21:55:49 plm Exp $
+ * $Id: gtkfile.c,v 1.76 2022/09/06 21:02:05 plm Exp $
  */
 
 #include "config.h"
@@ -527,7 +527,7 @@ batch_analyse(gchar * filename, char **result, gboolean add_to_db, gboolean add_
     printf("save %s\n", save);
 
     if (g_file_test((save), G_FILE_TEST_EXISTS)) {
-        *result = _("Previous");
+        *result = _("Pre-existing");
         g_free(save);
         return TRUE;
     }
@@ -673,7 +673,7 @@ batch_create_view(GSList * filenames)
     gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view),
                                                 -1, _("Result"), renderer, "text", COL_RESULT, NULL);
 
-    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _("Type"), renderer, "text", COL_DESC, NULL);
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, Q_("analyseType|Type"), renderer, "text", COL_DESC, NULL);
 
     gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _("File"), renderer, "text", COL_FILE, NULL);
     model = batch_create_model(filenames);

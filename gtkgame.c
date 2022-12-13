@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.987 2022/10/22 18:34:12 plm Exp $
+ * $Id: gtkgame.c,v 1.988 2022/11/06 15:39:36 plm Exp $
  */
 
 #include "config.h"
@@ -7479,8 +7479,7 @@ StatsSelectGame(GtkWidget * box, int UNUSED(i))
         gtk_window_set_title(GTK_WINDOW(pwStatDialog), _("Statistics for all games"));
     } else {
         char sz[100];
-        strcpy(sz, _("Statistics for game "));
-        sprintf(sz + strlen(sz), "%d", curStatGame);
+        sprintf(sz, _("Statistics for game %d"), curStatGame);
         gtk_window_set_title(GTK_WINDOW(pwStatDialog), sz);
     }
     SetStats(GetStatContext(curStatGame));

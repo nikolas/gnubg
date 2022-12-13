@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.138 2022/09/05 21:10:40 plm Exp $
+ * $Id: gtkoptions.c,v 1.139 2022/11/06 15:39:36 plm Exp $
  */
 
 #include "config.h"
@@ -1195,7 +1195,7 @@ append_dice_options(optionswidget * pow)
             }
 
             if (!(i == RNG_BBS && !blumblum)) {
-                gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(pow->pwRngComboBox), aszRNG[i]);
+                gtk_combo_box_text_append_text(GTK_COMBO_BOX_TEXT(pow->pwRngComboBox), gettext(aszRNG[i]));
                 if (i == rngCurrent)
                     rngSelected = rngsAdded;
                 rngsAdded++;
