@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.476 2022/03/12 20:14:14 plm Exp $
+ * $Id: play.c,v 1.477 2022/03/20 19:40:21 plm Exp $
  */
 
 #include "config.h"
@@ -1788,7 +1788,10 @@ NextTurn(int fPlayNext)
 #if defined (USE_GTK)
         if (!fX || fDisplay)
 #endif
-            CommandShowScore(NULL);
+            { 
+                CommandShowScore(NULL);
+                outputf("\n");
+            }
 
         if (ms.nMatchTo && ms.anScore[pmgi->fWinner] >= ms.nMatchTo) {
             playSound(ap[pmgi->fWinner].pt == PLAYER_HUMAN ? SOUND_HUMAN_WIN_MATCH : SOUND_BOT_WIN_MATCH);
