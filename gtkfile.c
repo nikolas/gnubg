@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.76 2022/09/06 21:02:05 plm Exp $
+ * $Id: gtkfile.c,v 1.77 2022/12/13 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -673,7 +673,7 @@ batch_create_view(GSList * filenames)
     gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view),
                                                 -1, _("Result"), renderer, "text", COL_RESULT, NULL);
 
-    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, Q_("analyseType|Type"), renderer, "text", COL_DESC, NULL);
+    gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, Q_("fileType|Type"), renderer, "text", COL_DESC, NULL);
 
     gtk_tree_view_insert_column_with_attributes(GTK_TREE_VIEW(view), -1, _("File"), renderer, "text", COL_FILE, NULL);
     model = batch_create_model(filenames);

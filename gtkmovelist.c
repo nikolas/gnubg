@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkmovelist.c,v 1.42 2022/02/19 21:50:29 plm Exp $
+ * $Id: gtkmovelist.c,v 1.43 2022/12/13 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -51,7 +51,7 @@ MoveListCreate(hintdata * phd)
 {
     static const char *aszTitleDetails[] = {
         N_("Rank"),
-        N_("moveType|Type"),
+        N_("analysisType|Type"),
         N_("Win"),
         N_("W g"),
         N_("W bg"),
