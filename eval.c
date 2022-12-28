@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1998-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2000-2019 the AUTHORS
+ * Copyright (C) 2000-2022 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.491 2022/11/06 15:48:32 plm Exp $
+ * $Id: eval.c,v 1.492 2022/12/28 20:02:47 plm Exp $
  */
 
 #include "config.h"
@@ -5653,7 +5653,7 @@ ScoreMovesPruned(movelist * pml, const cubeinfo * pci, const evalcontext * pec, 
     return r;
 }
 
-static movefilter NullFilter = { 0, 0, 0.0 };
+static movefilter NullFilter = { -1, 0, 0.0 };
 
 static int
 FindBestMovePlied(int anMove[8], int nDice0, int nDice1,
