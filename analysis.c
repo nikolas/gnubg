@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: analysis.c,v 1.259 2022/01/26 20:40:17 plm Exp $
+ * $Id: analysis.c,v 1.260 2022/02/15 21:42:12 plm Exp $
  */
 
 #include "config.h"
@@ -2134,14 +2134,7 @@ cmark_move_set(moverecord * pmr, gchar * sz, CMark cmark)
 
     c = pmr->ml.cMoves;
 
-    /* Mike Petch - This is a hack and is not thread safe under GLIB version < 2.12.5
-     * Was added to allow cygwin to compile */
-
-#if GLIB_CHECK_VERSION(2,12,5)
     while ((n = (int) g_ascii_strtoll(sz, &sz, 10)) != 0) {
-#else
-    while ((n = (int) strtoll(sz, &sz, 10)) != 0) {
-#endif
         if (n > c) {
             outputerrf(_("Only %d legal moves, cannot mark move %d\n"), c, n);
             g_slist_free(list);
