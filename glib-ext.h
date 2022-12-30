@@ -14,7 +14,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: glib-ext.h,v 1.15 2020/11/08 22:26:24 plm Exp $
+ * $Id: glib-ext.h,v 1.16 2021/08/22 15:20:33 plm Exp $
  */
 
 /* Map/GList extensions and utility functions for GLIB */
@@ -24,23 +24,6 @@
 
 #include <glib.h>
 #include <glib-object.h>
-
-#if ! GLIB_CHECK_VERSION(2,14,0)
-
-/* This code has been backported from GLIB 2.16
- *
- * Copyright (C) 1995-1997  Peter Mattis, Spencer Kimball and Josh MacDonald
- *
- * gthread.c: MT safety related functions
- * Copyright 1998 Sebastian Wilhelmi; University of Karlsruhe
- *                Owen Taylor
- */
-
-/* initialize-once guards, keyed by value_location */
-G_INLINE_FUNC gboolean g_once_init_enter(volatile gsize * value_location);
-gboolean g_once_init_enter_impl(volatile gsize * value_location);
-void g_once_init_leave(volatile gsize * value_location, gsize initialization_value);
-#endif
 
 #define GLIBEXT_MERGE(a,b)  a##b
 #define GLIBEXT_LABEL_(a,b) GLIBEXT_MERGE(a, b)

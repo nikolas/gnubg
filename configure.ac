@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.109 2022/12/20 16:39:16 plm Exp $
+dnl $Id: configure.ac,v 1.110 2022/12/28 20:23:56 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.109 $)
+AC_REVISION($Revision: 1.110 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -132,7 +132,7 @@ dnl
 if test "x$win32" = "xyes"; then
 glib2minrev=18.4
 else
-glib2minrev=12.5
+glib2minrev=14.0
 fi
 
 PKG_CHECK_MODULES(GLIB, [glib-2.0 >= 2.$glib2minrev], have_glib="yes", AC_MSG_ERROR([You need to have glib2 version 2.$glib2minrev or higher to compile GNU Backgammon]))
