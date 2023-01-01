@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.h,v 1.19 2022/09/02 13:43:30 plm Exp $
+ * $Id: gtklocdefs.h,v 1.20 2022/09/11 12:38:03 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -128,11 +128,6 @@ extern gdouble gtk_adjustment_get_upper(GtkAdjustment * adjustment);
 extern void gtk_adjustment_set_upper(GtkAdjustment * adjustment, gdouble upper);
 guchar *gtk_selection_data_get_data(GtkSelectionData * data);
 
-#endif
-
-#if ! GTK_CHECK_VERSION(2,12,0)
-extern GtkTooltips *ptt;
-#define gtk_widget_set_tooltip_text(pw,text) gtk_tooltips_set_tip(ptt, (pw), (text), NULL)
 #endif
 
 extern GtkWidget *get_statusbar_label(GtkStatusbar * statusbar);

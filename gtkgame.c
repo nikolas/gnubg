@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.988 2022/11/06 15:39:36 plm Exp $
+ * $Id: gtkgame.c,v 1.989 2022/12/13 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -550,9 +550,6 @@ GtkWidget *pwAnalysis;
 GtkWidget *pwCommentary;
 static moverecord *pmrAnnotation;
 GtkAccelGroup *pagMain;
-#if ! GTK_CHECK_VERSION(2,12,0)
-GtkTooltips *ptt;
-#endif
 #if defined(USE_GTKUIMANAGER)
 GtkUIManager *puim = NULL;
 #else
@@ -4001,11 +3998,7 @@ static void
 CreateMainWindow(void)
 {
     GtkWidget *pwVbox, *pwHbox, *pwHbox2, *pwHandle, *pwPanelHbox, *pwStopButton, *idMenu, *menu_item, *pwFrame;
-#if GTK_CHECK_VERSION(2,12,0)
     GtkTargetEntry fileDrop = { "text/uri-list", GTK_TARGET_OTHER_APP, 1 };
-#else
-    GtkTargetEntry fileDrop = { "text/uri-list", 0, 1 };
-#endif
 
     pwMain = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_maximize(GTK_WINDOW(pwMain));
@@ -4328,10 +4321,6 @@ InitGTK(int *argc, char ***argv)
     /*add two xpm based icons */
     picf = gtk_icon_factory_new();
     gtk_icon_factory_add_default(picf);
-
-#if ! GTK_CHECK_VERSION(2,12,0)
-    ptt = gtk_tooltips_new();
-#endif
 
     gnubg_set_default_icon();
 

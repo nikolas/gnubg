@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.22 2022/12/20 15:57:59 plm Exp $
+ * $Id: gtkscoremap.c,v 1.23 2023/01/01 13:46:37 plm Exp $
  */
 
 
@@ -1184,15 +1184,8 @@ ColourQuadrant(gtkquadrant * pgq, quadrantdata * pq, const scoremap * psm) {
 
         // Next set the hover text
         SetHoverText (buf,pq,psm);
-/*
- * This is not supported in early versions of GTK2 (8+ years old).
- * Don't bother with an alterative, we will raise the minimum requirement soon.
- * Not a concern with distributions in practical use today.
- */
-#if GTK_CHECK_VERSION(2,12,0)
-        gtk_widget_set_tooltip_markup(pgq->pContainerWidget, buf);
-#endif
 
+        gtk_widget_set_tooltip_markup(pgq->pContainerWidget, buf);
     }
     gtk_widget_queue_draw(pgq->pDrawingAreaWidget); // here we are calling DrawQuadrant() in a hidden way through the "draw" call,
                                                     //      as initially defined in InitQuadrant()
@@ -1340,10 +1333,10 @@ Specifically: (1) The color of each square (2) The hover text of each square (3)
             gtk_label_set_text(GTK_LABEL(psm->apwRowLabel[i2]), longsz);
             gtk_label_set_text(GTK_LABEL(psm->apwColLabel[i2]), longsz);
         }
-#if GTK_CHECK_VERSION(2,12,0)
+
         gtk_widget_set_tooltip_markup(psm->apwRowLabel[i2], hoversz);
         gtk_widget_set_tooltip_markup(psm->apwColLabel[i2], hoversz); //lll
-#endif
+
 
         // } else {
         //     // Pango.AttrList attrs = new Pango.AttrList ();
@@ -1389,36 +1382,33 @@ Specifically: (1) The color of each square (2) The hover text of each square (3)
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[1]), "");
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[2]), "");
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[3]), _("P"));
-#if GTK_CHECK_VERSION(2,12,0)
+
                 gtk_widget_set_tooltip_markup(psm->apwGauge[0], _("Take"));
                 gtk_widget_set_tooltip_markup(psm->apwGauge[1], "");
                 gtk_widget_set_tooltip_markup(psm->apwGauge[2], "");
                 gtk_widget_set_tooltip_markup(psm->apwGauge[3], _("Pass"));
-#endif
                 break;
             case DND:
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[0]), _("ND"));
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[1]), "");
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[2]), "");
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[3]), _("D"));
-#if GTK_CHECK_VERSION(2,12,0)
+
                 gtk_widget_set_tooltip_markup(psm->apwGauge[0], _("No double"));
                 gtk_widget_set_tooltip_markup(psm->apwGauge[1], "");
                 gtk_widget_set_tooltip_markup(psm->apwGauge[2], "");
                 gtk_widget_set_tooltip_markup(psm->apwGauge[3], _("Double"));
-#endif
                 break;
             case ALL:
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[0]), _("ND"));
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[1]), _("D/T"));
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[2]), _("D/P"));
                 gtk_label_set_text(GTK_LABEL(psm->apwGauge[3]), _("TG"));
-#if GTK_CHECK_VERSION(2,12,0)
+
                 gtk_widget_set_tooltip_markup(psm->apwGauge[0], _("No double/take"));
                 gtk_widget_set_tooltip_markup(psm->apwGauge[1], _("Double/take"));
                 gtk_widget_set_tooltip_markup(psm->apwGauge[2], _("Double/pass"));
                 gtk_widget_set_tooltip_markup(psm->apwGauge[3], _("Too good to double"));
-#endif
                 break;
             default:
                 g_assert_not_reached();

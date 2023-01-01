@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.c,v 1.12 2016/04/30 14:12:39 plm Exp $
+ * $Id: gtklocdefs.c,v 1.13 2020/01/25 21:43:07 plm Exp $
  */
 
 
@@ -100,10 +100,6 @@ gtk_selection_data_get_data(GtkSelectionData * data)
     return data->data;
 }
 
-#endif
-
-#if ! GTK_CHECK_VERSION(2,12,0)
-GtkTooltips *ptt;
 #endif
 
 extern GtkWidget *
