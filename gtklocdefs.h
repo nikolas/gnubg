@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.h,v 1.20 2022/09/11 12:38:03 plm Exp $
+ * $Id: gtklocdefs.h,v 1.21 2023/01/01 17:03:41 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -117,17 +117,6 @@ extern void gtk_widget_get_allocation(GtkWidget * widget, GtkAllocation * alloca
 extern void gtk_widget_set_allocation(GtkWidget * widget, const GtkAllocation * allocation);
 extern void gtk_cell_renderer_get_alignment(GtkCellRenderer * cell, gfloat * xalign, gfloat * yalign);
 extern void gtk_cell_renderer_set_padding(GtkCellRenderer * cell, gint xpad, gint ypad);
-#endif
-
-#if ! GTK_CHECK_VERSION(2,14,0)
-
-extern GtkWidget *gtk_dialog_get_action_area(GtkDialog * dialog);
-extern GtkWidget *gtk_dialog_get_content_area(GtkDialog * dialog);
-extern GdkWindow *gtk_widget_get_window(GtkWidget * widget);
-extern gdouble gtk_adjustment_get_upper(GtkAdjustment * adjustment);
-extern void gtk_adjustment_set_upper(GtkAdjustment * adjustment, gdouble upper);
-guchar *gtk_selection_data_get_data(GtkSelectionData * data);
-
 #endif
 
 extern GtkWidget *get_statusbar_label(GtkStatusbar * statusbar);

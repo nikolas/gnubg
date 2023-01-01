@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.c,v 1.13 2020/01/25 21:43:07 plm Exp $
+ * $Id: gtklocdefs.c,v 1.14 2023/01/01 17:03:41 plm Exp $
  */
 
 
@@ -60,46 +60,6 @@ gtk_cell_renderer_set_padding(GtkCellRenderer * cell, gint xpad, gint ypad)
     cell->xpad = xpad;
     cell->ypad = ypad;
 }
-#endif
-
-#if ! GTK_CHECK_VERSION(2,14,0)
-
-GtkWidget *
-gtk_dialog_get_action_area(GtkDialog * dialog)
-{
-    return (dialog->action_area);
-}
-
-GtkWidget *
-gtk_dialog_get_content_area(GtkDialog * dialog)
-{
-    return (dialog->vbox);
-}
-
-GdkWindow *
-gtk_widget_get_window(GtkWidget * widget)
-{
-    return (widget->window);
-}
-
-gdouble
-gtk_adjustment_get_upper(GtkAdjustment * adjustment)
-{
-    return adjustment->upper;
-}
-
-void
-gtk_adjustment_set_upper(GtkAdjustment * adjustment, gdouble upper)
-{
-    adjustment->upper = upper;
-}
-
-guchar *
-gtk_selection_data_get_data(GtkSelectionData * data)
-{
-    return data->data;
-}
-
 #endif
 
 extern GtkWidget *
