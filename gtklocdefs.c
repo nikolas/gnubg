@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.c,v 1.14 2023/01/01 17:03:41 plm Exp $
+ * $Id: gtklocdefs.c,v 1.15 2023/01/01 17:22:26 plm Exp $
  */
 
 
@@ -71,17 +71,6 @@ get_statusbar_label(GtkStatusbar * statusbar)
                    (GTK_CONTAINER(gtk_statusbar_get_message_area(GTK_STATUSBAR(statusbar))))->data);
 #else
     return GTK_WIDGET(statusbar->label);
-#endif
-}
-
-
-extern void
-toolbar_set_orientation(GtkToolbar * toolbar, GtkOrientation orientation)
-{
-#if GTK_CHECK_VERSION(2,16,0)
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(toolbar), orientation);
-#else
-    gtk_toolbar_set_orientation(toolbar, orientation);
 #endif
 }
 

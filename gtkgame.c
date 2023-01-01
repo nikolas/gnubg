@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.989 2022/12/13 22:03:31 plm Exp $
+ * $Id: gtkgame.c,v 1.990 2023/01/01 17:03:40 plm Exp $
  */
 
 #include "config.h"
@@ -4814,7 +4814,7 @@ NewWidget(newwidget * pnw)
 #endif
     pwToolbar2 = gtk_toolbar_new();
 
-    toolbar_set_orientation(GTK_TOOLBAR(pwToolbar2), GTK_ORIENTATION_HORIZONTAL);
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(pwToolbar2), GTK_ORIENTATION_HORIZONTAL);
     gtk_toolbar_set_style(GTK_TOOLBAR(pwToolbar2), GTK_TOOLBAR_ICONS);
     gtk_toolbar_set_show_arrow(GTK_TOOLBAR(pwToolbar2), FALSE);
     pwFrame = gtk_frame_new(_("Shortcut buttons"));

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.h,v 1.21 2023/01/01 17:03:41 plm Exp $
+ * $Id: gtklocdefs.h,v 1.22 2023/01/01 17:22:26 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -120,7 +120,6 @@ extern void gtk_cell_renderer_set_padding(GtkCellRenderer * cell, gint xpad, gin
 #endif
 
 extern GtkWidget *get_statusbar_label(GtkStatusbar * statusbar);
-extern void toolbar_set_orientation(GtkToolbar * toolbar, GtkOrientation orientation);
 
 #ifndef USE_GRESOURCE
 #define gnubg_stock_register_resource()
