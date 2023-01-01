@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.h,v 1.22 2023/01/01 17:22:26 plm Exp $
+ * $Id: gtklocdefs.h,v 1.23 2023/01/01 17:37:16 plm Exp $
  */
 
 #ifndef GTKLOCDEFS_H
@@ -93,30 +93,6 @@ extern gint gdk_visual_get_depth(GdkVisual * visual);
 #define gtk_widget_get_sensitive(p)  GTK_WIDGET_SENSITIVE((p))
 #define gtk_widget_is_sensitive(p)  GTK_WIDGET_IS_SENSITIVE((p))
 #define gtk_widget_has_focus(p)  GTK_WIDGET_HAS_FOCUS((p))
-#endif
-
-#if ! GTK_CHECK_VERSION(2,18,0)
-#define gtk_widget_set_has_window(widget,has_window) \
-	{ \
-		if ((has_window)) \
-			GTK_WIDGET_UNSET_FLAGS((widget), GTK_NO_WINDOW); \
-		else \
-			GTK_WIDGET_SET_FLAGS((widget), GTK_NO_WINDOW); \
-	};
-
-#define gtk_widget_set_can_focus(widget,can_focus) \
-	{ \
-		if ((can_focus)) \
-			GTK_WIDGET_SET_FLAGS((widget), GTK_CAN_FOCUS); \
-		else \
-			GTK_WIDGET_UNSET_FLAGS((widget), GTK_CAN_FOCUS ); \
-	};
-
-
-extern void gtk_widget_get_allocation(GtkWidget * widget, GtkAllocation * allocation);
-extern void gtk_widget_set_allocation(GtkWidget * widget, const GtkAllocation * allocation);
-extern void gtk_cell_renderer_get_alignment(GtkCellRenderer * cell, gfloat * xalign, gfloat * yalign);
-extern void gtk_cell_renderer_set_padding(GtkCellRenderer * cell, gint xpad, gint ypad);
 #endif
 
 extern GtkWidget *get_statusbar_label(GtkStatusbar * statusbar);

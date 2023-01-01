@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgamelist.c,v 1.51 2020/01/25 21:41:57 plm Exp $
+ * $Id: gtkgamelist.c,v 1.52 2022/10/02 12:43:20 plm Exp $
  */
 
 #include "config.h"
@@ -318,10 +318,7 @@ GL_Create(void)
 
     renderer = gtk_cell_renderer_text_new();
     g_object_set(renderer, "ypad", 0, NULL);
-#if GTK_CHECK_VERSION(2,18,0)
-    /* Unavailable on older versions. Default seems adequate anyway. */
     gtk_cell_renderer_set_alignment(renderer, 1.0, 0.5);
-#endif
     column = gtk_tree_view_column_new_with_attributes(_("#"), renderer, "text", GL_COL_MOVE_NUMBER, NULL);
     gtk_tree_view_column_set_alignment(column, 1.0);
     gtk_tree_view_column_set_sizing(column, GTK_TREE_VIEW_COLUMN_FIXED);

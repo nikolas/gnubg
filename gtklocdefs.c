@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtklocdefs.c,v 1.15 2023/01/01 17:22:26 plm Exp $
+ * $Id: gtklocdefs.c,v 1.16 2023/01/01 17:37:16 plm Exp $
  */
 
 
@@ -31,34 +31,6 @@ gint
 gdk_visual_get_depth(GdkVisual * visual)
 {
     return visual->depth;
-}
-#endif
-
-#if ! GTK_CHECK_VERSION(2,18,0)
-void
-gtk_widget_get_allocation(GtkWidget * widget, GtkAllocation * allocation)
-{
-    *allocation = widget->allocation;
-}
-
-void
-gtk_widget_set_allocation(GtkWidget * widget, const GtkAllocation * allocation)
-{
-    widget->allocation = *allocation;
-}
-
-void
-gtk_cell_renderer_get_alignment(GtkCellRenderer * cell, gfloat * xalign, gfloat * yalign)
-{
-    *xalign = cell->xalign;
-    *yalign = cell->yalign;
-}
-
-void
-gtk_cell_renderer_set_padding(GtkCellRenderer * cell, gint xpad, gint ypad)
-{
-    cell->xpad = xpad;
-    cell->ypad = ypad;
 }
 #endif
 
