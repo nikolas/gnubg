@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.23 2023/01/01 13:46:37 plm Exp $
+ * $Id: gtkscoremap.c,v 1.24 2023/01/01 17:03:41 plm Exp $
  */
 
 
@@ -479,13 +479,17 @@ In Move ScoreMap: Calculates the ordered best moves and their equities.
                         //GeneralCubeDecisionE is from eval.c
                         // extern int GeneralCubeDecisionE(float aarOutput[2][NUM_ROLLOUT_OUTPUTS], const TanBoard anBoard,
                         // cubeinfo * const pci, const evalcontext * pec, const evalsetup * UNUSED(pes))
-                    ProgressEnd();
+                    /* The computation  was interrupted */
+                    pq->ndEquity = -1000.0f;
+                    pq->dtEquity = -1000.0f;
+                    strcpy(pq->decisionString, "");
+
                     return -1;
                 }
 
                 // Convert MWC to equity, and store in the scoremap
-                pq->ndEquity= mmwc2eq(aarOutput[0][OUTPUT_CUBEFUL_EQUITY], & pq->ci);
-                pq->dtEquity= mmwc2eq(aarOutput[1][OUTPUT_CUBEFUL_EQUITY], & pq->ci);
+                pq->ndEquity = mmwc2eq(aarOutput[0][OUTPUT_CUBEFUL_EQUITY], & pq->ci);
+                pq->dtEquity = mmwc2eq(aarOutput[1][OUTPUT_CUBEFUL_EQUITY], & pq->ci);
             }
 
     //g_print("Score: %d-%d ",psm->aaQuadrantData[i][j].ci.anScore[0], psm->aaQuadrantData[i][j].ci.anScore[1]);
@@ -499,8 +503,8 @@ In Move ScoreMap: Calculates the ordered best moves and their equities.
     } else {  //move scoremap
         if (FindnSaveBestMoves(&(pq->ml),psm->pms->anDice[0],psm->pms->anDice[1], (ConstTanBoard) psm->pms->anBoard, NULL, //or pkey
                                         arSkillLevel[SKILL_DOUBTFUL], &(pq->ci), &psm->ec, aamfAnalysis) <0) {
-            strcpy(pq->decisionString,"");
-            ProgressEnd();
+            strcpy(pq->decisionString, "");
+
             return -1;
         }
 
@@ -981,6 +985,7 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
 */
 
     char ssz[200];
+    char space2[50];
 
     strcpy(buf, "");
 
@@ -1039,19 +1044,25 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
     }
 
     if (psm->cubeScoreMap) {
-        float nd=pq->ndEquity;
-        float dt=pq->dtEquity;
-        float dp=1.0f;
-        if (pq->dec == ND) { //ND is best
-            sprintf(ssz,"<tt>1. ND \t%+.*f\n2. D/P\t%+.*f\t%+.*f\n3. D/T\t%+.*f\t%+.*f</tt>",DIGITS,nd,DIGITS,dp,DIGITS,dp-nd,DIGITS,dt,DIGITS,dt-nd);
-        } else if (pq->dec == DT) {//DT is best
-            sprintf(ssz,"<tt>1. D/T\t%+.*f\n2. D/P\t%+.*f\t%+.*f\n3. ND \t%+.*f\t%+.*f</tt>",DIGITS,dt,DIGITS,dp,DIGITS,dp-dt,DIGITS,nd,DIGITS,nd-dt);
-        } else if (pq->dec == DP) { //DP is best
-            sprintf(ssz,"<tt>1. D/P\t%+.*f\n2. D/T\t%+.*f\t%+.*f\n3. ND \t%+.*f\t%+.*f</tt>",DIGITS,dp,DIGITS,dt,DIGITS,dt-dp,DIGITS,nd,DIGITS,nd-dp);
-        } else { //TGTD is best
-            sprintf(ssz,"<tt>1. ND \t%+.*f\n2. D/T\t%+.*f\t%+.*f\n3. D/P\t%+.*f\t%+.*f</tt>",DIGITS,nd,DIGITS,dt,DIGITS,dt-nd,DIGITS,dp,DIGITS,dp-nd);
+        float nd = pq->ndEquity;
+        float dt = pq->dtEquity;
+        float dp = 1.0f;
+
+        if (nd < -900.0f) //reflects issue, typically user stopped computation in the middle
+            sprintf(ssz, _("Score not analysed\nComputation stopped by user"));
+        else {
+            sprintf(space2, "%*c", DIGITS + 7, ' ');   //define spacing before putting ply of 1st line
+            if (pq->dec == ND) { //ND is best //format: "+" forces +/-; .*f displays f with precision DIGITS
+                sprintf(ssz,"<tt>1. ND \t%+.*f%s(%u-ply)\n2. D/P\t%+.*f  %+.*f  (%u-ply)\n3. D/T\t%+.*f  %+.*f  (%u-ply)</tt>", DIGITS, nd, space2,psm->ec.nPlies, DIGITS, dp, DIGITS, dp-nd, psm->ec.nPlies,DIGITS, dt, DIGITS, dt-nd, psm->ec.nPlies);
+            } else if (pq->dec == DT) {//DT is best
+                sprintf(ssz,"<tt>1. D/T\t%+.*f%s(%u-ply)\n2. D/P\t%+.*f  %+.*f  (%u-ply)\n3. ND \t%+.*f  %+.*f  (%u-ply)</tt>", DIGITS, dt, space2,psm->ec.nPlies, DIGITS, dp, DIGITS, dp-dt, psm->ec.nPlies,DIGITS, nd, DIGITS, nd-dt, psm->ec.nPlies);
+            } else if (pq->dec == DP) { //DP is best
+                sprintf(ssz,"<tt>1. D/P\t%+.*f%s(%u-ply)\n2. D/T\t%+.*f  %+.*f  (%u-ply)\n3. ND \t%+.*f  %+.*f  (%u-ply)</tt>", DIGITS, dp, space2,psm->ec.nPlies, DIGITS, dt, DIGITS, dt-dp, psm->ec.nPlies,DIGITS, nd, DIGITS, nd-dp, psm->ec.nPlies);
+            } else { //TGTD is best
+                sprintf(ssz,"<tt>1. ND \t%+.*f%s(%u-ply)\n2. D/T\t%+.*f  %+.*f  (%u-ply)\n3. D/P\t%+.*f  %+.*f  (%u-ply)</tt>", DIGITS, nd, space2,psm->ec.nPlies, DIGITS, dt, DIGITS, dt-nd, psm->ec.nPlies,DIGITS, dp, DIGITS, dp-nd, psm->ec.nPlies);
+            }
         }
-        strcat(buf,ssz);
+        strcat(buf, ssz);
     } else { // move scoremap
 
         // in the mouse hover window, we want to display the best move, then the 2nd and 3rd best moves and
@@ -1107,11 +1118,9 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
             sprintf(ssz,"<tt>1. %s  %1.*f</tt>",szMove0,DIGITS,pq->ml.amMoves[0].rScore);
             strcat(buf,ssz);
         } else {
-            /* This cannot happen. If there is no legal move there is no
-               move analysis and no Score Map button to bring us here. */
-            g_assert_not_reached();
-            sprintf(ssz,"no legal moves");
-            strcat(buf,ssz);
+            /* This can only happen if the user stops the computation. */
+            sprintf(ssz, _("Score not analysed\nComputation stopped by user"));
+            strcat(buf, ssz);
         }
     }
 }
