@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 2001-2022 the AUTHORS
+ * Copyright (C) 2001-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.990 2023/01/01 17:03:40 plm Exp $
+ * $Id: gtkgame.c,v 1.991 2023/01/01 17:37:15 plm Exp $
  */
 
 #include "config.h"
@@ -76,6 +76,7 @@
 #include "gtkmovelistctrl.h"
 #include "rollout.h"
 #include "util.h"
+#include "gtkscoremap.h"
 #if defined(USE_BOARD3D)
 #include "inc3d.h"
 #endif
@@ -174,7 +175,7 @@ typedef enum {
     CMD_SHOW_STATISTICS_MATCH,
     CMD_SHOW_TEMPERATURE_MAP,
     CMD_SHOW_TEMPERATURE_MAP_CUBE,
-    CMD_SHOW_SCORE_MAP,    
+    CMD_SHOW_SCORE_MAP_CUBE,    
     CMD_SHOW_SCORE_MAP_MOVE,    
     CMD_SHOW_VERSION,
     CMD_SHOW_WARRANTY,
@@ -381,7 +382,7 @@ CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_ROLLS, "show rolls");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_STATISTICS_MATCH, "show statistics match");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_TEMPERATURE_MAP, "show temperaturemap");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_TEMPERATURE_MAP_CUBE, "show temperaturemap =cube");
-CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP, "show scoremap");
+CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP_CUBE, "show scoremap");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP_MOVE, "show scoremap =move");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_VERSION, "show version");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_WARRANTY, "show warranty");
@@ -525,9 +526,20 @@ typedef struct {
     evalsetup esEvalCube;
     movefilter aaEvalmf[MAX_FILTER_PLIES][MAX_FILTER_PLIES];
 
+    GtkWidget *pwNoteBook;
     GtkAdjustment *apadjSkill[3], *apadjLuck[4];
     GtkWidget *pwMoves, *pwCube, *pwLuck, *pwHintSame, *pwCubeSummary;
     GtkWidget *apwAnalysePlayers[2];
+    GtkWidget *pwScoreMap;
+    GtkWidget* apwScoreMapPly[NUM_PLY];
+    GtkWidget* apwScoreMapMatchLength[NUM_MATCH_LENGTH];
+    GtkWidget* apwsm1[NUM_sm1];
+    GtkWidget* apwScoreMapLabel[NUM_LABEL];
+    GtkWidget* apwScoreMapJacoby[NUM_JACOBY];
+    GtkWidget* apwScoreMapCubeEquityDisplay[NUM_CUBEDISP];
+    GtkWidget* apwScoreMapMoveEquityDisplay[NUM_MOVEDISP];
+    GtkWidget* apwScoreMapColour[NUM_COLOUR];
+    GtkWidget* apwScoreMapLayout[NUM_LAYOUT];
 
 } analysiswidget;
 
@@ -585,6 +597,9 @@ static GtkWidget *pwPanelGameBox;
 static GtkWidget *pwEventBox;
 static int panelSize = 325;
 static GtkWidget *pwStop;
+
+static int disregardsm1=1; //available implemented hidden radio option called sm1; if needed in the future, just activate
+
 
 extern void
 GTKSuspendInput(void)
@@ -2662,27 +2677,92 @@ AnalysisOK(GtkWidget * pw, analysiswidget * paw)
 {
 
     char sz[128];
-    int n;
+    int n, i;
 
     gtk_widget_hide(gtk_widget_get_toplevel(pw));
 
     CHECKUPDATE(paw->pwMoves, fAnalyseMove, "set analysis moves %s")
-        CHECKUPDATE(paw->pwCube, fAnalyseCube, "set analysis cube %s")
-        CHECKUPDATE(paw->pwLuck, fAnalyseDice, "set analysis luck %s")
-        CHECKUPDATE(paw->apwAnalysePlayers[0], afAnalysePlayers[0], "set analysis player 0 analyse %s")
-        CHECKUPDATE(paw->apwAnalysePlayers[1], afAnalysePlayers[1], "set analysis player 1 analyse %s")
+    CHECKUPDATE(paw->pwCube, fAnalyseCube, "set analysis cube %s")
+    CHECKUPDATE(paw->pwLuck, fAnalyseDice, "set analysis luck %s")
+    CHECKUPDATE(paw->apwAnalysePlayers[0], afAnalysePlayers[0], "set analysis player 0 analyse %s")
+    CHECKUPDATE(paw->apwAnalysePlayers[1], afAnalysePlayers[1], "set analysis player 1 analyse %s")
 
-        ADJUSTSKILLUPDATE(0, SKILL_DOUBTFUL, "set analysis threshold doubtful %s")
-        ADJUSTSKILLUPDATE(1, SKILL_BAD, "set analysis threshold bad %s")
-        ADJUSTSKILLUPDATE(2, SKILL_VERYBAD, "set analysis threshold verybad %s")
+    ADJUSTSKILLUPDATE(0, SKILL_DOUBTFUL, "set analysis threshold doubtful %s")
+    ADJUSTSKILLUPDATE(1, SKILL_BAD, "set analysis threshold bad %s")
+    ADJUSTSKILLUPDATE(2, SKILL_VERYBAD, "set analysis threshold verybad %s")
 
-        ADJUSTLUCKUPDATE(0, LUCK_VERYGOOD, "set analysis threshold verylucky %s")
-        ADJUSTLUCKUPDATE(1, LUCK_GOOD, "set analysis threshold lucky %s")
-        ADJUSTLUCKUPDATE(2, LUCK_BAD, "set analysis threshold unlucky %s")
-        ADJUSTLUCKUPDATE(3, LUCK_VERYBAD, "set analysis threshold veryunlucky %s")
+    ADJUSTLUCKUPDATE(0, LUCK_VERYGOOD, "set analysis threshold verylucky %s")
+    ADJUSTLUCKUPDATE(1, LUCK_GOOD, "set analysis threshold lucky %s")
+    ADJUSTLUCKUPDATE(2, LUCK_BAD, "set analysis threshold unlucky %s")
+    ADJUSTLUCKUPDATE(3, LUCK_VERYBAD, "set analysis threshold veryunlucky %s")
 
-        /* Group output in one batch */
-        outputpostpone();
+    /* Score Map */
+
+    for (i = 0; i < NUM_PLY; ++i)
+        {if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapPly[i])) && scoreMapPlyDefault != (scoreMapPly) i) {
+            sprintf(sz, "set scoremapply %s", aszScoreMapPlyCommands[i]);
+            UserCommand(sz);
+            break;
+        } }
+
+
+    for (i = 0; i < NUM_MATCH_LENGTH; ++i){
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapMatchLength[i])) && scoreMapMatchLengthDefIdx != (scoreMapMatchLength) i) {
+            sprintf(sz, "set scoremapmatchlength %s", aszScoreMapMatchLengthCommands[i]);
+            UserCommand(sz);
+            break;
+        } 
+    }
+
+    if(!disregardsm1) {
+        for (i = 0; i < NUM_sm1; ++i)
+            if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwsm1[i])) && sm1Def != (sm1type) i) {
+                sprintf(sz, "set sm1 %s", aszsm1Commands[i]);
+                UserCommand(sz);
+                break;
+            } 
+    }
+
+    for (i = 0; i < NUM_LABEL; ++i)
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLabel[i])) && scoreMapLabelDef != (scoreMapLabel) i) {
+            sprintf(sz, "set scoremaplabel %s", aszScoreMapLabelCommands[i]);
+            UserCommand(sz);
+            break;
+        } 
+    for (i = 0; i < NUM_JACOBY; ++i)
+       { if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapJacoby[i])) && scoreMapJacobyDef != (scoreMapJacoby) i) {
+            sprintf(sz, "set scoremapjacoby %s", aszScoreMapJacobyCommands[i]);
+            UserCommand(sz);
+            break;
+        }} 
+    for (i = 0; i < NUM_CUBEDISP; ++i)
+        {if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapCubeEquityDisplay[i])) && scoreMapCubeEquityDisplayDef != (scoreMapCubeEquityDisplay) i) {
+            sprintf(sz, "set scoremapcubeequitydisplay %s", aszScoreMapCubeEquityDisplayCommands[i]);
+            UserCommand(sz);
+            break;
+        } }
+    for (i = 0; i < NUM_MOVEDISP; ++i)
+        {if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapMoveEquityDisplay[i])) && scoreMapMoveEquityDisplayDef != (scoreMapMoveEquityDisplay) i) {
+            sprintf(sz, "set scoremapmoveequitydisplay %s", aszScoreMapMoveEquityDisplayCommands[i]);
+            UserCommand(sz);
+            break;
+        }} 
+    for (i = 0; i < NUM_COLOUR; ++i)
+        {if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapColour[i])) && scoreMapColourDef != (scoreMapColour) i) {
+            sprintf(sz, "set scoremapcolour %s", aszScoreMapColourCommands[i]);
+            UserCommand(sz);
+            break;
+        }} 
+    for (i = 0; i < NUM_LAYOUT; ++i)
+       { if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLayout[i])) && scoreMapLayoutDef != (scoreMapLayout) i) {
+            sprintf(sz, "set scoremaplayout %s", aszScoreMapLayoutCommands[i]);
+            UserCommand(sz);
+            break;
+        }} 
+
+
+    /* Group output in one batch */
+    outputpostpone();
 
     SetEvalCommands("set analysis chequerplay eval", &paw->esChequer.ec, &esAnalysisChequer.ec);
     SetMovefilterCommands("set analysis movefilter", paw->aamf, aamfAnalysis);
@@ -2715,6 +2795,8 @@ AnalysisSet(analysiswidget * paw)
 {
 
     int i;
+    //char sz[128];
+
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwMoves), fAnalyseMove);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwCube), fAnalyseCube);
@@ -2730,13 +2812,50 @@ AnalysisSet(analysiswidget * paw)
     gtk_adjustment_set_value(GTK_ADJUSTMENT(paw->apadjLuck[1]), arLuckLevel[LUCK_GOOD]);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(paw->apadjLuck[2]), arLuckLevel[LUCK_BAD]);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(paw->apadjLuck[3]), arLuckLevel[LUCK_VERYBAD]);
+
+
+    /*Score Map*/ 
+
+    for (i = 0; i < NUM_PLY; ++i){
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapPly[i]), scoreMapPlyDefault == (scoreMapPly)i);
+    }
+
+    for (i = 0; i < NUM_MATCH_LENGTH; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapMatchLength[i]), scoreMapMatchLengthDefIdx == (scoreMapMatchLength)i); 
+
+    if(!disregardsm1) {
+        for (i = 0; i < NUM_sm1; ++i)
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwsm1[i]), sm1Def == (sm1type) i); 
+    }
+    
+    for (i = 0; i < NUM_LABEL; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLabel[i]), scoreMapLabelDef == (scoreMapLabel) i); 
+
+    for (i = 0; i < NUM_JACOBY; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapJacoby[i]), scoreMapJacobyDef == (scoreMapJacoby) i); 
+
+    for (i = 0; i < NUM_CUBEDISP; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapCubeEquityDisplay[i]), scoreMapCubeEquityDisplayDef == (scoreMapCubeEquityDisplay) i); 
+
+    for (i = 0; i < NUM_MOVEDISP; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapMoveEquityDisplay[i]), scoreMapMoveEquityDisplayDef == (scoreMapMoveEquityDisplay) i); 
+
+    for (i = 0; i < NUM_COLOUR; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapColour[i]), scoreMapColourDef == (scoreMapColour) i); 
+
+    for (i = 0; i < NUM_LAYOUT; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLayout[i]), scoreMapLayoutDef == (scoreMapLayout) i); 
+
 }
 
 static void
 HintSameToggled(GtkWidget * UNUSED(notused), analysiswidget * paw)
 {
-    int active = !gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->pwHintSame));
+
+    int active = !(gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->pwHintSame)));
+
     gtk_widget_set_sensitive(paw->pwCubeSummary, active);
+
 }
 
 static AnalysisDetails *
@@ -2756,24 +2875,176 @@ CreateEvalSettings(GtkWidget * pwParent, const char *title, evalcontext * pecheq
     return pAnalDetail;
 }
 
-extern void
-SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
+//Module to add text
+static void
+AddText(GtkWidget* pwBox, char* Text)
+{
+    GtkRcStyle * ps = gtk_rc_style_new();
+    GtkWidget * pwText = gtk_label_new(Text);
+    GtkWidget * pwHBox;
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
+    pwHBox = gtk_hbox_new(FALSE, 0);
+#endif
+    gtk_box_pack_start(GTK_BOX(pwBox), pwHBox, FALSE, FALSE, 4);
+
+    ps->font_desc = pango_font_description_new();
+    //pango_font_description_set_family_static(ps->font_desc, "serif");
+    //pango_font_description_set_size(ps->font_desc, 8 * PANGO_SCALE);
+    gtk_widget_modify_style(pwText, ps);
+    g_object_unref(ps);
+
+    gtk_box_pack_start(GTK_BOX(pwHBox), pwText, FALSE, FALSE, 0);
+}
+
+
+static void
+BuildRadioButtons(GtkWidget* pwvbox, GtkWidget* apwScoreMapFrame[], const char* frameTitle, const char* frameToolTip, const char* labelStrings[],
+    int labelStringsLen, int toggleDefault) { 
+    /* Sub-function to build a new box with a new set of labels, with a whole bunch of needed parameters
+
+    - pwvbox ----------
+    | --title----------|
+    | -- pwh2 -------- |
+    | |text | options| |
+    | ---------------- |
+    --------------------
+    */
+    int* pi;
+    int i;
+    // GtkWidget* pwFrame;
+    GtkWidget* pwh2;
+
+    AddText(pwvbox, _(frameTitle));
+
+//     pwFrame = gtk_frame_new(_(frameTitle));
+//     gtk_box_pack_start(GTK_BOX(pwScoreMapBox), pwFrame, vAlignExpand, FALSE, 0);
+//     gtk_widget_set_tooltip_text(pwFrame, _(frameToolTip)); 
+//     gtk_widget_set_sensitive(pwFrame, sensitive);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwh2 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+#else
+    pwh2 = gtk_hbox_new(FALSE, 8);
+#endif
+//     gtk_container_add(GTK_CONTAINER(pwFrame), pwh2);
+
+    gtk_box_pack_start(GTK_BOX(pwvbox), pwh2, FALSE, FALSE, 0);
+
+    AddText(pwh2, ("   "));
+
+    for (i = 0; i < labelStringsLen; i++) {
+        if (i == 0)
+            apwScoreMapFrame[0] = gtk_radio_button_new_with_label(NULL, _(labelStrings[0])); // First radio button
+        else
+            apwScoreMapFrame[i] = gtk_radio_button_new_with_label_from_widget(GTK_RADIO_BUTTON(apwScoreMapFrame[0]), _(labelStrings[i])); // Associate this to the other radio buttons
+        gtk_box_pack_start(GTK_BOX(pwh2), apwScoreMapFrame[i], FALSE, FALSE, 0);
+        gtk_widget_set_tooltip_text(apwScoreMapFrame[i], _(frameToolTip));    
+        pi = (int*)g_malloc(sizeof(int));
+        *pi = (int)i; // here use "=(int)labelEnum[i];" and put it in the input of the function if needed, while
+             //  defining sth like " int labelEnum[] = { NUMBERS, ENGLISH, BOTH };" before calling the function
+        g_object_set_data_full(G_OBJECT(apwScoreMapFrame[i]), "user_data", pi, g_free);
+        if (toggleDefault == i) // again use "if (DefaultLabel==labelEnum[i])" if needed
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(apwScoreMapFrame[i]), 1); //we set this to toggle it on in case it's the default option
+        //g_signal_connect(G_OBJECT(pw), "toggled", G_CALLBACK((*functionWhenToggled)), psm);
+    }}
+
+
+
+static void
+append_scoremap_options(analysiswidget* paw) 
+{
+    GtkWidget* pwvbox;
+    GtkWidget* pwFrame;
+    GtkWidget* pwv;
+
+#if !GTK_CHECK_VERSION(3,0,0)
+    GtkWidget* pwp;
+#endif
+
+    //BoardData* bd = BOARD(pwBoard)->board_data;
+
+    int vAlignExpand = FALSE; // set to true to expand vertically the group of frames rather than packing them to the top
+    //int evalPlies = 3;
+
+    /* Display options */
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_set_halign(pwvbox, GTK_ALIGN_START);
+    gtk_widget_set_valign(pwvbox, GTK_ALIGN_START);
+    gtk_container_set_border_width(GTK_CONTAINER(pwvbox), 4);
+    gtk_notebook_append_page(GTK_NOTEBOOK(paw->pwNoteBook), pwvbox, gtk_label_new(_("ScoreMap")));
+#else
+    pwvbox = gtk_vbox_new(FALSE, 0);
+    pwp = gtk_alignment_new(0, 0, 0, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(pwp), 4);
+    gtk_notebook_append_page(GTK_NOTEBOOK(paw->pwNoteBook), pwp, gtk_label_new(_("ScoreMap")));
+    gtk_container_add(GTK_CONTAINER(pwp), pwvbox);
+#endif
+
+    // #if GTK_CHECK_VERSION(3,0,0)
+//     pwScoreMapBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+// #else
+//     pwScoreMapBox = gtk_hbox_new(FALSE, 0);
+// #endif
+//     gtk_box_pack_start(GTK_BOX(pwvbox), pwScoreMapBox, FALSE, FALSE, 0);
+    // AddText(pwvbox, _(frameTitle));
+
+    pwFrame = gtk_frame_new(_("Default ScoreMap settings"));
+    gtk_box_pack_start(GTK_BOX(pwvbox), pwFrame, vAlignExpand, FALSE, 0);
+    gtk_widget_set_tooltip_text(pwFrame, _("Select the settings with which to initialize each new ScoreMap window")); 
+    gtk_widget_set_sensitive(pwFrame, TRUE);
+
+#if GTK_CHECK_VERSION(3,0,0)
+        pwv = gtk_box_new(GTK_ORIENTATION_VERTICAL, 4);
+#else
+        pwv = gtk_vbox_new(FALSE, 0);
+#endif
+    gtk_container_add(GTK_CONTAINER(pwFrame), pwv);
+
+    BuildRadioButtons(pwv, paw->apwScoreMapPly,_("Evaluation strength:"), _("Select the ply at which to evaluate the equity at each score"), aszScoreMapPly, NUM_PLY, scoreMapPlyDefault);
+    BuildRadioButtons(pwv, paw->apwScoreMapMatchLength,_("Simulated match length:"), _("Select the default match length for which to draw the ScoreMap; a variable length picks a length of 3 for current real short matches, 7 for long, and 5 otherwise."), aszScoreMapMatchLength, NUM_MATCH_LENGTH, scoreMapMatchLengthDefIdx);
+    if (!disregardsm1)
+        BuildRadioButtons(pwv, paw->apwsm1,_("sm1"), _("Select the default sm1 for which to draw the ScoreMap:"), aszsm1, NUM_sm1, sm1Def);
+    BuildRadioButtons(pwv, paw->apwScoreMapJacoby,_("Money-play analysis:"), _("Select the default Jacoby option in the money play analysis of the top-left ScoreMap square"), aszScoreMapJacoby, NUM_JACOBY, scoreMapJacobyDef);
+    BuildRadioButtons(pwv, paw->apwScoreMapCubeEquityDisplay,_("Cube equity display:"), _("Select the default equity text to display in the squares of the cube ScoreMap"), aszScoreMapCubeEquityDisplay, NUM_CUBEDISP, scoreMapCubeEquityDisplayDef);
+    BuildRadioButtons(pwv, paw->apwScoreMapMoveEquityDisplay,_("Move equity display:"), _("Select the default equity text to display in the squares of the move ScoreMap"), aszScoreMapMoveEquityDisplay, NUM_MOVEDISP, scoreMapMoveEquityDisplayDef);
+    BuildRadioButtons(pwv, paw->apwScoreMapColour,_("In cube ScoreMaps, colour by:"), _("Select what equity to use when deciding to colour the cube ScoreMap"), aszScoreMapColour, NUM_COLOUR, scoreMapColourDef);
+    BuildRadioButtons(pwv, paw->apwScoreMapLabel,_("Axis orientation:"), _("Select how to orient the ScoreMap axes by default"), aszScoreMapLabel, NUM_LABEL, scoreMapLabelDef);
+    BuildRadioButtons(pwv, paw->apwScoreMapLayout,_("Option pane location:"), _("Decide where to place the options with respect to the ScoreMap table"), aszScoreMapLayout, NUM_LAYOUT, scoreMapLayoutDef);
+
+}
+
+static void
+append_analysis_options(analysiswidget * paw)
 {
     const char *aszSkillLabel[3] = { N_("Doubtful:"), N_("Bad:"), N_("Very bad:") };
     const char *aszLuckLabel[4] = { N_("Very lucky:"), N_("Lucky:"),
         N_("Unlucky:"), N_("Very unlucky:")
     };
     int i;
-    AnalysisDetails *pAnalDetailSettings1, *pAnalDetailSettings2;
-    GtkWidget *pwDialog, *pwPage, *pwFrame, *pwLabel, *pwSpin;
+    AnalysisDetails *pAnalDetailSettings2;
+    GtkWidget *pwPage, *pwFrame, *pwLabel, *pwSpin;
 #if GTK_CHECK_VERSION(3,0,0)
     GtkWidget *pwGrid;
 #else
     GtkWidget *pwTable;
+    GtkWidget* pwp;
 #endif
-    GtkWidget *hboxTop, *hboxBottom, *vbox1, *vbox2, *hbox;
-    analysiswidget aw;
+    GtkWidget *hboxTop, *hboxBottom, *vbox1, *vbox2, *hbox, *pwvbox;
 
+    memcpy(&paw->esCube, &esAnalysisCube, sizeof(paw->esCube));
+    memcpy(&paw->esChequer, &esAnalysisChequer, sizeof(paw->esChequer));
+    memcpy(&paw->aamf, aamfAnalysis, sizeof(paw->aamf));
+
+    memcpy(&paw->esEvalChequer, &esEvalChequer, sizeof(paw->esEvalChequer));
+    memcpy(&paw->esEvalCube, &esEvalCube, sizeof(paw->esEvalCube));
+    memcpy(&paw->aaEvalmf, aamfEval, sizeof(paw->aaEvalmf));
+
+/*  //Older version:  
     memcpy(&aw.esCube, &esAnalysisCube, sizeof(aw.esCube));
     memcpy(&aw.esChequer, &esAnalysisChequer, sizeof(aw.esChequer));
     memcpy(&aw.aamf, aamfAnalysis, sizeof(aw.aamf));
@@ -2781,9 +3052,21 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     memcpy(&aw.esEvalChequer, &esEvalChequer, sizeof esEvalChequer);
     memcpy(&aw.esEvalCube, &esEvalCube, sizeof esEvalCube);
     memcpy(aw.aaEvalmf, aamfEval, sizeof(aamfEval));
+*/
 
-    pwDialog = GTKCreateDialog(_("GNU Backgammon - Analysis Settings"),
-                               DT_QUESTION, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(AnalysisOK), &aw);
+#if GTK_CHECK_VERSION(3,0,0)
+    pwvbox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+    gtk_widget_set_halign(pwvbox, GTK_ALIGN_START);
+    gtk_widget_set_valign(pwvbox, GTK_ALIGN_START);
+    gtk_container_set_border_width(GTK_CONTAINER(pwvbox), 4);
+    gtk_notebook_append_page(GTK_NOTEBOOK(paw->pwNoteBook), pwvbox, gtk_label_new(_("Analysis")));
+#else
+    pwvbox = gtk_vbox_new(FALSE, 0);
+    pwp = gtk_alignment_new(0, 0, 0, 0);
+    gtk_container_set_border_width(GTK_CONTAINER(pwp), 4);
+    gtk_notebook_append_page(GTK_NOTEBOOK(paw->pwNoteBook), pwp, gtk_label_new(_("Analysis")));
+    gtk_container_add(GTK_CONTAINER(pwp), pwvbox);
+#endif
 
 #if GTK_CHECK_VERSION(3,0,0)
     pwPage = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 6);
@@ -2791,6 +3074,7 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     pwPage = gtk_hbox_new(FALSE, 6);
 #endif
     gtk_container_set_border_width(GTK_CONTAINER(pwPage), 8);
+    gtk_box_pack_start(GTK_BOX(pwvbox), pwPage, FALSE, FALSE, 0);
 
 #if GTK_CHECK_VERSION(3,0,0)
     vbox1 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
@@ -2823,21 +3107,21 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 #endif
     gtk_container_add(GTK_CONTAINER(pwFrame), vbox2);
 
-    aw.pwMoves = gtk_check_button_new_with_label(_("Chequer play"));
-    gtk_box_pack_start(GTK_BOX(vbox2), aw.pwMoves, FALSE, FALSE, 0);
+    paw->pwMoves = gtk_check_button_new_with_label(_("Chequer play"));
+    gtk_box_pack_start(GTK_BOX(vbox2), paw->pwMoves, FALSE, FALSE, 0);
 
-    aw.pwCube = gtk_check_button_new_with_label(_("Cube decisions"));
-    gtk_box_pack_start(GTK_BOX(vbox2), aw.pwCube, FALSE, FALSE, 0);
+    paw->pwCube = gtk_check_button_new_with_label(_("Cube decisions"));
+    gtk_box_pack_start(GTK_BOX(vbox2), paw->pwCube, FALSE, FALSE, 0);
 
-    aw.pwLuck = gtk_check_button_new_with_label(_("Luck"));
-    gtk_box_pack_start(GTK_BOX(vbox2), aw.pwLuck, FALSE, FALSE, 0);
+    paw->pwLuck = gtk_check_button_new_with_label(_("Luck"));
+    gtk_box_pack_start(GTK_BOX(vbox2), paw->pwLuck, FALSE, FALSE, 0);
 
     for (i = 0; i < 2; ++i) {
 
         gchar *sz = g_strdup_printf(_("Analyse player %s"), ap[i].szName);
 
-        aw.apwAnalysePlayers[i] = gtk_check_button_new_with_label(sz);
-        gtk_box_pack_start(GTK_BOX(vbox2), aw.apwAnalysePlayers[i], FALSE, FALSE, 0);
+        paw->apwAnalysePlayers[i] = gtk_check_button_new_with_label(sz);
+        gtk_box_pack_start(GTK_BOX(vbox2), paw->apwAnalysePlayers[i], FALSE, FALSE, 0);
 	g_free(sz);
 
     }
@@ -2869,9 +3153,9 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     }
 
     for (i = 0; i < 3; i++) {
-        aw.apadjSkill[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 0, 1, 0.01, 0.05, 0));
+        paw->apadjSkill[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 0, 1, 0.01, 0.05, 0));
 
-        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(aw.apadjSkill[i]), 1, 3);
+        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(paw->apadjSkill[i]), 1, 3);
 #if GTK_CHECK_VERSION(3,0,0)
         gtk_grid_attach(GTK_GRID(pwGrid), pwSpin, 1, i, 1, 1);
         gtk_widget_set_hexpand(pwSpin, TRUE);
@@ -2909,9 +3193,9 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     }
 
     for (i = 0; i < 4; i++) {
-        aw.apadjLuck[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 0, 1, 0.01, 0.05, 0));
+        paw->apadjLuck[i] = GTK_ADJUSTMENT(gtk_adjustment_new(1, 0, 1, 0.01, 0.05, 0));
 
-        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(aw.apadjLuck[i]), 1, 2);
+        pwSpin = gtk_spin_button_new(GTK_ADJUSTMENT(paw->apadjLuck[i]), 1, 2);
 #if GTK_CHECK_VERSION(3,0,0)
         gtk_grid_attach(GTK_GRID(pwGrid), pwSpin, 1, i, 1, 1);
         gtk_widget_set_hexpand(pwSpin, TRUE);
@@ -2933,8 +3217,10 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     gtk_box_pack_start(GTK_BOX(hboxTop), vbox1, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox1), pwFrame, FALSE, FALSE, 0);
 
-    pAnalDetailSettings1 = CreateEvalSettings(pwFrame, _("Analysis settings"),
-                                              &aw.esChequer.ec, (movefilter *) & aw.aamf, &aw.esCube.ec, NULL, FALSE);
+    CreateEvalSettings(pwFrame, _("Analysis settings"),
+                                              &paw->esChequer.ec, (movefilter *) &paw->aamf, &paw->esCube.ec, NULL, FALSE);
+//    pAnalDetailSettings1 = CreateEvalSettings(pwFrame, _("Analysis settings"),
+//                                              &aw.esChequer.ec, (movefilter *) & aw.aamf, &aw.esCube.ec, NULL, FALSE);
 
 #if GTK_CHECK_VERSION(3,0,0)
     gtk_box_pack_start(GTK_BOX(pwPage), gtk_separator_new(GTK_ORIENTATION_VERTICAL), TRUE, TRUE, 0);
@@ -2959,31 +3245,75 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 #endif
     gtk_container_add(GTK_CONTAINER(pwFrame), vbox1);
 
-    aw.pwHintSame = gtk_check_button_new_with_label(_("Same as analysis"));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(aw.pwHintSame), fEvalSameAsAnalysis);
-    g_signal_connect(G_OBJECT(aw.pwHintSame), "toggled", G_CALLBACK(HintSameToggled), &aw);
+    paw->pwHintSame = gtk_check_button_new_with_label(_("Same as analysis"));
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwHintSame), fEvalSameAsAnalysis);
+    g_signal_connect(G_OBJECT(paw->pwHintSame), "toggled", G_CALLBACK(HintSameToggled), paw);
 #if GTK_CHECK_VERSION(3,0,0)
     hbox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 #else
     hbox = gtk_hbox_new(FALSE, 0);
 #endif
-    gtk_box_pack_start(GTK_BOX(hbox), aw.pwHintSame, FALSE, FALSE, 8);
+    gtk_box_pack_start(GTK_BOX(hbox), paw->pwHintSame, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 0);
 
     pAnalDetailSettings2 = CreateEvalSettings(vbox1, _("Hint/Tutor settings"),
-                                              &aw.esEvalChequer.ec, (movefilter *) & aw.aaEvalmf, &aw.esEvalCube.ec,
+                                              &paw->esEvalChequer.ec, (movefilter *) &paw->aaEvalmf, &paw->esEvalCube.ec,
                                               NULL, FALSE);
-    aw.pwCubeSummary = pAnalDetailSettings2->pwSettingWidgets;
+    paw->pwCubeSummary = pAnalDetailSettings2->pwSettingWidgets;
 
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwPage);
+    //gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwPage);
+    //AnalysisSet(paw);
+
+    gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->pwHintSame));
+
+    HintSameToggled(NULL, paw);
+
+    // g_free(pAnalDetailSettings2); //<- not sure where to put it
+    // g_free(pAnalDetailSettings1);
+
+}
+
+static GtkWidget *
+AnalysisPages(analysiswidget * paw)
+{
+    paw->pwNoteBook = gtk_notebook_new();
+    gtk_container_set_border_width(GTK_CONTAINER(paw->pwNoteBook), 8);
+
+    append_analysis_options(paw);
+    append_scoremap_options(paw); 
+
+    AnalysisSet(paw);
+
+    return paw->pwNoteBook;
+}
+
+static void
+AnalysisPageChange(GtkNotebook * UNUSED(notebook), gpointer * UNUSED(page), gint UNUSED(tabNumber), gpointer UNUSED(data))
+{
+    // if (tabNumber == relPage && !relPageActivated) {
+    //     RelationalOptionsShown();
+    //     relPageActivated = TRUE;
+    // }
+}
+
+extern void
+SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
+{
+     GtkWidget *pwDialog, *pwAnalysisSettings;
+     analysiswidget aw;
+
+    pwDialog = GTKCreateDialog(_("GNU Backgammon - Analysis Settings"),
+                               DT_QUESTION, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(AnalysisOK), &aw);
+
+    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwAnalysisSettings = AnalysisPages(&aw));
+
+    g_signal_connect(G_OBJECT(pwAnalysisSettings), "switch-page", G_CALLBACK(AnalysisPageChange), NULL);
 
     AnalysisSet(&aw);
 
+        
+    GTKRunDialog(pwDialog);                               
 
-    HintSameToggled(NULL, &aw);
-    GTKRunDialog(pwDialog);
-    g_free(pAnalDetailSettings2);
-    g_free(pAnalDetailSettings1);
 }
 
 typedef struct {
@@ -3600,8 +3930,10 @@ static GtkActionEntry actionEntries[] = {
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP)},
     {"TemperatureMapCubeAction", NULL, N_("Temperature Map (cube decision)"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP_CUBE)},
-    {"ScoreMapAction", NULL, N_("Score Map"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP)},
+    {"ScoreMapCubeAction", NULL, N_("ScoreMap (cube decision)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_CUBE)},
+    {"ScoreMapMoveAction", NULL, N_("ScoreMap (move decision)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_MOVE)},
     {"RaceTheoryAction", NULL, N_("_Race Theory"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_KLEINMAN)},
     {"MarketWindowAction", NULL, N_("_Market window"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MARKETWINDOW)},
     {"MatchEquityTableAction", NULL, N_("M_atch equity table"), NULL, NULL,
@@ -3842,8 +4174,10 @@ static GtkItemFactoryEntry aife[] = {
      CMD_SHOW_TEMPERATURE_MAP, NULL, NULL},
     {N_("/_Analyse/Temperature Map (cube decision)"), NULL, Command,
      CMD_SHOW_TEMPERATURE_MAP_CUBE, NULL, NULL},
-    {N_("/_Analyse/Score Map (cube decision)"), NULL, Command,
-     CMD_SHOW_SCORE_MAP, NULL, NULL},
+    {N_("/_Analyse/ScoreMap (move decision)"), NULL, Command,
+     CMD_SHOW_SCORE_MAP_MOVE, NULL, NULL},
+    {N_("/_Analyse/ScoreMap (cube decision)"), NULL, Command,
+     CMD_SHOW_SCORE_MAP_CUBE, NULL, NULL},
     {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
     {N_("/_Analyse/_Race Theory"),
      NULL, Command, CMD_SHOW_KLEINMAN, NULL, NULL},
@@ -3999,6 +4333,10 @@ CreateMainWindow(void)
 {
     GtkWidget *pwVbox, *pwHbox, *pwHbox2, *pwHandle, *pwPanelHbox, *pwStopButton, *idMenu, *menu_item, *pwFrame;
     GtkTargetEntry fileDrop = { "text/uri-list", GTK_TARGET_OTHER_APP, 1 };
+#if defined(USE_GTKUIMANAGER)
+    GError *error = NULL;
+    GtkActionGroup *action_group;
+#endif
 
     pwMain = gtk_window_new(GTK_WINDOW_TOPLEVEL);
     gtk_window_maximize(GTK_WINDOW(pwMain));
@@ -4019,9 +4357,6 @@ CreateMainWindow(void)
     gtk_container_add(GTK_CONTAINER(pwMain), pwVbox);
 
 #if defined(USE_GTKUIMANAGER)
-    GError *error = NULL;
-    GtkActionGroup *action_group;
-
     puim = gtk_ui_manager_new();
 
     action_group = gtk_action_group_new("Actions");

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkuidefs.h,v 1.5 2021/06/30 20:29:23 plm Exp $
+ * $Id: gtkuidefs.h,v 1.6 2021/10/05 20:58:46 plm Exp $
  */
 
 #define GNUBG_MAIN_UI \
@@ -175,7 +175,8 @@
 	      "<menuitem name='DistributionOfRolls' action='DistributionOfRollsAction' />" \
 	      "<menuitem name='TemperatureMap' action='TemperatureMapAction' />" \
 	      "<menuitem name='TemperatureMapCube' action='TemperatureMapCubeAction' />" \
-	      "<menuitem name='ScoreMapCube' action='ScoreMapAction' />" \
+		  "<menuitem name='ScoreMapMove' action='ScoreMapMoveAction' />" \
+	      "<menuitem name='ScoreMapCube' action='ScoreMapCubeAction' />" \
 	      "<separator/>" \
 	      "<menuitem name='RaceTheory' action='RaceTheoryAction' />" \
 	      "<separator/>" \

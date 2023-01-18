@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2019 the AUTHORS
+ * Copyright (C) 1999-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.426 2022/03/12 20:28:42 plm Exp $
+ * $Id: set.c,v 1.427 2022/12/18 13:55:18 plm Exp $
  */
 
 #include "config.h"
@@ -67,6 +67,7 @@
 #include "gtkprefs.h"
 #include "gtkchequer.h"
 #include "gtkwindows.h"
+#include "gtkscoremap.h"
 #endif                          /* USE_GTK */
 
 #include "matchequity.h"
@@ -2849,6 +2850,141 @@ CommandSetBeavers(char *sz)
     else
         outputl(_("No beavers allowed in money sessions."));
 }
+
+#if defined(USE_GTK)
+extern void
+CommandSetScoreMapPly(char* sz)
+{
+
+    int n = ParseNumber(&sz);
+
+    if (n < 0 || n>=NUM_PLY) {
+        outputl(_("Wrong ply number."));
+
+        return;
+    }
+
+    scoreMapPlyDefault = (scoreMapPly) n;
+}
+
+extern void
+CommandSetScoreMapMatchLength(char* sz)
+{
+
+    int n = ParseNumber(&sz);
+            // g_print("\n n is: %d",n);
+    // if (n < -1 || n>=MATCH_LENGTH_OPTIONS[NUM_MATCH_LENGTH-1]) {
+    //     outputl(_("Wrong match length."));
+    //     return;
+    // }
+
+    for (int i=0; i<NUM_MATCH_LENGTH; i++){
+        // g_print("\n test within loop: n: %d vs MATCH_LENGTH_OPTIONS[i]: %d (i:%d)",n,MATCH_LENGTH_OPTIONS[i],i);
+
+        if(MATCH_LENGTH_OPTIONS[i]==n) {
+           scoreMapMatchLengthDefIdx = (scoreMapMatchLength) i;
+            // g_print("\n within loop: n:%d, i:%d",n,i);
+           return; 
+        }
+    }
+    // g_print("\n again: n:%d, i:%d",n,scoreMapMatchLengthDefIdx);
+    outputl(_("Wrong match length, not within the vector."));
+}
+
+extern void
+CommandSetsm1(char* sz)
+{
+ 
+    for (int i=0; i<NUM_sm1; i++){
+        // g_print("\n test within loop: i: %d",i);
+
+        if (strcmp(sz, aszsm1Commands[i]) == 0) {
+           sm1Def = (sm1type) i;
+            // g_print("\n selected option: i:%d",i);
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapLabel(char* sz)
+{
+ 
+    for (int i=0; i<NUM_LABEL; i++){
+        if (strcmp(sz, aszScoreMapLabelCommands[i]) == 0) {
+           scoreMapLabelDef = (scoreMapLabel) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapJacoby(char* sz)
+{
+ 
+    for (int i=0; i<NUM_JACOBY; i++){
+        if (strcmp(sz, aszScoreMapJacobyCommands[i]) == 0) {
+           scoreMapJacobyDef = (scoreMapJacoby) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapCubeEquityDisplay(char* sz)
+{
+ 
+    for (int i=0; i<NUM_CUBEDISP; i++){
+        if (strcmp(sz, aszScoreMapCubeEquityDisplayCommands[i]) == 0) {
+           scoreMapCubeEquityDisplayDef = (scoreMapCubeEquityDisplay) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapMoveEquityDisplay(char* sz)
+{
+ 
+    for (int i=0; i<NUM_MOVEDISP; i++){
+        if (strcmp(sz, aszScoreMapMoveEquityDisplayCommands[i]) == 0) {
+           scoreMapMoveEquityDisplayDef = (scoreMapMoveEquityDisplay) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapColour(char* sz)
+{
+ 
+    for (int i=0; i<NUM_COLOUR; i++){
+        if (strcmp(sz, aszScoreMapColourCommands[i]) == 0) {
+           scoreMapColourDef = (scoreMapColour) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+
+extern void
+CommandSetScoreMapLayout(char* sz)
+{
+ 
+    for (int i=0; i<NUM_LAYOUT; i++){
+        if (strcmp(sz, aszScoreMapLayoutCommands[i]) == 0) {
+           scoreMapLayoutDef = (scoreMapLayout) i;
+           return; 
+        }
+    }
+    outputl(_("Wrong option."));
+}
+#endif
 
 extern void
 CommandSetOutputDigits(char *sz)

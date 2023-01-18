@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkchequer.c,v 1.133 2022/06/17 21:18:14 plm Exp $
+ * $Id: gtkchequer.c,v 1.134 2022/08/30 18:38:35 plm Exp $
  */
 
 #include "config.h"
@@ -200,7 +200,7 @@ static void
 MoveListScoreMapClicked(GtkWidget * UNUSED(pw), hintdata * UNUSED(phd))
 {
 
-    char *sz = g_strdup("show scoremap =move"); //cf keyword -> gtkgame.c: CMD_SHOW_SCORE_MAP
+    char *sz = g_strdup("show scoremap =move"); //cf keyword -> gtkgame.c: CMD_SHOW_SCORE_MAP_MOVE
     UserCommand(sz);
     g_free(sz);  
 
@@ -469,7 +469,7 @@ CreateMoveListTools(hintdata * phd)
     GtkWidget *pwCopy = gtk_button_new_with_label(_("Copy"));
     GtkWidget *pwTempMap = gtk_button_new_with_label(_("TM"));
     GtkWidget *pwCmark = gtk_button_new_with_label(_("Cmark"));
-    GtkWidget *pwScoreMap = gtk_button_new_with_label(_("Score Map"));     
+    GtkWidget *pwScoreMap = gtk_button_new_with_label(_("ScoreMap"));     
     int i;
 
     pwDetails = phd->fDetails ? NULL : gtk_toggle_button_new_with_label(_("Details"));

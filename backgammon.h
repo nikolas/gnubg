@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2022 the AUTHORS
+ * Copyright (C) 1999-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.469 2022/07/23 15:33:45 plm Exp $
+ * $Id: backgammon.h,v 1.470 2022/10/16 19:05:38 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -873,6 +873,15 @@ extern void CommandSetRolloutTruncationEqualPlayer0(char *);
 extern void CommandSetRolloutTruncationPlies(char *);
 extern void CommandSetRolloutVarRedn(char *);
 extern void CommandSetScore(char *);
+extern void CommandSetScoreMapPly(char*);
+extern void CommandSetScoreMapMatchLength(char*);
+extern void CommandSetsm1(char*);
+extern void CommandSetScoreMapLabel(char*);
+extern void CommandSetScoreMapJacoby(char*);
+extern void CommandSetScoreMapCubeEquityDisplay(char*);
+extern void CommandSetScoreMapMoveEquityDisplay(char*);
+extern void CommandSetScoreMapColour(char*);
+extern void CommandSetScoreMapLayout(char*);
 extern void CommandSetSeed(char *);
 extern void CommandSetSGFFolder(char *);
 extern void CommandSetSoundEnable(char *);

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1998-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2021 the AUTHORS
+ * Copyright (C) 1999-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1025 2022/03/12 20:14:14 plm Exp $
+ * $Id: gnubg.c,v 1.1026 2022/03/27 16:43:01 plm Exp $
  */
 
 #include "config.h"
@@ -99,6 +99,7 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include "gtksplash.h"
 #include "gtkchequer.h"
 #include "gtkwindows.h"
+#include "gtkscoremap.h" 
 #endif
 
 #if defined(USE_BOARD3D)
@@ -3139,6 +3140,19 @@ SaveGUISettings(FILE * pf)
         fprintf(pf, "set vsync3d %s\n", fSync ? "yes" : "no");
 #endif
 }
+
+static void
+SaveScoreMapSettings(FILE * pf)
+{
+    fprintf(pf, "set scoremapply %s\n", aszScoreMapPlyCommands[scoreMapPlyDefault]);
+    fprintf(pf, "set scoremapmatchlength %s\n", aszScoreMapMatchLengthCommands[scoreMapMatchLengthDefIdx]);
+    fprintf(pf, "set scoremaplabel %s\n", aszScoreMapLabelCommands[scoreMapLabelDef]);
+    fprintf(pf, "set scoremapjacoby %s\n", aszScoreMapJacobyCommands[scoreMapJacobyDef]);
+    fprintf(pf, "set scoremapcubeequitydisplay %s\n", aszScoreMapCubeEquityDisplayCommands[scoreMapCubeEquityDisplayDef]);
+    fprintf(pf, "set scoremapmoveequitydisplay %s\n", aszScoreMapMoveEquityDisplayCommands[scoreMapMoveEquityDisplayDef]);
+    fprintf(pf, "set scoremapcolour %s\n", aszScoreMapColourCommands[scoreMapColourDef]);
+    fprintf(pf, "set scoremaplayout %s\n", aszScoreMapLayoutCommands[scoreMapLayoutDef]);
+}
 #endif
 
 static void
@@ -3342,6 +3356,7 @@ CommandSaveSettings(char *szParam)
 
 #if defined(USE_GTK)
     SaveGUISettings(pf);
+    SaveScoreMapSettings(pf);
 #endif
     SaveAnalysisSettings(pf);
     SaveRenderingSettings(pf);

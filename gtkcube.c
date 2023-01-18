@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.c,v 1.104 2022/08/30 18:38:35 plm Exp $
+ * $Id: gtkcube.c,v 1.105 2022/12/13 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -1404,10 +1404,12 @@ CubeAnalysisMWC(GtkWidget * pw, cubehintdata * pchd)
 {
 /* Called by GTK when the MWC button is toggled. Switches output between MWC and equity. Only applicable during match play.
 */
+    int f;
+
     g_assert(pchd->ms.nMatchTo);
     g_assert(!pchd->evalAtMoney);
 
-    int f = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pw));
+    f = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pw));
 
     if (f != fOutputMWC) {
         gchar *sz = g_strdup_printf("set output mwc %s", fOutputMWC ? "off" : "on");
@@ -1511,7 +1513,7 @@ CubeAnalysisScoreMap(GtkWidget * UNUSED(pw), cubehintdata * UNUSED(pchd))
 /* Called by GTK when the score map button is clicked.
 */
 
-    UserCommand("show scoremap"); //cf keyword -> gtkgame.c: CMD_SHOW_SCORE_MAP
+    UserCommand("show scoremap"); //cf keyword -> gtkgame.c: CMD_SHOW_SCORE_MAP_CUBE
 
 }
 
@@ -1539,7 +1541,7 @@ CreateCubeAnalysisTools(cubehintdata * pchd)
     GtkWidget *pwTempMap = gtk_button_new_with_label(_("Temp. Map"));
     GtkWidget *pwCmark = pchd->pwCmark = gtk_toggle_button_new_with_label(_("Cmark"));
     GtkWidget *pwMoneyEval = gtk_toggle_button_new_with_label(_("Money Eval"));   
-    GtkWidget *pwScoreMap = gtk_button_new_with_label(_("Score Map"));     
+    GtkWidget *pwScoreMap = gtk_button_new_with_label(_("ScoreMap"));     
     GtkWidget *pw;
     int i;
 
@@ -1586,7 +1588,6 @@ CreateCubeAnalysisTools(cubehintdata * pchd)
 
         gchar *sz = g_strdup_printf("%d", i);  
         int *pi = g_malloc(sizeof(int));
-        *pi=i;
         GtkWidget *pwply = gtk_button_new_with_label(sz);
 
 #if GTK_CHECK_VERSION(3,0,0)
@@ -1596,6 +1597,7 @@ CreateCubeAnalysisTools(cubehintdata * pchd)
 
         g_signal_connect(G_OBJECT(pwply), "clicked", G_CALLBACK(CubeAnalysisEvalPly), pchd);
 
+        *pi = i;
         g_object_set_data_full(G_OBJECT(pwply), "ply", pi, g_free);
 
         sz = g_strdup_printf(_("Evaluate play on cubeful %d-ply"), i);
