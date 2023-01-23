@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.25 2023/01/10 22:40:19 plm Exp $
+ * $Id: gtkscoremap.c,v 1.26 2023/01/18 21:49:36 plm Exp $
  */
 
 
@@ -82,7 +82,7 @@
 - removed label-by and layout radio buttons; they will only be configured in the 
     default settings panel
 - corrected "similar score" inaccuracy when scaling the table up
-- solved several bugs
+- solved several bugs, including wrongly freeing memory allocations
 - checked that it works in both Windows 10 and Ubuntu 22
 
 12/2022: Isaac Keslassy: a few changes including:
@@ -1775,6 +1775,7 @@ The function updates the decision text in each square.
     float fontsize;
 
     int width, height;
+    float rescaleFactor=1.0f;
 
 #if GTK_CHECK_VERSION(3,0,0)
         width = gtk_widget_get_allocated_width(pw);
@@ -1834,7 +1835,7 @@ The function updates the decision text in each square.
     layout = gtk_widget_create_pango_layout(pw, NULL);
     pango_layout_set_font_description(layout, description);
     pango_layout_set_alignment(layout, PANGO_ALIGN_CENTER);
-    pango_font_description_free (description);
+    //pango_font_description_free (description);
 
     //g_print("... %s:%s",pq->decisionString,pq->equityText);
     /* build the text that will be displayed in the quadrant
@@ -1915,8 +1916,12 @@ The function updates the decision text in each square.
         /* question: why not do a while instead of the if?
             answer: The code immediately after sets the font size so that it does exactly fit.
                     No need to keep looping to check again.*/
-
-        float rescaleFactor=fminf(((float)allocation.width-4.0f)*(float)PANGO_SCALE/((float)width),((float)allocation.height-4.0f)*(float)PANGO_SCALE/((float)height));
+        if (width>0 && height>0)
+            rescaleFactor=fminf(((float)allocation.width-4.0f)*(float)PANGO_SCALE/((float)width),((float)allocation.height-4.0f)*(float)PANGO_SCALE/((float)height));
+        else {
+            g_message("error zero width/height\n");
+            rescaleFactor=0.5f;
+            }
         pango_font_description_set_size(description, (gint)(fontsize*rescaleFactor*PANGO_SCALE));
         //g_print("font size: %d, rescale factor: %f\n",(int)(fontsize*rescaleFactor*PANGO_SCALE),rescaleFactor);
         pango_layout_set_font_description(layout,description);
@@ -1934,7 +1939,7 @@ The function updates the decision text in each square.
 #else
     gtk_paint_layout(gtk_widget_get_style(pw), gtk_widget_get_window(pw), GTK_STATE_NORMAL, TRUE, NULL, pw, NULL, (int) x, (int) y, layout);
 #endif
-
+    pango_font_description_free (description);
     g_object_unref(layout);
 
     return TRUE;
@@ -3064,12 +3069,20 @@ if needed (this was initially planned for some explanation text, which was then 
     // if psm->cubeScoreMap, we show away score from 2-away to (psm->matchLength)-away
     // if not, we show away score at 1-away twice (w/ and post crawford), then 2-away through (psm->matchLength)-away
     psm->tableSize = (psm->cubeScoreMap) ? psm->matchLength - 1 : psm->matchLength + 1;//psm->cubematchLength-1 : psm->movematchLength+1;
+
+    /* We initialize isAllowedScore to make sure there is no redrawing without a defined value.
+    Since we're already here, we also initialize the other properties. */
     for (int i=0;i<psm->tableSize; i++) {
         for (int j=0;j<psm->tableSize; j++) {
             psm->aaQuadrantData[i][j].isAllowedScore=YET_UNDEFINED; 
+            psm->aaQuadrantData[i][j].isTrueScore = NOT_TRUE_SCORE;
+            psm->aaQuadrantData[i][j].isSpecialScore = REGULAR;
         }
     }
     psm->moneyQuadrantData.isAllowedScore=YET_UNDEFINED; 
+    psm->moneyQuadrantData.isTrueScore = NOT_TRUE_SCORE;
+    psm->moneyQuadrantData.isSpecialScore = REGULAR;
+
 #if GTK_CHECK_VERSION(3,0,0)
     psm->pwTableContainer = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
 #else
