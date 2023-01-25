@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.263 2022/02/26 20:31:23 plm Exp $
+ * $Id: html.c,v 1.264 2022/10/22 18:27:59 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.263 2022/02/26 20:31:23 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.264 2022/10/22 18:27:59 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1558,12 +1558,8 @@ HTMLPrologue(FILE * pf, const matchstate * pms,
 
 
 /*
- * Print html footer
- *
- * Input:
- *   pf: output file
- *   ms: current match state
- *
+ * Print full HTML footer
+ * Used for export to file
  */
 
 static void
@@ -1574,7 +1570,9 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
     int fFirst;
     int i;
 
-    const char szVersion[] = "$Revision: 1.263 $";
+    char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
+
+    const char szVersion[] = "$Revision: 1.264 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1601,12 +1599,13 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
         fputs("</p>\n", pf);
 
     time(&t);
+    strftime(tstr, 11, "%F", localtime(&t));
 
     fputs("<hr/>\n" "<address>", pf);
 
     fprintf(pf,
             _("Output generated %s by "
-              "<a href=\"https://www.gnu.org/software/gnubg/\">%s</a>"), ctime(&t), VERSION_STRING);
+            "<a href=\"https://www.gnu.org/software/gnubg/\">%s</a>"), tstr, VERSION_STRING);
 
     fputs(" ", pf);
 
@@ -1624,18 +1623,13 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
             "src=\"http://jigsaw.w3.org/css-validator/images/vcss\" "
             "alt=\"%s\"/>" "</a>\n" "</p>\n" "</body>\n" "</html>\n", _("Valid XHTML 1.0 Strict!"), _("Valid CSS!"));
 
-
 }
 
 
 
 /*
- * Print html footer.
- *
- * Input:
- *   pf: output file
- *   ms: current match state
- *
+ * Print short HTML footer.
+ * Used for copy to GammOnLine
  */
 
 static void
@@ -1644,22 +1638,20 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.263 $";
+    const char szVersion[] = "$Revision: 1.264 $";
     int iMajor, iMinor;
-    char *pc;
+
+    char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
 
     iMajor = atoi(strchr(szVersion, ' '));
     iMinor = atoi(strchr(szVersion, '.') + 1);
 
     time(&t);
-
-    pc = ctime(&t);
-    if ((pc = strchr(pc, '\n')))
-        *pc = 0;
+    strftime(tstr, 11, "%F", localtime(&t));
 
     fputs("\n<!-- Epilogue -->\n\n", pf);
 
-    fprintf(pf, _("<!-- Output generated %s by %s " "(https://www.gnu.org/software/gnubg/) "), pc, VERSION_STRING);
+    fprintf(pf, _("<!-- Output generated %s by %s " "(https://www.gnu.org/software/gnubg/) "), tstr, VERSION_STRING);
 
     fputs(" ", pf);
 
