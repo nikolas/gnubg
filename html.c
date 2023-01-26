@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.264 2022/10/22 18:27:59 plm Exp $
+ * $Id: html.c,v 1.265 2023/01/25 21:34:48 plm Exp $
  */
 
 #include "config.h"
@@ -161,7 +161,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
 
         fputs("\n"
               "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.264 2022/10/22 18:27:59 plm Exp $ */\n", pf);
+              "/* $Id: html.c,v 1.265 2023/01/25 21:34:48 plm Exp $ */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -1572,7 +1572,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
 
     char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
 
-    const char szVersion[] = "$Revision: 1.264 $";
+    const char szVersion[] = "$Revision: 1.265 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
@@ -1599,7 +1599,7 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
         fputs("</p>\n", pf);
 
     time(&t);
-    strftime(tstr, 11, "%F", localtime(&t));
+    strftime(tstr, 11, "%Y-%m-%d", localtime(&t));
 
     fputs("<hr/>\n" "<address>", pf);
 
@@ -1638,7 +1638,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.264 $";
+    const char szVersion[] = "$Revision: 1.265 $";
     int iMajor, iMinor;
 
     char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
@@ -1647,7 +1647,7 @@ HTMLEpilogueComment(FILE * pf)
     iMinor = atoi(strchr(szVersion, '.') + 1);
 
     time(&t);
-    strftime(tstr, 11, "%F", localtime(&t));
+    strftime(tstr, 11, "%Y-%m-%d", localtime(&t));
 
     fputs("\n<!-- Epilogue -->\n\n", pf);
 

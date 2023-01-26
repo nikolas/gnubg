@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.128 2022/03/12 20:14:14 plm Exp $
+ * $Id: text.c,v 1.129 2023/01/25 21:34:48 plm Exp $
  */
 
 #include "config.h"
@@ -220,14 +220,14 @@ TextEpilogue(FILE * pf, const matchstate * UNUSED(pms))
     time_t t;
     char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
 
-    const char szVersion[] = "$Revision: 1.128 $";
+    const char szVersion[] = "$Revision: 1.129 $";
     int iMajor, iMinor;
 
     iMajor = atoi(strchr(szVersion, ' '));
     iMinor = atoi(strchr(szVersion, '.') + 1);
 
     time(&t);
-    strftime(tstr, 11, "%F", localtime(&t));
+    strftime(tstr, 11, "%Y-%m-%d", localtime(&t));
 
     fprintf(pf, _("Output generated %s by %s "), tstr, VERSION_STRING);
 

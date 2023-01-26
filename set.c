@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.427 2022/12/18 13:55:18 plm Exp $
+ * $Id: set.c,v 1.428 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -1645,10 +1645,11 @@ CommandSetAliases(char *sz)
 {
     size_t buflen = sizeof(player1aliases);
 
+    /* cast and %lu to work around mingw/msvcrt lack of %zu support */
     if (strlen(sz) >= buflen)
-        outputf(ngettext("Aliases list limited to %zu character, truncating\n",
-				"Aliases list limited to %zu characters, truncating\n",
-			       	buflen - 1), buflen - 1);
+        outputf(ngettext("Aliases list limited to %lu character, truncating\n",
+				"Aliases list limited to %lu characters, truncating\n",
+			       	(unsigned long)buflen - 1), (unsigned long)buflen - 1);
 
     g_strlcpy(player1aliases, sz, buflen);
 
