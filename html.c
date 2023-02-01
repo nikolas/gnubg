@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.265 2023/01/25 21:34:48 plm Exp $
+ * $Id: html.c,v 1.266 2023/01/26 19:58:13 plm Exp $
  */
 
 #include "config.h"
@@ -159,9 +159,7 @@ WriteStyleSheet(FILE * pf, const htmlexportcss hecss)
     else if (hecss == HTML_EXPORT_CSS_EXTERNAL)
         /* write come comments in the file */
 
-        fputs("\n"
-              "/* CSS Stylesheet for " VERSION_STRING " */\n"
-              "/* $Id: html.c,v 1.265 2023/01/25 21:34:48 plm Exp $ */\n", pf);
+        fputs("\n" "/* CSS Stylesheet for " VERSION_STRING " */\n", pf);
 
     fputs("/* This file is distributed as a part of the "
           "GNU Backgammon program. */\n"
@@ -211,11 +209,10 @@ GetStyleGeneral(const int hecss, ...)
 
     static char sz[2048];
     va_list val;
-    stylesheetclass ssc;
     int i = 0;
     int j;
 
-    va_start(val, hecss);
+    va_start(val, (const int) hecss);
 
     switch (hecss) {
     case HTML_EXPORT_CSS_INLINE:
@@ -232,7 +229,7 @@ GetStyleGeneral(const int hecss, ...)
 
     while ((j = va_arg(val, int)) > -1) {
 
-        ssc = (stylesheetclass) j;
+        stylesheetclass ssc = (stylesheetclass) j;
 
         switch (hecss) {
         case HTML_EXPORT_CSS_INLINE:
@@ -1572,12 +1569,6 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
 
     char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
 
-    const char szVersion[] = "$Revision: 1.265 $";
-    int iMajor, iMinor;
-
-    iMajor = atoi(strchr(szVersion, ' '));
-    iMinor = atoi(strchr(szVersion, '.') + 1);
-
     fputs("\n<!-- Epilogue -->\n\n", pf);
 
     /* add links to other games */
@@ -1607,10 +1598,6 @@ HTMLEpilogue(FILE * pf, const matchstate * UNUSED(pms), char *aszLinks[4], const
             _("Output generated %s by "
             "<a href=\"https://www.gnu.org/software/gnubg/\">%s</a>"), tstr, VERSION_STRING);
 
-    fputs(" ", pf);
-
-    fprintf(pf, _("(HTML Export version %d.%d)"), iMajor, iMinor);
-
     fprintf(pf,
             "</address>\n"
             "<p>\n"
@@ -1638,13 +1625,7 @@ HTMLEpilogueComment(FILE * pf)
 
     time_t t;
 
-    const char szVersion[] = "$Revision: 1.265 $";
-    int iMajor, iMinor;
-
     char tstr[11];              /* ISO 8601 date format: YYYY-MM-DD\0 */
-
-    iMajor = atoi(strchr(szVersion, ' '));
-    iMinor = atoi(strchr(szVersion, '.') + 1);
 
     time(&t);
     strftime(tstr, 11, "%Y-%m-%d", localtime(&t));
@@ -1652,10 +1633,6 @@ HTMLEpilogueComment(FILE * pf)
     fputs("\n<!-- Epilogue -->\n\n", pf);
 
     fprintf(pf, _("<!-- Output generated %s by %s " "(https://www.gnu.org/software/gnubg/) "), tstr, VERSION_STRING);
-
-    fputs(" ", pf);
-
-    fprintf(pf, _("(HTML Export version %d.%d)"), iMajor, iMinor);
 
     fputs(" -->", pf);
 }
@@ -2173,12 +2150,12 @@ HTMLPrintMoveAnalysis(FILE * pf, matchstate * pms, moverecord * pmr,
     fprintf(pf,
             "<table border=\"0\" cellspacing=\"0\" cellpadding=\"0\" %s>\n" "<tr>\n", GetStyle(CLASS_MOVETABLE, hecss));
     fprintf(pf, "<th %s colspan=\"2\">%s</th>\n",
-            GetStyleGeneral(hecss, CLASS_MOVEHEADER, CLASS_MOVENUMBER, -1), _("#"));
-    fprintf(pf, "<th %s>%s</th>\n", GetStyleGeneral(hecss, CLASS_MOVEHEADER, CLASS_MOVEPLY, -1), _("Ply"));
-    fprintf(pf, "<th %s>%s</th>\n", GetStyleGeneral(hecss, CLASS_MOVEHEADER, CLASS_MOVEMOVE, -1), Q_("noun|Move"));
+            GetStyleGeneral((int)hecss, CLASS_MOVEHEADER, CLASS_MOVENUMBER, -1), _("#"));
+    fprintf(pf, "<th %s>%s</th>\n", GetStyleGeneral((int)hecss, CLASS_MOVEHEADER, CLASS_MOVEPLY, -1), _("Ply"));
+    fprintf(pf, "<th %s>%s</th>\n", GetStyleGeneral((int)hecss, CLASS_MOVEHEADER, CLASS_MOVEMOVE, -1), Q_("noun|Move"));
     fprintf(pf,
             "<th %s>%s</th>\n" "</tr>\n",
-            GetStyleGeneral(hecss, CLASS_MOVEHEADER, CLASS_MOVEEQUITY, -1),
+            GetStyleGeneral((int)hecss, CLASS_MOVEHEADER, CLASS_MOVEEQUITY, -1),
             (!pms->nMatchTo || !fOutputMWC) ? _("Equity") : _("MWC"));
 
 
