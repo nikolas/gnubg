@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.991 2023/01/01 17:37:15 plm Exp $
+ * $Id: gtkgame.c,v 1.992 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -533,7 +533,6 @@ typedef struct {
     GtkWidget *pwScoreMap;
     GtkWidget* apwScoreMapPly[NUM_PLY];
     GtkWidget* apwScoreMapMatchLength[NUM_MATCH_LENGTH];
-    GtkWidget* apwsm1[NUM_sm1];
     GtkWidget* apwScoreMapLabel[NUM_LABEL];
     GtkWidget* apwScoreMapJacoby[NUM_JACOBY];
     GtkWidget* apwScoreMapCubeEquityDisplay[NUM_CUBEDISP];
@@ -597,8 +596,6 @@ static GtkWidget *pwPanelGameBox;
 static GtkWidget *pwEventBox;
 static int panelSize = 325;
 static GtkWidget *pwStop;
-
-static int disregardsm1=1; //available implemented hidden radio option called sm1; if needed in the future, just activate
 
 
 extern void
@@ -2714,15 +2711,6 @@ AnalysisOK(GtkWidget * pw, analysiswidget * paw)
         } 
     }
 
-    if(!disregardsm1) {
-        for (i = 0; i < NUM_sm1; ++i)
-            if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwsm1[i])) && sm1Def != (sm1type) i) {
-                sprintf(sz, "set sm1 %s", aszsm1Commands[i]);
-                UserCommand(sz);
-                break;
-            } 
-    }
-
     for (i = 0; i < NUM_LABEL; ++i)
         if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLabel[i])) && scoreMapLabelDef != (scoreMapLabel) i) {
             sprintf(sz, "set scoremaplabel %s", aszScoreMapLabelCommands[i]);
@@ -2823,11 +2811,6 @@ AnalysisSet(analysiswidget * paw)
     for (i = 0; i < NUM_MATCH_LENGTH; ++i)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapMatchLength[i]), scoreMapMatchLengthDefIdx == (scoreMapMatchLength)i); 
 
-    if(!disregardsm1) {
-        for (i = 0; i < NUM_sm1; ++i)
-            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwsm1[i]), sm1Def == (sm1type) i); 
-    }
-    
     for (i = 0; i < NUM_LABEL; ++i)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLabel[i]), scoreMapLabelDef == (scoreMapLabel) i); 
 
@@ -3007,8 +2990,6 @@ append_scoremap_options(analysiswidget* paw)
 
     BuildRadioButtons(pwv, paw->apwScoreMapPly,_("Evaluation strength:"), _("Select the ply at which to evaluate the equity at each score"), aszScoreMapPly, NUM_PLY, scoreMapPlyDefault);
     BuildRadioButtons(pwv, paw->apwScoreMapMatchLength,_("Simulated match length:"), _("Select the default match length for which to draw the ScoreMap; a variable length picks a length of 3 for current real short matches, 7 for long, and 5 otherwise."), aszScoreMapMatchLength, NUM_MATCH_LENGTH, scoreMapMatchLengthDefIdx);
-    if (!disregardsm1)
-        BuildRadioButtons(pwv, paw->apwsm1,_("sm1"), _("Select the default sm1 for which to draw the ScoreMap:"), aszsm1, NUM_sm1, sm1Def);
     BuildRadioButtons(pwv, paw->apwScoreMapJacoby,_("Money-play analysis:"), _("Select the default Jacoby option in the money play analysis of the top-left ScoreMap square"), aszScoreMapJacoby, NUM_JACOBY, scoreMapJacobyDef);
     BuildRadioButtons(pwv, paw->apwScoreMapCubeEquityDisplay,_("Cube equity display:"), _("Select the default equity text to display in the squares of the cube ScoreMap"), aszScoreMapCubeEquityDisplay, NUM_CUBEDISP, scoreMapCubeEquityDisplayDef);
     BuildRadioButtons(pwv, paw->apwScoreMapMoveEquityDisplay,_("Move equity display:"), _("Select the default equity text to display in the squares of the move ScoreMap"), aszScoreMapMoveEquityDisplay, NUM_MOVEDISP, scoreMapMoveEquityDisplayDef);

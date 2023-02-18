@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.h,v 1.3 2022/10/22 10:47:46 plm Exp $
+ * $Id: gtkscoremap.h,v 1.4 2023/01/18 21:49:36 plm Exp $
  */
 
 #ifndef GTKSCOREMAP_H
@@ -42,17 +42,6 @@ extern scoreMapMatchLength scoreMapMatchLengthDefIdx;
 extern const int MATCH_LENGTH_OPTIONS[NUM_MATCH_LENGTH];
 extern const char* aszScoreMapMatchLength[NUM_MATCH_LENGTH];
 extern const char* aszScoreMapMatchLengthCommands[NUM_MATCH_LENGTH];
-
-/* Defining structures for sm1, a placeholder option if we want to add one in the future to the scoremap
-Other defined structures throughout the files: 
-- apwsm1 (gtkgame.c); 
-- "set sm1" (gtkgame.c); 
-- CommandSetsm1 (backgammon.h)
-*/
-typedef enum {sm1A, sm1B, sm1C, NUM_sm1} sm1type;
-extern sm1type sm1Def;
-extern const char* aszsm1[NUM_sm1];
-extern const char* aszsm1Commands[NUM_sm1]; 
 
 /* Used in the "Label by" radio buttons - we assume the same order as the labels */
 typedef enum { LABEL_AWAY, LABEL_SCORE, NUM_LABEL} scoreMapLabel;

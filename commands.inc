@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.60 2022/05/22 21:35:50 plm Exp $
+ * $Id: commands.inc,v 1.61 2023/01/18 21:49:36 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1235,9 +1235,6 @@ static command acSetVariation[] = {
       szVALUE, NULL },
     { "scoremapmatchlength", CommandSetScoreMapMatchLength, 
       N_("Set the default match length in the ScoreMap window"), 
-      szVALUE, NULL },
-    { "sm1", CommandSetsm1, 
-      N_("Set the default sm1 in the ScoreMap window"), 
       szVALUE, NULL },
     { "scoremaplabel", CommandSetScoreMapLabel, 
       N_("Set the default axis label option in the ScoreMap window"), 

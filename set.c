@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.428 2023/01/18 21:49:36 plm Exp $
+ * $Id: set.c,v 1.429 2023/01/26 19:58:13 plm Exp $
  */
 
 #include "config.h"
@@ -2890,22 +2890,6 @@ CommandSetScoreMapMatchLength(char* sz)
     }
     // g_print("\n again: n:%d, i:%d",n,scoreMapMatchLengthDefIdx);
     outputl(_("Wrong match length, not within the vector."));
-}
-
-extern void
-CommandSetsm1(char* sz)
-{
- 
-    for (int i=0; i<NUM_sm1; i++){
-        // g_print("\n test within loop: i: %d",i);
-
-        if (strcmp(sz, aszsm1Commands[i]) == 0) {
-           sm1Def = (sm1type) i;
-            // g_print("\n selected option: i:%d",i);
-           return; 
-        }
-    }
-    outputl(_("Wrong option."));
 }
 
 extern void

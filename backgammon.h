@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.470 2022/10/16 19:05:38 plm Exp $
+ * $Id: backgammon.h,v 1.471 2023/01/18 21:49:36 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -875,7 +875,6 @@ extern void CommandSetRolloutVarRedn(char *);
 extern void CommandSetScore(char *);
 extern void CommandSetScoreMapPly(char*);
 extern void CommandSetScoreMapMatchLength(char*);
-extern void CommandSetsm1(char*);
 extern void CommandSetScoreMapLabel(char*);
 extern void CommandSetScoreMapJacoby(char*);
 extern void CommandSetScoreMapCubeEquityDisplay(char*);
