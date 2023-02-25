@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.266 2023/01/26 19:58:13 plm Exp $
+ * $Id: html.c,v 1.267 2023/02/01 22:20:57 plm Exp $
  */
 
 #include "config.h"
@@ -3203,6 +3203,7 @@ CommandExportPositionGOL2Clipboard(char *UNUSED(sz))
 {
     char *szClipboard;
     long l;
+    size_t s;
     FILE *pf;
     char *tmpFile;
 
@@ -3233,23 +3234,25 @@ CommandExportPositionGOL2Clipboard(char *UNUSED(sz))
 
     l = ftell(pf);
 
-    if (fseek(pf, 0L, SEEK_SET)) {
+    if (l < 0 || fseek(pf, 0L, SEEK_SET)) {
         outputerr(_("Error reading temporary file"));
         return;
     }
 
     /* copy file to clipboard */
 
-    szClipboard = (char *) malloc(l + 1);
+    s = (size_t) l;
 
-    if (fread(szClipboard, 1, l, pf) != (unsigned long) l) {
+    szClipboard = (char *) g_malloc(s + 1);
+
+    if (fread(szClipboard, 1, s, pf) != s) {
         outputerr(_("Error reading temporary file"));
     } else {
-        szClipboard[l] = 0;
+        szClipboard[s] = 0;
         TextToClipboard(szClipboard);
     }
 
-    free(szClipboard);
+    g_free(szClipboard);
     fclose(pf);
     g_unlink(tmpFile);
     g_free(tmpFile);
