@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.116 2023/01/01 17:37:15 plm Exp $
+dnl $Id: configure.ac,v 1.117 2023/01/01 17:48:19 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.116 $)
+AC_REVISION($Revision: 1.117 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -143,6 +143,7 @@ PKG_CHECK_MODULES(SQLITE, [sqlite3], have_sqlite="yes", AC_MSG_WARN([no sqlite s
 
 if test "x$win32" = "xyes"; then
     have_canberra="no"
+    have_gl="yes"
     have_glu="yes"
 else
     if test "x$darwin" = "xyes"; then
@@ -154,6 +155,7 @@ else
             PKG_CHECK_MODULES(CANBERRA, [libcanberra-gtk], have_canberra="yes", AC_MSG_WARN([no libcanberra-gtk support]))
         fi
     fi
+    PKG_CHECK_MODULES(GL, [gl], have_gl="yes", AC_MSG_WARN([no gl support]))
     PKG_CHECK_MODULES(GLU, [glu], have_glu="yes", AC_MSG_WARN([no glu support]))
 fi
 
@@ -373,7 +375,7 @@ if test "$with_board3d" != "no" && test "$with_gtk3" = "yes"; then
 		no_board3d="no"
 	fi
 else
-	if test "x$have_gtk" = "xyes" && test "x$have_gtkglext" = "xyes" && test "x$have_glu" = "xyes"; then
+	if test "x$have_gtk" = "xyes" && test "x$have_gtkglext" = "xyes" && test "x$have_gl" = "xyes" && test "x$have_glu" = "xyes"; then
 		AC_DEFINE(USE_BOARD3D,1, [Define if you want to use the 3D boards])
 		no_board3d="no"
 	fi
