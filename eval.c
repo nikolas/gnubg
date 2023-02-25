@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.492 2022/12/28 20:02:47 plm Exp $
+ * $Id: eval.c,v 1.493 2022/12/28 20:04:30 plm Exp $
  */
 
 #include "config.h"
@@ -3343,6 +3343,14 @@ winGammon(const float arOutput[NUM_ROLLOUT_OUTPUTS])
 
 }
 
+static int
+winAny(const float arOutput[NUM_ROLLOUT_OUTPUTS])
+{
+
+    return (arOutput[OUTPUT_WIN] > 0.0f);
+
+}
+
 extern cubedecision
 FindBestCubeDecision(float arDouble[], float aarOutput[2][NUM_ROLLOUT_OUTPUTS], const cubeinfo * pci)
 {
@@ -3405,22 +3413,24 @@ FindBestCubeDecision(float arDouble[], float aarOutput[2][NUM_ROLLOUT_OUTPUTS], 
                     /*not a double if we can beaver */
                     return NODOUBLE_BEAVER;
                 } else
-                    /* beaver (jacoby paradox) */
+                    /* beaver (Jacoby paradox) */
                     return f ? OPTIONAL_DOUBLE_BEAVER : DOUBLE_BEAVER;
-            } else {
+            } else if (winAny(aarOutput[0])) {
                 /* ...take */
                 if (f)
                     return (pci->fCubeOwner == -1) ? OPTIONAL_DOUBLE_TAKE : OPTIONAL_REDOUBLE_TAKE;
                 else
                     return (pci->fCubeOwner == -1) ? DOUBLE_TAKE : REDOUBLE_TAKE;
-            }
+            } else
+		/* no (presumably optional) double if we are sure to lose */
+                return (pci->fCubeOwner == -1) ? NODOUBLE_TAKE : NO_REDOUBLE_TAKE;
 
         } else {
 
             /* 4. DT >= DP >= ND: Double, pass */
 
             /* 
-             * the double is optional iff:
+             * the double is optional if:
              * (1) equity(no double) = equity(drop)
              * (2) the player can win gammon
              * (3a) it's match play
