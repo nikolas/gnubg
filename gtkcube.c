@@ -1,7 +1,7 @@
 /*
  * Copyright (C) 2002-2003 Joern Thyssen <jthyssen@dk.ibm.com>
  * Copyright (C) 2021 Aaron Tikuisis and Isaac Keslassy (MoneyEval)
- * Copyright (C) 2002-2022 the AUTHORS
+ * Copyright (C) 2002-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkcube.c,v 1.105 2022/12/13 22:03:31 plm Exp $
+ * $Id: gtkcube.c,v 1.106 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -1695,13 +1695,28 @@ CreateCubeAnalysisTools(cubehintdata * pchd)
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0);
 #endif
 
-// Note: evalAtMoney should always be false here.
+    /* We want to disable some buttons particularly when we are in the middle of running an analysis
+    in the background*/
+
+    gtk_widget_set_sensitive(pwRollout, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwEval, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwEvalSettings, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pw, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwRolloutSettings, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwRolloutPresets, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwCopy, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwTempMap, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwScoreMap, !fAnalysisRunning);
+
+
+    // Note: evalAtMoney should always be false here.
     gtk_widget_set_sensitive(pwMWC, pchd->ms.nMatchTo && !pchd->evalAtMoney); //MWC not available in money play, i.e.
                                                 // either in true money play or in a hypothetical one
-    gtk_widget_set_sensitive(pwMoneyEval, pchd->ms.nMatchTo); //i.e., the Money Eval
+    gtk_widget_set_sensitive(pwMoneyEval, pchd->ms.nMatchTo && !fAnalysisRunning); //i.e., the Money Eval
                                                           // button is not available at money play since it doesn't help there
     //gtk_widget_set_sensitive(pwTempMap, !pchd->evalAtMoney);  
     gtk_widget_set_sensitive(pwCmark, !pchd->evalAtMoney);   
+
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwCmark), pchd->pmr->CubeDecPtr->cmark);
 

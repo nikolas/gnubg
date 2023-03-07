@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2002-2003 Joern Thyssen <jthyssen@dk.ibm.com>
- * Copyright (C) 2002-2022 the AUTHORS
+ * Copyright (C) 2002-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkchequer.c,v 1.134 2022/08/30 18:38:35 plm Exp $
+ * $Id: gtkchequer.c,v 1.135 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -630,10 +630,26 @@ CreateMoveListTools(hintdata * phd)
                      (GtkAttachOptions) (GTK_FILL), (GtkAttachOptions) (0), 0, 0); 
 #endif
 
-    gtk_widget_set_sensitive(pwMWC, ms.nMatchTo);
-    gtk_widget_set_sensitive(pwMove, FALSE);
+            // g_message("GTK chequer: fAnalysisRunning=%d",fAnalysisRunning);
+    /* some buttons are always disabled anyway */
+        gtk_widget_set_sensitive(pwMove, FALSE);
     gtk_widget_set_sensitive(pwCopy, FALSE);
     gtk_widget_set_sensitive(pwTempMap, FALSE);
+
+    /* We want to disable particularly when we are in the middle of running an analysis
+    in the background*/
+    gtk_widget_set_sensitive(pwMWC, ms.nMatchTo && !fAnalysisRunning);
+
+    gtk_widget_set_sensitive(pwRollout, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwRollout, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwRolloutSettings, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwEval, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwEvalSettings, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwMove, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwCopy, !fAnalysisRunning);
+    gtk_widget_set_sensitive(pwScoreMap, !fAnalysisRunning);
+
+
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pwMWC), fOutputMWC);
 
@@ -718,17 +734,20 @@ CheckHintButtons(hintdata * phd)
     int c = g_list_length(plSelList);
     MoveListFreeSelectionList(plSelList);
 
-    gtk_widget_set_sensitive(phd->pwMove, c == 1 && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwCopy, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwTempMap, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwCmark, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwRollout, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwRolloutPresets, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwEval, c && phd->fButtonsValid);
-    gtk_widget_set_sensitive(phd->pwEvalPly, c && phd->fButtonsValid);
+    /* We want to disable particularly when we are in the middle of running an analysis
+    in the background*/
+
+    gtk_widget_set_sensitive(phd->pwMove, c == 1 && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwCopy, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwTempMap, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwCmark, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwRollout, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwRolloutPresets, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwEval, c && phd->fButtonsValid && !fAnalysisRunning);
+    gtk_widget_set_sensitive(phd->pwEvalPly, c && phd->fButtonsValid && !fAnalysisRunning);
 
     bd = BOARD(pwBoard)->board_data;
-    gtk_widget_set_sensitive(phd->pwScoreMap, (bd->diceShown == DICE_ON_BOARD));
+    gtk_widget_set_sensitive(phd->pwScoreMap, (bd->diceShown == DICE_ON_BOARD) && !fAnalysisRunning);
 
     return c;
 }

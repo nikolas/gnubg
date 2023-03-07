@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.429 2023/01/26 19:58:13 plm Exp $
+ * $Id: set.c,v 1.430 2023/02/18 20:46:36 plm Exp $
  */
 
 #include "config.h"
@@ -326,6 +326,12 @@ SetMoveFilter(char *sz, movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES])
 }
 
 
+extern void
+CommandSetAnalysisBackground(char *sz)
+{
+    SetToggle("analysis background", &fBackgroundAnalysis, sz,
+              _("Will run analysis in the background."), _("Will not run analysis in the background."));
+}
 
 
 extern void
@@ -349,7 +355,6 @@ CommandSetAnalysisLuck(char *sz)
 extern void
 CommandSetAnalysisLuckAnalysis(char *sz)
 {
-
 
     szSet = _("luck analysis");
     szSetCommand = "set analysis luckanalysis";
@@ -531,6 +536,14 @@ CommandSetAutoDoubles(char *sz)
             outputl(_("Note that automatic doubles will have no effect "
                       "until you " "enable cube use\n(see `help set cube use')."));
     }
+}
+
+extern void
+CommandSetAutoDB(char *sz)
+{
+
+    SetToggle("automatic db", &fAutoDB, sz,
+              _("Will automatically add analysis to database."), _("Will not automatically add analysis to database."));
 }
 
 extern void
@@ -1417,7 +1430,8 @@ CommandSetPlayerExternal(char *sz)
     outputl(_("This installation of GNU Backgammon was compiled without\n"
               "socket support, and does not implement external players."));
 #else
-    int h, cb;
+    int h;
+    socklen_t cb;
     struct sockaddr *psa;
     char *pch;
 

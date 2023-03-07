@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006-2009 Christian Anthon <anthon@kiku.dk>
- * Copyright (C) 2006-2009 the AUTHORS
+ * Copyright (C) 2006-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.h,v 1.10 2013/06/16 02:16:14 mdpetch Exp $
+ * $Id: gtkfile.h,v 1.11 2019/10/27 21:18:01 plm Exp $
  */
 
 #ifndef GTKFILE_H
@@ -26,5 +26,6 @@ extern void GTKSave(gpointer p, guint n, GtkWidget * pw);
 extern char *GTKFileSelect(const gchar * prompt, const gchar * extension, const gchar * folder,
                            const gchar * name, GtkFileChooserAction action);
 extern void SetDefaultFileName(char *path);
+extern void GTKAnalyzeCurrent(void);
 extern void GTKBatchAnalyse(gpointer p, guint n, GtkWidget * pw);
 #endif

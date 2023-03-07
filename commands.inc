@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.61 2023/01/18 21:49:36 plm Exp $
+ * $Id: commands.inc,v 1.62 2023/02/18 20:46:36 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -463,6 +463,9 @@ command acSetEvaluation[] = {
 };
 
 static command acSetAnalysis[] = {
+    { "background", CommandSetAnalysisBackground,
+      N_("Select whether to run analysis in the background"),
+      szONOFF, &cOnOff },
     { "chequerplay", CommandSetAnalysisChequerplay, N_("Specify parameters "
       "for the analysis of chequerplay"), NULL, acSetEvalParam },
     { "cube", CommandSetAnalysisCube, N_("Select whether cube action will be "
@@ -496,6 +499,8 @@ static command acSetAutomatic[] = {
       "chequers as possible"), szONOFF, &cOnOff },
     { "crawford", CommandSetAutoCrawford, N_("Enable the Crawford game "
       "based on match score"), szONOFF, &cOnOff },
+    { "db", CommandSetAutoDB, N_("Select whether to add to database after analysis"),
+      szONOFF, &cOnOff },
     { "doubles", CommandSetAutoDoubles, N_("Control automatic doubles "
       "during (money) session play"), szLIMIT, NULL },
     { "game", CommandSetAutoGame, N_("Select whether to start new games "

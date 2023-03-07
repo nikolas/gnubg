@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2003 Joern Thyssen <jth@gnubg.org>
- * Copyright (C) 2003-2019 the AUTHORS
+ * Copyright (C) 2003-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.81 2022/10/13 20:05:20 plm Exp $
+ * $Id: gtktoolbar.c,v 1.82 2023/01/01 17:37:16 plm Exp $
  */
 
 #include "config.h"
@@ -59,6 +59,7 @@ typedef struct {
     GtkWidget *pwNextCMarked;   /* button for "Next CMarked" */
     GtkWidget *pwNextMarked;    /* button for "Next CMarked" */
     GtkWidget *pwReset;         /* button for "Reset" */
+    GtkWidget *pwAnalyzeCurrent;        /* button for "Analyze Current" */
     GtkWidget *pwEdit;          /* button for "Edit" */
     GtkWidget *pwButtonClockwise;       /* button for clockwise */
 
@@ -127,7 +128,6 @@ ToolbarSetPlaying(GtkWidget * pwToolbar, const int f)
     gtk_widget_set_sensitive(ptw->pwReset, f);
 
 }
-
 
 extern void
 ToolbarSetClockwise(GtkWidget * pwToolbar, const int f)
@@ -294,13 +294,16 @@ ToolbarUpdate(GtkWidget * pwToolbar,
     if (fEdit || !fPlaying)
         c = C_NONE;
 
-    gtk_widget_set_sensitive(ptw->pwTake, c == C_TAKEDROP || c == C_AGREEDECLINE);
-    gtk_widget_set_sensitive(ptw->pwDrop, c == C_TAKEDROP || c == C_AGREEDECLINE);
-    gtk_widget_set_sensitive(ptw->pwDouble, (c == C_TAKEDROP && !pms->nMatchTo) || c == C_ROLLDOUBLE);
+    /* We want to disable some buttons particularly when we are in the middle
+       of running an analysis in the background => we use !fAnalysisRunning */
 
-    gtk_widget_set_sensitive(ptw->pwSave, plGame != NULL);
-    gtk_widget_set_sensitive(ptw->pwResign, fPlaying && !fEdit);
-    gtk_widget_set_sensitive(ptw->pwHint, fPlaying && !fEdit);
+    gtk_widget_set_sensitive(ptw->pwTake, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );;
+    gtk_widget_set_sensitive(ptw->pwDrop, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );;
+    gtk_widget_set_sensitive(ptw->pwDouble, ((c == C_TAKEDROP && !pms->nMatchTo) || c == C_ROLLDOUBLE) && !fAnalysisRunning );;
+
+    gtk_widget_set_sensitive(ptw->pwSave, plGame != NULL && !fAnalysisRunning);
+    gtk_widget_set_sensitive(ptw->pwResign, fPlaying && !fEdit && !fAnalysisRunning);
+    gtk_widget_set_sensitive(ptw->pwHint, fPlaying && !fEdit && !fAnalysisRunning);
     gtk_widget_set_sensitive(ptw->pwPrevMarked, fPlaying && !fEdit);
     gtk_widget_set_sensitive(ptw->pwPrevCMarked, fPlaying && !fEdit);
     gtk_widget_set_sensitive(ptw->pwPrev, fPlaying && !fEdit);
@@ -310,7 +313,10 @@ ToolbarUpdate(GtkWidget * pwToolbar,
     gtk_widget_set_sensitive(ptw->pwNextCMarked, fPlaying && !fEdit);
     gtk_widget_set_sensitive(ptw->pwNextMarked, fPlaying && !fEdit);
     gtk_widget_set_sensitive(ptw->pwEndGame, fPlaying && !fEdit);
-    gtk_widget_set_sensitive(ptw->pwEdit, TRUE);
+    gtk_widget_set_sensitive(ptw->pwEdit, !fAnalysisRunning);
+    gtk_widget_set_sensitive(ptw->pwOpen, !fAnalysisRunning);
+    gtk_widget_set_sensitive(ptw->pwReset, !fAnalysisRunning);
+    gtk_widget_set_sensitive(ptw->pwAnalyzeCurrent, plGame != NULL && !fAnalysisRunning);
 
     return c;
 }
@@ -391,6 +397,8 @@ ToolbarNew(void)
     ptw->pwButtonClockwise = gtk_ui_manager_get_widget(puim, "/MainToolBar/PlayClockwise");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwButtonClockwise), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwButtonClockwise), _("Direction"));
+    ptw->pwAnalyzeCurrent = gtk_ui_manager_get_widget(puim, "/MainToolBar/AnalyzeCurrent");
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwAnalyzeCurrent), TRUE);
     ptw->pwPrevCMarked = gtk_ui_manager_get_widget(puim, "/MainToolBar/PreviousCMarkedMove");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwPrevCMarked), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwPrevCMarked), "");
@@ -515,6 +523,15 @@ ToolbarNew(void)
     g_signal_connect(G_OBJECT(ptw->pwButtonClockwise), "toggled", G_CALLBACK(ToolbarToggleClockwise), ptw);
 
     ToolbarAddWidget(GTK_TOOLBAR(pwtb), ptw->pwButtonClockwise, _("Reverse direction of play"));
+
+    ToolbarAddSeparator(GTK_TOOLBAR(pwtb));
+    
+    /* Analyze current match button */
+
+    ptw->pwAnalyzeCurrent =
+        ToolbarAddButton(GTK_TOOLBAR(pwtb), GTK_STOCK_EXECUTE, _("Analyse"),
+        _("Analyse current match (set default behavior in Settings -> Analysis)"),
+        G_CALLBACK(GTKAnalyzeCurrent), NULL);
 
     ti = gtk_separator_tool_item_new();
     gtk_tool_item_set_expand(GTK_TOOL_ITEM(ti), TRUE);

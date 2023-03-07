@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.471 2023/01/18 21:49:36 plm Exp $
+ * $Id: backgammon.h,v 1.472 2023/02/18 20:46:34 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -337,6 +337,7 @@ extern int fAnalyseDice;
 extern int fAnalyseMove;
 extern int fAutoBearoff;
 extern int fAutoCrawford;
+extern int fAutoDB;
 extern int fAutoGame;
 extern int fAutoMove;
 extern int fAutoRoll;
@@ -370,6 +371,8 @@ extern int log_rollouts;
 extern int nThreadPriority;
 extern int nToolbarStyle;
 extern int nTutorSkillCurrent;
+extern int fBackgroundAnalysis; /* define whether to analyze in the background */
+extern int fAnalysisRunning; /* when analyzing a match in background */
 #if defined(USE_BOARD3D)
 extern int fSync;
 extern int fResetSync;
@@ -639,6 +642,7 @@ extern void CommandSaveSettings(char *);
 extern void CommandSetAnalysisChequerplay(char *);
 extern void CommandSetAnalysisCube(char *);
 extern void CommandSetAnalysisCubedecision(char *);
+extern void CommandSetAnalysisBackground(char *);
 extern void CommandSetAnalysisLimit(char *);
 extern void CommandSetAnalysisLuckAnalysis(char *);
 extern void CommandSetAnalysisLuck(char *);
@@ -658,6 +662,7 @@ extern void CommandSetAnnotation(char *);
 extern void CommandSetAppearance(char *);
 extern void CommandSetAutoBearoff(char *);
 extern void CommandSetAutoCrawford(char *);
+extern void CommandSetAutoDB(char *);
 extern void CommandSetAutoDoubles(char *);
 extern void CommandSetAutoGame(char *);
 extern void CommandSetAutoMove(char *);

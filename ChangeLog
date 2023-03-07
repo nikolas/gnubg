@@ -1,3 +1,22 @@
+2023-01-22  Isaac Keslassy <keslassy@gmail.com>
+
+	* analysis.c, backgammon.h, commands.inc, gnubg.c, gtkchequer.c,
+	gtkcube.c, gtkfile.c, gtkfile.h, gtkgame.c, gtktoolbar.c,
+	multithread.c, set.c:
+
+	Introduce a background analysis feature with a new button in the
+	main toolbar: "Analyse"
+
+	- the "Analyze" button starts the analysis of the current match
+	- its behaviour is defined in Settings / Analysis:
+        - "background analysis" checkbox:
+            * unchecked => regular "analyze match", blocking
+            * checked => we can browse the moves list
+	                 and check the analysis immediately
+        - "automatic add-to-database" checkbox:
+            * Unchecked => match can be added from statistics page
+            * Checked => match is added automatically at the end of analysis
+
 2023-01-17  Isaac Keslassy <keslassy@gmail.com>
 
 	* gtkscoremap.c, gtkscoremap.h, backgammon.h, commands.inc,

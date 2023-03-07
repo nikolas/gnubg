@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.77 2022/12/13 22:03:31 plm Exp $
+ * $Id: gtkfile.c,v 1.78 2022/12/15 22:23:00 plm Exp $
  */
 
 #include "config.h"
@@ -790,6 +790,20 @@ batch_create_dialog_and_run(GSList * filenames, gboolean add_to_db)
     gtk_widget_set_sensitive(stop_button, FALSE);
 
     gtk_window_set_modal(GTK_WINDOW(dialog), FALSE);
+}
+
+extern void
+GTKAnalyzeCurrent(void)
+{
+    /*analyze match*/
+    UserCommand("analyse match");
+    if (fAutoDB) {
+        /*add match to db*/
+        CommandRelationalAddMatch(NULL);
+    }
+    /*show stats panel*/
+    UserCommand("show statistics match");
+    return;
 }
 
 extern void

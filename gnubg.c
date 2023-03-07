@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1026 2022/03/27 16:43:01 plm Exp $
+ * $Id: gnubg.c,v 1.1027 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -169,6 +169,7 @@ int fAnalyseDice = TRUE;
 int fAnalyseMove = TRUE;
 int fAutoBearoff = FALSE;
 int fAutoCrawford = 1;
+int fAutoDB = FALSE;
 int fAutoGame = TRUE;
 int fAutoMove = FALSE;
 int fAutoRoll = TRUE;
@@ -210,6 +211,20 @@ unsigned int afCheatRoll[2] = { 0, 0 };
 unsigned int cAutoDoubles = 0;
 unsigned int nBeavers = 3;
 unsigned int nDefaultLength = 7;
+
+/*
+ * TRUE if analysis should run in the background
+ * FALSE by default
+ * can be chang edin menu
+ */
+int fBackgroundAnalysis = FALSE;
+
+/*
+ * if we analyze in the background, we turn on the following global flag
+ * to disable all sorts of buttons during the analysis (eval, rollout, etc.)
+ * since we are not equipped for a second parallel analysis
+ */
+int fAnalysisRunning = FALSE;
 
 #if defined(USE_BOARD3D)
 int fSync = -1;                 /* Not set */
@@ -3034,6 +3049,8 @@ SaveAnalysisSettings(FILE * pf)
     fprintf(pf, "set analysis moves %s\n", fAnalyseMove ? "on" : "off");
     fprintf(pf, "set analysis player 0 analyse %s\n", afAnalysePlayers[0] ? "yes" : "no");
     fprintf(pf, "set analysis player 1 analyse %s\n", afAnalysePlayers[1] ? "yes" : "no");
+    fprintf(pf, "set automatic db %s\n", fAutoDB ? "on" : "off");
+    fprintf(pf, "set analysis background %s\n", fBackgroundAnalysis ? "on" : "off");
 }
 
 static void

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.992 2023/01/18 21:49:36 plm Exp $
+ * $Id: gtkgame.c,v 1.993 2023/02/18 20:46:36 plm Exp $
  */
 
 #include "config.h"
@@ -259,6 +259,10 @@ ExecActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * sz
 
     case CMD_ANALYSE_MATCH:
         UserCommand("analyse match");
+        if (fAutoDB) {
+            /*add match to db*/
+            CommandRelationalAddMatch(NULL);
+        }
         UserCommand("show statistics match");
         return;
 
@@ -506,6 +510,10 @@ Command(gpointer UNUSED(p), guint iCommand, GtkWidget * widget)
 
     case CMD_ANALYSE_MATCH:
         UserCommand(aszCommands[CMD_ANALYSE_MATCH]);
+        if (fAutoDB) {
+            /*add match to db*/
+            CommandRelationalAddMatch(NULL);
+        }
         UserCommand(aszCommands[CMD_SHOW_STATISTICS_MATCH]);
         return;
 
@@ -515,6 +523,18 @@ Command(gpointer UNUSED(p), guint iCommand, GtkWidget * widget)
 }
 
 #endif
+
+typedef struct {
+    const char *title;
+    evalcontext *esChequer;
+    movefilter *mfChequer;
+    evalcontext *esCube;
+    movefilter *mfCube;
+    GtkWidget *pwCube, *pwChequer, *pwOptionMenu, *pwSettingWidgets;
+    int cubeDisabled;
+    int fWeakLevels;
+} AnalysisDetails;
+
 
 typedef struct {
 
@@ -530,6 +550,9 @@ typedef struct {
     GtkAdjustment *apadjSkill[3], *apadjLuck[4];
     GtkWidget *pwMoves, *pwCube, *pwLuck, *pwHintSame, *pwCubeSummary;
     GtkWidget *apwAnalysePlayers[2];
+    GtkWidget *pwAutoDB;
+    GtkWidget *pwBackgroundAnalysis;
+
     GtkWidget *pwScoreMap;
     GtkWidget* apwScoreMapPly[NUM_PLY];
     GtkWidget* apwScoreMapMatchLength[NUM_MATCH_LENGTH];
@@ -539,6 +562,10 @@ typedef struct {
     GtkWidget* apwScoreMapMoveEquityDisplay[NUM_MOVEDISP];
     GtkWidget* apwScoreMapColour[NUM_COLOUR];
     GtkWidget* apwScoreMapLayout[NUM_LAYOUT];
+
+    /* defining these just to be able to g_free them */
+    AnalysisDetails *pAnalDetailSettings1;
+    AnalysisDetails *pAnalDetailSettings2;
 
 } analysiswidget;
 
@@ -604,20 +631,31 @@ GTKSuspendInput(void)
     if (!fX)
         return;
 
-    if (suspendCount == 0 && pwGrab && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
-        /* Grab events so that the board window knows this is a re-entrant */
-        /*  call, and won't allow commands like roll, move or double. */
-        grabbedWidget = pwGrab;
+    /* when the fBackgroundAnalysis global variable is set, we allow the user to
+    (1) continue browsing and (2) stop the computation; else we grab the focus and
+    kill any user input
+    */
+    if (!fBackgroundAnalysis) {
+        if (suspendCount == 0 && pwGrab && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
+            /* Grab events so that the board window knows this is a re-entrant */
+            /*  call, and won't allow commands like roll, move or double. */
+            grabbedWidget = pwGrab;
+            if (pwGrab == pwStop) {
+                gtk_widget_grab_focus(pwStop);
+                gtk_widget_set_sensitive(pwStop, TRUE);
+            }
+            gtk_grab_add(pwGrab);
+            grabIdSignal = g_signal_connect_after(G_OBJECT(pwGrab), "key-press-event", G_CALLBACK(gtk_true), NULL);
+        }
+
+        /* Don't check stdin here; readline isn't ready yet. */
+        GTKDisallowStdin();
+    } else {
         if (pwGrab == pwStop) {
             gtk_widget_grab_focus(pwStop);
             gtk_widget_set_sensitive(pwStop, TRUE);
         }
-        gtk_grab_add(pwGrab);
-        grabIdSignal = g_signal_connect_after(G_OBJECT(pwGrab), "key-press-event", G_CALLBACK(gtk_true), NULL);
     }
-
-    /* Don't check stdin here; readline isn't ready yet. */
-    GTKDisallowStdin();
     suspendCount++;
 }
 
@@ -2466,16 +2504,6 @@ SetEvalCommands(const char *szPrefix, evalcontext * pec, evalcontext * pecOrig)
     outputresume();
 }
 
-typedef struct {
-    const char *title;
-    evalcontext *esChequer;
-    movefilter *mfChequer;
-    evalcontext *esCube;
-    movefilter *mfCube;
-    GtkWidget *pwCube, *pwChequer, *pwOptionMenu, *pwSettingWidgets;
-    int cubeDisabled;
-    int fWeakLevels;
-} AnalysisDetails;
 
 static void
 DetailedAnalysisOK(GtkWidget * pw, AnalysisDetails * pDetails)
@@ -2683,6 +2711,8 @@ AnalysisOK(GtkWidget * pw, analysiswidget * paw)
     CHECKUPDATE(paw->pwLuck, fAnalyseDice, "set analysis luck %s")
     CHECKUPDATE(paw->apwAnalysePlayers[0], afAnalysePlayers[0], "set analysis player 0 analyse %s")
     CHECKUPDATE(paw->apwAnalysePlayers[1], afAnalysePlayers[1], "set analysis player 1 analyse %s")
+    CHECKUPDATE(paw->pwAutoDB, fAutoDB, "set automatic db %s")
+    CHECKUPDATE(paw->pwBackgroundAnalysis, fBackgroundAnalysis, "set analysis background %s")
 
     ADJUSTSKILLUPDATE(0, SKILL_DOUBTFUL, "set analysis threshold doubtful %s")
     ADJUSTSKILLUPDATE(1, SKILL_BAD, "set analysis threshold bad %s")
@@ -2789,6 +2819,8 @@ AnalysisSet(analysiswidget * paw)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwMoves), fAnalyseMove);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwCube), fAnalyseCube);
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwLuck), fAnalyseDice);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwAutoDB), fAutoDB);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->pwBackgroundAnalysis), fBackgroundAnalysis);
 
     for (i = 0; i < 2; ++i)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwAnalysePlayers[i]), afAnalysePlayers[i]);
@@ -3007,7 +3039,7 @@ append_analysis_options(analysiswidget * paw)
         N_("Unlucky:"), N_("Very unlucky:")
     };
     int i;
-    AnalysisDetails *pAnalDetailSettings2;
+    // AnalysisDetails *pAnalDetailSettings1,*pAnalDetailSettings2;
     GtkWidget *pwPage, *pwFrame, *pwLabel, *pwSpin;
 #if GTK_CHECK_VERSION(3,0,0)
     GtkWidget *pwGrid;
@@ -3015,7 +3047,7 @@ append_analysis_options(analysiswidget * paw)
     GtkWidget *pwTable;
     GtkWidget* pwp;
 #endif
-    GtkWidget *hboxTop, *hboxBottom, *vbox1, *vbox2, *hbox, *pwvbox;
+    GtkWidget *hboxTop, *hboxMid, *hboxBottom, *vbox1, *vbox2, *vbox3, *hbox, *pwvbox;
 
     memcpy(&paw->esCube, &esAnalysisCube, sizeof(paw->esCube));
     memcpy(&paw->esChequer, &esAnalysisChequer, sizeof(paw->esChequer));
@@ -3071,11 +3103,14 @@ append_analysis_options(analysiswidget * paw)
 #endif
     gtk_box_pack_start(GTK_BOX(vbox1), hboxTop, TRUE, TRUE, 0);
 #if GTK_CHECK_VERSION(3,0,0)
+    hboxMid = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
     hboxBottom = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 #else
+    hboxMid = gtk_hbox_new(FALSE, 0);
     hboxBottom = gtk_hbox_new(FALSE, 0);
 #endif
-    gtk_box_pack_start(GTK_BOX(vbox1), hboxBottom, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(vbox1), hboxMid, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(pwvbox), hboxBottom, TRUE, TRUE, 0);
 
     pwFrame = gtk_frame_new(_("Analysis"));
     gtk_box_pack_start(GTK_BOX(hboxTop), pwFrame, TRUE, TRUE, 0);
@@ -3108,7 +3143,7 @@ append_analysis_options(analysiswidget * paw)
     }
 
     pwFrame = gtk_frame_new(_("Skill thresholds"));
-    gtk_box_pack_start(GTK_BOX(hboxBottom), pwFrame, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hboxMid), pwFrame, TRUE, TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pwFrame), 4);
 
 #if GTK_CHECK_VERSION(3,0,0)
@@ -3148,7 +3183,7 @@ append_analysis_options(analysiswidget * paw)
     }
 
     pwFrame = gtk_frame_new(_("Luck thresholds"));
-    gtk_box_pack_start(GTK_BOX(hboxBottom), pwFrame, TRUE, TRUE, 0);
+    gtk_box_pack_start(GTK_BOX(hboxMid), pwFrame, TRUE, TRUE, 0);
     gtk_container_set_border_width(GTK_CONTAINER(pwFrame), 4);
 
 #if GTK_CHECK_VERSION(3,0,0)
@@ -3198,8 +3233,9 @@ append_analysis_options(analysiswidget * paw)
     gtk_box_pack_start(GTK_BOX(hboxTop), vbox1, FALSE, FALSE, 0);
     gtk_box_pack_start(GTK_BOX(vbox1), pwFrame, FALSE, FALSE, 0);
 
-    CreateEvalSettings(pwFrame, _("Analysis settings"),
-                                              &paw->esChequer.ec, (movefilter *) &paw->aamf, &paw->esCube.ec, NULL, FALSE);
+    /*giving a name to be able to g_free it later*/
+    paw->pAnalDetailSettings1 = CreateEvalSettings(pwFrame, _("Analysis settings"),
+            &paw->esChequer.ec, (movefilter *) &paw->aamf, &paw->esCube.ec, NULL, FALSE);
 //    pAnalDetailSettings1 = CreateEvalSettings(pwFrame, _("Analysis settings"),
 //                                              &aw.esChequer.ec, (movefilter *) & aw.aamf, &aw.esCube.ec, NULL, FALSE);
 
@@ -3237,10 +3273,10 @@ append_analysis_options(analysiswidget * paw)
     gtk_box_pack_start(GTK_BOX(hbox), paw->pwHintSame, FALSE, FALSE, 8);
     gtk_box_pack_start(GTK_BOX(vbox1), hbox, FALSE, FALSE, 0);
 
-    pAnalDetailSettings2 = CreateEvalSettings(vbox1, _("Hint/Tutor settings"),
+    paw->pAnalDetailSettings2 = CreateEvalSettings(vbox1, _("Hint/Tutor settings"),
                                               &paw->esEvalChequer.ec, (movefilter *) &paw->aaEvalmf, &paw->esEvalCube.ec,
                                               NULL, FALSE);
-    paw->pwCubeSummary = pAnalDetailSettings2->pwSettingWidgets;
+    paw->pwCubeSummary = paw->pAnalDetailSettings2->pwSettingWidgets;
 
     //gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwPage);
     //AnalysisSet(paw);
@@ -3248,6 +3284,29 @@ append_analysis_options(analysiswidget * paw)
     gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->pwHintSame));
 
     HintSameToggled(NULL, paw);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    vbox3 = gtk_box_new(GTK_ORIENTATION_VERTICAL, 6);
+#else
+    vbox3 = gtk_vbox_new(FALSE, 0); //gtk_vbox_new (gboolean homogeneous, gint spacing);
+#endif
+
+    gtk_box_pack_start(GTK_BOX(hboxBottom), vbox3, TRUE, TRUE, 0);
+
+    paw->pwAutoDB= gtk_check_button_new_with_label(_("Automatically add analysis to database"));
+    gtk_box_pack_start(GTK_BOX(vbox3), paw->pwAutoDB, FALSE, FALSE, 0);
+    gtk_widget_set_tooltip_text(paw->pwAutoDB,
+                                _("Whenever the analysis of a game or match is complete, automatically "
+                                  "add it to the database. The database needs to have been defined in "
+                                  "Settings -> Options -> Database"));
+
+
+    paw->pwBackgroundAnalysis= gtk_check_button_new_with_label(_("Allow background analysis (NEW! Careful, experimental!) "));
+    gtk_box_pack_start(GTK_BOX(vbox3), paw->pwBackgroundAnalysis, FALSE, FALSE, 0);
+    gtk_widget_set_tooltip_text(paw->pwBackgroundAnalysis,
+                                _("Allow browsing a match and its early analysis results while "
+                                "analysis is still running in the background. Some features may be "
+                                "disabled until the nalysis is over."));
 
     // g_free(pAnalDetailSettings2); //<- not sure where to put it
     // g_free(pAnalDetailSettings1);
@@ -3294,7 +3353,8 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
         
     GTKRunDialog(pwDialog);                               
-
+    g_free(aw.pAnalDetailSettings1);
+    g_free(aw.pAnalDetailSettings2);
 }
 
 typedef struct {
@@ -4799,6 +4859,10 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
             g_free(python_script);
             python_script = NULL;
         }
+
+        /* initialize by saying there is no analysis running now in the background*/
+        if(fBackgroundAnalysis)
+             fAnalysisRunning = FALSE;
 
         gtk_main();
 
@@ -7501,6 +7565,20 @@ GTKSet(void *p)
                                                            "/MainMenu/AnalyseMenu/AddMatchOrSessionStatsToDB"),
                                  !ListEmpty(&lMatch));
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/ShowRecords"), TRUE);
+         
+        /*disabling everything when we analyze a game in the background*/
+        
+        if(fBackgroundAnalysis){
+            gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/FileMenu/"), !fAnalysisRunning);
+            gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/EditMenu/"), !fAnalysisRunning);
+            // gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/"), !fAnalysisRunning);
+            gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu/"), !fAnalysisRunning);
+            gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/"), !fAnalysisRunning);
+            gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/SettingsMenu/"), !fAnalysisRunning);
+            // gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/GoMenu/"), !fAnalysisRunning);
+            // gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/HelpMenu/"), !fAnalysisRunning);
+        }
+
 #else
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/File/Save..."), plGame != NULL);
 
@@ -7518,7 +7596,8 @@ GTKSet(void *p)
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_PREV_GAME), !ListEmpty(&lMatch));
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/File/Match information..."), !ListEmpty(&lMatch));
 
-        enable_sub_menu(gtk_item_factory_get_widget(pif, "/Analyse"), ms.gs == GAME_PLAYING);
+        if (!fAnalysisRunning)
+            enable_sub_menu(gtk_item_factory_get_widget(pif, "/Analyse"), ms.gs == GAME_PLAYING);
 
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/Analyse/Batch analyse..."), TRUE);
 
@@ -7970,9 +8049,11 @@ GTKDumpStatcontext(int game)
 #endif
     pwStatDialog = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MODAL, NULL, NULL);
 
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwStatDialog, DA_BUTTONS)),
-                      addToDbButton = gtk_button_new_with_label(_("Add to DB")));
-    g_signal_connect(addToDbButton, "clicked", G_CALLBACK(GtkRelationalAddMatch), pwStatDialog);
+    if (!fAutoDB) {
+        gtk_container_add(GTK_CONTAINER(DialogArea(pwStatDialog, DA_BUTTONS)),
+                        addToDbButton = gtk_button_new_with_label(_("Add to DB")));
+        g_signal_connect(addToDbButton, "clicked", G_CALLBACK(GtkRelationalAddMatch), pwStatDialog);
+    }
 
     pwNotebook = gtk_notebook_new();
     gtk_notebook_set_scrollable(GTK_NOTEBOOK(pwNotebook), TRUE);
