@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.477 2022/03/20 19:40:21 plm Exp $
+ * $Id: play.c,v 1.478 2022/12/13 22:14:50 plm Exp $
  */
 
 #include "config.h"
@@ -4215,8 +4215,8 @@ get_current_moverecord(int *pfHistory)
 
     if (ms.anDice[0] > 0) {
         pmr_hint->mt = MOVE_NORMAL;
-        pmr_hint->anDice[0] = MAX(ms.anDice[0], ms.anDice[1]);
-        pmr_hint->anDice[1] = MIN(ms.anDice[0], ms.anDice[1]);
+        pmr_hint->anDice[0] = ms.anDice[0];
+        pmr_hint->anDice[1] = ms.anDice[1];
     } else if (ms.fDoubled) {
         pmr_hint->mt = MOVE_TAKE;
     } else {
