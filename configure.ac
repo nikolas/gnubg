@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.117 2023/01/01 17:48:19 plm Exp $
+dnl $Id: configure.ac,v 1.118 2023/02/25 23:03:23 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.117 $)
+AC_REVISION($Revision: 1.118 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -251,9 +251,9 @@ AC_CHECK_LIB(m,sqrt)
 AC_SEARCH_LIBS(gethostbyname,nsl)
 AC_SEARCH_LIBS(inet_aton,resolv)
 if test "x$win32" = "xyes"; then
-AC_DEFINE(HAVE_SOCKETS,1,Define if the system supports AF_LOCAL sockets.)
+AC_DEFINE(HAVE_SOCKETS,1,Define if the system supports sockets.)
 else
-AC_SEARCH_LIBS(connect,socket,AC_DEFINE(HAVE_SOCKETS,1,Define if the system supports AF_LOCAL sockets.))
+AC_SEARCH_LIBS(connect,socket,AC_DEFINE(HAVE_SOCKETS,1,Define if the system supports sockets.))
 fi
 
 dnl
