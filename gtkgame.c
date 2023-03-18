@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.993 2023/02/18 20:46:36 plm Exp $
+ * $Id: gtkgame.c,v 1.994 2023/03/07 22:29:54 plm Exp $
  */
 
 #include "config.h"
@@ -3958,7 +3958,7 @@ static GtkActionEntry actionEntries[] = {
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_GAME)},
     {"RolloutMatchAction", NULL, N_("CMarked from Match"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MATCH)},
-
+    {"AnalyseCurrentAction", GTK_STOCK_EXECUTE, N_("Analyse"), NULL, NULL, G_CALLBACK(GTKAnalyzeCurrent)},
     {"BatchAnalyseAction", NULL, N_("Batch analyse..."), NULL, NULL, G_CALLBACK(GTKBatchAnalyse)},
     {"MatchOrSessionStatsAction", NULL, N_("Match or session statistics"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_STATISTICS_MATCH)},

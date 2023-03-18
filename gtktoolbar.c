@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.82 2023/01/01 17:37:16 plm Exp $
+ * $Id: gtktoolbar.c,v 1.83 2023/03/07 22:29:55 plm Exp $
  */
 
 #include "config.h"
@@ -397,7 +397,7 @@ ToolbarNew(void)
     ptw->pwButtonClockwise = gtk_ui_manager_get_widget(puim, "/MainToolBar/PlayClockwise");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwButtonClockwise), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwButtonClockwise), _("Direction"));
-    ptw->pwAnalyzeCurrent = gtk_ui_manager_get_widget(puim, "/MainToolBar/AnalyzeCurrent");
+    ptw->pwAnalyzeCurrent = gtk_ui_manager_get_widget(puim, "/MainToolBar/Analyse");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwAnalyzeCurrent), TRUE);
     ptw->pwPrevCMarked = gtk_ui_manager_get_widget(puim, "/MainToolBar/PreviousCMarkedMove");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwPrevCMarked), FALSE);
