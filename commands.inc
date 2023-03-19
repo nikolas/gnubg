@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.62 2023/02/18 20:46:36 plm Exp $
+ * $Id: commands.inc,v 1.63 2023/03/07 22:29:54 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1189,7 +1189,8 @@ static command acSetVariation[] = {
       "money games"), szONOFF, &cOnOff },
     { "defaultnames", CommandSetDefaultNames, N_("Set default names for players"),
 	  szNAME, NULL },
-    { "aliases", CommandSetAliases, N_("Set aliases for player 1 when importing MAT files"), szNAME, NULL },
+    { "keynames", CommandSetKeyNames, N_("Set key player names to highlight"),
+          szNAME, NULL },
     { "lang", CommandSetLang, N_("Set your language preference"),
       szLANG, NULL },
     { "matchequitytable", CommandSetMET,
@@ -1279,6 +1280,10 @@ static command acSetVariation[] = {
     { "turn", CommandSetTurn, N_("Set which player is on roll"), szPLAYER,
       &cPlayer },
     { "tutor", NULL, N_("Control tutor setup"), NULL, acSetTutor }, 
+#if 0
+    { "usekeynames", CommandSetUseKeyNames, N_("Set whether to use the list of key player names"),
+      szONOFF, &cOnOff },
+#endif
     { "variation", NULL, N_("Set which variation of backgammon is used"), 
       NULL, acSetVariation }, 
     { "vsync3d", CommandSetVsync3d, N_("Turn vertical sync on/off"), szONOFF, &cOnOff },
@@ -1304,7 +1309,6 @@ static command acSetVariation[] = {
 };
 
 command  acShow[] = {
-    { "aliases", CommandShowAliases, N_("Show aliases for player 1 when importing MAT files"), NULL, NULL }, 
     { "analysis", CommandShowAnalysis, N_("Show parameters used for analysing "
       "moves"), NULL, NULL },
     { "autosave", CommandShowAutoSave, N_("Show parameters used for autosaving"), NULL, NULL },

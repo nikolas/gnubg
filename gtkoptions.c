@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2003-2004 Joern Thyssen <jth@gnubg.org>
- * Copyright (C) 2003-2022 the AUTHORS
+ * Copyright (C) 2003-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.139 2022/11/06 15:39:36 plm Exp $
+ * $Id: gtkoptions.c,v 1.140 2022/12/13 22:03:31 plm Exp $
  */
 
 #include "config.h"
@@ -66,6 +66,7 @@ typedef struct {
     GtkWidget *pwCubeUsecube;
     GtkWidget *pwCubeJacoby;
     GtkWidget *pwCubeInvert;
+    // GtkWidget *pwKeyName;
     GtkWidget *pwGameClockwise;
     GtkWidget *apwVariations[NUM_VARIATIONS];
     GtkWidget *pwOutputMWC;
@@ -79,7 +80,6 @@ typedef struct {
     GtkWidget *pwBeaversLabel;
     GtkWidget *pwAutomatic;
     GtkWidget *pwAutomaticLabel;
-    GtkWidget *pwMETFrame;
     GtkWidget *pwLoadMET;
     GtkWidget *pwSeed;
     GtkWidget *pwRecordGames;
@@ -96,8 +96,6 @@ typedef struct {
     GtkWidget *pwUseDiceIcon;
     GtkWidget *pwShowIDs;
     GtkWidget *pwShowPips;
-    GtkWidget *pwShowEPCs;
-    GtkWidget *pwShowWastage;
     GtkWidget *pwAnimateNone;
     GtkWidget *pwAnimateBlink;
     GtkWidget *pwAnimateSlide;
@@ -140,6 +138,144 @@ static GtkWidget *pwSoundCommand;
 static gnubgsound selSound;
 static int SoundSkipUpdate;
 static int relPage, relPageActivated;
+
+static GtkTreeIter selected_iter;
+static GtkListStore *nameStore;
+
+static void
+AddKeyNameClicked(GtkButton * UNUSED(button), gpointer treeview)
+{
+    GtkTreeIter iter;
+    char *keyName = GTKGetInput(_("Add key name"), _("Key Player Name:"), NULL);
+    if(keyName) {
+        // g_message("message=%s",keyName);
+        if (AddKeyName(keyName)) {
+            gtk_list_store_append(GTK_LIST_STORE(nameStore), &iter);
+            gtk_list_store_set(GTK_LIST_STORE(nameStore), &iter, 0, keyName, -1);
+            gtk_tree_selection_select_iter(gtk_tree_view_get_selection(GTK_TREE_VIEW(treeview)), &iter);
+            selected_iter=iter;
+        }  else {
+            outputerrf(_("there was a problem adding this key name"));
+        }
+        g_free(keyName);
+    }
+}
+
+static char *
+GetSelectedName(GtkTreeView * treeview)
+{
+    GtkTreeModel *model;
+    char *keyName = NULL;
+    GtkTreeSelection *sel = gtk_tree_view_get_selection(treeview);
+    if (gtk_tree_selection_count_selected_rows(sel) != 1)
+        return NULL;
+    
+    /* Sets selected_iter to the currently selected node: */
+    gtk_tree_selection_get_selected(sel, &model, &selected_iter);
+    
+    /* Gets the value of the char* cell (in column 0) in the row 
+        referenced by selected_iter */
+    gtk_tree_model_get(model, &selected_iter, 0, &keyName, -1);
+    // g_message("GetSelectedName gives keyName=%s",keyName);
+    return keyName;
+}
+
+static void
+DeleteKeyNameClicked(GtkButton * UNUSED(button), gpointer treeview)
+{
+    char *keyName = GetSelectedName(GTK_TREE_VIEW(treeview));
+    if(keyName){
+            if (DeleteKeyName(keyName)) {
+                gtk_list_store_remove(GTK_LIST_STORE(nameStore), &selected_iter);
+                // DisplayKeyNames();
+            } else {
+                outputerrf(_("there was a problem deleting this key name"));
+            }
+    }
+}
+
+
+extern void
+GTKCommandEditKeyNames(GtkWidget * UNUSED(pw), GtkWidget * UNUSED(pwParent))
+{
+    GtkWidget *pwDialog;
+    GtkWidget *pwMainHBox;
+    GtkWidget *pwVBox;
+    GtkWidget *hb1;
+    GtkWidget *pwScrolled;
+    GtkWidget *treeview;
+    GtkWidget *addButton;
+    GtkWidget *delButton;
+    GtkCellRenderer *renderer;
+    GtkTreeViewColumn *column;
+    // GtkListStore *store;
+    GtkTreeIter iter;
+ 
+    pwScrolled = gtk_scrolled_window_new(NULL, NULL);
+
+    pwDialog = GTKCreateDialog(_("Edit key player names"), DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_CLOSEBUTTON, NULL, NULL);
+    // pwDialog = GTKCreateDialog(_("Edit key player names"), DT_INFO, NULL, DIALOG_FLAG_MODAL, NULL, NULL);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwMainHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
+    pwMainHBox = gtk_hbox_new(FALSE, 0);
+#endif
+
+    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwMainHBox);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwVBox = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+#else
+    pwVBox = gtk_vbox_new(FALSE, 0);
+#endif
+    gtk_box_pack_start(GTK_BOX(pwMainHBox), pwVBox, FALSE, FALSE, 0);
+
+    //AddTitle(pwVBox, _("?"));
+
+    /* create list store */
+    nameStore = gtk_list_store_new(1, G_TYPE_STRING);
+
+
+    for(int i=0;i < keyNamesFirstEmpty; i++) {
+        gtk_list_store_append(nameStore, &iter);
+        gtk_list_store_set(nameStore, &iter, 0, keyNames[i], -1);
+        // g_message("in DisplayKeyNames: %d->%s", i,keyNames[i]);
+    }
+
+    /* create tree view */
+    treeview = gtk_tree_view_new_with_model(GTK_TREE_MODEL(nameStore));
+    // g_object_unref(nameStore);
+    renderer = gtk_cell_renderer_text_new();
+    column = gtk_tree_view_column_new_with_attributes(_("Key Player Names"), renderer, "text", 0, NULL);
+    gtk_tree_view_append_column(GTK_TREE_VIEW(treeview), column);
+
+    gtk_container_set_border_width(GTK_CONTAINER(pwVBox), 8);
+    gtk_box_pack_start(GTK_BOX(pwVBox), pwScrolled, TRUE, TRUE, 0);
+    gtk_widget_set_size_request(pwScrolled, 100, 200);//-1);
+#if GTK_CHECK_VERSION(3, 8, 0)
+    gtk_container_add(GTK_CONTAINER(pwScrolled), treeview);
+#else
+    gtk_scrolled_window_add_with_viewport(GTK_SCROLLED_WINDOW(pwScrolled), treeview);
+#endif
+    gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(pwScrolled), GTK_POLICY_AUTOMATIC, GTK_POLICY_AUTOMATIC);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    hb1 = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+#else
+    hb1 = gtk_hbox_new(FALSE, 0);
+#endif
+    gtk_box_pack_start(GTK_BOX(pwVBox), hb1, FALSE, FALSE, 0);
+    addButton = gtk_button_new_with_label(_("Add name"));
+    g_signal_connect(addButton, "clicked", G_CALLBACK(AddKeyNameClicked), treeview);
+    gtk_box_pack_start(GTK_BOX(hb1), addButton, FALSE, FALSE, 0);
+    delButton = gtk_button_new_with_label(_("Delete name"));
+    g_signal_connect(delButton, "clicked", G_CALLBACK(DeleteKeyNameClicked), treeview);
+    gtk_box_pack_start(GTK_BOX(hb1), delButton, FALSE, FALSE, 4);
+
+    GTKRunDialog(pwDialog);
+}
+
 
 static void
 SeedChanged(GtkWidget * UNUSED(pw), int *pf)
@@ -607,6 +743,8 @@ append_display_options(optionswidget * pow)
     GtkWidget *pwev;
     GtkWidget *pwhbox;
     GtkWidget *pw;
+    GtkWidget *pwh;
+    GtkWidget *pwEdit;
     GtkWidget *pwAnimBox;
     GtkWidget *pwFrame;
     GtkWidget *pwBox;
@@ -641,6 +779,41 @@ append_display_options(optionswidget * pow)
                                   "advance clockwise (and player 0 moves "
                                   "anticlockwise).  Otherwise, player 1 moves "
                                   "anticlockwise and player 0 moves clockwise."));
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwh = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
+#else
+    pwh = gtk_hbox_new(FALSE, 8);
+#endif
+
+    gtk_box_pack_start(GTK_BOX(pwvbox), pwh, FALSE, FALSE, 0);
+
+    // pow->pwKeyName = gtk_check_button_new_with_label(_("Use SmartSit to sit at bottom of board in opened matches"));
+    // gtk_box_pack_start(GTK_BOX(pwh), pow->pwKeyName, FALSE, FALSE, 0);
+    // gtk_widget_set_tooltip_text(pow->pwKeyName,
+    //                             _("(1) If you select a player to be player1 (the second player) "
+    //                               "and sit at the bottom of the board, the player's name is "
+    //                               "automatically added to the list of key player names. "
+    //                               "(2) Then, when you open a new match, if such a key player is player0 "
+    //                               "and player1 is unknown, they swap places."));
+    
+    pwEdit = gtk_button_new_with_label(_("Edit"));
+    g_signal_connect(G_OBJECT(pwEdit), "clicked",  G_CALLBACK(GTKCommandEditKeyNames), pow);//(void *) pAnalDetails);
+    gtk_box_pack_start(GTK_BOX(pwh), pwEdit, FALSE, FALSE, 0);
+    AddText(pwh,_("Use SmartSit to automatically sit at bottom of board"));
+    gtk_widget_set_tooltip_text(pwh,
+                                _("SmartSit assumes that you'd like to arrange the board so "
+                                  "you can sit at the bottom (i.e. so you can be player1, the "
+                                  "second player). "
+                                  "\n(1) LEARNING: If you select a player to be player1 "
+                                  "and sit at the bottom of the board, SmartSit guesses that "
+                                  "the player's name is one of your aliases, and adds it"
+                                  "to a list of key player names (which you can edit here).  "
+                                  "\n(2) APPLYING: When you open a new match from a file "
+                                  "(e.g., from a game played on the internet), if "
+                                  "player0 is a known key player name while player1 is unknown, "
+                                  "they swap places automatically, so you can sit at the bottom "
+                                  "of the board."));
 
     pwev = gtk_event_box_new();
     gtk_event_box_set_visible_window(GTK_EVENT_BOX(pwev), FALSE);
@@ -1652,6 +1825,7 @@ OptionsOK(GtkWidget * pw, optionswidget * pow)
     CHECKUPDATE(pow->pwCubeInvert, fInvertMET, "set invert met %s");
 
     CHECKUPDATE(pow->pwGameClockwise, fClockwise, "set clockwise %s");
+    // CHECKUPDATE(pow->pwKeyName, fUseKeyNames, "set usekeynames %s");
 
     for (i = 0; i < NUM_VARIATIONS; ++i)
         if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(pow->apwVariations[i])) && bgvDefault != (bgvariation) i) {
@@ -1902,6 +2076,7 @@ OptionsSet(optionswidget * pow)
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pow->pwCubeInvert), fInvertMET);
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pow->pwGameClockwise), fClockwise);
+    // gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pow->pwKeyName), fUseKeyNames);
 
     for (i = 0; i < NUM_VARIATIONS; ++i)
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(pow->apwVariations[i]), bgvDefault == (bgvariation) i);

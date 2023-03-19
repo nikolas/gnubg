@@ -1420,11 +1420,6 @@ To roll the dice the CL version type 'roll'.
         <para>Jellyfish Match is not formally defined and software exporting matches to this format often produce minor discrepancies.
           <application>GNU Backgammon</application> tries to cater to most of them automatically.
         </para>
-        <para>Online sites do not always create their .mat files with the you as player 1, the one playing towards the bottom of the board.
-          To have these matches converted to be displayed in the natural way, you can use de CLI command
-          <command>set aliases &lt;player name 1&gt;;&lt;player name 2&gt;;[&lt;etc...&gt;]</command>
-          <application>GNU Backgammon</application> will swap the players as needed so that player names matching these aliases are always imported as player 1.
-        </para>
       </sect3>
       <sect3 id="gnubg-matches_saving">
         <title>Saving and exporting positions, games or matches</title>

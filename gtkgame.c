@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.994 2023/03/07 22:29:54 plm Exp $
+ * $Id: gtkgame.c,v 1.995 2023/03/18 19:26:08 plm Exp $
  */
 
 #include "config.h"
@@ -2105,7 +2105,7 @@ typedef struct {
     evalcontext *pec;
     movefilter *pmf;
     GtkWidget *pwCubeful, *pwUsePrune, *pwDeterministic;
-    GtkAdjustment *padjPlies, *padjSearchCandidates, *padjSearchTolerance, *padjNoise;
+    GtkAdjustment *padjPlies, *padjNoise;
     int *pfOK;
     GtkWidget *pwOptionMenu;
     int fMoveFilter;
@@ -2891,7 +2891,7 @@ CreateEvalSettings(GtkWidget * pwParent, const char *title, evalcontext * pecheq
 }
 
 //Module to add text
-static void
+extern void
 AddText(GtkWidget* pwBox, char* Text)
 {
     GtkRcStyle * ps = gtk_rc_style_new();
@@ -5389,7 +5389,6 @@ typedef struct {
     GtkAdjustment *padjTrials, *padjTruncPlies, *padjLatePlies;
     GtkAdjustment *padjSeed, *padjMinGames, *padjMaxError;
     GtkAdjustment *padjJsdMinGames, *padjJsdLimit;
-    GtkWidget *arpwGeneral;
     GtkWidget *pwMinGames, *pwMaxError, *pwJsdLimit;
 } rolloutpagegeneral;
 

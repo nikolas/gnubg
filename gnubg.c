@@ -15,8 +15,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1027 2023/01/18 21:49:36 plm Exp $
+ * $Id: gnubg.c,v 1.1028 2023/03/07 22:29:54 plm Exp $
  */
+
+/*
+02/2023: Isaac Keslassy: introduced the "SmartSit" feature
+that enables users to automatically sit at the bottom of
+the board (i.e. as player1) in opened matches.
+
+It works as follows:
+1) In Settings > Options > Display, the user can enable this option
+2) The user can define "key player names" in two ways:
+    a) Manually:
+    In Settings > Options > Display, edit the list and add/delete names.
+    b) Automatically:
+    Each time te user swaps the player order to highlight some player
+    and set this player at the bottom of the board, we add this
+    player's name to the list.
+3) When opening a new file, SmartSit() automatically checks if player0
+    is a key player while player1 is not. In such a case, it swaps
+    their places.
+*/
 
 #include "config.h"
 
@@ -225,6 +244,12 @@ int fBackgroundAnalysis = FALSE;
  * since we are not equipped for a second parallel analysis
  */
 int fAnalysisRunning = FALSE;
+
+/*initialization*/
+char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN]={""};
+int keyNamesFirstEmpty=0;
+int fUseKeyNames=TRUE;
+int fWithinSmartSit=FALSE;
 
 #if defined(USE_BOARD3D)
 int fSync = -1;                 /* Not set */
@@ -491,8 +516,6 @@ player ap[2] = {
 };
 
 char default_names[2][31] = { "gnubg", "user" };
-
-char player1aliases[256] = "";
 
 /* Usage strings */
 static char szDICE[] = N_("<die> <die>"),
@@ -3193,8 +3216,12 @@ SavePlayerSettings(FILE * pf)
     char szTemp[4096];
 
     fprintf(pf, "set defaultnames \"%s\" \"%s\"\n", default_names[0], default_names[1]);
-    if (strlen(player1aliases) > 0)
-        fprintf(pf, "set aliases %s\n", player1aliases);
+
+    fprintf(pf, "set keynames");
+    for(i = 0; i < keyNamesFirstEmpty; i++) {
+        fprintf(pf, "\t%s", keyNames[i]);
+    }
+    fprintf(pf, "\n");
 
     for (i = 0; i < 2; i++) {
         fprintf(pf, "set player %d name %s\n", i, ap[i].szName);
@@ -3310,6 +3337,8 @@ SaveMiscSettings(FILE * pf)
     fprintf(pf, "set browser \"%s\"\n", get_web_browser());
     fprintf(pf, "set priority nice %d\n", nThreadPriority);
     fprintf(pf, "set ratingoffset %s\n", g_ascii_formatd(buf, G_ASCII_DTOSTR_BUF_SIZE, "%f", rRatingOffset));
+
+    fprintf(pf, "set usekeynames %s\n", fUseKeyNames ? "on" : "off");
 }
 
 extern void
@@ -3719,12 +3748,37 @@ ProcessInput(char *sz)
         fReadingCommand = TRUE;
     }
 }
-
 #endif
+
+extern gint
+NextTurnNotify(gpointer UNUSED(p))
+{
+    NextTurn(TRUE);
+
+    ResetInterrupt();
+
+    if (fNeedPrompt) {
+#if defined(HAVE_LIB_READLINE)
+        if (fInteractive) {
+            char *sz = locale_from_utf8(FormatPrompt());
+            rl_callback_handler_install(sz, ProcessInput);
+            g_free(sz);
+            fReadingCommand = TRUE;
+        } else
+#endif
+            Prompt();
+
+        fNeedPrompt = FALSE;
+    }
+
+    return FALSE;               /* remove idle handler, if GTK */
+}
+#endif /* USE_GTK */
 
 /* Handle a command as if it had been typed by the user. */
 extern void
 UserCommand(const char *szCommand)
+#if defined (USE_GTK)
 {
     char *sz;
 
@@ -3768,29 +3822,11 @@ UserCommand(const char *szCommand)
     return;
 #endif
 }
-
-extern gint
-NextTurnNotify(gpointer UNUSED(p))
+#else /* !USE_GTK */
 {
-    NextTurn(TRUE);
-
-    ResetInterrupt();
-
-    if (fNeedPrompt) {
-#if defined(HAVE_LIB_READLINE)
-        if (fInteractive) {
-            char *sz = locale_from_utf8(FormatPrompt());
-            rl_callback_handler_install(sz, ProcessInput);
-            g_free(sz);
-            fReadingCommand = TRUE;
-        } else
-#endif
-            Prompt();
-
-        fNeedPrompt = FALSE;
-    }
-
-    return FALSE;               /* remove idle handler, if GTK */
+    char *line = g_strdup(szCommand);
+    HandleCommand(line, acTop);
+    g_free(line);
 }
 #endif
 
@@ -4932,7 +4968,87 @@ swapGame(listOLD * plGame)
 
 }
 
+extern void
+DisplayKeyNames(void)
+{
+    for(int i=0;i < keyNamesFirstEmpty; i++) {
+        g_message("in DisplayKeyNames: %d->%s", i,keyNames[i]);
+    }
+}
 
+static int
+NameIsKey (const char sz[]) {
+    for(int i=0;i < keyNamesFirstEmpty; i++) {
+        if (!strcmp(sz, keyNames[i])) {
+            // g_message("NameIsKey: EXISTS! %s=%s at i=%d", sz,keyNames[i],i);
+            return 1;
+        }
+    }
+    return 0;
+}
+
+/*  delete a  key name from the keyNames array */
+extern int
+DeleteKeyName(const char sz[])
+{
+    // g_message("in DeleteKeyName: %s, length=%zu", sz, strlen(sz));
+
+    for(int i=0;i < keyNamesFirstEmpty; i++) {
+        if (!strcmp(sz, keyNames[i])) {
+            // g_message("EXISTS! %s=%s, i=%d, keyNamesFirstEmpty=%d", sz,keyNames[i],i,keyNamesFirstEmpty);
+            if (keyNamesFirstEmpty==(i+1)) {
+                keyNamesFirstEmpty--;
+                UserCommand("save settings");
+                return 1;
+            } else {
+                strcpy(keyNames[i],keyNames[keyNamesFirstEmpty-1]); 
+                keyNamesFirstEmpty--;
+                // DisplayKeyNames();
+                UserCommand("save settings");
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+
+/*  add a new key name to the keyNames array 
+return 1 if success, 0 if problem */
+extern int
+AddKeyName(const char sz[])
+{
+    // g_message("in AddKeyName: %s, length=%zu", sz, strlen(sz));
+    /* check that the name doesn't contain "\t", "\n" */
+    if (strstr(sz, "\t") != NULL || strstr(sz, "\n") != NULL) {
+        // for(unsigned int j=0;j < strlen(sz); j++) {
+        //     g_message("%c", sz[j]);
+        // }
+        outputerrf(_("Player name contains unallowed character"));
+        return 0;
+    }
+
+    /* check that the name is not too long*/
+    if(strlen(sz) > MAX_NAME_LEN) {
+        outputerrf(_("Player name is too long"));
+        return 0;
+    }
+
+    /* check that the keyNames array is not full */
+    if (keyNamesFirstEmpty<MAX_KEY_NAMES) {
+        /* check that the key player doesn't already exist */
+        for(int i=0;i < keyNamesFirstEmpty; i++) {
+            if (!strcmp(sz, keyNames[i])) {
+                // g_message("EXISTS! %s=%s", sz,keyNames[i]);
+                return 0;
+            }
+        }
+        strcpy(keyNames[keyNamesFirstEmpty],sz); 
+        keyNamesFirstEmpty++;
+    }
+    // DisplayKeyNames();
+    UserCommand("save settings");
+    return 1;
+}
 
 extern void
 CommandSwapPlayers(char *UNUSED(sz))
@@ -4940,6 +5056,18 @@ CommandSwapPlayers(char *UNUSED(sz))
     listOLD *pl;
     char *pc;
     int n;
+
+    /* VERSION1: if fUseKeyNames enabled, then add the new player1 to the key players
+    (now still player0)
+    VERSION2: also add if fUseKeyNames is not enabled yet, so users don't think they 
+    need to add names manually. We only check that the permutation wasn't launched 
+   by the SmartSit() function, which would mean the name is already in the list.
+   */
+   // if (fUseKeyNames && !fWithinSmartSit) {
+   if (!fWithinSmartSit) {
+       // g_message("in CommandSwapPlayers: %s", ap[0].szName);
+       AddKeyName(ap[0].szName);
+   }
 
     /* swap individual move records */
 
@@ -4990,6 +5118,25 @@ CommandSwapPlayers(char *UNUSED(sz))
     ShowBoard();
 }
 
+/* The following function looks at a list of priority players,
+and makes sure to set the priority player as player 1,
+i.e. the player that moves towards the bottom of the screen.
+*/
+extern void
+SmartSit(void)
+{
+    // g_message("O: %s", ap[0].szName);
+    // g_message("X: %s", ap[1].szName);
+
+    if (NameIsKey(ap[0].szName) && !NameIsKey(ap[1].szName)) {
+        fWithinSmartSit=TRUE;
+        CommandSwapPlayers(NULL);
+        fWithinSmartSit=FALSE;
+    }
+
+    // g_message("O: %s", ap[0].szName);
+    // g_message("X: %s", ap[1].szName);
+}
 
 extern int
 confirmOverwrite(const char *sz, const int f)

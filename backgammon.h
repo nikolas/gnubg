@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.472 2023/02/18 20:46:34 plm Exp $
+ * $Id: backgammon.h,v 1.473 2023/03/07 22:29:54 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -388,7 +388,6 @@ typedef const movefilter (*ConstTmoveFilter)[MAX_FILTER_PLIES];
 extern TmoveFilter *GetEvalMoveFilter(void);
 extern player ap[2];
 extern char default_names[2][31];
-extern char player1aliases[256];
 extern rolloutcontext rcRollout;
 extern skilltype TutorSkill;
 extern statcontext scMatch;
@@ -680,6 +679,7 @@ extern void CommandSetCheatEnable(char *);
 extern void CommandSetCheatPlayer(char *);
 extern void CommandSetCheatPlayerRoll(char *);
 extern void CommandSetClockwise(char *);
+extern void CommandSetUseKeyNames(char *);
 extern void CommandSetCommandWindow(char *);
 extern void CommandSetConfirmDefault(char *);
 extern void CommandSetConfirmNew(char *);
@@ -927,7 +927,6 @@ extern void CommandSetVariationStandard(char *);
 extern void CommandSetVsync3d(char *);
 extern void CommandSetWarning(char *);
 extern void CommandShow8912(char *);
-extern void CommandShowAliases(char *);
 extern void CommandShowAnalysis(char *);
 extern void CommandShowAutoSave(char *);
 extern void CommandShowAutomatic(char *);
@@ -999,7 +998,7 @@ extern void CommandShowWarranty(char *);
 extern void CommandSwapPlayers(char *);
 extern void CommandTake(char *);
 extern void CommandSetDefaultNames(char *sz);
-extern void CommandSetAliases(char *sz);
+extern void CommandSetKeyNames(char *sz);
 extern void hint_move(char *sz, gboolean show, procrecorddata * procdatarec);
 extern void hint_double(int show, int did_double);
 extern void hint_take(int show, int did_take);
@@ -1032,5 +1031,17 @@ extern int check_resigns(cubeinfo * pci);
 extern int quick_roll(void);
 extern int board_in_list(const movelist * pml, const TanBoard old_board, const TanBoard board, int *an);
 extern int GetManualDice(unsigned int anDice[2]);
+
+/* definitions for SmartSit and keyNames*/
+extern void SmartSit(void); /* function that makes sure that player 1 is a key player, if there is one */
+#define MAX_KEY_NAMES 200 /* number of defined key player names*/
+extern char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN]; /* array with all key player names*/
+extern int keyNamesFirstEmpty; /* the keyNames array should be filled from index 0 until keyNamesFirstEmpty-1 (included)*/
+extern int fUseKeyNames; /* whether to use the keyNames array*/
+extern int fWithinSmartSit; /* whether we are within the SmartSit function: if it requests to permute users, no need to add the
+                                    new player1 to the list of preferred users*/
+extern int AddKeyName(const char sz[]); /* function that adds a key player name to the array*/
+extern int DeleteKeyName(const char sz[]); /* function that deletes a key player name to the array*/
+extern void DisplayKeyNames(void); /* debugging function to display the current key player names in the array*/
 
 #endif	/* BACKGAMMON_H */

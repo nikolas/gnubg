@@ -1,3 +1,16 @@
+2023-02-09  Isaac Keslassy <keslassy@gmail.com>
+
+	* backgammon.h, commands.inc, gnubg.c, gtkgame.c, gtkgame.h,
+	gtkoptions.c, gtkoptions.h, import.c, set.c, sgf.c:
+
+	Introduce the "SmartSit" feature that enables to define a list of
+	users that automatically sit at the bottom of the board (as
+	player1) in opened matches.
+
+	Names can be added or deleted in Settings > Options > Display.
+
+	Remove the similar but more limited set/show aliases CLI commands.
+
 2023-01-22  Isaac Keslassy <keslassy@gmail.com>
 
 	* analysis.c, backgammon.h, commands.inc, gnubg.c, gtkchequer.c,

@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2000-2003 Oystein Johansen <oystein@gnubg.org>
- * Copyright (C) 2001-2020 the AUTHORS
+ * Copyright (C) 2001-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.232 2022/02/26 20:22:15 plm Exp $
+ * $Id: import.c,v 1.233 2022/03/12 20:38:22 plm Exp $
  */
 
 #include "config.h"
@@ -1187,21 +1187,6 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
     }
 
     UpdateSettings();
-
-    {
-        gchar **token;
-        int i = 0;
-
-        token = g_strsplit_set(player1aliases, ";", -1);
-
-        while (token[i] != NULL)
-            if (!strcmp(token[i++], ap[0].szName)) {
-                CommandSwapPlayers(NULL);
-                break;
-            }
-
-        g_strfreev(token);
-    }
 
 #if USE_GTK
     if (fX) {
@@ -3402,11 +3387,15 @@ CommandImportJF(char *sz)
             return;
         fclose(pf);
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
     } else
         outputerr(sz);
 
     ShowBoard();
 }
+
+
 
 extern void
 CommandImportMat(char *sz)
@@ -3427,6 +3416,8 @@ CommandImportMat(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
         if (fGotoFirstGame)
             CommandFirstGame(NULL);
     } else
@@ -3452,6 +3443,8 @@ CommandImportOldmoves(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
         if (fGotoFirstGame)
             CommandFirstGame(NULL);
     } else
@@ -3478,6 +3471,8 @@ CommandImportSGG(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
         if (fGotoFirstGame)
             CommandFirstGame(NULL);
     } else
@@ -3503,6 +3498,8 @@ CommandImportTMG(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
         if (fGotoFirstGame)
             CommandFirstGame(NULL);
     } else
@@ -3529,6 +3526,8 @@ CommandImportSnowieTxt(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
     } else
         outputerr(sz);
 }
@@ -3552,6 +3551,8 @@ CommandImportEmpire(char *sz)
             /* no file imported */
             return;
         setDefaultFileName(sz);
+        if (fUseKeyNames)
+            SmartSit();
     } else
         outputerr(sz);
 }
@@ -3596,6 +3597,8 @@ CommandImportParty(char *sz)
             fclose(pf);
             if (!rc) {
                 setDefaultFileName(tmpfile);
+                if (fUseKeyNames)
+                    SmartSit();
                 if (fGotoFirstGame)
                     CommandFirstGame(NULL);
             }
@@ -3873,6 +3876,8 @@ CommandImportBGRoom(char *sz)
             fclose(pf);
             if (!rc) {
                 setDefaultFileName(matfile);
+                if (fUseKeyNames)
+                    SmartSit();
                 if (fGotoFirstGame)
                     CommandFirstGame(NULL);
             }

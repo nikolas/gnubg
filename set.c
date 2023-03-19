@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.430 2023/02/18 20:46:36 plm Exp $
+ * $Id: set.c,v 1.431 2023/03/07 22:29:55 plm Exp $
  */
 
 #include "config.h"
@@ -1612,6 +1612,29 @@ CommandSetPlayer(char *sz)
     return;
 }
 
+extern void
+CommandSetKeyNames(char *sz)
+{
+    char *token;
+
+    keyNamesFirstEmpty=0;
+    /* get the first token */
+    token = strtok(sz, "\t");
+    /* walk through other tokens */
+    while( token != NULL ) {
+        // g_message("token =  %s, length=%zu\n", token, strlen(token) );    
+        /* note: could also use AddKeyName() below if we are not 
+            guaranteed that they are unique*/
+        strcpy(keyNames[keyNamesFirstEmpty],token); 
+        keyNamesFirstEmpty++;
+        //    DisplayKeyNames();  
+        token = strtok(NULL, "\t");
+    } 
+    // DisplayKeyNames();  
+}
+
+
+
 
 extern void
 CommandSetDefaultNames(char *sz)
@@ -1653,23 +1676,6 @@ CommandSetDefaultNames(char *sz)
     outputf(_("Players will be known as `%s' and `%s'.\n This setting will take effect when a new match is started.\n"),
             default_names[0], default_names[1]);
 }
-
-extern void
-CommandSetAliases(char *sz)
-{
-    size_t buflen = sizeof(player1aliases);
-
-    /* cast and %lu to work around mingw/msvcrt lack of %zu support */
-    if (strlen(sz) >= buflen)
-        outputf(ngettext("Aliases list limited to %lu character, truncating\n",
-				"Aliases list limited to %lu characters, truncating\n",
-			       	(unsigned long)buflen - 1), (unsigned long)buflen - 1);
-
-    g_strlcpy(player1aliases, sz, buflen);
-
-    outputf(_("Aliases for player 1 when importing MAT files set to \"%s\".\n "), player1aliases);
-}
-
 
 extern void
 CommandSetPrompt(char *szParam)
@@ -2688,6 +2694,17 @@ CommandSetTurn(char *sz)
     SetTurn(i);
 
     outputf(_("`%s' is now on roll.\n"), ap[i].szName);
+}
+
+extern void
+CommandSetUseKeyNames(char *sz)
+{
+
+    SetToggle("usekeynames", &fUseKeyNames, sz,
+              _("Use key player names to set key player at bottom of board."),
+              _("Dont use key player names to set key player at bottom of board."));
+    // g_message("fUseKeyNames=%d",fUseKeyNames);
+
 }
 
 extern void
