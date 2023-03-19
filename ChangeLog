@@ -1,7 +1,7 @@
 2023-02-09  Isaac Keslassy <keslassy@gmail.com>
 
 	* backgammon.h, commands.inc, gnubg.c, gtkgame.c, gtkgame.h,
-	gtkoptions.c, gtkoptions.h, import.c, set.c, sgf.c:
+	gtkoptions.c, gtkoptions.h, import.c, set.c, sgf.c show.c:
 
 	Introduce the "SmartSit" feature that enables to define a list of
 	users that automatically sit at the bottom of the board (as

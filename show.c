@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 1999-2003 Gary Wong <gtw@gnu.org>
- * Copyright (C) 1999-2021 the AUTHORS
+ * Copyright (C) 1999-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.305 2022/02/19 21:39:59 plm Exp $
+ * $Id: show.c,v 1.306 2022/03/12 20:14:14 plm Exp $
  */
 
 #include "config.h"
@@ -516,12 +516,6 @@ CommandShowDelay(char *UNUSED(sz))
 #else
     outputl(_("The `show delay' command applies only when using the GUI"));
 #endif
-}
-
-extern void
-CommandShowAliases(char *UNUSED(sz))
-{
-    outputf(_("Aliases for player 1 when importing MAT files is set to \"%s\".\n "), player1aliases);
 }
 
 #if CACHE_STATS
