@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.144 2022/03/06 22:45:43 plm Exp $
+ * $Id: misc3d.c,v 1.145 2022/09/05 19:44:07 plm Exp $
  */
 
 #include "config.h"
@@ -1353,8 +1353,8 @@ InitBoard3d(BoardData * bd, BoardData3d * bd3d)
     bd->DragTargetHelp = 0;
 
     SetupSimpleMat(&bd3d->gapColour, 0.f, 0.f, 0.f);
-	SetupSimpleMat(&bd3d->flagMat, 1.f, 1.f, 1.f);    /* White flag */
-	SetupSimpleMat(&bd3d->flagPoleMat, .2f, .2f, .4f);	/* Blue pole */
+    SetupSimpleMat(&bd3d->flagMat, 1.f, 1.f, 1.f);    /* White flag */
+    SetupSimpleMat(&bd3d->flagPoleMat, .2f, .2f, .4f);	/* Blue pole */
     SetupMat(&bd3d->flagNumberMat, 0.f, 0.f, .4f, 0.f, 0.f, .4f, 1.f, 1.f, 1.f, 100, 1.f);
 
     bd3d->numTextures = 0;
@@ -1363,7 +1363,7 @@ InitBoard3d(BoardData * bd, BoardData3d * bd3d)
 
     bd3d->fBuffers = FALSE;
 
-	ModelManagerInit(&bd3d->modelHolder);
+    ModelManagerInit(&bd3d->modelHolder);
 }
 
 #if defined(HAVE_LIBPNG)
@@ -1374,6 +1374,12 @@ void
 GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, unsigned int nSizeY)
 {
     RenderToBufferData renderToBufferData;
+
+    if (!fX) {
+	outputerrf(_("PNG file creation failed: %s\n"), _("exporting a 3D image is only supported from the GUI"));
+	return;
+    }
+
     renderToBufferData.bd = BOARD(pwBoard)->board_data;
     renderToBufferData.width = nSize * nSizeX;
     renderToBufferData.height = nSize * nSizeY;
