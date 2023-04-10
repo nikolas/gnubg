@@ -44,7 +44,9 @@ extern "C" {
   STATIC FUNCTIONS
   ----------------*/
 inline static int idxof(int i);
+#if 0   /* not used by GNUbg */
 inline static void gen_rand_array(sfmt_t * sfmt, w128_t *array, int size);
+#endif
 inline static uint32_t func1(uint32_t x);
 inline static uint32_t func2(uint32_t x);
 static void period_certification(sfmt_t * sfmt);
@@ -83,6 +85,7 @@ inline static int idxof(int i) {
 }
 #endif
 
+#if 0   /* not used by GNUbg */
 #if (!defined(HAVE_ALTIVEC)) && (!defined(HAVE_SSE2)) && (!defined(HAVE_NEON))
 /**
  * This function fills the user-specified array with pseudorandom
@@ -126,6 +129,7 @@ inline static void gen_rand_array(sfmt_t * sfmt, w128_t *array, int size) {
         sfmt->state[j] = array[i];
     }
 }
+#endif
 #endif
 
 #if defined(BIG_ENDIAN64) && !defined(ONLY64) && !defined(HAVE_ALTIVEC)
