@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: relational.c,v 1.83 2021/01/14 21:30:22 plm Exp $
+ * $Id: relational.c,v 1.84 2021/03/10 20:44:47 plm Exp $
  */
 
 #include "config.h"
@@ -620,6 +620,7 @@ relational_player_stats_get(const char *player0, const char *player1)
                               "SUM(luck_total_normalised)" "from matchstat " "%s", query[i]);
         RowSet *rs = pdb->Select(buf);
         g_free(buf);
+        g_free(query[i]);
 
         if ((!rs) || !strtol(rs->data[1][0], NULL, 0))
             return NULL;
