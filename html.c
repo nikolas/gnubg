@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.267 2023/02/01 22:20:57 plm Exp $
+ * $Id: html.c,v 1.268 2023/02/25 23:08:57 plm Exp $
  */
 
 #include "config.h"
@@ -2635,9 +2635,10 @@ HTMLPrintMI(FILE * pf, const char *szTitle, const char *sz)
 static void
 HTMLMatchInfo(FILE * pf, const matchinfo * pmi, const htmlexportcss UNUSED(hecss))
 {
-
-    int i;
-    struct tm tmx;
+    /* the fields below are not used here but are read
+     * inside strftime(), so initialise them.
+     */
+    struct tm tmx = { .tm_sec=0, .tm_min=0, .tm_hour=0, .tm_isdst=-1 };
 
     if (!pmi->nYear &&
         !pmi->pchRating[0] && !pmi->pchRating[1] &&
@@ -2655,7 +2656,7 @@ HTMLMatchInfo(FILE * pf, const matchinfo * pmi, const htmlexportcss UNUSED(hecss
 
     /* ratings */
 
-    for (i = 0; i < 2; ++i)
+    for (int i = 0; i < 2; ++i)
         if (pmi->pchRating[i]) {
             gchar *pch = g_strdup_printf(_("%s's rating"), ap[i].szName);
             HTMLPrintMI(pf, pch, pmi->pchRating[i] ? pmi->pchRating[i] : _("n/a"));
@@ -2685,7 +2686,6 @@ HTMLMatchInfo(FILE * pf, const matchinfo * pmi, const htmlexportcss UNUSED(hecss
     fputs("</table>\n", pf);
 
     fputs("\n<!-- End Match Information -->\n\n", pf);
-
 }
 
 /*

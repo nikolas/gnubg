@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.130 2023/01/26 19:58:13 plm Exp $
+ * $Id: text.c,v 1.131 2023/02/01 22:20:57 plm Exp $
  */
 
 #include "config.h"
@@ -583,7 +583,10 @@ TextMatchInfo(FILE * pf, const matchinfo * pmi)
     /* date */
 
     if (pmi->nYear) {
-        struct tm tmx;
+        /* the fields below are not used here but are read
+         * inside strftime(), so initialise them.
+         */
+        struct tm tmx = { .tm_sec=0, .tm_min=0, .tm_hour=0, .tm_isdst=-1 };
         char sz[80];
 
         tmx.tm_year = pmi->nYear - 1900;
