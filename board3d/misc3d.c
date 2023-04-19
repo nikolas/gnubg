@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.145 2022/09/05 19:44:07 plm Exp $
+ * $Id: misc3d.c,v 1.146 2023/04/10 20:57:53 plm Exp $
  */
 
 #include "config.h"
@@ -1207,7 +1207,7 @@ TestPerformance3d(BoardData * bd)
     return ((float) numFrames / (elapsedTime / 1000.0f));
 }
 
-#if 0
+#ifdef TEST_HARNESS
 NTH_STATIC void
 EmptyPos(BoardData * bd)
 {                               /* All checkers home */

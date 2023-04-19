@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: fun3d.h,v 1.66 2021/10/28 23:05:39 plm Exp $
+ * $Id: fun3d.h,v 1.67 2021/11/09 21:40:26 plm Exp $
  */
 
 #ifndef FUN3D_H
@@ -71,7 +71,7 @@ extern OglModel* curModel;
 #define UPDATE_OGL(modelManager, modelNumber, fun, ...) \
 { \
     curModel = modelManager.models[modelNumber]; \
-    curModel->data = malloc(sizeof(float) * (int)curModel->dataLength); \
+    curModel->data = g_malloc(sizeof(float) * (int)curModel->dataLength); \
     curModel->dataLength = 0; \
 	fun(__VA_ARGS__);\
     ModelManagerCopyModelToBuffer((ModelManager*)modelManager, modelNumber); \
