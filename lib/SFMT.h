@@ -182,6 +182,8 @@ inline static uint64_t sfmt_genrand_uint64(sfmt_t * sfmt) {
 #endif
 }
 
+#if 0   /* not used by GNUbg */
+
 /* =================================================
    The following real versions are due to Isaku Wada
    ================================================= */
@@ -296,6 +298,8 @@ inline static double sfmt_genrand_res53_mix(sfmt_t * sfmt)
     y = sfmt_genrand_uint32(sfmt);
     return sfmt_to_res53_mix(x, y);
 }
+
+#endif  /* not used by GNUbg */
 
 #if defined(__cplusplus)
 }
