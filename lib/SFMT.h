@@ -66,6 +66,19 @@ extern "C" {
 
 #include "SFMT-params.h"
 
+/*
+ * Don't use SIMD here in GNUbg, even if it is available on the build host
+ */
+#ifdef HAVE_ALTIVEC
+#undef HAVE_ALTIVEC
+#endif
+#ifdef HAVE_NEON
+#undef HAVE_NEON
+#endif
+#ifdef HAVE_SSE2
+#undef HAVE_SSE2
+#endif
+
 /*------------------------------------------
   128-bit SIMD like data type for standard C
   ------------------------------------------*/
