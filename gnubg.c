@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1029 2023/03/19 21:04:25 plm Exp $
+ * $Id: gnubg.c,v 1.1030 2023/05/18 07:22:30 plm Exp $
  */
 
 /*
@@ -1489,13 +1489,8 @@ ShowBoard(void)
                 else
                     sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
             } else {
-                size_t cch = strlen(ap[ms.fCubeOwner].szName);
-
-                if (cch > 20)
-                    cch = 20;
-
-                sprintf(szCube, "%c: %*s (%s: %d)", ms.fCubeOwner ? 'X' : 'O',
-                        (int) cch, ap[ms.fCubeOwner].szName, _("Cube"), ms.nCube);
+                sprintf(szCube, "%c: %.20s (%s: %d)", ms.fCubeOwner ? 'X' : 'O',
+                        ap[ms.fCubeOwner].szName, _("Cube"), ms.nCube);
 
                 apch[ms.fCubeOwner ? 6 : 0] = szCube;
 
@@ -2746,7 +2741,7 @@ CommandCopy(char *UNUSED(sz))
 {
     char *aps[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
     char szOut[2048];
-    char szCube[32], szPlayer0[MAX_NAME_LEN + 3], szPlayer1[MAX_NAME_LEN + 3], szScore0[35], szScore1[35], szMatch[35];
+    char szCube[40], szPlayer0[MAX_NAME_LEN + 3], szPlayer1[MAX_NAME_LEN + 3], szScore0[35], szScore1[35], szMatch[35];
     char szRolled[32];
     TanBoard anBoardTemp;
 
@@ -2791,13 +2786,8 @@ CommandCopy(char *UNUSED(sz))
             else
                 sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
         } else {
-            size_t cch = strlen(ap[ms.fCubeOwner].szName);
-
-            if (cch > 20)
-                cch = 20;
-
-            sprintf(szCube, "%c: %*s (%s: %d)", ms.fCubeOwner ? 'X' :
-                    'O', (int) cch, ap[ms.fCubeOwner].szName, _("Cube"), ms.nCube);
+            sprintf(szCube, "%c: %.20s (%s: %d)", ms.fCubeOwner ? 'X' :
+                    'O', ap[ms.fCubeOwner].szName, _("Cube"), ms.nCube);
 
             aps[ms.fCubeOwner ? 6 : 0] = szCube;
 

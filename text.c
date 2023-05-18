@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.131 2023/02/01 22:20:57 plm Exp $
+ * $Id: text.c,v 1.132 2023/04/10 21:10:01 plm Exp $
  */
 
 #include "config.h"
@@ -45,7 +45,7 @@ printTextBoard(FILE * pf, const matchstate * pms)
 
     TanBoard anBoard;
     char szBoard[2048];
-    char sz[32], szCube[32], szPlayer0[MAX_NAME_LEN + 3], szPlayer1[MAX_NAME_LEN + 3],
+    char sz[32], szCube[40], szPlayer0[MAX_NAME_LEN + 3], szPlayer1[MAX_NAME_LEN + 3],
         szScore0[35], szScore1[35], szMatch[35];
     char *apch[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
     unsigned int anPips[2];
@@ -93,13 +93,8 @@ printTextBoard(FILE * pf, const matchstate * pms)
             else
                 sprintf(szCube, _("(Cube: %d)"), pms->nCube);
         } else {
-            size_t cch = strlen(ap[pms->fCubeOwner].szName);
-
-            if (cch > 20)
-                cch = 20;
-
-            sprintf(szCube, _("%c: %*s (Cube: %d)"), pms->fCubeOwner ? 'X' :
-                    'O', (int) cch, ap[pms->fCubeOwner].szName, pms->nCube);
+            sprintf(szCube, _("%c: %.20s (Cube: %d)"), pms->fCubeOwner ? 'X' :
+                    'O', ap[pms->fCubeOwner].szName, pms->nCube);
 
             apch[pms->fCubeOwner ? 6 : 0] = szCube;
 
