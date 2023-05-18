@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.478 2022/12/13 22:14:50 plm Exp $
+ * $Id: play.c,v 1.479 2023/03/07 21:28:15 plm Exp $
  */
 
 #include "config.h"
@@ -4433,7 +4433,7 @@ extern const char *
 GetMoveString(moverecord * pmr, int *pPlayer, gboolean addSkillMarks)
 {
     doubletype dt;
-    static char sz[40];
+    static char sz[18 + MAX_NAME_LEN]; /* " (set cube owner %s)" */
     const char *pch = NULL;
     TanBoard anBoard;
     *pPlayer = 0;

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1028 2023/03/07 22:29:54 plm Exp $
+ * $Id: gnubg.c,v 1.1029 2023/03/19 21:04:25 plm Exp $
  */
 
 /*
@@ -515,7 +515,7 @@ player ap[2] = {
     {"user", PLAYER_HUMAN, EVALSETUP_WORLDCLASS, EVALSETUP_WORLDCLASS, MOVEFILTER_NORMAL, 0, NULL}
 };
 
-char default_names[2][31] = { "gnubg", "user" };
+char default_names[2][MAX_NAME_LEN] = { "gnubg", "user" };
 
 /* Usage strings */
 static char szDICE[] = N_("<die> <die>"),
@@ -796,7 +796,7 @@ NextTokenGeneral(char **ppch, const char *szTokens)
 
 }
 
-/* extrace a token from a string. Tokens are terminated by tab, newline, 
+/* extract a token from a string. Tokens are terminated by tab, newline, 
  * carriage return, vertical tab or form feed.
  * Input:
  * 

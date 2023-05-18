@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.473 2023/03/07 22:29:54 plm Exp $
+ * $Id: backgammon.h,v 1.474 2023/03/19 21:04:25 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -387,7 +387,7 @@ typedef const movefilter (*ConstTmoveFilter)[MAX_FILTER_PLIES];
 
 extern TmoveFilter *GetEvalMoveFilter(void);
 extern player ap[2];
-extern char default_names[2][31];
+extern char default_names[2][MAX_NAME_LEN];
 extern rolloutcontext rcRollout;
 extern skilltype TutorSkill;
 extern statcontext scMatch;
