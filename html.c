@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.268 2023/02/25 23:08:57 plm Exp $
+ * $Id: html.c,v 1.269 2023/04/10 21:10:00 plm Exp $
  */
 
 #include "config.h"
@@ -1484,20 +1484,22 @@ static void
 HTMLPrologue(FILE * pf, const matchstate * pms,
              const int iGame, char *aszLinks[4], const htmlexporttype UNUSED(het), const htmlexportcss hecss)
 {
-    char szTitle[100];
+    GString *gszTitle;
 
     int i;
     int fFirst;
 
     /* DTD */
 
-    sprintf(szTitle,
+    gszTitle = g_string_new(NULL);
+
+    g_string_printf(gszTitle,
             ngettext("The score (after %d game) is: %s %d, %s %d",
                      "The score (after %d games) is: %s %d, %s %d",
                      pms->cGames), pms->cGames, ap[0].szName, pms->anScore[0], ap[1].szName, pms->anScore[1]);
 
     if (pms->nMatchTo > 0)
-        sprintf(strchr(szTitle, 0),
+        g_string_append_printf(gszTitle,
                 ngettext(" (match to %d point%s)",
                          " (match to %d points%s)",
                          pms->nMatchTo),
@@ -1519,9 +1521,9 @@ HTMLPrologue(FILE * pf, const matchstate * pms,
             VERSION_STRING,
             GNUBG_CHARSET, ap[0].szName, ap[1].szName, (pms->nMatchTo) ? _("match play") : _("money game"));
 
-    fprintf(pf, _("%s (analysed by %s)"), szTitle, VERSION_STRING);
+    fprintf(pf, _("%s (analysed by %s)"), gszTitle->str, VERSION_STRING);
 
-    fprintf(pf, "\"/>\n" "<title>%s</title>\n", szTitle);
+    fprintf(pf, "\"/>\n" "<title>%s</title>\n", gszTitle->str);
 
     if (hecss == HTML_EXPORT_CSS_HEAD)
         WriteStyleSheet(pf, hecss);
@@ -1532,7 +1534,9 @@ HTMLPrologue(FILE * pf, const matchstate * pms,
 
     fprintf(pf, _("Game number %d"), iGame + 1);
 
-    fprintf(pf, "</h1>\n" "<h2>%s</h2>\n", szTitle);
+    fprintf(pf, "</h1>\n" "<h2>%s</h2>\n", gszTitle->str);
+
+    g_string_free(gszTitle, TRUE);
 
     /* add links to other games */
 
