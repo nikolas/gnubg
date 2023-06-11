@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.28 2023/01/26 20:11:39 plm Exp $
+ * $Id: gtkscoremap.c,v 1.29 2023/02/18 20:46:36 plm Exp $
  */
 
 
@@ -1800,7 +1800,7 @@ The function updates the decision text in each square.
     float fontsize;
 
     int width, height;
-    float rescaleFactor=1.0f;
+    float rescaleFactor;
 
 #if GTK_CHECK_VERSION(3,0,0)
         width = gtk_widget_get_allocated_width(pw);

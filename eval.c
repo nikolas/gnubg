@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.493 2022/12/28 20:04:30 plm Exp $
+ * $Id: eval.c,v 1.494 2023/02/25 22:37:21 plm Exp $
  */
 
 #include "config.h"
@@ -6282,7 +6282,7 @@ EvaluatePositionCubeful3(NNState * nnStates, const TanBoard anBoard,
 {
 
     int ici;
-    int fAll = TRUE;
+    int fAll;
     evalcache ec;
 
     if (!cCache || pec->rNoise != 0.0f)
