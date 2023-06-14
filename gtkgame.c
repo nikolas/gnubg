@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.995 2023/03/18 19:26:08 plm Exp $
+ * $Id: gtkgame.c,v 1.996 2023/03/19 21:04:25 plm Exp $
  */
 
 #include "config.h"
@@ -3306,7 +3306,7 @@ append_analysis_options(analysiswidget * paw)
     gtk_widget_set_tooltip_text(paw->pwBackgroundAnalysis,
                                 _("Allow browsing a match and its early analysis results while "
                                 "analysis is still running in the background. Some features may be "
-                                "disabled until the nalysis is over."));
+                                "disabled until the analysis is over."));
 
     // g_free(pAnalDetailSettings2); //<- not sure where to put it
     // g_free(pAnalDetailSettings1);
