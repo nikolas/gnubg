@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.270 2023/05/19 09:20:27 plm Exp $
+ * $Id: html.c,v 1.271 2023/06/11 21:18:42 plm Exp $
  */
 
 #include "config.h"
@@ -989,14 +989,14 @@ printPointGNU(FILE * pf, const char *szImageDir, const char *szExtension,
 
         /* player 0 owns the point */
 
-        sprintf(sz, "b-%c%c-x%d", fColor ? 'g' : 'r', fUp ? 'd' : 'u', iPoint0);
+        sprintf(sz, "b-%c%c-x%u", fColor ? 'g' : 'r', fUp ? 'd' : 'u', iPoint0);
         sprintf(szAlt, "%1xX", iPoint0);
 
     } else if (iPoint1) {
 
         /* player 1 owns the point */
 
-        sprintf(sz, "b-%c%c-o%d", fColor ? 'g' : 'r', fUp ? 'd' : 'u', iPoint1);
+        sprintf(sz, "b-%c%c-o%u", fColor ? 'g' : 'r', fUp ? 'd' : 'u', iPoint1);
         sprintf(szAlt, "%1xO", iPoint1);
 
     } else {
