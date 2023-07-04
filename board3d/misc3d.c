@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.146 2023/04/10 20:57:53 plm Exp $
+ * $Id: misc3d.c,v 1.147 2023/04/19 12:01:38 Superfly_Jon Exp $
  */
 
 #include "config.h"
@@ -581,6 +581,7 @@ LoadTexture(Texture * texture, const char *filename)
 
     if (pix_error) {
         g_printerr(_("Failed to open texture: %s, %s\n"), filename, pix_error->message);
+	g_object_unref(fpixbuf);
         return 0;               /* failed to load file */
     }
 
@@ -591,6 +592,8 @@ LoadTexture(Texture * texture, const char *filename)
 
     texture->width = gdk_pixbuf_get_width(pixbuf);
     texture->height = gdk_pixbuf_get_height(pixbuf);
+
+    g_object_unref(pixbuf);
 
     if (!bits) {
         g_printerr(_("Failed to load texture: %s\n"), filename);
@@ -609,8 +612,6 @@ LoadTexture(Texture * texture, const char *filename)
     }
 
     CreateTexture(&texture->texID, texture->width, texture->height, bits);
-
-    g_object_unref(pixbuf);
 
     return 1;
 }
@@ -1406,12 +1407,14 @@ GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, uns
                                       (int)renderToBufferData.width, (int)renderToBufferData.height, (int)renderToBufferData.width * 3, NULL, NULL);
 
     gdk_pixbuf_save(pixbuf, szName, "png", &error, NULL);
+
+    g_object_unref(pixbuf);
+    g_free(renderToBufferData.puch);
+
     if (error) {
         outputerrf(_("PNG file creation failed: %s\n"), error->message);
         g_error_free(error);
     }
-    g_object_unref(pixbuf);
-    g_free(renderToBufferData.puch);
 }
 
 #endif
