@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrolls.c,v 1.46 2019/09/22 14:52:19 plm Exp $
+ * $Id: gtkrolls.c,v 1.47 2021/06/27 20:55:09 plm Exp $
  */
 
 #include "config.h"
@@ -201,6 +201,7 @@ RollsTree(const int n, evalcontext * pec, const matchstate * pms)
 
     pm = create_model(n, pec, pms);
     if (fInterrupt) {
+        g_object_unref(G_OBJECT(pm));
         return NULL;
     }
     ptv = gtk_tree_view_new_with_model(pm);
