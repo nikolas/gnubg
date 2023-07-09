@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.479 2023/03/07 21:28:15 plm Exp $
+ * $Id: play.c,v 1.480 2023/05/18 07:22:30 plm Exp $
  */
 
 #include "config.h"
@@ -92,6 +92,8 @@ statcontext scMatch;
 static int fComputerDecision = FALSE;
 static int fEndGame = FALSE;
 static int fCrawfordState = -1;
+static long nSessionLen;
+
 int automaticTask = FALSE;
 
 typedef enum {
@@ -1800,7 +1802,15 @@ NextTurn(int fPlayNext)
             outputx();
             fComputing = FALSE;
 
-            ShowBoard();
+            StopAutomaticPlay();
+
+            return -1;
+        }
+
+        if (!ms.nMatchTo && ms.cGames >= nSessionLen) {
+            outputl(_("Session complete"));
+            outputx();
+            fComputing = FALSE;
 
             StopAutomaticPlay();
 
@@ -2886,7 +2896,7 @@ CommandNewMatch(char *sz)
 }
 
 extern void
-CommandNewSession(char *UNUSED(sz))
+CommandNewSession(char *sz)
 {
     if (!get_input_discard())
         return;
@@ -2895,6 +2905,10 @@ CommandNewSession(char *UNUSED(sz))
     if (fX)
         GTKClearMoveRecord();
 #endif
+
+    nSessionLen = strtol(sz, NULL, 10);
+    if (nSessionLen <= 0)
+        nSessionLen = LONG_MAX;
 
     FreeMatch();
     ClearMatch();

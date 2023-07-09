@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.63 2023/03/07 22:29:54 plm Exp $
+ * $Id: commands.inc,v 1.64 2023/03/19 21:04:25 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -343,7 +343,7 @@ static command acAnnotateRoll[] = {
       N_("Start a new game within the current match or session"), NULL, NULL },
     { "match", CommandNewMatch, 
       N_("Play a new match to some number of points"), szOPTLENGTH, NULL },
-    { "session", CommandNewSession, N_("Start a new (money) session"), NULL,
+    { "session", CommandNewSession, N_("Start a new (money) session"), szOPTLENGTH,
       NULL },
     { NULL, NULL, NULL, NULL, NULL }
 }, acRelationalAdd[] = {
