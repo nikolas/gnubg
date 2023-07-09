@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.480 2023/05/18 07:22:30 plm Exp $
+ * $Id: play.c,v 1.481 2023/07/09 14:47:55 plm Exp $
  */
 
 #include "config.h"
@@ -857,7 +857,7 @@ NewGame(void)
         return -1;
     }
 
-    if (fDisplay) {
+    if (fDisplay && !automaticTask) {
         outputnew();
         outputf(_("%s rolls %u, %s rolls %u.\n"), ap[0].szName, ms.anDice[0], ap[1].szName, ms.anDice[1]);
     }
@@ -1620,6 +1620,7 @@ CancelCubeAction(void)
 static void
 StartAutomaticPlay(void)
 {
+    /* FIXME? doesn't PLAYER_EXTERNAL imply automatic task as well ? */
     if (ap[0].pt == PLAYER_GNU && ap[1].pt == PLAYER_GNU) {
         automaticTask = TRUE;
 #if defined (USE_GTK)
@@ -1788,7 +1789,7 @@ NextTurn(int fPlayNext)
         fCrawfordState = ms.fCrawford | (ms.fPostCrawford << 1);
 
 #if defined (USE_GTK)
-        if (!fX || fDisplay)
+        if (!fX || (fDisplay && !automaticTask))
 #endif
             { 
                 CommandShowScore(NULL);
