@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.494 2023/02/25 22:37:21 plm Exp $
+ * $Id: eval.c,v 1.495 2023/06/11 21:26:03 plm Exp $
  */
 
 #include "config.h"
@@ -83,7 +83,7 @@ enum {
      * 
      * Break Contact : (sum over x of C(x)) / 152
      * 
-     * 152 is dgree of contact of start position.
+     * 152 is degree of contact of start position.
      */
     I_BREAK_CONTACT,
 
@@ -91,7 +91,7 @@ enum {
      */
     I_BACK_CHEQUER,
 
-    /* Location of most backward anchor.  (Normalized to [01])
+    /* Location of most backward anchor (Normalized to [01])
      */
     I_BACK_ANCHOR,
 
@@ -1052,7 +1052,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
                         /* enter this shot as available */
 
                         aHit[aanCombination[j - 24 + i][n]] |= 1 << j;
-                      cannot_hit:;
+                    cannot_hit:;
                     }
 
     memset(aRoll, 0, sizeof(aRoll));
@@ -2417,8 +2417,7 @@ extern int
 GameStatus(const TanBoard anBoard, const bgvariation bgv)
 {
 
-    SSE_ALIGN(float ar[NUM_OUTPUTS]) = {
-    0, 0, 0, 0, 0};             /* NUM_OUTPUTS are 5 */
+    SSE_ALIGN(float ar[NUM_OUTPUTS]) = { 0.0f };
 
     if (ClassifyPosition(anBoard, bgv) != CLASS_OVER)
         return 0;
@@ -5063,11 +5062,11 @@ CopyMoveList(movelist * pmlDest, const movelist * pmlSrc)
     pmlDest->iMoveBest = pmlSrc->iMoveBest;
     pmlDest->rBestScore = pmlSrc->rBestScore;
 
-    if (pmlSrc->cMoves) {
-        pmlDest->amMoves = (move *) g_malloc(pmlSrc->cMoves * sizeof(move));
-        memcpy(pmlDest->amMoves, pmlSrc->amMoves, pmlSrc->cMoves * sizeof(move));
-    } else
-        pmlDest->amMoves = NULL;
+#if GLIB_CHECK_VERSION (2,67,4)
+    pmlDest->amMoves = (move *) g_memdup2(pmlSrc->amMoves, pmlSrc->cMoves * sizeof(move));
+#else
+    pmlDest->amMoves = (move *) g_memdup(pmlSrc->amMoves, pmlSrc->cMoves * sizeof(move));
+#endif
 
 }
 
@@ -5088,7 +5087,7 @@ isCloseCubedecision(const float arDouble[])
     float rDouble;
     rDouble = MIN(arDouble[OUTPUT_TAKE], 1.0f);
 
-    /* Report if doubling is less than very bad (0.16) */
+    /* Report if doubling is less than 0.16 */
     if (arDouble[OUTPUT_OPTIMAL] - rDouble < rThr)
         return 1;
 
@@ -5741,8 +5740,11 @@ FindnSaveBestMoves(movelist * pml, int nDice0, int nDice1, const TanBoard anBoar
     }
 
     /* Save moves */
-    pm = (move *) g_malloc(pml->cMoves * sizeof(move));
-    memcpy(pm, pml->amMoves, pml->cMoves * sizeof(move));
+#if GLIB_CHECK_VERSION (2,67,4)
+    pm = (move *) g_memdup2(pml->amMoves, pml->cMoves * sizeof(move));
+#else
+    pm = (move *) g_memdup(pml->amMoves, pml->cMoves * sizeof(move));
+#endif
     pml->amMoves = pm;
     nMoves = pml->cMoves;
 
