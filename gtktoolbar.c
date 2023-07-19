@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.83 2023/03/07 22:29:55 plm Exp $
+ * $Id: gtktoolbar.c,v 1.84 2023/03/18 19:26:08 plm Exp $
  */
 
 #include "config.h"
@@ -168,14 +168,8 @@ extern void
 click_swapdirection(void)
 {
     if (!inCallback) {
-#if defined(USE_GTKUIMANAGER)
-        gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(gtk_ui_manager_get_action(puim,
-                                                                                 "/MainMenu/ViewMenu/PlayClockwise")),
-                                     TRUE);
-#else
         toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar), "toolbarwidget");
         gtk_button_clicked(GTK_BUTTON(ptw->pwButtonClockwise));
-#endif
     }
 }
 
