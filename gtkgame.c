@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.996 2023/03/19 21:04:25 plm Exp $
+ * $Id: gtkgame.c,v 1.997 2023/06/14 22:03:07 plm Exp $
  */
 
 #include "config.h"
@@ -4600,6 +4600,7 @@ CreateMainWindow(void)
 }
 
 #if !defined(WIN32)
+/* g_object_unref() with suitable signature to pass it to g_list_foreach() */
 static inline void
 my_g_object_unref(gpointer data, gpointer UNUSED(user_data))
 {
@@ -5652,7 +5653,7 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
     gtk_box_pack_start(GTK_BOX(pwh), gtk_spin_button_new(prpw->padjSeed, 1, 0), FALSE, FALSE, 4);
 
     gtk_widget_set_tooltip_text(pwLabel,
-                                _("The seed is a number used to initialise the dice rolls generator. Reusing the same seed allows to reproduce the rollout results. 0 is a special value that leaves GNU backgammon use a random value."));
+                                _("The seed is a number used to initialise the dice rolls generator. Reusing the same seed allows to reproduce the rollout results. 0 is a special value that leaves GNU Backgammon use a random value."));
 
     gtk_box_pack_end(GTK_BOX(pwh), gtk_spin_button_new(prpw->padjTrials, 36, 0), FALSE, FALSE, 4);
     gtk_box_pack_end(GTK_BOX(pwh), pwLabel = gtk_label_new(_("Trials:")), FALSE, FALSE, 4);
