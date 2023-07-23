@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.113 2021/11/09 20:42:31 plm Exp $
+ * $Id: render.c,v 1.114 2022/11/05 21:19:06 plm Exp $
  */
 
 #include "config.h"
@@ -2630,7 +2630,11 @@ RenderImages(renderdata * prd, renderimages * pri)
     int i;
     int nSize = prd->nSize;
 
-    pri->ach = g_malloc(nSize * nSize * BOARD_WIDTH * BOARD_HEIGHT * 3);
+    /* Initialise this one else valgrind reports
+     * use of uninitialised values in libpng
+     */
+    pri->ach = g_malloc0(nSize * nSize * BOARD_WIDTH * BOARD_HEIGHT * 3);
+
     pri->achChequer[0] = g_malloc(nSize * nSize * CHEQUER_WIDTH * CHEQUER_HEIGHT * 4);
     pri->achChequer[1] = g_malloc(nSize * nSize * CHEQUER_WIDTH * CHEQUER_HEIGHT * 4);
     pri->achChequerLabels = g_malloc(nSize * nSize * CHEQUER_WIDTH * CHEQUER_HEIGHT * 3 * 12);
