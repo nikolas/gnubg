@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: misc3d.c,v 1.147 2023/04/19 12:01:38 Superfly_Jon Exp $
+ * $Id: misc3d.c,v 1.148 2023/07/04 20:51:08 plm Exp $
  */
 
 #include "config.h"
@@ -593,25 +593,28 @@ LoadTexture(Texture * texture, const char *filename)
     texture->width = gdk_pixbuf_get_width(pixbuf);
     texture->height = gdk_pixbuf_get_height(pixbuf);
 
-    g_object_unref(pixbuf);
-
     if (!bits) {
         g_printerr(_("Failed to load texture: %s\n"), filename);
+        g_object_unref(pixbuf);
         return 0;               /* failed to load file */
     }
 
     if (texture->width != texture->height) {
         g_printerr(_("Failed to load texture %s. width (%d) different to height (%d)\n)"),
                 filename, texture->width, texture->height);
+        g_object_unref(pixbuf);
         return 0;               /* failed to load file */
     }
     /* Check size is a power of 2 */
     if (texture->width <= 0 || (texture->width & (texture->width -1))) {
         g_printerr(_("Failed to load texture %s, size (%d) isn't a power of 2\n"), filename, texture->width);
+        g_object_unref(pixbuf);
         return 0;               /* failed to load file */
     }
 
     CreateTexture(&texture->texID, texture->width, texture->height, bits);
+
+    g_object_unref(pixbuf);
 
     return 1;
 }
