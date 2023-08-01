@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.c,v 1.94 2021/12/12 21:44:38 plm Exp $
+ * $Id: gtkpanels.c,v 1.95 2022/10/22 18:34:13 plm Exp $
  */
 
 #include "config.h"
@@ -709,7 +709,7 @@ CreateAnalysisWindow(void)
     gtk_scrolled_window_set_policy(GTK_SCROLLED_WINDOW(sw), GTK_POLICY_NEVER, GTK_POLICY_AUTOMATIC);
     gtk_container_add(GTK_CONTAINER(sw), pwCommentary);
     gtk_box_pack_start(GTK_BOX(pHbox), sw, TRUE, TRUE, 0);
-    gtk_widget_set_size_request(sw, 100, 150);
+    gtk_widget_set_size_request(sw, 100, 50);
     buffer = gtk_text_view_get_buffer(GTK_TEXT_VIEW(pwCommentary));
     g_signal_connect(G_OBJECT(buffer), "changed", G_CALLBACK(CommentaryChanged), buffer);
 
