@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkpanels.c,v 1.95 2022/10/22 18:34:13 plm Exp $
+ * $Id: gtkpanels.c,v 1.96 2023/08/01 21:02:20 plm Exp $
  */
 
 #include "config.h"
@@ -197,7 +197,12 @@ ShowAnnotation(void)
     woPanel[WINDOW_ANNOTATION].showing = TRUE;
     /* Avoid showing before main window */
     if (gtk_widget_get_realized(pwMain))
-        gtk_widget_show_all(woPanel[WINDOW_ANNOTATION].pwWin);
+        /* FIXME?
+         * When undocked, commentary is not an independent
+         * window but the bottom pane of the analysis
+         */
+        if (woPanel[WINDOW_ANNOTATION].pwWin != NULL)
+            gtk_widget_show_all(woPanel[WINDOW_ANNOTATION].pwWin);
     return TRUE;
 }
 
