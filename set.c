@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.431 2023/03/07 22:29:55 plm Exp $
+ * $Id: set.c,v 1.432 2023/03/19 21:04:25 plm Exp $
  */
 
 #include "config.h"
@@ -4529,6 +4529,9 @@ SetXGID(char *sz)
     int i;
     char v[9][5];
     int fSidesSwapped = FALSE;
+
+    if (s == NULL)
+        return 1;
 
     for (i = 0; i < 9 && (c = strrchr(s, ':')); i++) {
         g_strlcpy(v[i], c + 1, 5);
