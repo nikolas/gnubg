@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.481 2023/07/09 14:47:55 plm Exp $
+ * $Id: play.c,v 1.482 2023/07/09 18:02:02 plm Exp $
  */
 
 #include "config.h"
@@ -3167,6 +3167,8 @@ MoveIsCMarked(moverecord * pmr)
     case MOVE_NORMAL:
         if (pmr->CubeDecPtr->cmark != CMARK_NONE)
             return TRUE;
+        if (pmr->ml.amMoves == NULL)	/* can happen with background analysis, byg ? */
+            return FALSE;
         for (j = 0; j < pmr->ml.cMoves; j++) {
             if (pmr->ml.amMoves[j].cmark != CMARK_NONE)
                 return TRUE;
