@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.998 2023/07/23 16:17:00 plm Exp $
+ * $Id: gtkgame.c,v 1.999 2023/08/06 20:11:42 plm Exp $
  */
 
 #include "config.h"
@@ -3301,7 +3301,7 @@ append_analysis_options(analysiswidget * paw)
                                   "Settings -> Options -> Database"));
 
 
-    paw->pwBackgroundAnalysis= gtk_check_button_new_with_label(_("Allow background analysis (NEW! Careful, experimental!) "));
+    paw->pwBackgroundAnalysis= gtk_check_button_new_with_label(_("Allow background analysis (experimental) "));
     gtk_box_pack_start(GTK_BOX(vbox3), paw->pwBackgroundAnalysis, FALSE, FALSE, 0);
     gtk_widget_set_tooltip_text(paw->pwBackgroundAnalysis,
                                 _("Allow browsing a match and its early analysis results while "
