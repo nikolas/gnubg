@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sound.c,v 1.104 2022/10/02 12:48:07 plm Exp $
+ * $Id: sound.c,v 1.105 2023/01/12 20:49:08 plm Exp $
  */
 
 #include "config.h"
@@ -274,9 +274,12 @@ CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat
                                            kAudioUnitScope_Global, 0, &rgn, sizeof(rgn)),
                       "kAudioUnitProperty_ScheduledFileRegion", 0.0);
 
-    UInt32 defaultVal = 0;
+    /* Disable priming entirely instead of doing it for 0 samples
+       to fix bug #64596. As far as I understand it, priming would
+       matter only for AAC encoded sources, which is not what we use */
+
     CoreAudioChkError(AudioUnitSetProperty(*au, kAudioUnitProperty_ScheduledFilePrime,
-                                           kAudioUnitScope_Global, 0, &defaultVal, sizeof(defaultVal)),
+                                           kAudioUnitScope_Global, 0, NULL, 0),
                       "kAudioUnitProperty_ScheduledFilePrime", 0.0);
 
 
