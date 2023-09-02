@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.482 2023/07/09 18:02:02 plm Exp $
+ * $Id: play.c,v 1.483 2023/08/22 19:17:27 plm Exp $
  */
 
 #include "config.h"
@@ -2907,9 +2907,13 @@ CommandNewSession(char *sz)
         GTKClearMoveRecord();
 #endif
 
-    nSessionLen = strtol(sz, NULL, 10);
-    if (nSessionLen <= 0)
-        nSessionLen = LONG_MAX;
+    if (sz == NULL)
+	nSessionLen = LONG_MAX;
+    else {
+        nSessionLen = strtol(sz, NULL, 10);
+        if (nSessionLen <= 0)
+            nSessionLen = LONG_MAX;
+    }
 
     FreeMatch();
     ClearMatch();
