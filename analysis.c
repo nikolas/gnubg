@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: analysis.c,v 1.261 2022/12/28 20:23:56 plm Exp $
+ * $Id: analysis.c,v 1.262 2023/03/07 22:29:54 plm Exp $
  */
 
 /*
@@ -31,6 +31,16 @@ feature, together with a new button in the main toolbar: "Analyse"
             * Unchecked = like today, vs
             * Checked = automatic add-to-db at end of analysis (and we remove the add-to-db
                 button from the statistics page)
+- 2nd button: "Analyze file": 
+    - This is for a file, e.g. a match that we just played online. 
+    - Can launch either one of 3 options (defined in Settings>Analysis):
+        1) Regular "batch analysis": blocking, like today (+add-to-db)
+        2) "Single-file analysis": analysis of 1 chosen file, can be in 
+            background and/or add-to-db based on defined settings
+        3) "Smart analysis": pick the newest file in the preferred folder that gnubg 
+            recognizes, then can be in background and/or add-to-db based on defined settings
+When analyzing in the background, various menus are disabled so the user does not launch
+    another analysis in the middle.
 */
 
 #include "config.h"

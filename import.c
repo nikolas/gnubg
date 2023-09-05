@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.233 2022/03/12 20:38:22 plm Exp $
+ * $Id: import.c,v 1.234 2023/03/19 21:04:25 plm Exp $
  */
 
 #include "config.h"
@@ -3615,8 +3615,10 @@ CommandImportAuto(char *sz)
 {
     FilePreviewData *fdp;
     gchar *cmd;
-
+    /* Careful! NextToken breaks the Windows file/directory names with spaces! */
+    //outputerrf("before=%s\n", sz);
     sz = NextToken(&sz);
+    //outputerrf("after=%s\n", sz);
 
     if (!sz || !*sz) {
         outputerrf(_("You must specify a file to import (see `help " "import auto')."));

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.474 2023/03/19 21:04:25 plm Exp $
+ * $Id: backgammon.h,v 1.475 2023/05/18 07:22:30 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -252,6 +252,22 @@ typedef struct {
     const cubeinfo *pci;
     const evalcontext *pec;
 } scoreData;
+
+/* Defining structures for AnalyzeFileSetting.
+Other defined structures throughout the files: 
+- apwAnalyzeFileSetting (gtkgame.c); 
+- "set analysis filesetting" (gtkgame.c); 
+- CommandSetAnalysisFileSetting (backgammon.h)
+*/
+typedef enum {
+    AnalyzeFileBatch, 
+    AnalyzeFileRegular, 
+    AnalyzeFileSmart, 
+    NUM_AnalyzeFileSettings
+    } analyzeFileSetting;
+extern analyzeFileSetting AnalyzeFileSettingDef;
+extern const char* aszAnalyzeFileSetting[NUM_AnalyzeFileSettings];
+extern const char* aszAnalyzeFileSettingCommands[NUM_AnalyzeFileSettings]; 
 
 typedef void (*AsyncFun) (void *);
 
@@ -641,6 +657,7 @@ extern void CommandSaveSettings(char *);
 extern void CommandSetAnalysisChequerplay(char *);
 extern void CommandSetAnalysisCube(char *);
 extern void CommandSetAnalysisCubedecision(char *);
+extern void CommandSetAnalysisFileSetting(char*);
 extern void CommandSetAnalysisBackground(char *);
 extern void CommandSetAnalysisLimit(char *);
 extern void CommandSetAnalysisLuckAnalysis(char *);

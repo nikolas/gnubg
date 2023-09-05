@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.64 2023/03/19 21:04:25 plm Exp $
+ * $Id: commands.inc,v 1.65 2023/07/09 14:47:55 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -473,6 +473,9 @@ static command acSetAnalysis[] = {
     { "cubedecision", CommandSetAnalysisCubedecision, N_("Specify parameters "
       "for the analysis of cube decisions"), NULL,
       acSetEvalParam },
+    { "filesetting", CommandSetAnalysisFileSetting, 
+      N_("Set the default analyze-file setting"), 
+      szVALUE, NULL },      
     { "luck", CommandSetAnalysisLuck, N_("Select whether dice rolls will be "
       "analysed"), szONOFF, &cOnOff },
     { "luckanalysis", CommandSetAnalysisLuckAnalysis,

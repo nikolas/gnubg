@@ -5,8 +5,8 @@
 
 2023-02-09  Isaac Keslassy <keslassy@gmail.com>
 
-	* backgammon.h, commands.inc, gnubg.c, gtkgame.c, gtkgame.h,
-	gtkoptions.c, gtkoptions.h, import.c, set.c, sgf.c show.c:
+	* backgammon.h, commands.inc, gnubg.c, gtkgame.c, gtkgame.h:
+	* gtkoptions.c, gtkoptions.h, import.c, set.c, sgf.c show.c:
 
 	Introduce the "SmartSit" feature that enables to define a list of
 	users that automatically sit at the bottom of the board (as
@@ -15,6 +15,20 @@
 	Names can be added or deleted in Settings > Options > Display.
 
 	Remove the similar but more limited set/show aliases CLI commands.
+
+2023-02-04  Isaac Keslassy <keslassy@gmail.com>
+
+	* backgammon.h, commands.inc, gnubg.c, gtkfile.c, gtkfile.h:
+	* gtkgame.c, gtktoolbar.c, gtkuidefs.h, set.c:
+
+	Extend batch analysis feature with a new button in the main
+	toolbar: "Analyse file". Three options are available in Settings /
+	Analysis:
+
+	- regular batch analysis as peviously available
+	- single file analysis of a selected file
+	- smart analysis: analysis of the newest file in the default
+	  import folder (where an external client presumably added it)
 
 2023-01-22  Isaac Keslassy <keslassy@gmail.com>
 

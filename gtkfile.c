@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2005 Ingo Macherius
- * Copyright (C) 2005-2019 the AUTHORS
+ * Copyright (C) 2005-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.78 2022/12/15 22:23:00 plm Exp $
+ * $Id: gtkfile.c,v 1.79 2023/03/07 22:29:54 plm Exp $
  */
 
 #include "config.h"
@@ -38,6 +38,15 @@
 #include "file.h"
 #include "util.h"
 
+/*for picking the first file in folder...*/
+#include <stdio.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <unistd.h>
+#include <time.h>
+#include <sys/types.h>
+
+#define MAX_LEN 1024
 
 static void
 FilterAdd(const char *fn, const char *pt, GtkFileChooser * fc)
@@ -587,7 +596,7 @@ batch_do_all(gpointer batch_model, gboolean add_to_db, gboolean add_incdata_to_d
         gchar *filename;
         gint cancelled;
         gtk_tree_model_get(batch_model, &iter, COL_PATH, &filename, -1);
-
+        //outputerrf("filename=%s\n", filename);
         batch_analyse(filename, &result, add_to_db, add_incdata_to_db);
         gtk_list_store_set(batch_model, &iter, COL_RESULT, result, -1);
 
@@ -806,6 +815,159 @@ GTKAnalyzeCurrent(void)
     return;
 }
 
+/* functions to find latest file in folder */
+
+static void recentByModification(const char* path, char* recent){
+    char buffer[MAX_LEN];
+    FilePreviewData *fdp;
+    struct dirent* entry;
+    time_t recenttime = 0;
+    struct stat statbuf;
+    DIR* dir  = opendir(path);
+
+    if (dir) {
+        while (NULL != (entry = readdir(dir))) {
+           // outputerrf(_("`%s' ... looking at file....: %s, time: %lld"), entry->d_name, recent, (long long)recenttime);
+
+            /* we first check that it's a file*/
+            if(strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0 || strncmp(entry->d_name, "/", 1) == 0 || strncmp(entry->d_name, "\\", 1) == 0)
+                continue;
+            /* check file type when DIRENT is defined; could use stat if not*/
+#ifdef _DIRENT_HAVE_D_TYPE
+            if (entry->d_type == DT_REG) 
+// #else
+//             DIR* dir2 = opendir(entry);
+//             if(dir2==NULL) {
+#endif 
+            {    
+                /* we then check that it's more recent than what we've seen so far*/
+                sprintf(buffer, "%s/%s", path, entry->d_name);
+                stat(buffer, &statbuf);            
+                if (statbuf.st_mtime > recenttime) {
+                    /* next we check that it's a correct file format*/
+                    fdp = ReadFilePreview(buffer);
+                    if (!fdp) {
+                        //outputerrf(_("`%s' is not a backgammon file (especially %s)... looking at file....: %s, time: %lld"), buffer,entry->d_name, recent, (long long) recenttime);
+                        g_free(fdp);
+                        continue;
+                    } else if (fdp->type == N_IMPORT_TYPES) {
+                        //outputerrf(_("The format of '%s' is not recognized  (especially %s)"), buffer,entry->d_name);
+                        g_free(fdp);
+                        continue;
+                    } else {
+                        /* finally it passed all the checks, we keep it for now in the char * recent */
+                        strncpy(recent, buffer, MAX_LEN);
+                        // strncpy(recent, entry->d_name, MAX_LEN);
+                        recenttime = statbuf.st_mtime;
+                        // g_message("looking at file....: %s, time: %lld\n", recent, (long long) recenttime);
+                        g_free(fdp);
+                    }
+                }
+            }
+        }
+        closedir(dir);
+    } else {
+        outputerrf("Unable to read the directory");
+    }
+}
+
+static void
+AnalyzeSingleFile(void)
+{
+    gchar *folder = NULL;
+    gchar *filename = NULL;
+    GtkWidget *fc;
+    static gchar *last_folder = NULL;
+
+    folder = last_folder ? last_folder : default_import_folder;
+
+    /* now select a file; could also use GTKFileSelect() */
+    fc = GnuBGFileDialog(_("Select file to analyse"), folder, NULL, GTK_FILE_CHOOSER_ACTION_OPEN);
+    gtk_file_chooser_set_select_multiple(GTK_FILE_CHOOSER(fc), FALSE);
+    add_import_filters(GTK_FILE_CHOOSER(fc));
+
+    if (gtk_dialog_run(GTK_DIALOG(fc)) == GTK_RESPONSE_ACCEPT) {
+        filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fc));
+    }
+    if (filename) {
+        last_folder = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(fc));
+        gtk_widget_destroy(fc);
+
+        // char buffer[MAX_LEN];
+        // sprintf(buffer, "%s/%s", last_folder, filename);
+        // // if (!get_input_discard())
+        // //     return;
+
+        /*open this file*/
+        gchar* cmd;
+        cmd = g_strdup_printf("import auto \"%s\"", filename);
+        UserCommand(cmd);
+        g_free(cmd);
+        ////outputerrf("filename=%s\n", filename);
+        //CommandImportAuto(filename);
+        g_free(filename);
+
+        /*analyze match*/
+        UserCommand("analyse match");
+        if(fAutoDB) {
+            /*add match to db*/
+            CommandRelationalAddMatch(NULL);
+        }
+        /*show stats panel*/
+        UserCommand("show statistics match");
+        return;
+
+    } else
+        gtk_widget_destroy(fc);
+}
+
+
+static void
+SmartAnalyze(void)
+{
+    gchar *folder = NULL;
+    char recent[MAX_LEN] = "";
+
+    folder = default_import_folder ? default_import_folder : ".";
+    // g_message("folder=%s\n", folder);
+
+    /* find most recent file in the folder and write its name (in char recent[])*/
+    recentByModification(folder, recent);
+
+    /*open this file*/
+    gchar* cmd;
+    cmd = g_strdup_printf("import auto \"%s\"", recent);
+    UserCommand(cmd);
+    g_free(cmd);
+
+    //outputerrf("recent=%s\n", recent);
+    //CommandImportAuto(recent);
+
+    /*analyze match*/
+    UserCommand("analyse match");
+    if(fAutoDB) {
+        /*add match to db*/
+        CommandRelationalAddMatch(NULL);
+    }
+    /*show stats panel*/
+    UserCommand("show statistics match");
+    return;
+}
+
+extern void
+GTKAnalyzeFile(void)
+{
+    // g_message("GTKAnalyzeFile(): %d\n", AnalyzeFileSettingDef);
+    if (AnalyzeFileSettingDef == AnalyzeFileBatch) {
+        GTKBatchAnalyse(NULL, 0, NULL);
+    } else if (AnalyzeFileSettingDef == AnalyzeFileRegular) {
+        AnalyzeSingleFile();
+    } else { //   AnalyzeFileSmart, 
+        SmartAnalyze();
+    }
+    return;
+}
+
 extern void
 GTKBatchAnalyse(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
@@ -823,7 +985,7 @@ GTKBatchAnalyse(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     add_import_filters(GTK_FILE_CHOOSER(fc));
 
     add_to_db = gtk_check_button_new_with_label(_("Add to database"));
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_to_db), TRUE);
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(add_to_db), fAutoDB);
 
     gtk_file_chooser_set_extra_widget(GTK_FILE_CHOOSER(fc), add_to_db);
 
@@ -848,5 +1010,4 @@ GTKBatchAnalyse(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
         fConfirmNew = fConfirmNew_s;
     } else
         gtk_widget_destroy(fc);
-
 }

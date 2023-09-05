@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1030 2023/05/18 07:22:30 plm Exp $
+ * $Id: gnubg.c,v 1.1031 2023/05/18 15:50:31 plm Exp $
  */
 
 /*
@@ -250,6 +250,11 @@ char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN]={""};
 int keyNamesFirstEmpty=0;
 int fUseKeyNames=TRUE;
 int fWithinSmartSit=FALSE;
+
+analyzeFileSetting AnalyzeFileSettingDef = AnalyzeFileBatch;
+const char* aszAnalyzeFileSetting[NUM_AnalyzeFileSettings] = { N_("Batch analysis"), N_("Single-File analysis"), N_("Smart analysis")};
+const char* aszAnalyzeFileSettingCommands[NUM_AnalyzeFileSettings] = { "batch", "single", "smart"}; 
+
 
 #if defined(USE_BOARD3D)
 int fSync = -1;                 /* Not set */
@@ -689,6 +694,9 @@ GetBuildInfoString(void)
  You can have single quotes unescaped within double quoted strings and
  double quotes unescaped within single quoted strings.
  */
+
+ /* Careful! It breaks the Windows file/directory names with spaces! */
+
 extern char *
 NextTokenGeneral(char **ppch, const char *szTokens)
 {
@@ -706,7 +714,7 @@ NextTokenGeneral(char **ppch, const char *szTokens)
 #if !defined(G_DISABLE_ASSERT)
     pchEnd = strchr(*ppch, 0);
 #endif
-
+    //outputerrf("ppch=%s\n", (*ppch));
     /* skip leading whitespace */
     while (isspace(**ppch))
         (*ppch)++;
@@ -786,6 +794,8 @@ NextTokenGeneral(char **ppch, const char *szTokens)
 
     *pchSave = 0;
 
+    //outputerrf("pch=%s\n", pch);
+
 #if !defined(G_DISABLE_ASSERT)
     g_assert(pchSave <= pchEnd);
     g_assert(*ppch <= pchEnd);
@@ -808,6 +818,9 @@ NextTokenGeneral(char **ppch, const char *szTokens)
  * Output:
  * null terminated token if found or NULL if no tokens present.
  */
+
+ /* Careful! NextToken breaks the Windows file/directory names with spaces! */
+
 extern char *
 NextToken(char **ppch)
 {
@@ -3064,6 +3077,7 @@ SaveAnalysisSettings(FILE * pf)
     fprintf(pf, "set analysis player 1 analyse %s\n", afAnalysePlayers[1] ? "yes" : "no");
     fprintf(pf, "set automatic db %s\n", fAutoDB ? "on" : "off");
     fprintf(pf, "set analysis background %s\n", fBackgroundAnalysis ? "on" : "off");
+    fprintf(pf, "set analysis filesetting %s\n", aszAnalyzeFileSettingCommands[AnalyzeFileSettingDef]);
 }
 
 static void

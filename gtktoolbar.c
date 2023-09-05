@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.84 2023/03/18 19:26:08 plm Exp $
+ * $Id: gtktoolbar.c,v 1.85 2023/07/19 19:21:36 plm Exp $
  */
 
 #include "config.h"
@@ -60,6 +60,7 @@ typedef struct {
     GtkWidget *pwNextMarked;    /* button for "Next CMarked" */
     GtkWidget *pwReset;         /* button for "Reset" */
     GtkWidget *pwAnalyzeCurrent;        /* button for "Analyze Current" */
+    GtkWidget *pwAnalyzeFile;	/* button for "Analyze File" */
     GtkWidget *pwEdit;          /* button for "Edit" */
     GtkWidget *pwButtonClockwise;       /* button for clockwise */
 
@@ -110,11 +111,32 @@ toggle_button_from_images(GtkWidget * pwImageOff, GtkWidget * pwImageOn, char *s
     gtk_container_add(GTK_CONTAINER(pwvbox), gtk_label_new(sz));
     gtk_container_add(GTK_CONTAINER(pw), pwvbox);
 
-
     g_object_set_data_full(G_OBJECT(pw), "toggle_images", aapw, g_free);
 
     return pw;
 
+}
+#endif
+
+#if 0	/* not (no longer? not yet?) used */
+extern void
+ToolbarSetAnalyzeCurrent(GtkWidget * pwToolbar, const int f)
+{
+
+    toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar),
+                                           "toolbarwidget");
+
+    gtk_widget_set_sensitive(ptw->pwAnalyzeCurrent, f);
+}
+
+extern void
+ToolbarSetAnalyzeFile(GtkWidget * pwToolbar, const int f)
+{
+
+    toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar),
+                                           "toolbarwidget");
+
+    gtk_widget_set_sensitive(ptw->pwAnalyzeFile, f);
 }
 #endif
 
@@ -383,6 +405,10 @@ ToolbarNew(void)
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwEndGame), FALSE);
     ptw->pwReset = gtk_ui_manager_get_widget(puim, "/MainToolBar/Undo");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwReset), TRUE);
+    ptw->pwAnalyzeCurrent = gtk_ui_manager_get_widget(puim, "/MainToolBar/Analyse");
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwAnalyzeCurrent), TRUE);
+    ptw->pwAnalyzeFile = gtk_ui_manager_get_widget(puim, "/MainToolBar/Analyse File");
+    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwAnalyzeFile), TRUE);
     ptw->pwHint = gtk_ui_manager_get_widget(puim, "/MainToolBar/Hint");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwHint), TRUE);
     ptw->pwEdit = gtk_ui_manager_get_widget(puim, "/MainToolBar/EditPosition");
@@ -391,8 +417,6 @@ ToolbarNew(void)
     ptw->pwButtonClockwise = gtk_ui_manager_get_widget(puim, "/MainToolBar/PlayClockwise");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwButtonClockwise), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwButtonClockwise), _("Direction"));
-    ptw->pwAnalyzeCurrent = gtk_ui_manager_get_widget(puim, "/MainToolBar/Analyse");
-    gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwAnalyzeCurrent), TRUE);
     ptw->pwPrevCMarked = gtk_ui_manager_get_widget(puim, "/MainToolBar/PreviousCMarkedMove");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwPrevCMarked), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwPrevCMarked), "");
@@ -524,8 +548,14 @@ ToolbarNew(void)
 
     ptw->pwAnalyzeCurrent =
         ToolbarAddButton(GTK_TOOLBAR(pwtb), GTK_STOCK_EXECUTE, _("Analyse"),
-        _("Analyse current match (set default behavior in Settings -> Analysis)"),
+        _("Analyse current match (set default behaviour in Settings -> Analysis)"),
         G_CALLBACK(GTKAnalyzeCurrent), NULL);
+
+    /* Analyze file button */
+    ptw->pwAnalyzeFile =
+        ToolbarAddButton(GTK_TOOLBAR(pwtb), GTK_STOCK_DIRECTORY, _("Analyse File"),
+        _("Analyze match from file (set default behaviour in Settings -> Analysis -> Analysis Buttons)"),
+        G_CALLBACK(GTKAnalyzeFile), NULL);
 
     ti = gtk_separator_tool_item_new();
     gtk_tool_item_set_expand(GTK_TOOL_ITEM(ti), TRUE);

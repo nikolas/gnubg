@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2011 Michael Petch <mpetch@capp-sysware.com>
- * Copyright (C) 2013-2021 the AUTHORS
+ * Copyright (C) 2013-2023 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkuidefs.h,v 1.7 2023/01/18 21:49:36 plm Exp $
+ * $Id: gtkuidefs.h,v 1.8 2023/03/18 19:26:08 plm Exp $
  */
 
 #define GNUBG_MAIN_UI \
@@ -165,6 +165,7 @@
 	      "</menu>" \
 	      \
 	      "<separator/>" \
+              "<menuitem name='AnalyseFile' action='AnalyseFileAction' />" \
 	      "<menuitem name='BatchAnalyse' action='BatchAnalyseAction' />" \
 	      "<separator/>" \
 	      "<menuitem name='MatchOrSessionStats' action='MatchOrSessionStatsAction' />" \
@@ -237,6 +238,7 @@
 	    "<toolitem name='PlayClockwise' action='PlayClockwiseAction' />" \
             "<separator/>" \
             "<toolitem name='Analyse' action='AnalyseCurrentAction' />" \
+            "<toolitem name='Analyse File' action='AnalyseFileAction' />" \
 	    "<separator expand='true'/>" \
 	    "<toolitem name='PreviousMarkedMove' action='GoPreviousMarkedMoveAction' />" \
 	    "<toolitem name='PreviousCMarkedMove' action='GoPreviousCMarkedMoveAction' />" \

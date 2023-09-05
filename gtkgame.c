@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.999 2023/08/06 20:11:42 plm Exp $
+ * $Id: gtkgame.c,v 1.1000 2023/08/22 19:31:27 plm Exp $
  */
 
 #include "config.h"
@@ -552,6 +552,7 @@ typedef struct {
     GtkWidget *apwAnalysePlayers[2];
     GtkWidget *pwAutoDB;
     GtkWidget *pwBackgroundAnalysis;
+    GtkWidget* apwAnalyzeFileSetting[NUM_AnalyzeFileSettings];
 
     GtkWidget *pwScoreMap;
     GtkWidget* apwScoreMapPly[NUM_PLY];
@@ -2723,6 +2724,14 @@ AnalysisOK(GtkWidget * pw, analysiswidget * paw)
     ADJUSTLUCKUPDATE(2, LUCK_BAD, "set analysis threshold unlucky %s")
     ADJUSTLUCKUPDATE(3, LUCK_VERYBAD, "set analysis threshold veryunlucky %s")
 
+    for (i = 0; i < NUM_AnalyzeFileSettings; ++i)
+        if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwAnalyzeFileSetting[i])) && AnalyzeFileSettingDef != (analyzeFileSetting) i) {
+                // g_message("new def: %d->%d\n", AnalyzeFileSettingDef,i);
+            sprintf(sz, "set analysis filesetting %s", aszAnalyzeFileSettingCommands[i]);
+            UserCommand(sz);
+            break;
+        } 
+
     /* Score Map */
 
     for (i = 0; i < NUM_PLY; ++i)
@@ -2740,6 +2749,7 @@ AnalysisOK(GtkWidget * pw, analysiswidget * paw)
             break;
         } 
     }
+
 
     for (i = 0; i < NUM_LABEL; ++i)
         if (gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(paw->apwScoreMapLabel[i])) && scoreMapLabelDef != (scoreMapLabel) i) {
@@ -2833,6 +2843,9 @@ AnalysisSet(analysiswidget * paw)
     gtk_adjustment_set_value(GTK_ADJUSTMENT(paw->apadjLuck[2]), arLuckLevel[LUCK_BAD]);
     gtk_adjustment_set_value(GTK_ADJUSTMENT(paw->apadjLuck[3]), arLuckLevel[LUCK_VERYBAD]);
 
+    // g_message("initial def: %d\n", AnalyzeFileSettingDef);
+    for (i = 0; i < NUM_AnalyzeFileSettings; ++i)
+        gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(paw->apwAnalyzeFileSetting[i]), AnalyzeFileSettingDef == (analyzeFileSetting) i); 
 
     /*Score Map*/ 
 
@@ -3308,6 +3321,15 @@ append_analysis_options(analysiswidget * paw)
                                 "analysis is still running in the background. Some features may be "
                                 "disabled until the analysis is over."));
 
+    BuildRadioButtons(vbox3, paw->apwAnalyzeFileSetting,
+        _("Select the default file analysis settings (hover for details):"), 
+        _("- Batch analysis can analyze several files, but does not allow browsing the results at the same time\n "
+        "- Single-file analysis can only analyze one file, but can work in the background. \n"
+        "- Smart analysis will open the latest file in the most recently opened folder and/or the default import "
+        "folder, then run the single-file analysis."), 
+        aszAnalyzeFileSetting, NUM_AnalyzeFileSettings, AnalyzeFileSettingDef);
+    // BuildRadioButtons(vbox3, paw->apwAnalyzeFileSetting,  _("Select:"),   _("- Baanalysis."), aszAnalyzeFileSetting, NUM_AnalyzeFileSettings, AnalyzeFileSettingDef);
+
     // g_free(pAnalDetailSettings2); //<- not sure where to put it
     // g_free(pAnalDetailSettings1);
 
@@ -3316,6 +3338,7 @@ append_analysis_options(analysiswidget * paw)
 static GtkWidget *
 AnalysisPages(analysiswidget * paw)
 {
+
     paw->pwNoteBook = gtk_notebook_new();
     gtk_container_set_border_width(GTK_CONTAINER(paw->pwNoteBook), 8);
 
@@ -3341,6 +3364,8 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
      GtkWidget *pwDialog, *pwAnalysisSettings;
      analysiswidget aw;
+    // AnalysisDetails *pAnalDetailSettings1 = NULL;
+    // AnalysisDetails *pAnalDetailSettings2 = NULL;
 
     pwDialog = GTKCreateDialog(_("GNU Backgammon - Analysis Settings"),
                                DT_QUESTION, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(AnalysisOK), &aw);
@@ -3959,6 +3984,7 @@ static GtkActionEntry actionEntries[] = {
     {"RolloutMatchAction", NULL, N_("CMarked from Match"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MATCH)},
     {"AnalyseCurrentAction", GTK_STOCK_EXECUTE, N_("Analyse"), NULL, N_("Analyse current match (set default behavior in Settings -> Analysis)"), G_CALLBACK(GTKAnalyzeCurrent)},
+    {"AnalyseFileAction", GTK_STOCK_DIRECTORY, N_("Analyse File"), NULL, N_("Analyze match from file (set default behaviour in Settings -> Analysis -> Analysis Buttons)"), G_CALLBACK(GTKAnalyzeFile)},
     {"BatchAnalyseAction", NULL, N_("Batch analyse..."), NULL, NULL, G_CALLBACK(GTKBatchAnalyse)},
     {"MatchOrSessionStatsAction", NULL, N_("Match or session statistics"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_STATISTICS_MATCH)},
@@ -4197,6 +4223,7 @@ static GtkItemFactoryEntry aife[] = {
     {N_("/_Analyse/Rollout/CMarked from Game"), NULL, Command, CMD_ANALYSE_ROLLOUT_GAME, NULL, NULL},
     {N_("/_Analyse/Rollout/CMarked from Match"), NULL, Command, CMD_ANALYSE_ROLLOUT_MATCH, NULL, NULL},
     {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
+    {N_("/_Analyse/Analyse File"), NULL, GTKAnalyzeFile, 0, NULL, NULL},
     {N_("/_Analyse/Batch analyse..."), NULL, GTKBatchAnalyse, 0, NULL,
      NULL},
     {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
@@ -7497,6 +7524,7 @@ GTKSet(void *p)
 
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/FileMenu/MatchInfo"), !ListEmpty(&lMatch));
         enable_menu(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu"), ms.gs == GAME_PLAYING);
+        gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/AnalyseFile"), TRUE);
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/BatchAnalyse"), TRUE);
 
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim,
@@ -7599,6 +7627,7 @@ GTKSet(void *p)
         if (!fAnalysisRunning)
             enable_sub_menu(gtk_item_factory_get_widget(pif, "/Analyse"), ms.gs == GAME_PLAYING);
 
+        gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/Analyse/Analyse File"), TRUE);
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/Analyse/Batch analyse..."), TRUE);
 
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_ANALYSE_MOVE),

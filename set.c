@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.432 2023/03/19 21:04:25 plm Exp $
+ * $Id: set.c,v 1.433 2023/08/09 21:09:11 plm Exp $
  */
 
 #include "config.h"
@@ -3001,6 +3001,22 @@ CommandSetScoreMapLayout(char* sz)
     outputl(_("Wrong option."));
 }
 #endif
+
+extern void
+CommandSetAnalysisFileSetting(char* sz)
+{
+  
+    for (int i=0; i<NUM_AnalyzeFileSettings; i++){
+        // g_print("\n test within loop: i: %d",i);
+  
+        if (strcmp(sz, aszAnalyzeFileSettingCommands[i]) == 0) {
+           AnalyzeFileSettingDef = (analyzeFileSetting) i;
+           // g_message("\n selected option analyze file setting: i:%d->text=%s",i,aszAnalyzeFileSettingCommands[i]);
+           return;
+        }
+    }
+    outputl(_("Wrong option."));
+}
 
 extern void
 CommandSetOutputDigits(char *sz)
