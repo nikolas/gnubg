@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.h,v 1.12 2023/03/07 22:29:54 plm Exp $
+ * $Id: gtkfile.h,v 1.13 2023/09/05 20:34:21 plm Exp $
  */
 
 #ifndef GTKFILE_H
@@ -28,7 +28,6 @@ extern char *GTKFileSelect(const gchar * prompt, const gchar * extension, const 
 extern void SetDefaultFileName(char *path);
 extern void GTKAnalyzeCurrent(void);
 extern void GTKAnalyzeFile(void);
-extern void GTKAnalyzeCurrent(void);
 extern void GTKBatchAnalyse(gpointer p, guint n, GtkWidget * pw);
 
 #endif
