@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.85 2023/07/19 19:21:36 plm Exp $
+ * $Id: gtktoolbar.c,v 1.86 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -670,5 +670,6 @@ SetToolbarStyle(int value)
                                        (gtk_item_factory_get_widget_by_action(pif, value + TOOLBAR_ACTION_OFFSET)),
                                        TRUE);
 #endif
+        UserCommand("save settings");
     }
 }

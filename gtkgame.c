@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1000 2023/08/22 19:31:27 plm Exp $
+ * $Id: gtkgame.c,v 1.1001 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -1902,6 +1902,7 @@ ShowToolbar(void)
     gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/View/Toolbar/Both"), TRUE);
 #endif
     fToolbarShowing = TRUE;
+    UserCommand("save settings");
 }
 
 extern void
@@ -1925,6 +1926,7 @@ HideToolbar(void)
     gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/View/Toolbar/Both"), FALSE);
 #endif
     fToolbarShowing = FALSE;
+    UserCommand("save settings");
 }
 
 static gboolean

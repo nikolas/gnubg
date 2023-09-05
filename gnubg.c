@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1031 2023/05/18 15:50:31 plm Exp $
+ * $Id: gnubg.c,v 1.1032 2023/09/05 20:34:21 plm Exp $
  */
 
 /*
@@ -3176,8 +3176,8 @@ SaveGUISettings(FILE * pf)
     fprintf(pf, "set delay %u\n", nDelay);
 
     fprintf(pf, "set toolbar %d\n", nToolbarStyle);
-    if (!fToolbarShowing)
-        fputs("set toolbar off\n", pf);
+
+    fprintf(pf, "set toolbar %s\n", fToolbarShowing ? "on" : "off");
 
 #if defined(USE_BOARD3D)
     if (fSync != -1)
