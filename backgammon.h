@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.475 2023/05/18 07:22:30 plm Exp $
+ * $Id: backgammon.h,v 1.476 2023/09/05 20:34:21 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -509,7 +509,11 @@ extern void PromptForExit(void);
 extern void Prompt(void);
 extern void ResetInterrupt(void);
 extern void SaveRolloutSettings(FILE * pf, const char *sz, rolloutcontext * prc);
+extern int SetBoard(char *szGNUbgID);
+extern int SetCubeValue(int n);
 extern void setDefaultFileName(char *path);
+extern void SetDice(int n0, int n1);
+extern int SetGNUbgID(char *szGNUbgID);
 extern void SetMatchDate(matchinfo * pmi);
 extern void SetMatchID(const char *szMatchID);
 extern void SetMatchInfo(char **ppch, const char *sz, char *szMessage);
@@ -777,7 +781,7 @@ extern void CommandSetGeometryPosX(char *);
 extern void CommandSetGeometryPosY(char *);
 extern void CommandSetGeometryTheory(char *);
 extern void CommandSetGeometryWidth(char *);
-extern void CommandSetGNUBgID(char *);
+extern void CommandSetGNUbgID(char *);
 extern void CommandSetXGID(char *);
 extern void CommandSetGotoFirstGame(char *);
 extern void CommandSetGUIAnimationBlink(char *);

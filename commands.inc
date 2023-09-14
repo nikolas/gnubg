@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.65 2023/07/09 14:47:55 plm Exp $
+ * $Id: commands.inc,v 1.66 2023/09/05 20:34:21 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1199,7 +1199,7 @@ static command acSetVariation[] = {
     { "matchequitytable", CommandSetMET,
       N_("Read match equity table from XML file"), szFILENAME, &cFilename },
     { "matchid", CommandSetMatchID, N_("set Match ID"), szMATCHID, NULL },
-    { "gnubgid", CommandSetGNUBgID, N_("set GNUbg ID"), szGNUBGID, NULL },
+    { "gnubgid", CommandSetGNUbgID, N_("set GNUbg ID"), szGNUBGID, NULL },
     { "xgid", CommandSetXGID, N_("set GNUbg ID from XGID"), szXGID, NULL },
     { "matchinfo", NULL, N_("Record auxiliary match information"), NULL,
       acSetMatchInfo },

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.433 2023/08/09 21:09:11 plm Exp $
+ * $Id: set.c,v 1.434 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -588,28 +588,27 @@ CorrectNumberOfChequers(TanBoard anBoard, int numCheq)
         return 0;
 }
 
-extern void
-CommandSetBoard(char *sz)
+extern int
+SetBoard(char *sz)
 {
-
     TanBoard an;
     moverecord *pmr;
 
     if (ms.gs != GAME_PLAYING) {
         outputl(_("There must be a game in progress to set the board."));
 
-        return;
+        return 1;
     }
 
     if (!*sz) {
         outputl(_("You must specify a position (see `help set board')."));
 
-        return;
+        return 1;
     }
 
     /* FIXME how should =n notation be handled? */
     if (ParsePosition(an, &sz, NULL) < 0 || !CorrectNumberOfChequers(an, anChequers[ms.bgv]))
-        return;
+        return 1;
 
     pmr = NewMoveRecord();
 
@@ -625,7 +624,14 @@ CommandSetBoard(char *sz)
     /* this way the player turn is stored */
     get_current_moverecord(NULL);
 
-    ShowBoard();
+    return 0;
+}
+
+extern void
+CommandSetBoard(char *sz)
+{
+    if (SetBoard(sz) == 0)
+        ShowBoard();
 }
 
 static int
@@ -906,17 +912,14 @@ CommandSetCubeUse(char *sz)
 #endif                          /* USE_GTK */
 }
 
-extern void
-CommandSetCubeValue(char *sz)
+extern int
+SetCubeValue(int n)
 {
-
-    int i, n;
+    int i;
     moverecord *pmr;
 
     if (CheckCubeAllowed())
-        return;
-
-    n = ParseNumber(&sz);
+        return 2;
 
     for (i = MAX_CUBE; i; i >>= 1)
         if (n == i) {
@@ -928,16 +931,34 @@ CommandSetCubeValue(char *sz)
 
             AddMoveRecord(pmr);
 
-            outputf(_("The cube has been set to %d.\n"), n);
-
-#if defined(USE_GTK)
-            if (fX)
-                ShowBoard();
-#endif                          /* USE_GTK */
-            return;
+            return 0;
         }
 
-    outputl(_("You must specify a legal cube value (see `help set cube " "value')."));
+    return 1;
+}
+
+extern void
+CommandSetCubeValue(char *sz)
+{
+
+    int n, rc;
+
+    n = ParseNumber(&sz);
+
+    rc = SetCubeValue(n);
+
+    if (rc == 0) {
+        outputf(_("The cube has been set to %d.\n"), n);
+
+#if defined(USE_GTK)
+        if (fX)
+            ShowBoard();
+#endif                          /* USE_GTK */
+        return;
+    }
+
+    if (rc == 1)
+        outputl(_("You must specify a legal cube value (see `help set cube " "value')."));
 }
 
 extern void
@@ -972,11 +993,28 @@ CommandSetDelay(char *sz)
 }
 
 extern void
+SetDice(int n0, int n1)
+{
+    moverecord *pmr;
+
+    g_assert(ms.gs == GAME_PLAYING);
+
+    pmr = NewMoveRecord();
+
+    pmr->mt = MOVE_SETDICE;
+    pmr->fPlayer = ms.fMove;
+    pmr->anDice[0] = n0;
+    pmr->anDice[1] = n1;
+
+    AddMoveRecord(pmr);
+
+    return;
+}
+
+extern void
 CommandSetDice(char *sz)
 {
-
     int n0, n1;
-    moverecord *pmr;
 
     if (ms.gs != GAME_PLAYING) {
         outputl(_("There must be a game in progress to set the dice."));
@@ -999,14 +1037,7 @@ CommandSetDice(char *sz)
         return;
     }
 
-    pmr = NewMoveRecord();
-
-    pmr->mt = MOVE_SETDICE;
-    pmr->fPlayer = ms.fMove;
-    pmr->anDice[0] = n0;
-    pmr->anDice[1] = n1;
-
-    AddMoveRecord(pmr);
+    SetDice(n0, n1);
 
     outputf(_("The dice have been set to %d and %d.\n"), n0, n1);
 
@@ -3439,6 +3470,7 @@ extern void
 CommandSetMatchID(char *sz)
 {
     SetMatchID(sz);
+    ShowBoard();
 }
 
 extern void
@@ -4688,7 +4720,7 @@ SetXGID(char *sz)
     msxg.gs = GAME_PLAYING;
 
     matchid = g_strdup(MatchIDFromMatchState(&msxg));
-    CommandSetMatchID(matchid);
+    SetMatchID(matchid);
     g_free(matchid);
 
     if (!fMove) {
@@ -4696,16 +4728,11 @@ SetXGID(char *sz)
         fSidesSwapped = TRUE;
     }
     posid = g_strdup(PositionID((ConstTanBoard) anBoard));
-    CommandSetBoard(posid);
+    SetBoard(posid);
     g_free(posid);
 
-    if ((anDice[0] == 0 && fSidesSwapped) || (anDice[0] && !fMove)) {
-
-        if (GetInputYN
-            (_
-             ("This position has player on roll appearing on top. \nSwap players so the player on roll appears on the bottom? ")))
-            CommandSwapPlayers(NULL);
-    }
+    if ((anDice[0] == 0 && fSidesSwapped) || (anDice[0] && !fMove))
+	return 2;	/* position has player on roll appearing on top */
     return 0;
 }
 
@@ -4740,18 +4767,37 @@ get_base64(char *inp, char **next)
 extern void
 CommandSetXGID(char *sz)
 {
-    if (SetXGID(sz))
+    int rc = SetXGID(sz);
+
+    if (rc == 1)
         outputerrf(_("Not a valid XGID '%s'"), sz);
+    else {
+	if (rc == 2)
+	    if (GetInputYN (_
+             ("This position has player on roll appearing on top. \nSwap players so the player on roll appears on the bottom? ")))
+                CommandSwapPlayers(NULL);
+
+        ShowBoard();
+    }
 }
 
-extern void
-CommandSetGNUBgID(char *sz)
+extern int
+SetGNUbgID(char *sz)
 {
     char *posid = NULL;
     char *matchid = NULL;
 
-    if (SetXGID(sz) == 0)
-        return;
+    switch (SetXGID(sz)) {
+    case 0:
+        return 0;
+    case 2:
+        if (GetInputYN (_
+	    ("This position has player on roll appearing on top. \nSwap players so the player on roll appears on the bottom? ")))
+	  CommandSwapPlayers(NULL);
+	return 0;
+    default:
+        ;
+    }
 
     while (sz && *sz) {
         char *out = get_base64(sz, &sz);
@@ -4772,15 +4818,24 @@ CommandSetGNUBgID(char *sz)
     }
     if (!posid && !matchid) {
         outputerrf(_("No valid IDs found"));
-        return;
+        return 1;
     }
     if (matchid)
-        CommandSetMatchID(matchid);
+        SetMatchID(matchid);
     if (posid)
-        CommandSetBoard(posid);
+        SetBoard(posid);
     outputf(_("Setting GNUbg ID %s:%s\n"), posid ? posid : "", matchid ? matchid : "");
     g_free(posid);
     g_free(matchid);
+
+    return 0;
+}
+
+extern void
+CommandSetGNUbgID(char *sz)
+{
+    if (SetGNUbgID(sz) == 0) 
+        ShowBoard();
 }
 
 extern void

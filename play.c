@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: play.c,v 1.483 2023/08/22 19:17:27 plm Exp $
+ * $Id: play.c,v 1.484 2023/09/02 22:11:55 plm Exp $
  */
 
 #include "config.h"
@@ -4114,9 +4114,7 @@ SetMatchID(const char *szMatchID)
     ms.fJacoby = lfJacoby;
 
     if (anDice[0]) {
-        gchar *sz = g_strdup_printf("%u %u", anDice[0], anDice[1]);
-        CommandSetDice(sz);
-        g_free(sz);
+        SetDice(anDice[0], anDice[1]);
     }
 
     if (fCubeOwner != -1) {
@@ -4126,14 +4124,11 @@ SetMatchID(const char *szMatchID)
         AddMoveRecord(pmr);
     }
 
-    if (nCube != 1) {
-        gchar *sz = g_strdup_printf("%d", nCube);
-        CommandSetCubeValue(sz);
-        g_free(sz);
-    }
+    if (nCube != 1)
+        SetCubeValue(nCube);
 
     if (strlen(szID))
-        CommandSetBoard(szID);
+        SetBoard(szID);
 
     UpdateSetting(&ms.gs);
     UpdateSetting(&ms.nCube);
@@ -4152,8 +4147,6 @@ SetMatchID(const char *szMatchID)
         bd->diceRoll[1] = anDice[1];
     }
 #endif
-
-    ShowBoard();
 }
 
 
