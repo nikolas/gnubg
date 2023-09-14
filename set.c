@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.434 2023/09/05 20:34:21 plm Exp $
+ * $Id: set.c,v 1.435 2023/09/14 19:36:03 plm Exp $
  */
 
 #include "config.h"
@@ -4791,12 +4791,9 @@ SetGNUbgID(char *sz)
     case 0:
         return 0;
     case 2:
-        if (GetInputYN (_
-	    ("This position has player on roll appearing on top. \nSwap players so the player on roll appears on the bottom? ")))
-	  CommandSwapPlayers(NULL);
-	return 0;
+	return 2;
     default:
-        ;
+        ; /* continue below */
     }
 
     while (sz && *sz) {
@@ -4834,8 +4831,17 @@ SetGNUbgID(char *sz)
 extern void
 CommandSetGNUbgID(char *sz)
 {
-    if (SetGNUbgID(sz) == 0) 
+    int rc;
+
+    rc = SetGNUbgID(sz);
+
+    if (rc == 0)
         ShowBoard();
+
+    if (rc == 2)
+        if (GetInputYN (_
+	    ("This position has player on roll appearing on top. \nSwap players so the player on roll appears on the bottom? ")))
+	    CommandSwapPlayers(NULL);
 }
 
 extern void
