@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.66 2023/09/05 20:34:21 plm Exp $
+ * $Id: commands.inc,v 1.67 2023/09/14 19:36:03 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1049,7 +1049,7 @@ static command acSetExportHTMLType[] = {
   { "resign", CommandSetSoundSoundResign, 
     N_("Resign"), szOPTFILENAME, &cFilename },
   { "roll", CommandSetSoundSoundRoll, 
-    N_("Roll"), szOPTFILENAME, &cFilename },
+    N_("verb|Roll"), szOPTFILENAME, &cFilename },
   { "start", CommandSetSoundSoundStart, 
     N_("Starting of GNU Backgammon"), szOPTFILENAME, &cFilename },
   { "take", CommandSetSoundSoundTake, 
