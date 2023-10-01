@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1001 2023/09/05 20:34:21 plm Exp $
+ * $Id: gtkgame.c,v 1.1002 2023/09/05 21:22:35 plm Exp $
  */
 
 #include "config.h"
@@ -7186,7 +7186,7 @@ GTKHelpAdd(GtkTreeStore * pts, GtkTreeIter * ptiParent, command * pc)
     for (; pc->sz; pc++)
         if (pc->szHelp) {
             gtk_tree_store_append(pts, &ti, ptiParent);
-            gtk_tree_store_set(pts, &ti, 0, pc->sz, 1, gettext(pc->szHelp), 2, pc, -1);
+            gtk_tree_store_set(pts, &ti, 0, pc->sz, 1, Q_(pc->szHelp), 2, pc, -1);
             if (pc->pc && pc->pc->sz)
                 GTKHelpAdd(pts, &ti, pc->pc);
         }

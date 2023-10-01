@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1032 2023/09/05 20:34:21 plm Exp $
+ * $Id: gnubg.c,v 1.1033 2023/09/05 21:22:35 plm Exp $
  */
 
 /*
@@ -1786,7 +1786,7 @@ CommandHelp(char *sz)
 
         for (; pc->sz; pc++)
             if (pc->szHelp)
-                outputf("%-15s\t%s\n", pc->sz, gettext(pc->szHelp));
+                outputf("%-15s\t%s\n", pc->sz, Q_(pc->szHelp));
     }
 }
 

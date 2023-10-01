@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.67 2023/09/14 19:36:03 plm Exp $
+ * $Id: commands.inc,v 1.68 2023/09/23 21:28:16 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1043,7 +1043,7 @@ static command acSetExportHTMLType[] = {
   { "humanwinsmatch", CommandSetSoundSoundHumanWinMatch, 
     N_("Human wins match"), szOPTFILENAME, &cFilename },
   { "move", CommandSetSoundSoundMove, 
-    N_("noun|Move"), szOPTFILENAME, &cFilename },
+    N_("verb|Move"), szOPTFILENAME, &cFilename },
   { "redouble", CommandSetSoundSoundRedouble, 
     N_("Redouble"), szOPTFILENAME, &cFilename },
   { "resign", CommandSetSoundSoundResign, 
