@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkoptions.c,v 1.141 2023/03/19 21:04:25 plm Exp $
+ * $Id: gtkoptions.c,v 1.142 2023/07/23 16:17:00 plm Exp $
  */
 
 #include "config.h"
@@ -1495,7 +1495,7 @@ append_other_options(optionswidget * pow)
 
     pow->pwConfOverwrite = gtk_check_button_new_with_label(_("Confirm when overwriting existing files"));
     gtk_box_pack_start(GTK_BOX(pwvbox), pow->pwConfOverwrite, FALSE, FALSE, 0);
-    gtk_widget_set_tooltip_text(pow->pwConfOverwrite, _("Confirm when overwriting existing files"));
+    gtk_widget_set_tooltip_text(pow->pwConfOverwrite, _("Ask for confirmation when overwriting existing files."));
 
     pow->pwRecordGames = gtk_check_button_new_with_label(_("Record all games"));
     gtk_box_pack_start(GTK_BOX(pwvbox), pow->pwRecordGames, FALSE, FALSE, 0);
@@ -1648,8 +1648,13 @@ append_other_options(optionswidget * pow)
     gtk_widget_set_tooltip_text(pwev,
                                 _("GNU Backgammon uses a cache of previous "
                                   "evaluations to speed up processing. "
-                                  "Increasing the size may help evaluations "
-                                  "complete more quickly, but decreasing " "the size will use less memory."));
+                                  "Increasing the size will help evaluations "
+                                  "complete more quickly, although its benefits "
+                                  "decreases relatively fast.\n"
+                                  "The default value is fine for "
+                                  "2-ply play and analysis. Higher values "
+                                  "will help a little for higher plies "
+                                  "evaluations and for rollouts."));
 
 #if defined(USE_MULTITHREAD)
     pwev = gtk_event_box_new();
