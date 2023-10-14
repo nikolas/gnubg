@@ -15,11 +15,10 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: htmlimages.c,v 1.60 2022/02/21 22:15:02 plm Exp $
+ * $Id: htmlimages.c,v 1.61 2023/07/23 15:43:21 plm Exp $
  */
 
 #include "config.h"
-#include <errno.h>
 
 #include <string.h>
 #if defined(HAVE_UNISTD_H)
