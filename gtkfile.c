@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.79 2023/03/07 22:29:54 plm Exp $
+ * $Id: gtkfile.c,v 1.80 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -503,7 +503,15 @@ batch_create_save(gchar * filename, gchar ** save, char **result)
     gchar *file;
     gchar *folder;
     gchar *dir;
+
     DisectPath(filename, NULL, &file, &folder);
+    
+    if (file == NULL || folder == NULL) {
+	g_free(file);
+	g_free(folder);
+	return FALSE;
+    }
+ 
     dir = g_build_filename(folder, "analysed", NULL);
     g_free(folder);
 
@@ -511,6 +519,7 @@ batch_create_save(gchar * filename, gchar ** save, char **result)
         g_mkdir(dir, 0700);
 
     if (!g_file_test(dir, G_FILE_TEST_IS_DIR)) {
+        g_free(file);
         g_free(dir);
         if (result)
             *result = _("Failed to make directory");
@@ -890,6 +899,8 @@ AnalyzeSingleFile(void)
         filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(fc));
     }
     if (filename) {
+        gchar* cmd;
+
         last_folder = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(fc));
         gtk_widget_destroy(fc);
 
@@ -899,7 +910,6 @@ AnalyzeSingleFile(void)
         // //     return;
 
         /*open this file*/
-        gchar* cmd;
         cmd = g_strdup_printf("import auto \"%s\"", filename);
         UserCommand(cmd);
         g_free(cmd);
@@ -926,6 +936,7 @@ static void
 SmartAnalyze(void)
 {
     gchar *folder = NULL;
+    gchar *cmd;
     char recent[MAX_LEN] = "";
 
     folder = default_import_folder ? default_import_folder : ".";
@@ -935,7 +946,6 @@ SmartAnalyze(void)
     recentByModification(folder, recent);
 
     /*open this file*/
-    gchar* cmd;
     cmd = g_strdup_printf("import auto \"%s\"", recent);
     UserCommand(cmd);
     g_free(cmd);
