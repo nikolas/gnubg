@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.306 2022/03/12 20:14:14 plm Exp $
+ * $Id: show.c,v 1.307 2023/03/19 21:41:18 plm Exp $
  */
 
 #include "config.h"
@@ -2356,7 +2356,7 @@ extern void
 CommandShowAutoSave(char *UNUSED(sz))
 {
     outputf(ngettext
-            ("Auto save frequency every %d minute\n", "Auto save every %d minutes\n", nAutoSaveTime), nAutoSaveTime);
+            ("Auto save every %d minute\n", "Auto save every %d minutes\n", nAutoSaveTime), nAutoSaveTime);
     outputf(fAutoSaveRollout ? _("Match will be autosaved during and after rollouts\n") :
             _("Match will not be autosaved during and after rollouts\n"));
     outputf(fAutoSaveAnalysis ? _("Match will be autosaved during and after analysis\n") :
