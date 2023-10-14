@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubgmodule.c,v 1.210 2022/05/22 21:35:50 plm Exp $
+ * $Id: gnubgmodule.c,v 1.211 2023/09/14 20:35:41 plm Exp $
  */
 
 #include "config.h"
@@ -3487,12 +3487,24 @@ PythonInitialise(char *argv0)
     g_free(working_dir);
 #endif
 
+#if PY_VERSION_HEX < 0x030b0000
     Py_SetProgramName(progname);
+#else
+    /*
+     * Py_SetProgramName() is deprecated but from my reading of
+     * https://docs.python.org/3/c-api/init.html
+     * its alternative is not actually needed for the few Py*()
+     * functions we use later.
+     */
+    (void)progname;
+#endif
+
 #if PY_MAJOR_VERSION >= 3
     PyImport_AppendInittab("gnubg", &PyInit_gnubg);
 #else
     PyImport_AppendInittab("gnubg", &initgnubg);
 #endif
+
     Py_Initialize();
 
     /* ensure that python know about our gnubg module */
