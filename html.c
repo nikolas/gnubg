@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: html.c,v 1.271 2023/06/11 21:18:42 plm Exp $
+ * $Id: html.c,v 1.272 2023/06/24 20:38:49 plm Exp $
  */
 
 #include "config.h"
@@ -1494,17 +1494,19 @@ HTMLPrologue(FILE * pf, const matchstate * pms,
     gszTitle = g_string_new(NULL);
 
     g_string_printf(gszTitle,
-            ngettext("The score (after %d game) is: %s %d, %s %d",
-                     "The score (after %d games) is: %s %d, %s %d",
-                     pms->cGames), pms->cGames, ap[0].szName, pms->anScore[0], ap[1].szName, pms->anScore[1]);
+                    ngettext("The score (after %d game) is: %s %d, %s %d",
+                             "The score (after %d games) is: %s %d, %s %d",
+                             pms->cGames), pms->cGames, ap[0].szName, pms->anScore[0], ap[1].szName, pms->anScore[1]);
 
     if (pms->nMatchTo > 0)
         g_string_append_printf(gszTitle,
-                ngettext(" (match to %d point%s)",
-                         " (match to %d points%s)",
-                         pms->nMatchTo),
-                pms->nMatchTo,
-                pms->fCrawford ? _(", Crawford game") : (pms->fPostCrawford ? _(", post-Crawford play") : ""));
+                               ngettext(" (match to %d point%s)",
+                                        " (match to %d points%s)",
+                                        pms->nMatchTo),
+                               pms->nMatchTo,
+                               (pms->nMatchTo > 1 && pms->fCrawford)
+                               ? _(", Crawford game")
+                               : (pms->nMatchTo > 1 && pms->fPostCrawford) ? _(", post-Crawford play") : "");
 
     fprintf(pf,
             "<!DOCTYPE html PUBLIC '-//W3C//DTD XHTML 1.0 Strict//EN' "

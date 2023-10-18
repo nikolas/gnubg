@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.307 2023/03/19 21:41:18 plm Exp $
+ * $Id: show.c,v 1.308 2023/10/14 19:47:57 plm Exp $
  */
 
 #include "config.h"
@@ -216,7 +216,7 @@ ShowRollout(rolloutcontext * prc)
     int fPlayersSameSettings = TRUE;
     int fCubeChequerSameSettings = TRUE;
 
-    if (prc->fLateEvals && (!fDoTruncate || (nTruncate > nLate) ))
+    if (prc->fLateEvals && (!fDoTruncate || (nTruncate > nLate)))
         fLateEvals = TRUE;
 
     outputf(ngettext("%u game will be played per rollout.\n",
@@ -499,7 +499,7 @@ CommandShowFullBoard(char *sz)
     {
         char szOut[2048];
         char *apch[7] = { NULL, NULL, NULL, NULL, NULL, NULL, NULL };
-       
+
         outputl(DrawBoard(szOut, (ConstTanBoard) an, TRUE, apch, MatchIDFromMatchState(&ms), anChequers[ms.bgv]));
     }
 }
@@ -894,14 +894,14 @@ CommandShowScore(char *UNUSED(sz))
 {
 
     outputf(ngettext("The score (after %d game) is: %s %d, %s %d",
-           "The score (after %d games) is: %s %d, %s %d", ms.cGames),
+                     "The score (after %d games) is: %s %d, %s %d", ms.cGames),
             ms.cGames, ap[0].szName, ms.anScore[0], ap[1].szName, ms.anScore[1]);
 
     if (ms.nMatchTo > 0) {
         outputf(ngettext(" (match to %d point%s)",
                          " (match to %d points%s)",
                          ms.nMatchTo),
-                ms.nMatchTo, ms.fCrawford ? _(", Crawford game") : (ms.fPostCrawford ? _(", post-Crawford play") : ""));
+                ms.nMatchTo, (ms.nMatchTo > 1 && ms.fCrawford) ? _(", Crawford game") : (ms.nMatchTo > 1 && ms.fPostCrawford) ? _(", post-Crawford play") : "");
     } else {
         if (ms.fJacoby)
             outputl(_(" (money session, with Jacoby rule)."));

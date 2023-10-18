@@ -15,27 +15,27 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1033 2023/09/05 21:22:35 plm Exp $
+ * $Id: gnubg.c,v 1.1034 2023/10/01 17:00:34 plm Exp $
  */
 
 /*
-02/2023: Isaac Keslassy: introduced the "SmartSit" feature
-that enables users to automatically sit at the bottom of
-the board (i.e. as player1) in opened matches.
-
-It works as follows:
-1) In Settings > Options > Display, the user can enable this option
-2) The user can define "key player names" in two ways:
-    a) Manually:
-    In Settings > Options > Display, edit the list and add/delete names.
-    b) Automatically:
-    Each time te user swaps the player order to highlight some player
-    and set this player at the bottom of the board, we add this
-    player's name to the list.
-3) When opening a new file, SmartSit() automatically checks if player0
-    is a key player while player1 is not. In such a case, it swaps
-    their places.
-*/
+ * 02/2023: Isaac Keslassy: introduced the "SmartSit" feature
+ * that enables users to automatically sit at the bottom of
+ * the board (i.e. as player1) in opened matches.
+ * 
+ * It works as follows:
+ * 1) In Settings > Options > Display, the user can enable this option
+ * 2) The user can define "key player names" in two ways:
+ * a) Manually:
+ * In Settings > Options > Display, edit the list and add/delete names.
+ * b) Automatically:
+ * Each time te user swaps the player order to highlight some player
+ * and set this player at the bottom of the board, we add this
+ * player's name to the list.
+ * 3) When opening a new file, SmartSit() automatically checks if player0
+ * is a key player while player1 is not. In such a case, it swaps
+ * their places.
+ */
 
 #include "config.h"
 
@@ -118,7 +118,7 @@ static char szCommandSeparators[] = " \t\n\r\v\f";
 #include "gtksplash.h"
 #include "gtkchequer.h"
 #include "gtkwindows.h"
-#include "gtkscoremap.h" 
+#include "gtkscoremap.h"
 #endif
 
 #if defined(USE_BOARD3D)
@@ -245,15 +245,16 @@ int fBackgroundAnalysis = FALSE;
  */
 int fAnalysisRunning = FALSE;
 
-/*initialization*/
-char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN]={""};
-int keyNamesFirstEmpty=0;
-int fUseKeyNames=TRUE;
-int fWithinSmartSit=FALSE;
+/* initialization */
+char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN] = { "" };
+int keyNamesFirstEmpty = 0;
+int fUseKeyNames = TRUE;
+int fWithinSmartSit = FALSE;
 
 analyzeFileSetting AnalyzeFileSettingDef = AnalyzeFileBatch;
-const char* aszAnalyzeFileSetting[NUM_AnalyzeFileSettings] = { N_("Batch analysis"), N_("Single-File analysis"), N_("Smart analysis")};
-const char* aszAnalyzeFileSettingCommands[NUM_AnalyzeFileSettings] = { "batch", "single", "smart"}; 
+const char *aszAnalyzeFileSetting[NUM_AnalyzeFileSettings] =
+    { N_("Batch analysis"), N_("Single-File analysis"), N_("Smart analysis") };
+const char *aszAnalyzeFileSettingCommands[NUM_AnalyzeFileSettings] = { "batch", "single", "smart" };
 
 
 #if defined(USE_BOARD3D)
@@ -1490,15 +1491,18 @@ ShowBoard(void)
             if (ms.fCubeOwner < 0) {
                 apch[3] = szCube;
 
-                /* Using ngettext() below looks awkward, but it matters in case of multiple plurals, as in many eastern european languages */
-
                 if (ms.nMatchTo)
                     if (ms.nMatchTo == 1)
                         sprintf(szCube, ngettext("%d point match", "%d points match", ms.nMatchTo), ms.nMatchTo);
-                    else if (ms.fCrawford)
-                        sprintf(szCube, ngettext("%d point match (Crawford game)", "%d points match (Crawford game)", ms.nMatchTo), ms.nMatchTo);
-                    else
-                        sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", ms.nMatchTo), ms.nMatchTo, ms.nCube);
+                    else if (ms.fCrawford) {
+                        sprintf(szCube, ngettext("%d point match", "%d points match", ms.nMatchTo), ms.nMatchTo);
+                        strcat(szCube, " (");
+                        strcat(szCube, _("Crawford game"));
+                        strcat(szCube, ")");
+                    } else
+                        sprintf(szCube,
+                                ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", ms.nMatchTo),
+                                ms.nMatchTo, ms.nCube);
                 else
                     sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
             } else {
@@ -2787,15 +2791,17 @@ CommandCopy(char *UNUSED(sz))
         if (ms.fCubeOwner < 0) {
             aps[3] = szCube;
 
-            /* Using ngettext() below looks awkward, but it matters in case of multiple plurals, as in many eastern european languages */
-
             if (ms.nMatchTo)
                 if (ms.nMatchTo == 1)
                     sprintf(szCube, ngettext("%d point match", "%d points match", ms.nMatchTo), ms.nMatchTo);
-                else if (ms.fCrawford)
-                    sprintf(szCube, ngettext("%d point match (Crawford game)", "%d points match (Crawford game)", ms.nMatchTo), ms.nMatchTo);
-                else
-                    sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", ms.nMatchTo), ms.nMatchTo, ms.nCube);
+                else if (ms.fCrawford) {
+                    sprintf(szCube, ngettext("%d point match", "%d points match", ms.nMatchTo), ms.nMatchTo);
+                    strcat(szCube, " (");
+                    strcat(szCube, _("Crawford game"));
+                    strcat(szCube, ")");
+                } else
+                    sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", ms.nMatchTo),
+                            ms.nMatchTo, ms.nCube);
             else
                 sprintf(szCube, "(%s: %d)", _("Cube"), ms.nCube);
         } else {

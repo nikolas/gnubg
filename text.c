@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: text.c,v 1.132 2023/04/10 21:10:01 plm Exp $
+ * $Id: text.c,v 1.133 2023/05/18 15:50:31 plm Exp $
  */
 
 #include "config.h"
@@ -81,15 +81,17 @@ printTextBoard(FILE * pf, const matchstate * pms)
         if (pms->fCubeOwner < 0) {
             apch[3] = szCube;
 
-            /* Using ngettext() below looks awkward, but it matters in case of multiple plurals, as in many eastern european languages */
-
             if (pms->nMatchTo)
                 if (pms->nMatchTo == 1)
                     sprintf(szCube, ngettext("%d point match", "%d points match", pms->nMatchTo), pms->nMatchTo);
-                else if (pms->fCrawford)
-                    sprintf(szCube, ngettext("%d point match (Crawford game)", "%d points match (Crawford game)", pms->nMatchTo), pms->nMatchTo);
-                else
-                    sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", pms->nMatchTo), pms->nMatchTo, pms->nCube);
+                else if (pms->fCrawford) {
+                    sprintf(szCube, ngettext("%d point match", "%d points match", pms->nMatchTo), pms->nMatchTo);
+                    strcat(szCube, " (");
+                    strcat(szCube, _("Crawford game"));
+                    strcat(szCube, ")");
+                 } else
+                    sprintf(szCube, ngettext("%d point match (Cube: %d)", "%d points match (Cube: %d)", pms->nMatchTo),
+                            pms->nMatchTo, pms->nCube);
             else
                 sprintf(szCube, _("(Cube: %d)"), pms->nCube);
         } else {
@@ -188,10 +190,12 @@ TextPrologue(GString * gsz, const matchstate * pms, const int UNUSED(iGame))
     if (pms->nMatchTo > 0) {
         g_string_append_printf(gsz,
                                ngettext(" (match to %d point)", " (match to %d points)", pms->nMatchTo), pms->nMatchTo);
-        if (pms->fCrawford)
-            g_string_append(gsz, _(", Crawford game"));
-        if (pms->fPostCrawford)
-            g_string_append(gsz, _(", post-Crawford play"));
+        if (pms->nMatchTo > 1) {
+            if (pms->fCrawford)
+                g_string_append(gsz, _(", Crawford game"));
+            if (pms->fPostCrawford)
+                g_string_append(gsz, _(", post-Crawford play"));
+        }
     }
 
     g_string_append(gsz, "\n\n");
@@ -581,7 +585,7 @@ TextMatchInfo(FILE * pf, const matchinfo * pmi)
         /* the fields below are not used here but are read
          * inside strftime(), so initialise them.
          */
-        struct tm tmx = { .tm_sec=0, .tm_min=0, .tm_hour=0, .tm_isdst=-1 };
+        struct tm tmx = { .tm_sec=0, .tm_min=0, .tm_hour=0, .tm_isdst=(-1) };
         char sz[80];
 
         tmx.tm_year = pmi->nYear - 1900;
