@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: credits.sh,v 1.166 2022/01/13 21:19:15 plm Exp $
+# $Id: credits.sh,v 1.167 2023/03/19 22:56:25 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -190,6 +190,7 @@ Frank Worrell
 Christopher D. Yep
 Anders Zachrison
 Douglas Zare
+Tilemachos Zoidis
 Louis Zulli
 EOF
 
