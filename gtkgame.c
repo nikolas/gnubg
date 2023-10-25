@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1002 2023/09/05 21:22:35 plm Exp $
+ * $Id: gtkgame.c,v 1.1003 2023/10/01 17:00:34 plm Exp $
  */
 
 #include "config.h"
@@ -156,7 +156,6 @@ typedef enum {
     CMD_RELATIONAL_ADD_MATCH,
     CMD_ROLL,
     CMD_ROLLOUT,
-    CMD_SAVE_SETTINGS,
     CMD_SET_ANNOTATION_ON,
     CMD_SET_APPEARANCE,
     CMD_SET_MESSAGE_ON,
@@ -367,7 +366,6 @@ CREATE_CMD_ACTION_CALLBACK(CMD_REJECT, "reject");
 CREATE_CMD_ACTION_CALLBACK(CMD_RELATIONAL_ADD_MATCH, "relational add match");
 CREATE_CMD_ACTION_CALLBACK(CMD_ROLL, "roll");
 CREATE_CMD_ACTION_CALLBACK(CMD_ROLLOUT, "rollout");
-CREATE_CMD_ACTION_CALLBACK(CMD_SAVE_SETTINGS, "save settings");
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_ANNOTATION_ON, "set annotation on");
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_APPEARANCE, NULL);   /* set appearance */
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_MESSAGE_ON, "set message on");
@@ -447,7 +445,6 @@ static const char *aszCommands[NUM_CMDS] = {
     "relational add match",
     "roll",
     "rollout",
-    "save settings",
     "set annotation on",
     NULL,                       /* set appearance */
     "set message on",
