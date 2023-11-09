@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1003 2023/10/01 17:00:34 plm Exp $
+ * $Id: gtkgame.c,v 1.1004 2023/10/25 15:01:51 plm Exp $
  */
 
 #include "config.h"
@@ -7375,7 +7375,9 @@ GTKBearoffProgress(int i)
     gchar *gsz;
 
     if (!pwDialog) {
+#if !GTK_CHECK_VERSION(3,0,0)
         static GtkWidget *pwAlign;
+#endif
 
         pwDialog =
             GTKCreateDialog(_("GNU Backgammon"), DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_NOTIDY, NULL, NULL);
@@ -7383,9 +7385,16 @@ GTKBearoffProgress(int i)
         gtk_window_set_type_hint(GTK_WINDOW(pwDialog), GDK_WINDOW_TYPE_HINT_DIALOG);
         g_signal_connect(G_OBJECT(pwDialog), "destroy", G_CALLBACK(GTKBearoffProgressCancel), NULL);
 
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_box_pack_start(GTK_BOX(DialogArea(pwDialog, DA_MAIN)),
+		           pw = gtk_progress_bar_new(), TRUE, TRUE, 8);
+        gtk_widget_set_halign(pw, GTK_ALIGN_FILL);
+        gtk_widget_set_valign(pw, GTK_ALIGN_CENTER);
+#else
         gtk_box_pack_start(GTK_BOX(DialogArea(pwDialog, DA_MAIN)),
                            pwAlign = gtk_alignment_new(0.5, 0.5, 1, 0), TRUE, TRUE, 8);
         gtk_container_add(GTK_CONTAINER(pwAlign), pw = gtk_progress_bar_new());
+#endif
 
         gtk_widget_show_all(pwDialog);
     }
