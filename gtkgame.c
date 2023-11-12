@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1004 2023/10/25 15:01:51 plm Exp $
+ * $Id: gtkgame.c,v 1.1005 2023/11/09 20:52:49 plm Exp $
  */
 
 #include "config.h"
@@ -1492,7 +1492,14 @@ SwapBoardToPanel(int ToPanel, int updateEvents)
     GtkAllocation allocation;
     gtk_widget_get_allocation(pwMain, &allocation);
     if (ToPanel) {
+#if GTK_CHECK_VERSION(3,0,0)
+        g_object_ref(pwEventBox);
+        gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(GTK_WIDGET(pwEventBox))), GTK_WIDGET(pwEventBox));
+        gtk_container_add(GTK_CONTAINER(pwPanelGameBox), GTK_WIDGET(pwEventBox));
+        g_object_unref(pwEventBox);
+#else
         gtk_widget_reparent(pwEventBox, pwPanelGameBox);
+#endif
         gtk_widget_show(hpaned);
         if (updateEvents)
             ProcessEvents();
@@ -1514,7 +1521,15 @@ SwapBoardToPanel(int ToPanel, int updateEvents)
         if (fToolbarShowing)
             gtk_widget_hide(gtk_widget_get_parent(pwToolbar));
 
+#if GTK_CHECK_VERSION(3,0,0)
+        g_object_ref(pwEventBox);
+        gtk_container_remove(GTK_CONTAINER(gtk_widget_get_parent(GTK_WIDGET(pwEventBox))), GTK_WIDGET(pwEventBox));
+        gtk_container_add(GTK_CONTAINER(pwGameBox), GTK_WIDGET(pwEventBox));
+        g_object_unref(pwEventBox);
+#else
         gtk_widget_reparent(pwEventBox, pwGameBox);
+#endif
+
         gtk_widget_show(pwGameBox);
         if (updateEvents)
             ProcessEvents();
