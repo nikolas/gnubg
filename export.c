@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: export.c,v 1.97 2021/09/27 22:07:04 plm Exp $
+ * $Id: export.c,v 1.98 2022/01/02 22:57:51 plm Exp $
  */
 
 #include "config.h"
@@ -35,6 +35,7 @@
 #include "drawboard.h"
 #include "export.h"
 #include "eval.h"
+#include "list.h"
 #include "positionid.h"
 #include "renderprefs.h"
 #include "matchid.h"
@@ -72,7 +73,7 @@ filename_from_iGame(const char *szBase, const int iGame)
         return g_strdup(szBase);
     else {
         char *sz = g_malloc(strlen(szBase) + 5);
-        char *szExtension = strrchr(szBase, '.');
+        const char *szExtension = strrchr(szBase, '.');
         if (!szExtension) {
             sprintf(sz, "%s_%03d", szBase, iGame + 1);
             return sz;
@@ -527,10 +528,9 @@ WritePNG(const char *sz, unsigned char *puch, unsigned int nStride, unsigned int
     atext[1].text = VERSION_STRING;
     atext[1].compression = PNG_TEXT_COMPRESSION_NONE;
 
-#ifdef PNG_iTXt_SUPPORTED
     atext[0].lang = NULL;
     atext[1].lang = NULL;
-#endif
+
     png_set_text(ppng, pinfo, atext, 2);
 
     png_write_info(ppng, pinfo);
@@ -743,7 +743,7 @@ ExportSnowieTxt(char *sz, const matchstate * pms)
 
     sz += sprintf(sz, "%s;%s;", ap[pms->fMove].szName, ap[!pms->fMove].szName);
 
-    /* crawford game */
+    /* Crawford game */
 
     i = pms->nMatchTo &&
         ((pms->anScore[0] == (pms->nMatchTo - 1)) ||
@@ -964,7 +964,7 @@ CommandExportPositionJF(char *sz)
             goto write_failed;
     }
 
-    if (!WriteInt16(fp, 0))     /* FIXME Check gnubg setting */
+    if (!WriteInt16(fp, 0))     /* FIXME Check GNUbg setting */
         goto write_failed;
     /* TRUE if lower die is to be drawn to the left */
 
@@ -1084,9 +1084,9 @@ ExportGameJF(FILE * pf, listOLD * plGame, int iGame, int withScore, int fSst)
             sprintf(sz, "%u%u: ", pmr->anDice[0], pmr->anDice[1]);
             if (fSst) {         /* Snowie standard text */
                 if (pl->plNext && pl->plNext->p) {
-                    moverecord *pnextmr = pl->plNext->p;
+                    const moverecord *pnextmr = pl->plNext->p;
                     if (pnextmr->mt == MOVE_SETBOARD)
-                        /* Illegal move entered in gnubg as bogus move followed by
+                        /* Illegal move entered in GNUbg as bogus move followed by
                          * editing position : don't export the move, only the dice */
                         diceRolled = 1;
                     else
@@ -1167,9 +1167,6 @@ ExportGameJF(FILE * pf, listOLD * plGame, int iGame, int withScore, int fSst)
                 SwapSides(anBoard);
 
             if (fSst) {         /* Snowie standard text */
-                moverecord *pnextmr;
-                char *ct;
-
                 if (pl->plNext == NULL) {
                     fprintf(pf, "Unexportable play (%s)\n", buffer);
                     g_assert_not_reached();
@@ -1177,7 +1174,9 @@ ExportGameJF(FILE * pf, listOLD * plGame, int iGame, int withScore, int fSst)
                     fprintf(pf, "Unexportable play (%s)\n", buffer);
                     g_assert_not_reached();
                 } else {
-                    pnextmr = pl->plNext->p;
+                    const moverecord *pnextmr = pl->plNext->p;
+		    char *ct;
+
                     msExport.nMatchTo = ms.nMatchTo;
                     msExport.nCube = nFileCube;
                     msExport.fMove = (i & 1);
