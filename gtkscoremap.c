@@ -16,7 +16,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkscoremap.c,v 1.29 2023/02/18 20:46:36 plm Exp $
+ * $Id: gtkscoremap.c,v 1.30 2023/06/11 21:26:03 plm Exp $
  */
 
 
@@ -3031,7 +3031,7 @@ if needed (this was initially planned for some explanation text, which was then 
 
 
 
-#if GTK_CHECK_VERSION(3,2,2) // THIS CODE HAS NOT BEEN TRIED!
+#if GTK_CHECK_VERSION(3,22,0)
     GdkRectangle workarea = {0};
     gdk_monitor_get_workarea(gdk_display_get_primary_monitor(gdk_display_get_default()), &workarea);
     screenWidth=MAX(workarea.width,100); // in case we get 0...
@@ -3049,10 +3049,12 @@ if needed (this was initially planned for some explanation text, which was then 
 #else
     monitor = 0;
 #endif
+
     gdk_screen_get_monitor_geometry(screen, monitor, &screen_geometry);
     screenWidth=MAX(screen_geometry.width,100); // in case we get 0...
     screenHeight=MAX(screen_geometry.height,100);
 #endif
+
     MAX_TABLE_WIDTH = MIN(MAX_TABLE_WIDTH, (int)(0.3f * (float)screenWidth));
     MAX_TABLE_HEIGHT = MIN(MAX_TABLE_HEIGHT, (int)(0.6f * (float)screenHeight));
 
