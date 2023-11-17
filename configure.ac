@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.118 2023/02/25 23:03:23 plm Exp $
+dnl $Id: configure.ac,v 1.119 2023/03/07 21:17:13 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.118 $)
+AC_REVISION($Revision: 1.119 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -428,13 +428,12 @@ AS_HELP_STRING([--with-python=program],
 
 if test "x$with_python" != "xno"; then
     AM_PATH_PYTHON(2.6)
-    AX_PYTHON_DEVEL()
-    have_python=$ac_python_version
-    if test "x$have_python" != "x"; then
+    AX_PYTHON_DEVEL([], [true])
+    if test "x$ax_python_devel_found" != "xno"; then
         AC_DEFINE(USE_PYTHON,1,[Define if you want to use Python inside GNUbg])
     fi
 fi
-AM_CONDITIONAL(USE_PYTHON, test x"$with_python" != x"no" && test x"$have_python" != x"no" )
+AM_CONDITIONAL(USE_PYTHON, test x"$with_python" != x"no" && test x"$ax_python_devel_found" != x"no" )
 
 dnl
 dnl SIMD
