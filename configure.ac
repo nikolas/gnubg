@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.119 2023/03/07 21:17:13 plm Exp $
+dnl $Id: configure.ac,v 1.120 2023/11/17 22:44:04 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.119 $)
+AC_REVISION($Revision: 1.120 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -161,7 +161,7 @@ fi
 
 if test "x$with_gtk" != "xno"; then
     if test "x$with_gtk3" = "xyes"; then
-        PKG_CHECK_MODULES(GTK, [gtk+-3.0], have_gtk="yes", AC_MSG_WARN([no gtk3 support]))
+        PKG_CHECK_MODULES(GTK, [gtk+-3.0 >= 3.22.0], have_gtk="yes", AC_MSG_WARN([no gtk3 support]))
     else
         PKG_CHECK_MODULES(GTK, [gtk+-2.0 >= 2.18.0], have_gtk="yes", AC_MSG_WARN([no gtk2 support]))
     fi
