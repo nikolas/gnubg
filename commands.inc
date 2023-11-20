@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: commands.inc,v 1.68 2023/09/23 21:28:16 plm Exp $
+ * $Id: commands.inc,v 1.69 2023/10/01 17:00:34 plm Exp $
  */
 
 /* All the commands are in this file */
@@ -1373,6 +1373,8 @@ command  acShow[] = {
 #if defined(USE_GTK)
     { "geometry", CommandShowGeometry, N_("Show geometry settings"), 
       NULL, NULL },
+    { "history", CommandShowHistory,
+      N_("Show plot of player's historical error rate"), NULL, NULL },
 #endif
     { "isight", CommandShowIsight, N_("Calculate Isight Count for "
       "position"), szOPTPOSITION, NULL },

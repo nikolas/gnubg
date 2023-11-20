@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: backgammon.h,v 1.476 2023/09/05 20:34:21 plm Exp $
+ * $Id: backgammon.h,v 1.477 2023/09/14 19:36:03 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -976,6 +976,7 @@ extern void CommandShowExport(char *);
 extern void CommandShowFullBoard(char *);
 extern void CommandShowGammonValues(char *);
 extern void CommandShowGeometry(char *);
+extern void CommandShowHistory(char *);
 extern void CommandShowJacoby(char *);
 extern void CommandShowKeith(char *);
 extern void CommandShowKleinman(char *);
@@ -1020,6 +1021,7 @@ extern void CommandSwapPlayers(char *);
 extern void CommandTake(char *);
 extern void CommandSetDefaultNames(char *sz);
 extern void CommandSetKeyNames(char *sz);
+extern void UserCommand(const char *szCommand);
 extern void hint_move(char *sz, gboolean show, procrecorddata * procdatarec);
 extern void hint_double(int show, int did_double);
 extern void hint_take(int show, int did_take);
@@ -1064,5 +1066,7 @@ extern int fWithinSmartSit; /* whether we are within the SmartSit function: if i
 extern int AddKeyName(const char sz[]); /* function that adds a key player name to the array*/
 extern int DeleteKeyName(const char sz[]); /* function that deletes a key player name to the array*/
 extern void DisplayKeyNames(void); /* debugging function to display the current key player names in the array*/
+
+extern int fTriggeredByRecordList; /* whether history plot is launched from record list or from menu */
 
 #endif	/* BACKGAMMON_H */

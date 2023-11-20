@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkuidefs.h,v 1.8 2023/03/18 19:26:08 plm Exp $
+ * $Id: gtkuidefs.h,v 1.9 2023/09/05 20:34:21 plm Exp $
  */
 
 #define GNUBG_MAIN_UI \
@@ -172,6 +172,7 @@
 	      "<separator/>" \
 	      "<menuitem name='AddMatchOrSessionStatsToDB' action='AddMatchOrSessionStatsToDBAction' />" \
 	      "<menuitem name='ShowRecords' action='ShowRecordsAction' />" \
+              "<menuitem name='PlotHistory' action='PlotHistoryAction' />" \
 	      "<separator/>" \
 	      "<menuitem name='DistributionOfRolls' action='DistributionOfRollsAction' />" \
 	      "<menuitem name='TemperatureMap' action='TemperatureMapAction' />" \

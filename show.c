@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.308 2023/10/14 19:47:57 plm Exp $
+ * $Id: show.c,v 1.309 2023/10/18 20:30:47 plm Exp $
  */
 
 #include "config.h"
@@ -59,6 +59,7 @@
 #include "gtkscoremap.h"
 #include "gtkoptions.h"
 #include "gtkcube.h"
+#include "gtkrelational.h"
 #endif
 
 #if defined(WIN32)
@@ -726,6 +727,14 @@ CommandShowEvaluation(char *UNUSED(sz))
     ShowEvalSetup(GetEvalCube());
 
 }
+
+#if defined(USE_GTK)
+extern void
+CommandShowHistory(char *UNUSED(sz))
+{
+    ComputeHistory();
+}
+#endif
 
 extern void
 CommandShowJacoby(char *UNUSED(sz))

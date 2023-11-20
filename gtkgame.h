@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.h,v 1.163 2019/11/13 21:41:03 Superfly_Jon Exp $
+ * $Id: gtkgame.h,v 1.164 2023/03/19 21:04:25 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -172,7 +172,6 @@ extern void ToggleDockPanels(GtkToggleAction * action, gpointer user_data);
 extern void ToggleDockPanels(gpointer p, guint n, GtkWidget * pw);
 #endif
 extern void GTKUndo(void);
-extern void UserCommand(const char *szCommand);
 extern void ShowToolbar(void);
 extern void HideToolbar(void);
 extern void MoveListDestroy(void);
@@ -187,5 +186,6 @@ extern void SetSwitchModeMenuText(void);
 #endif
 
 extern void AddText(GtkWidget* pwBox, char* Text);
+extern void drawArrow (cairo_t *cr, double start_x, double start_y, double end_x, double end_y);
 
 #endif

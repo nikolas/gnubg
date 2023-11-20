@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1034 2023/10/01 17:00:34 plm Exp $
+ * $Id: gnubg.c,v 1.1035 2023/10/18 20:30:47 plm Exp $
  */
 
 /*
@@ -250,6 +250,7 @@ char keyNames[MAX_KEY_NAMES][MAX_NAME_LEN] = { "" };
 int keyNamesFirstEmpty = 0;
 int fUseKeyNames = TRUE;
 int fWithinSmartSit = FALSE;
+int fTriggeredByRecordList = FALSE;
 
 analyzeFileSetting AnalyzeFileSettingDef = AnalyzeFileBatch;
 const char *aszAnalyzeFileSetting[NUM_AnalyzeFileSettings] =

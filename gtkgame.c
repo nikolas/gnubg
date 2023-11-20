@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1005 2023/11/09 20:52:49 plm Exp $
+ * $Id: gtkgame.c,v 1.1006 2023/11/12 21:20:50 plm Exp $
  */
 
 #include "config.h"
@@ -109,7 +109,7 @@ int inCallback = FALSE;
 /* Enumeration to be used as index to the table of command strings below
  * (since GTK will only let us put integers into a GtkItemFactoryEntry,
  * and that might not be big enough to hold a pointer).  Must be kept in
- * sync with the string array! */
+ * sync with the string array aszCommands! */
 typedef enum {
     CMD_ACCEPT,
     CMD_ANALYSE_CLEAR_MOVE,
@@ -165,6 +165,7 @@ typedef enum {
     CMD_SHOW_COPYING,
     CMD_SHOW_ENGINE,
     CMD_SHOW_EXPORT,
+    CMD_SHOW_HISTORY,
     CMD_SHOW_MARKETWINDOW,
     CMD_SHOW_MATCHEQUITYTABLE,
     CMD_SHOW_KLEINMAN,
@@ -375,6 +376,7 @@ CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_CALIBRATION, "show calibration");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_COPYING, "show copying");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_ENGINE, "show engine");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_EXPORT, "show export");
+CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_HISTORY, "show history");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_MARKETWINDOW, "show marketwindow");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_MATCHEQUITYTABLE, "show matchequitytable");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_KLEINMAN, "show kleinman"); /* opens race theory window */
@@ -454,6 +456,7 @@ static const char *aszCommands[NUM_CMDS] = {
     "show copying",
     "show engine",
     "show export",
+    "show history",
     "show marketwindow",
     "show matchequitytable",
     "show kleinman",            /* opens race theory window */
@@ -4005,6 +4008,8 @@ static GtkActionEntry actionEntries[] = {
     {"AddMatchOrSessionStatsToDBAction", GTK_STOCK_ADD, N_("Add match or session to database"), NULL, NULL,
      G_CALLBACK(GtkRelationalAddMatch)},
     {"ShowRecordsAction", NULL, N_("Show Records"), NULL, NULL, G_CALLBACK(GtkShowRelational)},
+    {"PlotHistoryAction", NULL, N_("Plot History"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_HISTORY)},
     {"DistributionOfRollsAction", NULL, N_("Distribution of rolls"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_ROLLS)},
     {"TemperatureMapAction", NULL, N_("Temperature Map"), NULL, NULL,
@@ -4249,6 +4254,8 @@ static GtkItemFactoryEntry aife[] = {
      "<StockItem>", GTK_STOCK_ADD},
     {N_("/_Analyse/Show Records"), NULL,
      GtkShowRelational, 0, NULL, NULL},
+    {N_("/_Analyse/Plot History"), NULL, Command,
+     CMD_SHOW_HISTORY, NULL, NULL},
     {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
     {N_("/_Analyse/Distribution of rolls"), NULL, Command,
      CMD_SHOW_ROLLS, NULL, NULL},
@@ -7616,6 +7623,7 @@ GTKSet(void *p)
                                                            "/MainMenu/AnalyseMenu/AddMatchOrSessionStatsToDB"),
                                  !ListEmpty(&lMatch));
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/ShowRecords"), TRUE);
+	gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/AnalyseMenu/PlotHistory"), TRUE);
          
         /*disabling everything when we analyze a game in the background*/
         
@@ -7665,6 +7673,8 @@ GTKSet(void *p)
                                  !ListEmpty(&lMatch));
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_SHOW_STATISTICS_MATCH),
                                  !ListEmpty(&lMatch));
+        gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_SHOW_HISTORY),
+                                 !ListEmpty(&lMatch));
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_SHOW_MATCHEQUITYTABLE), TRUE);
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_SHOW_CALIBRATION), TRUE);
         gtk_widget_set_sensitive(gtk_item_factory_get_widget_by_action(pif, CMD_SWAP_PLAYERS), !ListEmpty(&lMatch));
@@ -7691,6 +7701,7 @@ GTKSet(void *p)
                                  !ListEmpty(&lMatch));
 
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/Analyse/Show Records"), TRUE);
+        gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/Analyse/Plot History"), TRUE);
 #endif
         fAutoCommand = FALSE;
     } else if (p == &ms.fCrawford) {
@@ -8085,6 +8096,33 @@ static void
 stat_dialog_map(GtkWidget * UNUSED(window), GtkWidget * pwUsePanels)
 {
     toggle_fGUIUseStatsPanel(pwUsePanels, 0);
+}
+
+/* Credit: partly based on http://kapo-cpp.blogspot.com */
+extern void drawArrow (cairo_t *cr, double start_x, double start_y, double end_x, double end_y) //, double& x1, double& y1, double& x2, double& y2)
+{
+    double angle = atan2 (end_y - start_y, end_x - start_x) + M_PI;
+    double dist = sqrt((start_x-end_x)*(start_x-end_x)+(start_y-end_y)*(start_y-end_y));
+    double side=MIN(6.0,0.5*dist);
+    double degrees=0.6;
+
+    double x1 = end_x + side * cos(angle - degrees);
+    double y1 = end_y + side * sin(angle - degrees);
+    double x2 = end_x + side * cos(angle + degrees);
+    double y2 = end_y + side * sin(angle + degrees);
+
+    cairo_move_to (cr, start_x, start_y);
+    cairo_line_to (cr, end_x,end_y);
+    cairo_stroke(cr);
+
+    cairo_move_to (cr, end_x,end_y);
+    cairo_line_to (cr, x1,y1);
+    cairo_line_to (cr, x2,y2);
+    cairo_line_to (cr, end_x,end_y);
+    cairo_fill(cr);
+    // cairo_stroke (cr);
+
+    // g_message("arrow: %f %f %f %f",x1,y1,x2,y2);
 }
 
 extern void
