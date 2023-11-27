@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.60 2022/09/04 22:09:31 plm Exp $
+ * $Id: gtkrelational.c,v 1.61 2023/11/20 21:00:06 plm Exp $
  */
 
 /*
@@ -81,8 +81,8 @@ static GtkListStore *playerStore;
 static GtkListStore *dbStore;
 static GtkTreeIter selected_iter;
 static int optionsValid;
-static GtkWidget *playerTreeview, *adddb, *deldb, *gameStats, *dbList, *dbtype, *user, *password, *hostname, *login,
-    *helptext;
+static GtkWidget *playerTreeview = NULL;
+static GtkWidget  *adddb, *deldb, *gameStats, *dbList, *dbtype, *user, *password, *hostname, *login, *helptext;
 
 static void CheckDatabase(const char *database);
 static void DBListSelected(GtkTreeView * treeview, gpointer userdata);
@@ -100,8 +100,10 @@ GetSelectedPlayer(void)
 {
     char *name;
     GtkTreeModel *model;
+
     if(!playerTreeview)
         return NULL;
+
     GtkTreeSelection *sel = gtk_tree_view_get_selection(GTK_TREE_VIEW(playerTreeview));
     if (gtk_tree_selection_count_selected_rows(sel) != 1)
         return NULL;
