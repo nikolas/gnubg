@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1006 2023/11/12 21:20:50 plm Exp $
+ * $Id: gtkgame.c,v 1.1007 2023/11/20 21:00:06 plm Exp $
  */
 
 #include "config.h"
@@ -1186,6 +1186,8 @@ SetAnnotation(moverecord * pmr)
 #if !GTK_CHECK_VERSION(3,0,0)
         GtkWidget *pwAlign;
 #endif
+	GList *pl;
+
         char sz[64], *pch;
         int fMoveOld, fTurnOld;
 
@@ -1297,9 +1299,10 @@ SetAnnotation(moverecord * pmr)
             } else if (pwCubeAnalysis)
                 gtk_box_pack_start(GTK_BOX(pwAnalysis), pwCubeAnalysis, TRUE, TRUE, 0);
 
-            if (!g_list_first(gtk_container_get_children(GTK_CONTAINER(GTK_BOX(pwAnalysis))))) {
+            if (!g_list_first(pl = gtk_container_get_children(GTK_CONTAINER(GTK_BOX(pwAnalysis))))) {
                 gtk_widget_destroy(pwAnalysis);
                 pwAnalysis = NULL;
+		g_list_free(pl);
             }
 
             ms.fMove = fMoveOld;
@@ -7458,9 +7461,12 @@ my_enable_menu(gpointer data, gpointer user_data)
 static void
 enable_sub_menu(GtkWidget * pw, int f)
 {
+    GList *pl;
 
     GtkMenuShell *pms = GTK_MENU_SHELL(pw);
-    g_list_foreach(gtk_container_get_children(GTK_CONTAINER(pms)), my_enable_menu, GINT_TO_POINTER(f));
+    g_list_foreach(pl = gtk_container_get_children(GTK_CONTAINER(pms)), my_enable_menu, GINT_TO_POINTER(f));
+
+    g_list_free(pl);
 }
 
 /* A global setting has changed; update entry in Settings menu if necessary. */

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkprefs.c,v 1.236 2023/01/26 19:58:13 plm Exp $
+ * $Id: gtkprefs.c,v 1.237 2023/02/01 22:20:57 plm Exp $
  */
 
 #include "config.h"
@@ -1304,9 +1304,14 @@ MoveIndicatorToggled(GtkWidget * UNUSED(pwWidget), void *UNUSED(data))
 static void
 toggle_display_type(GtkWidget * widget, BoardData * bd)
 {
+    GList *pl;
     int i;
     int state = gtk_toggle_button_get_active(GTK_TOGGLE_BUTTON(widget));
-    int numPages = g_list_length(gtk_container_get_children(GTK_CONTAINER(GTK_NOTEBOOK(pwNotebook))));
+    int numPages;
+
+    numPages = g_list_length(pl = gtk_container_get_children(GTK_CONTAINER(GTK_NOTEBOOK(pwNotebook))));
+    g_list_free(pl);
+
     /* Show pages with correct 2D/3D settings */
     for (i = numPages - 1; i >= NUM_NONPREVIEW_PAGES; i--)
         gtk_notebook_remove_page(GTK_NOTEBOOK(pwNotebook), i);
