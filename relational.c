@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: relational.c,v 1.85 2023/04/10 21:02:56 plm Exp $
+ * $Id: relational.c,v 1.86 2023/11/20 21:00:06 plm Exp $
  */
 
 #include "config.h"
@@ -552,8 +552,10 @@ relational_player_stats_get(const char *player0, const char *player1)
     id0 = GetPlayerId(pdb, player0);
     if (player1)
         id1 = GetPlayerId(pdb, player1);
-    if (id0 == -1 || (player1 && id1 == -1))
+    if (id0 == -1 || (player1 && id1 == -1)) {
+        pdb->Disconnect();
         return NULL;
+    }
 
     psc = g_new0(statcontext, 1);
 
@@ -613,8 +615,10 @@ relational_player_stats_get(const char *player0, const char *player1)
         g_free(buf);
         g_free(query[i]);
 
-        if ((!rs) || !strtol(rs->data[1][0], NULL, 0))
+        if ((!rs) || !strtol(rs->data[1][0], NULL, 0)) {
+            pdb->Disconnect();
             return NULL;
+        }
         psc->anTotalMoves[i] = (int) strtol(rs->data[1][0], NULL, 0);
         psc->anUnforcedMoves[i] = (int) strtol(rs->data[1][1], NULL, 0);
         psc->anTotalCube[i] = (int) strtol(rs->data[1][2], NULL, 0);
@@ -650,6 +654,8 @@ relational_player_stats_get(const char *player0, const char *player1)
     psc->fMoves = 1;
     psc->fCube = 1;
     psc->fDice = 1;
+
+    pdb->Disconnect();
 
     return psc;
 }
