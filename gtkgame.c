@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1007 2023/11/20 21:00:06 plm Exp $
+ * $Id: gtkgame.c,v 1.1008 2023/12/02 22:08:33 plm Exp $
  */
 
 #include "config.h"
@@ -175,8 +175,8 @@ typedef enum {
     CMD_SHOW_STATISTICS_MATCH,
     CMD_SHOW_TEMPERATURE_MAP,
     CMD_SHOW_TEMPERATURE_MAP_CUBE,
-    CMD_SHOW_SCORE_MAP_CUBE,    
-    CMD_SHOW_SCORE_MAP_MOVE,    
+    CMD_SHOW_SCORE_MAP_CUBE,
+    CMD_SHOW_SCORE_MAP_MOVE,
     CMD_SHOW_VERSION,
     CMD_SHOW_WARRANTY,
     CMD_SWAP_PLAYERS,
@@ -260,7 +260,7 @@ ExecActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * sz
     case CMD_ANALYSE_MATCH:
         UserCommand("analyse match");
         if (fAutoDB) {
-            /*add match to db*/
+            /* add match to db */
             CommandRelationalAddMatch(NULL);
         }
         UserCommand("show statistics match");
@@ -466,8 +466,8 @@ static const char *aszCommands[NUM_CMDS] = {
     "show statistics match",
     "show temperaturemap",
     "show temperaturemap =cube",
-    "show scoremap",  
-    "show scoremap =move",  
+    "show scoremap",
+    "show scoremap =move",
     "show version",
     "show warranty",
     "swap players",
@@ -511,7 +511,7 @@ Command(gpointer UNUSED(p), guint iCommand, GtkWidget * widget)
     case CMD_ANALYSE_MATCH:
         UserCommand(aszCommands[CMD_ANALYSE_MATCH]);
         if (fAutoDB) {
-            /*add match to db*/
+            /* add match to db */
             CommandRelationalAddMatch(NULL);
         }
         UserCommand(aszCommands[CMD_SHOW_STATISTICS_MATCH]);
@@ -552,17 +552,17 @@ typedef struct {
     GtkWidget *apwAnalysePlayers[2];
     GtkWidget *pwAutoDB;
     GtkWidget *pwBackgroundAnalysis;
-    GtkWidget* apwAnalyzeFileSetting[NUM_AnalyzeFileSettings];
+    GtkWidget *apwAnalyzeFileSetting[NUM_AnalyzeFileSettings];
 
     GtkWidget *pwScoreMap;
-    GtkWidget* apwScoreMapPly[NUM_PLY];
-    GtkWidget* apwScoreMapMatchLength[NUM_MATCH_LENGTH];
-    GtkWidget* apwScoreMapLabel[NUM_LABEL];
-    GtkWidget* apwScoreMapJacoby[NUM_JACOBY];
-    GtkWidget* apwScoreMapCubeEquityDisplay[NUM_CUBEDISP];
-    GtkWidget* apwScoreMapMoveEquityDisplay[NUM_MOVEDISP];
-    GtkWidget* apwScoreMapColour[NUM_COLOUR];
-    GtkWidget* apwScoreMapLayout[NUM_LAYOUT];
+    GtkWidget *apwScoreMapPly[NUM_PLY];
+    GtkWidget *apwScoreMapMatchLength[NUM_MATCH_LENGTH];
+    GtkWidget *apwScoreMapLabel[NUM_LABEL];
+    GtkWidget *apwScoreMapJacoby[NUM_JACOBY];
+    GtkWidget *apwScoreMapCubeEquityDisplay[NUM_CUBEDISP];
+    GtkWidget *apwScoreMapMoveEquityDisplay[NUM_MOVEDISP];
+    GtkWidget *apwScoreMapColour[NUM_COLOUR];
+    GtkWidget *apwScoreMapLayout[NUM_LAYOUT];
 
     /* defining these just to be able to g_free them */
     AnalysisDetails *pAnalDetailSettings1;
@@ -603,6 +603,7 @@ static GString *output_str = NULL;
 static int fullScreenOnStartup = FALSE;
 
 static guint nStdin, nDisabledCount = 1;
+static GIOChannel *pStdin;
 
 /* Save state of windows for full screen */
 static int showingPanels, showingIDs, maximised;
@@ -633,9 +634,9 @@ GTKSuspendInput(void)
         return;
 
     /* when the fBackgroundAnalysis global variable is set, we allow the user to
-    (1) continue browsing and (2) stop the computation; else we grab the focus and
-    kill any user input
-    */
+     * (1) continue browsing and (2) stop the computation;
+     * else we grab the focus and kill any user input
+     */
     if (!fBackgroundAnalysis) {
         if (suspendCount == 0 && pwGrab && GDK_IS_WINDOW(gtk_widget_get_window(pwGrab))) {
             /* Grab events so that the board window knows this is a re-entrant */
@@ -732,9 +733,10 @@ GTKAllowStdin(void)
     if (!fTTY || !nDisabledCount)
         return;
 
-    if (!--nDisabledCount)
-        nStdin = g_io_add_watch_full(g_io_channel_unix_new(STDIN_FILENO), G_PRIORITY_HIGH,
-                                     G_IO_IN | G_IO_PRI, StdinReadNotify, NULL, NULL);
+    if (!--nDisabledCount) {
+        pStdin = g_io_channel_unix_new(STDIN_FILENO);
+        nStdin = g_io_add_watch_full(pStdin, G_PRIORITY_HIGH, G_IO_IN | G_IO_PRI, StdinReadNotify, NULL, NULL);
+    }
 }
 
 extern void
@@ -748,6 +750,7 @@ GTKDisallowStdin(void)
 
     if (nStdin) {
         g_source_remove(nStdin);
+        g_io_channel_unref(pStdin);
         nStdin = 0;
     }
 }
@@ -1186,7 +1189,7 @@ SetAnnotation(moverecord * pmr)
 #if !GTK_CHECK_VERSION(3,0,0)
         GtkWidget *pwAlign;
 #endif
-	GList *pl;
+        GList *pl;
 
         char sz[64], *pch;
         int fMoveOld, fTurnOld;
@@ -1225,7 +1228,7 @@ SetAnnotation(moverecord * pmr)
             if (GetDPEq(NULL, NULL, &ci)) {
 #if GTK_CHECK_VERSION(3,0,0)
                 gtk_grid_attach(GTK_GRID(pwBox),
-                                          gtk_label_new(pmr->stCube == SKILL_NONE ? "" : _("Didn't double")), 0, 0, 1, 1);
+                                gtk_label_new(pmr->stCube == SKILL_NONE ? "" : _("Didn't double")), 0, 0, 1, 1);
                 gtk_grid_attach(GTK_GRID(pwBox), skill_label(pmr->stCube), 0, 1, 1, 1);
             } else {
                 /* Neeeded for proper layout of grid but not for table */
@@ -1302,7 +1305,7 @@ SetAnnotation(moverecord * pmr)
             if (!g_list_first(pl = gtk_container_get_children(GTK_CONTAINER(GTK_BOX(pwAnalysis))))) {
                 gtk_widget_destroy(pwAnalysis);
                 pwAnalysis = NULL;
-		g_list_free(pl);
+                g_list_free(pl);
             }
 
             ms.fMove = fMoveOld;
@@ -1405,7 +1408,7 @@ SetAnnotation(moverecord * pmr)
             pwAlign = gtk_alignment_new(0.5f, 0.5f, 0.0f, 0.0f);
             gtk_container_add(GTK_CONTAINER(pwAlign), pwBox);
             gtk_box_pack_start(GTK_BOX(pwBox), gtk_label_new(_("Accept")), FALSE, FALSE, 2);
-           gtk_box_pack_start(GTK_BOX(pwAnalysis), pwAlign, FALSE, FALSE, 0);
+            gtk_box_pack_start(GTK_BOX(pwAnalysis), pwAlign, FALSE, FALSE, 0);
 #endif
 
             break;
@@ -3363,7 +3366,7 @@ AnalysisPages(analysiswidget * paw)
     gtk_container_set_border_width(GTK_CONTAINER(paw->pwNoteBook), 8);
 
     append_analysis_options(paw);
-    append_scoremap_options(paw); 
+    append_scoremap_options(paw);
 
     AnalysisSet(paw);
 
@@ -3396,8 +3399,7 @@ SetAnalysis(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
     AnalysisSet(&aw);
 
-        
-    GTKRunDialog(pwDialog);                               
+    GTKRunDialog(pwDialog);
     g_free(aw.pAnalDetailSettings1);
     g_free(aw.pAnalDetailSettings2);
 }
@@ -8105,26 +8107,27 @@ stat_dialog_map(GtkWidget * UNUSED(window), GtkWidget * pwUsePanels)
 }
 
 /* Credit: partly based on http://kapo-cpp.blogspot.com */
-extern void drawArrow (cairo_t *cr, double start_x, double start_y, double end_x, double end_y) //, double& x1, double& y1, double& x2, double& y2)
+
+extern void drawArrow(cairo_t *cr, double start_x, double start_y, double end_x, double end_y)
 {
-    double angle = atan2 (end_y - start_y, end_x - start_x) + M_PI;
-    double dist = sqrt((start_x-end_x)*(start_x-end_x)+(start_y-end_y)*(start_y-end_y));
-    double side=MIN(6.0,0.5*dist);
-    double degrees=0.6;
+    double angle = atan2(end_y - start_y, end_x - start_x) + M_PI;
+    double dist = sqrt((start_x - end_x) * (start_x - end_x) + (start_y - end_y) * (start_y - end_y));
+    double side = MIN(6.0, 0.5 * dist);
+    double degrees = 0.6;
 
     double x1 = end_x + side * cos(angle - degrees);
     double y1 = end_y + side * sin(angle - degrees);
     double x2 = end_x + side * cos(angle + degrees);
     double y2 = end_y + side * sin(angle + degrees);
 
-    cairo_move_to (cr, start_x, start_y);
-    cairo_line_to (cr, end_x,end_y);
+    cairo_move_to(cr, start_x, start_y);
+    cairo_line_to(cr, end_x,end_y);
     cairo_stroke(cr);
 
-    cairo_move_to (cr, end_x,end_y);
-    cairo_line_to (cr, x1,y1);
-    cairo_line_to (cr, x2,y2);
-    cairo_line_to (cr, end_x,end_y);
+    cairo_move_to(cr, end_x, end_y);
+    cairo_line_to(cr, x1, y1);
+    cairo_line_to(cr, x2, y2);
+    cairo_line_to(cr, end_x, end_y);
     cairo_fill(cr);
     // cairo_stroke (cr);
 
