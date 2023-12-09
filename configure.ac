@@ -19,10 +19,10 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.120 2023/11/17 22:44:04 plm Exp $
+dnl $Id: configure.ac,v 1.121 2023/11/19 21:03:15 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.120 $)
+AC_REVISION($Revision: 1.121 $)
 AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
@@ -119,8 +119,14 @@ dnl
 dnl yacc and lex setup
 dnl
 
-AC_PROG_YACC
+# Sometimes Flex is installed as Lex, e.g., NetBSD.
+AC_CHECK_PROG([FLEX], [flex lex], [flex])
+# Force the use of `missing' to wrap Flex invocations.
+AM_MISSING_PROG([LEX], [$FLEX])
+
 AM_PROG_LEX
+AX_PROG_FLEX_VERSION([2.5.9],,AC_MSG_ERROR([flex 2.5.9 or higher is needed to build GNU Backgammon]))
+AC_PROG_YACC
 AM_YFLAGS='-d'
 AC_SUBST(AM_YFLAGS)
 
