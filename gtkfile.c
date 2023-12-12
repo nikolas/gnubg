@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.80 2023/09/05 20:34:21 plm Exp $
+ * $Id: gtkfile.c,v 1.81 2023/10/14 19:15:27 plm Exp $
  */
 
 #include "config.h"
@@ -509,6 +509,8 @@ batch_create_save(gchar * filename, gchar ** save, char **result)
     if (file == NULL || folder == NULL) {
 	g_free(file);
 	g_free(folder);
+	if (result)
+            *result = _("Incorrect path");
 	return FALSE;
     }
  
@@ -522,13 +524,14 @@ batch_create_save(gchar * filename, gchar ** save, char **result)
         g_free(file);
         g_free(dir);
         if (result)
-            *result = _("Failed to make directory");
+            *result = _("Failed to create directory");
         return FALSE;
     }
 
     *save = g_strconcat(dir, G_DIR_SEPARATOR_S, file, ".sgf", NULL);
     g_free(file);
     g_free(dir);
+
     return TRUE;
 }
 
@@ -549,7 +552,6 @@ batch_analyse(gchar * filename, char **result, gboolean add_to_db, gboolean add_
         g_free(save);
         return TRUE;
     }
-
 
     g_free(szCurrentFileName);
     szCurrentFileName = NULL;
