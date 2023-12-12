@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: import.c,v 1.234 2023/03/19 21:04:25 plm Exp $
+ * $Id: import.c,v 1.235 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -3301,6 +3301,7 @@ ConvertPartyGammonFileToMat(FILE * partyFP, FILE * matFP)
     char p1[MAX_NAME_LEN] = "", p2[MAX_NAME_LEN] = "";
     GList *games = NULL;
     char buffer[1024 * 10];
+
     while (fgets(buffer, sizeof(buffer), partyFP) != NULL) {
         char *value, *key;
 
@@ -3356,15 +3357,15 @@ ConvertPartyGammonFileToMat(FILE * partyFP, FILE * matFP)
             g_free(pGame);
         }
         g_free(pg.gameStr);
-        fclose(matFP);
-        fclose(partyFP);
         g_list_free(pl);
         return TRUE;
     }
+
     if (ferror(partyFP))
         outputerr(_("File error while processing PartyGammon match"));
+
     g_free(pg.gameStr);
-    fclose(partyFP);
+
     return FALSE;
 }
 
@@ -3608,6 +3609,8 @@ CommandImportParty(char *sz)
         outputerrf(_("Failed to convert BGRoom gam file to mat\n"));
     g_unlink(tmpfile);
     g_free(tmpfile);
+    fclose(matf);
+    fclose(gamf);
 }
 
 extern void
