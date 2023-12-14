@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.61 2023/11/20 21:00:06 plm Exp $
+ * $Id: gtkrelational.c,v 1.62 2023/11/27 20:54:59 plm Exp $
  */
 
 /*
@@ -579,9 +579,7 @@ extern void ComputeHistory(void) //GtkWidget* pwParent)
 
     /* get player_id of player at bottom*/
     char szRequest[600];
-    char * listName=g_malloc(100 * sizeof(char));
-    // char playerName[100];
-    // int needToFreeListName=FALSE;
+    char *listName = NULL;
 
     /*if launched by record list, need to check if player was picked there*/
     if (fTriggeredByRecordList) {
@@ -589,25 +587,21 @@ extern void ComputeHistory(void) //GtkWidget* pwParent)
         listName = GetSelectedPlayer();
         // needToFreeListName=TRUE;
     }
-    // if(!triggeredByRecordList) {
-    // if(!triggeredByRecordList || (!playerName)) {
-    if(fTriggeredByRecordList && listName){
-        sprintf(playerName, "%s",listName);
+    
+    if (fTriggeredByRecordList && listName) {
+        sprintf(playerName, "%s", listName);
         // g_message("using listName:%s",listName);
         g_free(listName);
     } else {
         // g_message("not from list");
-        // if(fTriggeredByRecordList && !listName){
-            // g_message("we free listName");
         g_free(listName);
-        // }
-        fTriggeredByRecordList=FALSE; /*re-initialize*/
+        fTriggeredByRecordList = FALSE; /*re-initialize*/
         if (!ap[1].szName[0]) {
             GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
             return;
         }
         // g_message("player on board?");
-        sprintf(playerName, "%s",ap[1].szName);
+        sprintf(playerName, "%s", ap[1].szName);
         // if (!playerName){
         //     GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
         //     return;
@@ -618,11 +612,11 @@ extern void ComputeHistory(void) //GtkWidget* pwParent)
     sprintf(szRequest, "player_id FROM player WHERE name='%s'", playerName);
         // g_message("request1=%s",szRequest);
     rs = RunQuery(szRequest);
-    if (!rs || rs->rows <2){
+    if (!rs || rs->rows < 2){
         GTKMessage(_("Problem accessing database"), DT_INFO);
         return;
     }
-    int userID=(int) strtol(rs->data[1][0], NULL, 0);
+    int userID = (int) strtol(rs->data[1][0], NULL, 0);
     // g_message("userID=%d",userID);
     FreeRowset(rs);
 
