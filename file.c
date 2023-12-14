@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: file.c,v 1.37 2021/09/27 21:59:35 plm Exp $
+ * $Id: file.c,v 1.38 2022/02/06 15:34:32 plm Exp $
  */
 
 #include "config.h"
@@ -127,7 +127,7 @@ static void
 CloseFileHelper( /*lint -e{818} */ FileHelper * fh)
 {
     fclose(fh->fp);
-    free(fh->data);
+    g_free(fh->data);
     g_free(fh);
 }
 
