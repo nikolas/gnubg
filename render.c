@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.114 2022/11/05 21:19:06 plm Exp $
+ * $Id: render.c,v 1.115 2023/07/23 15:43:21 plm Exp $
  */
 
 #include "config.h"
@@ -2031,6 +2031,7 @@ RenderCubeFaces(renderdata * prd, unsigned char *puch, int nStride, unsigned cha
         for (i = 0; i < 10; i++) {
             FT_Done_Glyph(aftg[i]);
             FT_Done_Glyph(aftgSmall[i]);
+            FT_Done_Glyph(aftgTiny[i]);
         }
 #endif
 }
