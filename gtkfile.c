@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkfile.c,v 1.81 2023/10/14 19:15:27 plm Exp $
+ * $Id: gtkfile.c,v 1.82 2023/12/12 22:26:07 plm Exp $
  */
 
 #include "config.h"
@@ -52,9 +52,12 @@ static void
 FilterAdd(const char *fn, const char *pt, GtkFileChooser * fc)
 {
     GtkFileFilter *aff = gtk_file_filter_new();
+    gchar *sz;
+
     gtk_file_filter_set_name(aff, fn);
     gtk_file_filter_add_pattern(aff, pt);
-    gtk_file_filter_add_pattern(aff, g_ascii_strup(pt, -1));
+    gtk_file_filter_add_pattern(aff, sz = g_ascii_strup(pt, -1));
+    g_free(sz);
     gtk_file_chooser_add_filter(fc, aff);
 }
 
@@ -290,10 +293,15 @@ static void
 selection_changed_cb(GtkFileChooser * file_chooser, void *UNUSED(notused))
 {
     const char *label;
-    char *buf;
-    char *filename = gtk_file_chooser_get_filename(file_chooser);
-    FilePreviewData *fpd = ReadFilePreview(filename);
+    gchar *buf;
+    gchar *filename;
+    FilePreviewData *fpd;
     int openable = FALSE;
+
+    filename = gtk_file_chooser_get_filename(file_chooser);
+    fpd = ReadFilePreview(filename);
+    g_free(filename);
+
     if (!fpd) {
         lastOpenType = N_IMPORT_TYPES;
         label = "";
@@ -316,13 +324,14 @@ add_import_filters(GtkFileChooser * fc)
 {
     GtkFileFilter *aff = gtk_file_filter_new();
     gint i;
-    gchar *sg;
+    gchar *sg, *sz;
 
     gtk_file_filter_set_name(aff, _("Supported files"));
     for (i = 0; i < N_IMPORT_TYPES; ++i) {
         sg = g_strdup_printf("*%s", import_format[i].extension);
         gtk_file_filter_add_pattern(aff, sg);
-        gtk_file_filter_add_pattern(aff, g_ascii_strup(sg, -1));
+        gtk_file_filter_add_pattern(aff, sz = g_ascii_strup(sg, -1));
+        g_free(sz);
         g_free(sg);
     }
     gtk_file_chooser_add_filter(GTK_FILE_CHOOSER(fc), aff);
@@ -903,6 +912,7 @@ AnalyzeSingleFile(void)
     if (filename) {
         gchar* cmd;
 
+        g_free(last_folder);
         last_folder = gtk_file_chooser_get_current_folder(GTK_FILE_CHOOSER(fc));
         gtk_widget_destroy(fc);
 
