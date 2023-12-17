@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dbprovider.c,v 1.60 2022/03/06 22:53:43 plm Exp $
+ * $Id: dbprovider.c,v 1.61 2022/03/22 16:55:46 plm Exp $
  */
 
 #include "config.h"
@@ -64,28 +64,105 @@ static int SQLiteDeleteDatabase(const char *dbfilename, const char *user, const 
 static GList *SQLiteGetDatabaseList(const char *user, const char *password, const char *hostname);
 static DBProvider providers[NUM_PROVIDERS] = {
 #if defined(USE_SQLITE)
-    {SQLiteConnect, SQLiteDisconnect, SQLiteSelect, SQLiteUpdateCommand, SQLiteCommit, SQLiteGetDatabaseList,
-     SQLiteDeleteDatabase,
-     "SQLite", "SQLite", N_("Direct SQLite3 connection"), FALSE, TRUE, "gnubg", "", "", ""},
+    {
+	.Connect = SQLiteConnect,
+	.Disconnect = SQLiteDisconnect,
+	.Select = SQLiteSelect,
+	.UpdateCommand = SQLiteUpdateCommand,
+	.Commit = SQLiteCommit,
+	.GetDatabaseList = SQLiteGetDatabaseList,
+	.DeleteDatabase = SQLiteDeleteDatabase,
+	.name = "SQLite",
+	.shortname = "SQLite",
+	.desc = N_("Direct SQLite3 connection"),
+	.HasUserDetails = FALSE,
+	.storeGameStats = TRUE,
+	.database = "gnubg",
+	.username = NULL,
+	.password = NULL,
+	.hostname = NULL
+    },
 #endif
 #if defined(USE_PYTHON)
 #if !defined(USE_SQLITE)
-    {PySQLiteConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, SQLiteGetDatabaseList, SQLiteDeleteDatabase,
-     "SQLite (Python)", "PythonSQLite", N_("SQLite3 connection via Python"), FALSE, TRUE, "gnubg",
-     "", "", ""},
+    {
+	.Connect = PySQLiteConnect,
+	.Disconnect = PyDisconnect,
+	.Select = PySelect,
+	.UpdateCommand = PyUpdateCommand,
+	.Commit = PyCommit,
+	.GetDatabaseList = SQLiteGetDatabaseList,
+	.DeleteDatabase = SQLiteDeleteDatabase,
+	.name = "SQLite (Python)",
+	.shortname = "PythonSQLite",
+	.desc = N_("SQLite3 connection via Python"),
+	.HasUserDetails = FALSE,
+	.storeGameStats = TRUE,
+	.database = "gnubg",
+	.username = NULL,
+	.password = NULL,
+	.hostname = NULL
+    },
 #endif
-    {PyMySQLConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, PyMySQLGetDatabaseList, PyMySQLDeleteDatabase,
-     "MySQL (Python)", "PythonMySQL", N_("MySQL/MariaDB connection via MySQLdb Python module"), TRUE, TRUE, "gnubg", "", "",
-     "localhost:3306"},
-    {PyPostgreConnect, PyDisconnect, PySelect, PyUpdateCommand, PyCommit, PyPostgreGetDatabaseList,
-     PyPostgreDeleteDatabase,
-     "PostgreSQL (Python)", "PythonPostgre", N_("PostgreSQL connection via PyGreSQL Python module"), TRUE, TRUE, "gnubg", "",
-     "", "localhost:5432"},
+    {
+	.Connect = PyMySQLConnect,
+	.Disconnect = PyDisconnect,
+	.Select = PySelect,
+	.UpdateCommand = PyUpdateCommand,
+	.Commit = PyCommit,
+	.GetDatabaseList = PyMySQLGetDatabaseList,
+	.DeleteDatabase = PyMySQLDeleteDatabase,
+	.name = "MySQL (Python)",
+	.shortname = "PythonMySQL",
+	.desc = N_("MySQL/MariaDB connection via MySQLdb Python module"),
+	.HasUserDetails = TRUE,
+	.storeGameStats = TRUE,
+	.database = "gnubg",
+	.username = "",
+	.password = "",
+	.hostname = "localhost:3306"
+    },
+    {
+	.Connect = PyPostgreConnect,
+	.Disconnect = PyDisconnect,
+	.Select = PySelect,
+	.UpdateCommand = PyUpdateCommand,
+	.Commit = PyCommit,
+	.GetDatabaseList = PyPostgreGetDatabaseList,
+	.DeleteDatabase = PyPostgreDeleteDatabase,
+	.name = "PostgreSQL (Python)",
+	.shortname = "PythonPostgre",
+	.desc = N_("PostgreSQL connection via PyGreSQL Python module"),
+	.HasUserDetails = TRUE,
+	.storeGameStats = TRUE,
+	.database = "gnubg",
+	.username = "",
+	.password = "",
+	.hostname = "localhost:5432"
+    }
 #endif
 };
-
 #else
-DBProvider providers[1] = { {0, 0, 0, 0, 0, 0, 0, "No Providers", "No Providers", N_("No database providers"), 0, 0, 0, 0, 0, 0} };
+DBProvider providers[1] = {
+    {
+	.Connect = NULL,
+	.Disconnect = NULL,
+	.Select = NULL,
+	.UpdateCommand = NULL,
+	.Commit = NULL,
+	.GetDatabaseList = NULL,
+	.DeleteDatabase = NULL,
+	.name = "No Providers",
+	.shortname = "No Providers",
+	.desc = N_("No database providers"),
+	.HasUserDetails = FALSE,
+	.storeGameStats = FALSE,
+	.database = NULL,
+	.username = NULL,
+	.password = NULL,
+	.hostname = NULL
+    }
+};
 #endif
 
 #if defined(USE_PYTHON) || defined(USE_SQLITE)
@@ -195,6 +272,11 @@ GetTypeFromName(const char *name)
     return (DBProviderType) i;
 }
 
+/*
+ * FIXME: the g_strdup()s in SetDBParam() and SetDBSettings()
+ * below cause a minor memory leak.
+ */
+
 void
 SetDBParam(const char *db, const char *key, const char *value)
 {
@@ -202,6 +284,8 @@ SetDBParam(const char *db, const char *key, const char *value)
     if (type == INVALID_PROVIDER)
         return;
 
+    /* FIXME: the strdups below cause a minor memory leak */
+    
     if (!StrCaseCmp(key, "database"))
         providers[type].database = g_strdup(value);
     else if (!StrCaseCmp(key, "username"))
@@ -209,7 +293,7 @@ SetDBParam(const char *db, const char *key, const char *value)
     else if (!StrCaseCmp(key, "password"))
         providers[type].password = g_strdup(value);
     else if (!StrCaseCmp(key, "hostname"))
-        providers[type].hostname = g_strdup(value);
+	providers[type].hostname = g_strdup(value);
 }
 
 void
