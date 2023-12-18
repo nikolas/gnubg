@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.62 2023/11/27 20:54:59 plm Exp $
+ * $Id: gtkrelational.c,v 1.63 2023/12/14 20:55:43 plm Exp $
  */
 
 /*
@@ -1120,7 +1120,7 @@ TryConnection(DBProvider * pdb, GtkWidget * dbList)
             if (seldb)
                 ok = TRUE;
             else {
-                const char *tmpDatabase = pdb->database;
+                char *tmpDatabase = pdb->database;
                 pdb->database = database;
                 ok = (TestDB(dbType) == NULL);
                 pdb->database = tmpDatabase;
@@ -1152,7 +1152,7 @@ CredentialsChanged(void)
 static void
 LoginClicked(GtkButton * UNUSED(button), gpointer dbList)
 {
-    const char *tmpUser, *tmpPass, *tmpHost;
+    char *tmpUser, *tmpPass, *tmpHost;
     DBProvider *pdb = GetSelectedDBType();
 
     if (pdb == NULL)
@@ -1162,9 +1162,9 @@ LoginClicked(GtkButton * UNUSED(button), gpointer dbList)
     tmpPass = pdb->password;
     tmpHost = pdb->hostname;
 
-    pdb->username = gtk_entry_get_text(GTK_ENTRY(user));
-    pdb->password = gtk_entry_get_text(GTK_ENTRY(password));
-    pdb->hostname = gtk_entry_get_text(GTK_ENTRY(hostname));
+    pdb->username = (char *) gtk_entry_get_text(GTK_ENTRY(user));
+    pdb->password = (char *) gtk_entry_get_text(GTK_ENTRY(password));
+    pdb->hostname = (char *) gtk_entry_get_text(GTK_ENTRY(hostname));
 
     TryConnection(pdb, dbList);
 

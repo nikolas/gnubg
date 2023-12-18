@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dbprovider.c,v 1.61 2022/03/22 16:55:46 plm Exp $
+ * $Id: dbprovider.c,v 1.62 2023/12/17 18:11:28 plm Exp $
  */
 
 #include "config.h"
@@ -77,7 +77,7 @@ static DBProvider providers[NUM_PROVIDERS] = {
 	.desc = N_("Direct SQLite3 connection"),
 	.HasUserDetails = FALSE,
 	.storeGameStats = TRUE,
-	.database = "gnubg",
+	.database = NULL,
 	.username = NULL,
 	.password = NULL,
 	.hostname = NULL
@@ -98,7 +98,7 @@ static DBProvider providers[NUM_PROVIDERS] = {
 	.desc = N_("SQLite3 connection via Python"),
 	.HasUserDetails = FALSE,
 	.storeGameStats = TRUE,
-	.database = "gnubg",
+	.database = NULL,
 	.username = NULL,
 	.password = NULL,
 	.hostname = NULL
@@ -117,10 +117,10 @@ static DBProvider providers[NUM_PROVIDERS] = {
 	.desc = N_("MySQL/MariaDB connection via MySQLdb Python module"),
 	.HasUserDetails = TRUE,
 	.storeGameStats = TRUE,
-	.database = "gnubg",
-	.username = "",
-	.password = "",
-	.hostname = "localhost:3306"
+	.database = NULL,
+	.username = NULL,
+	.password = NULL,
+	.hostname = NULL
     },
     {
 	.Connect = PyPostgreConnect,
@@ -135,10 +135,10 @@ static DBProvider providers[NUM_PROVIDERS] = {
 	.desc = N_("PostgreSQL connection via PyGreSQL Python module"),
 	.HasUserDetails = TRUE,
 	.storeGameStats = TRUE,
-	.database = "gnubg",
-	.username = "",
-	.password = "",
-	.hostname = "localhost:5432"
+	.database = NULL,
+	.username = NULL,
+	.password = NULL,
+	.hostname = NULL
     }
 #endif
 };
@@ -272,10 +272,29 @@ GetTypeFromName(const char *name)
     return (DBProviderType) i;
 }
 
-/*
- * FIXME: the g_strdup()s in SetDBParam() and SetDBSettings()
- * below cause a minor memory leak.
- */
+void
+DefaultDBSettings()
+{
+#if NUM_PROVIDERS
+    int i = 0;
+#if defined(USE_SQLITE)
+    /* native sqlite3 */
+    providers[i++].database = g_strdup("gnubg");
+#endif
+#if defined(USE_PYTHON)
+#if !defined(USE_SQLITE)
+    /* sqlite3 via Python */
+    providers[i++].database = g_strdup("gnubg");
+#endif
+    /* MySQL / MariaDB */
+    providers[i].hostname = g_strdup("localhost:3306");
+    providers[i++].database = g_strdup("gnubg");
+    /* PostgreSQL */
+    providers[i].hostname = g_strdup("localhost:5432");
+    providers[i++].database = g_strdup("gnubg");
+#endif
+#endif
+}
 
 void
 SetDBParam(const char *db, const char *key, const char *value)
@@ -284,16 +303,19 @@ SetDBParam(const char *db, const char *key, const char *value)
     if (type == INVALID_PROVIDER)
         return;
 
-    /* FIXME: the strdups below cause a minor memory leak */
-    
-    if (!StrCaseCmp(key, "database"))
-        providers[type].database = g_strdup(value);
-    else if (!StrCaseCmp(key, "username"))
+    if (!StrCaseCmp(key, "database")) {
+        g_free(providers[type].database);
+        providers[type].database= g_strdup(value);
+    } else if (!StrCaseCmp(key, "username")) {
+        g_free(providers[type].username);
         providers[type].username = g_strdup(value);
-    else if (!StrCaseCmp(key, "password"))
+    } else if (!StrCaseCmp(key, "password")) {
+        g_free(providers[type].password);
         providers[type].password = g_strdup(value);
-    else if (!StrCaseCmp(key, "hostname"))
+    } else if (!StrCaseCmp(key, "hostname")) {
+        g_free(providers[type].hostname);
 	providers[type].hostname = g_strdup(value);
+    }
 }
 
 void
@@ -306,9 +328,17 @@ void
 SetDBSettings(DBProviderType dbType, const char *database, const char *user, const char *password, const char *hostname)
 {
     dbProviderType = dbType;
+    
+    g_free(providers[dbProviderType].database);
     providers[dbProviderType].database = g_strdup(database);
+
+    g_free(providers[dbProviderType].username);
     providers[dbProviderType].username = g_strdup(user);
+
+    g_free(providers[dbProviderType].password);
     providers[dbProviderType].password = g_strdup(password);
+
+    g_free(providers[dbProviderType].hostname);
     providers[dbProviderType].hostname = g_strdup(hostname);
 }
 

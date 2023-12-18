@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1035 2023/10/18 20:30:47 plm Exp $
+ * $Id: gnubg.c,v 1.1036 2023/11/20 21:00:06 plm Exp $
  */
 
 /*
@@ -4650,6 +4650,8 @@ main(int argc, char *argv[])
     output_initialize();
 
     init_defaults();
+
+    DefaultDBSettings();
 
     /* set language */
 #if defined(USE_GTK)
