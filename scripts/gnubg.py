@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: gnubg.py,v 1.20 2022/06/29 21:09:18 plm Exp $
+# $Id: gnubg.py,v 1.21 2022/10/22 19:53:40 plm Exp $
 #
 
 # This file is read by GNU Backgammon during startup.
@@ -40,7 +40,9 @@ def setinterpreterquit():
     class interpreterquit(object):
         def __repr__(self):
             self()
+
         def __call__(self, code=None):
+
             if not ('idlelib' in sys.stdin.__class__.__module__):
                 raise SystemExit(0)
             else:
@@ -48,6 +50,7 @@ def setinterpreterquit():
 
     bi.quit = interpreterquit()
     bi.exit = interpreterquit()
+
 
 setinterpreterquit()
 
@@ -60,6 +63,7 @@ def gnubg_find_msvcrt():
 # our own. Readline not properly supported on Win2000 or
 # WinXP with a Service Pack earlier than SP2
 
+
 supports_readline = True
 
 try:
@@ -69,7 +73,7 @@ try:
     winver = platform.win32_ver()
     try:
         sp_ver = int(winver[2][2])
-    except:
+    except (IndexError, ValueError):
         sp_ver = 0
 
     ver_split = winver[1].split('.')
@@ -78,7 +82,7 @@ try:
 
     if ((major < 5) or (major == 5 and minor == 0) or (major == 5 and minor == 1 and sp_ver < 2)):
         supports_readline = False
-except:
+except Exception:
     pass
 
 
@@ -104,26 +108,26 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
         else:
             from IPython.config.loader import Config
 
-    except:
+    except Exception:
         # Otherwise use standard interpreter
-        if (banner == None):
+        if (banner is None):
             banner = 'Python ' + sys.version
 
         if (supports_readline):
             try:
                 # See if we can use readline support
                 import readline
-            except:
+            except ImportError:
                 # Might be Win32 so check for pyreadline
                 try:
                     import pyreadline as readline
-                except:
+                except ImportError:
                     pass
             try:
                 # See if we can add tab completion
                 import rlcompleter
                 readline.parse_and_bind('tab: complete')
-            except:
+            except Exception:
                 pass
 
             try:
@@ -169,7 +173,7 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
             # has been replaced by TerminalInteractiveShell.prompts_class
             cfg = None
 
-        if banner == None:
+        if banner is None:
             banner = 'IPython ' + ipyversion + ', Python ' + sys.version
 
         # We want to execute in the name space of the CALLER of this function,
@@ -195,7 +199,7 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
 
         return True
 
-    except:
+    except Exception:
         traceback.print_exc()
 
     return False
@@ -219,10 +223,10 @@ def gnubg_InteractivePyShell_gui(argv=['', '-n']):
         except SystemExit:
             # Ignore calls to exit() and quit()
             return True
-        except:
+        except Exception:
             traceback.print_exc()
 
-    except:
+    except Exception:
         pass
 
     return False
@@ -233,10 +237,12 @@ def gnubg_InteractivePyShell_gui(argv=['', '-n']):
 
 # Simple functions using the board object
 
+
 def swapboard(board):
     """Swap the board"""
 
     return [board[1], board[0]]
+
 
 def pipcount(board):
     """Calculate pip count"""
@@ -252,6 +258,7 @@ def pipcount(board):
 # Following code is intended as an example on the usage of the match command.
 # It illustrates how to iterate over matches and do something useful with the
 # navigate command.
+
 import os.path
 
 
