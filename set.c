@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: set.c,v 1.435 2023/09/14 19:36:03 plm Exp $
+ * $Id: set.c,v 1.436 2023/09/14 20:24:57 plm Exp $
  */
 
 #include "config.h"
@@ -4374,7 +4374,6 @@ CommandSetGotoFirstGame(char *sz)
 static void
 SetEfficiency(const char *szText, char *sz, float *prX)
 {
-
     float r = ParseReal(&sz);
 
     if (r >= 0.0f && r <= 1.0f) {
@@ -4382,75 +4381,66 @@ SetEfficiency(const char *szText, char *sz, float *prX)
         outputf("%s: %7.5f\n", szText, *prX);
     } else
         outputl(_("Cube efficiency must be between 0 and 1"));
-
 }
 
 extern void
 CommandSetCubeEfficiencyOS(char *sz)
 {
-
     SetEfficiency(_("Cube efficiency for one sided bearoff positions"), sz, &rOSCubeX);
-
 }
 
 extern void
 CommandSetCubeEfficiencyCrashed(char *sz)
 {
-
-    SetEfficiency(_("Cube efficiency for crashed positions"), sz, &rCrashedX);
-
+    SetEfficiency(_("Cube efficiency for crashed positions"), sz, &rCrashedX[0]);
+    rCrashedX[1] = rCrashedX[0];
 }
 
 extern void
 CommandSetCubeEfficiencyContact(char *sz)
 {
-
-    SetEfficiency(_("Cube efficiency for contact positions"), sz, &rContactX);
-
+    SetEfficiency(_("Cube efficiency for contact positions"), sz, &rContactX[0]);
+    rContactX[1] = rContactX[0];
 }
 
 extern void
 CommandSetCubeEfficiencyRaceFactor(char *sz)
 {
-
     float r = ParseReal(&sz);
 
     if (r >= 0) {
-        rRaceFactorX = r;
-        outputf(_("Cube efficiency race factor set to %7.5f\n"), rRaceFactorX);
+        rRaceFactorX[0] = r;
+        outputf(_("Cube efficiency race factor set to %7.5f\n"), r);
+        rRaceFactorX[1] = rRaceFactorX[0];
     } else
         outputl(_("Cube efficiency race factor must be larger than 0."));
-
 }
 
 extern void
 CommandSetCubeEfficiencyRaceMax(char *sz)
 {
-
-    SetEfficiency(_("Cube efficiency race max"), sz, &rRaceMax);
-
+    SetEfficiency(_("Cube efficiency race max"), sz, &rRaceMax[0]);
+    rRaceMax[1] = rRaceMax[0];
 }
 
 extern void
 CommandSetCubeEfficiencyRaceMin(char *sz)
 {
-
-    SetEfficiency(_("Cube efficiency race min"), sz, &rRaceMin);
-
+    SetEfficiency(_("Cube efficiency race min"), sz, &rRaceMin[0]);
+    rRaceMin[1] = rRaceMin[0];
 }
 
 extern void
 CommandSetCubeEfficiencyRaceCoefficient(char *sz)
 {
-
     float r = ParseReal(&sz);
 
     if (r >= 0) {
-        rRaceCoefficientX = r;
-        outputf(_("Cube efficiency race coefficient set to %7.5f\n"), rRaceCoefficientX);
+        rRaceCoefficientX[0] = r;
+        outputf(_("Cube efficiency race coefficient set to %7.5f\n"), r);
+        rRaceCoefficientX[1] = rRaceCoefficientX[0];
     } else
         outputl(_("Cube efficiency race coefficient must be larger than 0."));
-
 }
 
 

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.495 2023/06/11 21:26:03 plm Exp $
+ * $Id: eval.c,v 1.496 2023/07/19 20:32:29 plm Exp $
  */
 
 #include "config.h"
@@ -368,12 +368,12 @@ const char *aszDoubleTypes[NUM_DOUBLE_TYPES] = {
 
 static float rTSCubeX = 0.6f;   /* for match play only */
 float rOSCubeX = 0.6f;
-float rRaceFactorX = 0.00125f;
-float rRaceCoefficientX = 0.55f;
-float rRaceMax = 0.7f;
-float rRaceMin = 0.6f;
-float rCrashedX = 0.68f;
-float rContactX = 0.68f;
+float rRaceFactorX[2] = { 0.00125f, 0.00250f };
+float rRaceCoefficientX[2] = { 0.55f, 0.60f };
+float rRaceMax[2] = { 0.7f, 0.8f };
+float rRaceMin[2] = { 0.6f, 0.6f };
+float rCrashedX[2] = { 0.68f, 0.76f };
+float rContactX[2] = { 0.68f, 0.76f };
 
 
 static inline int
@@ -4037,10 +4037,12 @@ Cl2CfMatch(float arOutput[NUM_OUTPUTS], cubeinfo * pci, float rCubeX)
 
 
 extern float
-EvalEfficiency(const TanBoard anBoard, positionclass pc)
+EvalEfficiency(const TanBoard anBoard, positionclass pc, int ply)
 {
     /* Since it's somewhat costly to call CalcInputs, the 
      * inputs should preferably be cached to save time. */
+
+    const int i = ply >= 2 ? 0 : 1;
 
     switch (pc) {
     case CLASS_OVER:
@@ -4074,12 +4076,12 @@ EvalEfficiency(const TanBoard anBoard, positionclass pc)
 
             PipCount(anBoard, anPips);
 
-            rEff = (float) anPips[1] * rRaceFactorX + rRaceCoefficientX;
-            if (rEff > rRaceMax)
-                return rRaceMax;
+            rEff = (float) anPips[1] * rRaceFactorX[i] + rRaceCoefficientX[i];
+            if (rEff > rRaceMax[i])
+                return rRaceMax[i];
             else {
-                if (rEff < rRaceMin)
-                    return rRaceMin;
+                if (rEff < rRaceMin[i])
+                    return rRaceMin[i];
                 else
                     return rEff;
             }
@@ -4094,11 +4096,11 @@ EvalEfficiency(const TanBoard anBoard, positionclass pc)
 
         /* FIXME: very important: use opponents inputs as well */
 
-        return rContactX;
+        return rContactX[i];
 
     case CLASS_CRASHED:
 
-        return rCrashedX;
+        return rCrashedX[i];
 
     case CLASS_BEAROFF2:
     case CLASS_BEAROFF_TS:
@@ -6138,7 +6140,7 @@ EvaluatePositionCubeful4(NNState * nnStates, const TanBoard anBoard,
 
         /* Calculate cube efficiency */
 
-        rCubeX = EvalEfficiency(anBoard, pc);
+        rCubeX = EvalEfficiency(anBoard, pc, pec->nPlies);
 
         /* Build all possible cube positions */
 

@@ -1,3 +1,14 @@
+2023-12-20  Philippe Michel  <philippe.michel7@free.fr>
+
+	* eval.c, eval.h, set.c, show.c: Use a different cube efficiency
+	ratio for 0- and 1-ply evaluations (0.76 instead of 0.68).
+
+	This improves cube decisions at these plies noticeably (cube
+	error rates are approximately halved) and the repartition of
+	errors (premature doubles vs. missed doubles vs. take or pass
+	errors) is now similar to higher plies instead of being mostly
+	premature doubles.
+
 2023-12-18  Philippe Michel  <philippe.michel7@free.fr>
 
 	* gtkgame.c, gtkgame.h, gtklocdefs.h, gtkpanels.c, gtktoolbar.c:

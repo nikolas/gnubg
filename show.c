@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.309 2023/10/18 20:30:47 plm Exp $
+ * $Id: show.c,v 1.310 2023/11/20 21:00:06 plm Exp $
  */
 
 #include "config.h"
@@ -2209,12 +2209,12 @@ CommandShowRatingOffset(char *UNUSED(sz))
 extern void
 CommandShowCubeEfficiency(char *UNUSED(sz))
 {
-    outputf(_("Parameters for cube evaluations:\n"));
-    outputf("%s :%7.4f\n", _("Cube efficiency for crashed positions"), rCrashedX);
-    outputf("%s :%7.4f\n", _("Cube efficiency for contact positions"), rContactX);
-    outputf("%s :%7.4f\n", _("Cube efficiency for one sided bearoff positions"), rOSCubeX);
-    outputf("%s * %.5f + %.5f\n", _("Cube efficiency for race: x = pips"), rRaceFactorX, rRaceCoefficientX);
-    outputf(_("(min value %.4f, max value %.4f)\n"), rRaceMin, rRaceMax);
+    outputf(_("Parameters for cube evaluations (2+ ply/0-1 ply):\n"));
+    outputf("%s: %.2f/%.2f\n", _("Cube efficiency for crashed positions"), rCrashedX[0], rCrashedX[1]);
+    outputf("%s: %.2f/%.2f\n", _("Cube efficiency for contact positions"), rContactX[0], rContactX[1]);
+    outputf("%s: %.2f/%.2f\n", _("Cube efficiency for one sided bearoff positions"), rOSCubeX, rOSCubeX);
+    outputf("%s * %.5f/%.5f + %.2f/%.2f\n", _("Cube efficiency for race: x = pips"), rRaceFactorX[0], rRaceFactorX[1], rRaceCoefficientX[0], rRaceCoefficientX[1]);
+    outputf(_("(min value %.2f/%.2f, max value %.2f/%.2f)\n"), rRaceMin[0], rRaceMin[1], rRaceMax[0], rRaceMax[1]);
 }
 
 extern void

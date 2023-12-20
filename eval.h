@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.h,v 1.198 2018/06/16 14:58:42 plm Exp $
+ * $Id: eval.h,v 1.199 2020/01/01 13:57:42 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -298,12 +298,12 @@ typedef struct {
 /* cube efficiencies */
 
 extern float rOSCubeX;
-extern float rRaceFactorX;
-extern float rRaceCoefficientX;
-extern float rRaceMax;
-extern float rRaceMin;
-extern float rCrashedX;
-extern float rContactX;
+extern float rRaceFactorX[2];
+extern float rRaceCoefficientX[2];
+extern float rRaceMax[2];
+extern float rRaceMin[2];
+extern float rCrashedX[2];
+extern float rContactX[2];
 
 /* position classes */
 
@@ -537,7 +537,7 @@ extern void
  baseInputs(const TanBoard anBoard, float arInput[]);
 
 extern int CompareMoves(const move * pm0, const move * pm1);
-extern float EvalEfficiency(const TanBoard anBoard, positionclass pc);
+extern float EvalEfficiency(const TanBoard anBoard, positionclass pc, int ply);
 extern float Cl2CfMoney(float arOutput[NUM_OUTPUTS], cubeinfo * pci, float rCubeX);
 extern float Cl2CfMatch(float arOutput[NUM_OUTPUTS], cubeinfo * pci, float rCubeX);
 extern float Noise(const evalcontext * pec, const TanBoard anBoard, int iOutput);
