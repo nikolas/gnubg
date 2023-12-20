@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1008 2023/12/02 22:08:33 plm Exp $
+ * $Id: gtkgame.c,v 1.1009 2023/12/06 21:57:40 plm Exp $
  */
 
 #include "config.h"
@@ -87,13 +87,13 @@
 #if defined(USE_BOARD3D)
 	gboolean widget3dValid;
 
-	#if !defined(USE_GTKUIMANAGER)
+	#if defined(USE_GTKITEMFACTORY)
 		/* Offset action to avoid predefined values */
 		#define MENU_OFFSET 50
 	#endif
 #endif
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 static void TogglePanel(guint iType, guint iActionID, GtkToggleAction * action,
                         GtkToggleAction * alt, gpointer user_data);
 
@@ -195,7 +195,7 @@ typedef enum {
 /* TRUE if gnubg is automatically setting the state of a menu item. */
 static int fAutoCommand;
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 static void
 ExecToggleActionCommand_internal(guint UNUSED(iWidgetType), guint UNUSED(iCommand), gchar * szCommand,
                                  gpointer * widget, gpointer * UNUSED(widgetalt), gpointer UNUSED(user_data))
@@ -589,10 +589,10 @@ GtkWidget *pwAnalysis;
 GtkWidget *pwCommentary;
 static moverecord *pmrAnnotation;
 GtkAccelGroup *pagMain;
-#if defined(USE_GTKUIMANAGER)
-GtkUIManager *puim = NULL;
-#else
+#if defined(USE_GTKITEMFACTORY)
 GtkItemFactory *pif;
+#else
+GtkUIManager *puim = NULL;
 #endif
 guint nNextTurn = 0;            /* GTK idle function */
 static guint idOutput, idProgress;
@@ -1576,7 +1576,7 @@ MainSize(GtkWidget * pw, GtkRequisition * preq, gpointer p)
 }
 #endif
 
-#if !defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
 static gchar *
 GTKTranslate(const gchar * path, gpointer UNUSED(func_data))
 {
@@ -1584,7 +1584,7 @@ GTKTranslate(const gchar * path, gpointer UNUSED(func_data))
 }
 #endif
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 static void
 ToolbarStyle(guint UNUSED(iType), guint UNUSED(iActionID), GtkRadioAction * action, GtkRadioAction * UNUSED(alt),
              gpointer UNUSED(user_data))
@@ -1723,7 +1723,7 @@ CopyPositionID(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     gtk_statusbar_push(GTK_STATUSBAR(pwStatus), idOutput, _("Position ID copied to the clipboard"));
 }
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 static void
 TogglePanel(guint UNUSED(iType), guint iActionID, GtkToggleAction * action, GtkToggleAction * UNUSED(alt),
             gpointer UNUSED(user_data))
@@ -1826,7 +1826,7 @@ extern void
 SetSwitchModeMenuText(void)
 {                               /* Update menu text */
     BoardData *bd = BOARD(pwBoard)->board_data;
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     GtkWidget *pMenuItem = gtk_ui_manager_get_widget(puim,
                                                      "/MainMenu/ViewMenu/SwitchMode");
 #else
@@ -1878,7 +1878,7 @@ SwitchDisplayMode(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
 #endif
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 static void
 ToggleShowingIDs(GtkToggleAction * action, gpointer UNUSED(user_data))
 {
@@ -1909,7 +1909,7 @@ ShowToolbar(void)
     gtk_widget_show(pwToolbar);
     gtk_widget_show(pwHandle);
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     gtk_widget_show((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/HideToolBar")));
     gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/TextOnly")), TRUE);
@@ -1933,7 +1933,7 @@ HideToolbar(void)
     gtk_widget_hide(pwToolbar);
     gtk_widget_hide(pwHandle);
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/HideToolBar")));
     gtk_widget_show((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/TextOnly")), FALSE);
@@ -1978,7 +1978,7 @@ DoFullScreenMode(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     static gulong id;
     static int changedRP, changedDP;
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     GtkWidget *pmiRP = gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels");
     GtkWidget *pmiDP = gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/DockPanels");
 #else
@@ -1992,7 +1992,7 @@ DoFullScreenMode(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     }
 #endif
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     fFullScreen = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
                                                                                                "/MainMenu/ViewMenu/FullScreen")));
 #else
@@ -2091,7 +2091,7 @@ extern void
 FullScreenMode(int state)
 {
     BoardData *bd = BOARD(pwBoard)->board_data;
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     GtkWidget *pw = gtk_ui_manager_get_widget(puim,
                                               "/MainMenu/ViewMenu/FullScreen");
 #else
@@ -3906,7 +3906,7 @@ ReportBug(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pwEvent))
     OpenURL("https://savannah.gnu.org/bugs/?func=additem&group=gnubg");
 }
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 
 static GtkActionEntry actionEntries[] = {
     {"FileMenuAction", NULL, N_("_File"), NULL, NULL, G_CALLBACK(NULL)},
@@ -4427,7 +4427,7 @@ CreateMainWindow(void)
 {
     GtkWidget *pwVbox, *pwHbox, *pwHbox2, *pwHandle, *pwPanelHbox, *pwStopButton, *idMenu, *menu_item, *pwFrame;
     GtkTargetEntry fileDrop = { "text/uri-list", GTK_TARGET_OTHER_APP, 1 };
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     GError *error = NULL;
     GtkActionGroup *action_group;
 #endif
@@ -4450,7 +4450,7 @@ CreateMainWindow(void)
 
     gtk_container_add(GTK_CONTAINER(pwMain), pwVbox);
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     puim = gtk_ui_manager_new();
 
     action_group = gtk_action_group_new("Actions");
@@ -4501,10 +4501,9 @@ CreateMainWindow(void)
     pwHandle = gtk_vbox_new(FALSE, 0);
 #endif
     gtk_box_pack_start(GTK_BOX(pwVbox), pwHandle, FALSE, FALSE, 0);
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     pwMenuBar = gtk_ui_manager_get_widget(puim, "/MainMenu");
     gtk_container_add(GTK_CONTAINER(pwHandle), pwMenuBar);
-
 #else
     gtk_container_add(GTK_CONTAINER(pwHandle), pwMenuBar = gtk_item_factory_get_widget(pif, "<main>"));
 #endif
@@ -4557,7 +4556,7 @@ CreateMainWindow(void)
     gtk_box_pack_start(GTK_BOX(pwPanelHbox), pwPanelVbox, TRUE, TRUE, 0);
 
     /* Do this so that the menu is packed now instead of in the idle loop */
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     gtk_ui_manager_ensure_update(puim);
 #endif
 
@@ -4816,7 +4815,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
             int style = nToolbarStyle;
             nToolbarStyle = 2;  /* Default style is fine */
             SetToolbarStyle(style);
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
             gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
                                                                                          "/MainMenu/ViewMenu/ToolBarMenu/Both")),
                                            nToolbarStyle);
@@ -4844,7 +4843,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
         /* Make sure some things stay hidden */
         if (!ArePanelsDocked()) {
             gtk_widget_hide(hpaned);
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/PanelsMenu/Commentary")));
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/HidePanels")));
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels")));
@@ -4855,14 +4854,14 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
 #endif
         } else {
             if (ArePanelsShowing()) {
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
                 gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels")));
 #else
                 gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Restore panels"));
 #endif
                 gtk_widget_hide(pwGameBox);
             } else
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
                 gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/HidePanels")));
 #else
                 gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Hide panels"));
@@ -4877,7 +4876,7 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
         ShowBoard();
 
         if (fToolbarShowing)
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
 #else
             gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Toolbar/Show Toolbar"));
@@ -7480,7 +7479,7 @@ GTKSet(void *p)
 
     if (p == ap) {
         /* Handle the player names. */
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         gtk_label_set_text(GTK_LABEL
                            (gtk_bin_get_child
                             (GTK_BIN(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu/SetTurnMenu/SetTurnPlayer0")
@@ -7509,7 +7508,7 @@ GTKSet(void *p)
     } else if (p == &ms.fTurn) {
         /* Handle the player on roll. */
         fAutoCommand = TRUE;
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         if (ms.fTurn >= 0) {
             if (ms.fTurn)
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
@@ -7541,7 +7540,7 @@ GTKSet(void *p)
         board_set_playing(BOARD(pwBoard), plGame != NULL);
         ToolbarSetPlaying(pwToolbar, plGame != NULL);
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/FileMenu/Save"), plGame != NULL);
         enable_menu(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu"), ms.gs == GAME_PLAYING);
         if (ms.fTurn >= 0)
@@ -7749,11 +7748,10 @@ GTKSet(void *p)
         }
     } else if (p == &fShowIDs) {
         inCallback = TRUE;
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
                                                                                      "/MainMenu/ViewMenu/ShowIDStatusBar")),
                                        fShowIDs);
-
 #else
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM
                                        (gtk_item_factory_get_widget(pif, "/View/Show ID in status bar")), fShowIDs);

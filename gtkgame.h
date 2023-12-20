@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.h,v 1.164 2023/03/19 21:04:25 plm Exp $
+ * $Id: gtkgame.h,v 1.165 2023/11/20 21:00:06 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -29,7 +29,7 @@
 
 #define TOOLBAR_ACTION_OFFSET 10000
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 extern GtkUIManager *puim;
 #endif
 
@@ -164,12 +164,12 @@ extern void ShowList(char *asz[], const char *szTitle, GtkWidget * parent);
 extern void ShowMove(hintdata * phd, const int f);
 extern void SwapBoardToPanel(int ToPanel, int updateEvents);
 extern void DoHideAllPanels(int updateEvents);
-#if defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
+extern void ToggleDockPanels(gpointer p, guint n, GtkWidget * pw);
+#else
 extern void ToggleEdit(GtkToggleAction * action, gpointer user_data);
 extern void ToggleClockwise(GtkToggleAction * action, gpointer user_data);
 extern void ToggleDockPanels(GtkToggleAction * action, gpointer user_data);
-#else
-extern void ToggleDockPanels(gpointer p, guint n, GtkWidget * pw);
 #endif
 extern void GTKUndo(void);
 extern void ShowToolbar(void);

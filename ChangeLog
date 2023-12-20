@@ -1,3 +1,10 @@
+2023-12-18  Philippe Michel  <philippe.michel7@free.fr>
+
+	* gtkgame.c, gtkgame.h, gtklocdefs.h, gtkpanels.c, gtktoolbar.c:
+	* gtktoolbar.h: build the GTK2 version using GtkUIManager by
+	default. To revert to GtkItemFactory, add -DUSE_GTKITEMFACTORY to
+	the compilation flags.
+
 2023-11-17  Isaac Keslassy <keslassy@gmail.com>
 
 	* backgammon.h, commands.inc, gnubg.c, gtkgame.c, gtkgame.h:

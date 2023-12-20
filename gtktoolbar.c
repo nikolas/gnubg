@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtktoolbar.c,v 1.86 2023/09/05 20:34:21 plm Exp $
+ * $Id: gtktoolbar.c,v 1.87 2023/09/05 21:22:35 plm Exp $
  */
 
 #include "config.h"
@@ -66,7 +66,7 @@ typedef struct {
 
 } toolbarwidget;
 
-#if !defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
 static void
 ButtonClicked(GtkWidget * UNUSED(pw), char *sz)
 {
@@ -158,14 +158,14 @@ ToolbarSetClockwise(GtkWidget * pwToolbar, const int f)
     toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar),
                                            "toolbarwidget");
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     gtk_toggle_tool_button_set_active(GTK_TOGGLE_TOOL_BUTTON(ptw->pwButtonClockwise), f);
 #else
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->pwButtonClockwise), f);
 #endif
 }
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 extern void
 ToggleClockwise(GtkToggleAction * action, gpointer UNUSED(user_data))
 {
@@ -222,7 +222,7 @@ extern void
 click_edit(void)
 {
     if (!inCallback) {
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         GtkAction *editstatus = gtk_ui_manager_get_action(puim, "/MainMenu/EditMenu/EditPosition");
         gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(editstatus), !gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(editstatus)));
 #else
@@ -232,7 +232,7 @@ click_edit(void)
     }
 }
 
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
 extern void
 ToggleEdit(GtkToggleAction * action, gpointer UNUSED(user_data))
 {
@@ -313,9 +313,9 @@ ToolbarUpdate(GtkWidget * pwToolbar,
     /* We want to disable some buttons particularly when we are in the middle
        of running an analysis in the background => we use !fAnalysisRunning */
 
-    gtk_widget_set_sensitive(ptw->pwTake, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );;
-    gtk_widget_set_sensitive(ptw->pwDrop, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );;
-    gtk_widget_set_sensitive(ptw->pwDouble, ((c == C_TAKEDROP && !pms->nMatchTo) || c == C_ROLLDOUBLE) && !fAnalysisRunning );;
+    gtk_widget_set_sensitive(ptw->pwTake, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );
+    gtk_widget_set_sensitive(ptw->pwDrop, (c == C_TAKEDROP || c == C_AGREEDECLINE) && !fAnalysisRunning );
+    gtk_widget_set_sensitive(ptw->pwDouble, ((c == C_TAKEDROP && !pms->nMatchTo) || c == C_ROLLDOUBLE) && !fAnalysisRunning );
 
     gtk_widget_set_sensitive(ptw->pwSave, plGame != NULL && !fAnalysisRunning);
     gtk_widget_set_sensitive(ptw->pwResign, fPlaying && !fEdit && !fAnalysisRunning);
@@ -337,7 +337,7 @@ ToolbarUpdate(GtkWidget * pwToolbar,
     return c;
 }
 
-#if !defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
 static GtkWidget *
 ToolbarAddButton(GtkToolbar * pwToolbar, const char *stockID, const char *label, const char *tooltip,
                  GCallback callback, void *data)
@@ -376,7 +376,7 @@ ToolbarAddSeparator(GtkToolbar * pwToolbar)
 extern GtkWidget *
 ToolbarNew(void)
 {
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     GtkWidget *pwtb;
     toolbarwidget *ptw = (toolbarwidget *) g_malloc(sizeof(toolbarwidget));
 
@@ -599,7 +599,7 @@ ToolbarNew(void)
 #endif
 }
 
-#if !defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
 static GtkWidget *
 firstChild(GtkWidget * widget)
 {
@@ -643,7 +643,7 @@ SetToolbarItemStyle(gpointer data, gpointer user_data)
 extern void
 SetToolbarStyle(int value)
 {
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
     toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar), "toolbarwidget");
     GtkWidget *img = gtk_image_new_from_stock(fClockwise ? GNUBG_STOCK_CLOCKWISE : GNUBG_STOCK_ANTI_CLOCKWISE,
                                               GTK_ICON_SIZE_SMALL_TOOLBAR);
@@ -652,7 +652,7 @@ SetToolbarStyle(int value)
 #endif
 
     if (value != nToolbarStyle) {
-#if defined(USE_GTKUIMANAGER)
+#if !defined(USE_GTKITEMFACTORY)
         gtk_toolbar_set_style(GTK_TOOLBAR(pwToolbar), (GtkToolbarStyle) value);
 #else
         toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar), "toolbarwidget");
@@ -665,7 +665,7 @@ SetToolbarStyle(int value)
         /* Resize handle box parent */
         gtk_widget_queue_resize(pwToolbar);
         nToolbarStyle = value;
-#if !defined(USE_GTKUIMANAGER)
+#if defined(USE_GTKITEMFACTORY)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM
                                        (gtk_item_factory_get_widget_by_action(pif, value + TOOLBAR_ACTION_OFFSET)),
                                        TRUE);
