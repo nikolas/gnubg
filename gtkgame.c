@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1009 2023/12/06 21:57:40 plm Exp $
+ * $Id: gtkgame.c,v 1.1010 2023/12/20 14:17:30 plm Exp $
  */
 
 #include "config.h"
@@ -192,13 +192,22 @@ typedef enum {
     VIEW_TOOLBAR_BOTH
 } gnubgcommand;
 
-/* TRUE if gnubg is automatically setting the state of a menu item. */
+/* TRUE if GNUbg is automatically setting the state of a menu item. */
 static int fAutoCommand;
 
 #if !defined(USE_GTKITEMFACTORY)
+
+/*
+ * Some of the callback functions below, either explicit or
+ * constructed with macros, are unused (were they added "just in case" ?)
+ * Keep them for reference, but between #if 0 / #endif to avoid
+ * compiler warnings.
+ */
+
+#if 0
 static void
-ExecToggleActionCommand_internal(guint UNUSED(iWidgetType), guint UNUSED(iCommand), gchar * szCommand,
-                                 gpointer * widget, gpointer * UNUSED(widgetalt), gpointer UNUSED(user_data))
+ExecToggleActionCommand_internal(guint UNUSED(iWidgetType), guint UNUSED(iCommand), gchar *szCommand,
+                                 gpointer *widget, gpointer *UNUSED(widgetalt), gpointer UNUSED(user_data))
 {
 
     char sz[80];
@@ -211,6 +220,7 @@ ExecToggleActionCommand_internal(guint UNUSED(iWidgetType), guint UNUSED(iComman
 
     return;
 }
+#endif
 
 static void
 ExecRadioActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * UNUSED(szCommand), gpointer * widget,
@@ -278,12 +288,14 @@ ExecActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * sz
 		return; \
 	} ;
 
+#if 0
 #define CREATE_CMD_TOGGLE_CALLBACK(CMDID, szCommand) \
 	static void CMDID##_toggle_cb ( GtkToggleAction *action, gpointer user_data ) \
 	{ \
 		ExecToggleActionCommand_internal ( 1, CMDID, szCommand, (gpointer)action, NULL, user_data ); \
 		return; \
 	} ;
+#endif
 
 #define CREATE_CMD_RADIO_CALLBACK(CMDID, szCommand) \
 	static void CMDID##_radio_cb ( GtkRadioAction *action, GtkRadioAction *current, gpointer user_data ) \
@@ -292,12 +304,14 @@ ExecActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * sz
 		return; \
 	} ;
 
+#if 0
 #define CREATE_GENERIC_ACTION_CALLBACK(ACTIONID, callbackfunc) \
 	static void ACTIONID##_action_g_cb ( GtkAction *action, gpointer user_data ) \
 	{ \
 		callbackfunc ( 0, ACTIONID, action, NULL, user_data ); \
 		return; \
 	} ;
+#endif
 
 #define CREATE_GENERIC_TOGGLE_CALLBACK(ACTIONID, callbackfunc) \
 	static void ACTIONID##_toggle_g_cb ( GtkToggleAction *action, gpointer user_data ) \
@@ -315,9 +329,17 @@ ExecActionCommand_internal(guint UNUSED(iWidgetType), guint iCommand, gchar * sz
 
 
 #define CMD_ACTION_CALLBACK_FROMID(CMDID) (GCallback)CMDID##_action_cb
+
+#if 0
 #define CMD_TOGGLE_CALLBACK_FROMID(CMDID) (GCallback)CMDID##_toggle_cb
+#endif
+
 #define CMD_RADIO_CALLBACK_FROMID(CMDID)  (GCallback)CMDID##_radio_cb
+
+#if 0
 #define GENERIC_ACTION_CALLBACK_FROMID(ACTIONID) (GCallback)ACTIONID##_action_g_cb
+#endif
+
 #define GENERIC_TOGGLE_CALLBACK_FROMID(ACTIONID) (GCallback)ACTIONID##_toggle_g_cb
 #define GENERIC_RADIO_CALLBACK_FROMID(ACTIONID)  (GCallback)ACTIONID##_radio_g_cb
 
@@ -343,38 +365,56 @@ CREATE_CMD_ACTION_CALLBACK(CMD_CMARK_GAME_SHOW, "cmark game show");
 CREATE_CMD_ACTION_CALLBACK(CMD_CMARK_MATCH_CLEAR, "cmark match clear");
 CREATE_CMD_ACTION_CALLBACK(CMD_CMARK_MATCH_SHOW, "cmark match show");
 CREATE_CMD_ACTION_CALLBACK(CMD_END_GAME, "end game");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_DECLINE, "decline");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_DOUBLE, "double");
 CREATE_CMD_ACTION_CALLBACK(CMD_EVAL, "eval");
 CREATE_CMD_ACTION_CALLBACK(CMD_HELP, "help");
 CREATE_CMD_ACTION_CALLBACK(CMD_HINT, "hint");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_LIST_GAME, "list game");
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT, "next");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT_GAME, "next game");
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT_MARKED, "next marked");
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT_CMARKED, "next cmarked");
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT_ROLL, "next roll");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_NEXT_ROLLED, "next rolled");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_PLAY, "play");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV, "previous");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV_GAME, "previous game");
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV_MARKED, "previous marked");
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV_CMARKED, "previous cmarked");
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV_ROLL, "previous roll");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_PREV_ROLLED, "previous rolled");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_QUIT, "quit");
 CREATE_CMD_ACTION_CALLBACK(CMD_REJECT, "reject");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_RELATIONAL_ADD_MATCH, "relational add match");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_ROLL, "roll");
 CREATE_CMD_ACTION_CALLBACK(CMD_ROLLOUT, "rollout");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_ANNOTATION_ON, "set annotation on");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_APPEARANCE, NULL);   /* set appearance */
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_MESSAGE_ON, "set message on");
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_TURN_0, NULL);       /* set turn 0 */
 CREATE_CMD_ACTION_CALLBACK(CMD_SET_TURN_1, NULL);       /* set turn 1 */
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_CALIBRATION, "show calibration");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_COPYING, "show copying");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_ENGINE, "show engine");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_EXPORT, "show export");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_HISTORY, "show history");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_MARKETWINDOW, "show marketwindow");
@@ -389,7 +429,9 @@ CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_TEMPERATURE_MAP_CUBE, "show temperaturemap =
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP_CUBE, "show scoremap");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_SCORE_MAP_MOVE, "show scoremap =move");
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_VERSION, "show version");
+#if 0
 CREATE_CMD_ACTION_CALLBACK(CMD_SHOW_WARRANTY, "show warranty");
+#endif
 CREATE_CMD_ACTION_CALLBACK(CMD_SWAP_PLAYERS, "swap players");
 CREATE_GENERIC_TOGGLE_CALLBACK(TOGGLE_GAMELIST, TogglePanel);
 CREATE_GENERIC_TOGGLE_CALLBACK(TOGGLE_COMMENTARY, TogglePanel);
@@ -3909,420 +3951,438 @@ ReportBug(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pwEvent))
 #if !defined(USE_GTKITEMFACTORY)
 
 static GtkActionEntry actionEntries[] = {
-    {"FileMenuAction", NULL, N_("_File"), NULL, NULL, G_CALLBACK(NULL)},
-    {"FileNewAction", GTK_STOCK_NEW, N_("_New..."), "<control>N", N_("Start new game, match, session or position"), G_CALLBACK(NewClicked)},
-    {"FileOpenAction", GTK_STOCK_OPEN, N_("_Open"), "<control>O", N_("Open game, match, session or position"), G_CALLBACK(GTKOpen)},
-    {"FileSaveAction", GTK_STOCK_SAVE, N_("_Save"), "<control>S", N_("Save match, session, game or position"), G_CALLBACK(GTKSave)},
-    {"FileCommandsOpenAction", NULL, N_("Open _Commands..."), NULL, NULL, G_CALLBACK(GTKCommandsOpen)},
-    {"FileMatchInfoAction", NULL, N_("Match information..."), NULL, NULL, G_CALLBACK(GTKMatchInfo)},
+    { "FileMenuAction", NULL, N_("_File"), NULL, NULL, G_CALLBACK(NULL) },
+    { "FileNewAction", GTK_STOCK_NEW, N_("_New..."), "<control>N", N_("Start new game, match, session or position"),
+     G_CALLBACK(NewClicked) },
+    { "FileOpenAction", GTK_STOCK_OPEN, N_("_Open"), "<control>O", N_("Open game, match, session or position"),
+     G_CALLBACK(GTKOpen) },
+    { "FileSaveAction", GTK_STOCK_SAVE, N_("_Save"), "<control>S", N_("Save match, session, game or position"),
+     G_CALLBACK(GTKSave) },
+    { "FileCommandsOpenAction", NULL, N_("Open _Commands..."), NULL, NULL, G_CALLBACK(GTKCommandsOpen) },
+    { "FileMatchInfoAction", NULL, N_("Match information..."), NULL, NULL, G_CALLBACK(GTKMatchInfo) },
 #if defined(WIN32)
-    {"FileExitAction", NULL, N_("E_xit"), "<control>Q", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_QUIT)},
+    { "FileExitAction", NULL, N_("E_xit"), "<control>Q", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_QUIT) },
 #else
-    {"FileExitAction", NULL, N_("_Quit"), "<control>Q", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_QUIT)},
+    { "FileExitAction", NULL, N_("_Quit"), "<control>Q", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_QUIT) },
 #endif
 
-    {"EditMenuAction", NULL, N_("_Edit"), NULL, NULL, G_CALLBACK(NULL)},
-    {"UndoAction", GTK_STOCK_UNDO, N_("_Undo"), "<control>Z", N_("Undo moves"), G_CALLBACK(GTKUndo)},
-    {"CopyIDMenuAction", NULL, N_("_Copy ID to Clipboard"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CopyGNUBGIDAction", NULL, N_("GNUbg ID"), "<control>C", NULL, G_CALLBACK(CopyIDs)},
-    {"CopyMatchIDAction", NULL, N_("Match ID"), "<control>M", NULL, G_CALLBACK(CopyMatchID)},
-    {"CopyPositionIDAction", NULL, N_("Position ID"), "<control>P", NULL, G_CALLBACK(CopyPositionID)},
+    { "EditMenuAction", NULL, N_("_Edit"), NULL, NULL, G_CALLBACK(NULL) },
+    { "UndoAction", GTK_STOCK_UNDO, N_("_Undo"), "<control>Z", N_("Undo moves"), G_CALLBACK(GTKUndo) },
+    { "CopyIDMenuAction", NULL, N_("_Copy ID to Clipboard"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CopyGNUBGIDAction", NULL, N_("GNUbg ID"), "<control>C", NULL, G_CALLBACK(CopyIDs) },
+    { "CopyMatchIDAction", NULL, N_("Match ID"), "<control>M", NULL, G_CALLBACK(CopyMatchID) },
+    { "CopyPositionIDAction", NULL, N_("Position ID"), "<control>P", NULL, G_CALLBACK(CopyPositionID) },
 
-    {"CopyAsMenuAction", NULL, N_("Copy as"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CopyPosAsAsciiAction", NULL, N_("Position as ASCII"), NULL, NULL, G_CALLBACK(CommandCopy)},
-    {"CopyAsGammOnLineAction", NULL, N_("BGonline (HTML)"), NULL, NULL, G_CALLBACK(CopyAsGOL)},
+    { "CopyAsMenuAction", NULL, N_("Copy as"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CopyPosAsAsciiAction", NULL, N_("Position as ASCII"), NULL, NULL, G_CALLBACK(CommandCopy) },
+    { "CopyAsGammOnLineAction", NULL, N_("BGonline (HTML)"), NULL, NULL, G_CALLBACK(CopyAsGOL) },
 
-    {"PasteIDAction", GTK_STOCK_PASTE, N_("_Paste ID"), "<control>V", NULL, G_CALLBACK(PasteIDs)},
+    { "PasteIDAction", GTK_STOCK_PASTE, N_("_Paste ID"), "<control>V", NULL, G_CALLBACK(PasteIDs) },
 
-    {"ViewMenuAction", NULL, N_("_View"), NULL, NULL, G_CALLBACK(NULL)},
-    {"PanelsMenuAction", NULL, N_("_Panels"), NULL, NULL, G_CALLBACK(NULL)},
+    { "ViewMenuAction", NULL, N_("_View"), NULL, NULL, G_CALLBACK(NULL) },
+    { "PanelsMenuAction", NULL, N_("_Panels"), NULL, NULL, G_CALLBACK(NULL) },
 
-    {"RestorePanelsAction", NULL, N_("Restore panels"), NULL, NULL, G_CALLBACK(ShowAllPanels)},
-    {"HidePanelsAction", NULL, N_("Hide panels"), NULL, NULL, G_CALLBACK(HideAllPanels)},
+    { "RestorePanelsAction", NULL, N_("Restore panels"), NULL, NULL, G_CALLBACK(ShowAllPanels) },
+    { "HidePanelsAction", NULL, N_("Hide panels"), NULL, NULL, G_CALLBACK(HideAllPanels) },
 
-    {"ToolBarMenuAction", NULL, N_("_Toolbar"), NULL, NULL, G_CALLBACK(NULL)},
-    {"HideToolBarAction", NULL, N_("_Hide Toolbar"), NULL, NULL, G_CALLBACK(HideToolbar)},
-    {"ShowToolBarAction", NULL, N_("_Show Toolbar"), NULL, NULL, G_CALLBACK(ShowToolbar)},
+    { "ToolBarMenuAction", NULL, N_("_Toolbar"), NULL, NULL, G_CALLBACK(NULL) },
+    { "HideToolBarAction", NULL, N_("_Hide Toolbar"), NULL, NULL, G_CALLBACK(HideToolbar) },
+    { "ShowToolBarAction", NULL, N_("_Show Toolbar"), NULL, NULL, G_CALLBACK(ShowToolbar) },
 
 #if defined(USE_BOARD3D)
-    {"SwitchModeAction", NULL, N_("Switch to xD view"), NULL, NULL, G_CALLBACK(SwitchDisplayMode)},
+    { "SwitchModeAction", NULL, N_("Switch to xD view"), NULL, NULL, G_CALLBACK(SwitchDisplayMode) },
 #endif
 
-    {"GameMenuAction", NULL, N_("_Game"), NULL, NULL, G_CALLBACK(NULL)},
-    {"RollAction", NULL, N_("_Roll"), "<control>R", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ROLL)},
-    {"FinishMoveAction", NULL, N_("_Finish move"), "<control>F", NULL, G_CALLBACK(FinishMove)},
-    {"DoubleAction", GNUBG_STOCK_DOUBLE, N_("_Double"), "<control>D", N_("Double or redouble(beaver)"), CMD_ACTION_CALLBACK_FROMID(CMD_DOUBLE)},
-    {"ResignAction", GNUBG_STOCK_RESIGN, N_("Re_sign"), NULL, N_("Resign the current game"), G_CALLBACK(GTKResign)},
-    {"AcceptAction", GNUBG_STOCK_ACCEPT, N_("_Accept"), NULL, N_("Take the offered cube or accept the offered resignation"), CMD_ACTION_CALLBACK_FROMID(CMD_ACCEPT)},
-    {"RejectAction", GNUBG_STOCK_REJECT, N_("Re_ject"), NULL, N_("Drop the offered cube or decline the offered resignation"), CMD_ACTION_CALLBACK_FROMID(CMD_REJECT)},
-    {"PlayComputerTurnAction", NULL, N_("Play computer turn"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_PLAY)},
-    {"EndGameAction", GNUBG_STOCK_END_GAME, N_("_End Game"), "<control>G", N_("Let the computer end the game"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_END_GAME)},
-    {"SwapPlayersAction", NULL, N_("Swap players"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SWAP_PLAYERS)},
-    {"SetCubeAction", NULL, N_("Set cube..."), NULL, NULL, G_CALLBACK(GTKSetCube)},
-    {"SetDiceAction", NULL, N_("Set _dice..."), NULL, NULL, G_CALLBACK(GTKSetDice)},
+    { "GameMenuAction", NULL, N_("_Game"), NULL, NULL, G_CALLBACK(NULL) },
+    { "RollAction", NULL, N_("_Roll"), "<control>R", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ROLL) },
+    { "FinishMoveAction", NULL, N_("_Finish move"), "<control>F", NULL, G_CALLBACK(FinishMove) },
+    { "DoubleAction", GNUBG_STOCK_DOUBLE, N_("_Double"), "<control>D", N_("Double or redouble(beaver)"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_DOUBLE) },
+    { "ResignAction", GNUBG_STOCK_RESIGN, N_("Re_sign"), NULL, N_("Resign the current game"), G_CALLBACK(GTKResign) },
+    { "AcceptAction", GNUBG_STOCK_ACCEPT, N_("_Accept"), NULL,
+     N_("Take the offered cube or accept the offered resignation"), CMD_ACTION_CALLBACK_FROMID(CMD_ACCEPT) },
+    { "RejectAction", GNUBG_STOCK_REJECT, N_("Re_ject"), NULL,
+     N_("Drop the offered cube or decline the offered resignation"), CMD_ACTION_CALLBACK_FROMID(CMD_REJECT) },
+    { "PlayComputerTurnAction", NULL, N_("Play computer turn"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_PLAY) },
+    { "EndGameAction", GNUBG_STOCK_END_GAME, N_("_End Game"), "<control>G", N_("Let the computer end the game"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_END_GAME) },
+    { "SwapPlayersAction", NULL, N_("Swap players"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SWAP_PLAYERS) },
+    { "SetCubeAction", NULL, N_("Set cube..."), NULL, NULL, G_CALLBACK(GTKSetCube) },
+    { "SetDiceAction", NULL, N_("Set _dice..."), NULL, NULL, G_CALLBACK(GTKSetDice) },
 
-    {"SetTurnMenuAction", NULL, N_("Set _turn"), NULL, NULL, G_CALLBACK(NULL)},
+    { "SetTurnMenuAction", NULL, N_("Set _turn"), NULL, NULL, G_CALLBACK(NULL) },
 
-    {"ClearTurnAction", NULL, N_("Clear turn"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CLEAR_TURN)},
+    { "ClearTurnAction", NULL, N_("Clear turn"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CLEAR_TURN) },
 
-    {"AnalyseMenuAction", NULL, N_("_Analyse"), NULL, NULL, G_CALLBACK(NULL)},
-    {"EvaluateAction", NULL, N_("_Evaluate"), "<control>E", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_EVAL)},
-    {"HintAction", GNUBG_STOCK_HINT, N_("_Hint"), "<control>H", N_("Show the best moves or cube action"), CMD_ACTION_CALLBACK_FROMID(CMD_HINT)},
-    {"RolloutAction", NULL, N_("_Rollout position"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ROLLOUT)},
-    {"AnalyseMoveAction", NULL, N_("Analyse move"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_MOVE)},
-    {"AnalyseGameAction", NULL, N_("Analyse game"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_GAME)},
-    {"AnalyseMatchAction", NULL, N_("Analyse match or session"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_MATCH)},
+    { "AnalyseMenuAction", NULL, N_("_Analyse"), NULL, NULL, G_CALLBACK(NULL) },
+    { "EvaluateAction", NULL, N_("_Evaluate"), "<control>E", NULL, CMD_ACTION_CALLBACK_FROMID(CMD_EVAL) },
+    { "HintAction", GNUBG_STOCK_HINT, N_("_Hint"), "<control>H", N_("Show the best moves or cube action"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_HINT) },
+    { "RolloutAction", NULL, N_("_Rollout position"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ROLLOUT) },
+    { "AnalyseMoveAction", NULL, N_("Analyse move"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_MOVE) },
+    { "AnalyseGameAction", NULL, N_("Analyse game"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_GAME) },
+    { "AnalyseMatchAction", NULL, N_("Analyse match or session"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_MATCH) },
 
-    {"ClearAnalysisMenuAction", NULL, N_("Clear analysis"), NULL, NULL, G_CALLBACK(NULL)},
-    {"ClearAnalysisMoveAction", GTK_STOCK_CLEAR, N_("noun|Move"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_MOVE)},
-    {"ClearAnalysisGameAction", GTK_STOCK_CLEAR, N_("_Game"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_GAME)},
-    {"ClearAnalysisMatchOrSessionAction", GTK_STOCK_CLEAR, N_("_Match or session"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_MATCH)},
+    { "ClearAnalysisMenuAction", NULL, N_("Clear analysis"), NULL, NULL, G_CALLBACK(NULL) },
+    { "ClearAnalysisMoveAction", GTK_STOCK_CLEAR, N_("noun|Move"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_MOVE) },
+    { "ClearAnalysisGameAction", GTK_STOCK_CLEAR, N_("_Game"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_GAME) },
+    { "ClearAnalysisMatchOrSessionAction", GTK_STOCK_CLEAR, N_("_Match or session"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_MATCH) },
 
-    {"CMarkMenuAction", NULL, N_("CMark"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CMarkCubeMenuAction", NULL, N_("Cube"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CMarkCubeClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_CLEAR)},
-    {"CMarkCubeShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_SHOW)},
-    {"CMarkMoveMenuAction", NULL, N_("noun|Move"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CMarkMoveClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_CLEAR)},
-    {"CMarkMoveShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_SHOW)},
-    {"CMarkGameMenuAction", NULL, N_("Game"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CMarkGameClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_GAME_CLEAR)},
-    {"CMarkGameShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_GAME_SHOW)},
-    {"CMarkMatchMenuAction", NULL, N_("Match"), NULL, NULL, G_CALLBACK(NULL)},
-    {"CMarkMatchClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MATCH_CLEAR)},
-    {"CMarkMatchShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MATCH_SHOW)},
+    { "CMarkMenuAction", NULL, N_("CMark"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkCubeMenuAction", NULL, N_("Cube"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkCubeClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_CLEAR) },
+    { "CMarkCubeShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_SHOW) },
+    { "CMarkMoveMenuAction", NULL, N_("noun|Move"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkMoveClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_CLEAR) },
+    { "CMarkMoveShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_SHOW) },
+    { "CMarkGameMenuAction", NULL, N_("Game"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkGameClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_GAME_CLEAR) },
+    { "CMarkGameShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_GAME_SHOW) },
+    { "CMarkMatchMenuAction", NULL, N_("Match"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkMatchClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MATCH_CLEAR) },
+    { "CMarkMatchShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MATCH_SHOW) },
 
-    {"RolloutMenuAction", NULL, N_("Rollout"), NULL, NULL, G_CALLBACK(NULL)},
-    {"RolloutCubeAction", NULL, N_("Cube"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_CUBE)},
-    {"RolloutMoveAction", NULL, N_("CMarked from Move"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MOVE)},
-    {"RolloutGameAction", NULL, N_("CMarked from Game"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_GAME)},
-    {"RolloutMatchAction", NULL, N_("CMarked from Match"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MATCH)},
-    {"AnalyseCurrentAction", GTK_STOCK_EXECUTE, N_("Analyse"), NULL, N_("Analyse current match (set default behavior in Settings -> Analysis)"), G_CALLBACK(GTKAnalyzeCurrent)},
-    {"AnalyseFileAction", GTK_STOCK_DIRECTORY, N_("Analyse File"), NULL, N_("Analyze match from file (set default behaviour in Settings -> Analysis -> Analysis Buttons)"), G_CALLBACK(GTKAnalyzeFile)},
-    {"BatchAnalyseAction", NULL, N_("Batch analyse..."), NULL, NULL, G_CALLBACK(GTKBatchAnalyse)},
-    {"MatchOrSessionStatsAction", NULL, N_("Match or session statistics"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_STATISTICS_MATCH)},
-    {"AddMatchOrSessionStatsToDBAction", GTK_STOCK_ADD, N_("Add match or session to database"), NULL, NULL,
-     G_CALLBACK(GtkRelationalAddMatch)},
-    {"ShowRecordsAction", NULL, N_("Show Records"), NULL, NULL, G_CALLBACK(GtkShowRelational)},
-    {"PlotHistoryAction", NULL, N_("Plot History"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_HISTORY)},
-    {"DistributionOfRollsAction", NULL, N_("Distribution of rolls"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_ROLLS)},
-    {"TemperatureMapAction", NULL, N_("Temperature Map"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP)},
-    {"TemperatureMapCubeAction", NULL, N_("Temperature Map (cube decision)"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP_CUBE)},
-    {"ScoreMapCubeAction", NULL, N_("ScoreMap (cube decision)"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_CUBE)},
-    {"ScoreMapMoveAction", NULL, N_("ScoreMap (move decision)"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_MOVE)},
-    {"RaceTheoryAction", NULL, N_("_Race Theory"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_KLEINMAN)},
-    {"MarketWindowAction", NULL, N_("_Market window"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MARKETWINDOW)},
-    {"MatchEquityTableAction", NULL, N_("M_atch equity table"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MATCHEQUITYTABLE)},
-    {"EvaluationSpeedAction", NULL, N_("Evaluation speed"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_CALIBRATION)},
+    { "RolloutMenuAction", NULL, N_("Rollout"), NULL, NULL, G_CALLBACK(NULL) },
+    { "RolloutCubeAction", NULL, N_("Cube"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_CUBE) },
+    { "RolloutMoveAction", NULL, N_("CMarked from Move"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MOVE) },
+    { "RolloutGameAction", NULL, N_("CMarked from Game"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_GAME) },
+    { "RolloutMatchAction", NULL, N_("CMarked from Match"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_ROLLOUT_MATCH) },
+    { "AnalyseCurrentAction", GTK_STOCK_EXECUTE, N_("Analyse"), NULL,
+     N_("Analyse current match (set default behavior in Settings -> Analysis)"), G_CALLBACK(GTKAnalyzeCurrent) },
+    { "AnalyseFileAction", GTK_STOCK_DIRECTORY, N_("Analyse File"), NULL,
+     N_("Analyze match from file (set default behaviour in Settings -> Analysis -> Analysis Buttons)"),
+     G_CALLBACK(GTKAnalyzeFile) },
+    { "BatchAnalyseAction", NULL, N_("Batch analyse..."), NULL, NULL, G_CALLBACK(GTKBatchAnalyse) },
+    { "MatchOrSessionStatsAction", NULL, N_("Match or session statistics"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_STATISTICS_MATCH) },
+    { "AddMatchOrSessionStatsToDBAction", GTK_STOCK_ADD, N_("Add match or session to database"), NULL, NULL,
+     G_CALLBACK(GtkRelationalAddMatch) },
+    { "ShowRecordsAction", NULL, N_("Show Records"), NULL, NULL, G_CALLBACK(GtkShowRelational) },
+    { "PlotHistoryAction", NULL, N_("Plot History"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_HISTORY) },
+    { "DistributionOfRollsAction", NULL, N_("Distribution of rolls"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_ROLLS) },
+    { "TemperatureMapAction", NULL, N_("Temperature Map"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP) },
+    { "TemperatureMapCubeAction", NULL, N_("Temperature Map (cube decision)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_TEMPERATURE_MAP_CUBE) },
+    { "ScoreMapCubeAction", NULL, N_("ScoreMap (cube decision)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_CUBE) },
+    { "ScoreMapMoveAction", NULL, N_("ScoreMap (move decision)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_SCORE_MAP_MOVE) },
+    { "RaceTheoryAction", NULL, N_("_Race Theory"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_KLEINMAN) },
+    { "MarketWindowAction", NULL, N_("_Market window"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MARKETWINDOW) },
+    { "MatchEquityTableAction", NULL, N_("M_atch equity table"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MATCHEQUITYTABLE) },
+    { "EvaluationSpeedAction", NULL, N_("Evaluation speed"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_CALIBRATION) },
 
-    {"SettingsMenuAction", NULL, N_("_Settings"), NULL, NULL, G_CALLBACK(NULL)},
-    {"SettingsAnalysisAction", NULL, N_("_Analysis..."), NULL, NULL, G_CALLBACK(SetAnalysis)},
-    {"SettingsBoardAppearanceAction", NULL, N_("_Board Appearance..."), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SET_APPEARANCE)},
-    {"SettingsExportAction", NULL, N_("E_xport..."), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_EXPORT)},
-    {"SettingsPlayersAction", NULL, N_("_Players..."), NULL, NULL, G_CALLBACK(SetPlayers)},
-    {"SettingsRolloutsAction", NULL, N_("_Rollouts..."), NULL, NULL, G_CALLBACK(SetRollouts)},
-    {"SettingsOptionsAction", NULL, N_("_Options..."), NULL, NULL, G_CALLBACK(SetOptions)},
-    {"SettingsLanguageAction", NULL, N_("_Language..."), NULL, NULL, G_CALLBACK(SetLanguage)},
+    { "SettingsMenuAction", NULL, N_("_Settings"), NULL, NULL, G_CALLBACK(NULL) },
+    { "SettingsAnalysisAction", NULL, N_("_Analysis..."), NULL, NULL, G_CALLBACK(SetAnalysis) },
+    { "SettingsBoardAppearanceAction", NULL, N_("_Board Appearance..."), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SET_APPEARANCE) },
+    { "SettingsExportAction", NULL, N_("E_xport..."), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_EXPORT) },
+    { "SettingsPlayersAction", NULL, N_("_Players..."), NULL, NULL, G_CALLBACK(SetPlayers) },
+    { "SettingsRolloutsAction", NULL, N_("_Rollouts..."), NULL, NULL, G_CALLBACK(SetRollouts) },
+    { "SettingsOptionsAction", NULL, N_("_Options..."), NULL, NULL, G_CALLBACK(SetOptions) },
+    { "SettingsLanguageAction", NULL, N_("_Language..."), NULL, NULL, G_CALLBACK(SetLanguage) },
 
-    {"GoMenuAction", NULL, N_("G_o"), NULL, NULL, G_CALLBACK(NULL)},
-    {"GoPreviousMarkedMoveAction", GNUBG_STOCK_GO_PREV_MARKED, N_("Previous marked move"), "<shift><control>Page_Up",
-     N_("Go to Previous Marked"), CMD_ACTION_CALLBACK_FROMID(CMD_PREV_MARKED)},
-    {"GoPreviousCMarkedMoveAction", GNUBG_STOCK_GO_PREV_CMARKED, N_("Previous cmarked move"), "<shift>Page_Up", N_("Go to Previous CMarked"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_CMARKED)},
-    {"GoPreviousRollAction", GNUBG_STOCK_GO_PREV, N_("Previous rol_l"), "Page_Up", N_("Go to Previous Roll"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_ROLL)},
-    {"GoPreviousGameAction", GNUBG_STOCK_GO_PREV_GAME, N_("Pre_vious game"), "<control>Page_Up", N_("Go to Previous Game"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_GAME)},
-    {"GoNextGameAction", GNUBG_STOCK_GO_NEXT_GAME, N_("Next _game"), "<control>Page_Down", N_("Go to Next Game"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_GAME)},
-    {"GoNextRollAction", GNUBG_STOCK_GO_NEXT, N_("Next _roll"), "Page_Down", N_("Go to Next Roll"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_ROLL)},
-    {"GoNextCMarkedMoveAction", GNUBG_STOCK_GO_NEXT_CMARKED, N_("Next cmarked move"), "<shift>Page_Down", N_("Go to Next CMarked"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_CMARKED)},
-    {"GoNextMarkedMoveAction", GNUBG_STOCK_GO_NEXT_MARKED, N_("Next marked move"), "<shift><control>Page_Down", N_("Go to Next Marked"),
-     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_MARKED)},
+    { "GoMenuAction", NULL, N_("G_o"), NULL, NULL, G_CALLBACK(NULL) },
+    { "GoPreviousMarkedMoveAction", GNUBG_STOCK_GO_PREV_MARKED, N_("Previous marked move"), "<shift><control>Page_Up",
+     N_("Go to Previous Marked"), CMD_ACTION_CALLBACK_FROMID(CMD_PREV_MARKED) },
+    { "GoPreviousCMarkedMoveAction", GNUBG_STOCK_GO_PREV_CMARKED, N_("Previous cmarked move"), "<shift>Page_Up",
+     N_("Go to Previous CMarked"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_CMARKED) },
+    { "GoPreviousRollAction", GNUBG_STOCK_GO_PREV, N_("Previous rol_l"), "Page_Up", N_("Go to Previous Roll"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_ROLL) },
+    { "GoPreviousGameAction", GNUBG_STOCK_GO_PREV_GAME, N_("Pre_vious game"), "<control>Page_Up",
+     N_("Go to Previous Game"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_PREV_GAME) },
+    { "GoNextGameAction", GNUBG_STOCK_GO_NEXT_GAME, N_("Next _game"), "<control>Page_Down", N_("Go to Next Game"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_GAME) },
+    { "GoNextRollAction", GNUBG_STOCK_GO_NEXT, N_("Next _roll"), "Page_Down", N_("Go to Next Roll"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_ROLL) },
+    { "GoNextCMarkedMoveAction", GNUBG_STOCK_GO_NEXT_CMARKED, N_("Next cmarked move"), "<shift>Page_Down",
+     N_("Go to Next CMarked"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_CMARKED) },
+    { "GoNextMarkedMoveAction", GNUBG_STOCK_GO_NEXT_MARKED, N_("Next marked move"), "<shift><control>Page_Down",
+     N_("Go to Next Marked"),
+     CMD_ACTION_CALLBACK_FROMID(CMD_NEXT_MARKED) },
 
-    {"HelpMenuAction", NULL, N_("_Help"), NULL, NULL, G_CALLBACK(NULL)},
-    {"HelpCommandsAction", NULL, N_("_Commands"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_HELP)},
-    {"HelpManualAllAboutAction", NULL, N_("_Manual (all about)"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_ABOUT)},
-    {"HelpManualWebAction", NULL, N_("Manual (_web)"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_WEB)},
-    {"HelpAboutGNUBGAction", GTK_STOCK_ABOUT, N_("_About GNU Backgammon"), NULL, NULL,
-     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_VERSION)}
+    { "HelpMenuAction", NULL, N_("_Help"), NULL, NULL, G_CALLBACK(NULL) },
+    { "HelpCommandsAction", NULL, N_("_Commands"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_HELP) },
+    { "HelpManualAllAboutAction", NULL, N_("_Manual (all about)"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_ABOUT) },
+    { "HelpManualWebAction", NULL, N_("Manual (_web)"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_MANUAL_WEB) },
+    { "HelpAboutGNUBGAction", GTK_STOCK_ABOUT, N_("_About GNU Backgammon"), NULL, NULL,
+     CMD_ACTION_CALLBACK_FROMID(CMD_SHOW_VERSION) }
 };
 
 static GtkToggleActionEntry toggleActionEntries[] = {
-    {"EditPositionAction", GTK_STOCK_EDIT, N_("_Edit Position"), NULL, N_("Toggle Edit Mode"), G_CALLBACK(ToggleEdit), FALSE},
+    { "EditPositionAction", GTK_STOCK_EDIT, N_("_Edit Position"), NULL, N_("Toggle Edit Mode"), G_CALLBACK(ToggleEdit),
+     FALSE },
 
-    {"PanelGameRecordAction", NULL, N_("_Game record"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_GAMELIST), FALSE},    /* TOGGLE */
-    {"PanelAnalysisAction", NULL, N_("_Analysis"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_ANALYSIS), FALSE}, /* TOGGLE */
-    {"PanelCommentaryAction", NULL, N_("_Commentary"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_COMMENTARY), FALSE},   /* TOGGLE */
-    {"PanelMessageAction", NULL, N_("_Message"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_MESSAGE), FALSE},    /* TOGGLE */
-    {"PanelTheoryAction", NULL, N_("_Theory"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_THEORY), FALSE},       /* TOGGLE */
-    {"PanelCommandAction", NULL, N_("Command"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_COMMAND), FALSE},     /* TOGGLE */
+    { "PanelGameRecordAction", NULL, N_("_Game record"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_GAMELIST), FALSE },  /* TOGGLE */
+    { "PanelAnalysisAction", NULL, N_("_Analysis"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_ANALYSIS), FALSE },       /* TOGGLE */
+    { "PanelCommentaryAction", NULL, N_("_Commentary"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_COMMENTARY), FALSE }, /* TOGGLE */
+    { "PanelMessageAction", NULL, N_("_Message"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_MESSAGE), FALSE },  /* TOGGLE */
+    { "PanelTheoryAction", NULL, N_("_Theory"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_THEORY), FALSE },     /* TOGGLE */
+    { "PanelCommandAction", NULL, N_("Command"), NULL, NULL, GENERIC_TOGGLE_CALLBACK_FROMID(TOGGLE_COMMAND), FALSE },   /* TOGGLE */
 
-    {"DockPanelsAction", NULL, N_("_Dock panels"), NULL, NULL, G_CALLBACK(ToggleDockPanels), FALSE},
-    {"ShowIDStatusBarAction", NULL, N_("Show _ID in status bar"), NULL, NULL, G_CALLBACK(ToggleShowingIDs), FALSE},     /* TOGGLE */
-    {"FullScreenAction", NULL, N_("Full screen"), "F11", NULL, G_CALLBACK(DoFullScreenMode), FALSE},    /* TOGGLE */
-    {"PlayClockwiseAction", NULL, N_("Play _Clockwise"), NULL, N_("Reverse direction of play"), G_CALLBACK(ToggleClockwise), FALSE}        /* TOGGLE */
+    { "DockPanelsAction", NULL, N_("_Dock panels"), NULL, NULL, G_CALLBACK(ToggleDockPanels), FALSE },
+    { "ShowIDStatusBarAction", NULL, N_("Show _ID in status bar"), NULL, NULL, G_CALLBACK(ToggleShowingIDs), FALSE },   /* TOGGLE */
+    { "FullScreenAction", NULL, N_("Full screen"), "F11", NULL, G_CALLBACK(DoFullScreenMode), FALSE },  /* TOGGLE */
+    { "PlayClockwiseAction", NULL, N_("Play _Clockwise"), NULL, N_("Reverse direction of play"), G_CALLBACK(ToggleClockwise), FALSE }   /* TOGGLE */
 };
 
 static GtkRadioActionEntry toolbarRadioActionEntries[] = {
-    {"TextOnlyToolBarAction", NULL, N_("_Text only"), NULL, NULL, VIEW_TOOLBAR_TEXTONLY},
-    {"IconsOnlyToolBarAction", NULL, N_("_Icons only"), NULL, NULL, VIEW_TOOLBAR_ICONSONLY},
-    {"BothToolBarAction", NULL, N_("_Both"), NULL, NULL, VIEW_TOOLBAR_BOTH}
+    { "TextOnlyToolBarAction", NULL, N_("_Text only"), NULL, NULL, VIEW_TOOLBAR_TEXTONLY },
+    { "IconsOnlyToolBarAction", NULL, N_("_Icons only"), NULL, NULL, VIEW_TOOLBAR_ICONSONLY },
+    { "BothToolBarAction", NULL, N_("_Both"), NULL, NULL, VIEW_TOOLBAR_BOTH }
 };
 
 static GtkRadioActionEntry setTurnRadioActionEntries[] = {
-    {"SetTurnPlayer0Action", NULL, "0", NULL, NULL, CMD_SET_TURN_0},
-    {"SetTurnPlayer1Action", NULL, "1", NULL, NULL, CMD_SET_TURN_1},
+    { "SetTurnPlayer0Action", NULL, "0", NULL, NULL, CMD_SET_TURN_0 },
+    { "SetTurnPlayer1Action", NULL, "1", NULL, NULL, CMD_SET_TURN_1 },
 };
 
 #else
 static GtkItemFactoryEntry aife[] = {
-    {N_("/_File"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_File/_New..."), "<control>N", NewClicked, 0,
-     "<StockItem>", GTK_STOCK_NEW},
-    {N_("/_File/_Open..."), "<control>O", GTKOpen, 0,
-     "<StockItem>", GTK_STOCK_OPEN},
-    {N_("/_File/_Save..."), "<control>S", GTKSave, 0,
-     "<StockItem>", GTK_STOCK_SAVE},
-    {N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_File/Open _Commands..."), NULL, GTKCommandsOpen, 0,
-     NULL, NULL},
-    {N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_File/Match information..."), NULL, GTKMatchInfo, 0, NULL,
-     NULL},
-    {N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL},
+    { N_("/_File"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_File/_New..."), "<control>N", G_CALLBACK(NewClicked), 0,
+     "<StockItem>", GTK_STOCK_NEW },
+    { N_("/_File/_Open..."), "<control>O", G_CALLBACK(GTKOpen), 0,
+     "<StockItem>", GTK_STOCK_OPEN },
+    { N_("/_File/_Save..."), "<control>S", G_CALLBACK(GTKSave), 0,
+     "<StockItem>", GTK_STOCK_SAVE },
+    { N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_File/Open _Commands..."), NULL, G_CALLBACK(GTKCommandsOpen), 0,
+     NULL, NULL },
+    { N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_File/Match information..."), NULL, GTKMatchInfo, 0, NULL,
+     NULL },
+    { N_("/_File/-"), NULL, NULL, 0, "<Separator>", NULL },
     {
 #if defined(WIN32)
      N_("/_File/E_xit"),
 #else
      N_("/_File/_Quit"),
 #endif
-     "<control>Q", Command, CMD_QUIT, "<StockItem>", GTK_STOCK_QUIT},
-    {N_("/_Edit"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Edit/_Undo"), "<control>Z", GTKUndo, 0,
-     "<StockItem>", GTK_STOCK_UNDO},
-    {N_("/_Edit/-"), NULL, NULL, 0, "<Separator>", NULL},
+     "<control>Q", G_CALLBACK(Command), CMD_QUIT, "<StockItem>", GTK_STOCK_QUIT },
+    { N_("/_Edit"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Edit/_Undo"), "<control>Z", GTKUndo, 0,
+     "<StockItem>", GTK_STOCK_UNDO },
+    { N_("/_Edit/-"), NULL, NULL, 0, "<Separator>", NULL },
 
-    {N_("/_Edit/_Copy ID to Clipboard"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Edit/_Copy ID to Clipboard/GNUbg ID"), "<control>C", CopyIDs, 0, NULL, NULL},
-    {N_("/_Edit/_Copy ID to Clipboard/Match ID"), "<control>M", CopyMatchID, 0, NULL, NULL},
-    {N_("/_Edit/_Copy ID to Clipboard/Position ID"), "<control>P", CopyPositionID, 0, NULL, NULL},
+    { N_("/_Edit/_Copy ID to Clipboard"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Edit/_Copy ID to Clipboard/GNUbg ID"), "<control>C", G_CALLBACK(CopyIDs), 0, NULL, NULL },
+    { N_("/_Edit/_Copy ID to Clipboard/Match ID"), "<control>M", G_CALLBACK(CopyMatchID), 0, NULL, NULL },
+    { N_("/_Edit/_Copy ID to Clipboard/Position ID"), "<control>P", G_CALLBACK(CopyPositionID), 0, NULL, NULL },
 
-    {N_("/_Edit/Copy as"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Edit/Copy as/Position as ASCII"), NULL,
-     CommandCopy, 0, NULL, NULL},
-    {N_("/_Edit/Copy as/BGonline (HTML)"), NULL,
-     CopyAsGOL, 0, NULL, NULL},
+    { N_("/_Edit/Copy as"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Edit/Copy as/Position as ASCII"), NULL,
+     G_CALLBACK(CommandCopy), 0, NULL, NULL },
+    { N_("/_Edit/Copy as/BGonline (HTML)"), NULL,
+     G_CALLBACK(CopyAsGOL), 0, NULL, NULL },
 
-    {N_("/_Edit/_Paste ID"), "<control>V", PasteIDs, 0,
-     "<StockItem>", GTK_STOCK_PASTE},
+    { N_("/_Edit/_Paste ID"), "<control>V", PasteIDs, 0,
+     "<StockItem>", GTK_STOCK_PASTE },
 
-    {N_("/_Edit/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Edit/_Edit Position"), NULL, click_edit, 0,
-     "<CheckItem>", NULL},
+    { N_("/_Edit/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Edit/_Edit Position"), NULL, click_edit, 0,
+     "<CheckItem>", NULL },
 
-    {N_("/_View"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_View/_Panels"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_View/_Panels/_Game record"), NULL, TogglePanel, TOGGLE_GAMELIST,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Panels/_Analysis"), NULL, TogglePanel, TOGGLE_ANALYSIS,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Panels/_Commentary"), NULL, TogglePanel, TOGGLE_COMMENTARY,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Panels/_Message"), NULL, TogglePanel, TOGGLE_MESSAGE,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Panels/_Theory"), NULL, TogglePanel, TOGGLE_THEORY,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Panels/_Command"), NULL, TogglePanel, TOGGLE_COMMAND,
-     "<CheckItem>", NULL},
-    {N_("/_View/_Dock panels"), NULL, ToggleDockPanels, 0, "<CheckItem>", NULL},
-    {N_("/_View/Restore panels"), NULL, ShowAllPanels, 0, NULL, NULL},
-    {N_("/_View/Hide panels"), NULL, HideAllPanels, 0, NULL, NULL},
-    {N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_View/Show _ID in status bar"), NULL, ToggleShowingIDs, 0, "<CheckItem>", NULL},
-    {N_("/_View/_Toolbar"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_View/_Toolbar/_Hide Toolbar"), NULL, HideToolbar, 0, NULL, NULL},
-    {N_("/_View/_Toolbar/_Show Toolbar"), NULL, ShowToolbar, 0, NULL, NULL},
-    {N_("/_View/_Toolbar/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_View/_Toolbar/_Text only"), NULL, ToolbarStyle, TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_TEXT,
-     "<RadioItem>", NULL},
-    {N_("/_View/_Toolbar/_Icons only"), NULL, ToolbarStyle, TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_ICONS,
-     "/View/Toolbar/Text only", NULL},
-    {N_("/_View/_Toolbar/_Both"), NULL, ToolbarStyle, TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_BOTH,
-     "/View/Toolbar/Text only", NULL},
-    {N_("/_View/Full screen"), "F11", DoFullScreenMode, 0, "<CheckItem>", NULL},
-    {N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_View/Play _Clockwise"), NULL, click_swapdirection, 0, "<CheckItem>", NULL},
+    { N_("/_View"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_View/_Panels"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_View/_Panels/_Game record"), NULL, G_CALLBACK(TogglePanel), TOGGLE_GAMELIST,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Panels/_Analysis"), NULL, G_CALLBACK(TogglePanel), TOGGLE_ANALYSIS,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Panels/_Commentary"), NULL, G_CALLBACK(TogglePanel), TOGGLE_COMMENTARY,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Panels/_Message"), NULL, G_CALLBACK(TogglePanel), TOGGLE_MESSAGE,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Panels/_Theory"), NULL, G_CALLBACK(TogglePanel), TOGGLE_THEORY,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Panels/_Command"), NULL, G_CALLBACK(TogglePanel), TOGGLE_COMMAND,
+     "<CheckItem>", NULL },
+    { N_("/_View/_Dock panels"), NULL, G_CALLBACK(ToggleDockPanels), 0, "<CheckItem>", NULL },
+    { N_("/_View/Restore panels"), NULL, G_CALLBACK(ShowAllPanels), 0, NULL, NULL },
+    { N_("/_View/Hide panels"), NULL, G_CALLBACK(HideAllPanels), 0, NULL, NULL },
+    { N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_View/Show _ID in status bar"), NULL, G_CALLBACK(ToggleShowingIDs), 0, "<CheckItem>", NULL },
+    { N_("/_View/_Toolbar"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_View/_Toolbar/_Hide Toolbar"), NULL, HideToolbar, 0, NULL, NULL },
+    { N_("/_View/_Toolbar/_Show Toolbar"), NULL, ShowToolbar, 0, NULL, NULL },
+    { N_("/_View/_Toolbar/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_View/_Toolbar/_Text only"), NULL, G_CALLBACK(ToolbarStyle), TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_TEXT,
+     "<RadioItem>", NULL },
+    { N_("/_View/_Toolbar/_Icons only"), NULL, G_CALLBACK(ToolbarStyle), TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_ICONS,
+     "/View/Toolbar/Text only", NULL },
+    { N_("/_View/_Toolbar/_Both"), NULL, G_CALLBACK(ToolbarStyle), TOOLBAR_ACTION_OFFSET + GTK_TOOLBAR_BOTH,
+     "/View/Toolbar/Text only", NULL },
+    { N_("/_View/Full screen"), "F11", G_CALLBACK(DoFullScreenMode), 0, "<CheckItem>", NULL },
+    { N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_View/Play _Clockwise"), NULL, click_swapdirection, 0, "<CheckItem>", NULL },
 #if defined(USE_BOARD3D)
-    {N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_View/Switch to xD view"), NULL, SwitchDisplayMode, TOOLBAR_ACTION_OFFSET + MENU_OFFSET, NULL, NULL},
+    { N_("/_View/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_View/Switch to xD view"), NULL, G_CALLBACK(SwitchDisplayMode), TOOLBAR_ACTION_OFFSET + MENU_OFFSET, NULL,
+     NULL },
 #endif
-    {N_("/_Game"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Game/_Roll"), "<control>R", Command, CMD_ROLL, NULL, NULL},
-    {N_("/_Game/_Finish move"), "<control>F", FinishMove, 0, NULL, NULL},
-    {N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Game/_Double"), "<control>D", Command, CMD_DOUBLE, "<StockItem>", GNUBG_STOCK_DOUBLE},
-    {N_("/_Game/Re_sign"), NULL, GTKResign, 0, "<StockItem>", GNUBG_STOCK_RESIGN},
-    {N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Game/_Accept"), NULL, Command, CMD_ACCEPT, "<StockItem>", GNUBG_STOCK_ACCEPT},
-    {N_("/_Game/Re_ject"), NULL, Command, CMD_REJECT, "<StockItem>", GNUBG_STOCK_REJECT},
-    {N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Game/Play computer turn"), NULL, Command, CMD_PLAY, NULL,
-     NULL},
-    {N_("/_Game/_End Game"), "<control>G", Command, CMD_END_GAME, "<StockItem>", GNUBG_STOCK_END_GAME},
-    {N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Game/Swap players"), NULL, Command, CMD_SWAP_PLAYERS, NULL,
-     NULL},
-    {N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Game/Set cube..."), NULL, GTKSetCube, 0, NULL, NULL},
-    {N_("/_Game/Set _dice..."), NULL, GTKSetDice, 0, NULL, NULL},
-    {N_("/_Game/Set _turn"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Game/Set turn/0"),
-     NULL, Command, CMD_SET_TURN_0, "<RadioItem>", NULL},
-    {N_("/_Game/Set turn/1"), NULL, Command, CMD_SET_TURN_1,
-     "/Game/Set turn/0", NULL},
-    {N_("/_Game/Clear turn"), NULL, Command, CMD_CLEAR_TURN, NULL, NULL},
-    {N_("/_Analyse"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/_Evaluate"), "<control>E", Command, CMD_EVAL, NULL, NULL},
-    {N_("/_Analyse/_Hint"), "<control>H", Command, CMD_HINT,
-     "<StockItem>", GNUBG_STOCK_HINT},
-    {N_("/_Analyse/_Rollout position"), NULL, Command, CMD_ROLLOUT, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Analyse move"),
-     NULL, Command, CMD_ANALYSE_MOVE, NULL, NULL},
-    {N_("/_Analyse/Analyse game"),
-     NULL, Command, CMD_ANALYSE_GAME, NULL, NULL},
-    {N_("/_Analyse/Analyse match or session"),
-     NULL, Command, CMD_ANALYSE_MATCH, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Clear analysis"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/Clear analysis/Move"),
-     NULL, Command, CMD_ANALYSE_CLEAR_MOVE,
-     "<StockItem>", GTK_STOCK_CLEAR},
-    {N_("/_Analyse/Clear analysis/_Game"),
-     NULL, Command, CMD_ANALYSE_CLEAR_GAME,
-     "<StockItem>", GTK_STOCK_CLEAR},
-    {N_("/_Analyse/Clear analysis/_Match or session"),
-     NULL, Command, CMD_ANALYSE_CLEAR_MATCH,
-     "<StockItem>", GTK_STOCK_CLEAR},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/CMark"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/CMark/Cube"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/CMark/Cube/Clear"), NULL, Command, CMD_CMARK_CUBE_CLEAR, NULL, NULL},
-    {N_("/_Analyse/CMark/Cube/Show"), NULL, Command, CMD_CMARK_CUBE_SHOW, NULL, NULL},
-    {N_("/_Analyse/CMark/Move"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/CMark/Move/Clear"), NULL, Command, CMD_CMARK_MOVE_CLEAR, NULL, NULL},
-    {N_("/_Analyse/CMark/Move/Show"), NULL, Command, CMD_CMARK_MOVE_SHOW, NULL, NULL},
-    {N_("/_Analyse/CMark/Game"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/CMark/Game/Clear"), NULL, Command, CMD_CMARK_GAME_CLEAR, NULL, NULL},
-    {N_("/_Analyse/CMark/Game/Show"), NULL, Command, CMD_CMARK_GAME_SHOW, NULL, NULL},
-    {N_("/_Analyse/CMark/Match"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/CMark/Match/Clear"), NULL, Command, CMD_CMARK_MATCH_CLEAR, NULL, NULL},
-    {N_("/_Analyse/CMark/Match/Show"), NULL, Command, CMD_CMARK_MATCH_SHOW, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Rollout"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Analyse/Rollout/Cube"), NULL, Command, CMD_ANALYSE_ROLLOUT_CUBE, NULL, NULL},
-    {N_("/_Analyse/Rollout/CMarked from Move"), NULL, Command, CMD_ANALYSE_ROLLOUT_MOVE, NULL, NULL},
-    {N_("/_Analyse/Rollout/CMarked from Game"), NULL, Command, CMD_ANALYSE_ROLLOUT_GAME, NULL, NULL},
-    {N_("/_Analyse/Rollout/CMarked from Match"), NULL, Command, CMD_ANALYSE_ROLLOUT_MATCH, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Analyse File"), NULL, GTKAnalyzeFile, 0, NULL, NULL},
-    {N_("/_Analyse/Batch analyse..."), NULL, GTKBatchAnalyse, 0, NULL,
-     NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Match or session statistics"), NULL, Command,
-     CMD_SHOW_STATISTICS_MATCH, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Add match or session to database"), NULL,
-     GtkRelationalAddMatch, 0,
-     "<StockItem>", GTK_STOCK_ADD},
-    {N_("/_Analyse/Show Records"), NULL,
-     GtkShowRelational, 0, NULL, NULL},
-    {N_("/_Analyse/Plot History"), NULL, Command,
-     CMD_SHOW_HISTORY, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Distribution of rolls"), NULL, Command,
-     CMD_SHOW_ROLLS, NULL, NULL},
-    {N_("/_Analyse/Temperature Map"), NULL, Command,
-     CMD_SHOW_TEMPERATURE_MAP, NULL, NULL},
-    {N_("/_Analyse/Temperature Map (cube decision)"), NULL, Command,
-     CMD_SHOW_TEMPERATURE_MAP_CUBE, NULL, NULL},
-    {N_("/_Analyse/ScoreMap (move decision)"), NULL, Command,
-     CMD_SHOW_SCORE_MAP_MOVE, NULL, NULL},
-    {N_("/_Analyse/ScoreMap (cube decision)"), NULL, Command,
-     CMD_SHOW_SCORE_MAP_CUBE, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/_Race Theory"),
-     NULL, Command, CMD_SHOW_KLEINMAN, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/_Market window"), NULL, Command, CMD_SHOW_MARKETWINDOW,
-     NULL, NULL},
-    {N_("/_Analyse/M_atch equity table"), NULL, Command,
-     CMD_SHOW_MATCHEQUITYTABLE, NULL, NULL},
-    {N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Analyse/Evaluation speed"), NULL, Command,
-     CMD_SHOW_CALIBRATION, NULL, NULL},
-    {N_("/_Settings"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Settings/_Analysis..."), NULL, SetAnalysis, 0, NULL, NULL},
-    {N_("/_Settings/_Board Appearance..."), NULL, Command, CMD_SET_APPEARANCE,
-     NULL, NULL},
-    {N_("/_Settings/E_xport..."), NULL, Command, CMD_SHOW_EXPORT,
-     NULL, NULL},
-    {N_("/_Settings/_Players..."), NULL, SetPlayers, 0, NULL, NULL},
-    {N_("/_Settings/_Rollouts..."), NULL, SetRollouts, 0, NULL, NULL},
-    {N_("/_Settings/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Settings/_Options..."), NULL, SetOptions, 0, NULL, NULL},
-    {N_("/_Settings/_Language..."), NULL, SetLanguage, 0, NULL, NULL},
-    {N_("/G_o"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/G_o/Previous marked move"), "<shift><control>Page_Up", Command, CMD_PREV_MARKED, "<StockItem>",
-     GNUBG_STOCK_GO_PREV_MARKED},
-    {N_("/G_o/Previous cmarked move"), "<shift>Page_Up", Command, CMD_PREV_CMARKED, "<StockItem>",
-     GNUBG_STOCK_GO_PREV_CMARKED},
-    {N_("/G_o/Previous rol_l"), "Page_Up", Command, CMD_PREV_ROLL, "<StockItem>", GNUBG_STOCK_GO_PREV},
-    {N_("/G_o/Pre_vious game"), "<control>Page_Up", Command, CMD_PREV_GAME, "<StockItem>", GNUBG_STOCK_GO_PREV_GAME},
-    {N_("/G_o/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/G_o/Next _game"), "<control>Page_Down", Command, CMD_NEXT_GAME, "<StockItem>", GNUBG_STOCK_GO_NEXT_GAME},
-    {N_("/G_o/Next _roll"), "Page_Down", Command, CMD_NEXT_ROLL, "<StockItem>", GNUBG_STOCK_GO_NEXT},
-    {N_("/G_o/Next cmarked move"), "<shift>Page_Down", Command, CMD_NEXT_CMARKED, "<StockItem>",
-     GNUBG_STOCK_GO_NEXT_CMARKED},
-    {N_("/G_o/Next marked move"), "<shift><control>Page_Down", Command, CMD_NEXT_MARKED, "<StockItem>",
-     GNUBG_STOCK_GO_NEXT_MARKED},
-    {N_("/_Help"), NULL, NULL, 0, "<Branch>", NULL},
-    {N_("/_Help/_Commands"), NULL, Command, CMD_HELP, NULL, NULL},
-    {N_("/_Help/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Help/_Manual (all about)"), NULL, Command,
-     CMD_SHOW_MANUAL_ABOUT, NULL, NULL},
-    {N_("/_Help/Manual (_web)"), NULL, Command,
-     CMD_SHOW_MANUAL_WEB, NULL, NULL},
-    {N_("/_Help/-"), NULL, NULL, 0, "<Separator>", NULL},
-    {N_("/_Help/_About GNU Backgammon"), NULL, Command, CMD_SHOW_VERSION,
-     "<StockItem>", GTK_STOCK_ABOUT}
+    { N_("/_Game"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Game/_Roll"), "<control>R", G_CALLBACK(Command), CMD_ROLL, NULL, NULL },
+    { N_("/_Game/_Finish move"), "<control>F", G_CALLBACK(FinishMove), 0, NULL, NULL },
+    { N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Game/_Double"), "<control>D", G_CALLBACK(Command), CMD_DOUBLE, "<StockItem>", GNUBG_STOCK_DOUBLE },
+    { N_("/_Game/Re_sign"), NULL, G_CALLBACK(GTKResign), 0, "<StockItem>", GNUBG_STOCK_RESIGN },
+    { N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Game/_Accept"), NULL, G_CALLBACK(Command), CMD_ACCEPT, "<StockItem>", GNUBG_STOCK_ACCEPT },
+    { N_("/_Game/Re_ject"), NULL, G_CALLBACK(Command), CMD_REJECT, "<StockItem>", GNUBG_STOCK_REJECT },
+    { N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Game/Play computer turn"), NULL, G_CALLBACK(Command), CMD_PLAY, NULL,
+     NULL },
+    { N_("/_Game/_End Game"), "<control>G", G_CALLBACK(Command), CMD_END_GAME, "<StockItem>", GNUBG_STOCK_END_GAME },
+    { N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Game/Swap players"), NULL, G_CALLBACK(Command), CMD_SWAP_PLAYERS, NULL,
+     NULL },
+    { N_("/_Game/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Game/Set cube..."), NULL, G_CALLBACK(GTKSetCube), 0, NULL, NULL },
+    { N_("/_Game/Set _dice..."), NULL, G_CALLBACK(GTKSetDice), 0, NULL, NULL },
+    { N_("/_Game/Set _turn"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Game/Set turn/0"),
+     NULL, G_CALLBACK(Command), CMD_SET_TURN_0, "<RadioItem>", NULL },
+    { N_("/_Game/Set turn/1"), NULL, G_CALLBACK(Command), CMD_SET_TURN_1,
+     "/Game/Set turn/0", NULL },
+    { N_("/_Game/Clear turn"), NULL, G_CALLBACK(Command), CMD_CLEAR_TURN, NULL, NULL },
+    { N_("/_Analyse"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/_Evaluate"), "<control>E", G_CALLBACK(Command), CMD_EVAL, NULL, NULL },
+    { N_("/_Analyse/_Hint"), "<control>H", G_CALLBACK(Command), CMD_HINT,
+     "<StockItem>", GNUBG_STOCK_HINT },
+    { N_("/_Analyse/_Rollout position"), NULL, G_CALLBACK(Command), CMD_ROLLOUT, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Analyse move"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_MOVE, NULL, NULL },
+    { N_("/_Analyse/Analyse game"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_GAME, NULL, NULL },
+    { N_("/_Analyse/Analyse match or session"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_MATCH, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Clear analysis"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/Clear analysis/Move"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_CLEAR_MOVE,
+     "<StockItem>", GTK_STOCK_CLEAR },
+    { N_("/_Analyse/Clear analysis/_Game"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_CLEAR_GAME,
+     "<StockItem>", GTK_STOCK_CLEAR },
+    { N_("/_Analyse/Clear analysis/_Match or session"),
+     NULL, G_CALLBACK(Command), CMD_ANALYSE_CLEAR_MATCH,
+     "<StockItem>", GTK_STOCK_CLEAR },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/CMark"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/CMark/Cube"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/CMark/Cube/Clear"), NULL, G_CALLBACK(Command), CMD_CMARK_CUBE_CLEAR, NULL, NULL },
+    { N_("/_Analyse/CMark/Cube/Show"), NULL, G_CALLBACK(Command), CMD_CMARK_CUBE_SHOW, NULL, NULL },
+    { N_("/_Analyse/CMark/Move"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/CMark/Move/Clear"), NULL, G_CALLBACK(Command), CMD_CMARK_MOVE_CLEAR, NULL, NULL },
+    { N_("/_Analyse/CMark/Move/Show"), NULL, G_CALLBACK(Command), CMD_CMARK_MOVE_SHOW, NULL, NULL },
+    { N_("/_Analyse/CMark/Game"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/CMark/Game/Clear"), NULL, G_CALLBACK(Command), CMD_CMARK_GAME_CLEAR, NULL, NULL },
+    { N_("/_Analyse/CMark/Game/Show"), NULL, G_CALLBACK(Command), CMD_CMARK_GAME_SHOW, NULL, NULL },
+    { N_("/_Analyse/CMark/Match"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/CMark/Match/Clear"), NULL, G_CALLBACK(Command), CMD_CMARK_MATCH_CLEAR, NULL, NULL },
+    { N_("/_Analyse/CMark/Match/Show"), NULL, G_CALLBACK(Command), CMD_CMARK_MATCH_SHOW, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Rollout"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Analyse/Rollout/Cube"), NULL, G_CALLBACK(Command), CMD_ANALYSE_ROLLOUT_CUBE, NULL, NULL },
+    { N_("/_Analyse/Rollout/CMarked from Move"), NULL, G_CALLBACK(Command), CMD_ANALYSE_ROLLOUT_MOVE, NULL, NULL },
+    { N_("/_Analyse/Rollout/CMarked from Game"), NULL, G_CALLBACK(Command), CMD_ANALYSE_ROLLOUT_GAME, NULL, NULL },
+    { N_("/_Analyse/Rollout/CMarked from Match"), NULL, G_CALLBACK(Command), CMD_ANALYSE_ROLLOUT_MATCH, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Analyse File"), NULL, GTKAnalyzeFile, 0, NULL, NULL },
+    { N_("/_Analyse/Batch analyse..."), NULL, G_CALLBACK(GTKBatchAnalyse), 0, NULL,
+     NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Match or session statistics"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_STATISTICS_MATCH, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Add match or session to database"), NULL,
+     G_CALLBACK(GtkRelationalAddMatch), 0,
+     "<StockItem>", GTK_STOCK_ADD },
+    { N_("/_Analyse/Show Records"), NULL,
+     G_CALLBACK(GtkShowRelational), 0, NULL, NULL },
+    { N_("/_Analyse/Plot History"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_HISTORY, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Distribution of rolls"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_ROLLS, NULL, NULL },
+    { N_("/_Analyse/Temperature Map"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_TEMPERATURE_MAP, NULL, NULL },
+    { N_("/_Analyse/Temperature Map (cube decision)"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_TEMPERATURE_MAP_CUBE, NULL, NULL },
+    { N_("/_Analyse/ScoreMap (move decision)"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_SCORE_MAP_MOVE, NULL, NULL },
+    { N_("/_Analyse/ScoreMap (cube decision)"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_SCORE_MAP_CUBE, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/_Race Theory"),
+     NULL, G_CALLBACK(Command), CMD_SHOW_KLEINMAN, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/_Market window"), NULL, G_CALLBACK(Command), CMD_SHOW_MARKETWINDOW,
+     NULL, NULL },
+    { N_("/_Analyse/M_atch equity table"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_MATCHEQUITYTABLE, NULL, NULL },
+    { N_("/_Analyse/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Analyse/Evaluation speed"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_CALIBRATION, NULL, NULL },
+    { N_("/_Settings"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Settings/_Analysis..."), NULL, G_CALLBACK(SetAnalysis), 0, NULL, NULL },
+    { N_("/_Settings/_Board Appearance..."), NULL, G_CALLBACK(Command), CMD_SET_APPEARANCE,
+     NULL, NULL },
+    { N_("/_Settings/E_xport..."), NULL, G_CALLBACK(Command), CMD_SHOW_EXPORT,
+     NULL, NULL },
+    { N_("/_Settings/_Players..."), NULL, G_CALLBACK(SetPlayers), 0, NULL, NULL },
+    { N_("/_Settings/_Rollouts..."), NULL, G_CALLBACK(SetRollouts), 0, NULL, NULL },
+    { N_("/_Settings/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Settings/_Options..."), NULL, G_CALLBACK(SetOptions), 0, NULL, NULL },
+    { N_("/_Settings/_Language..."), NULL, G_CALLBACK(SetLanguage), 0, NULL, NULL },
+    { N_("/G_o"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/G_o/Previous marked move"), "<shift><control>Page_Up", G_CALLBACK(Command), CMD_PREV_MARKED, "<StockItem>",
+     GNUBG_STOCK_GO_PREV_MARKED },
+    { N_("/G_o/Previous cmarked move"), "<shift>Page_Up", G_CALLBACK(Command), CMD_PREV_CMARKED, "<StockItem>",
+     GNUBG_STOCK_GO_PREV_CMARKED },
+    { N_("/G_o/Previous rol_l"), "Page_Up", G_CALLBACK(Command), CMD_PREV_ROLL, "<StockItem>", GNUBG_STOCK_GO_PREV },
+    { N_("/G_o/Pre_vious game"), "<control>Page_Up", G_CALLBACK(Command), CMD_PREV_GAME, "<StockItem>",
+     GNUBG_STOCK_GO_PREV_GAME },
+    { N_("/G_o/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/G_o/Next _game"), "<control>Page_Down", G_CALLBACK(Command), CMD_NEXT_GAME, "<StockItem>",
+     GNUBG_STOCK_GO_NEXT_GAME },
+    { N_("/G_o/Next _roll"), "Page_Down", G_CALLBACK(Command), CMD_NEXT_ROLL, "<StockItem>", GNUBG_STOCK_GO_NEXT },
+    { N_("/G_o/Next cmarked move"), "<shift>Page_Down", G_CALLBACK(Command), CMD_NEXT_CMARKED, "<StockItem>",
+     GNUBG_STOCK_GO_NEXT_CMARKED },
+    { N_("/G_o/Next marked move"), "<shift><control>Page_Down", G_CALLBACK(Command), CMD_NEXT_MARKED, "<StockItem>",
+     GNUBG_STOCK_GO_NEXT_MARKED },
+    { N_("/_Help"), NULL, NULL, 0, "<Branch>", NULL },
+    { N_("/_Help/_Commands"), NULL, G_CALLBACK(Command), CMD_HELP, NULL, NULL },
+    { N_("/_Help/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Help/_Manual (all about)"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_MANUAL_ABOUT, NULL, NULL },
+    { N_("/_Help/Manual (_web)"), NULL, G_CALLBACK(Command),
+     CMD_SHOW_MANUAL_WEB, NULL, NULL },
+    { N_("/_Help/-"), NULL, NULL, 0, "<Separator>", NULL },
+    { N_("/_Help/_About GNU Backgammon"), NULL, G_CALLBACK(Command), CMD_SHOW_VERSION,
+     "<StockItem>", GTK_STOCK_ABOUT }
 };
 #endif
 
 static void
-Stop(GtkWidget * pw, gpointer UNUSED(unused))
+Stop(GtkWidget *pw, gpointer UNUSED(unused))
 {
     if (automaticTask)
         StopAutomaticPlay();
