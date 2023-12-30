@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1010 2023/12/20 14:17:30 plm Exp $
+ * $Id: gtkgame.c,v 1.1011 2023/12/30 07:33:19 plm Exp $
  */
 
 #include "config.h"
@@ -5752,7 +5752,7 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
     gtk_container_set_border_width(GTK_CONTAINER(pwPage), 8);
 
     prpw->padjSeed = GTK_ADJUSTMENT(gtk_adjustment_new((gdouble) prw->rcRollout.nSeed, 0, INT_MAX, 1, 1, 0));
-    prpw->padjTrials = GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nTrials, 1, 1296 * 1296, 36, 36, 0));
+    prpw->padjTrials = GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nTrials, 1, 36 * 1296 * 1296, 36, 36, 0));
 
 #if GTK_CHECK_VERSION(3,0,0)
     pwh = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 8);
@@ -5873,7 +5873,7 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
 #endif
     gtk_box_pack_start(GTK_BOX(pwv), pwHBox, TRUE, TRUE, 0);
 
-    prpw->padjMinGames = GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nMinimumGames, 1, 1296 * 1296, 36, 36, 0));
+    prpw->padjMinGames = GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nMinimumGames, 1, 36 * 1296 * 1296, 36, 36, 0));
     prpw->pwMinGames = gtk_spin_button_new(prpw->padjMinGames, 1, 0);
     gtk_box_pack_end(GTK_BOX(pwHBox), prpw->pwMinGames, FALSE, FALSE, 4);
     gtk_box_pack_end(GTK_BOX(pwHBox), gtk_label_new(_("Minimum Trials:")), FALSE, FALSE, 4);
@@ -5931,7 +5931,7 @@ RolloutPageGeneral(rolloutpagegeneral * prpw, rolloutwidget * prw)
     gtk_box_pack_start(GTK_BOX(pwv), pwHBox, TRUE, TRUE, 0);
 
     prpw->padjJsdMinGames =
-        GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nMinimumJsdGames, 1, 1296 * 1296, 36, 36, 0));
+        GTK_ADJUSTMENT(gtk_adjustment_new(prw->rcRollout.nMinimumJsdGames, 1, 36 * 1296 * 1296, 36, 36, 0));
     prpw->pwJsdMinGames = gtk_spin_button_new(prpw->padjJsdMinGames, 1, 0);
     gtk_box_pack_end(GTK_BOX(pwHBox), prpw->pwJsdMinGames, FALSE, FALSE, 4);
     gtk_box_pack_end(GTK_BOX(pwHBox), gtk_label_new(_("Minimum Trials:")), FALSE, FALSE, 4);
