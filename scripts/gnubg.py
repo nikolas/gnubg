@@ -15,7 +15,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: gnubg.py,v 1.21 2022/10/22 19:53:40 plm Exp $
+# $Id: gnubg.py,v 1.22 2023/12/18 21:20:28 plm Exp $
 #
 
 # This file is read by GNU Backgammon during startup.
@@ -55,39 +55,7 @@ def setinterpreterquit():
 setinterpreterquit()
 
 
-def gnubg_find_msvcrt():
-    return 'msvcr100.dll'
-
-# This is a workaround for a pyreadline c runtime conflict
-# on Win32 platforms. Replace ctypes.util.find_msvcrt with
-# our own. Readline not properly supported on Win2000 or
-# WinXP with a Service Pack earlier than SP2
-
-
-supports_readline = True
-
-try:
-    import ctypes.util
-    ctypes.util.find_msvcrt = gnubg_find_msvcrt
-    import platform
-    winver = platform.win32_ver()
-    try:
-        sp_ver = int(winver[2][2])
-    except (IndexError, ValueError):
-        sp_ver = 0
-
-    ver_split = winver[1].split('.')
-    major = int(ver_split[0])
-    minor = int(ver_split[1])
-
-    if ((major < 5) or (major == 5 and minor == 0) or (major == 5 and minor == 1 and sp_ver < 2)):
-        supports_readline = False
-except Exception:
-    pass
-
-
 def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
-    global supports_readline
     import sys
     import traceback
     import code
@@ -113,50 +81,28 @@ def gnubg_InteractivePyShell_tui(argv=[''], banner=None):
         if (banner is None):
             banner = 'Python ' + sys.version
 
-        if (supports_readline):
+        try:
+            # See if we can use readline support
+            import readline
+        except ImportError:
+            # Might be Win32 so check for pyreadline
             try:
-                # See if we can use readline support
-                import readline
+                import pyreadline as readline
             except ImportError:
-                # Might be Win32 so check for pyreadline
-                try:
-                    import pyreadline as readline
-                except ImportError:
-                    pass
-            try:
-                # See if we can add tab completion
-                import rlcompleter
-                readline.parse_and_bind('tab: complete')
-            except Exception:
                 pass
+        try:
+            # See if we can add tab completion
+            readline.parse_and_bind('tab: complete')
+        except Exception:
+            pass
 
-            try:
-                code.interact(banner=banner, local=globals())
-            except SystemExit:
-                # Ignore calls to exit() and quit()
-                pass
+        try:
+            code.interact(banner=banner, local=globals())
+        except SystemExit:
+            # Ignore calls to exit() and quit()
+            pass
 
-            return True
-
-        else:
-            # If we get this far we are on Win32 and too early
-            # a version to support the embedded interpreter so
-            # we simulate one
-            print(banner)
-            print('<Control-Z> and <Return> to exit')
-            while True:
-                print('>>> ',)
-                line = sys.stdin.readline()
-                if not line:
-                    break
-
-                try:
-                    exec(line)
-                except SystemExit:
-                    # Ignore calls to exit() and quit()
-                    break
-
-            return True
+        return True
 
     try:
         # Launch IPython interpreter
