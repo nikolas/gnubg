@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: dbprovider.c,v 1.62 2023/12/17 18:11:28 plm Exp $
+ * $Id: dbprovider.c,v 1.63 2023/12/18 21:14:48 plm Exp $
  */
 
 #include "config.h"
@@ -273,7 +273,7 @@ GetTypeFromName(const char *name)
 }
 
 void
-DefaultDBSettings()
+DefaultDBSettings(void)
 {
 #if NUM_PROVIDERS
     int i = 0;
