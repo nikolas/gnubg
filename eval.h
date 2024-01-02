@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.h,v 1.199 2020/01/01 13:57:42 plm Exp $
+ * $Id: eval.h,v 1.200 2023/12/20 23:09:54 plm Exp $
  */
 
 #ifndef EVAL_H
@@ -32,8 +32,8 @@
 	extern ret name##NoLocking( __VA_ARGS__); \
 	extern ret name##WithLocking( __VA_ARGS__)
 
-#define WEIGHTS_VERSION "1.00"
-#define WEIGHTS_VERSION_BINARY 1.00f
+#define WEIGHTS_VERSION "1.01"
+#define WEIGHTS_VERSION_BINARY 1.01f
 #define WEIGHTS_MAGIC_BINARY 472.3782f
 
 #define NUM_OUTPUTS 5

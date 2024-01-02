@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: eval.c,v 1.496 2023/07/19 20:32:29 plm Exp $
+ * $Id: eval.c,v 1.497 2023/12/20 23:09:54 plm Exp $
  */
 
 #include "config.h"
@@ -111,9 +111,9 @@ enum {
      * Some heuristics are required to estimate it, since we have no idea what
      * the best move actually is.
      * 
-     * 1. If board is weak (less than 3 anchors), don't consider hitting on
-     * points 22 and 23.
-     * 2. Don't break anchors inside home to hit.
+     * 1. If board is weak (less than 3 inner points made), don't consider
+     *    hitting on points 23 and 24.
+     * 2. Don't break inner points to hit.
      */
     I_PIPLOSS,
 
@@ -1002,7 +1002,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
 
     nBoard = 0;
     for (i = 0; i < 6; i++)
-        if (anBoard[i])
+        if (anBoard[i] >= 2)
             nBoard++;
 
     memset(aHit, 0, sizeof(aHit));

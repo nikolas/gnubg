@@ -1,3 +1,10 @@
+2024-01-01  Philippe Michel  <philippe.michel7@free.fr>
+
+	* eval.c, eval.h, gnubg.weights: Fix old quirk in the
+	implementation of the PIPLOSS input (bug #65035). Retrain the
+	neural nets using it. The effect on evaluation accuracy is
+	marginally positive.
+
 2023-12-20  Philippe Michel  <philippe.michel7@free.fr>
 
 	* eval.c, eval.h, set.c, show.c: Use a different cube efficiency
