@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gnubg.c,v 1.1036 2023/11/20 21:00:06 plm Exp $
+ * $Id: gnubg.c,v 1.1037 2023/12/18 21:14:48 plm Exp $
  */
 
 /*
@@ -2279,7 +2279,8 @@ hint_double(int show, int did_double)
         return;
     }
 #endif
-    outputl(OutputCubeAnalysis
+    if (show)
+        outputl(OutputCubeAnalysis
             (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci, -1));
 }
 
@@ -2318,7 +2319,8 @@ hint_take(int show, int did_take)
     }
 #endif
 
-    outputl(OutputCubeAnalysis
+    if (show)
+        outputl(OutputCubeAnalysis
             (pmr->CubeDecPtr->aarOutput, pmr->CubeDecPtr->aarStdDev, &pmr->CubeDecPtr->esDouble, &ci, 1));
 }
 
