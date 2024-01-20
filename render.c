@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: render.c,v 1.115 2023/07/23 15:43:21 plm Exp $
+ * $Id: render.c,v 1.116 2023/12/16 10:42:24 plm Exp $
  */
 
 #include "config.h"
@@ -1018,6 +1018,7 @@ WoodPixel(float x, float y, float z, unsigned char auch[3], woodtype wt)
 
     default:
         g_assert_not_reached();
+        auch[0] = auch[1] = auch[2] = 0;
     }
 #if defined(USE_GTK)
     if (showingGray)
