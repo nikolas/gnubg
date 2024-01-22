@@ -4983,11 +4983,20 @@ Equity
                 <entry>1 thread</entry>
               </row>
               <row>
-                <entry>10900</entry>
+                <entry>21700</entry>
                 <entry>ARM Cortex-A53  600 MHz</entry>
                 <entry>Raspberry Pi 3 Model B</entry>
                 <entry>1024 MB</entry>
-                <entry>Raspbian 9.4</entry>
+                <entry>Raspbian 10</entry>
+                <entry>1.06.002, --with-simd=neon</entry>
+                <entry>1 thread</entry>
+              </row>
+              <row>
+                <entry>11100</entry>
+                <entry>ARM Cortex-A53  600 MHz</entry>
+                <entry>Raspberry Pi 3 Model B</entry>
+                <entry>1024 MB</entry>
+                <entry>Raspbian 10</entry>
                 <entry>1.06.002</entry>
                 <entry>1 thread</entry>
               </row>
