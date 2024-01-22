@@ -17,7 +17,7 @@
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 #
-# $Id: credits.sh,v 1.167 2023/03/19 22:56:25 plm Exp $
+# $Id: credits.sh,v 1.168 2023/10/18 21:33:42 plm Exp $
 # 
 
 authors=/tmp/auth.$$
@@ -273,7 +273,7 @@ cat > credits.c <<EOF
 #include "credits.h"
 
 const char aszCOPYRIGHT[] = N_("Copyright (C) 1999-2004 Gary Wong.\n"
-                               "Copyright (C) 2004-2023 the AUTHORS; for details type \`show version'.");
+                               "Copyright (C) 2004-2024 the AUTHORS; for details type \`show version'.");
 
 credEntry ceAuthors[] = {
 EOF
