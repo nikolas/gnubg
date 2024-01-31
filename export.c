@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: export.c,v 1.98 2022/01/02 22:57:51 plm Exp $
+ * $Id: export.c,v 1.99 2023/11/13 20:41:35 plm Exp $
  */
 
 #include "config.h"
@@ -528,8 +528,10 @@ WritePNG(const char *sz, unsigned char *puch, unsigned int nStride, unsigned int
     atext[1].text = VERSION_STRING;
     atext[1].compression = PNG_TEXT_COMPRESSION_NONE;
 
+#ifdef PNG_iTXt_SUPPORTED
     atext[0].lang = NULL;
     atext[1].lang = NULL;
+#endif
 
     png_set_text(ppng, pinfo, atext, 2);
 
