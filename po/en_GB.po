@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU Backgammon 1.06\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2021-10-10 18:04+0200\n"
 "Last-Translator: N/A\n"
 "Language-Team: N//A\n"
@@ -3475,8 +3475,8 @@ msgstr ""
 msgid "Unknown eval type (%d)"
 msgstr ""
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 msgid "You must specify a file to export to."
 msgstr ""
 
@@ -3491,7 +3491,7 @@ msgstr ""
 msgid "Failed to create cairo surface for %s"
 msgstr ""
 
-#: export.c:1158
+#: export.c:1160
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "
 "in this format.\n"

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubg 0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2009-02-07 00:16+0100\n"
 "Last-Translator: Renzo Campagna <renzo.camp@tin.it>\n"
 "Language-Team: Italiano <renzo.camp@tin.it>\n"
@@ -3625,8 +3625,8 @@ msgstr "ply"
 msgid "Unknown eval type (%d)"
 msgstr "%s valore sconosciuto."
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 msgid "You must specify a file to export to."
 msgstr "Devi specificare un file da esportare."
 
@@ -3641,7 +3641,7 @@ msgstr "Non posso pulire le analisi su questa mossa"
 msgid "Failed to create cairo surface for %s"
 msgstr "E' fallita la creazione della superficie cairo per %s"
 
-#: export.c:1158
+#: export.c:1160
 #, fuzzy
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "

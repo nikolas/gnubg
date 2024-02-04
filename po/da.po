@@ -23,7 +23,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubg 0.12\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2010-01-02 16:50+0100\n"
 "Last-Translator: Christian Anthon <christian.anthon@gmail.com>\n"
 "Language-Team: American English <kde-i18n-doc@lists.kde.org>\n"
@@ -3854,8 +3854,8 @@ msgstr "ply"
 msgid "Unknown eval type (%d)"
 msgstr "Ukendt værdi %s."
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 msgid "You must specify a file to export to."
 msgstr "Du skal angive en fil at eksportere til."
 
@@ -3870,7 +3870,7 @@ msgstr "Kan exportere dette træk"
 msgid "Failed to create cairo surface for %s"
 msgstr "Ude af stand stil at skabe cairooverflade for %s"
 
-#: export.c:1158
+#: export.c:1160
 #, fuzzy
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubg 0.9.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2011-02-05 18:26+0200\n"
 "Last-Translator: Mihai <mihaiv@gmail.com>\n"
 "Language-Team:  <>\n"
@@ -3684,8 +3684,8 @@ msgstr "%d-mut"
 msgid "Unknown eval type (%d)"
 msgstr "Valoare necunoscută %s."
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 #, fuzzy
 msgid "You must specify a file to export to."
 msgstr "Trebuie să specifici un fişier în care să exporţi (vezi `%s')\n"
@@ -3701,7 +3701,7 @@ msgstr "Nu pot şterge analiza la această mutare"
 msgid "Failed to create cairo surface for %s"
 msgstr "Eşuat în a crea suprafaţa PS pentru %s"
 
-#: export.c:1158
+#: export.c:1160
 #, fuzzy
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "

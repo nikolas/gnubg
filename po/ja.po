@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU Backgammon 1.07.001\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2023-11-11 23:59+0900\n"
 "Last-Translator: TAKAHASHI Kaoru <kaoru@kaisei.org>\n"
 "Language-Team: Japanese <gnubg-ja@kinchan.com>\n"
@@ -3590,8 +3590,8 @@ msgstr "ply"
 msgid "Unknown eval type (%d)"
 msgstr "不明な評価形式 (%d)"
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 msgid "You must specify a file to export to."
 msgstr "エクスポート先のファイルを指定する必要があります。"
 
@@ -3606,7 +3606,7 @@ msgstr "このムーブのエクスポートを生成できません"
 msgid "Failed to create cairo surface for %s"
 msgstr "cairo surface %s の生成に失敗しました"
 
-#: export.c:1158
+#: export.c:1160
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "
 "in this format.\n"

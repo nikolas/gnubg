@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU Backgammon\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-22 22:42+0100\n"
+"POT-Creation-Date: 2024-02-03 22:39+0100\n"
 "PO-Revision-Date: 2008-12-29 00:40+0100\n"
 "Last-Translator: Fernando García García <fergarciaga@gmail.com>\n"
 "Language-Team: ES-Translation\n"
@@ -3876,8 +3876,8 @@ msgstr "turno («ply»)"
 msgid "Unknown eval type (%d)"
 msgstr "Valor %s desconocido."
 
-#: export.c:101 export.c:675 export.c:813 export.c:867 export.c:1255
-#: export.c:1309
+#: export.c:101 export.c:677 export.c:815 export.c:869 export.c:1257
+#: export.c:1311
 msgid "You must specify a file to export to."
 msgstr "Debe especificar un fichero para exportar."
 
@@ -3892,7 +3892,7 @@ msgstr "No se puede borrar el análisis en este movimiento"
 msgid "Failed to create cairo surface for %s"
 msgstr "No se pudo crear superficie cairo para %s"
 
-#: export.c:1158
+#: export.c:1160
 #, fuzzy
 msgid ""
 "Warning: this game was edited during play and cannot be exported correctly "
