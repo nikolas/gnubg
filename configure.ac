@@ -19,11 +19,11 @@ dnl You should have received a copy of the GNU General Public License
 dnl along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 dnl
-dnl $Id: configure.ac,v 1.121 2023/11/19 21:03:15 plm Exp $
+dnl $Id: configure.ac,v 1.122 2023/12/09 21:35:28 plm Exp $
 dnl
 
-AC_REVISION($Revision: 1.121 $)
-AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.07.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
+AC_REVISION($Revision: 1.122 $)
+AC_INIT([GNU Backgammon],m4_esyscmd(echo 1.08.001$VERSION_EXT | tr -d '\n'),[bug-gnubg@gnu.org],[gnubg])
 AC_CANONICAL_BUILD
 AC_CANONICAL_HOST
 AC_CONFIG_SRCDIR(gnubg.c)

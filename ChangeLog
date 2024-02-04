@@ -1,3 +1,7 @@
+2024-02-04  Philippe Michel  <philippe.michel7@free.fr>
+
+	Version 1.08.001 released.
+
 2024-01-01  Philippe Michel  <philippe.michel7@free.fr>
 
 	* eval.c, eval.h, gnubg.weights: Fix old quirk in the
