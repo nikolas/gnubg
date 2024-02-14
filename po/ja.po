@@ -16102,7 +16102,7 @@ msgstr ""
 #: show.c:1299
 #, c-format
 msgid ""
-"Estimated GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n"
+"Estimated GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
 "\n"
 msgstr ""
 "推定ゲーム勝率: %4.1f%% (80 - L/3 + 2×(T-L))\n"
@@ -16914,17 +16914,3 @@ msgstr ""
 msgid "You must specify a file to export to (see `help export position text')."
 msgstr ""
 "エクスポートするファイルを指定してください(see `help export position text')."
-
-#~ msgid "rating|Extra-terrestrial"
-#~ msgstr "ギャモンセイジン"
-
-#~ msgid "Extra-terrestrial"
-#~ msgstr "ギャモンセイジン"
-
-#, c-format
-#~ msgid ""
-#~ "Estimated GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
-#~ "\n"
-#~ msgstr ""
-#~ "推定ゲーム勝率: %4.1f%% (80 - L/3 + 2×(T-L))\n"
-#~ "\n"

@@ -15929,10 +15929,10 @@ msgstr ""
 #: show.c:1299
 #, c-format
 msgid ""
-"Estimated GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n"
+"Estimated GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
 "\n"
 msgstr ""
-"Arvioitu GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n"
+"Arvioitu GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
 "\n"
 
 #: show.c:1302
