@@ -4,10 +4,10 @@
 # Yoshito Takeuchi <kinchan@kinchan.com>, 2002
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU Backgammon 1.07.001\n"
+"Project-Id-Version: GNU Backgammon 1.08.001\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-02-03 22:39+0100\n"
-"PO-Revision-Date: 2023-11-11 23:59+0900\n"
+"PO-Revision-Date: 2024-02-06 17:59+0900\n"
 "Last-Translator: TAKAHASHI Kaoru <kaoru@kaisei.org>\n"
 "Language-Team: Japanese <gnubg-ja@kinchan.com>\n"
 "Language: ja\n"
@@ -2648,7 +2648,7 @@ msgstr "表示設定を表示"
 
 #: commands.inc:1377
 msgid "Show plot of player's historical error rate"
-msgstr ""
+msgstr "プレイヤーのエラーレート履歴をプロットして表示"
 
 #: commands.inc:1379
 msgid "Calculate Isight Count for position"
@@ -2988,13 +2988,12 @@ msgid "Agree to an offered double"
 msgstr "申し入れられたダブルに合意する"
 
 #: non-src/credits.c:22
-#, fuzzy
 msgid ""
 "Copyright (C) 1999-2004 Gary Wong.\n"
 "Copyright (C) 2004-2024 the AUTHORS; for details type `show version'."
 msgstr ""
 "Copyright (C) 1999-2004 Gary Wong.\n"
-"Copyright (C) 2004-2022 the AUTHORS; 詳しくは `show version' をタイプ"
+"Copyright (C) 2004-2024 the AUTHORS; 詳しくは `show version' をタイプ"
 
 #: non-src/credits.c:56 non-src/credits.c:58
 msgid "Web Pages"
@@ -5823,10 +5822,9 @@ msgstr "保存かエクスポートするファイル"
 
 #: gtkfile.c:522
 msgid "Incorrect path"
-msgstr ""
+msgstr "不正なファイルパス"
 
 #: gtkfile.c:536
-#, fuzzy
 msgid "Failed to create directory"
 msgstr "フォルダの作成に失敗"
 
@@ -6529,7 +6527,7 @@ msgstr "ダブルまたはリダブル(ビーバー)"
 
 #: gtkgame.c:4001
 msgid "Re_sign"
-msgstr "投了(s)"
+msgstr "投了(_s)"
 
 #: gtkgame.c:4001 gtktoolbar.c:506
 msgid "Resign the current game"
@@ -6677,7 +6675,7 @@ msgstr "データベース上の記録を表示"
 
 #: gtkgame.c:4068 gtkrelational.c:1568
 msgid "Plot History"
-msgstr ""
+msgstr "履歴をプロット"
 
 # XG2の翻訳パクリ
 #: gtkgame.c:4070 gtkrolls.c:334
@@ -7300,9 +7298,8 @@ msgid "/_Analyse/Show Records"
 msgstr "/解析(_A)/データベース上の記録を表示"
 
 #: gtkgame.c:4320
-#, fuzzy
 msgid "/_Analyse/Plot History"
-msgstr "/解析(_A)/ヒント(_H)"
+msgstr "/解析(_A)/履歴をプロット"
 
 # XG2翻訳パクリ
 #: gtkgame.c:4323
@@ -9130,7 +9127,6 @@ msgid "Small"
 msgstr "小"
 
 #: gtkoptions.c:1649
-#, fuzzy
 msgid ""
 "GNU Backgammon uses a cache of previous evaluations to speed up processing. "
 "Increasing the size will help evaluations complete more quickly, although "
@@ -9139,7 +9135,9 @@ msgid ""
 "help a little for higher plies evaluations and for rollouts."
 msgstr ""
 "GNU Backgammonは速度のために以前の解析結果をキャッシュします。キャッシュを大"
-"きくすると解析が速く終わり、小さくするとメモリ消費が少なくなります。"
+"きくすると解析が速く完了しますが、その効能は比較的早く減少します。\n"
+"既定値は、2-plyのプレーと解析には問題ありません。より大きい値は、より高いply"
+"の評価やロールアウトに少し役立ちます。"
 
 #: gtkoptions.c:1670
 msgid "Eval Threads:"
@@ -10280,12 +10278,11 @@ msgstr ""
 
 #: gtkrelational.c:312
 msgid "5-match average"
-msgstr ""
+msgstr "5マッチ平均"
 
 #: gtkrelational.c:340
-#, fuzzy
 msgid "Match error rate"
-msgstr "Snowie エラーレート"
+msgstr "マッチのエラーレート"
 
 #: gtkrelational.c:359 show.c:2335
 msgid "Average"
@@ -10293,27 +10290,26 @@ msgstr "平均"
 
 #: gtkrelational.c:395
 msgid "decisions (cube or move)"
-msgstr ""
+msgstr "判断数 (キューブとチェッカームーブ)"
 
 #: gtkrelational.c:438
-#, fuzzy, c-format
+#, c-format
 msgid "match %d"
-msgstr "マッチ"
+msgstr "マッチ %d"
 
 #: gtkrelational.c:441
 #, c-format
 msgid "vs. %s"
-msgstr ""
+msgstr "vs. %s"
 
 #: gtkrelational.c:447 gtkrelational.c:730
 msgid "Error, not enough datapoints for a plot."
-msgstr ""
+msgstr "エラー、プロットするのに充分なデータポイントがありません。"
 
 #. const char* pch;
 #: gtkrelational.c:466
-#, fuzzy
 msgid "History Plot Explanations"
-msgstr "解説"
+msgstr "履歴のプロットについて説明"
 
 #. Add explanation text for mwc plot
 #: gtkrelational.c:477
@@ -10341,30 +10337,50 @@ msgid ""
 "\n"
 "- Some match examples are provided throughout the plot (blue arrows)."
 msgstr ""
+"このグラフは、データベースの記録から、そのプレイヤーのgnubgエラーレートが、そ"
+"のプレイヤーの歴史を通じてどのように変化してきたかを示しています(直近の100"
+"マッチまで)。\n"
+"\n"
+"- グラフをプロットするには、まず分析結果をデータベースに追加する必要がありま"
+"す。また、分析したい選手が画面の下側にあることを確認してください。\n"
+"\n"
+"- X軸は、分析されたプレーヤーの(自明でない)すべてのキューブとチェッカームーブ"
+"の判断を表します。\n"
+"\n"
+"- Y軸はgnubgエラーレート(すなわち自明でないプレーの判断数に対するエラー総数の"
+"比率)を表します。低いほど良いです。\n"
+"\n"
+"- 黒い線は、各マッチのgnubgエラーレートを示しています。\n"
+"\n"
+"- オレンジの線は過去5試合の加重平均エラーレートを示しています。エラーの合計"
+"を、この5試合内でプレーされた判断数で割ったものです。\n"
+"\n"
+"- グラフ中にいくつか試合の例が示されています(青い矢印)。"
 
 #: gtkrelational.c:497
 #, c-format
 msgid "History plot for %s"
-msgstr ""
+msgstr "%s の履歴プロット"
 
 #: gtkrelational.c:513 gtkrelational.c:538 gtkscoremap.c:3278
 msgid "Explanations"
 msgstr "解説"
 
 #: gtkrelational.c:515 gtkrelational.c:540
-#, fuzzy
 msgid "Click to obtain more explanations on this History plot"
-msgstr "このScoreMapウィンドウをクリックして詳細な説明"
+msgstr ""
+"この履歴プロットについての詳細な説明については、こちらをクリックしてください"
 
 #: gtkrelational.c:600
 msgid ""
 "No player name. Please open a match or select one in the database records."
 msgstr ""
+"プレイヤー名がありません。マッチを開くか、データベースのレコードから選択して"
+"ください。"
 
 #: gtkrelational.c:616 gtkrelational.c:663 gtkrelational.c:695
-#, fuzzy
 msgid "Problem accessing database"
-msgstr "データベースへの接続開始エラー"
+msgstr "データベースへのアクセスに問題があります"
 
 #: gtkrelational.c:668 gtkrelational.c:794 gtkrelational.c:1555
 msgid "No data in database"
@@ -10527,6 +10543,9 @@ msgid ""
 "the above list, or if no player is selected, (2) the player sitting at the "
 "bottom of the board in the current match."
 msgstr ""
+"ボタンをクリックすると、(1)上のリストで選択された選手、あるいは選手が選択され"
+"ていない場合は、(2)現在の試合でボードの下側に座っている選手の履歴をプロットし"
+"ます。"
 
 #: gtkrelational.c:1604
 msgid "Erase"
@@ -11215,7 +11234,8 @@ msgstr "ムーブScoreMap: 異なったスコアでの最善ムーブ"
 
 #: gtkscoremap.c:3279
 msgid "Click to obtain more explanations on this ScoreMap window"
-msgstr "このScoreMapウィンドウをクリックして詳細な説明"
+msgstr ""
+"このScoreMapウィンドウの詳細な説明については、こちらをクリックしてください"
 
 #: gtksplash.c:49
 msgid "Starting "
@@ -13105,17 +13125,14 @@ msgid "Average move number for close out"
 msgstr "クローズアウトまでの平均ムーブ数"
 
 #: progress.c:489
-#, fuzzy
 msgid "Close-out statistics"
 msgstr "クローズアウトの統計"
 
 #: progress.c:516
-#, fuzzy
 msgid "Number of games with hits"
 msgstr "ヒットしたゲーム数"
 
 #: progress.c:523
-#, fuzzy
 msgid "Percentage of games with hits"
 msgstr "ヒットしたゲームの割合"
 
@@ -13242,9 +13259,8 @@ msgid "Error opening database"
 msgstr "データベースへの接続開始エラー"
 
 #: relational.c:448
-#, fuzzy
 msgid "Match exists in database, overwrite?"
-msgstr "マッチはすでに存在します、上書きしますか?"
+msgstr "マッチはすでにデータベースに存在します、上書きしますか?"
 
 #: relational.c:474
 msgid "Error adding match."
@@ -16082,13 +16098,14 @@ msgstr ""
 "Isightカウントトレイラー     T: %d\n"
 "\n"
 
+# #65147でバグ報告済。翻訳で先に直す
 #: show.c:1299
 #, c-format
 msgid ""
 "Estimated GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n"
 "\n"
 msgstr ""
-"推定ゲーム勝率: %4.1f%% (80 - L/3 + 2×(L-T))\n"
+"推定ゲーム勝率: %4.1f%% (80 - L/3 + 2×(T-L))\n"
 "\n"
 
 #: show.c:1302
@@ -16556,18 +16573,18 @@ msgid "disabled"
 msgstr "無効です"
 
 #: show.c:2212
-#, fuzzy, c-format
+#, c-format
 msgid "Parameters for cube evaluations (2+ ply/0-1 ply):\n"
-msgstr "キューブ評価のパラメータ:\n"
+msgstr "キューブ評価のパラメータ (2+ ply/0-1 ply):\n"
 
 #: show.c:2216
 msgid "Cube efficiency for race: x = pips"
 msgstr "raceでのCube efficiency: x = ピップ"
 
 #: show.c:2217
-#, fuzzy, c-format
+#, c-format
 msgid "(min value %.2f/%.2f, max value %.2f/%.2f)\n"
-msgstr "(最小値 %.4f、最大値 %.4f)\n"
+msgstr "(最小値 %.2f/%.2f、最大値  %.2f/%.2f)\n"
 
 #: show.c:2223
 msgid ""
@@ -16617,7 +16634,7 @@ msgid "95%CI"
 msgstr "95%信頼区間"
 
 #: show.c:2368
-#, fuzzy, c-format
+#, c-format
 msgid "Auto save every %d minute\n"
 msgid_plural "Auto save every %d minutes\n"
 msgstr[0] "%d 分ごとに自動保存\n"
@@ -16898,172 +16915,16 @@ msgid "You must specify a file to export to (see `help export position text')."
 msgstr ""
 "エクスポートするファイルを指定してください(see `help export position text')."
 
-# gtkrollsは出目としたいがsound.cではロールでないと変
-# 本気ならコンテキストを使う
-#~ msgid "Roll"
-#~ msgstr "ロール"
-
-#, c-format
-#~ msgid "%d point match (Crawford game)"
-#~ msgid_plural "%d points match (Crawford game)"
-#~ msgstr[0] "%d ポイントマッチ (クロフォード)"
-
-#~ msgid "Allow background analysis (NEW! Careful, experimental!) "
-#~ msgstr "バックグラウンド解析を許可 (NEW! 要注意! 実験的)"
-
-# GNU backgammon のキャピタライズだけ。ja.poと同期せよ
-#~ msgid ""
-#~ "The seed is a number used to initialise the dice rolls generator. Reusing "
-#~ "the same seed allows to reproduce the rollout results. 0 is a special "
-#~ "value that leaves GNU backgammon use a random value."
-#~ msgstr ""
-#~ "シードはダイスの出目生成の初期化に使用される数字です。同じシードを再利用す"
-#~ "ることで、ロールアウトの結果を再現することができます。0 は特別な値で、GNU "
-#~ "Backgammon がランダムな値を使用するようにします。"
-
-#~ msgid ""
-#~ "Specify the \"seed\" (generator state), which can be useful in some "
-#~ "circumstances to provide duplicate dice sequences."
-#~ msgstr ""
-#~ "シード(乱数生成器のstate)を指定します。重複したダイスシーケンスを提供した"
-#~ "い状況で有効です。"
-
-#~ msgid "An. File"
-#~ msgstr "ファイルを解析"
-
-#~ msgid ""
-#~ "Analyze match from file (set default behavior in Settings -> Analysis -> "
-#~ "Analysis Buttons)"
-#~ msgstr ""
-#~ "ファイルを読み込んでマッチ解析します (既定の動作は 設定 -> 解析 から設定)"
-
-# r1.77のgnubg.pot登場順に入れていく行数は
-#~ msgid "Analysing game; move:"
-#~ msgstr "ゲーム解析中; ムーブ:"
-
-#~ msgid "Analysing match; move:"
-#~ msgstr "マッチ解析中; ムーブ:"
-
-#~ msgid "Set aliases for player 1 when importing MAT files"
-#~ msgstr "MATファイルのインポート時のためにプレイヤー1の別名を設定"
-
-#~ msgid "Show score map (graphic overview of cube at different scores)"
-#~ msgstr "ScoreMapを表示(画像による概要で異なるスコアでのキューブを表示)"
-
-#~ msgid "Makoto Matsumoto and Takuji Nishimura's generator"
-#~ msgstr "松本眞と西村拓士の開発した乱数生成器"
-
-# CVS HEADではScoreMapだし、Temperature Mapがうまく翻訳できないから
-# ScoreMapもそのままいく
-#~ msgid "Score Map"
-#~ msgstr "ScoreMap"
-
-# fileTypeと解析タイプとごっちゃの時代
-#~ msgid "Type"
-#~ msgstr "Type"
-
-#~ msgid "/_Analyse/Score Map (cube decision)"
-#~ msgstr "/解析(_A)/ScoreMap(キューブ判断)"
-
-# 新しいのは "Finding correct decisions"
-#~ msgid "Finding correct actions"
-#~ msgstr "正しい判断を探索中"
-
-#~ msgid "Money (Jacoby):"
-#~ msgstr "マネー(ジャコビー有):"
-
-#~ msgid "Money (no Jacoby):"
-#~ msgstr "アンリミ(ジャコビー無)"
-
-# 新しいのは " post-Cr "
-#, c-format
-#~ msgid " post-C. "
-#~ msgstr " post-Cr."
-
-#, c-format
-#~ msgid " 1-away C. "
-#~ msgstr " 1-away Cr."
-
-#, c-format
-#~ msgid " %d/%d C. "
-#~ msgstr " %d/%d Cr."
-
-#, c-format
-#~ msgid " %d/%d post-C. "
-#~ msgstr " %d/%d post-Cr."
-
-# 新しいところには "TGTD" は存在しない
-#~ msgid "TGTD"
-#~ msgstr "TG"
-
-#~ msgid "Toggle Jacoby option for money play"
-#~ msgstr "マネーのジャコビー有無を切り替える"
-
-#~ msgid "Vertical"
-#~ msgstr "縦"
-
-#~ msgid "Horizontal"
-#~ msgstr "横"
-
-#~ msgid "Layout"
-#~ msgstr "レイアウト"
-
-#~ msgid "Relative"
-#~ msgstr "次善との比較"
-
-#~ msgid "Display evaluation"
-#~ msgstr "評価の表示"
-
-#~ msgid "Absolute"
-#~ msgstr "絶対評価"
-
-#~ msgid "ND vs D"
-#~ msgstr "D vs. ND"
-
-#~ msgid "T vs P"
-#~ msgstr "T vs. P"
-
-# 新しいのは "By away score"
-#~ msgid "Away score"
-#~ msgstr "スコアをawayで"
-
-# 新しいのは "By true score"
-#~ msgid "True score"
-#~ msgstr "スコアを絶対値で"
-
-# 新しいので対応するのは「axis orientation:」
-#~ msgid "Label by"
-#~ msgstr "軸の向き"
-
-#~ msgid "Score Map - Eval at Different Scores"
-#~ msgstr "ScoreMap - 異なったスコアで評価"
-
-#, c-format
-#~ msgid "(HTML Export version %d.%d)"
-#~ msgstr "(HTML Export version %d.%d)"
-
-#, c-format
-#~ msgid "%c: %*s (Cube: %d)"
-#~ msgstr "%c: %*s (キューブ: %d)"
-
-#, c-format
-#~ msgid ""
-#~ "(Text Export version %d.%d)\n"
-#~ "\n"
-#~ msgstr ""
-#~ "(Text Export version %d.%d)\n"
-#~ "\n"
-
 #~ msgid "rating|Extra-terrestrial"
 #~ msgstr "ギャモンセイジン"
 
 #~ msgid "Extra-terrestrial"
 #~ msgstr "ギャモンセイジン"
 
-# r1.76 (Pre-exising)
-#~ msgid "Previous"
-#~ msgstr "前"
-
-# r1.76 (Statistics for game %d)
-#~ msgid "Statistics for game "
-#~ msgstr "ゲームについての統計"
+#, c-format
+#~ msgid ""
+#~ "Estimated GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
+#~ "\n"
+#~ msgstr ""
+#~ "推定ゲーム勝率: %4.1f%% (80 - L/3 + 2×(T-L))\n"
+#~ "\n"
