@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU Backgammon 1.06\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-03 22:39+0100\n"
+"POT-Creation-Date: 2024-02-14 08:39+0100\n"
 "PO-Revision-Date: 2022-03-14 10:14+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
@@ -6566,7 +6566,7 @@ msgstr "Poista analyysi"
 # 'luck' teksti ja pystyviiva on tarpeeton. Älä muuta tekstiä, vaikka Poedit ilmoittaa virheestä.
 #: gtkgame.c:4028 gtkgame.c:4039 gtkmovelist.c:63 gtkrolls.c:198 html.c:2161
 #: sound.c:351
-msgid "noun|Move"
+msgid "Move"
 msgstr "Siirto"
 
 #: gtkgame.c:4032

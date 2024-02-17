@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkgame.c,v 1.1011 2023/12/30 07:33:19 plm Exp $
+ * $Id: gtkgame.c,v 1.1012 2023/12/30 20:36:15 plm Exp $
  */
 
 #include "config.h"
@@ -4025,7 +4025,7 @@ static GtkActionEntry actionEntries[] = {
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_MATCH) },
 
     { "ClearAnalysisMenuAction", NULL, N_("Clear analysis"), NULL, NULL, G_CALLBACK(NULL) },
-    { "ClearAnalysisMoveAction", GTK_STOCK_CLEAR, N_("noun|Move"), NULL, NULL,
+    { "ClearAnalysisMoveAction", GTK_STOCK_CLEAR, N_("Move"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_MOVE) },
     { "ClearAnalysisGameAction", GTK_STOCK_CLEAR, N_("_Game"), NULL, NULL,
      CMD_ACTION_CALLBACK_FROMID(CMD_ANALYSE_CLEAR_GAME) },
@@ -4036,7 +4036,7 @@ static GtkActionEntry actionEntries[] = {
     { "CMarkCubeMenuAction", NULL, N_("Cube"), NULL, NULL, G_CALLBACK(NULL) },
     { "CMarkCubeClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_CLEAR) },
     { "CMarkCubeShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_CUBE_SHOW) },
-    { "CMarkMoveMenuAction", NULL, N_("noun|Move"), NULL, NULL, G_CALLBACK(NULL) },
+    { "CMarkMoveMenuAction", NULL, N_("Move"), NULL, NULL, G_CALLBACK(NULL) },
     { "CMarkMoveClearAction", NULL, N_("Clear"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_CLEAR) },
     { "CMarkMoveShowAction", NULL, N_("Show"), NULL, NULL, CMD_ACTION_CALLBACK_FROMID(CMD_CMARK_MOVE_SHOW) },
     { "CMarkGameMenuAction", NULL, N_("Game"), NULL, NULL, G_CALLBACK(NULL) },

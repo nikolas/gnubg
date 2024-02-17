@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: tr\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-03 22:39+0100\n"
+"POT-Creation-Date: 2024-02-14 08:39+0100\n"
 "PO-Revision-Date: 2003-10-23 16:51+0200\n"
 "Last-Translator: Akif Dinc <akif@webjump.de>\n"
 "Language-Team: Türkce <LL@li.org>\n"
@@ -6854,8 +6854,7 @@ msgstr "Analizi al"
 
 #: gtkgame.c:4028 gtkgame.c:4039 gtkmovelist.c:63 gtkrolls.c:198 html.c:2161
 #: sound.c:351
-#, fuzzy
-msgid "noun|Move"
+msgid "Move"
 msgstr "Hamle"
 
 #: gtkgame.c:4032
@@ -16196,7 +16195,7 @@ msgstr "                 Match ID   : %s\n"
 #: show.c:1299
 #, c-format
 msgid ""
-"Estimated GWC: %4.1f%% (80 - L/3 + 2*(L-T))\n"
+"Estimated GWC: %4.1f%% (80 - L/3 + 2*(T-L))\n"
 "\n"
 msgstr ""
 

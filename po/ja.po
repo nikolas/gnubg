@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: GNU Backgammon 1.08.001\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-03 22:39+0100\n"
+"POT-Creation-Date: 2024-02-14 08:39+0100\n"
 "PO-Revision-Date: 2024-02-06 17:59+0900\n"
 "Last-Translator: TAKAHASHI Kaoru <kaoru@kaisei.org>\n"
 "Language-Team: Japanese <gnubg-ja@kinchan.com>\n"
@@ -6603,7 +6603,7 @@ msgstr "解析をクリア"
 
 #: gtkgame.c:4028 gtkgame.c:4039 gtkmovelist.c:63 gtkrolls.c:198 html.c:2161
 #: sound.c:351
-msgid "noun|Move"
+msgid "Move"
 msgstr "ムーブ"
 
 #: gtkgame.c:4032
