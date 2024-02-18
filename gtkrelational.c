@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2006-2008 Christian Anthon <anthon@kiku.dk>
- * Copyright (C) 2006-2023 the AUTHORS
+ * Copyright (C) 2006-2024 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.63 2023/12/14 20:55:43 plm Exp $
+ * $Id: gtkrelational.c,v 1.64 2023/12/18 21:14:48 plm Exp $
  */
 
 /*
@@ -501,7 +501,9 @@ static void CreateHistoryWindow (void)  //GtkWidget* pwParent) {
 
     // window setup
     // window = (GtkWindow*)gtk_window_new(GTK_WINDOW_TOPLEVEL);
-    window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+    //window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+    window = GTKCreateDialog(_("History plot"), DT_INFO, pwDialog, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+
     gtk_window_set_default_size (GTK_WINDOW(window), WIDTH, HEIGHT);
     gtk_window_set_position     (GTK_WINDOW(window), GTK_WIN_POS_CENTER);
     gtk_window_set_title        (GTK_WINDOW(window), plotTitle);
@@ -527,6 +529,7 @@ static void CreateHistoryWindow (void)  //GtkWidget* pwParent) {
     GtkWidget *helpButton;
     // window = GTKCreateDialog(_("History plot"), DT_INFO, pwParent, DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
     //pwDialog = GTKCreateDialog(_("GNU Backgammon - Credits"), DT_INFO, pwParent, DIALOG_FLAG_MODAL, NULL, NULL);
+    // window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
     window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
     //window = gtk_window_new (GTK_WINDOW_TOPLEVEL);
     gtk_window_set_default_size (GTK_WINDOW (window), WIDTH, HEIGHT);
@@ -562,7 +565,7 @@ static void initHistoryArrays(void) {
     numRecords = NUM_PLOT;
 }
 
-extern void ComputeHistory(void) //GtkWidget* pwParent)
+extern void ComputeHistory(int usePlayerName) 
 {
     /* let's re-initialize all the static values and recompute the History */
     // if (numRecords<NUM_PLOT+1) {
@@ -579,35 +582,47 @@ extern void ComputeHistory(void) //GtkWidget* pwParent)
 
     /* get player_id of player at bottom*/
     char szRequest[600];
-    char *listName = NULL;
+    // char *listName = NULL;
 
-    /*if launched by record list, need to check if player was picked there*/
-    if (fTriggeredByRecordList) {
-        // g_message("checking in list?");
-        listName = GetSelectedPlayer();
-        // needToFreeListName=TRUE;
-    }
+    // /*if launched by record list, need to check if player was picked there*/
+    // if (fTriggeredByRecordList) {
+    //     // g_message("checking in list?");
+    //     listName = GetSelectedPlayer();
+    //     // needToFreeListName=TRUE;
+    // }
     
-    if (fTriggeredByRecordList && listName) {
-        sprintf(playerName, "%s", listName);
-        // g_message("using listName:%s",listName);
-        g_free(listName);
-    } else {
-        // g_message("not from list");
-        g_free(listName);
-        fTriggeredByRecordList = FALSE; /*re-initialize*/
-        if (!ap[1].szName[0]) {
-            GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
-            return;
-        }
-        // g_message("player on board?");
-        sprintf(playerName, "%s", ap[1].szName);
-        // if (!playerName){
-        //     GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
-        //     return;
-        // }
-    }
+    // if (fTriggeredByRecordList && listName) {
+    //     sprintf(playerName, "%s", listName);
+    //     // g_message("using listName:%s",listName);
+    //     g_free(listName);
+    // } else {
+    //     // g_message("not from list");
+    //     // if(fTriggeredByRecordList && !listName){
+    //         // g_message("we free listName");
+    //     g_free(listName);
+    //     fTriggeredByRecordList = FALSE; /*re-initialize*/
+    //     if (!ap[1].szName[0]) {
+    //         GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
+    //         return;
+    //     }
+    //     // g_message("player on board?");
+    //     sprintf(playerName, "%s", ap[1].szName);
+    //     // if (!playerName){
+    //     //     GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
+    //     //     return;
+    //     // }
+    // }
  
+    if (!usePlayerName) {
+        if (!ap[1].szName[0]) {
+                GTKMessage(_("No player name. Please open a match, or open the database records and select one."), 
+                    DT_INFO);
+                return;
+            }
+            // g_message("player on board?");
+        sprintf(playerName, "%s", ap[1].szName);
+    }
+
     /* get the player ID of playername for later*/
     sprintf(szRequest, "player_id FROM player WHERE name='%s'", playerName);
         // g_message("request1=%s",szRequest);
@@ -739,14 +754,42 @@ extern void ComputeHistory(void) //GtkWidget* pwParent)
 }
 
 /* creating this placeholder function with all the inputs needed when
- * pressing a button; the real function above doesn't have inputs
+ * pressing a button; the real function above doesn't have all these inputs
  */
-static void
-PlotHistoryTrigger(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
+static void 
+PlotHistoryTrigger(GtkWidget * UNUSED(pw), gpointer UNUSED(p))
 {
-    /* if launched by record list, need to check if player was picked there */
-    fTriggeredByRecordList = TRUE;
-    ComputeHistory(); //pwStatDialog);
+    char *listName = NULL;
+
+    // /* if launched by record list, need to check if player was picked there */
+    // fTriggeredByRecordList = TRUE;
+
+    /* launched by record list, so need to check if player was picked there*/
+    listName = GetSelectedPlayer();
+    if (listName) {
+        sprintf(playerName, "%s", listName);
+        // g_message("using listName:%s",listName);
+        g_free(listName);
+    } else {
+        // g_message("not from list");
+        // if(fTriggeredByRecordList && !listName){
+            // g_message("we free listName");
+        g_free(listName);
+        // fTriggeredByRecordList = FALSE; /*re-initialize*/
+        if (!ap[1].szName[0]) {
+            GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
+            return;
+        }
+        // g_message("player on board?");
+        sprintf(playerName, "%s", ap[1].szName);
+        // if (!playerName){
+        //     GTKMessage(_("No player name. Please open a match or select one in the database records."), DT_INFO);
+        //     return;
+        // }
+    }
+    //gtk_widget_destroy(pwr);
+
+    ComputeHistory(TRUE); 
 }
 
 static GtkTreeModel *
@@ -1539,10 +1582,14 @@ RelationalOptions(void)
     return vb2;
 }
 
+
+GtkWidget *pwDialog;
+
 extern void
 GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
-    GtkWidget *pwRun, *pwDialog, *pwHbox2, *pwVbox2,
+    GtkWidget *pwRun, //*pwDialog, 
+    	*pwHbox2, *pwVbox2,
         *pwPlayerFrame, *pwUpdate, *pwPaned, *pwVbox, *pwErase, *pwOpen,
         *pwn, *pwLabel, *pwScrolled, *pwHbox, *histButton;
     DBProvider *pdb;
@@ -1557,10 +1604,25 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     }
     pdb->Disconnect();
 
-    /* no longer modal with the additional history dialog */
-    pwDialog = GTKCreateDialog(_("GNU Backgammon - Database"),
-                               DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+    /* We had the following bug: in an unexplained way, this window became a black hole: we
+    could not relaunch it after closing it. 
+    V1: we make it modal. But then, if we click on a plot window and close the two windows
+    successively, gnubg crashes.
+    V2: it turns out that we need to first check that gnubg does not think there is an open
+    top-level window before starting this window. It then works fine.
+    V2b: just disable the GTKRunDialog() at the end. It's the cause of all the trouble.
+     */
 
+    // if (pwDialog && gtk_widget_get_toplevel(pwDialog))
+    //     gtk_widget_destroy(gtk_widget_get_toplevel(pwDialog));
+
+    pwDialog = GTKCreateDialog(_("GNU Backgammon - Database"),
+            DT_INFO, NULL, DIALOG_FLAG_NONE, NULL, NULL);
+            // DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+            // DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
+
+
+#
 #define REL_DIALOG_HEIGHT 600
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), -1, REL_DIALOG_HEIGHT);
 
@@ -1569,7 +1631,7 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     gtk_widget_set_tooltip_text(histButton, _("Click on the button to plot the historical "
             "error of (1) a player selected in the above list, or if no player is selected, "
             "(2) the player sitting at the bottom of the board in the current match."));
-    g_signal_connect(histButton, "clicked", G_CALLBACK(PlotHistoryTrigger), NULL);
+    g_signal_connect(histButton, "clicked", G_CALLBACK(PlotHistoryTrigger), pwDialog);
 
     pwn = gtk_notebook_new();
     gtk_container_set_border_width(GTK_CONTAINER(pwn), 0);
@@ -1743,7 +1805,8 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
     gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwn);
 
-    GTKRunDialog(pwDialog);
+    gtk_widget_show_all (pwDialog);
+    // GTKRunDialog(pwDialog);
 }
 
 extern void

@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: show.c,v 1.311 2023/12/20 23:09:55 plm Exp $
+ * $Id: show.c,v 1.312 2024/02/14 07:38:01 plm Exp $
  */
 
 #include "config.h"
@@ -732,7 +732,7 @@ CommandShowEvaluation(char *UNUSED(sz))
 extern void
 CommandShowHistory(char *UNUSED(sz))
 {
-    ComputeHistory();
+    ComputeHistory(FALSE);
 }
 #endif
 
