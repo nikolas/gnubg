@@ -18,7 +18,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: sound.c,v 1.107 2023/09/23 21:28:16 plm Exp $
+ * $Id: sound.c,v 1.108 2024/02/17 17:39:26 plm Exp $
  */
 
 #include "config.h"
@@ -348,7 +348,7 @@ const char *sound_description[NUM_SOUNDS] = {
     N_("Doubling"),
     N_("Drop"),
     N_("Chequer movement"),
-    N_("Move"),
+    N_("verb|Move"),
     N_("Redouble"),
     N_("Resign"),
     N_("verb|Roll"),
