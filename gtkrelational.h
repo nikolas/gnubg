@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.h,v 1.14 2023/11/20 21:00:06 plm Exp $
+ * $Id: gtkrelational.h,v 1.15 2024/02/18 16:30:31 plm Exp $
  */
 
 #include "relational.h"
@@ -33,5 +33,5 @@ extern void GtkShowQuery(RowSet * pRow);
 
 extern void ComputeHistory(int usePlayerName); /* for history plot*/
 
-extern GtkWidget *pwDialog;
+extern GtkWidget *pwDBStatDialog;
 #endif

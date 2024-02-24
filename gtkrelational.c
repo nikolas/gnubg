@@ -15,7 +15,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  *
- * $Id: gtkrelational.c,v 1.64 2023/12/18 21:14:48 plm Exp $
+ * $Id: gtkrelational.c,v 1.65 2024/02/18 16:30:31 plm Exp $
  */
 
 /*
@@ -577,7 +577,7 @@ extern void ComputeHistory(int usePlayerName)
     RowSet *rs2;
 
     int moves[2];
-    unsigned int i, j;
+    unsigned int j;
     gfloat stats[2];
 
     /* get player_id of player at bottom*/
@@ -689,10 +689,10 @@ extern void ComputeHistory(int usePlayerName)
     for (j = 1; j < rs2->rows; ++j) {
 	RowSet *rs3;
 
-        for (i = 0; i < 2; ++i)
+        for (int i = 0; i < 2; ++i)
             moves[i] = (int) strtol(rs2->data[j][i], NULL, 0);
 
-        for (i = 2; i < 4; ++i)
+        for (int i = 2; i < 4; ++i)
             stats[i - 2] = (float) g_strtod(rs2->data[j][i], NULL);
 
         matchErrors[j-1]=(stats[0] + stats[1]) * 1000.0f;
@@ -1583,7 +1583,7 @@ RelationalOptions(void)
 }
 
 
-GtkWidget *pwDialog;
+GtkWidget *pwDBStatDialog;
 
 extern void
 GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
@@ -1616,7 +1616,7 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     // if (pwDialog && gtk_widget_get_toplevel(pwDialog))
     //     gtk_widget_destroy(gtk_widget_get_toplevel(pwDialog));
 
-    pwDialog = GTKCreateDialog(_("GNU Backgammon - Database"),
+    pwDBStatDialog = GTKCreateDialog(_("GNU Backgammon - Database"),
             DT_INFO, NULL, DIALOG_FLAG_NONE, NULL, NULL);
             // DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
             // DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
@@ -1624,14 +1624,14 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
 #
 #define REL_DIALOG_HEIGHT 600
-    gtk_window_set_default_size(GTK_WINDOW(pwDialog), -1, REL_DIALOG_HEIGHT);
+    gtk_window_set_default_size(GTK_WINDOW(pwDBStatDialog), -1, REL_DIALOG_HEIGHT);
 
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_BUTTONS)),
+    gtk_container_add(GTK_CONTAINER(DialogArea(pwDBStatDialog, DA_BUTTONS)),
         histButton = gtk_button_new_with_label(_("Plot History")));
     gtk_widget_set_tooltip_text(histButton, _("Click on the button to plot the historical "
             "error of (1) a player selected in the above list, or if no player is selected, "
             "(2) the player sitting at the bottom of the board in the current match."));
-    g_signal_connect(histButton, "clicked", G_CALLBACK(PlotHistoryTrigger), pwDialog);
+    g_signal_connect(histButton, "clicked", G_CALLBACK(PlotHistoryTrigger), pwDBStatDialog);
 
     pwn = gtk_notebook_new();
     gtk_container_set_border_width(GTK_CONTAINER(pwn), 0);
@@ -1803,9 +1803,9 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 #endif
     gtk_box_pack_start(GTK_BOX(pwVbox), pwScrolled, TRUE, TRUE, 0);
 
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), pwn);
+    gtk_container_add(GTK_CONTAINER(DialogArea(pwDBStatDialog, DA_MAIN)), pwn);
 
-    gtk_widget_show_all (pwDialog);
+    gtk_widget_show_all (pwDBStatDialog);
     // GTKRunDialog(pwDialog);
 }
 
