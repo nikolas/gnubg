@@ -522,7 +522,7 @@ static void CreateHistoryWindow (void)  //GtkWidget* pwParent) {
     gtk_widget_set_hexpand(da, TRUE);
     g_signal_connect(G_OBJECT(da), "draw", G_CALLBACK(DrawHistoryPlot), NULL);
 #else
-    g_signal_connect(G_OBJECT(da), "expose-event", G_CALLBACK (DrawHistoryPlot), NULL);gmake
+    g_signal_connect(G_OBJECT(da), "expose-event", G_CALLBACK (DrawHistoryPlot), NULL);
 #endif
 
     gtk_widget_show_all (window);
