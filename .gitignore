@@ -47,6 +47,8 @@ depcomp
 external_l.c
 external_y.c
 external_y.h
+cglm
+cglm/*
 gnubg
 gnubg-*.tar.gz
 gnubg.wd
@@ -55,7 +57,6 @@ install-sh
 libtool
 ltmain.sh
 makebearoff
-makebearoff1
 Makefile
 Makefile.in
 makehyper
@@ -73,3 +74,4 @@ compile
 *.lo
 *.la
 .dirstamp
+typescript
