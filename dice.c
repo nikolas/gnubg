@@ -379,8 +379,8 @@ PrintRNGSeedMP(mpz_t n)
 
     char *pch;
     pch = mpz_get_str(NULL, 10, n);
-    g_print(_("The current seed is"));
-    g_print(" %s\n", pch);
+    g_print(_("The current seed is %s"), pch);
+    g_print("\n");
     free(pch);
 
 }
@@ -391,8 +391,8 @@ static void
 PrintRNGSeedNormal(unsigned int n)
 {
 
-    g_print(_("The current seed is"));
-    g_print(" %u.\n", n);
+    g_print(_("The current seed is %u."), n);
+    g_print("\n");
 
 }
 #endif                          /* HAVE_LIBGMP */
@@ -406,17 +406,16 @@ PrintRNGSeed(const rng rngx, rngcontext * rngctx)
     case RNG_BBS:
 #if defined(HAVE_LIBGMP)
         {
-            char *pch;
+            char *pch0, *pch1;
 
-            pch = mpz_get_str(NULL, 10, rngctx->zSeed);
-            g_print(_("The current seed is"));
-            g_print(" %s, ", pch);
-            free(pch);
+            pch0 = mpz_get_str(NULL, 10, rngctx->zSeed);
+            pch1 = mpz_get_str(NULL, 10, rngctx->zModulus);
 
-            pch = mpz_get_str(NULL, 10, rngctx->zModulus);
-            g_print(_("and the modulus is %s."), pch);
+            g_print(_("The current seed is %s, and the modulus is %s."), pch0, pch1);
             g_print("\n");
-            free(pch);
+
+            free(pch0);
+            free(pch1);
 
             return;
         }
@@ -425,8 +424,8 @@ PrintRNGSeed(const rng rngx, rngcontext * rngctx)
 #endif
 
     case RNG_MD5:
-        g_print(_("The current seed is"));
-        g_print(" %u.\n", rngctx->nMD5);
+        g_print(_("The current seed is %u."), rngctx->nMD5);
+        g_print("\n");
         return;
 
     case RNG_FILE:

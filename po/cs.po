@@ -10,7 +10,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: gnubg-0.14\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 22:14+0100\n"
+"POT-Creation-Date: 2024-03-08 23:49+0100\n"
 "PO-Revision-Date: 2013-01-13 22:20+0100\n"
 "Last-Translator: Petr Kadlec <mormegil@centrum.cz>\n"
 "Language-Team: Czech <cs@li.org>\n"
@@ -109,7 +109,7 @@ msgstr "Analyzuje se zápas; tah:"
 #. ** Start of right hand side of player screen...
 #. ******************************************************
 #: analysis.c:1488 bearoff.c:557 bearoff.c:593 bearoff.c:596 bearoff.c:635
-#: bearoff.c:661 bearoff.c:692 format.c:282 gtkrelational.c:1674 html.c:2482
+#: bearoff.c:661 bearoff.c:692 format.c:282 gtkrelational.c:1655 html.c:2482
 #: show.c:1369
 msgid "Player"
 msgstr "Hráč"
@@ -2246,7 +2246,7 @@ msgstr "Tah"
 msgid "Redouble"
 msgstr "Zdvojnásobení"
 
-#: commands.inc:1050 gtkgame.c:1430 gtkgame.c:1436 gtkgame.c:8728 sound.c:353
+#: commands.inc:1050 gtkgame.c:1430 gtkgame.c:1436 gtkgame.c:8726 sound.c:353
 msgid "Resign"
 msgstr "Vzdát"
 
@@ -3479,33 +3479,38 @@ msgstr "Počet hodů v aktuální dávce: %lu."
 msgid "Number of dice read from current file: %lu."
 msgstr "Počet hodů přečtených z aktuálního souboru: %lu."
 
-#: dice.c:382 dice.c:394 dice.c:412 dice.c:428
+#: dice.c:382
 #, c-format
-msgid "The current seed is"
-msgstr "Současné semínko je"
+msgid "The current seed is %s"
+msgstr "Současné semínko je %s"
 
-#: dice.c:417
+#: dice.c:394 dice.c:427
 #, c-format
-msgid "and the modulus is %s."
-msgstr "a modul je %s."
+msgid "The current seed is %u."
+msgstr "Současné semínko je %u."
 
-#: dice.c:433
+#: dice.c:414
+#, c-format
+msgid "The current seed is %s, and the modulus is %s."
+msgstr "Současné semínko je %s, a modul je %s."
+
+#: dice.c:432
 #, c-format
 msgid "GNU Backgammon is reading dice from file: %s"
 msgstr "GNU Backgammon čte hody ze souboru: %s"
 
-#: dice.c:449
+#: dice.c:448
 #, c-format
 msgid "You cannot show the seed with this random number generator."
 msgstr "U tohoto generátoru nelze zobrazit semínko."
 
-#: dice.c:845
+#: dice.c:844
 #, c-format
 msgid "Your dice generator isn't working. Failing back on RNG_MERSENNE"
 msgstr "Váš generátor hodů nefunguje. Použije se RNG_MERSENNE"
 
 #. end of file
-#: dice.c:878
+#: dice.c:877
 #, c-format
 msgid "Rewinding dice file (%s)"
 msgstr "Vracím se na začátek souboru s hody (%s)"
@@ -5906,7 +5911,7 @@ msgstr "Deska"
 msgid "move(s) between board shown"
 msgstr "tah(ů) mezi zobrazenými deskami"
 
-#: gtkexport.c:608 gtkexport.c:640 gtkrelational.c:1651
+#: gtkexport.c:608 gtkexport.c:640 gtkrelational.c:1632
 msgid "Players"
 msgstr "Hráči"
 
@@ -6090,7 +6095,7 @@ msgstr "Stornováno"
 msgid "Done"
 msgstr "Hotovo"
 
-#: gtkfile.c:703 gtkrelational.c:1779
+#: gtkfile.c:703 gtkrelational.c:1760
 msgid "Result"
 msgstr "Výsledek"
 
@@ -6123,7 +6128,7 @@ msgstr "Přeskočit"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: gtkfile.c:801 gtkrelational.c:1662
+#: gtkfile.c:801 gtkrelational.c:1643
 msgid "Open"
 msgstr "Načíst"
 
@@ -6921,7 +6926,7 @@ msgstr "Přidat zápas nebo sezení do databáze"
 msgid "Show Records"
 msgstr "Zobrazit záznamy"
 
-#: gtkgame.c:4068 gtkrelational.c:1630
+#: gtkgame.c:4068 gtkrelational.c:1611
 #, fuzzy
 msgid "Plot History"
 msgstr "/_Analýza/_Napovědět"
@@ -8282,82 +8287,82 @@ msgstr "Kopírovat jako"
 msgid "Copy all pages"
 msgstr "Kopírovat jako"
 
-#: gtkgame.c:8434
+#: gtkgame.c:8432
 msgid "GNU Backgammon - Match information"
 msgstr "GNU Backgammon – Informace o zápasu"
 
-#: gtkgame.c:8443 gtkgame.c:8446
+#: gtkgame.c:8441 gtkgame.c:8444
 #, c-format
 msgid "%s's rating:"
 msgstr "Rating %s:"
 
-#: gtkgame.c:8449
+#: gtkgame.c:8447
 msgid "Date:"
 msgstr "Datum:"
 
-#: gtkgame.c:8450
+#: gtkgame.c:8448
 msgid "Event:"
 msgstr "Událost:"
 
-#: gtkgame.c:8451
+#: gtkgame.c:8449
 msgid "Round:"
 msgstr "Kolo:"
 
-#: gtkgame.c:8452
+#: gtkgame.c:8450
 msgid "Place:"
 msgstr "Místo:"
 
-#: gtkgame.c:8453
+#: gtkgame.c:8451
 msgid "Annotator:"
 msgstr "Komentátor:"
 
-#: gtkgame.c:8455
+#: gtkgame.c:8453
 msgid "Comments:"
 msgstr "Poznámky:"
 
 #. FIXME should be modal but presently causes crash and/or killing of the main window
-#: gtkgame.c:8596
+#: gtkgame.c:8594
 msgid "GNU Backgammon - Speed estimate"
 msgstr "GNU Backgammon – Odhad rychlosti"
 
-#: gtkgame.c:8611
+#: gtkgame.c:8609
 msgid "Speed recorded:"
 msgstr "Zaznamenaná rychlost:"
 
-#: gtkgame.c:8617 gtkgame.c:8656
+#: gtkgame.c:8615 gtkgame.c:8654
 msgid "static evaluations/second"
 msgstr "statických ohodnocení za sekundu"
 
-#: gtkgame.c:8619
+#: gtkgame.c:8617
 msgid "Calibrate"
 msgstr "Kalibrovat"
 
-#: gtkgame.c:8620
+#: gtkgame.c:8618
 #, fuzzy
 msgid "Estimate speed, in 0-ply evaluations/second"
 msgstr "statických ohodnocení za sekundu"
 
-#: gtkgame.c:8645
+#: gtkgame.c:8643
 msgid "GNU Backgammon - Calibration"
 msgstr "GNU Backgammon – Kalibrace"
 
-#: gtkgame.c:8654
+#: gtkgame.c:8652
 msgid "Calibrating:"
 msgstr "Kalibruji:"
 
-#: gtkgame.c:8655
+#: gtkgame.c:8653
 msgid "       (n/a)       "
 msgstr "      (není)       "
 
-#: gtkgame.c:8715
+#: gtkgame.c:8713
 msgid "Resign normal"
 msgstr "Vzdát prostou hru"
 
-#: gtkgame.c:8716
+#: gtkgame.c:8714
 msgid "Resign gammon"
 msgstr "Vzdát gammon"
 
-#: gtkgame.c:8717
+#: gtkgame.c:8715
 msgid "Resign backgammon"
 msgstr "Vzdát backgammon"
 
@@ -10397,7 +10402,7 @@ msgstr "Jednostranný rozhoz/databáze"
 msgid "Two-Sided Database"
 msgstr "Oboustranná databáze"
 
-#: gtkrelational.c:58 gtkrelational.c:909
+#: gtkrelational.c:58 gtkrelational.c:886
 msgid "Nick"
 msgstr "Jméno"
 
@@ -10511,7 +10516,7 @@ msgstr "zápas"
 msgid "vs. %s"
 msgstr ""
 
-#: gtkrelational.c:447 gtkrelational.c:745
+#: gtkrelational.c:447 gtkrelational.c:722
 msgid "Error, not enough datapoints for a plot."
 msgstr ""
 
@@ -10548,92 +10553,84 @@ msgid ""
 "- Some match examples are provided throughout the plot (blue arrows)."
 msgstr ""
 
-#: gtkrelational.c:497
+#: gtkrelational.c:506
 #, fuzzy, c-format
 msgid "History plot for %s"
 msgstr "Překlady"
 
-#. window setup
-#. window = (GtkWindow*)gtk_window_new(GTK_WINDOW_TOPLEVEL);
-#. window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
-#: gtkrelational.c:505
-#, fuzzy
-msgid "History plot"
-msgstr "Překlady"
-
-#: gtkrelational.c:515 gtkrelational.c:541 gtkscoremap.c:3278
+#: gtkrelational.c:513 gtkscoremap.c:3278
 #, fuzzy
 msgid "Explanations"
 msgstr "Překlady"
 
-#: gtkrelational.c:517 gtkrelational.c:543
+#: gtkrelational.c:515
 msgid "Click to obtain more explanations on this History plot"
 msgstr ""
 
-#: gtkrelational.c:618
+#: gtkrelational.c:595
 msgid ""
 "No player name. Please open a match, or open the database records and select "
 "one."
 msgstr ""
 
-#: gtkrelational.c:631 gtkrelational.c:678 gtkrelational.c:710
+#: gtkrelational.c:608 gtkrelational.c:655 gtkrelational.c:687
 #, fuzzy
 msgid "Problem accessing database"
 msgstr "Chyba při připojování k databázi"
 
-#: gtkrelational.c:683 gtkrelational.c:837 gtkrelational.c:1602
+#: gtkrelational.c:660 gtkrelational.c:814 gtkrelational.c:1583
 msgid "No data in database"
 msgstr "V databázi nejsou žádná data"
 
-#: gtkrelational.c:780
+#: gtkrelational.c:757
 msgid ""
 "No player name. Please open a match or select one in the database records."
 msgstr ""
 
-#: gtkrelational.c:1035
+#: gtkrelational.c:1012
 msgid "Search failed or empty."
 msgstr "Hledání selhalo nebo prázdné."
 
-#: gtkrelational.c:1065
+#: gtkrelational.c:1042
 #, c-format
 msgid "Remove all data for %s?"
 msgstr "Odstranit všechna data pro %s?"
 
-#: gtkrelational.c:1259
+#: gtkrelational.c:1240
 #, fuzzy
 msgid "Failed to connect to database!"
 msgstr "Nepodařilo se vytvořit databázi!"
 
-#: gtkrelational.c:1266
+#: gtkrelational.c:1247
 msgid ""
 "This database is from an old version of GNU Backgammon and cannot be used"
 msgstr ""
 "Tato databáze pochází ze starší verze GNU Backgammonu a nelze ji použít"
 
-#: gtkrelational.c:1268
+#: gtkrelational.c:1249
 msgid ""
 "This database is from a new version of GNU Backgammon and cannot be used"
 msgstr ""
 "Tato databáze pochází z novější verze GNU Backgammonu a nelze ji použít"
 
-#: gtkrelational.c:1271
+#: gtkrelational.c:1252
 msgid "This database structure is invalid"
 msgstr "Tato databázová struktura je neplatná"
 
-#: gtkrelational.c:1275
+#: gtkrelational.c:1256
 msgid "This database contains no matches"
 msgstr "Databáze neobsahuje žádné zápasy"
 
-#: gtkrelational.c:1277
+#: gtkrelational.c:1258
 msgid "This database contains 1 match"
 msgstr "Databáze obsahuje 1 zápas"
 
-#: gtkrelational.c:1279
+#: gtkrelational.c:1260
 #, c-format
 msgid "This database contains %d matches\n"
 msgstr "Databáze obsahuje %d zápasů\n"
 
-#: gtkrelational.c:1284
+#: gtkrelational.c:1265
 #, c-format
 msgid ""
 "Database connection successful\n"
@@ -10642,93 +10639,93 @@ msgstr ""
 "Připojení k databázi se podařilo\n"
 "%s\n"
 
-#: gtkrelational.c:1322
+#: gtkrelational.c:1303
 msgid "Add Database"
 msgstr "Přidat databázi"
 
-#: gtkrelational.c:1322
+#: gtkrelational.c:1303
 msgid "Database Name:"
 msgstr "Jméno databáze"
 
-#: gtkrelational.c:1335
+#: gtkrelational.c:1316
 #, fuzzy
 msgid "Failed to create, database exists!"
 msgstr "Nepodařilo se vytvořit databázi!"
 
-#: gtkrelational.c:1353
+#: gtkrelational.c:1334
 msgid "Failed to create database!"
 msgstr "Nepodařilo se vytvořit databázi!"
 
-#: gtkrelational.c:1363
+#: gtkrelational.c:1344
 msgid "Are you sure you want to delete all the matches in this database?"
 msgstr "Jste si jisti, že chcete smazat všechny zápasy v této databázi?"
 
-#: gtkrelational.c:1372
+#: gtkrelational.c:1353
 msgid "Database successfully removed"
 msgstr "Databáze úspěšně odstraněna"
 
-#: gtkrelational.c:1375
+#: gtkrelational.c:1356
 msgid "Failed to delete database!"
 msgstr "Nepodařilo se smazat databázi!"
 
-#: gtkrelational.c:1413
+#: gtkrelational.c:1394
 msgid "Databases"
 msgstr "Databáze"
 
-#: gtkrelational.c:1440
+#: gtkrelational.c:1421
 msgid ""
 "Database type can be SQLite (bundled with GNU Backgammon), MySQL/MariaDB or "
 "PostgreSQL. The first one needs only a database name. For the other two you "
 "need an external database server and to configure how to access it"
 msgstr ""
 
-#: gtkrelational.c:1441
+#: gtkrelational.c:1422
 msgid "DB Type"
 msgstr "Typ DB"
 
-#: gtkrelational.c:1452
+#: gtkrelational.c:1433
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: gtkrelational.c:1472
+#: gtkrelational.c:1453
 msgid "Password"
 msgstr "Heslo"
 
-#: gtkrelational.c:1493
+#: gtkrelational.c:1474
 msgid "DB server"
 msgstr ""
 
-#: gtkrelational.c:1494
+#: gtkrelational.c:1475
 msgid "Entered as: hostname:port"
 msgstr ""
 
-#: gtkrelational.c:1516
+#: gtkrelational.c:1497
 msgid "Login"
 msgstr ""
 
-#: gtkrelational.c:1518
+#: gtkrelational.c:1499
 #, fuzzy
 msgid "Check connection to database server"
 msgstr "Chyba při připojování k databázi"
 
-#: gtkrelational.c:1536
+#: gtkrelational.c:1517
 msgid "Store game stats"
 msgstr "Uložit statistiky hry"
 
-#: gtkrelational.c:1539
+#: gtkrelational.c:1520
 msgid "Store individual games statistics in addition to global match ones"
 msgstr ""
 
-#: gtkrelational.c:1543
+#: gtkrelational.c:1524
 msgid "Info"
 msgstr "Info"
 
-#: gtkrelational.c:1575
+#: gtkrelational.c:1556
 #, fuzzy
 msgid "Add database"
 msgstr "Přidat databázi"
 
-#: gtkrelational.c:1578
+#: gtkrelational.c:1559
 #, fuzzy
 msgid "Delete database"
 msgstr "databáze obsahuje bezkostková ohodnocení"
@@ -10743,50 +10740,50 @@ msgstr "databáze obsahuje bezkostková ohodnocení"
 #.
 #. if (pwDialog && gtk_widget_get_toplevel(pwDialog))
 #. gtk_widget_destroy(gtk_widget_get_toplevel(pwDialog));
-#: gtkrelational.c:1619
+#: gtkrelational.c:1600
 #, fuzzy
 msgid "GNU Backgammon - Database"
 msgstr "GNU Backgammon – Databázový výsledek"
 
-#: gtkrelational.c:1631
+#: gtkrelational.c:1612
 msgid ""
 "Click on the button to plot the historical error of (1) a player selected in "
 "the above list, or if no player is selected, (2) the player sitting at the "
 "bottom of the board in the current match."
 msgstr ""
 
-#: gtkrelational.c:1666
+#: gtkrelational.c:1647
 msgid "Erase"
 msgstr ""
 
-#: gtkrelational.c:1693
+#: gtkrelational.c:1674
 msgid "Name"
 msgstr ""
 
-#: gtkrelational.c:1705
+#: gtkrelational.c:1686
 msgid "Notes"
 msgstr ""
 
-#: gtkrelational.c:1729
+#: gtkrelational.c:1710
 #, fuzzy
 msgid "Update Details"
 msgstr "Detaily"
 
-#: gtkrelational.c:1743
+#: gtkrelational.c:1724
 msgid "Query"
 msgstr "Dotaz"
 
-#: gtkrelational.c:1746
+#: gtkrelational.c:1727
 #, fuzzy
 msgid "Query text"
 msgstr "Dotaz"
 
-#: gtkrelational.c:1788
+#: gtkrelational.c:1769
 #, fuzzy
 msgid "Run Query"
 msgstr "Dotaz"
 
-#: gtkrelational.c:1817
+#: gtkrelational.c:1798
 msgid "GNU Backgammon - Database Result"
 msgstr "GNU Backgammon – Databázový výsledek"
 
@@ -11424,7 +11421,7 @@ msgstr "Teplotní mapa Šo Sengoku – Rozdělení hodů"
 msgid "Temperature Map in Hypothetical Money Play"
 msgstr ""
 
-#: gtktempmap.c:847 gtktheory.c:961
+#: gtktempmap.c:847 gtktheory.c:962
 #, c-format
 msgid "%d ply"
 msgstr "%d půltah"
@@ -11545,51 +11542,51 @@ msgid "-away"
 msgstr " zbývá"
 
 #. money play widget
-#: gtktheory.c:833
+#: gtktheory.c:834
 msgid "Money play"
 msgstr "Hra o peníze"
 
-#: gtktheory.c:843 html.c:3153
+#: gtktheory.c:844 html.c:3153
 msgid "Jacoby rule"
 msgstr "Jacobyho pravidlo"
 
-#: gtktheory.c:848
+#: gtktheory.c:849
 msgid "Beavers allowed"
 msgstr "Bobři dovoleni"
 
 #. gammon and backgammon percentages
-#: gtktheory.c:854
+#: gtktheory.c:855
 msgid "Gammon and backgammon percentages"
 msgstr "Procenta gammonů a backgammonů"
 
 #. column title
-#: gtktheory.c:900
+#: gtktheory.c:901
 msgid "bg rate(%)"
 msgstr "míra bg(%)"
 
-#: gtktheory.c:900
+#: gtktheory.c:901
 msgid "gammon rate(%)"
 msgstr "míra gammonů(%)"
 
-#: gtktheory.c:993
+#: gtktheory.c:994
 msgid "Market window"
 msgstr "Okno příležitosti"
 
-#: gtktheory.c:999
+#: gtktheory.c:1000
 #, c-format
 msgid "Market window for player %s"
 msgstr "Okno příležitosti pro hráče %s"
 
-#: gtktheory.c:1016
+#: gtktheory.c:1017
 msgid "Window graph"
 msgstr "Graf okna"
 
-#: gtktheory.c:1022
+#: gtktheory.c:1023
 #, c-format
 msgid "Window graph for player %s"
 msgstr "Graf okna pro hráče %s"
 
-#: gtktheory.c:1072
+#: gtktheory.c:1073
 msgid "Gammon values"
 msgstr "Hodnoty gammonů"
 
@@ -17162,6 +17159,10 @@ msgid "You must specify a file to export to (see `help export position text')."
 msgstr ""
 "Musíte zadat soubor, do kterého se má exportovat (vizte „help export "
 "position text“)."
+
+#, fuzzy
+#~ msgid "History plot"
+#~ msgstr "Překlady"
 
 #, fuzzy
 #~ msgid "noun|Move"
