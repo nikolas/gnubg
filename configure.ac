@@ -392,8 +392,8 @@ if test "$with_board3d" = "yes" && test "$no_board3d" = "yes"; then
 fi
 
 if test "$with_board3d" != "no" && test "$have_cglm" = "no"; then
-	AC_MSG_NOTICE([Extract cglm headers])
-	sh non-src/cglm.shar > /dev/null
+	AC_MSG_NOTICE([Extract cglm headers later])
+	AC_CONFIG_COMMANDS([cglm], [echo 'Extract cglm headers'; sh "$ac_top_srcdir/non-src/cglm.shar" > /dev/null])
 fi
 
 AM_CONDITIONAL(USE_GTK, test "$no_gtk" != "yes" )
