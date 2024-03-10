@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkrelational.c,v 1.65 2024/02/18 16:30:31 plm Exp $
  */
 
 /*
@@ -76,6 +74,8 @@ static GtkWidget *pwPlayerNotes;
 static GtkWidget *pwQueryText;
 static GtkWidget *pwQueryResult = NULL;
 static GtkWidget *pwQueryBox;
+
+static GtkWidget *pwDBStatDialog;
 
 static GtkListStore *playerStore;
 static GtkListStore *dbStore;
@@ -525,7 +525,7 @@ static void CreateHistoryWindow (void)  //GtkWidget* pwParent) {
     g_signal_connect(G_OBJECT(da), "expose-event", G_CALLBACK (DrawHistoryPlot), NULL);
 #endif
 
-    gtk_widget_show_all (window);
+    gtk_widget_show_all(window);
 }
 
 static void initHistoryArrays(void) {
@@ -1559,13 +1559,10 @@ RelationalOptions(void)
     return vb2;
 }
 
-
-GtkWidget *pwDBStatDialog;
-
 extern void
 GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
-    GtkWidget *pwRun, //*pwDialog, 
+    GtkWidget *pwRun,
     	*pwHbox2, *pwVbox2,
         *pwPlayerFrame, *pwUpdate, *pwPaned, *pwVbox, *pwErase, *pwOpen,
         *pwn, *pwLabel, *pwScrolled, *pwHbox, *histButton;
@@ -1587,14 +1584,13 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     successively, gnubg crashes.
     V2: it turns out that we need to first check that gnubg does not think there is an open
     top-level window before starting this window. It then works fine.
-    V2b: just disable the GTKRunDialog() at the end. It's the cause of all the trouble.
      */
 
-    // if (pwDialog && gtk_widget_get_toplevel(pwDialog))
-    //     gtk_widget_destroy(gtk_widget_get_toplevel(pwDialog));
+    // if (pwDBStatDialog && gtk_widget_get_toplevel(pwDBStatDialog))
+    //     gtk_widget_destroy(gtk_widget_get_toplevel(pwDBStatDialog));
 
     pwDBStatDialog = GTKCreateDialog(_("GNU Backgammon - Database"),
-            DT_INFO, NULL, DIALOG_FLAG_NONE, NULL, NULL);
+            DT_INFO, NULL, DIALOG_FLAG_NONE, G_CALLBACK(gtk_widget_destroy), NULL);
             // DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
             // DT_INFO, NULL, DIALOG_FLAG_MODAL | DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
 
@@ -1782,8 +1778,7 @@ GtkShowRelational(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
     gtk_container_add(GTK_CONTAINER(DialogArea(pwDBStatDialog, DA_MAIN)), pwn);
 
-    gtk_widget_show_all (pwDBStatDialog);
-    // GTKRunDialog(pwDialog);
+    gtk_widget_show_all(pwDBStatDialog);
 }
 
 extern void

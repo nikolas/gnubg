@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkgame.c,v 1.1013 2024/02/17 17:39:25 plm Exp $
  */
 
 #include "config.h"
@@ -8198,16 +8196,35 @@ GTKDumpStatcontext(int game)
     GtkWidget *copyMenu, *menu_item, *pvbox, *pwUsePanels;
     GtkWidget *navi_combo;
     GtkWidget *addToDbButton;
+
+    /* the 3D graph seems buggy and makes gnubg crash, removing for now */
+
 #if defined(USE_BOARD3D)
+    int graph3d = 1;
     int i;
     GtkWidget *pw;
     listOLD *pl;
-    GraphData *gd = CreateGraphData();
+    GraphData *gd = NULL;
+    if (graph3d) {
+        gd = CreateGraphData();
+    }
 #endif
 
-    //pwStatDialog = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MODAL, NULL, NULL);
-    pwStatDialog = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_NONE, G_CALLBACK(gtk_widget_destroy), NULL);
-    
+    /* Here we had many issues. This statistics window calls the MWC window.
+     * - Making both non-modal was causing crashes when closing them.
+     * - Making both modal was causing a "blackhole" whereby we could open
+     *   the stats window once but not twice
+     * - Using different modalities causes usability problems
+     * - A solution was found by making both non-modal, but replacing here
+     *   the "GTKRunDialog()" at the end by "gtk_widget_show_all()".
+     * - Alas, it turns out it prevents the graph from displaying.
+     * - Finally (for now), another solution consists of making both
+     *   windows modal, and using "GTKRunDialog()" in both. Not sure why,
+     *   but it finally works.
+     */
+
+    pwStatDialog = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MODAL, G_CALLBACK(gtk_widget_destroy), NULL);
+    // pwStatDialog = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_NONE, G_CALLBACK(gtk_widget_destroy), NULL);
 
     if (!fAutoDB) {
         gtk_container_add(GTK_CONTAINER(DialogArea(pwStatDialog, DA_BUTTONS)),
@@ -8325,8 +8342,8 @@ GTKDumpStatcontext(int game)
 
     g_signal_connect(pwStatDialog, "map", G_CALLBACK(stat_dialog_map), pwUsePanels);
 
-    gtk_widget_show_all (pwStatDialog);
-    // GTKRunDialog(pwStatDialog); // <-- causes issues! 
+    // gtk_widget_show_all (pwStatDialog);
+    GTKRunDialog(pwStatDialog); // <-- causes issues! 
 
 
 #if defined(USE_BOARD3D)
