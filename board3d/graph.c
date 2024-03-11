@@ -80,6 +80,7 @@ realizeCB(void *UNUSED(data))
     if (!CreateNumberFont(&numberFont, FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
         g_print(_("Error creating font\n"));
 
+    /* Translate using only the characters contained in Vera font */
     if (!CreateFontText(&totalText, _("Totals"), FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
         g_print(_("Error creating font\n"));
 
