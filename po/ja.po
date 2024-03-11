@@ -4,10 +4,10 @@
 # Yoshito Takeuchi <kinchan@kinchan.com>, 2002
 msgid ""
 msgstr ""
-"Project-Id-Version: GNU Backgammon 1.08.001\n"
+"Project-Id-Version: GNU Backgammon 1.08\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-24 22:14+0100\n"
-"PO-Revision-Date: 2024-02-24 06:06+0900\n"
+"POT-Creation-Date: 2024-03-08 23:49+0100\n"
+"PO-Revision-Date: 2024-03-11 12:02+0900\n"
 "Last-Translator: TAKAHASHI Kaoru <kaoru@kaisei.org>\n"
 "Language-Team: Japanese <gnubg-ja@kinchan.com>\n"
 "Language: ja\n"
@@ -66,6 +66,7 @@ msgstr "Go to bed"
 msgid "luck|Bad dice, man!"
 msgstr "Bad dice, man!"
 
+# XGは「極めて普通」
 #: analysis.c:83
 msgid "luck|None"
 msgstr "None"
@@ -114,7 +115,7 @@ msgstr "マッチ解析中"
 #. ** Start of right hand side of player screen...
 #. ******************************************************
 #: analysis.c:1488 bearoff.c:557 bearoff.c:593 bearoff.c:596 bearoff.c:635
-#: bearoff.c:661 bearoff.c:692 format.c:282 gtkrelational.c:1674 html.c:2482
+#: bearoff.c:661 bearoff.c:692 format.c:282 gtkrelational.c:1655 html.c:2482
 #: show.c:1369
 msgid "Player"
 msgstr "プレイヤー"
@@ -591,9 +592,11 @@ msgstr "テクスチャ無し"
 msgid "Error creating font\n"
 msgstr "フォント作成中エラー\n"
 
+# non-ASCIIを含むとフォント作成エラーによりグラフ表示が真っ黒。
+# コードを直してから翻訳せよ。
 #: board3d/graph.c:83
 msgid "Totals"
-msgstr "合計"
+msgstr "Totals"
 
 #: board3d/gtkcolour3d.c:291
 msgid "Ambient colour:"
@@ -2017,6 +2020,7 @@ msgstr "エクスポートするキューブ表示の調整"
 msgid "Set default folder for import"
 msgstr "既定インポート用フォルダを指定"
 
+# 「転置」では常人にはわかりづらい
 #: commands.inc:992 commands.inc:1190 commands.inc:1513
 msgid "Invert match equity table"
 msgstr "マッチエクイティテーブルを逆にする"
@@ -2116,7 +2120,7 @@ msgstr "ムーブする"
 msgid "Redouble"
 msgstr "リダブル"
 
-#: commands.inc:1050 gtkgame.c:1430 gtkgame.c:1436 gtkgame.c:8728 sound.c:353
+#: commands.inc:1050 gtkgame.c:1430 gtkgame.c:1436 gtkgame.c:8726 sound.c:353
 msgid "Resign"
 msgstr "投了"
 
@@ -3148,6 +3152,7 @@ msgstr "Blum-Blum-Shub"
 msgid "Mersenne Twister"
 msgstr "Mersenne Twister"
 
+# 大文字の"Manual dice"も他にあるので同期すること
 #: dice.c:60
 msgid "manual dice"
 msgstr "手動ダイス"
@@ -3160,11 +3165,12 @@ msgstr "ファイルから読み込む"
 msgid "Blum, Blum and Shub's verifiably strong generator"
 msgstr "Blum-Blum-Shub 法の暗号論的乱数生成器"
 
+# 暗号論的擬似乱数生成器(CSPRNG)が正確なところだが、他のRNGに擬似入れてない
 #: dice.c:67
 msgid ""
 "Bob Jenkins' Indirection, Shift, Accumulate, Add and Count cryptographic "
 "generator"
-msgstr "Bob Jenkins の開発した暗号論的乱数生成器"
+msgstr "Bob Jenkinsの開発した暗号論的乱数生成器"
 
 #: dice.c:68
 msgid "A generator based on the Message Digest 5 algorithm"
@@ -3190,17 +3196,17 @@ msgstr "ダイスの出目をファイルから読み込む"
 #: dice.c:196 dice.c:208
 #, c-format
 msgid "%s is an invalid Blum factor, using %s instead."
-msgstr "%s は無効な Blum factor です。%s を代わりに使います。"
+msgstr "%s は無効なBlum factorです。%s を代わりに使います。"
 
 #: dice.c:288
 #, c-format
 msgid "Invalid seed and/or modulus for the Blum, Blum and Shub generator."
-msgstr "Blum-Blum-Shub乱数生成器の無効なシードかモジュロです。"
+msgstr "Blum-Blum-Shub乱数生成器の無効なシードかモジュラス(法とする数)です。"
 
 #: dice.c:290
 #, c-format
 msgid "Please reset the seed and/or modulus before continuing."
-msgstr "続ける前にシードかモジュロを再設定してください。"
+msgstr "続ける前にシードかモジュラス(法とする数)を再設定してください。"
 
 #: dice.c:351
 #, c-format
@@ -3217,33 +3223,38 @@ msgstr "現在のバッチでの出目の使用回数: %lu回。"
 msgid "Number of dice read from current file: %lu."
 msgstr "現在のファイルから読み込んだ出目の数: %lu個。"
 
-#: dice.c:382 dice.c:394 dice.c:412 dice.c:428
+#: dice.c:382
 #, c-format
-msgid "The current seed is"
-msgstr "現在の乱数シードは"
+msgid "The current seed is %s"
+msgstr "現在の乱数シードは %s です"
 
-#: dice.c:417
+#: dice.c:394 dice.c:427
 #, c-format
-msgid "and the modulus is %s."
-msgstr "モジュラスは %s。"
+msgid "The current seed is %u."
+msgstr "現在の乱数シードは %u です。"
 
-#: dice.c:433
+#: dice.c:414
+#, c-format
+msgid "The current seed is %s, and the modulus is %s."
+msgstr "現在の乱数シードは %s で、モジュラス(法とする数)は %s です。"
+
+#: dice.c:432
 #, c-format
 msgid "GNU Backgammon is reading dice from file: %s"
 msgstr "GNU Backgammon がダイスの出目を読み込むファイル: %s"
 
-#: dice.c:449
+#: dice.c:448
 #, c-format
 msgid "You cannot show the seed with this random number generator."
 msgstr "この乱数生成器では乱数シードを見ることが出来ません。"
 
-#: dice.c:845
+#: dice.c:844
 #, c-format
 msgid "Your dice generator isn't working. Failing back on RNG_MERSENNE"
 msgstr "この乱数生成器は利用できません。RNG_MERSENNEへフォールバックします"
 
 #. end of file
-#: dice.c:878
+#: dice.c:877
 #, c-format
 msgid "Rewinding dice file (%s)"
 msgstr "ダイスファイルを巻き戻し (%s)"
@@ -3779,6 +3790,7 @@ msgstr "さらに最大%d手までエクイティ%0.3g以内"
 msgid "Play"
 msgstr "チェッカープレイ"
 
+# 登場が多すぎて怖くて「キューブ倍率」などにできない
 #: format.c:309 gnubg.c:1508 gnubg.c:1511 gnubg.c:2809 gnubg.c:2812
 #: gtkgame.c:4036 gtkgame.c:4050 gtkoptions.c:580 gtkoptions.c:585
 #: gtkprefs.c:3139 gtkprefs.c:3149 gtktheory.c:767 progress.c:255
@@ -4323,7 +4335,8 @@ msgstr "[長さ]"
 
 #: gnubg.c:549
 msgid "[modulus <modulus>|factors <factor> <factor>] [seed]"
-msgstr "[modulus <モジュラス>|factors <factor> <factor>] [乱数シード]"
+msgstr ""
+"[modulus <モジュラス(法とする数)>|factors <factor> <factor>] [乱数シード]"
 
 #: gnubg.c:551
 msgid "[name]"
@@ -4719,7 +4732,7 @@ msgstr "読み込むファイルを指定する必要があります。"
 msgid "Pip counts:"
 msgstr "ピップ:"
 
-# これは下手に翻訳しない方がよさげ
+# 翻訳不要。下手にmsgstrにコピーして事故っても嫌なので空のままにする。
 #: gnubg.c:3402
 #, c-format
 msgid ""
@@ -5667,7 +5680,7 @@ msgstr "ボード"
 msgid "move(s) between board shown"
 msgstr "ムーブをボード間に表示"
 
-#: gtkexport.c:608 gtkexport.c:640 gtkrelational.c:1651
+#: gtkexport.c:608 gtkexport.c:640 gtkrelational.c:1632
 msgid "Players"
 msgstr "プレイヤー"
 
@@ -5853,7 +5866,7 @@ msgstr "キャンセル済"
 msgid "Done"
 msgstr "完了"
 
-#: gtkfile.c:703 gtkrelational.c:1779
+#: gtkfile.c:703 gtkrelational.c:1760
 msgid "Result"
 msgstr "結果"
 
@@ -5885,7 +5898,7 @@ msgstr "スキップ"
 msgid "Stop"
 msgstr "停止"
 
-#: gtkfile.c:801 gtkrelational.c:1662
+#: gtkfile.c:801 gtkrelational.c:1643
 msgid "Open"
 msgstr "開く"
 
@@ -5954,7 +5967,7 @@ msgstr "チェッカープレイ"
 
 #: gtkgame.c:1380 gtkgame.c:1407
 msgid "GNU Backgammon cannot analyse neither beavers nor raccoons yet"
-msgstr "GNU Backgammon はビーバーもラクーンも解析できません"
+msgstr "GNU Backgammon はビーバーもラクーンもまだ解析できません"
 
 #: gtkgame.c:1464
 msgid "No analysis available."
@@ -6682,7 +6695,7 @@ msgstr "マッチまたはセッションをデータベースに追加"
 msgid "Show Records"
 msgstr "データベース上の記録を表示"
 
-#: gtkgame.c:4068 gtkrelational.c:1630
+#: gtkgame.c:4068 gtkrelational.c:1611
 msgid "Plot History"
 msgstr "履歴をプロット"
 
@@ -7505,13 +7518,14 @@ msgstr ""
 msgid "GNU Backgammon - Tutor"
 msgstr "GNU Backgammon - 家庭教師"
 
-# XG2のパクリ「ヒントを見る/考え直す/そのままプレイする」
+# XG2のパクリ「ヒントを見る/考えなおす/そのままプレイする」
 # 私はあなたのプレイに同意しません。
 # あなたはブランダー(大間違い)をしたと思います。
 #: gtkgame.c:5068
 msgid "Play Anyway"
 msgstr "そのままプレイする"
 
+# XGパクリなら「考えなおす」。字面のバランスは「考え直す」がよい
 #: gtkgame.c:5070
 msgid "Rethink"
 msgstr "考え直す"
@@ -7574,6 +7588,7 @@ msgstr "人間 vs. 人間"
 msgid "Modify player settings..."
 msgstr "プレイヤー設定の変更..."
 
+# XG2は「手動でダイスを入力」
 #: gtkgame.c:5411
 msgid "Manual dice"
 msgstr "手動ダイス"
@@ -8045,9 +8060,9 @@ msgid ""
 "are along the bottom and the error rates up the side. Chequer error in "
 "green, cube error in blue."
 msgstr ""
-"このグラフはそれぞのプレイヤーのゲームごとのエラーレートを表示します。ゲーム"
-"が下側に、エラーレートは上側にあります。チェッカームーブのエラーは緑、キュー"
-"ブのエラーは青です。"
+"このグラフはそれぞれのプレイヤーのゲームごとのエラーレートを表示します。ゲー"
+"ムが下側に、エラーレートは上側にあります。チェッカームーブのエラーは緑、"
+"キューブのエラーは青です。"
 
 #: gtkgame.c:8275
 msgid "Split statistics into panels"
@@ -8065,84 +8080,84 @@ msgstr "ページをコピー"
 msgid "Copy all pages"
 msgstr "すべてのページをコピー"
 
-#: gtkgame.c:8434
+#: gtkgame.c:8432
 msgid "GNU Backgammon - Match information"
 msgstr "GNU Backgammon - マッチ情報"
 
-#: gtkgame.c:8443 gtkgame.c:8446
+#: gtkgame.c:8441 gtkgame.c:8444
 #, c-format
 msgid "%s's rating:"
 msgstr "%s のレーティング:"
 
 # XGは日付/時刻だが、カレンダーで日付までしか入らない
-#: gtkgame.c:8449
+#: gtkgame.c:8447
 msgid "Date:"
 msgstr "日付:"
 
-#: gtkgame.c:8450
+#: gtkgame.c:8448
 msgid "Event:"
 msgstr "イベント:"
 
-#: gtkgame.c:8451
+#: gtkgame.c:8449
 msgid "Round:"
 msgstr "ラウンド:"
 
-#: gtkgame.c:8452
+#: gtkgame.c:8450
 msgid "Place:"
 msgstr "場所:"
 
-#: gtkgame.c:8453
+#: gtkgame.c:8451
 msgid "Annotator:"
 msgstr "注釈者:"
 
-#: gtkgame.c:8455
+#: gtkgame.c:8453
 msgid "Comments:"
 msgstr "コメント:"
 
 #. FIXME should be modal but presently causes crash and/or killing of the main window
-#: gtkgame.c:8596
+#: gtkgame.c:8594
 msgid "GNU Backgammon - Speed estimate"
 msgstr "GNU Backgammon - 評価速度の推定"
 
-#: gtkgame.c:8611
+#: gtkgame.c:8609
 msgid "Speed recorded:"
 msgstr "評価速度:"
 
-#: gtkgame.c:8617 gtkgame.c:8656
+#: gtkgame.c:8615 gtkgame.c:8654
 msgid "static evaluations/second"
 msgstr "静的評価/秒"
 
 # XGだと「再計測」
-#: gtkgame.c:8619
+#: gtkgame.c:8617
 msgid "Calibrate"
 msgstr "再計測"
 
-#: gtkgame.c:8620
+#: gtkgame.c:8618
 msgid "Estimate speed, in 0-ply evaluations/second"
 msgstr "速度の推測、0-ply評価/秒"
 
-#: gtkgame.c:8645
+#: gtkgame.c:8643
 msgid "GNU Backgammon - Calibration"
 msgstr "GNU Backgammon - 評価速度の再計測"
 
-#: gtkgame.c:8654
+#: gtkgame.c:8652
 msgid "Calibrating:"
 msgstr "再計測中:"
 
-#: gtkgame.c:8655
+#: gtkgame.c:8653
 msgid "       (n/a)       "
 msgstr "(n/a)"
 
 # XGはシングルだが、resign normal
-#: gtkgame.c:8715
+#: gtkgame.c:8713
 msgid "Resign normal"
 msgstr "シングルで投了"
 
-#: gtkgame.c:8716
+#: gtkgame.c:8714
 msgid "Resign gammon"
 msgstr "ギャモンで投了"
 
-#: gtkgame.c:8717
+#: gtkgame.c:8715
 msgid "Resign backgammon"
 msgstr "バックギャモンで投了"
 
@@ -10200,7 +10215,7 @@ msgstr "片側ロールアウト/データベース"
 msgid "Two-Sided Database"
 msgstr "両側データベース"
 
-#: gtkrelational.c:58 gtkrelational.c:909
+#: gtkrelational.c:58 gtkrelational.c:886
 msgid "Nick"
 msgstr "名前"
 
@@ -10252,41 +10267,41 @@ msgstr ""
 "Snowie\n"
 "Cube"
 
-# WrongDouble/Passだが漢字にできず
+# TGでダブルしちゃったWrongDouble/Pass
 #: gtkrelational.c:67
 msgid ""
 "WDb\n"
 "Pass"
 msgstr ""
-"WrongD\n"
-"Pass"
+"TGで\n"
+"ダブル"
 
-# WrongDouble/Takeだが漢字にできず
+# NDでダブルしちゃったWrongDouble/Take
 #: gtkrelational.c:68
 msgid ""
 "WDb\n"
 "Take"
 msgstr ""
-"WrongD\n"
-"Take"
+"ND/Tで\n"
+"ダブル"
 
-# MissedDouble/Passだが漢字にできず
+# キャッシュし損ねたMissedDouble/Pass
 #: gtkrelational.c:69
 msgid ""
 "MDb\n"
 "Pass"
 msgstr ""
-"MissD\n"
-"Pass"
+"D/Pで\n"
+"打たず"
 
-# MissedDouble/Takeだが漢字にできず
+# D/Tでダブルし損ねたMissedDouble/Take
 #: gtkrelational.c:70
 msgid ""
 "MDb\n"
 "Take"
 msgstr ""
-"MissD\n"
-"Take"
+"D/Tで\n"
+"打たず"
 
 #: gtkrelational.c:312
 msgid "5-match average"
@@ -10314,7 +10329,7 @@ msgstr "マッチ %d"
 msgid "vs. %s"
 msgstr "vs. %s"
 
-#: gtkrelational.c:447 gtkrelational.c:745
+#: gtkrelational.c:447 gtkrelational.c:722
 msgid "Error, not enough datapoints for a plot."
 msgstr "エラー、プロットするのに充分なデータポイントがありません。"
 
@@ -10369,28 +10384,21 @@ msgstr ""
 "\n"
 "- グラフ中にいくつか試合の例が示されています(青い矢印)。"
 
-#: gtkrelational.c:497
+#: gtkrelational.c:506
 #, c-format
 msgid "History plot for %s"
 msgstr "%s の履歴プロット"
 
-#. window setup
-#. window = (GtkWindow*)gtk_window_new(GTK_WINDOW_TOPLEVEL);
-#. window = GTKCreateDialog("", DT_INFO, NULL, DIALOG_FLAG_MINMAXBUTTONS, NULL, NULL);
-#: gtkrelational.c:505
-msgid "History plot"
-msgstr "履歴をプロット"
-
-#: gtkrelational.c:515 gtkrelational.c:541 gtkscoremap.c:3278
+#: gtkrelational.c:513 gtkscoremap.c:3278
 msgid "Explanations"
 msgstr "解説"
 
-#: gtkrelational.c:517 gtkrelational.c:543
+#: gtkrelational.c:515
 msgid "Click to obtain more explanations on this History plot"
 msgstr ""
 "この履歴プロットについての詳細な説明については、こちらをクリックしてください"
 
-#: gtkrelational.c:618
+#: gtkrelational.c:595
 msgid ""
 "No player name. Please open a match, or open the database records and select "
 "one."
@@ -10398,68 +10406,68 @@ msgstr ""
 "プレイヤー名がありません。マッチを開くか、データベースのレコードから選択して"
 "ください。"
 
-#: gtkrelational.c:631 gtkrelational.c:678 gtkrelational.c:710
+#: gtkrelational.c:608 gtkrelational.c:655 gtkrelational.c:687
 msgid "Problem accessing database"
 msgstr "データベースへのアクセスに問題があります"
 
-#: gtkrelational.c:683 gtkrelational.c:837 gtkrelational.c:1602
+#: gtkrelational.c:660 gtkrelational.c:814 gtkrelational.c:1583
 msgid "No data in database"
 msgstr "データベースにデータがありません"
 
-#: gtkrelational.c:780
+#: gtkrelational.c:757
 msgid ""
 "No player name. Please open a match or select one in the database records."
 msgstr ""
 "プレイヤー名がありません。マッチを開くか、データベースのレコードから選択して"
 "ください。"
 
-#: gtkrelational.c:1035
+#: gtkrelational.c:1012
 msgid "Search failed or empty."
 msgstr "サーチに失敗したか空です。"
 
 # つつくところがEraseで消去翻訳したものだから
-#: gtkrelational.c:1065
+#: gtkrelational.c:1042
 #, c-format
 msgid "Remove all data for %s?"
 msgstr "%sのすべてのデータを消去しますか?"
 
-#: gtkrelational.c:1259
+#: gtkrelational.c:1240
 msgid "Failed to connect to database!"
 msgstr "データベースへの接続に失敗しました!"
 
 # version = RunQueryValue(pdb, "next_id FROM control WHERE tablename = 'version'"); を確認
-#: gtkrelational.c:1266
+#: gtkrelational.c:1247
 msgid ""
 "This database is from an old version of GNU Backgammon and cannot be used"
 msgstr ""
 "このデータベースは古いバージョンの GNU Backgammon で作成されていて、使えませ"
 "ん"
 
-#: gtkrelational.c:1268
+#: gtkrelational.c:1249
 msgid ""
 "This database is from a new version of GNU Backgammon and cannot be used"
 msgstr ""
 "このデータベースは新しいバージョンの GNU Backgammon で作成されていて、使えま"
 "せん"
 
-#: gtkrelational.c:1271
+#: gtkrelational.c:1252
 msgid "This database structure is invalid"
 msgstr "このデータベースの構造は無効です"
 
-#: gtkrelational.c:1275
+#: gtkrelational.c:1256
 msgid "This database contains no matches"
 msgstr "このデータベースにはマッチが含まれていません"
 
-#: gtkrelational.c:1277
+#: gtkrelational.c:1258
 msgid "This database contains 1 match"
 msgstr "このデータベースに1マッチ含まれています"
 
-#: gtkrelational.c:1279
+#: gtkrelational.c:1260
 #, c-format
 msgid "This database contains %d matches\n"
 msgstr "このデータベースに%dマッチ含まれています\n"
 
-#: gtkrelational.c:1284
+#: gtkrelational.c:1265
 #, c-format
 msgid ""
 "Database connection successful\n"
@@ -10468,39 +10476,39 @@ msgstr ""
 "データベースへの接続に成功しました\n"
 "%s\n"
 
-#: gtkrelational.c:1322
+#: gtkrelational.c:1303
 msgid "Add Database"
 msgstr "データベースに追加"
 
-#: gtkrelational.c:1322
+#: gtkrelational.c:1303
 msgid "Database Name:"
 msgstr "データベース名:"
 
-#: gtkrelational.c:1335
+#: gtkrelational.c:1316
 msgid "Failed to create, database exists!"
 msgstr "作成に失敗しました。データベースはすでに存在します!"
 
-#: gtkrelational.c:1353
+#: gtkrelational.c:1334
 msgid "Failed to create database!"
 msgstr "データベースの作成に失敗しました!"
 
-#: gtkrelational.c:1363
+#: gtkrelational.c:1344
 msgid "Are you sure you want to delete all the matches in this database?"
 msgstr "データベースのすべてのマッチを削除してよろしいですか?"
 
-#: gtkrelational.c:1372
+#: gtkrelational.c:1353
 msgid "Database successfully removed"
 msgstr "データベースは削除されました"
 
-#: gtkrelational.c:1375
+#: gtkrelational.c:1356
 msgid "Failed to delete database!"
 msgstr "データベースの削除に失敗しました!"
 
-#: gtkrelational.c:1413
+#: gtkrelational.c:1394
 msgid "Databases"
 msgstr "データベース"
 
-#: gtkrelational.c:1440
+#: gtkrelational.c:1421
 msgid ""
 "Database type can be SQLite (bundled with GNU Backgammon), MySQL/MariaDB or "
 "PostgreSQL. The first one needs only a database name. For the other two you "
@@ -10510,52 +10518,52 @@ msgstr ""
 "PostgreSQLを使用することができます。SQLiteはデータベース名のみが必要です。他"
 "の形式では外部データベースサーバーとアクセス手段の設定が必要です。"
 
-#: gtkrelational.c:1441
+#: gtkrelational.c:1422
 msgid "DB Type"
 msgstr "データベース形式"
 
-#: gtkrelational.c:1452
+#: gtkrelational.c:1433
 msgid "Username"
 msgstr "ユーザー名"
 
-#: gtkrelational.c:1472
+#: gtkrelational.c:1453
 msgid "Password"
 msgstr "パスワード"
 
-#: gtkrelational.c:1493
+#: gtkrelational.c:1474
 msgid "DB server"
 msgstr "データベースサーバー"
 
-#: gtkrelational.c:1494
+#: gtkrelational.c:1475
 msgid "Entered as: hostname:port"
 msgstr "入力してください: hostname:port"
 
-#: gtkrelational.c:1516
+#: gtkrelational.c:1497
 msgid "Login"
 msgstr "ログイン"
 
-#: gtkrelational.c:1518
+#: gtkrelational.c:1499
 msgid "Check connection to database server"
 msgstr "データベースへの接続を確認"
 
-#: gtkrelational.c:1536
+#: gtkrelational.c:1517
 msgid "Store game stats"
 msgstr "ゲーム統計を保存"
 
-#: gtkrelational.c:1539
+#: gtkrelational.c:1520
 msgid "Store individual games statistics in addition to global match ones"
 msgstr "マッチの統計に加えて、個々のゲーム統計も保存する"
 
-#: gtkrelational.c:1543
+#: gtkrelational.c:1524
 msgid "Info"
 msgstr "情報"
 
 # DBインスタンス(の設定)を追加するのであって、DBに追加する話ではない
-#: gtkrelational.c:1575
+#: gtkrelational.c:1556
 msgid "Add database"
 msgstr "データベースを追加"
 
-#: gtkrelational.c:1578
+#: gtkrelational.c:1559
 msgid "Delete database"
 msgstr "データベースの削除"
 
@@ -10569,11 +10577,11 @@ msgstr "データベースの削除"
 #.
 #. if (pwDialog && gtk_widget_get_toplevel(pwDialog))
 #. gtk_widget_destroy(gtk_widget_get_toplevel(pwDialog));
-#: gtkrelational.c:1619
+#: gtkrelational.c:1600
 msgid "GNU Backgammon - Database"
 msgstr "GNU Backgammon - データベース"
 
-#: gtkrelational.c:1631
+#: gtkrelational.c:1612
 msgid ""
 "Click on the button to plot the historical error of (1) a player selected in "
 "the above list, or if no player is selected, (2) the player sitting at the "
@@ -10583,36 +10591,36 @@ msgstr ""
 "ていない場合は、(2)現在の試合でボードの下側に座っている選手の履歴をプロットし"
 "ます。"
 
-#: gtkrelational.c:1666
+#: gtkrelational.c:1647
 msgid "Erase"
 msgstr "消去"
 
-#: gtkrelational.c:1693
+#: gtkrelational.c:1674
 msgid "Name"
 msgstr "名前"
 
 # プレイヤーのNotesだが、とりあえず「メモ」で
-#: gtkrelational.c:1705
+#: gtkrelational.c:1686
 msgid "Notes"
 msgstr "メモ"
 
-#: gtkrelational.c:1729
+#: gtkrelational.c:1710
 msgid "Update Details"
 msgstr "詳細を更新する"
 
-#: gtkrelational.c:1743
+#: gtkrelational.c:1724
 msgid "Query"
 msgstr "クエリ(データベースへの問合せ)"
 
-#: gtkrelational.c:1746
+#: gtkrelational.c:1727
 msgid "Query text"
 msgstr "クエリ文字列"
 
-#: gtkrelational.c:1788
+#: gtkrelational.c:1769
 msgid "Run Query"
 msgstr "クエリの実行"
 
-#: gtkrelational.c:1817
+#: gtkrelational.c:1798
 msgid "GNU Backgammon - Database Result"
 msgstr "GNU Backgammon - データベース問合せ結果"
 
@@ -11291,7 +11299,7 @@ msgid "Temperature Map in Hypothetical Money Play"
 msgstr "マネーゲームを仮定したTemperature Map"
 
 # 1-plyにすべきか 1 plyにすべきかわからないが
-#: gtktempmap.c:847 gtktheory.c:961
+#: gtktempmap.c:847 gtktheory.c:962
 #, c-format
 msgid "%d ply"
 msgstr "%d-ply"
@@ -11405,6 +11413,8 @@ msgstr "GNU Backgammon - マーケットウィンドウ"
 msgid "Match play"
 msgstr "ポイントマッチ"
 
+# マーケットウィンドウだけで利用されるなら「アンリミテッド」としたいところ。
+# "Money play"の枠が下に出てくる
 #: gtktheory.c:667
 msgid "Money game"
 msgstr "マネーゲーム"
@@ -11423,54 +11433,55 @@ msgid "-away"
 msgstr "-away"
 
 #. money play widget
-#: gtktheory.c:833
+#: gtktheory.c:834
 msgid "Money play"
 msgstr "マネープレイ"
 
-#: gtktheory.c:843 html.c:3153
+#: gtktheory.c:844 html.c:3153
 msgid "Jacoby rule"
 msgstr "ジャコビールール"
 
-#: gtktheory.c:848
+# XG2では「ビーバー&ラクーン」(new session)か単に「ビーバー」(cube info)
+#: gtktheory.c:849
 msgid "Beavers allowed"
-msgstr "ビーバーを許可"
+msgstr "ビーバーあり"
 
 #. gammon and backgammon percentages
-#: gtktheory.c:854
+#: gtktheory.c:855
 msgid "Gammon and backgammon percentages"
 msgstr "勝つゲームの何%がギャモン(G)やバックギャモン(BG)になるか"
 
 # XGのキューブの情報パクリ。本当は「勝ちのうちバックギャモンの割合」とでも
 #. column title
-#: gtktheory.c:900
+#: gtktheory.c:901
 msgid "bg rate(%)"
 msgstr "BGの比率(%)"
 
 # XGのキューブの情報パクリ。本当は「勝ちのうちギャモンの割合」とでも
-#: gtktheory.c:900
+#: gtktheory.c:901
 msgid "gammon rate(%)"
 msgstr "Gの比率(%)"
 
-#: gtktheory.c:993
+#: gtktheory.c:994
 msgid "Market window"
 msgstr "マーケットウィンドウ"
 
-#: gtktheory.c:999
+#: gtktheory.c:1000
 #, c-format
 msgid "Market window for player %s"
 msgstr "プレイヤー %s のマーケットウィンドウ"
 
-#: gtktheory.c:1016
+#: gtktheory.c:1017
 msgid "Window graph"
 msgstr "ウィンドウグラフ"
 
-#: gtktheory.c:1022
+#: gtktheory.c:1023
 #, c-format
 msgid "Window graph for player %s"
 msgstr "プレイヤー %s のウィンドウグラフ"
 
 # ギャモンプライスといきたいところだが、XG2も直訳もギャモンバリュー
-#: gtktheory.c:1072
+#: gtktheory.c:1073
 msgid "Gammon values"
 msgstr "ギャモンバリュー"
 
@@ -13463,7 +13474,7 @@ msgstr "%s乱数生成器はロールアウトに適していません\n"
 #, c-format
 msgid "You must specify a valid modulus (see `help set rng bbs')."
 msgstr ""
-"有効な乱数生成モジュールを指定しなければなりません。 (see `help set rng "
+"有効なモジュラス(法とする数)を指定する必要があります。 (see `help set rng "
 "bbs')."
 
 #: set.c:210
@@ -16863,7 +16874,7 @@ msgid " (match to %d point)"
 msgid_plural " (match to %d points)"
 msgstr[0] " (%dポイントマッチ)"
 
-# 翻訳不要
+# 翻訳不要。事故らないだろうが空のmsgstrのままにする。
 #: text.c:225
 #, c-format
 msgid ""
@@ -16966,6 +16977,9 @@ msgstr ""
 msgid "You must specify a file to export to (see `help export position text')."
 msgstr ""
 "エクスポートするファイルを指定してください(see `help export position text')."
+
+#~ msgid "History plot"
+#~ msgstr "履歴をプロット"
 
 #~ msgid "Confirm move"
 #~ msgstr "ムーブ確定"
