@@ -6525,26 +6525,15 @@ GTKTextWindow(const char *szOutput, const char *title, const dialogtype type, Gt
     GtkWidget *pwDialog = GTKCreateDialog(title, type, parent, 0, NULL, NULL);
     GtkWidget *pwText;
     GtkWidget *sw;
+    GtkWidget *notice;
+    GtkWidget *pwh, *pwv;
     GtkTextBuffer *buffer;
     GtkTextIter iter;
     GtkRequisition req;
+    gchar *sz;
 
-#ifdef WIN32
-    /* copying to clipboard
-    https://stackoverflow.com/questions/1264137/how-to-copy-string-to-clipboard-in-c
-    */
-    const size_t len = strlen(szOutput) + 1;
-    HGLOBAL hMem = GlobalAlloc(GMEM_MOVEABLE, len);
-    memcpy(GlobalLock(hMem), szOutput, len);
-    GlobalUnlock(hMem);
-    OpenClipboard(0);
-    EmptyClipboard();
-    SetClipboardData(CF_TEXT, hMem);
-    CloseClipboard();
-#else
-    GtkClipboard * clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
+    GtkClipboard* clipboard = gtk_clipboard_get(GDK_SELECTION_CLIPBOARD);
     gtk_clipboard_set_text(clipboard, szOutput, -1);
-#endif // Win32
 
     pwText = gtk_text_view_new();
     gtk_text_view_set_wrap_mode(GTK_TEXT_VIEW(pwText), GTK_WRAP_NONE);
@@ -6565,8 +6554,27 @@ GTKTextWindow(const char *szOutput, const char *title, const dialogtype type, Gt
 #else
     gtk_widget_size_request(GTK_WIDGET(pwText), &req);
 #endif
+
+    sz = g_strdup_printf(_("%s copied to clipboard"), title);
+    notice = gtk_label_new(sz);
+    g_free(sz);
+
+#if GTK_CHECK_VERSION(3,0,0)
+    pwh = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
+    pwv = gtk_box_new(GTK_ORIENTATION_VERTICAL, 0);
+#else
+    pwh = gtk_hbox_new(FALSE, 0);
+    pwv = gtk_vbox_new(FALSE, 0);
+#endif
+    gtk_box_pack_start(GTK_BOX(pwh), pwv, TRUE, TRUE, 0);
+
+    gtk_box_pack_start(GTK_BOX(pwv), sw, TRUE, TRUE, 0);
+    gtk_box_pack_end(GTK_BOX(pwv), notice, FALSE, FALSE, 0);
+
     gtk_window_set_default_size(GTK_WINDOW(pwDialog), -1, MIN(500, req.height + 200));
-    gtk_container_add(GTK_CONTAINER(DialogArea(pwDialog, DA_MAIN)), sw);
+
+    gtk_box_pack_start(GTK_BOX(DialogArea(pwDialog, DA_MAIN)), pwh, TRUE, TRUE, 0);
+
     gtk_window_set_modal(GTK_WINDOW(pwDialog), TRUE);
     gtk_window_set_transient_for(GTK_WINDOW(pwDialog), GTK_WINDOW(pwMain));
     g_signal_connect(G_OBJECT(pwDialog), "destroy", G_CALLBACK(gtk_main_quit), NULL);
