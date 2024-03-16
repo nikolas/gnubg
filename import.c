@@ -868,7 +868,7 @@ GetMatLine(FILE * fp)
 }
 
 static int
-ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warned)
+ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int fCubeUsage, int *warned)
 {
 
     char sz0[MAX_NAME_LEN], sz1[MAX_NAME_LEN], *pch, *pchLeft, *pchRight = NULL, *szLine;
@@ -965,7 +965,7 @@ ImportGame(FILE * fp, int iGame, int nLength, bgvariation bgVariation, int *warn
     pmr->g.fResigned = FALSE;
     pmr->g.nAutoDoubles = 0;
     pmr->g.bgv = bgVariation;
-    pmr->g.fCubeUse = fCubeUse;
+    pmr->g.fCubeUse = fCubeUsage;
     IniStatcontext(&pmr->g.sc);
     AddMoveRecord(pmr);
 
@@ -1045,6 +1045,7 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
     char ch;
     gchar *pchComment = NULL;
     char *szLine;
+    int fCubeUsage = TRUE;
 
     fWarned = fPostCrawford = FALSE;
 
@@ -1102,6 +1103,8 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
                                  * for known Site values ? */
                 } else if (g_str_has_prefix(pch, "[Match ID ")) {
                                 /* discard */
+                } else if (g_str_has_prefix(pch, "[CubeLimit \"1\"")) {
+				fCubeUsage = FALSE;
                 } else if (g_str_has_prefix(pch, "[CubeLimit ")) {
                                 /* discard ; maybe keep as comment if != 1024 ? */
                 } else if (g_str_has_prefix(pch, "[Variation \"Backgammon")) {
@@ -1178,7 +1181,7 @@ ImportMatVariation(FILE * fp, char *szFilename, bgvariation bgVariation, int war
             if (!game)
                 outputf(_("WARNING! Unrecognized line in mat file: '%s'\n"), szLine);
             {
-                if (ImportGame(fp, game - 1, nLength, bgVariation, &warned))
+                if (ImportGame(fp, game - 1, nLength, bgVariation, fCubeUsage, &warned))
                     break;      /* import failed */
             }
         } else
