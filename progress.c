@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: progress.c,v 1.86 2022/01/09 14:09:14 plm Exp $
  */
 
 #include "config.h"
@@ -661,7 +659,7 @@ GTKViewRolloutStatistics(GtkWidget * UNUSED(widget), gpointer data)
     GTKRunDialog(pwDialog);
 }
 
-static void
+static gboolean
 RolloutCancel(GObject * UNUSED(po), rolloutprogress * prp)
 {
     pwGrab = pwOldGrab;
@@ -670,6 +668,8 @@ RolloutCancel(GObject * UNUSED(po), rolloutprogress * prp)
     prp->pwRolloutResultList = NULL;
     prp->pwRolloutProgress = NULL;
     fInterrupt = TRUE;
+
+    return TRUE;
 }
 
 static void
@@ -778,7 +778,7 @@ GTKRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
     pwOldGrab = pwGrab;
     pwGrab = prp->pwRolloutDialog;
 
-    prp->nRolloutSignal = g_signal_connect(G_OBJECT(prp->pwRolloutDialog), "destroy", G_CALLBACK(RolloutCancel), prp);
+    prp->nRolloutSignal = g_signal_connect(G_OBJECT(prp->pwRolloutDialog), "delete_event", G_CALLBACK(RolloutCancel), prp);
 
     /* Buttons */
 
