@@ -1,6 +1,6 @@
 /* 
  * Copyright (C) 1997-2003 Gary Wong <gary@cs.arizona.edu>
- * Copyright (C) 2002-2020 the AUTHORS
+ * Copyright (C) 2002-2024 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: makebearoff.c,v 1.111 2022/07/26 21:16:44 plm Exp $
  */
 
 #include "config.h"
@@ -1264,13 +1262,6 @@ generate_ts(const int nTSP, const int nTSC,
 }
 
 
-static void
-version(void)
-{
-    printf("makebearoff $Revision: 1.111 $\n");
-}
-
-
 extern int
 main(int argc, char **argv)
 {
@@ -1285,7 +1276,6 @@ main(int argc, char **argv)
     static int fND = FALSE;
     static char *szOutput = NULL;
     static char *szTwoSided = NULL;
-    static int show_version = 0;
 
     bearoffcontext *pbc = NULL;
     FILE *outfile;
@@ -1311,8 +1301,6 @@ main(int argc, char **argv)
          N_("Do not include gammon distribution for one-sided databases"), NULL},
         {"normal-dist", 'n', 0, G_OPTION_ARG_NONE, &fND,
          N_("Approximate one-sided bearoff database with normal distributions"), NULL},
-        {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
-         N_("Prints version and exits"), NULL},
         {"outfile", 'f', 0, G_OPTION_ARG_STRING, &szOutput,
          N_("Required output filename"), "filename"},
         {NULL, 0, 0, (GOptionArg) 0, NULL, NULL, NULL}
@@ -1340,14 +1328,8 @@ main(int argc, char **argv)
         exit(EXIT_FAILURE);
     }
 
-
     if (szTwoSided)
         sscanf(szTwoSided, "%2dx%2d", &nTSP, &nTSC);
-
-    if (show_version) {
-        version();
-        exit(0);
-    }
 
     if (!szOutput) {
         g_printerr(_("Required argument -f missing\n"));

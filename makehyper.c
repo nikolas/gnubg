@@ -1,6 +1,6 @@
 /*
  * Copyright (C) 2003 Joern Thyssen <jth@gnubg.org>
- * Copyright (C) 2007-2019 the AUTHORS
+ * Copyright (C) 2007-2024 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: makehyper.c,v 1.57 2022/01/22 20:11:58 plm Exp $
  */
 
 #include "config.h"
@@ -553,13 +551,6 @@ WriteHyperFile(const char *szFilename, const hyperequity ahe[], const int nC)
 }
 
 
-static void
-version(void)
-{
-    g_print("makehyper $Revision: 1.57 $\n");
-}
-
-
 extern int
 main(int argc, char **argv)
 {
@@ -578,7 +569,6 @@ main(int argc, char **argv)
     char *szOutput = NULL;
     char *szRestart = NULL;
     int fCheckPoint = TRUE;
-    int show_version = 0;
 
     GOptionEntry ao[] = {
         {"chequers", 'c', 0, G_OPTION_ARG_INT, &nC,
@@ -589,8 +579,6 @@ main(int argc, char **argv)
          N_("The convergence threshold (T). Default is 1e-5"), "T"},
         {"no-checkpoint", 'n', G_OPTION_FLAG_REVERSE, G_OPTION_ARG_NONE, &fCheckPoint,
          N_("Do not write a checkpoint file after each iteration"), NULL},
-        {"version", 'v', 0, G_OPTION_ARG_NONE, &show_version,
-         N_("Print version info and exit"), NULL},
         {"outfile", 'f', 0, G_OPTION_ARG_STRING, &szOutput,
          N_("Output filename. Default is hyper<C>.bd"), "filename"},
         {NULL, 0, 0, (GOptionArg) 0, NULL, NULL, NULL}
@@ -620,10 +608,6 @@ main(int argc, char **argv)
     }
 
     /* parse options */
-    if (show_version) {
-        version();
-        exit(0);
-    }
 
     if (szEpsilon)
         rEpsilon = (float) g_strtod(szEpsilon, NULL);
