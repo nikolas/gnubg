@@ -141,6 +141,7 @@ msgstr "総合統計"
 msgid "Please use 'analyse move' on the double decision"
 msgstr "ダブル判断では 'analyse move' を使用してください"
 
+# 三点リーダーは特に使わないで原文ママ...
 #: analysis.c:1656
 msgid "Analysing move..."
 msgstr "ムーブ解析中..."
@@ -299,7 +300,7 @@ msgstr "データベースはギャモン率の分布を含んでいます"
 
 #: bearoff.c:532
 msgid "database does not include gammon distributions"
-msgstr "データベースはギャモン率の分布を含んでいません"
+msgstr "データベースはギャモン率の分布を含みません"
 
 #: bearoff.c:551
 msgid "Cubeless equity"
@@ -352,7 +353,8 @@ msgstr "n/a"
 msgid "Average rolls"
 msgstr "平均ロール数"
 
-# 定着してしまった和製英語では「ギャモンセーブ」。DumpBearoffする人だしギャモン逃れ
+# 定着してしまった和製英語では「ギャモンセーブ」
+# DumpBearoffする人だし「ギャモン逃れ」で理解できるはず
 #: bearoff.c:634
 msgid "Saving gammon"
 msgstr "ギャモン逃れ"
@@ -467,7 +469,7 @@ msgid ""
 "For more help try `bearoffdump --help'\n"
 msgstr ""
 "ポジションIDかindexかのどちらかが必要です。\n"
-"詳しくは `bearoffdump --help' を使ってください\n"
+"詳しくは `bearoffdump --help' をご覧ください\n"
 
 #: bearoffdump.c:83
 #, c-format
@@ -476,7 +478,7 @@ msgid ""
 "For more help try `bearoffdump --help'\n"
 msgstr ""
 "引数としてベアオフデータベースファイルが必要です\n"
-"詳しくは `bearoffdump --help' を使ってください\n"
+"詳しくは `bearoffdump --help' をご覧ください\n"
 
 #: bearoffdump.c:89
 #, c-format
@@ -592,11 +594,11 @@ msgstr "テクスチャ無し"
 msgid "Error creating font\n"
 msgstr "フォント作成中エラー\n"
 
-# non-ASCIIを含むとフォント作成エラーによりグラフ表示が真っ黒。
-# コードを直してから翻訳せよ。
+# non-ASCIIを含むとフォント作成エラーでグラフ真っ黒になる。
+# 原文のTotalsは2人分のTotalが並ぶためだが、日本語話者にはTotalで通じる
 #: board3d/graph.c:83
 msgid "Totals"
-msgstr "Totals"
+msgstr "Total"
 
 #: board3d/gtkcolour3d.c:291
 msgid "Ambient colour:"
@@ -660,7 +662,7 @@ msgstr "エラー: テクスチャファイル (%s) が古いバージョンで�
 #, c-format
 msgid "Texture filename %s too long, maximum length %d.  Entry ignored.\n"
 msgstr ""
-"テクスチャファイル名 %s が長すぎます、最大長 %d です。エントリは無視されま"
+"テクスチャファイル名 %s が長すぎます、最大長は%dです。エントリは無視されま"
 "す。\n"
 
 #: board3d/misc3d.c:505 board3d/misc3d.c:522
@@ -1925,7 +1927,7 @@ msgstr "悪手とされたキューブ判断の表示"
 
 #: commands.inc:918
 msgid "show close cube decisions"
-msgstr "きわどいキューブ判断の表示"
+msgstr "クロース(きわどい)キューブ判断の表示"
 
 #: commands.inc:920
 msgid "show doubtful cube decisions"
@@ -2097,7 +2099,7 @@ msgstr "パス"
 
 #: commands.inc:1038
 msgid "Exiting of GNU Backgammon"
-msgstr "GNU Backgammon の終了"
+msgstr "GNU Backgammonの終了時"
 
 #: commands.inc:1040 sound.c:356
 msgid "Human fans"
@@ -2130,7 +2132,7 @@ msgstr "ロール"
 
 #: commands.inc:1054
 msgid "Starting of GNU Backgammon"
-msgstr "GNU Backgammon を始める"
+msgstr "GNU Backgammonの起動時"
 
 #: commands.inc:1056 gtkcube.c:279 gtkcube.c:611 gtkgame.c:1398
 #: gtkrelational.c:66 gtkscoremap.c:1316 latex.c:471 play.c:4495 sound.c:355
@@ -2163,7 +2165,7 @@ msgstr "大悪手をプレイしたら警告"
 
 #: commands.inc:1075
 msgid "Give advice on possible errors"
-msgstr "起こりそうなエラーにアドバイスを与える"
+msgstr "エラーをしそうなときにアドバイスを与える"
 
 #: commands.inc:1077
 msgid "Include cube play in advice"
@@ -2797,7 +2799,7 @@ msgstr "どちらの手番か表示"
 
 #: commands.inc:1453
 msgid "Describe this version of GNU Backgammon"
-msgstr "GNU Backgammon のバージョンについて表示"
+msgstr "GNU Backgammonのバージョンについて表示"
 
 #: commands.inc:1455
 msgid "Give warnings for possible errors in play"
@@ -3241,7 +3243,7 @@ msgstr "現在の乱数シードは %s で、モジュラス(法とする数)は
 #: dice.c:432
 #, c-format
 msgid "GNU Backgammon is reading dice from file: %s"
-msgstr "GNU Backgammon がダイスの出目を読み込むファイル: %s"
+msgstr "GNU Backgammonがダイスの出目として読み込むファイル: %s"
 
 #: dice.c:448
 #, c-format
@@ -3394,7 +3396,9 @@ msgstr "%sはweightsファイルではありません"
 #: eval.c:548 eval.c:572
 #, c-format
 msgid "weights file %s, has incorrect version (%s), expected (%s)"
-msgstr "weightsファイル %s は不正なバージョンです(%s)、期待されているのは(%s)"
+msgstr ""
+"weightsファイル %s は不正なバージョンです(%s)、期待されているバージョンは(%s)"
+"です"
 
 #: eval.c:595
 #, c-format
@@ -3455,7 +3459,7 @@ msgstr ""
 "\n"
 "***WARNING***\n"
 "\n"
-"GNU Backgammon は両側ベアオフデータベースを使いません。\n"
+"GNU Backgammonは両側ベアオフデータベースを使いません。\n"
 "gnubg_ts0.bd が見つからないためです。\n"
 "このファイルを入手するか、さもなくばあなた自身で生成してください\n"
 "コマンド: makebearoff -t 6x6 -f gnubg_ts0.bd\n"
@@ -3466,7 +3470,7 @@ msgstr ""
 #: eval.c:740
 #, c-format
 msgid "GNU Backgammon couldn't find a weights file."
-msgstr "GNU Backgammon がweightsファイルを見つけられません。"
+msgstr "GNU Backgammonがweightsファイルを見つけられません。"
 
 #: eval.c:3064
 msgid "neural network evaluator"
@@ -3496,7 +3500,7 @@ msgid ""
 " * Weights file and databases installed in:\n"
 "   - %s\n"
 msgstr ""
-"* Weightsファイルとデータベースは以下の場所にインストールされています:\n"
+" * Weightsファイルとデータベースは以下の場所にインストールされています:\n"
 "   - %s\n"
 
 #: eval.c:3132 format.c:815 gtkcube.c:720 html.c:1671
@@ -3651,7 +3655,7 @@ msgid ""
 "This installation of GNU Backgammon was compiled without\n"
 "socket support, and does not implement external controllers."
 msgstr ""
-"このGNU Backgammon はソケット非対応で\n"
+"このGNU Backgammonはソケット非対応で\n"
 "コンパイルされていますので、外部接続は使えません。"
 
 #: external.c:593
@@ -3888,15 +3892,17 @@ msgstr "警告: 間違ったパス"
 msgid "Alert: wrong double"
 msgstr "警告: 間違ったダブル"
 
+# 悪手・疑問手などが入る。aszSkillTypeの翻訳
 #: format.c:787 html.c:1808
 #, c-format
 msgid "Alert: double decision marked %s"
-msgstr "警告: キューブアクション %s はマークされました"
+msgstr "警告: キューブ判断は %s とマークされました"
 
+# 悪手・疑問手などが入る。aszSkillTypeの翻訳
 #: format.c:792 html.c:1814
 #, c-format
 msgid "Alert: take decision marked %s"
-msgstr "警告: テイク %s はマークされました。"
+msgstr "警告: テイク判断は %s とマークされました。"
 
 #: format.c:814 gtkcube.c:719 gtkscoremap.c:1326 html.c:1670
 msgid "No double"
@@ -4303,6 +4309,8 @@ msgid ""
 "<ply> <num.xjoin to accept (0 = skip)> [<num. of extra moves to accept> "
 "<tolerance>]"
 msgstr ""
+"<ply> <数.xjoin (0でスキップ)> [<追加で受け入れるムーブ数> <許容エクイティ差"
+">]"
 
 #: gnubg.c:540
 msgid "<name>"
@@ -4517,7 +4525,7 @@ msgstr "現在のポジション"
 #, c-format
 msgid "`simple' must be followed by 26 integers; found only %d\n"
 msgstr ""
-"`simple' には26個の数字が続かなくてはいけません; %d しか見つかりません\n"
+"`simple' には26個の数字が続かなくてはいけません; %d個しか見つかりません\n"
 
 #: gnubg.c:1013 gnubg.c:1024
 msgid "Illegal position."
@@ -4526,7 +4534,7 @@ msgstr "不正なポジション。"
 #: gnubg.c:1116
 #, c-format
 msgid "You must specify whether to set '%s' on or off.\n"
-msgstr "%s は on か off に設定する必要があります。\n"
+msgstr "'%s' は on か off に設定する必要があります。\n"
 
 #: gnubg.c:1145
 #, c-format
@@ -4550,7 +4558,7 @@ msgstr "コマンドが不完全です。"
 #: gnubg.c:1285
 #, c-format
 msgid "Unknown keyword `%s'.\n"
-msgstr "不明なキーワード: `%s`\n"
+msgstr "不明なキーワード: `%s'\n"
 
 #: gnubg.c:1379 gnubg.c:1410 gnubg.c:1486 gnubg.c:2788 play.c:2533
 msgid "Rolled"
@@ -4732,7 +4740,7 @@ msgstr "読み込むファイルを指定する必要があります。"
 msgid "Pip counts:"
 msgstr "ピップ:"
 
-# 翻訳不要。下手にmsgstrにコピーして事故っても嫌なので空のままにする。
+# WARNINGまでは原文のまま
 #: gnubg.c:3402
 #, c-format
 msgid ""
@@ -4747,6 +4755,15 @@ msgid ""
 "# If you want to override them with permanent settings, put these manually \n"
 "# in a 'gnubgrc' file in the same directory.\n"
 msgstr ""
+"#\n"
+"# GNU Backgammon command file\n"
+"#   generated by %s\n"
+"#\n"
+"# WARNING: この 'gnubgautorc' ファイルは、最初に設定を変更したときに\n"
+"# 自動的に生成され、それ以降、設定を変更するたびに上書きされます。\n"
+"#\n"
+"# 永続的に設定を上書きしたい場合は、同じディレクトリにある\n"
+"# 'gnubgrc' ファイルに手動で追加してください。\n"
 
 #: gnubg.c:3445
 #, c-format
@@ -4827,9 +4844,10 @@ msgstr "Pythonモードを開始するかFILE中のコードを評価して終�
 msgid "Disable sound effects"
 msgstr "サウンドエフェクトを無効にする"
 
+# dotfileでなく ~/.gnubg/ 以下になったので翻訳で先行して直す
 #: gnubg.c:4620
 msgid "Do not read .gnubgrc and .gnubgautorc commands"
-msgstr ".gnubgrc と .gnubgautorc を読み込まない"
+msgstr "gnubgrc と gnubgautorc を読み込まない"
 
 #: gnubg.c:4623
 msgid "Show gtk splash screen"
@@ -4906,7 +4924,7 @@ msgstr "ユーザー設定"
 #: gnubg.c:4829
 #, c-format
 msgid "GNU Backgammon build without Python."
-msgstr "GNU Backgammon はPythonサポート無しでビルドされました。"
+msgstr "GNU BackgammonはPythonサポート無しでビルドされました。"
 
 #: gnubg.c:4861 gnubg.c:4904
 msgid "Command only valid in match play"
@@ -4942,7 +4960,7 @@ msgstr "プレイヤー名が長すぎます"
 #: gnubg.c:5170
 #, c-format
 msgid "File \"%s\" exists. Overwrite? "
-msgstr "ファイル \"%s\" はすでに存在します。上書きしますか？"
+msgstr "ファイル \"%s\" はすでに存在します。上書きしますか?"
 
 #: gnubg.c:5264
 msgid "You may be about to make a very bad play"
@@ -5241,7 +5259,7 @@ msgstr "ピップ:"
 #: gtkboard.c:658 gtkboard.c:659 gtkboard.c:678 gtkboard.c:679
 #, c-format
 msgid "EPC: "
-msgstr "EPC(実効ピップ): "
+msgstr "EPC(実効ピップ):"
 
 # ルール上の「イリーガルムーブ」
 #: gtkboard.c:721
@@ -5624,7 +5642,7 @@ msgstr "ミストダブル(ダブルし損ない)を表示する"
 
 #: gtkexport.c:62
 msgid "Show for close cube decisions"
-msgstr "きわどいキューブ判断を表示する"
+msgstr "クロース(きわどい)キューブ判断を表示する"
 
 #: gtkexport.c:385
 #, c-format
@@ -5928,14 +5946,15 @@ msgstr "ダイスを消去"
 msgid "GNU Backgammon - Cube"
 msgstr "GNU Backgammon - キューブ"
 
+# :の後のスペースを入れて幅を取っても問題ないので踏襲
 #. First column with text
 #: gtkgame.c:998
 msgid "Equity before resignation: "
-msgstr "投了前のエクイティ"
+msgstr "投了前のエクイティ: "
 
 #: gtkgame.c:1019
 msgid "Equity after resignation: "
-msgstr "投了後のエクイティ"
+msgstr "投了後のエクイティ: "
 
 #: gtkgame.c:1040
 msgid "Difference: "
@@ -5967,7 +5986,7 @@ msgstr "チェッカープレイ"
 
 #: gtkgame.c:1380 gtkgame.c:1407
 msgid "GNU Backgammon cannot analyse neither beavers nor raccoons yet"
-msgstr "GNU Backgammon はビーバーもラクーンもまだ解析できません"
+msgstr "GNU Backgammonはビーバーもラクーンもまだ解析できません"
 
 #: gtkgame.c:1464
 msgid "No analysis available."
@@ -5975,7 +5994,7 @@ msgstr "有効な解析がありません。"
 
 #: gtkgame.c:1725
 msgid "Position and Match IDs copied to the clipboard"
-msgstr "ポジションIDとマッチIDがクリップボードにコピーされました"
+msgstr "ポジションIDとマッチIDをクリップボードにコピーしました"
 
 #: gtkgame.c:1739 html.c:650
 msgid "Match ID:"
@@ -5983,7 +6002,7 @@ msgstr "マッチID:"
 
 #: gtkgame.c:1745
 msgid "Match ID copied to the clipboard"
-msgstr "マッチIDがクリップボードにコピーされました"
+msgstr "マッチIDをクリップボードにコピーしました"
 
 #: gtkgame.c:1759 html.c:650
 msgid "Position ID:"
@@ -5991,7 +6010,7 @@ msgstr "ポジションID:"
 
 #: gtkgame.c:1765
 msgid "Position ID copied to the clipboard"
-msgstr "ポジションIDがクリップボードにコピーされました"
+msgstr "ポジションIDをクリップボードにコピーしました"
 
 # 3Dボードとすると翻訳と乖離するが、3Dビューともしたくない
 #: gtkgame.c:1879
@@ -6854,6 +6873,7 @@ msgstr "マニュアル(all about)(_M)"
 msgid "Manual (_web)"
 msgstr "マニュアル(web)(_W)"
 
+# 他のソフトは「について」の前でスペース開けている
 #: gtkgame.c:4124
 msgid "_About GNU Backgammon"
 msgstr "GNU Backgammon について(_A)"
@@ -7635,7 +7655,7 @@ msgid ""
 msgstr ""
 "乱数シードはダイスの出目生成の初期化に使用される数字です。同じ乱数シードを再"
 "利用することで、ロールアウトの結果を再現することができます。0 は特別な値で、"
-"GNU Backgammon がランダムな値を使用するようにします。"
+"GNU Backgammonがランダムな値を使用するようにします。"
 
 #: gtkgame.c:5771 gtkrace.c:374
 msgid "Trials:"
@@ -12797,10 +12817,11 @@ msgstr "ムーブを %s とマークしました。\n"
 msgid "Luck annotation cleared."
 msgstr "運の注釈を消去しました。"
 
+# Luck評価が入る
 #: play.c:2097
 #, c-format
 msgid "Roll marked as %s.\n"
-msgstr "出目を %s をマークしました。\n"
+msgstr "出目を %s とマークしました。\n"
 
 #: play.c:2184
 msgid "You must select a move to which to add the comment."
@@ -14744,10 +14765,11 @@ msgstr "ゲーム勝率(GWC)は確率で表示されます。"
 msgid "You must specify a filename. See \"help set met\". "
 msgstr "ファイル名を指定する必要があります。 See \"help set met\""
 
+# 若干意訳が入るが字面の並びを良くした
 #: set.c:3136
 #, c-format
 msgid "GNU Backgammon will now use the %s match equity table.\n"
-msgstr "GNU Backgammonは %s マッチエクイティテーブルを使用します。\n"
+msgstr "GNU Backgammonはマッチエクイティテーブル %s を使用します。\n"
 
 #: set.c:3140
 #, c-format
@@ -15297,7 +15319,7 @@ msgstr "Cube efficiency race 最大値"
 
 #: set.c:4429
 msgid "Cube efficiency race min"
-msgstr "Cube efficiency race 最小値<"
+msgstr "Cube efficiency race 最小値"
 
 #: set.c:4440
 #, c-format
@@ -16496,6 +16518,7 @@ msgstr "- 実際のキューブ判断"
 msgid "- missed cube decisions"
 msgstr "- し損なったキューブ判断"
 
+# 「クロース」を含めると長くなってバランスが崩れる
 #: show.c:1943
 msgid "- close cube decisions"
 msgstr "- きわどいキューブ判断"
@@ -16747,13 +16770,15 @@ msgstr "Apple CoreAudioエラー ("
 msgid "Apple CoreAudio Error, can't find %s\n"
 msgstr "Apple CoreAudioエラー、%s が見つかりません\n"
 
+# 起動か開始かどっちがよいか。Windowsサウンド設定では「プログラムの起動」
 #: sound.c:345
 msgid "Starting GNU Backgammon"
-msgstr "GNU Backgammon 開始時"
+msgstr "GNU Backgammonの起動"
 
+# Windowsサウンド設定では「プログラムの終了」
 #: sound.c:346
 msgid "Exiting GNU Backgammon"
-msgstr "GNU Backgammon 終了時"
+msgstr "GNU Backgammonの終了"
 
 #: sound.c:348
 msgid "Doubling"
@@ -16978,8 +17003,9 @@ msgid "You must specify a file to export to (see `help export position text')."
 msgstr ""
 "エクスポートするファイルを指定してください(see `help export position text')."
 
-#~ msgid "History plot"
-#~ msgstr "履歴をプロット"
+#, c-format
+#~ msgid "%s copied to clipboard"
+#~ msgstr "%s をクリップボードにコピーしました"
 
 #~ msgid "Confirm move"
 #~ msgstr "ムーブ確定"
