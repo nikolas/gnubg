@@ -555,7 +555,9 @@ msgstr "Χωρίς υφή"
 msgid "Error creating font\n"
 msgstr "Μεταφράσεις"
 
+#. Translate using only the characters contained in Vera font
 #: board3d/graph.c:83
+#, fuzzy
 msgid "Totals"
 msgstr "Σύνολα"
 
