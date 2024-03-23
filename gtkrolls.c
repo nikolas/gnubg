@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkrolls.c,v 1.49 2023/09/23 21:28:16 plm Exp $
  */
 
 #include "config.h"
@@ -289,7 +287,7 @@ CancelRolls(GtkWidget * pButton)
     gtk_widget_set_sensitive(pButton, FALSE);
 }
 
-static gint
+static gboolean
 RollsClose(GtkWidget * UNUSED(widget), GdkEvent * UNUSED(eventDetails), rollswidget * prw)
 {
     if (pwOldGrab != pwGrab) {  /* Mid-depth change - wait for it to cancel */
