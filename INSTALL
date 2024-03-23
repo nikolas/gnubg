@@ -13,7 +13,7 @@ automake
 libtool
 GNU make
 bison			version >= 2.4
-flex
+flex			version >= 2.5.9
 A C compiler
 
 If bison or flex are missing or too old, the files they create can be copied
