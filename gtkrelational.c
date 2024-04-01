@@ -1199,11 +1199,15 @@ LoginClicked(GtkButton * UNUSED(button), gpointer dbList)
     tmpPass = pdb->password;
     tmpHost = pdb->hostname;
 
-    pdb->username = (char *) gtk_entry_get_text(GTK_ENTRY(user));
-    pdb->password = (char *) gtk_entry_get_text(GTK_ENTRY(password));
-    pdb->hostname = (char *) gtk_entry_get_text(GTK_ENTRY(hostname));
+    pdb->username = g_strdup(gtk_entry_get_text(GTK_ENTRY(user)));
+    pdb->password = g_strdup(gtk_entry_get_text(GTK_ENTRY(password)));
+    pdb->hostname = g_strdup(gtk_entry_get_text(GTK_ENTRY(hostname)));
 
     TryConnection(pdb, dbList);
+
+    g_free(pdb->hostname);
+    g_free(pdb->password);
+    g_free(pdb->username);
 
     pdb->username = tmpUser;
     pdb->password = tmpPass;
