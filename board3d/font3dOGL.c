@@ -1,5 +1,6 @@
 /*
  * Copyright (C) 2019 Jon Kinsey <jonkinsey@gmail.com>
+ * Copyright (C) 2024 the AUTHORS
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: font3dOGL.c,v 1.13 2021/10/28 23:05:33 plm Exp $
  */
 
 #include "config.h"
@@ -43,7 +42,7 @@ void PopulateMesh(const Vectoriser* pVect, Mesh* pMesh);
 
 #if !GTK_CHECK_VERSION(3,0,0)
 static int
-RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float scale,
+RenderText(char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float scale,
 	float heightRatio)
 {
 	FT_Pos len = 0;
@@ -51,6 +50,8 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 
 	if (FT_New_Face(ftLib, pPath, 0, &face))
 		return 0;
+
+	g_assert(face->charmap->encoding == FT_ENCODING_UNICODE);
 
 	if (FT_Set_Char_Size(face, 0, pointSize * 64 /* 26.6 fractional points */, 0, 0))
 		return 0;
@@ -63,9 +64,16 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 	pFont->height = 0;
 
 	while (*text) {
+	        gunichar codepoint;
+		FT_ULong charCode;
+		unsigned int glyphIndex;
+
+		codepoint = g_utf8_get_char(text);
+		text = g_utf8_next_char(text);
+
 		/* Draw character */
-		FT_ULong charCode = (FT_ULong)(int)(*text);
-		unsigned int glyphIndex = FT_Get_Char_Index(face, charCode);
+		charCode = (FT_ULong)codepoint;
+		glyphIndex = FT_Get_Char_Index(face, charCode);
 		if (!glyphIndex)
 			return 0;
 
@@ -78,14 +86,16 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 		if (!MAArenderGlyph(&face->glyph->outline, 0))
 			return 0;
 
-		text++;
 		len += face->glyph->advance.x;
 		/* Move on to next place */
 		if (*text) {
-			unsigned int nextGlyphIndex;
 			FT_Pos kern = 0;
 			FT_Vector kernAdvance;
-			charCode = (FT_ULong)(int)(*text);
+			unsigned int nextGlyphIndex;
+
+			codepoint = g_utf8_get_char(text);
+
+			charCode = (FT_ULong)codepoint;
 			nextGlyphIndex = FT_Get_Char_Index(face, charCode);
 			if (nextGlyphIndex && !FT_Get_Kerning(face, glyphIndex, nextGlyphIndex, ft_kerning_unfitted, &kernAdvance))
 				kern = kernAdvance.x;
@@ -102,7 +112,7 @@ RenderText(const char* text, FT_Library ftLib, OGLFont* pFont, const char* pPath
 }
 
 int
-CreateFontText(OGLFont* ppFont, const char* text, const char* fontFile, int pitch, float size, float heightRatio)
+CreateFontText(OGLFont* ppFont, char* text, const char* fontFile, int pitch, float size, float heightRatio)
 {
 	char* filename;
 
@@ -332,7 +342,7 @@ glDrawText(const OGLFont* font)
 #endif
 
 #if GTK_CHECK_VERSION(3,0,0)
-int CreateFontText(OGLFont* UNUSED(ppFont), const char* UNUSED(text), const char* UNUSED(fontFile), int UNUSED(pitch), float UNUSED(size), float UNUSED(heightRatio)) { return 0; }
+int CreateFontText(OGLFont* UNUSED(ppFont), char* UNUSED(text), const char* UNUSED(fontFile), int UNUSED(pitch), float UNUSED(size), float UNUSED(heightRatio)) { return 0; }
 void FreeTextFont(OGLFont* UNUSED(ppFont)) {}
 void glPrintNumbersRA(const OGLFont* UNUSED(numberFont), const char* UNUSED(text)) {}
 void glDrawText(const OGLFont* UNUSED(font)) {}

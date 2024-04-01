@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: fun3d.h,v 1.68 2023/04/19 12:01:38 Superfly_Jon Exp $
  */
 
 #ifndef FUN3D_H
@@ -199,7 +197,7 @@ extern GList* combineList;
 
 /* font functions */
 int CreateFonts(BoardData3d* bd3d);
-int CreateFontText(OGLFont* ppFont, const char* text, const char* fontFile, int pitch, float size, float heightRatio);
+int CreateFontText(OGLFont* ppFont, char* text, const char* fontFile, int pitch, float size, float heightRatio);
 int CreateOGLFont(FT_Library ftLib, OGLFont* pFont, const char* pPath, int pointSize, float size, float heightRatio);
 float GetFontHeight3d(const OGLFont* font);
 void PopulateVectoriser(Vectoriser* pVect, const FT_Outline* pOutline);
