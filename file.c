@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: file.c,v 1.40 2024/01/20 21:58:04 plm Exp $
  */
 
 #include "config.h"
@@ -465,21 +463,29 @@ ReadFilePreview(const char *filename)
     return fpd;
 }
 
+/* IK: modified the function to enable an output filename value without extension */
+
 extern char *
-GetFilename(int CheckForCurrent, ExportType type)
+GetFilename(int CheckForCurrent, ExportType type, int extens)
 {
     char *sz;
 
-    if (CheckForCurrent && szCurrentFileName && *szCurrentFileName)
-        sz = g_strdup_printf("%s%s", szCurrentFileName, export_format[type].extension);
-    else {
+    if (CheckForCurrent && szCurrentFileName && *szCurrentFileName) {
+        if (extens)
+            sz = g_strdup_printf("%s%s", szCurrentFileName, export_format[type].extension);
+        else
+            sz = g_strdup(szCurrentFileName);
+    } else {
         time_t t = time(NULL);
         char tstr[16];
 
         if (strftime(tstr, 16, "%Y-%m-%d-%H%M", localtime(&t)) == 0)
             *tstr = '\0';
 
-        sz = g_strdup_printf("%s-%s_%dp_%s.sgf", ap[0].szName, ap[1].szName, ms.nMatchTo, tstr);
+        if (extens)
+            sz = g_strdup_printf("%s-%s_%dp_%s.sgf", ap[0].szName, ap[1].szName, ms.nMatchTo, tstr);
+        else
+            sz = g_strdup_printf("%s-%s_%dp_%s", ap[0].szName, ap[1].szName,ms.nMatchTo, tstr);
     }
 
     return sz;

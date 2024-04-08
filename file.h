@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: file.h,v 1.11 2019/12/19 20:55:30 plm Exp $
  */
 
 #ifndef FILE_H
@@ -73,7 +71,7 @@ typedef struct {
     ImportType type;
 } FilePreviewData;
 
-extern char *GetFilename(int CheckForCurrent, ExportType type);
+extern char *GetFilename(int CheckForCurrent, ExportType type, int extens);
 extern FilePreviewData *ReadFilePreview(const char *filename);
 
 #endif

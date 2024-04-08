@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkfile.c,v 1.82 2023/12/12 22:26:07 plm Exp $
  */
 
 #include "config.h"
@@ -214,7 +212,7 @@ SaveCommon(guint f, gchar * prompt)
     static gint last_export_mgp = 0;
     static gchar *last_save_folder = NULL;
     static gchar *last_export_folder = NULL;
-    gchar *fn = GetFilename(TRUE, (f == 1) ? EXPORT_SGF : last_export_type);
+    gchar *fn = GetFilename(TRUE, (f == 1) ? EXPORT_SGF : last_export_type, TRUE);
     gchar *folder = NULL;
     const gchar *mgp_text[3] = { "match", "game", "position" };
 

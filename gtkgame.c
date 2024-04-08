@@ -5209,6 +5209,9 @@ UpdatePlayerSettings(newwidget * pnw)
         }
     }
 
+    /* apply the default names chosen by the user, not the names used in the random previous match */
+    strcpy(ap[0].szName, default_names[0]);
+    strcpy(ap[1].szName, default_names[1]);
 
     if ((fManDice) && (rngCurrent != RNG_MANUAL))
         UserCommand("set rng manual");
@@ -5432,6 +5435,8 @@ NewOK(GtkWidget * pw, newwidget * pnw)
 
     sprintf(sz, "new match %u", Mlength);
     UserCommand(sz);
+
+    GL_SetNames();
 }
 
 static void
