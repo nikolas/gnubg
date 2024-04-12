@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkboard.c,v 1.384 2022/10/13 20:05:19 plm Exp $
  */
 
 /*! \file gtkboard.c
@@ -78,7 +76,7 @@ typedef struct {
     BoardData *bd;
     manualDiceType mdt;
 } SetDiceData;
-/*todo - tidy set cube like above */
+/* todo - tidy set cube like above */
 static unsigned char *TTachCube, *TTachCubeFaces;
 
 static randctx rctx;
@@ -93,14 +91,15 @@ G_DEFINE_TYPE(Board, board, GTK_TYPE_BOX)
 #else
 G_DEFINE_TYPE(Board, board, GTK_TYPE_VBOX)
 #endif
+
 static int inPreviewWindow;
 
 extern GtkWidget *
 board_new(renderdata * prd, int inPreview)
 {
-    inPreviewWindow = inPreview;
     /* Create widget */
     GtkWidget *board = g_object_new(TYPE_BOARD, NULL);
+
     /* Initialize board data members */
     BoardData *bd = BOARD(board)->board_data;
     bd->rd = prd;
@@ -119,6 +118,8 @@ board_new(renderdata * prd, int inPreview)
 
     bd->x_dice[0] = bd->y_dice[0] = 0;
     bd->x_dice[1] = bd->y_dice[1] = 0;
+
+    inPreviewWindow = inPreview;
 
     InitialPos(bd);
 
@@ -151,7 +152,7 @@ InitBoardPreview(BoardData * bd)
     bd->diceShown = DICE_ON_BOARD;
     bd->diceRoll[0] = 4;
     bd->diceRoll[1] = 3;
-    bd->turn = 1;
+    bd->colour = bd->turn = 1;
 }
 
 static int
@@ -3638,6 +3639,7 @@ board_init(Board * board)
     GtkWidget *pw;
     GtkWidget *pwFrame;
     GtkWidget *pwvbox;
+    int signals;
 
 #if GTK_CHECK_VERSION(3,0,0)
     gtk_orientable_set_orientation(GTK_ORIENTABLE(board), GTK_ORIENTATION_VERTICAL);
@@ -3663,9 +3665,10 @@ board_init(Board * board)
     /* gtk_widget_set_name(GTK_WIDGET(bd->drawing_area), "background"); */
     gtk_widget_set_size_request(bd->drawing_area, BOARD_WIDTH, BOARD_HEIGHT);
 
-    int signals = GDK_EXPOSURE_MASK | GDK_STRUCTURE_MASK;
+    signals = GDK_EXPOSURE_MASK | GDK_STRUCTURE_MASK;
     if (!inPreviewWindow)
         signals |= GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK;
+
     gtk_widget_add_events(GTK_WIDGET(bd->drawing_area), signals);
 #if GTK_CHECK_VERSION(3,0,0)
     gtk_widget_set_hexpand(bd->drawing_area, TRUE);
