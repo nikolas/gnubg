@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkprefs.c,v 1.237 2023/02/01 22:20:57 plm Exp $
  */
 
 #include "config.h"
@@ -2852,7 +2850,7 @@ DesignSelectNew(GtkTreeView * treeview, gpointer UNUSED(userdata))
     gtk_tree_model_get(model, &selected_iter, DATA_COL, &pbde, -1);
 
     if (gtk_widget_is_sensitive(pwDesignAdd)) {
-        GTKSetCurrentParent(GTK_WIDGET(pwDesignList));
+        GTKSetCurrentParent(pwDesignList);
         if (!fUpdate || !GetInputYN(_("Select new design and lose current changes?"))) {
             pbdeModified = pbde;
             gtk_widget_set_sensitive(GTK_WIDGET(pwDesignUpdate), pbdeModified->fDeletable);
@@ -2971,6 +2969,7 @@ static void
 BoardPrefsDestroy(GtkWidget * UNUSED(pw), GList * plBoardDesigns)
 {
     fUpdate = FALSE;
+    GTKSetCurrentParent(NULL);
     free_board_designs(plBoardDesigns);
 }
 
