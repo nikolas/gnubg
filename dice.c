@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: dice.c,v 1.107 2023/03/19 22:56:25 plm Exp $
  */
 
 #include "config.h"
@@ -23,13 +21,20 @@
 #include "randomorg.h"
 
 #include <fcntl.h>
+
 #if defined(HAVE_LIBGMP)
-#ifdef sun
+/*
+ * The condition is not entirely accurate, gmp.h is still in
+ * the gmp subdirectory in Solaris 11.1 but no longer in 11.4.
+ * Make it work in the up to date case.
+ */
+#ifdef __SunOS_5_10
 #include <gmp/gmp.h>
 #else
 #include <gmp.h>
 #endif
 #endif
+
 #include <glib.h>
 #if HAVE_UNISTD_H
 #include <unistd.h>
