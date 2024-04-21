@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: eval.c,v 1.497 2023/12/20 23:09:54 plm Exp $
  */
 
 #include "config.h"
@@ -681,7 +679,7 @@ EvalInitialise(char *szWeights, char *szWeightsBinary, int fNoBearoff, void (*pf
         for (i = 0; i < 3; ++i) {
             char *fn;
             char sz[10];
-            sprintf(sz, "hyper%1d.bd", i + 1);
+            sprintf(sz, "hyper%c.bd", i + '1');
             fn = BuildFilename(sz);
             apbcHyper[i] = BearoffInit(fn, BO_IN_MEMORY, NULL);
             g_free(fn);
@@ -1301,6 +1299,7 @@ CalculateHalfInputs(const unsigned int anBoard[25], const unsigned int anBoardOp
         }
     }
 
+// cppcheck-suppress zerodiv
     n = (n + j - 1) / j;
 
     j = 0;
@@ -2108,8 +2107,10 @@ EvalRace(const TanBoard anBoard, float arOutput[], const bgvariation bgv, NNStat
     CalculateRaceInputs(anBoard, arInput);
 
 #if defined(USE_SIMD_INSTRUCTIONS)
+    // cppcheck-suppress duplicateExpression
     if (NeuralNetEvaluateSSE(&nnRace, arInput, arOutput, nnStates ? nnStates + (CLASS_RACE - CLASS_RACE) : NULL))
 #else
+    // cppcheck-suppress duplicateExpression
     if (NeuralNetEvaluate(&nnRace, arInput, arOutput, nnStates ? nnStates + (CLASS_RACE - CLASS_RACE) : NULL))
 #endif
         return -1;
@@ -3123,8 +3124,7 @@ EvalStatus(char *szOutput)
 }
 
 
-extern char
-*
+extern char*
 GetCubeRecommendation(const cubedecision cd)
 {
     switch (cd) {
@@ -3168,6 +3168,8 @@ GetCubeRecommendation(const cubedecision cd)
         return _("Optional double, pass");
     case OPTIONAL_REDOUBLE_PASS:
         return _("Optional redouble, pass");
+    case NOT_AVAILABLE:
+        return _("Cube not available");
     default:
         return _("Unknown cube decision");
     }
@@ -6305,6 +6307,7 @@ EvaluatePositionCubeful3(NNState * nnStates, const TanBoard anBoard,
     for (ici = 0; ici < cci && fAll; ++ici) {
 
         if (aciCubePos[ici].nCube < 0) {
+            arCubeful[ici] = -99999.9f;
             continue;
         }
 
