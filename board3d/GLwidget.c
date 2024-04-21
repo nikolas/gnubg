@@ -13,8 +13,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: GLwidget.c,v 1.21 2022/09/05 20:00:33 plm Exp $
  */
 
 #include "config.h"
@@ -39,10 +37,6 @@ typedef struct {
 } GLWidgetData;
 
 #if GTK_CHECK_VERSION(3,0,0)
-
-#if !GTK_CHECK_VERSION(3,16,0)
-#error GTK 3 OpenGL related functions used here are not available until version 3.16
-#endif
 
 typedef struct {
 	guint shader;
@@ -511,6 +505,7 @@ GtkWidget*
 GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, void *data)
 {
 	GtkWidget* pw = gtk_drawing_area_new();
+	GLWidgetData* glwData;
 
 	if (pw == NULL) {
 		g_print(_("Can't create OpenGL drawing widget\n"));
@@ -524,7 +519,7 @@ GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, 
 		return NULL;
 	}
 
-	GLWidgetData* glwData = g_malloc(sizeof(GLWidgetData));
+	glwData = g_malloc(sizeof(GLWidgetData));
 	glwData->cbData = data;
 	glwData->realizeCB = realizeCB;
 	glwData->configureCB = configureCB;
