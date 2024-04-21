@@ -17,8 +17,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: sound.c,v 1.108 2024/02/17 17:39:26 plm Exp $
  */
 
 #include "config.h"
@@ -187,7 +185,7 @@ CoreAudio_ShutDown()
 }
 
 void
-CoreAudio_PlayFile_Thread(void *auGraph)
+CoreAudio_PlayFile_Thread(void *UNUSED(auGraph))
 {
     /* Start playing the sound file, and wait for it to complete */
     AUGraphStart(theGraph);
@@ -248,7 +246,7 @@ CoreAudio_PlayFile(char *const fileName)
 }
 
 Float64
-CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat, AudioFileID audioFile)
+CoreAudio_PrepareFileAU(AudioUnit *au, AudioStreamBasicDescription *fileFormat, AudioFileID audioFile)
 {
     UInt64 nPackets;
     UInt32 propsize = sizeof(nPackets);
@@ -296,7 +294,7 @@ CoreAudio_PrepareFileAU(AudioUnit * au, AudioStreamBasicDescription * fileFormat
 }
 
 void
-CoreAudio_MakeSimpleGraph(AUGraph * theGraph, AudioUnit * fileAU, AudioStreamBasicDescription * fileFormat,
+CoreAudio_MakeSimpleGraph(AUGraph *theGraph, AudioUnit *fileAU, AudioStreamBasicDescription *UNUSED(fileFormat),
                           AudioFileID audioFile)
 {
     CoreAudioChkError(NewAUGraph(theGraph), "NewAUGraph",);
