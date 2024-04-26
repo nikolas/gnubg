@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- * 
- * $Id: multithread.c,v 1.105 2023/03/07 22:29:55 plm Exp $
  */
 
 #include "config.h"
@@ -551,7 +549,9 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
 
     multi_debug("waiting for all tasks");
 
-    pCallback(NULL);
+    if (pCallback)
+        pCallback(NULL);
+
     cb_source = g_timeout_add(1000, pCallback, NULL);
     if (autosave)
         as_source = g_timeout_add(nAutoSaveTime * 60000, save_autosave, NULL);
