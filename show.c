@@ -644,7 +644,7 @@ CommandShowCrawford(char *UNUSED(sz))
 {
 
     if (ms.nMatchTo > 0)
-        outputl(ms.fCrawford ? _("This game is the Crawford game.") : _("This game is not the Crawford game"));
+        outputl(ms.fCrawford ? _("This game is the Crawford game.") : _("This game is not the Crawford game."));
     else if (!ms.nMatchTo)
         outputl(_("Crawford rule is not used in money sessions."));
     else
