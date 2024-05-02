@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: analysis.c,v 1.262 2023/03/07 22:29:54 plm Exp $
  */
 
 /*
@@ -994,7 +992,7 @@ AnalyzeGame(listOLD * plGame, int wait)
         }
 
         if (!pParentTask)
-            pt = (AnalyseMoveTask *) malloc(sizeof(AnalyseMoveTask));
+            pt = (AnalyseMoveTask *) g_malloc(sizeof(AnalyseMoveTask));
 
         pt->task.fun = (AsyncFun) AnalyseMoveMT;
         pt->task.data = pt;
@@ -1009,7 +1007,7 @@ AnalyzeGame(listOLD * plGame, int wait)
             moverecord *pNextmr = (moverecord *) pl->plNext->p;
             if (pNextmr && dt == DT_NORMAL) {   /* Need to link the two tasks so executed together */
                 pParentTask = pt;
-                pt = (AnalyseMoveTask *) malloc(sizeof(AnalyseMoveTask));
+                pt = (AnalyseMoveTask *) g_malloc(sizeof(AnalyseMoveTask));
                 pParentTask->task.pLinkedTask = (Task *) pt;
             }
         } else {

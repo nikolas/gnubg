@@ -64,7 +64,7 @@ MT_TaskDone(Task * pt)
     MT_SafeInc(&td.doneTasks);
 
     if (pt) {
-        free(pt->pLinkedTask);
+        g_free(pt->pLinkedTask);
         g_free(pt);
     }
 }
@@ -520,7 +520,7 @@ mt_add_tasks(unsigned int num_tasks, AsyncFun pFun, void *taskData, gpointer lin
 {
     unsigned int i;
     for (i = 0; i < num_tasks; i++) {
-        Task *pt = (Task *) malloc(sizeof(Task));
+        Task *pt = (Task *) g_malloc(sizeof(Task));
         pt->fun = pFun;
         pt->data = taskData;
         pt->pLinkedTask = linked;
@@ -558,8 +558,8 @@ MT_WaitForTasks(gboolean(*pCallback) (gpointer), int callbackTime, int autosave)
     for (member = g_list_first(td.tasks); member; member = member->next, MT_SafeInc(&td.doneTasks)) {
         Task *task = member->data;
         task->fun(task->data);
-        free(task->pLinkedTask);
-        free(task);
+        g_free(task->pLinkedTask);
+        g_free(task);
         ProcessEvents();
     }
     g_list_free(td.tasks);
