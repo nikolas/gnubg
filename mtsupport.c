@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: mtsupport.c,v 1.23 2022/03/12 21:05:54 plm Exp $
  */
 
 /*
@@ -187,21 +185,21 @@ ResetManualEvent(ManualEvent ME)
 extern void
 SetManualEvent(ManualEvent ME)
 {
-    multi_debug("reset manual event asks lock (condMutex)");
+    multi_debug("set manual event asks lock (condMutex)");
 #if GLIB_CHECK_VERSION (2,32,0)
     g_mutex_lock(&condMutex);
-    multi_debug("reset manual event gets lock (condMutex)");
+    multi_debug("set manual event gets lock (condMutex)");
     ME->signalled = TRUE;
     g_cond_broadcast(&ME->cond);
     g_mutex_unlock(&condMutex);
 #else
     g_mutex_lock(condMutex);
-    multi_debug("reset manual event gets lock (condMutex)");
+    multi_debug("set manual event gets lock (condMutex)");
     ME->signalled = TRUE;
     g_cond_broadcast(ME->cond);
     g_mutex_unlock(condMutex);
 #endif
-    multi_debug("reset manual event unlocks (condMutex)");
+    multi_debug("set manual event unlocks (condMutex)");
 }
 
 #if GLIB_CHECK_VERSION (2,32,0)
