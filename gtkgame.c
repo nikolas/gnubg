@@ -74,6 +74,7 @@
 #include "gtkmovelistctrl.h"
 #include "rollout.h"
 #include "util.h"
+#include "multithread.h"
 #include "gtkscoremap.h"
 #if defined(USE_BOARD3D)
 #include "inc3d.h"
@@ -750,7 +751,7 @@ StdinReadNotify(GIOChannel * UNUSED(source), GIOCondition UNUSED(cond), gpointer
     if ((pch = strchr(sz, '\n')))
         *pch = 0;
 
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
 
     HandleCommand(sz, acTop);
 
@@ -803,7 +804,7 @@ GTKDelay(void)
 
     GTKSuspendInput();
 
-    while (!fInterrupt && !fEndDelay)
+    while (!fEndDelay && !MT_SafeGet(&fInterrupt))
         gtk_main_iteration();
 
     fEndDelay = FALSE;
@@ -4387,7 +4388,7 @@ Stop(GtkWidget *pw, gpointer UNUSED(unused))
     else if (!GTKShowWarning(WARN_STOP, pw))
         return;
 
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
 #if defined(USE_BOARD3D)
     {
         BoardData *bd = BOARD(pwBoard)->board_data;
@@ -4413,7 +4414,7 @@ StopAnyAnimations(void)
     } else
 #endif
     if (!animation_finished) {
-        fInterrupt = TRUE;
+        MT_SafeSet(&fInterrupt, TRUE);
         return TRUE;
     }
     return FALSE;
@@ -8623,7 +8624,7 @@ CalibrationGo(GtkWidget * pw, GtkWidget * apw[2])
     GTKSetCurrentParent(pw);
     UserCommand("calibrate");
 
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
 
     if (rEvalsPerSec > 0) {
         gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(apw[0]), TRUE);
@@ -8677,8 +8678,7 @@ GTKShowCalibration(void)
 static gboolean
 CalibrationCancel(GObject * UNUSED(po), gpointer UNUSED(p))
 {
-
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
 
     return TRUE;
 }

@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: set.c,v 1.437 2023/12/20 23:09:54 plm Exp $
  */
 
 #include "config.h"
@@ -1487,7 +1485,7 @@ CommandSetPlayerExternal(char *sz)
 
     while (connect(h, psa, cb) < 0) {
         if (errno == EINTR) {
-            if (fInterrupt) {
+            if (MT_SafeGet(&fInterrupt)) {
                 closesocket(h);
                 g_free(psa);
                 g_free(pch);

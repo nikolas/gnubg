@@ -46,6 +46,8 @@
 #include "matchequity.h"
 #include "gtktoolbar.h"
 #include "boarddim.h"
+#include "multithread.h"
+
 #if defined(USE_BOARD3D)
 #include "inc3d.h"
 #endif
@@ -2671,7 +2673,7 @@ board_blink_timeout(gpointer p)
     int src, dest, src_cheq = 0, dest_cheq = 0, colour;
     static int blink_move, blink_count;
 
-    if (blink_move >= 8 || animate_move_list[blink_move] < 0 || fInterrupt) {
+    if (blink_move >= 8 || animate_move_list[blink_move] < 0 || MT_SafeGet(&fInterrupt)) {
         blink_move = 0;
         animation_finished = TRUE;
         return FALSE;
@@ -2726,12 +2728,12 @@ board_slide_timeout(gpointer p)
     int src, dest, colour;
     static int slide_move, slide_phase, x, y, x_mid, x_dest, y_dest, y_lift;
 
-    if (fInterrupt && bd->drag_point >= 0) {
+    if (bd->drag_point >= 0 && MT_SafeGet(&fInterrupt)) {
         board_end_drag(bd->drawing_area, bd);
         bd->drag_point = -1;
     }
 
-    if (slide_move >= 8 || animate_move_list[slide_move] < 0 || fInterrupt) {
+    if (slide_move >= 8 || animate_move_list[slide_move] < 0 || MT_SafeGet(&fInterrupt)) {
         slide_move = slide_phase = 0;
         animation_finished = TRUE;
         return FALSE;

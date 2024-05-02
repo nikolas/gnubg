@@ -47,6 +47,7 @@ today to correct the title manually.
 #include "positionid.h"
 #include "matchid.h"
 #include "matchequity.h"
+#include "multithread.h"
 #include "sound.h"
 #include "renderprefs.h"
 #include "md5.h"
@@ -855,7 +856,7 @@ NewGame(void)
   reroll:
     fError = GetDice(ms.anDice, ms.fTurn, &rngCurrent, rngctxCurrent, ms.anBoard);
 
-    if (fInterrupt || fError) {
+    if (fError || MT_SafeGet(&fInterrupt)) {
         PopGame(plGame, TRUE);
         plGame = plGame_store;
         plLastMove = plLastMove_store;
@@ -1044,7 +1045,7 @@ ComputerTurn(void)
     TanBoard anBoardTemp;
 #endif
 
-    if (fInterrupt || ms.gs != GAME_PLAYING)
+    if (ms.gs != GAME_PLAYING || MT_SafeGet(&fInterrupt))
         return -1;
 
     GetMatchStateCubeInfo(&ci, &ms);
@@ -1420,7 +1421,7 @@ ComputerTurn(void)
             fd.pci = &ci;
             fd.pec = &ap[ms.fTurn].esChequer.ec;
             fd.aamf = ap[ms.fTurn].aamf;
-            if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || fInterrupt) {
+            if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || MT_SafeGet(&fInterrupt)) {
                 g_free(pmr);
                 return -1;
             }
@@ -1737,8 +1738,8 @@ NextTurn(int fPlayNext)
 
         if (fLastMove) {
             board_animate(BOARD(pwBoard), anLastMove, fLastPlayer);
-            if (fInterrupt && !automaticTask)
-                fInterrupt = FALSE;
+            if (!automaticTask && MT_SafeGet(&fInterrupt))
+                MT_SafeSet(&fInterrupt, FALSE);
 
             playSound(SOUND_MOVE);
             fLastMove = FALSE;
@@ -1856,7 +1857,7 @@ NextTurn(int fPlayNext)
 
     /* We have reached a safe point to check for interrupts.  Until now,
      * the board could have been in an inconsistent state. */
-    if (fInterrupt || !fPlayNext) {
+    if (!fPlayNext || MT_SafeGet(&fInterrupt)) {
         fComputing = FALSE;
         return -1;
     }
@@ -2762,7 +2763,7 @@ StartNewGame(void)
 {
     fComputing = TRUE;
     NewGame();
-    if (!fInterrupt) {
+    if (!MT_SafeGet(&fInterrupt)) {
         if (ap[ms.fTurn].pt == PLAYER_HUMAN)
             ShowBoard();
         else if (!ComputerTurn())
@@ -2781,7 +2782,7 @@ CommandNewGame(char *UNUSED(sz))
 
     if (ms.gs == GAME_PLAYING || !move_is_last_in_match()) {
         if (fConfirmNew) {
-            if (fInterrupt)
+            if (MT_SafeGet(&fInterrupt))
                 return;
 
             if (!GetInputYN(_("Are you sure you want to start a new game, " "and discard the rest of the match? ")))
@@ -3528,7 +3529,7 @@ CommandEndGame(char *UNUSED(sz))
     fAutoGame = FALSE;
     fQuiet = TRUE;
     fDisplay = FALSE;
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
     fEndGame = TRUE;
     outputnew();
 

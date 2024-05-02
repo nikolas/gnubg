@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gnubg.c,v 1.1038 2024/01/04 21:10:49 plm Exp $
  */
 
 /*
@@ -1199,13 +1197,13 @@ PortableSignalRestore(int nSignal, psighandler * p)
 extern void
 ResetInterrupt(void)
 {
-    if (fInterrupt) {
+    if (MT_SafeGet(&fInterrupt)) {
         {
             outputf("(%s)", _("Interrupted"));
             outputx();
         }
 
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
 
         /* if  a batch was running signal a cancellation of current match */
         fMatchCancelled = TRUE;
@@ -2359,7 +2357,7 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
             show = FALSE;
             fShowProgress = (procdatarec->avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS] != NULL);
         }
-        if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || fInterrupt) {
+        if ((RunAsyncProcess((AsyncFun) asyncFindMove, &fd, _("Considering move...")) != 0) || MT_SafeGet(&fInterrupt)) {
             fShowProgress = fSaveShowProg;
             return;
         }
@@ -2552,9 +2550,9 @@ PromptForExit(void)
     fExiting = TRUE;
 
     if (fInteractive) {
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
         if (!get_input_discard()) {
-            fInterrupt = FALSE;
+            MT_SafeSet(&fInterrupt, FALSE);
             fExiting = FALSE;
             return;
         }
@@ -2669,7 +2667,7 @@ LoadCommands(FILE * pf, char *szFile)
         if ((pch = strchr(sz, '\r')))
             *pch = 0;
 
-        if (fInterrupt) {
+        if (MT_SafeGet(&fInterrupt)) {
             outputresume();
             return;
         }
@@ -3730,7 +3728,7 @@ ProcessInput(char *sz)
         PromptForExit();
     } else {
 
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
 
         /* expand history */
 
@@ -3809,7 +3807,7 @@ UserCommand(const char *szCommand)
     if (!fTTY || !fInteractive)
 #endif
     {
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
         HandleCommand(sz, acTop);
         g_free(sz);
         ResetInterrupt();
@@ -3829,7 +3827,7 @@ UserCommand(const char *szCommand)
     g_print("\n");
     Prompt();
     g_print("%s\n", sz);
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
     HandleCommand(sz, acTop);
     g_free(sz);
     ResetInterrupt();
@@ -3868,7 +3866,7 @@ GetInput(char *szPrompt)
     if (fInteractive) {
         char *prompt;
         /* Using readline, but not X. */
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             return NULL;
 
         fReadingOther = TRUE;
@@ -3882,7 +3880,7 @@ GetInput(char *szPrompt)
 
         fReadingOther = FALSE;
 
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             return NULL;
 
         pchConverted = locale_to_utf8(sz);
@@ -3891,7 +3889,7 @@ GetInput(char *szPrompt)
     }
 #endif
     /* Not using readline or X. */
-    if (fInterrupt)
+    if (MT_SafeGet(&fInterrupt))
         return NULL;
 
     g_print("%s", szPrompt);
@@ -3902,7 +3900,7 @@ GetInput(char *szPrompt)
     clearerr(stdin);
     pch = fgets(sz, 256, stdin);
 
-    if (fInterrupt) {
+    if (MT_SafeGet(&fInterrupt)) {
         g_free(sz);
         return NULL;
     }
@@ -3945,7 +3943,7 @@ GetInputYN(char *szPrompt)
         return GTKGetInputYN(szPrompt);
 #endif
 
-    if (fInterrupt)
+    if (MT_SafeGet(&fInterrupt))
         return FALSE;
 
     while ((pch = GetInput(szPrompt)) != NULL) {
@@ -4238,9 +4236,11 @@ CreateGnubgDirectory(void)
 extern void
 HandleInterrupt(int UNUSED(idSignal))
 {
-    /* NB: It is safe to write to fInterrupt even if it cannot be read
-     * atomically, because it is only used to hold a binary value. */
-    fInterrupt = TRUE;
+    const int saved_errno = errno;
+
+    MT_SafeSet(&fInterrupt, TRUE);
+
+    errno = saved_errno;
 }
 
 static void
@@ -4279,7 +4279,7 @@ get_readline(void)
     g_free(prompt);
     sz = locale_to_utf8(szInput);
     free(szInput);
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
     history_expand(sz, &pchExpanded);
     g_free(sz);
     if (*pchExpanded)
@@ -4327,7 +4327,7 @@ get_stdin_line(void)
         return NULL;
     }
 
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
     return strdup(sz);
 }
 
@@ -4441,7 +4441,7 @@ GetManualDice(unsigned int anDice[2])
 #if defined(USE_GTK)
     if (fX) {
         if (GTKGetManualDice(anDice)) {
-            fInterrupt = 1;
+            MT_SafeSet(&fInterrupt, TRUE);
             return -1;
         } else
             return 0;
@@ -4450,14 +4450,14 @@ GetManualDice(unsigned int anDice[2])
 
     for (;;) {
       TryAgain:
-        if (fInterrupt) {
+        if (MT_SafeGet(&fInterrupt)) {
             anDice[0] = anDice[1] = 0;
             return -1;
         }
 
         sz = GetInput(_("Enter dice: "));
 
-        if (fInterrupt) {
+        if (MT_SafeGet(&fInterrupt)) {
             g_free(sz);
             anDice[0] = anDice[1] = 0;
             return -1;
@@ -5226,7 +5226,7 @@ GetAdviceAnswer(char *sz)
         return GtkTutor(sz);
 #endif
 
-    if (fInterrupt)
+    if (MT_SafeGet(&fInterrupt))
         return FALSE;
 
     while ((pch = GetInput(sz)) != NULL) {
@@ -5669,7 +5669,7 @@ delete_autosave(void)
 extern int
 get_input_discard(void)
 {
-    if (fInterrupt)
+    if (MT_SafeGet(&fInterrupt))
         return FALSE;
 
     if (autosave && fAutoSaveConfirmDelete) {

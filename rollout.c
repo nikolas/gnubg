@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: rollout.c,v 1.262 2021/11/21 20:16:11 plm Exp $
  */
 
 #include "config.h"
@@ -696,7 +694,7 @@ BasicCubefulRollout(unsigned int aanBoard[][2][25],
 
                 }
 
-                if (fInterrupt)
+                if (MT_SafeGet(&fInterrupt))
                     return -1;
 
                 /* Calculate number of wasted pips */
@@ -1174,7 +1172,7 @@ RolloutLoopMT(void *UNUSED(unused))
                 log_game_over(logfp);
             }
 
-            if (fInterrupt)
+            if (MT_SafeGet(&fInterrupt))
                 break;
 
             multi_debug("exclusive lock: update result for alternative");
@@ -1222,7 +1220,7 @@ RolloutLoopMT(void *UNUSED(unused))
 
         }                       /* for (alt = 0; alt < ro_alternatives; ++alt) */
 
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             break;
 
         /* we've rolled everything out for this trial, check stopping conditions */
@@ -1480,10 +1478,10 @@ RolloutGeneral(ConstTanBoard * apBoard,
 #if defined(USE_GTK)
     if (!fX)
 #endif
-        if (!fInterrupt)
+        if (!MT_SafeGet(&fInterrupt))
             outputf(_("\nRollout done. Printing final results.\n"));
 
-    if (!fInterrupt)
+    if (!MT_SafeGet(&fInterrupt))
         UpdateProgress(NULL);
 
     /* Signal to UpdateProgress() called from pending events that no
@@ -1514,7 +1512,7 @@ RolloutGeneral(ConstTanBoard * apBoard,
                 (*apStdDev[alt])[i] = aarSigma[alt][i];
     }
 
-    if (fShowProgress && !fInterrupt
+    if (fShowProgress && !MT_SafeGet(&fInterrupt)
 #if defined(USE_GTK)
         && !fX
 #endif

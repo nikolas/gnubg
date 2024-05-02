@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gnubgmodule.c,v 1.211 2023/09/14 20:35:41 plm Exp $
  */
 
 #include "config.h"
@@ -34,6 +32,7 @@
 #include "matchequity.h"
 #include "positionid.h"
 #include "matchid.h"
+#include "multithread.h"
 #include "util.h"
 #include "lib/gnubg-types.h"
 #include "lib/simd.h"
@@ -890,7 +889,7 @@ PythonHint(PyObject * UNUSED(self), PyObject * args)
         prochint.avInputData[PROCREC_HINT_ARGIN_SHOWPROGRESS] = (void *) (long) 0;
         prochint.avInputData[PROCREC_HINT_ARGIN_MAXMOVES] = (void *) (ptrdiff_t) nMaxMoves;
         hint_move(szNumber, FALSE, (void *) &prochint);
-        if (fInterrupt) {
+        if (MT_SafeGet(&fInterrupt)) {
             ResetInterrupt();
             PyErr_SetString(PyExc_StandardError, _("interrupted/errno in hint_move"));
             return NULL;
@@ -973,9 +972,9 @@ PythonCommand(PyObject * UNUSED(self), PyObject * args)
     outputx();
     g_free(sz);
     PortableSignalRestore(SIGINT, &sh);
-    if (fInterrupt) {
+    if (MT_SafeGet(&fInterrupt)) {
         raise(SIGINT);
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
     }
 
     PythonUpdateUI(NULL, Py_None);
@@ -1252,7 +1251,7 @@ PythonEvaluate(PyObject * UNUSED(self), PyObject * args)
 
     fSaveShowProg = fShowProgress;
     fShowProgress = FALSE;
-    if ((RunAsyncProcess((AsyncFun) asyncMoveDecisionE, &dd, _("Considering move...")) != 0) || fInterrupt) {
+    if ((RunAsyncProcess((AsyncFun) asyncMoveDecisionE, &dd, _("Considering move...")) != 0) || MT_SafeGet(&fInterrupt)) {
         fShowProgress = fSaveShowProg;
         ResetInterrupt();
         PyErr_SetString(PyExc_StandardError, _("interrupted/errno in asyncMoveDecisionE"));
@@ -1309,7 +1308,7 @@ PythonEvaluateCubeful(PyObject * UNUSED(self), PyObject * args)
 
     fSaveShowProg = fShowProgress;
     fShowProgress = FALSE;
-    if ((RunAsyncProcess((AsyncFun) asyncCubeDecisionE, &dd, _("Considering cube decision...")) != 0) || fInterrupt) {
+    if ((RunAsyncProcess((AsyncFun) asyncCubeDecisionE, &dd, _("Considering cube decision...")) != 0) || MT_SafeGet(&fInterrupt)) {
         fShowProgress = fSaveShowProg;
         ResetInterrupt();
         PyErr_SetString(PyExc_StandardError, _("interrupted/errno in asyncCubeDecisionE"));
@@ -1387,7 +1386,7 @@ PythonFindBestMove(PyObject * UNUSED(self), PyObject * args)
 
     fSaveShowProg = fShowProgress;
     fShowProgress = FALSE;
-    if ((RunAsyncProcess((AsyncFun) asyncFindBestMoves, &fd, _("Considering move...")) != 0) || fInterrupt) {
+    if ((RunAsyncProcess((AsyncFun) asyncFindBestMoves, &fd, _("Considering move...")) != 0) || MT_SafeGet(&fInterrupt)) {
         fShowProgress = fSaveShowProg;
         ResetInterrupt();
         PyErr_SetString(PyExc_StandardError, _("interrupted/errno in asyncFindBestMoves"));

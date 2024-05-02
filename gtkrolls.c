@@ -23,6 +23,8 @@
 
 #include "lib/simd.h"
 
+#include "multithread.h"
+
 #include "gtkgame.h"
 #include "drawboard.h"
 #include "format.h"
@@ -82,7 +84,7 @@ add_level(GtkTreeStore * model, GtkTreeIter * iter,
             if (n) {
 
                 add_level(model, &child_iter, n - 1, (ConstTanBoard) an, pec, &ci, !fInvert, ar);
-                if (fInterrupt)
+                if (MT_SafeGet(&fInterrupt))
                     return;
 
             } else {
@@ -176,7 +178,7 @@ create_model(const int n, evalcontext * pec, const matchstate * pms)
 
     ProgressEnd();
 
-    if (!fInterrupt) {
+    if (!MT_SafeGet(&fInterrupt)) {
         gtk_tree_sortable_set_sort_func(GTK_TREE_SORTABLE(model), 2, sort_func, NULL, NULL);
         gtk_tree_sortable_set_sort_column_id(GTK_TREE_SORTABLE(model), 2, GTK_SORT_DESCENDING);
         return GTK_TREE_MODEL(model);
@@ -198,7 +200,7 @@ RollsTree(const int n, evalcontext * pec, const matchstate * pms)
     };
 
     pm = create_model(n, pec, pms);
-    if (fInterrupt) {
+    if (MT_SafeGet(&fInterrupt)) {
         g_object_unref(G_OBJECT(pm));
         return NULL;
     }
@@ -217,7 +219,7 @@ RollsTree(const int n, evalcontext * pec, const matchstate * pms)
                                                     -1, Q_(aszColumn[i]), renderer, "text", i, NULL);
     }
 
-    if (fInterrupt) {
+    if (MT_SafeGet(&fInterrupt)) {
         gtk_widget_destroy(ptv);
         return NULL;
     }
@@ -236,8 +238,8 @@ DepthChanged(GtkRange * pr, rollswidget * prw)
     if (!fScrollComplete)
         return;
 
-    if (fInterrupt) {           /* Stop recursion on cancel */
-        fInterrupt = FALSE;
+    if (MT_SafeGet(&fInterrupt)) {           /* Stop recursion on cancel */
+        MT_SafeSet(&fInterrupt, FALSE);
         return;
     }
 
@@ -283,7 +285,7 @@ DepthChanged(GtkRange * pr, rollswidget * prw)
 static void
 CancelRolls(GtkWidget * pButton)
 {
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
     gtk_widget_set_sensitive(pButton, FALSE);
 }
 
@@ -293,7 +295,7 @@ RollsClose(GtkWidget * UNUSED(widget), GdkEvent * UNUSED(eventDetails), rollswid
     if (pwOldGrab != pwGrab) {  /* Mid-depth change - wait for it to cancel */
         gtk_widget_set_sensitive(prw->pCancel, FALSE);
         prw->closing = TRUE;
-        fInterrupt = TRUE;
+        MT_SafeSet(&fInterrupt, TRUE);
         return TRUE;
     } else
         return FALSE;

@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkchequer.c,v 1.135 2023/01/18 21:49:36 plm Exp $
  */
 
 #include "config.h"
@@ -30,6 +28,7 @@
 #include "eval.h"
 #include "positionid.h"
 #include "rollout.h"
+#include "multithread.h"
 #include "gtkboard.h"
 #include "gtkgame.h"
 #include "gtkchequer.h"
@@ -313,7 +312,7 @@ MoveListEvalPly(GtkWidget * pw, hintdata * phd)
     char *szPly = (char *) g_object_get_data(G_OBJECT(pw), "user_data");
     evalcontext ec = { TRUE, 0, TRUE, TRUE, 0.0 };
     /* Reset interrupt flag */
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
 
     ec.nPlies = atoi(szPly);
 

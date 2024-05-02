@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: external.c,v 1.108 2022/03/12 20:38:18 plm Exp $
  */
 
 #include "config.h"
@@ -120,6 +118,7 @@
 #include "rollout.h"
 #include "eval.h"
 #include "matchid.h"
+#include "multithread.h"
 #include "lib/gnubg-types.h"
 
 #if HAVE_SOCKETS
@@ -217,7 +216,7 @@ ExternalRead(int h, char *pch, size_t cch)
     while (cch) {
         ProcessEvents();
 
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             return -2;
 
 #ifndef WIN32
@@ -276,7 +275,7 @@ ExternalWrite(int h, char *pch, size_t cch)
     while (cch) {
         ProcessEvents();
 
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             return -1;
 
 #ifndef WIN32
@@ -635,7 +634,7 @@ CommandExternal(char *sz)
             if (errno == EINTR) {
                 ProcessEvents();
 
-                if (fInterrupt) {
+                if (MT_SafeGet(&fInterrupt)) {
                     closesocket(h);
                     ExtDestroyParse(scanctx.scanner);
                     return;

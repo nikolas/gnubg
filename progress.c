@@ -30,6 +30,7 @@
 #include "progress.h"
 #include "backgammon.h"
 #include "format.h"
+#include "multithread.h"
 
 #if defined(USE_GTK)
 #include "gtkgame.h"
@@ -667,7 +668,7 @@ RolloutCancel(GObject * UNUSED(po), rolloutprogress * prp)
     prp->pwRolloutResult = NULL;
     prp->pwRolloutResultList = NULL;
     prp->pwRolloutProgress = NULL;
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
 
     return TRUE;
 }
@@ -683,7 +684,7 @@ RolloutStop(GObject * UNUSED(po), rolloutprogress * prp)
 static void
 RolloutStopAll(GObject * UNUSED(po), rolloutprogress * prp)
 {
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
     prp->stopped = -2;
 }
 
@@ -763,7 +764,7 @@ GTKRolloutProgressStart(const cubeinfo * UNUSED(pci), const int n,
     prp->n = n;
     prp->nGamesDone = 0;
     prp->stopped = 0;
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
 
     AllocTextList(prp);
 
@@ -961,7 +962,7 @@ GTKRolloutProgressEnd(void **pp, gboolean destroy)
     rolloutprogress *prp = *pp;
     int stopped = prp->stopped;
 
-    fInterrupt = FALSE;
+    MT_SafeSet(&fInterrupt, FALSE);
 
     pwGrab = pwOldGrab;
 
@@ -1032,8 +1033,7 @@ TextRolloutProgressEnd(void * const *pp)
 
     output("\r\n");
     fflush(stdout);
-    return fInterrupt ? -1 : 0;
-
+    return MT_SafeGet(&fInterrupt) ? -1 : 0;
 }
 
 

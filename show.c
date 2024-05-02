@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: show.c,v 1.312 2024/02/14 07:38:01 plm Exp $
  */
 
 #include "config.h"
@@ -353,7 +351,7 @@ ShowPaged(char **ppch)
             if (++i >= nRows - 1) {
                 GetInput(_("-- Press <return> to continue --"));
 
-                if (fInterrupt)
+                if (MT_SafeGet(&fInterrupt))
                     return;
 
                 i = 0;

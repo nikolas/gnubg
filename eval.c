@@ -5448,7 +5448,7 @@ EvaluatePositionFull(NNState * nnStates, const TanBoard anBoard, float arOutput[
                     anBoardNew[1][i] = anBoard[1][i];
                 }
 
-                if (fInterrupt) {
+                if (MT_SafeGet(&fInterrupt)) {
                     errno = EINTR;
                     return -1;
                 }
@@ -6021,7 +6021,7 @@ EvaluatePositionCubeful4(NNState * nnStates, const TanBoard anBoard,
                     anBoardNew[1][i] = anBoard[1][i];
                 }
 
-                if (fInterrupt) {
+                if (MT_SafeGet(&fInterrupt)) {
                     errno = EINTR;
                     return -1;
                 }

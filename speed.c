@@ -14,20 +14,17 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: speed.c,v 1.37 2021/11/26 22:58:10 plm Exp $
  */
 
 #include "config.h"
 
+#include "backgammon.h"
+#include "multithread.h"
+
 #if defined(USE_GTK)
 #include "gtkgame.h"
-#else
-#include "backgammon.h"
 #endif
-#if defined(USE_MULTITHREAD)
-#include "multithread.h"
-#endif
+
 #ifndef WIN32
 #include <stdlib.h>
 #endif
@@ -133,7 +130,7 @@ CommandCalibrate(char *sz)
     timeTaken = 0.0;
     for (iIter = 0; n < 0 || iIter < (unsigned int) n;) {
         double spd;
-        if (fInterrupt)
+        if (MT_SafeGet(&fInterrupt))
             break;
 
 #if defined(USE_MULTITHREAD)

@@ -16,10 +16,6 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "config.h"
-#include "backgammon.h"
-#include "gtklocdefs.h"
-
 #include <stdlib.h>
 #include <string.h>
 #if HAVE_UNISTD_H
@@ -29,12 +25,16 @@
 #include <gtk/gtk.h>
 #include <glib/gstdio.h>
 
+#include "config.h"
+#include "backgammon.h"
+#include "gtklocdefs.h"
 #include "gtkfile.h"
 #include "gtkgame.h"
 #include "gtktoolbar.h"
 #include "gtkwindows.h"
 #include "file.h"
 #include "util.h"
+#include "multithread.h"
 
 /*for picking the first file in folder...*/
 #include <stdio.h>
@@ -577,7 +577,7 @@ batch_analyse(gchar * filename, char **result, gboolean add_to_db, gboolean add_
     if (fMatchCancelled) {
         *result = _("Cancelled");
         g_free(save);
-        fInterrupt = FALSE;
+        MT_SafeSet(&fInterrupt, FALSE);
         fMatchCancelled = FALSE;
         return FALSE;
     }
@@ -629,16 +629,15 @@ static void
 batch_cancel(GtkWidget * UNUSED(pw), gpointer UNUSED(model))
 {
     pwGrab = pwOldGrab;
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
     fMatchCancelled = TRUE;
 }
-
 
 static void
 batch_stop(GtkWidget * UNUSED(pw), gpointer p)
 {
     fMatchCancelled = TRUE;
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
     g_object_set_data(G_OBJECT(p), "cancelled", GINT_TO_POINTER(1));
 }
 
@@ -646,7 +645,7 @@ static void
 batch_skip_file(GtkWidget * UNUSED(pw), gpointer UNUSED(p))
 {
     fMatchCancelled = TRUE;
-    fInterrupt = TRUE;
+    MT_SafeSet(&fInterrupt, TRUE);
 }
 
 static GtkTreeModel *
@@ -996,7 +995,8 @@ GTKBatchAnalyse(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     GtkWidget *fc;
     static gchar *last_folder = NULL;
     GtkWidget *add_to_db;
-    fInterrupt = FALSE;
+
+    MT_SafeSet(&fInterrupt, FALSE);
 
     folder = last_folder ? last_folder : default_import_folder;
 
