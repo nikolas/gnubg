@@ -15,8 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkscoremap.c,v 1.30 2023/06/11 21:26:03 plm Exp $
  */
 
 
@@ -961,10 +959,10 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
     }
 
     if (psm->cubeScoreMap) {
-        float nd=pq->ndEquity;
-        float dt=pq->dtEquity;
-        float dp=1.0f;
-        if (nd<-900.0) //reflects issue, typically user stops computation in the middle
+        float nd = pq->ndEquity;
+        float dt = pq->dtEquity;
+        float dp = 1.0f;
+        if (nd < -900.0f) //reflects issue, typically user stops computation in the middle
             sprintf(ssz,_("Score not analysed\nComputation stopped by user"));
         else {
             sprintf(space2, "%*c", DIGITS + 7, ' ');   //define spacing before putting ply of 1st line
@@ -1007,10 +1005,10 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
             //      breaks the alignment by 1 character, so we want to take it into account as well
             // ADDED: it turns out that gnubg sometimes returns a 2-ply eval even in a 3-ply mode if the eval difference 
             //      between the best and 2nd-best move is large. We now mention the n-ply in the hover text.
-            len0 = (int)strlen(szMove0) + (pq->ml.amMoves[0].rScore<-0.0005); //length, + 1 potentially b/c of the "-"
-            len1 = (int)strlen(szMove1) + (pq->ml.amMoves[1].rScore<-0.0005);
-            len2 = (int)strlen(szMove2) + (pq->ml.amMoves[2].rScore<-0.0005);
-            len = MAX(len0,MAX(len1,len2)) +2 ; //we leave an additional spacing of 2 characters, where 2 is arbitrary,
+            len0 = (int)strlen(szMove0) + (pq->ml.amMoves[0].rScore < -0.0005f); //length, + 1 potentially b/c of the "-"
+            len1 = (int)strlen(szMove1) + (pq->ml.amMoves[1].rScore < -0.0005f);
+            len2 = (int)strlen(szMove2) + (pq->ml.amMoves[2].rScore < -0.0005f);
+            len = MAX(len0,MAX(len1,len2)) + 2 ; //we leave an additional spacing of 2 characters, where 2 is arbitrary,
                                                 //  b/w the longest move string and its equity
             sprintf(space, "%*c", len - len0, ' ');   //define spacing for best move
             sprintf(space2, "%*c", DIGITS + 6, ' ');   //define spacing before putting ply of 1st line
@@ -1022,9 +1020,9 @@ Note: we add one more space for "ND" b/c it has one less character than D/T, D/P
             sprintf(space,"%*c", len-len2, ' ');   //define spacing for 3rd best move
             sprintf(ssz, _("\n3. %s%s%1.*f  %+.*f (%u-ply)</tt>"), szMove2,space,DIGITS,pq->ml.amMoves[2].rScore,DIGITS,pq->ml.amMoves[2].rScore-pq->ml.amMoves[0].rScore, pq->ml.amMoves[2].esMove.ec.nPlies);
             strcat(buf,ssz);
-        }  else if (pq->ml.cMoves==2) { // there are only 2 moves
-            len0 = (int)strlen(szMove0)+(pq->ml.amMoves[0].rScore<-0.0005);
-            len1 = (int)strlen(szMove1)+(pq->ml.amMoves[1].rScore<-0.0005);
+        }  else if (pq->ml.cMoves == 2) { // there are only 2 moves
+            len0 = (int)strlen(szMove0) + (pq->ml.amMoves[0].rScore < -0.0005f);
+            len1 = (int)strlen(szMove1) + (pq->ml.amMoves[1].rScore < -0.0005f);
             len = MAX(len0,len1)+2;
             sprintf(space,"%*c", len-len0, ' ');   //define spacing for best move
             sprintf(space2, "%*c", DIGITS + 6, ' ');   //define spacing before putting ply of 1st line

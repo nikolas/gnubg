@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: drawboard3d.c,v 1.133 2022/09/05 19:44:07 plm Exp $
  */
 
 #include "config.h"
@@ -664,14 +662,14 @@ gluCylinderMine(GLfloat baseRadius, GLfloat topRadius, GLfloat height, int slice
 	if (slices >= CACHE_SIZE)
 		slices = CACHE_SIZE - 1;
 
-	if (slices < 2 || stacks < 1 || baseRadius < 0.0 || topRadius < 0.0 || height < 0.0) {
+	if (slices < 2 || stacks < 1 || baseRadius < 0.0f || topRadius < 0.0f || height < 0.0f) {
 		return;
 	}
 
 	/* Compute length (needed for normal calculations) */
 	deltaRadius = baseRadius - topRadius;
 	length = sqrtf(deltaRadius * deltaRadius + height * height);
-	if (length == 0.0) {
+	if (length == 0.0f) {
 		return;
 	}
 
@@ -749,15 +747,15 @@ gluDiskMine(GLfloat innerRadius, GLfloat outerRadius, int slices, int loops, int
 
 	if (slices >= CACHE_SIZE)
 		slices = CACHE_SIZE - 1;
-	if (slices < 2 || loops < 1 || outerRadius <= 0.0 || innerRadius < 0.0 || innerRadius > outerRadius) {
+	if (slices < 2 || loops < 1 || outerRadius <= 0.0f || innerRadius < 0.0f || innerRadius > outerRadius) {
 		return;
 	}
 
-	if (sweepAngle < -360.0)
-		sweepAngle = 360.0;
-	if (sweepAngle > 360.0)
-		sweepAngle = 360.0;
-	if (sweepAngle < 0) {
+	if (sweepAngle < -360.0f)
+		sweepAngle = 360.0f;
+	if (sweepAngle > 360.0f)
+		sweepAngle = 360.0f;
+	if (sweepAngle < 0.0f) {
 		startAngle += sweepAngle;
 		sweepAngle = -sweepAngle;
 	}
@@ -774,14 +772,14 @@ gluDiskMine(GLfloat innerRadius, GLfloat outerRadius, int slices, int loops, int
 		cosCache[i] = cosf(angle);
 	}
 
-	if (sweepAngle == 360.0) {
+	if (sweepAngle == 360.0f) {
 		sinCache[slices] = sinCache[0];
 		cosCache[slices] = cosCache[0];
 	}
 
 	glNormal3f(0.0, 0.0, 1.0);
 
-	if (innerRadius == 0.0) {
+	if (innerRadius == 0.0f) {
 		finish = loops - 1;
 		/* Triangle strip for inner polygons */
 		glBegin(GL_TRIANGLE_FAN);
