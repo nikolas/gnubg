@@ -118,9 +118,19 @@ static FILE *
 log_game_start(const char *name, const cubeinfo * pci, int fCubeful, TanBoard anBoard)
 {
     time_t t = time(0);
-    struct tm *now = localtime(&t);
+#if defined(USE_MULTITHREAD) && defined(HAVE_LOCALTIME_R)
+    struct tm result;
+#endif
+    struct tm *now;
     const char *rule;
     FILE *logfp = NULL;
+
+#if defined(USE_MULTITHREAD) && defined(HAVE_LOCALTIME_R)
+    localtime_r(&t, &result);
+    now = &result;
+#else
+    now = localtime(&t);
+#endif
 
     if (pci->nMatchTo == 0) {
         if (!fCubeful)
