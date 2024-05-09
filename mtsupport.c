@@ -99,8 +99,6 @@ TLSSetValue(TLSItem pItem, size_t value)
     g_private_set(pItem, (gpointer) pNew);
 }
 
-#define TLSGet(item) *((size_t*)g_private_get(item))
-
 extern void
 InitManualEvent(ManualEvent * pME)
 {
