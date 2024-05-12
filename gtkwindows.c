@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkwindows.c,v 1.64 2022/09/30 19:42:23 plm Exp $
  */
 
 #include "config.h"
@@ -104,10 +102,23 @@ dialog_mapped(GtkWidget * window, gpointer UNUSED(data))
 {
     GdkRectangle monitorrect;
     GtkAllocation allocation;
-    GdkScreen *screen = gtk_widget_get_screen(window);
 
     gtk_widget_get_allocation(window, &allocation);
 
+#if GTK_CHECK_VERSION(3,0,0)
+    GdkDisplay *display = gtk_widget_get_display(window);
+    if (!display || gdk_display_get_n_monitors(display) == 1) {
+        monitorrect.x = 0;
+        monitorrect.y = 0;
+        monitorrect.width = gdk_screen_width();
+        monitorrect.height = gdk_screen_height();
+    } else {
+        GdkMonitor *monitor = gdk_display_get_monitor_at_window(display,
+                                                                gtk_widget_get_window(window));
+        gdk_monitor_get_geometry(monitor, &monitorrect);
+    }
+#else
+    GdkScreen *screen = gtk_widget_get_screen(window);
     if (!screen || gdk_screen_get_n_monitors(screen) == 1) {
         monitorrect.x = 0;
         monitorrect.y = 0;
@@ -117,6 +128,7 @@ dialog_mapped(GtkWidget * window, gpointer UNUSED(data))
         int monitor = gdk_screen_get_monitor_at_window(screen, gtk_widget_get_window(window));
         gdk_screen_get_monitor_geometry(screen, monitor, &monitorrect);
     }
+#endif
 
     if (allocation.width > monitorrect.width || allocation.height > monitorrect.height) {       /* Dialog bigger than window! (just show at top left) */
         gtk_window_move(GTK_WINDOW(window), monitorrect.x, monitorrect.y);
