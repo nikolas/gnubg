@@ -3635,64 +3635,12 @@ chequer_key_new(int iPlayer, Board * board)
 }
 
 static void
-board_init(Board * board)
+draw_game_info(Board *board, BoardData *bd)
 {
-    BoardData *bd = g_malloc(sizeof(*bd));
     GtkWidget *pw;
     GtkWidget *pwFrame;
     GtkWidget *pwvbox;
-    int signals;
-
-#if GTK_CHECK_VERSION(3,0,0)
-    gtk_orientable_set_orientation(GTK_ORIENTABLE(board), GTK_ORIENTATION_VERTICAL);
-#endif
-
-    board->board_data = bd;
-    bd->widget = GTK_WIDGET(board);
-
-    bd->drag_point = -1;
-
-    bd->crawford_game = FALSE;
-    bd->jacoby_flag = FALSE;
-    bd->playing = FALSE;
-    bd->cube_use = TRUE;
-    bd->all_moves = NULL;
-
-    bd->x_dice[0] = bd->x_dice[1] = -10;
-    bd->diceRoll[0] = bd->diceRoll[1] = 0;
-
-    /* board drawing area */
-
-    bd->drawing_area = gtk_drawing_area_new();
-    /* gtk_widget_set_name(GTK_WIDGET(bd->drawing_area), "background"); */
-    gtk_widget_set_size_request(bd->drawing_area, BOARD_WIDTH, BOARD_HEIGHT);
-
-    signals = GDK_EXPOSURE_MASK | GDK_STRUCTURE_MASK;
-    if (!inPreviewWindow)
-        signals |= GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK;
-
-    gtk_widget_add_events(GTK_WIDGET(bd->drawing_area), signals);
-#if GTK_CHECK_VERSION(3,0,0)
-    gtk_widget_set_hexpand(bd->drawing_area, TRUE);
-    gtk_widget_set_vexpand(bd->drawing_area, TRUE);
-#endif
-    gtk_box_pack_start(GTK_BOX(board), bd->drawing_area, TRUE, TRUE, 0);
-
-#if defined(USE_BOARD3D)
-    /* 3d board drawing area */
-    widget3dValid = widget3dValid ? CreateGLWidget(bd, !inPreviewWindow) : FALSE;
-    if (widget3dValid) {
-        gtk_box_pack_start(GTK_BOX(board), GetDrawingArea3d(bd->bd3d), TRUE, TRUE, 0);
-#if GTK_CHECK_VERSION(3,0,0)
-        gtk_widget_set_hexpand(GetDrawingArea3d(bd->bd3d), TRUE);
-        gtk_widget_set_vexpand(GetDrawingArea3d(bd->bd3d), TRUE);
-#endif
-    } else
-        bd->bd3d = NULL;
-#endif
-
-    /* various stuff below the board */
-
+    
 #if GTK_CHECK_VERSION(3,0,0)
     bd->table = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
 #else
@@ -3943,6 +3891,64 @@ board_init(Board * board)
 #if !GTK_CHECK_VERSION(3,18,0)
     gtk_adjustment_value_changed(GTK_ADJUSTMENT(bd->amatch));
 #endif
+}
+
+static void
+board_init(Board * board)
+{
+    BoardData *bd = g_malloc(sizeof(*bd));
+    int signals;
+
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_orientable_set_orientation(GTK_ORIENTABLE(board), GTK_ORIENTATION_VERTICAL);
+#endif
+
+    board->board_data = bd;
+    bd->widget = GTK_WIDGET(board);
+
+    bd->drag_point = -1;
+
+    bd->crawford_game = FALSE;
+    bd->jacoby_flag = FALSE;
+    bd->playing = FALSE;
+    bd->cube_use = TRUE;
+    bd->all_moves = NULL;
+
+    bd->x_dice[0] = bd->x_dice[1] = -10;
+    bd->diceRoll[0] = bd->diceRoll[1] = 0;
+
+    /* board drawing area */
+
+    bd->drawing_area = gtk_drawing_area_new();
+    /* gtk_widget_set_name(GTK_WIDGET(bd->drawing_area), "background"); */
+    gtk_widget_set_size_request(bd->drawing_area, BOARD_WIDTH, BOARD_HEIGHT);
+
+    signals = GDK_EXPOSURE_MASK | GDK_STRUCTURE_MASK;
+    if (!inPreviewWindow)
+        signals |= GDK_BUTTON_PRESS_MASK | GDK_BUTTON_RELEASE_MASK | GDK_BUTTON_MOTION_MASK;
+
+    gtk_widget_add_events(GTK_WIDGET(bd->drawing_area), signals);
+#if GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_set_hexpand(bd->drawing_area, TRUE);
+    gtk_widget_set_vexpand(bd->drawing_area, TRUE);
+#endif
+    gtk_box_pack_start(GTK_BOX(board), bd->drawing_area, TRUE, TRUE, 0);
+
+#if defined(USE_BOARD3D)
+    /* 3d board drawing area */
+    widget3dValid = widget3dValid ? CreateGLWidget(bd, !inPreviewWindow) : FALSE;
+    if (widget3dValid) {
+        gtk_box_pack_start(GTK_BOX(board), GetDrawingArea3d(bd->bd3d), TRUE, TRUE, 0);
+#if GTK_CHECK_VERSION(3,0,0)
+        gtk_widget_set_hexpand(GetDrawingArea3d(bd->bd3d), TRUE);
+        gtk_widget_set_vexpand(GetDrawingArea3d(bd->bd3d), TRUE);
+#endif
+    } else
+        bd->bd3d = NULL;
+#endif
+
+    /* various stuff below the board */
+    draw_game_info(board, bd);
 
     /* dice drawing area */
 
