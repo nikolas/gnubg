@@ -2971,7 +2971,6 @@ CreateEvalSettings(GtkWidget * pwParent, const char *title, evalcontext * pecheq
 extern void
 AddText(GtkWidget* pwBox, char* Text)
 {
-    GtkRcStyle * ps = gtk_rc_style_new();
     GtkWidget * pwText = gtk_label_new(Text);
     GtkWidget * pwHBox;
 
@@ -2980,14 +2979,8 @@ AddText(GtkWidget* pwBox, char* Text)
 #else
     pwHBox = gtk_hbox_new(FALSE, 0);
 #endif
+
     gtk_box_pack_start(GTK_BOX(pwBox), pwHBox, FALSE, FALSE, 4);
-
-    ps->font_desc = pango_font_description_new();
-    //pango_font_description_set_family_static(ps->font_desc, "serif");
-    //pango_font_description_set_size(ps->font_desc, 8 * PANGO_SCALE);
-    gtk_widget_modify_style(pwText, ps);
-    g_object_unref(ps);
-
     gtk_box_pack_start(GTK_BOX(pwHBox), pwText, FALSE, FALSE, 0);
 }
 
@@ -7129,28 +7122,6 @@ GTKShowBuildInfo(GtkWidget * UNUSED(pw), GtkWidget * pwParent)
 static listOLD names;
 
 static void
-AddTitle(GtkWidget * pwBox, char *Title)
-{
-    GtkRcStyle *ps = gtk_rc_style_new();
-    GtkWidget *pwTitle = gtk_label_new(Title), *pwHBox;
-
-#if GTK_CHECK_VERSION(3,0,0)
-    pwHBox = gtk_box_new(GTK_ORIENTATION_HORIZONTAL, 0);
-#else
-    pwHBox = gtk_hbox_new(FALSE, 0);
-#endif
-    gtk_box_pack_start(GTK_BOX(pwBox), pwHBox, FALSE, FALSE, 4);
-
-    ps->font_desc = pango_font_description_new();
-    pango_font_description_set_family_static(ps->font_desc, "serif");
-    pango_font_description_set_size(ps->font_desc, 16 * PANGO_SCALE);
-    gtk_widget_modify_style(pwTitle, ps);
-    g_object_unref(ps);
-
-    gtk_box_pack_start(GTK_BOX(pwHBox), pwTitle, TRUE, FALSE, 0);
-}
-
-static void
 AddName(GtkWidget * pwBox, char *name, const char *type)
 {
     char buf[255];
@@ -7231,7 +7202,7 @@ GTKCommandShowCredits(GtkWidget * UNUSED(pw), GtkWidget * pwParent)
 #endif
         gtk_box_pack_start(GTK_BOX(pwHBox), pwVBox, TRUE, FALSE, 0);
 
-        AddTitle(pwVBox, _(credit->Title));
+        AddText(pwVBox, _(credit->Title));
 
         ce = credit->Entry;
         while (ce->Name) {
@@ -7255,7 +7226,7 @@ GTKCommandShowCredits(GtkWidget * UNUSED(pw), GtkWidget * pwParent)
 #endif
     gtk_box_pack_start(GTK_BOX(pwMainHBox), pwVBox, FALSE, FALSE, 0);
 
-    AddTitle(pwVBox, _("Special thanks"));
+    AddText(pwVBox, _("Special thanks"));
 
     /* create list store */
     store = gtk_list_store_new(1, G_TYPE_STRING);
