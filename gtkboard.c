@@ -975,10 +975,13 @@ static void
 board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
 #endif
 {
-
     cairo_t *cr;
     unsigned char *puch, *puchNew, *puchChequer;
     int s = bd->rd->nSize;
+    GdkWindow *window = gtk_widget_get_window(bd->drawing_area);
+#if GTK_CHECK_VERSION(3,22,0)
+    GdkDrawingContext *context;
+#endif
 
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd)) {
@@ -989,7 +992,7 @@ board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
 #endif
 
 #if !GTK_CHECK_VERSION(3,22,0)
-    gdk_window_process_updates(gtk_widget_get_window(bd->drawing_area), FALSE);
+    gdk_window_process_updates(window, FALSE);
 #endif
 
     if (s == 0)
@@ -1020,17 +1023,31 @@ board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
         r.y = y - 3 * s;
         gtk_locdef_union_rectangle(pr, &r);
 
-        gdk_window_begin_paint_region(gtk_widget_get_window(bd->drawing_area), pr);
+#if GTK_CHECK_VERSION(3,22,0)
+        context = gdk_window_begin_draw_frame(window, pr);
+#else
+        gdk_window_begin_paint_region(window, pr);
+#endif
 
         gtk_locdef_region_destroy(pr);
     }
 
-    cr = gdk_cairo_create(gtk_widget_get_window(bd->drawing_area));
+#if GTK_CHECK_VERSION(3,22,0)
+    cr = gdk_drawing_context_get_cairo_context(context);
+#else
+    cr = gdk_cairo_create(window);
+#endif
+
     draw_rgb_image(cr, puch, bd->x_drag - 3 * s, bd->y_drag - 3 * s, 6 * s, 6 * s);
     draw_rgb_image(cr, puchChequer, x - 3 * s, y - 3 * s, 6 * s, 6 * s);
-    cairo_destroy(cr);
 
-    gdk_window_end_paint(gtk_widget_get_window(bd->drawing_area));
+#if GTK_CHECK_VERSION(3,22,0)
+    gdk_window_end_draw_frame(window, context);
+#else
+    cairo_destroy(cr);
+    gdk_window_end_paint(window);
+#endif
+
     bd->x_drag = x;
     bd->y_drag = y;
 }
@@ -1043,9 +1060,10 @@ board_end_drag(GtkWidget * UNUSED(widget), BoardData * bd)
     unsigned char *puch;
     int s = bd->rd->nSize;
 
-#if !GTK_CHECK_VERSION(3,22,0)
+    // gdk_window_process_updates is deprecated since GTK
+    // 3.22, but necessary on the 2D board for smooth
+    // animation.
     gdk_window_process_updates(gtk_widget_get_window(bd->drawing_area), FALSE);
-#endif
 
     if (s == 0)
         return;
@@ -2831,6 +2849,7 @@ board_slide_timeout(gpointer p)
             bd->drag_point = -1;
             slide_phase = 0;
             slide_move += 2;
+
 #if !GTK_CHECK_VERSION(3,22,0)
             gdk_window_process_updates(gtk_widget_get_window(bd->drawing_area), FALSE);
 #endif
