@@ -2385,6 +2385,8 @@ hint_move(char *sz, gboolean show, procrecorddata * procdatarec)
         fd.pec = &GetEvalChequer()->ec;
         fd.aamf = *GetEvalMoveFilter();
         asyncFindMove(&fd);
+        if (pmr->ml.cMoves)
+            g_free(pmr->ml.amMoves);
         pmr_movelist_set(pmr, GetEvalChequer(), &ml);
         find_skills(pmr, &ms, FALSE, -1);
     }
