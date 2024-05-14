@@ -262,7 +262,11 @@ DrawGraph(const GraphData * gd)
 }
 
 static gboolean
+#if GTK_CHECK_VERSION(3,16,0)
+exposeCB(GtkWidget * UNUSED(area), GdkGLContext * UNUSED(context), void *data)
+#else
 exposeCB(GtkWidget * UNUSED(widget), GdkEventExpose * UNUSED(eventData), void *data)
+#endif
 {
     const GraphData *gd = (const GraphData *) data;
     glClear(GL_COLOR_BUFFER_BIT);

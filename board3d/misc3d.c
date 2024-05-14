@@ -1136,7 +1136,11 @@ RollDice3d(BoardData * bd, BoardData3d * bd3d, const renderdata * prd)
 		gtk_main();
     } else {
         /* Show dice on board */
+#if GTK_CHECK_VERSION(3,16,0)
+        gtk_gl_area_queue_render(GTK_GL_AREA(bd3d->drawing_area3d));
+#else
         gtk_widget_queue_draw(bd3d->drawing_area3d);
+#endif
         while (gtk_events_pending())
             gtk_main_iteration();
     }
@@ -1391,7 +1395,8 @@ GenerateImage3d(const char *szName, unsigned int nSize, unsigned int nSizeX, uns
     /* Allocate buffer for image, height + 1 as extra line needed to invert image (opengl renders 'upside down') */
     renderToBufferData.puch = (unsigned char *) g_malloc(renderToBufferData.width * (renderToBufferData.height + 1) * 3);
 
-    GLWidgetRender(renderToBufferData.bd->bd3d->drawing_area3d, RenderToBuffer3d, NULL, &renderToBufferData);
+    GLWidgetRender(renderToBufferData.bd->bd3d->drawing_area3d,
+                   RenderToBuffer3d, NULL, &renderToBufferData);
 
     GdkPixbuf* pixbuf;
     GError* error = NULL;

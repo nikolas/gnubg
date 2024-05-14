@@ -183,7 +183,11 @@ typedef struct {
 	unsigned char* puch;
 } RenderToBufferData;
 
+#if GTK_CHECK_VERSION(3,16,0)
+gboolean RenderToBuffer3d(GtkWidget* area, GdkGLContext* context, void* data);
+#else
 gboolean RenderToBuffer3d(GtkWidget* widget, GdkEventExpose* eventData, void* data);
+#endif
 void DeleteTextureList(void);
 
 void updateOccPos(const BoardData* bd);
@@ -283,13 +287,22 @@ void initDT(diceTest * dt, int x, int y, int z);
 
 typedef void (*RealizeCB)(void*);
 typedef void (*ConfigureCB)(GtkWidget*, void*);
+#if GTK_CHECK_VERSION(3,16,0)
+typedef gboolean (*ExposeCB)(GtkWidget*, GdkGLContext*, void*);
+#else
 typedef gboolean (*ExposeCB)(GtkWidget*, GdkEventExpose*, void*);
-extern GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, void* data);
+#endif
+
 extern void GLWidgetMakeCurrent(GtkWidget* widget);
+extern GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, void* data);
 extern void SelectPickProgram(void);
 extern void SetLightPos(float* lp);
 extern void SetViewPos(void);
+#if GTK_CHECK_VERSION(3,16,0)
+gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkGLContext* context, void* data);
+#else
 gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkEventExpose* eventDetails, void* data);
+#endif
 gboolean GLInit(int* argc, char*** argv);
 extern void SetLineDrawingmode(int enable);
 

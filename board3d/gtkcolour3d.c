@@ -218,7 +218,11 @@ TextureChange(GtkComboBoxText * combo, gpointer UNUSED(data))
 }
 
 static gboolean
+#if GTK_CHECK_VERSION(3,16,0)
+exposePreviewCB(GtkWidget* UNUSED(widget), GdkGLContext* UNUSED(context), void* data)
+#else
 exposePreviewCB(GtkWidget* UNUSED(widget), GdkEventExpose* UNUSED(eventData), void* data)
+#endif
 {
 	Material* pMat = (Material*)data;
     SetupLight();

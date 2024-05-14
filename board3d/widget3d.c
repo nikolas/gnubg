@@ -67,7 +67,11 @@ realize_3dCB(void* data)
 void
 MakeCurrent3d(const BoardData3d * bd3d)
 {
+#if GTK_CHECK_VERSION(3,16,0)
+    gtk_gl_area_make_current(GTK_GL_AREA(bd3d->drawing_area3d));
+#else
     GLWidgetMakeCurrent(bd3d->drawing_area3d);
+#endif
 }
 
 void
@@ -77,7 +81,11 @@ UpdateShadows(BoardData3d * bd3d)
 }
 
 static gboolean
+#if GTK_CHECK_VERSION(3,16,0)
+expose_3dCB(GtkWidget* UNUSED(widget), GdkGLContext* UNUSED(context), void* data)
+#else
 expose_3dCB(GtkWidget* UNUSED(widget), GdkEventExpose* UNUSED(exposeEvent), void* data)
+#endif
 {
     const BoardData* bd = (const BoardData*)data;
 
@@ -153,7 +161,11 @@ InitGTK3d(int *argc, char ***argv)
 }
 
 gboolean
+#if GTK_CHECK_VERSION(3,16,0)
+RenderToBuffer3d(GtkWidget* area, GdkGLContext* UNUSED(context), void* data)
+#else
 RenderToBuffer3d(GtkWidget* widget, GdkEventExpose* UNUSED(eventData), void* data)
+#endif
 {
 	const RenderToBufferData* renderToBufferData = (const RenderToBufferData*)data;
     TRcontext *tr;
@@ -165,7 +177,13 @@ RenderToBuffer3d(GtkWidget* widget, GdkEventExpose* UNUSED(eventData), void* dat
     /* Sort out tile rendering stuff */
     tr = trNew();
 #define BORDER 10
+
+#if GTK_CHECK_VERSION(3,16,0)
+    gtk_widget_get_allocation(GTK_WIDGET(area), &allocation);
+#else
     gtk_widget_get_allocation(widget, &allocation);
+#endif
+
     trTileSize(tr, allocation.width, allocation.height, BORDER);
     trImageSize(tr, renderToBufferData->width, renderToBufferData->height);
     trImageBuffer(tr, GL_RGB, GL_UNSIGNED_BYTE, renderToBufferData->puch);

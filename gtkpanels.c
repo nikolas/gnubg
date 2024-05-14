@@ -1206,7 +1206,7 @@ ShowAllPanels(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     /* Hide for smoother appearance */
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd))
-        gtk_widget_hide(GetDrawingArea3d(bd->bd3d));
+        gtk_widget_hide(GTK_WIDGET(GetDrawingArea3d(bd->bd3d)));
     else
 #endif
         gtk_widget_hide(bd->drawing_area);
@@ -1242,7 +1242,7 @@ ShowAllPanels(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd))
-        gtk_widget_show(GetDrawingArea3d(bd->bd3d));
+        gtk_widget_show(GTK_WIDGET(GetDrawingArea3d(bd->bd3d)));
     else
 #endif
         gtk_widget_show(bd->drawing_area);
@@ -1260,7 +1260,7 @@ DoHideAllPanels(int updateEvents)
     /* Hide for smoother appearance */
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd))
-        gtk_widget_hide(GetDrawingArea3d(bd->bd3d));
+        gtk_widget_hide(GTK_WIDGET(GetDrawingArea3d(bd->bd3d)));
     else
 #endif
         gtk_widget_hide(bd->drawing_area);
@@ -1304,7 +1304,7 @@ DoHideAllPanels(int updateEvents)
 
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd))
-        gtk_widget_show(GetDrawingArea3d(bd->bd3d));
+        gtk_widget_show(GTK_WIDGET(GetDrawingArea3d(bd->bd3d)));
     else
 #endif
         gtk_widget_show(bd->drawing_area);

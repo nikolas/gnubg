@@ -36,7 +36,7 @@ typedef struct {
 	void* cbData;
 } GLWidgetData;
 
-#if GTK_CHECK_VERSION(3,0,0)
+#if GTK_CHECK_VERSION(3,16,0)
 
 typedef struct {
 	guint shader;
@@ -163,11 +163,6 @@ void ModelManagerCreate(ModelManager* modelHolder)
 	glBindVertexArray(0);
 }
 
-void GLWidgetMakeCurrent(GtkWidget* widget)
-{
-	gtk_gl_area_make_current(GTK_GL_AREA(widget));
-}
-
 static void SelectProgram(ShaderDetails* pShader)
 {
 	currentShader = pShader;
@@ -291,14 +286,19 @@ LookupUniform(ShaderDetails *pShader, const char* name)
 	return loc;
 }
 
-static void
-realize_event(GtkWidget* widget, const GLWidgetData* glwData)
+void GLWidgetMakeCurrent(GtkWidget* widget)
 {
-	GLWidgetMakeCurrent(widget);
+	gtk_gl_area_make_current(GTK_GL_AREA(widget));
+}
 
-	if (gtk_gl_area_get_error(GTK_GL_AREA(widget)) != NULL)
+static void
+on_realize(GtkGLArea *area, const GLWidgetData* glwData)
+{
+	gtk_gl_area_make_current(area);
+
+	if (gtk_gl_area_get_error(area) != NULL)
 		return;
-	gtk_gl_area_set_has_depth_buffer(GTK_GL_AREA(widget), TRUE);
+	gtk_gl_area_set_has_depth_buffer(area, TRUE);
 
 	/* initialize the shaders and retrieve the program data */
 	basicShader.shader = init_shaders("/Shaders/basic");
@@ -330,14 +330,14 @@ realize_event(GtkWidget* widget, const GLWidgetData* glwData)
 
 	glwData->realizeCB(glwData->cbData);
 
-	gtk_widget_queue_draw(widget);
+	gtk_gl_area_queue_render(area);
 }
 
 static void
-resize_event(GtkGLArea* widget, gint UNUSED(width), gint UNUSED(height), const GLWidgetData* glwData)
+on_resize(GtkGLArea* area, gint UNUSED(width), gint UNUSED(height), const GLWidgetData* glwData)
 {
-	GLWidgetMakeCurrent(GTK_WIDGET(widget));
-	glwData->configureCB(GTK_WIDGET(widget), glwData->cbData);
+	gtk_gl_area_make_current(area);
+	glwData->configureCB(GTK_WIDGET(area), glwData->cbData);
 }
 
 static int drawMode = GL_TRIANGLES;
@@ -371,7 +371,7 @@ void OglModelDraw(const ModelManager* modelManager, int modelNumber, const Mater
 	glDrawArrays(drawMode, modelManager->models[modelNumber].dataStart / VERTEX_STRIDE, modelManager->models[modelNumber].dataLength / VERTEX_STRIDE);
 }
 
-gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkEventExpose* eventDetails, void* data)
+gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkGLContext* context, void* data)
 {
 	CheckOpenglError();
 
@@ -380,15 +380,15 @@ gboolean GLWidgetRender(GtkWidget* widget, ExposeCB exposeCB, GdkEventExpose* ev
 
 	SelectProgram(&mainShader);
 
-	exposeCB(widget, eventDetails, data);
+	exposeCB(widget, context, data);
 
 	return TRUE;
 }
 
 static gboolean
-expose_event(GtkWidget* widget, GdkEventExpose* eventDetails, const GLWidgetData* glwData)
+on_render(GtkGLArea *area, GdkGLContext *context, const GLWidgetData* glwData)
 {
-	return GLWidgetRender(widget, glwData->exposeCB, eventDetails, glwData->cbData);
+	return GLWidgetRender(GTK_WIDGET(area), glwData->exposeCB, context, glwData->cbData);
 }
 
 GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB exposeCB, void* data)
@@ -408,11 +408,11 @@ GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB
 	glwData->exposeCB = exposeCB;
 
 	if (realizeCB != NULL)
-		g_signal_connect(G_OBJECT(pw), "realize", G_CALLBACK(realize_event), glwData);
+		g_signal_connect(G_OBJECT(pw), "realize", G_CALLBACK(on_realize), glwData);
 	if (configureCB != NULL)
-		g_signal_connect(G_OBJECT(pw), "resize", G_CALLBACK(resize_event), glwData);
+		g_signal_connect(G_OBJECT(pw), "resize", G_CALLBACK(on_resize), glwData);
 	if (exposeCB != NULL)
-		g_signal_connect(G_OBJECT(pw), "render", G_CALLBACK(expose_event), glwData);
+		g_signal_connect(G_OBJECT(pw), "render", G_CALLBACK(on_render), glwData);
 
 	g_object_set_data_full(G_OBJECT(pw), "GLWidgetData", glwData, g_free);
 
@@ -424,7 +424,7 @@ gboolean GLInit(int* UNUSED(argc), char*** UNUSED(argv))
 	return GL_TRUE;	// TODO: Anything to check here?
 }
 
-#else
+#else // GTK 2 code below
 
 #include <gtk/gtkgl.h>
 
