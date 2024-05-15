@@ -339,6 +339,19 @@ realize_event(GtkWidget* widget, const GLWidgetData* glwData)
 }
 
 static void
+unrealize_event(GtkWidget* self, gpointer UNUSED(user_data))
+{
+	GLWidgetMakeCurrent(self);
+
+	if (glIsProgram(basicShader.shader)) {
+		glDeleteProgram(basicShader.shader);
+	}
+	if (glIsProgram(mainShader.shader)) {
+		glDeleteProgram(mainShader.shader);
+	}
+}
+
+static void
 resize_event(GtkGLArea* widget, gint UNUSED(width), gint UNUSED(height), const GLWidgetData* glwData)
 {
 	GLWidgetMakeCurrent(GTK_WIDGET(widget));
@@ -412,8 +425,10 @@ GtkWidget* GLWidgetCreate(RealizeCB realizeCB, ConfigureCB configureCB, ExposeCB
 	glwData->configureCB = configureCB;
 	glwData->exposeCB = exposeCB;
 
-	if (realizeCB != NULL)
+	if (realizeCB != NULL) {
 		g_signal_connect(G_OBJECT(pw), "realize", G_CALLBACK(realize_event), glwData);
+		g_signal_connect(G_OBJECT(pw), "unrealize", G_CALLBACK(unrealize_event), NULL);
+	}
 	if (configureCB != NULL)
 		g_signal_connect(G_OBJECT(pw), "resize", G_CALLBACK(resize_event), glwData);
 	if (exposeCB != NULL)
