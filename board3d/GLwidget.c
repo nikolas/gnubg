@@ -170,6 +170,11 @@ void GLWidgetMakeCurrent(GtkWidget* widget)
 
 static void SelectProgram(ShaderDetails* pShader)
 {
+	if (glIsProgram(pShader->shader) != GL_TRUE) {
+		fprintf(stderr, _("Can't load shader program\n"));
+		return;
+	}
+
 	currentShader = pShader;
 	glUseProgram(currentShader->shader);
 }
