@@ -4802,6 +4802,10 @@ InitGTK(int *argc, char ***argv)
 
     gnubg_stock_init();
 
+#if GTK_CHECK_VERSION(3,14,0)
+    gnubg_resource_init();
+#endif
+
 #if defined(USE_BOARD3D)
     widget3dValid = InitGTK3d(argc, argv);
 #endif
@@ -5319,14 +5323,26 @@ NewWidget(newwidget * pnw)
 
     /* Edit button */
 
+#if GTK_CHECK_VERSION(3,14,0)
+    GtkWidget *editIcon = gtk_image_new_from_icon_name("gtk-edit",
+                                                       GTK_ICON_SIZE_LARGE_TOOLBAR);
+    pwToolButton = gtk_tool_button_new(editIcon, "Edit");
+#else
     pwToolButton = gtk_tool_button_new_from_stock(GTK_STOCK_EDIT);
+#endif
     gtk_widget_set_tooltip_text(GTK_WIDGET(pwToolButton), _("Edit position"));
     gtk_toolbar_insert(GTK_TOOLBAR(pwToolbar2), pwToolButton, -1);
     g_signal_connect(pwToolButton, "clicked", G_CALLBACK(edit_new_clicked), pnw);
 
     gtk_toolbar_insert(GTK_TOOLBAR(pwToolbar2), gtk_separator_tool_item_new(), -1);
 
+#if GTK_CHECK_VERSION(3,14,0)
+    GtkWidget *moneyIcon = gtk_image_new_from_icon_name("new0_24",
+                                                        GTK_ICON_SIZE_LARGE_TOOLBAR);
+    pwToolButton = gtk_tool_button_new(moneyIcon, NULL);
+#else
     pwToolButton = gtk_tool_button_new_from_stock(GNUBG_STOCK_NEW0);
+#endif
     gtk_widget_set_tooltip_text(GTK_WIDGET(pwToolButton), _("Start a new money game session"));
     gtk_toolbar_insert(GTK_TOOLBAR(pwToolbar2), pwToolButton, -1);
     g_signal_connect(G_OBJECT(pwToolButton), "clicked", G_CALLBACK(ToolButtonPressedMS), pnw);
@@ -5339,8 +5355,17 @@ NewWidget(newwidget * pnw)
         int *pi;
 
         sz = g_strdup_printf(ngettext("Start a new %d point match", "Start a new %d points match", i), i);
+
+#if GTK_CHECK_VERSION(3,14,0)
+        sprintf(stock, "new%d_24", i);
+        GtkWidget *icon = gtk_image_new_from_icon_name(stock,
+                                                       GTK_ICON_SIZE_LARGE_TOOLBAR);
+        pwToolButton = gtk_tool_button_new(icon, NULL);
+#else
         sprintf(stock, "gnubg-stock-new%d", i);
         pwToolButton = gtk_tool_button_new_from_stock(stock);
+#endif
+
         gtk_widget_set_tooltip_text(GTK_WIDGET(pwToolButton), sz);
         gtk_toolbar_insert(GTK_TOOLBAR(pwToolbar2), pwToolButton, -1);
         gtk_tool_item_set_homogeneous(pwToolButton, FALSE);
@@ -8046,7 +8071,7 @@ StatsNextGame(GtkWidget * UNUSED(button), GtkWidget * combo)
 static GtkWidget *
 AddNavigation(GtkWidget * pvbox)
 {
-    GtkWidget *phbox, *pw, *box;
+    GtkWidget *phbox, *pw, *box, *icon;
     char sz[128];
     int anFinalScore[2];
     listOLD *pl;
@@ -8063,12 +8088,29 @@ AddNavigation(GtkWidget * pvbox)
     phbox = gtk_hbox_new(FALSE, 0);
 #endif
     gtk_box_pack_start(GTK_BOX(pvbox), phbox, FALSE, FALSE, 4);
-    pw = button_from_image(gtk_image_new_from_stock(GNUBG_STOCK_GO_PREV_GAME, GTK_ICON_SIZE_LARGE_TOOLBAR));
+
+#if GTK_CHECK_VERSION(3,14,0)
+    icon = gtk_image_new_from_icon_name("go_prev_game_24",
+                                        GTK_ICON_SIZE_LARGE_TOOLBAR);
+#else
+    icon = gtk_image_new_from_stock(GNUBG_STOCK_GO_PREV_GAME,
+                                    GTK_ICON_SIZE_LARGE_TOOLBAR);
+#endif
+    pw = button_from_image(icon);
+
     g_signal_connect(G_OBJECT(pw), "clicked", G_CALLBACK(StatsPreviousGame), box);
     gtk_box_pack_start(GTK_BOX(phbox), pw, FALSE, FALSE, 0);
     gtk_widget_set_tooltip_text(pw, _("Move back to the previous game"));
 
-    pw = button_from_image(gtk_image_new_from_stock(GNUBG_STOCK_GO_NEXT_GAME, GTK_ICON_SIZE_LARGE_TOOLBAR));
+#if GTK_CHECK_VERSION(3,14,0)
+    icon = gtk_image_new_from_icon_name("go_next_game_24",
+                                        GTK_ICON_SIZE_LARGE_TOOLBAR);
+#else
+    icon = gtk_image_new_from_stock(GNUBG_STOCK_GO_NEXT_GAME,
+                                    GTK_ICON_SIZE_LARGE_TOOLBAR);
+#endif
+    pw = button_from_image(icon);
+
     g_signal_connect(G_OBJECT(pw), "clicked", G_CALLBACK(StatsNextGame), box);
     gtk_box_pack_start(GTK_BOX(phbox), pw, FALSE, FALSE, 4);
     gtk_widget_set_tooltip_text(pw, _("Move ahead to the next game"));
@@ -8758,12 +8800,21 @@ extern void
 GTKResign(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 {
     GtkWidget *pwDialog, *pwVbox;
+    GtkToolItem *pwToolButton;
     int i;
     const char *asz[3] = { N_("Resign normal"),
         N_("Resign gammon"),
         N_("Resign backgammon")
     };
-    const char *resign_stocks[3] = { GNUBG_STOCK_RESIGNSN, GNUBG_STOCK_RESIGNSG, GNUBG_STOCK_RESIGNSB };
+#if GTK_CHECK_VERSION(3,14,0)
+    const char *resign_stocks[3] = {"resignsb_24", "resignsg_24", "resignsn_24" };
+#else
+    const char *resign_stocks[3] = {
+        GNUBG_STOCK_RESIGNSN,
+        GNUBG_STOCK_RESIGNSG,
+        GNUBG_STOCK_RESIGNSB
+    };
+#endif
 
     if (ap[!ms.fTurn].pt != PLAYER_HUMAN && check_resigns(NULL) != -1 && GTKShowWarning(WARN_RESIGN, NULL)) {   /* Automatically resign for computer */
         UserCommand("resign -1");
@@ -8791,8 +8842,15 @@ GTKResign(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
         pwHbox = gtk_hbox_new(FALSE, 0);
 #endif
         gtk_container_add(GTK_CONTAINER(pwButtons), pwHbox);
-        gtk_box_pack_start(GTK_BOX(pwHbox), gtk_image_new_from_stock(resign_stocks[i], GTK_ICON_SIZE_LARGE_TOOLBAR),
-                           FALSE, FALSE, 0);
+#if GTK_CHECK_VERSION(3,14,0)
+        GtkWidget *icon = gtk_image_new_from_icon_name(resign_stocks[i],
+                                                       GTK_ICON_SIZE_LARGE_TOOLBAR);
+        pwToolButton = gtk_tool_button_new(icon, NULL);
+#else
+        pwToolButton = gtk_image_new_from_stock(resign_stocks[i],
+                                                GTK_ICON_SIZE_LARGE_TOOLBAR);
+#endif
+        gtk_box_pack_start(GTK_BOX(pwHbox), pwToolButton, FALSE, FALSE, 0);
         gtk_box_pack_start(GTK_BOX(pwHbox), gtk_label_new(_(asz[i])), TRUE, TRUE, 10);
         gtk_container_add(GTK_CONTAINER(pwVbox), pwButtons);
         g_signal_connect(G_OBJECT(pwButtons), "clicked", G_CALLBACK(CallbackResign), GINT_TO_POINTER(i));

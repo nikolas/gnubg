@@ -18,6 +18,9 @@
  */
 
 void gnubg_stock_init(void);
+#if GTK_CHECK_VERSION(3,14,0)
+void gnubg_resource_init(void);
+#endif
 #define GNUBG_STOCK_ACCEPT "gnubg-stock-accept"
 #define GNUBG_STOCK_ANTI_CLOCKWISE "gnubg-stock-anti-clockwise"
 #define GNUBG_STOCK_CLOCKWISE "gnubg-stock-clockwise"
