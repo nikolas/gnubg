@@ -105,7 +105,7 @@ dialog_mapped(GtkWidget * window, gpointer UNUSED(data))
 
     gtk_widget_get_allocation(window, &allocation);
 
-#if GTK_CHECK_VERSION(3,0,0)
+#if GTK_CHECK_VERSION(3,22,0)
     GdkDisplay *display = gtk_widget_get_display(window);
     if (!display || gdk_display_get_n_monitors(display) == 1) {
         monitorrect.x = 0;
