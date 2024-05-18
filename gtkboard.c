@@ -2164,6 +2164,11 @@ board_motion_notify(GtkWidget * board, GdkEventMotion * event, BoardData * bd)
         if (bd->DragTargetHelp) {       /* Display 2d drag target help */
             gint i, ptx, pty, ptcx, ptcy;
             cairo_t *cr;
+            GdkWindow *window = gtk_widget_get_window(board);
+#if GTK_CHECK_VERSION(3,22,0)
+            cairo_region_t * cairoRegion = cairo_region_create();
+            GdkDrawingContext *context;
+#endif
 
 #if GTK_CHECK_VERSION(3,0,0)
             GdkRGBA TargetHelpRGBA;
@@ -2185,7 +2190,14 @@ board_motion_notify(GtkWidget * board, GdkEventMotion * event, BoardData * bd)
             /* get the closest color available in the colormap if no 24-bit */
             gdk_colormap_alloc_color(gtk_widget_get_colormap(board), &TargetHelpColor, TRUE, TRUE);
 #endif
-            cr = gdk_cairo_create(gtk_widget_get_window(board));
+
+#if GTK_CHECK_VERSION(3,22,0)
+            context = gdk_window_begin_draw_frame(window, cairoRegion);
+            cr = gdk_drawing_context_get_cairo_context(context);
+#else
+            cr = gdk_cairo_create(window);
+#endif
+
 #if GTK_CHECK_VERSION(3,0,0)
             gdk_cairo_set_source_rgba(cr, &TargetHelpRGBA);
 #else
@@ -2203,7 +2215,12 @@ board_motion_notify(GtkWidget * board, GdkEventMotion * event, BoardData * bd)
                 }
             }
 
+#if GTK_CHECK_VERSION(3,22,0)
+            gdk_window_end_draw_frame(window, context);
+            cairo_region_destroy(cairoRegion);
+#else
             cairo_destroy(cr);
+#endif
         }
     }
 
