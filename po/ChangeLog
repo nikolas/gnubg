@@ -1,3 +1,8 @@
+2024-05-18  Philippe Michel  <philippe.michel7@free.fr>
+
+	* Makefile.in.in, Makevars, remove-potcdate.sin(+):
+	Upgrade to gettext 0.19
+
 2022-03-19  Philippe Michel  <philippe.michel7@free.fr>
 
 	* de.po, is.po, it.po, tr.po, ru.po, ja.po, ../gtkgame.c: use
