@@ -18,8 +18,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gnubgstock.c,v 1.12 2019/11/05 22:01:25 plm Exp $
  */
 
 #include "config.h"
@@ -191,3 +189,17 @@ gnubg_stock_init(void)
     gtk_icon_factory_add_default(gnubg_stock_factory);
     gtk_stock_add_static(gnubg_stock_items, G_N_ELEMENTS(gnubg_stock_items));
 }
+
+#if GTK_CHECK_VERSION(3,14,0)
+void
+gnubg_resource_init(void)
+{
+    GtkIconTheme *theme;
+
+    GResource *resource = gnubg_stock_get_resource();
+    g_resources_register(resource);
+
+    theme = gtk_icon_theme_get_default();
+    gtk_icon_theme_add_resource_path(theme, "/org/gnubg");
+}
+#endif
