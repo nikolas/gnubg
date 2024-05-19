@@ -25,6 +25,7 @@ AC_CANONICAL_HOST
 AC_CONFIG_SRCDIR(gnubg.c)
 AM_INIT_AUTOMAKE([subdir-objects])
 AC_CONFIG_HEADERS([config.h])
+AC_USE_SYSTEM_EXTENSIONS
 
 dnl
 dnl parse default options
@@ -76,12 +77,8 @@ dnl
 dnl Compiler setup
 dnl
 
-AC_USE_SYSTEM_EXTENSIONS
-
 AC_PROG_CC
 AM_PROG_CC_C_O
-dnl Deprecated but RHEL6/gcc 4.4 needs it
-AC_PROG_CC_STDC
 
 AM_CONDITIONAL(CROSS_COMPILING, test "x$cross_compiling" = "xyes")
 
@@ -108,8 +105,7 @@ dnl Setup libtool
 dnl
 
 AC_CONFIG_MACRO_DIR([m4])
-AC_DISABLE_SHARED
-AC_PROG_LIBTOOL
+LT_INIT([disable-shared])
 
 dnl
 dnl yacc and lex setup
@@ -120,7 +116,7 @@ AC_CHECK_PROG([FLEX], [flex lex], [flex])
 # Force the use of `missing' to wrap Flex invocations.
 AM_MISSING_PROG([LEX], [$FLEX])
 
-AM_PROG_LEX
+AC_PROG_LEX([noyywrap])
 AX_PROG_FLEX_VERSION([2.5.9],,AC_MSG_ERROR([flex 2.5.9 or higher is needed to build GNU Backgammon]))
 AC_PROG_YACC
 AM_YFLAGS='-d'

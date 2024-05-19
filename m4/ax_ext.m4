@@ -59,17 +59,17 @@ AC_DEFUN([AX_EXT],
       AC_CACHE_CHECK([whether NEON is supported], [ax_cv_have_neon_ext],
           [
           AC_LANG_PUSH([C])
-          AC_TRY_RUN([
+          AC_RUN_IFELSE([AC_LANG_SOURCE([[
             int main(void){
 	    #if defined(__ARM_FEATURE_SIMD32) || defined(__ARM_NEON)
               return 0;
 	    #else
 	      return 1;
             #endif
-            }],
-            ax_cv_have_neon_ext=yes,
-            ax_cv_have_neon_ext=no,
-            ax_cv_have_neon_ext=no)
+            }]])],
+            [ax_cv_have_neon_ext=yes],
+            [ax_cv_have_neon_ext=no],
+            [ax_cv_have_neon_ext=no])
           AC_LANG_POP([C])
 	  ])
 
@@ -83,17 +83,17 @@ AC_DEFUN([AX_EXT],
       AC_CACHE_CHECK([whether NEON is supported], [ax_cv_have_neon_ext],
           [
           AC_LANG_PUSH([C])
-          AC_TRY_RUN([
+          AC_RUN_IFELSE([AC_LANG_SOURCE([[
             int main(void){
 	    #if defined(__ARM_NEON)
               return 0;
 	    #else
 	      return 1;
             #endif
-            }],
-            ax_cv_have_neon_ext=yes,
-            ax_cv_have_neon_ext=no,
-            ax_cv_have_neon_ext=no)
+            }]])],
+            [ax_cv_have_neon_ext=yes],
+            [ax_cv_have_neon_ext=no],
+            [ax_cv_have_neon_ext=no])
           AC_LANG_POP([C])
 	  ])
 
