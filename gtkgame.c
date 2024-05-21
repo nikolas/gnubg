@@ -633,7 +633,11 @@ GtkAccelGroup *pagMain;
 #if defined(USE_GTKITEMFACTORY)
 GtkItemFactory *pif;
 #else
+#if GTK_CHECK_VERSION(3,10,0)
+GtkBuilder *pBuilder;
+#else
 GtkUIManager *puim = NULL;
+#endif
 #endif
 guint nNextTurn = 0;            /* GTK idle function */
 static guint idOutput, idProgress;
@@ -1868,8 +1872,13 @@ SetSwitchModeMenuText(void)
 {                               /* Update menu text */
     BoardData *bd = BOARD(pwBoard)->board_data;
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+    GtkWidget *pMenuItem = gtk_builder_get_object(pBuilder,
+                                                  "/MainMenu/ViewMenu/SwitchMode");
+#else
     GtkWidget *pMenuItem = gtk_ui_manager_get_widget(puim,
                                                      "/MainMenu/ViewMenu/SwitchMode");
+#endif
 #else
     GtkWidget *pMenuItem = gtk_item_factory_get_widget_by_action(pif, TOOLBAR_ACTION_OFFSET + MENU_OFFSET);
 #endif
@@ -1951,11 +1960,13 @@ ShowToolbar(void)
     gtk_widget_show(pwHandle);
 
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
     gtk_widget_show((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/HideToolBar")));
     gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/IconsOnly")), TRUE);
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/TextOnly")), TRUE);
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/Both")), TRUE);
+#endif
 #else
     gtk_widget_show(gtk_item_factory_get_widget(pif, "/View/Toolbar/Hide Toolbar"));
     gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Toolbar/Show Toolbar"));
@@ -1975,11 +1986,13 @@ HideToolbar(void)
     gtk_widget_hide(pwHandle);
 
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
     gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/HideToolBar")));
     gtk_widget_show((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/IconsOnly")), FALSE);
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/TextOnly")), FALSE);
     gtk_widget_set_sensitive((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/Both")), FALSE);
+#endif
 #else
     gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Toolbar/Hide Toolbar"));
     gtk_widget_show(gtk_item_factory_get_widget(pif, "/View/Toolbar/Show Toolbar"));
@@ -2020,8 +2033,13 @@ DoFullScreenMode(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
     static int changedRP, changedDP;
 
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+    GtkWidget *pmiRP = gtk_builder_get_object(pBuilder, "/MainMenu/ViewMenu/RestorePanels");
+    GtkWidget *pmiDP = gtk_builder_get_object(pBuilder, "/MainMenu/ViewMenu/DockPanels");
+#else
     GtkWidget *pmiRP = gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels");
     GtkWidget *pmiDP = gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/DockPanels");
+#endif
 #else
     GtkWidget *pmiRP = gtk_item_factory_get_widget(pif, "/View/Restore panels");
     GtkWidget *pmiDP = gtk_item_factory_get_widget(pif, "/View/Dock panels");
@@ -2034,8 +2052,13 @@ DoFullScreenMode(gpointer UNUSED(p), guint UNUSED(n), GtkWidget * UNUSED(pw))
 #endif
 
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+    fFullScreen = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(gtk_builder_get_object(pBuilder,
+                                                                                            "/MainMenu/ViewMenu/FullScreen")));
+#else
     fFullScreen = gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
                                                                                                "/MainMenu/ViewMenu/FullScreen")));
+#endif
 #else
     fFullScreen =
         gtk_check_menu_item_get_active(GTK_CHECK_MENU_ITEM(gtk_item_factory_get_widget(pif, "/View/Full screen")));
@@ -2133,8 +2156,13 @@ FullScreenMode(int state)
 {
     BoardData *bd = BOARD(pwBoard)->board_data;
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+    GtkWidget *pw = gtk_builder_get_object(pBuilder,
+                                           "/MainMenu/ViewMenu/FullScreen");
+#else
     GtkWidget *pw = gtk_ui_manager_get_widget(puim,
                                               "/MainMenu/ViewMenu/FullScreen");
+#endif
 #else
     GtkWidget *pw = gtk_item_factory_get_widget(pif, "/View/Full screen");
 #endif
@@ -4503,6 +4531,12 @@ CreateMainWindow(void)
     gtk_container_add(GTK_CONTAINER(pwMain), pwVbox);
 
 #if !defined(USE_GTKITEMFACTORY)
+
+#if GTK_CHECK_VERSION(3,10,0)
+    pBuilder = gtk_builder_new_from_file(AC_PKGDATADIR "/menu.xml");
+    //pBuilder = gtk_builder_new_from_string(GNUBG_MAIN_UI, -1);
+    //GMenu *menu = G_MENU_MODEL(gtk_builder_get_object("menu"));
+#else
     puim = gtk_ui_manager_new();
 
     action_group = gtk_action_group_new("Actions");
@@ -4531,7 +4565,7 @@ CreateMainWindow(void)
 #endif
     /* Bind the accelerators */
     gtk_window_add_accel_group(GTK_WINDOW(pwMain), pagMain = gtk_ui_manager_get_accel_group(puim));
-
+#endif
 
 #else
     pagMain = gtk_accel_group_new();
@@ -4554,8 +4588,10 @@ CreateMainWindow(void)
 #endif
     gtk_box_pack_start(GTK_BOX(pwVbox), pwHandle, FALSE, FALSE, 0);
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
     pwMenuBar = gtk_ui_manager_get_widget(puim, "/MainMenu");
     gtk_container_add(GTK_CONTAINER(pwHandle), pwMenuBar);
+#endif
 #else
     gtk_container_add(GTK_CONTAINER(pwHandle), pwMenuBar = gtk_item_factory_get_widget(pif, "<main>"));
 #endif
@@ -4608,7 +4644,7 @@ CreateMainWindow(void)
     gtk_box_pack_start(GTK_BOX(pwPanelHbox), pwPanelVbox, TRUE, TRUE, 0);
 
     /* Do this so that the menu is packed now instead of in the idle loop */
-#if !defined(USE_GTKITEMFACTORY)
+#if !defined(USE_GTKITEMFACTORY) && !GTK_CHECK_VERSION(3,10,0)
     gtk_ui_manager_ensure_update(puim);
 #endif
 
@@ -4884,9 +4920,11 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
         if (!ArePanelsDocked()) {
             gtk_widget_hide(hpaned);
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/PanelsMenu/Commentary")));
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/HidePanels")));
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels")));
+#endif
 #else
             gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Panels/Commentary"));
             gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Hide panels"));
@@ -4895,17 +4933,24 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
         } else {
             if (ArePanelsShowing()) {
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
                 gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/RestorePanels")));
+#endif
 #else
                 gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Restore panels"));
 #endif
                 gtk_widget_hide(pwGameBox);
-            } else
+            } else {
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+                gtk_widget_hide((gtk_builder_get_object(pBuilder, "/MainMenu/ViewMenu/HidePanels")));
+#else
                 gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/HidePanels")));
+#endif
 #else
                 gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Hide panels"));
 #endif
+            }
         }
 
         /* Make sure main window is on top */
@@ -4917,7 +4962,9 @@ RunGTK(GtkWidget * pwSplash, char *commands, char *python_script, char *match)
 
         if (fToolbarShowing)
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
             gtk_widget_hide((gtk_ui_manager_get_widget(puim, "/MainMenu/ViewMenu/ToolBarMenu/ShowToolBar")));
+#endif
 #else
             gtk_widget_hide(gtk_item_factory_get_widget(pif, "/View/Toolbar/Show Toolbar"));
 #endif
@@ -7550,6 +7597,7 @@ GTKSet(void *p)
     if (p == ap) {
         /* Handle the player names. */
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
         gtk_label_set_text(GTK_LABEL
                            (gtk_bin_get_child
                             (GTK_BIN(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu/SetTurnMenu/SetTurnPlayer0")
@@ -7558,6 +7606,7 @@ GTKSet(void *p)
                            (gtk_bin_get_child
                             (GTK_BIN(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu/SetTurnMenu/SetTurnPlayer1")
                              ))), (ap[1].szName));
+#endif
 #else
         gtk_label_set_text(GTK_LABEL
                            (gtk_bin_get_child(GTK_BIN(gtk_item_factory_get_widget_by_action(pif, CMD_SET_TURN_0)
@@ -7579,6 +7628,7 @@ GTKSet(void *p)
         /* Handle the player on roll. */
         fAutoCommand = TRUE;
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
         if (ms.fTurn >= 0) {
             if (ms.fTurn)
                 gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
@@ -7591,6 +7641,7 @@ GTKSet(void *p)
             enable_menu(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu/Roll"), ms.fMove == ms.fTurn
                         && ap[ms.fMove].pt == PLAYER_HUMAN);
         }
+#endif
 #else
 
         if (ms.fTurn >= 0) {
@@ -7611,6 +7662,7 @@ GTKSet(void *p)
         ToolbarSetPlaying(pwToolbar, plGame != NULL);
 
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
         gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/FileMenu/Save"), plGame != NULL);
         enable_menu(gtk_ui_manager_get_widget(puim, "/MainMenu/GameMenu"), ms.gs == GAME_PLAYING);
         if (ms.fTurn >= 0)
@@ -7715,6 +7767,7 @@ GTKSet(void *p)
             // gtk_widget_set_sensitive(gtk_ui_manager_get_widget(puim, "/MainMenu/HelpMenu/"), !fAnalysisRunning);
         }
 
+#endif
 #else
         gtk_widget_set_sensitive(gtk_item_factory_get_widget(pif, "/File/Save..."), plGame != NULL);
 
@@ -7819,9 +7872,11 @@ GTKSet(void *p)
     } else if (p == &fShowIDs) {
         inCallback = TRUE;
 #if !defined(USE_GTKITEMFACTORY)
+#if !GTK_CHECK_VERSION(3,10,0)
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM(gtk_ui_manager_get_widget(puim,
                                                                                      "/MainMenu/ViewMenu/ShowIDStatusBar")),
                                        fShowIDs);
+#endif
 #else
         gtk_check_menu_item_set_active(GTK_CHECK_MENU_ITEM
                                        (gtk_item_factory_get_widget(pif, "/View/Show ID in status bar")), fShowIDs);

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+    <menu id="menubar">
+        <submenu id="FileMenu">
+            <attribute name="label">FileMenu</attribute>
+            <attribute name="action">FileMenuAction</attribute>
+
+            <item>
+                <attribute name="label">New</attribute>
+                <attribute name="action">FileNewAction</attribute>
+            </item>
+            <item>
+                <attribute name="label">Open</attribute>
+                <attribute name="action">FileOpenAction</attribute>
+            </item>
+            <item>
+                <attribute name="label">Save</attribute>
+                <attribute name="action">FileSaveAction</attribute>
+            </item>
+            <item>
+                <attribute name="label">Exit</attribute>
+                <attribute name="action">FileExitAction</attribute>
+            </item>
+        </submenu>
+        <submenu id="EditMenu">
+            <attribute name="label">EditMenu</attribute>
+            <attribute name="action">EditMenuAction</attribute>
+        </submenu>
+        <submenu id="ViewMenu">
+            <attribute name="label">ViewMenu</attribute>
+            <attribute name="action">ViewMenuAction</attribute>
+        </submenu>
+        <submenu id="GameMenu">
+            <attribute name="label">GameMenu</attribute>
+            <attribute name="action">GameMenuAction</attribute>
+        </submenu>
+    </menu>
+</interface>
