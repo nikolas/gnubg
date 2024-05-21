@@ -991,9 +991,10 @@ board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
     }
 #endif
 
-#if !GTK_CHECK_VERSION(3,22,0)
+    // gdk_window_process_updates is deprecated since GTK
+    // 3.22, but necessary on the 2D board for smooth
+    // animation.
     gdk_window_process_updates(window, FALSE);
-#endif
 
     if (s == 0)
         return;
@@ -1060,10 +1061,9 @@ board_end_drag(GtkWidget * UNUSED(widget), BoardData * bd)
     unsigned char *puch;
     int s = bd->rd->nSize;
 
-    // gdk_window_process_updates is deprecated since GTK
-    // 3.22, but necessary on the 2D board for smooth
-    // animation.
+#if !GTK_CHECK_VERSION(3,22,0)
     gdk_window_process_updates(gtk_widget_get_window(bd->drawing_area), FALSE);
+#endif
 
     if (s == 0)
         return;
