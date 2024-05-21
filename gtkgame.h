@@ -28,7 +28,11 @@
 #define TOOLBAR_ACTION_OFFSET 10000
 
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+extern GtkBuilder *pBuilder;
+#else
 extern GtkUIManager *puim;
+#endif
 #endif
 
 extern GdkColor wlCol;

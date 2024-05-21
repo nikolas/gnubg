@@ -223,8 +223,13 @@ click_edit(void)
 {
     if (!inCallback) {
 #if !defined(USE_GTKITEMFACTORY)
+#if GTK_CHECK_VERSION(3,10,0)
+        GtkAction *editstatus = gtk_builder_get_object(pBuilder, "/MainMenu/EditMenu/EditPosition");
+#else
         GtkAction *editstatus = gtk_ui_manager_get_action(puim, "/MainMenu/EditMenu/EditPosition");
+#endif
         gtk_toggle_action_set_active(GTK_TOGGLE_ACTION(editstatus), !gtk_toggle_action_get_active(GTK_TOGGLE_ACTION(editstatus)));
+
 #else
         toolbarwidget *ptw = g_object_get_data(G_OBJECT(pwToolbar), "toolbarwidget");
         gtk_button_clicked(GTK_BUTTON(ptw->pwEdit));
@@ -380,10 +385,15 @@ ToolbarNew(void)
     GtkWidget *pwtb;
     toolbarwidget *ptw = (toolbarwidget *) g_malloc(sizeof(toolbarwidget));
 
+#if GTK_CHECK_VERSION(3,10,0)
+    pwtb = gtk_builder_get_object(pBuilder, "/MainToolBar");
+#else
     pwtb = gtk_ui_manager_get_widget(puim, "/MainToolBar");
+#endif
     g_object_set_data_full(G_OBJECT(pwtb), "toolbarwidget", ptw, g_free);
     gtk_toolbar_set_style(GTK_TOOLBAR(pwtb), GTK_TOOLBAR_BOTH);
 
+#if !GTK_CHECK_VERSION(3,10,0)
     ptw->pwNew = gtk_ui_manager_get_widget(puim, "/MainToolBar/New");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwNew), TRUE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwNew), NULL);
@@ -441,6 +451,7 @@ ToolbarNew(void)
     ptw->pwNext = gtk_ui_manager_get_widget(puim, "/MainToolBar/NextRoll");
     gtk_tool_item_set_homogeneous(GTK_TOOL_ITEM(ptw->pwNext), FALSE);
     gtk_tool_button_set_label(GTK_TOOL_BUTTON(ptw->pwNext), "");
+#endif
 
     return pwtb;
 #else
