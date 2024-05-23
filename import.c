@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: import.c,v 1.235 2023/09/05 20:34:21 plm Exp $
  */
 
 #include "config.h"
@@ -1509,10 +1507,10 @@ ImportOldmovesGame(FILE * pf, int iGame, int nLength, int n0, int n1)
 
     }
 
-    pmr->g.fCrawford = nLength != 0;    /* assume matches use Crawford rule */
+    pmr->g.fCrawford = fAutoCrawford && nLength;
     if ((pmr->g.fCrawfordGame = !fPostCrawford && (n0 == nLength - 1) ^ (n1 == nLength - 1)))
         fPostCrawford = TRUE;
-    pmr->g.fJacoby = !nLength;  /* assume matches never use Jacoby rule */
+    pmr->g.fJacoby = fJacoby && !nLength;
     pmr->g.fWinner = -1;
     pmr->g.nPoints = 0;
     pmr->g.fResigned = FALSE;
@@ -1544,7 +1542,8 @@ ImportOldmovesGame(FILE * pf, int iGame, int nLength, int n0, int n1)
 
     anExpectedScore[0] = pmr->g.anScore[0];
     anExpectedScore[1] = pmr->g.anScore[1];
-    anExpectedScore[pmr->g.fWinner] += pmr->g.nPoints;
+    if (pmr->g.fWinner >= 0)
+        anExpectedScore[pmr->g.fWinner] += pmr->g.nPoints;
 
     AddGame(pmr);
 
