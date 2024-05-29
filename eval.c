@@ -5344,9 +5344,7 @@ FindBestMoveInEval(NNState * nnStates, int const nDice0, int const nDice1, const
         SSE_ALIGN(float arOutput[NUM_OUTPUTS]);
         evalcache ec;
         uint32_t l;
-        /* declared volatile to avoid wrong compiler optimization
-         * on some gcc systems. Remove with great care. */
-        move *const volatile pm = &ml.amMoves[i];
+        move *const pm = &ml.amMoves[i];
 
         PositionFromKeySwapped(anBoardOut, &pm->key);
 
