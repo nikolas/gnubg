@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: graph.c,v 1.46 2022/03/06 22:45:43 plm Exp $
  */
 
 #include "config.h"
@@ -80,7 +78,7 @@ realizeCB(void *UNUSED(data))
     if (!CreateNumberFont(&numberFont, FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
         g_print(_("Error creating font\n"));
 
-    /* Translate using only the characters contained in Vera font */
+    /* TRANSLATORS: Using only the characters contained in Vera font */
     if (!CreateFontText(&totalText, _("Totals"), FONT_VERA, FONT_PITCH, FONT_SIZE, FONT_HEIGHT_RATIO))
         g_print(_("Error creating font\n"));
 
