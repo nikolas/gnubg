@@ -1056,13 +1056,17 @@ board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
 static void
 board_end_drag(GtkWidget * UNUSED(widget), BoardData * bd)
 {
-
     cairo_t *cr;
     unsigned char *puch;
     int s = bd->rd->nSize;
+    GdkWindow *window = gtk_widget_get_window(bd->drawing_area);
+#if GTK_CHECK_VERSION(3,22,0)
+    cairo_region_t * cairoRegion = cairo_region_create();
+    GdkDrawingContext *context;
+#endif
 
 #if !GTK_CHECK_VERSION(3,22,0)
-    gdk_window_process_updates(gtk_widget_get_window(bd->drawing_area), FALSE);
+    gdk_window_process_updates(window, FALSE);
 #endif
 
     if (s == 0)
@@ -1072,9 +1076,21 @@ board_end_drag(GtkWidget * UNUSED(widget), BoardData * bd)
 
     RenderArea(bd, puch, bd->x_drag - 3 * s, bd->y_drag - 3 * s, 6 * s, 6 * s);
 
-    cr = gdk_cairo_create(gtk_widget_get_window(bd->drawing_area));
+#if GTK_CHECK_VERSION(3,22,0)
+    context = gdk_window_begin_draw_frame(window, cairoRegion);
+    cr = gdk_drawing_context_get_cairo_context(context);
+#else
+    cr = gdk_cairo_create(window);
+#endif
+
     draw_rgb_image(cr, puch, bd->x_drag - 3 * s, bd->y_drag - 3 * s, 6 * s, 6 * s);
+
+#if GTK_CHECK_VERSION(3,22,0)
+    gdk_window_end_draw_frame(window, context);
+    cairo_region_destroy(cairoRegion);
+#else
     cairo_destroy(cr);
+#endif
 }
 
 /* This code is called on a button release event
