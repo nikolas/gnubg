@@ -4772,7 +4772,6 @@ extern void
 InitGTK(int *argc, char ***argv)
 {
     char *sz;
-    GtkIconFactory *picf;
     GdkAtom cb;
 
 #if ! GTK_CHECK_VERSION(3,0,0)
@@ -4802,10 +4801,6 @@ InitGTK(int *argc, char ***argv)
 #if defined(USE_BOARD3D)
     widget3dValid = InitGTK3d(argc, argv);
 #endif
-
-    /*add two xpm based icons */
-    picf = gtk_icon_factory_new();
-    gtk_icon_factory_add_default(picf);
 
     gnubg_set_default_icon();
 
