@@ -69,7 +69,8 @@ ShowMoveFilter(const movefilter * pmf, const int ply)
 {
 
     if (pmf->Accept < 0) {
-        outputf(_("Skip pruning for %d-ply moves.\n"), ply);
+        outputf(_("skip pruning for %d-ply moves"), ply);
+        outputc('\n');
         return;
     }
 

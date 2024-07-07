@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: format.c,v 1.69 2022/01/11 21:48:34 plm Exp $
  */
 
 #include "config.h"
@@ -236,7 +234,7 @@ OutputMoveFilterPly(const char *szIndent, const int nPlies, const movefilter aam
             strcat(sz, szIndent);
 
         if (pmf->Accept < 0) {
-            sprintf(strchr(sz, 0), _("Skip pruning for %d-ply moves."), i);
+            sprintf(strchr(sz, 0), _("skip pruning for %d-ply moves"), i);
             strcat(sz, "\n");
             continue;
         }
