@@ -2132,7 +2132,7 @@ static void
 cmark_game_show(GString * gsz, listOLD * game, int game_number)
 {
     listOLD *pl, *pl_hint = NULL;
-    matchstate ms_local;
+    matchstate ms_local = { .fTurn = INVALID_PLAYER, .fMove = INVALID_PLAYER };
     moverecord *pmr;
     int movenr = 1;
 
@@ -2371,7 +2371,7 @@ cmark_cube_rollout(moverecord * pmr, gboolean destroy)
     float aarStdDev[2][NUM_ROLLOUT_OUTPUTS];
     rolloutstat aarsStatistics[2][2];
     gchar asz[2][FORMATEDMOVESIZE];
-    void *p;
+    void *p = NULL;
     int res;
 
     if (!pmr->CubeDecPtr || pmr->CubeDecPtr->cmark != CMARK_ROLLOUT)

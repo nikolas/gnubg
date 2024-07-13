@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: relational.c,v 1.86 2023/11/20 21:00:06 plm Exp $
  */
 
 #include "config.h"
@@ -537,7 +535,7 @@ CommandRelationalTest(char *UNUSED(sz))
 extern statcontext *
 relational_player_stats_get(const char *player0, const char *player1)
 {
-    int id0 = -1;
+    int id0;
     int id1 = -1;
     DBProvider *pdb = NULL;
     char *query[2];

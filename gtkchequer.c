@@ -47,7 +47,7 @@ MoveListRolloutClicked(GtkWidget * pw, hintdata * phd)
 {
     cubeinfo ci;
     int *ai;
-    void *p;
+    void *p = NULL;
     GList *pl, *plSelList = MoveListGetSelectionList(phd);
     int c;
 

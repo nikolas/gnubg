@@ -2629,7 +2629,7 @@ CommandRollout(char *sz)
     TanBoard anBoard;
     cubeinfo ci;
     char asz[1][FORMATEDMOVESIZE];
-    void *p;
+    void *p = NULL;
 
     if (CountTokens(sz) > 0) {
         outputerrf("%s", _("The rollout command takes no arguments and only rollouts the current position"));

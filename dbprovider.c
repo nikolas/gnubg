@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: dbprovider.c,v 1.63 2023/12/18 21:14:48 plm Exp $
  */
 
 #include "config.h"
@@ -291,7 +289,7 @@ DefaultDBSettings(void)
     providers[i++].database = g_strdup("gnubg");
     /* PostgreSQL */
     providers[i].hostname = g_strdup("localhost:5432");
-    providers[i++].database = g_strdup("gnubg");
+    providers[i].database = g_strdup("gnubg");
 #endif
 #endif
 }

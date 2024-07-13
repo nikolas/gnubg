@@ -15,8 +15,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkcube.c,v 1.107 2023/03/07 22:29:54 plm Exp $
  */
 
 #include "config.h"
@@ -1209,7 +1207,7 @@ CubeAnalysisRollout(GtkWidget * pw, cubehintdata * pchd)
     rolloutstat aarsStatistics[2][2];
     evalsetup *pes;
     char asz[2][FORMATEDMOVESIZE];
-    void *p;
+    void *p = NULL;
 
 #if 0
     if (cdec==NULL) { // Should not happen, but just in case

@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: backgammon.h,v 1.477 2023/09/14 19:36:03 plm Exp $
  */
 
 #ifndef BACKGAMMON_H
@@ -160,6 +158,9 @@ typedef struct {
 typedef struct {
     int fCubeOwner;
 } xmovesetcubepos;
+
+/* may be used to initialize fPlayer, fMove or fTurn */
+#define INVALID_PLAYER 2
 
 typedef struct {
     /*

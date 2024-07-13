@@ -1195,7 +1195,7 @@ PythonMoveTuple2String(PyObject * UNUSED(self), PyObject * args)
 static PyObject *
 PythonCalculateGammonPrice(PyObject * UNUSED(self), PyObject * pyCubeInfo)
 {
-    cubeinfo ci;
+    cubeinfo ci = { 0 };
     PyObject *gvObj = NULL;
 
     if (PyToCubeInfo(pyCubeInfo, &ci) < 0)
