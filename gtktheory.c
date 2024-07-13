@@ -103,6 +103,14 @@ ResetTheory(GtkWidget * UNUSED(pw), theorywidget * ptw)
 
     getCurrentGammonRates(aarRates, arOutput, msBoard(), &ptw->ci, &ec);
 
+    /* set match play/money play radio button */
+
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->apwRadio[ptw->ci.nMatchTo == 0]), TRUE);
+
+    /* crawford before cube */
+
+    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->pwCrawford), ptw->ci.fCrawford);
+
     /* cube */
 
     j = 1;
@@ -119,13 +127,7 @@ ResetTheory(GtkWidget * UNUSED(pw), theorywidget * ptw)
 
     }
 
-    /* set match play/money play radio button */
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->apwRadio[ptw->ci.nMatchTo == 0]), TRUE);
-
-    /* crawford, jacoby, beavers */
-
-    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->pwCrawford), ptw->ci.fCrawford);
+    /* jacoby, beavers */
 
     gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->pwJacoby), ptw->ci.fJacoby);
 
@@ -357,6 +359,12 @@ TheoryUpdated(GtkWidget * UNUSED(pw), theorywidget * ptw)
 
     /* update match play widget */
 
+    if ((ci.anScore[0] != ci.nMatchTo - 1) && (ci.anScore[1] != ci.nMatchTo - 1)) {
+	    /* Crawford impossible score (expect DMP) */
+	    ci.fCrawford = 0;
+	    gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->pwCrawford), FALSE);
+    }
+
     gtk_widget_set_sensitive(ptw->pwCrawford,
                              ((ci.anScore[0] == ci.nMatchTo - 1) ^ (ci.anScore[1] == ci.nMatchTo - 1)));
 
@@ -374,6 +382,12 @@ TheoryUpdated(GtkWidget * UNUSED(pw), theorywidget * ptw)
 
         }
 
+    }
+
+    if (ci.fCrawford) {
+	    ci.nCube = 1;
+            gtk_toggle_button_set_active(GTK_TOGGLE_BUTTON(ptw->apwCube[0]), TRUE);
+	    gtk_widget_set_sensitive(ptw->pwCubeFrame, FALSE);
     }
 
 
