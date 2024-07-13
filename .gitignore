@@ -51,6 +51,7 @@ cglm
 cglm/*
 gnubg
 gnubg-*.tar.gz
+gnubg-*.tar.xz
 gnubg.wd
 install-sh
 .libs
