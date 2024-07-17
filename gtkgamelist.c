@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkgamelist.c,v 1.52 2022/10/02 12:43:20 plm Exp $
  */
 
 #include "config.h"
@@ -170,8 +168,8 @@ GameListSelectRow(GtkTreeView * tree_view, gpointer UNUSED(p))
 extern void
 GL_SetNames(void)
 {
-    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(pwGameList), 1), ap[0].szName);
-    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(pwGameList), 2), ap[1].szName);
+    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(pwGameList), 1), underscore_escape(ap[0].szName));
+    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(pwGameList), 2), underscore_escape(ap[1].szName));
 }
 
 static void

@@ -6998,12 +6998,12 @@ GTKShowScoreSheet(void)
     g_object_unref(store);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(ap[0].szName, renderer, "text", 0, NULL);
+    column = gtk_tree_view_column_new_with_attributes(underscore_escape(ap[0].szName), renderer, "text", 0, NULL);
     gtk_tree_view_column_set_min_width(column, 75);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
     renderer = gtk_cell_renderer_text_new();
-    column = gtk_tree_view_column_new_with_attributes(ap[1].szName, renderer, "text", 1, NULL);
+    column = gtk_tree_view_column_new_with_attributes(underscore_escape(ap[1].szName), renderer, "text", 1, NULL);
     gtk_tree_view_column_set_min_width(column, 75);
     gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
 
@@ -8174,8 +8174,8 @@ CreateList(void)
         gtk_tree_view_column_set_alignment(column, 0.97f);
         gtk_tree_view_append_column(GTK_TREE_VIEW(view), column);
     }
-    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(view), 1), ap[0].szName);
-    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(view), 2), ap[1].szName);
+    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(view), 1), underscore_escape(ap[0].szName));
+    gtk_tree_view_column_set_title(gtk_tree_view_get_column(GTK_TREE_VIEW(view), 2), underscore_escape(ap[1].szName));
     gtk_tree_selection_set_mode(gtk_tree_view_get_selection(GTK_TREE_VIEW(view)), GTK_SELECTION_MULTIPLE);
     /* list view (selections) */
     copyMenu = gtk_menu_new();
@@ -8854,3 +8854,19 @@ display_is_2d(const renderdata* prd)
 	return (fdt == DT_2D ? TRUE : FALSE);
 }
 #endif
+
+extern gchar*
+underscore_escape(const gchar *src)
+{
+    static gchar escaped[MAX_NAME_LEN * 2];
+    gchar *dest;
+
+    dest = escaped;
+    while ((*dest++ = *src++) != '\0') {
+        if (*(src-1) == '_') {
+            *dest++ = '_'; /* replace _ by __ */
+        }
+    }
+
+    return escaped;
+}

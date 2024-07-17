@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkgame.h,v 1.165 2023/11/20 21:00:06 plm Exp $
  */
 
 #ifndef GTKGAME_H
@@ -188,4 +186,5 @@ extern void SetSwitchModeMenuText(void);
 extern void AddText(GtkWidget* pwBox, char* Text);
 extern void drawArrow (cairo_t *cr, double start_x, double start_y, double end_x, double end_y);
 
+extern gchar* underscore_escape(const gchar*);
 #endif
