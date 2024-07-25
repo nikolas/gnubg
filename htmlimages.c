@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: htmlimages.c,v 1.61 2023/07/23 15:43:21 plm Exp $
  */
 
 #include "config.h"
@@ -650,7 +648,7 @@ AllocObjects(void)
     /* Initialise this one else valgrind reports
      * use of uninitialised values in libpng
      */
-    auchBoard = calloc(sizeof(unsigned char), BOARD_WIDTH * s * 3 * BOARD_HEIGHT * s);
+    auchBoard = calloc(BOARD_WIDTH * s * 3 * BOARD_HEIGHT * s, sizeof(unsigned char));
 
     for (i = 0; i < 2; i++)
         auchChequer[i] = malloc((CHEQUER_WIDTH * s * 4 * CHEQUER_HEIGHT * s) * sizeof(unsigned char));
