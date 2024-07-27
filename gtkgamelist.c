@@ -177,7 +177,7 @@ SetColourIfDifferent(GdkColor cOrg[5], GdkColor cNew[5], GdkColor cDefault[5])
 {
     int i;
     for (i = 0; i < 5; i++) {
-        if (memcmp(&cNew[i], &cDefault[i], sizeof(GdkColor)))
+        if (!gdk_color_equal(&cNew[i], &cDefault[i]))
             memcpy(&cOrg[i], &cNew[i], sizeof(GdkColor));
     }
 }
@@ -219,13 +219,13 @@ GetStyleFromRCFile(GtkStyle ** ppStyle, const char *name, GtkStyle * psBase)
     /* Base new style on base style passed in */
     *ppStyle = gtk_style_copy(psBase);
     /* Make changes to fg+bg and copy to selected states */
-    if (memcmp(&psNew->fg[GTK_STATE_ACTIVE], &psDefault->fg[GTK_STATE_ACTIVE], sizeof(GdkColor)))
+    if (!gdk_color_equal(&psNew->fg[GTK_STATE_ACTIVE], &psDefault->fg[GTK_STATE_ACTIVE]))
         memcpy(&(*ppStyle)->fg[GTK_STATE_NORMAL], &psNew->fg[GTK_STATE_ACTIVE], sizeof(GdkColor));
-    if (memcmp(&psNew->fg[GTK_STATE_NORMAL], &psDefault->fg[GTK_STATE_NORMAL], sizeof(GdkColor)))
+    if (!gdk_color_equal(&psNew->fg[GTK_STATE_NORMAL], &psDefault->fg[GTK_STATE_NORMAL]))
         memcpy(&(*ppStyle)->fg[GTK_STATE_NORMAL], &psNew->fg[GTK_STATE_NORMAL], sizeof(GdkColor));
     memcpy(&(*ppStyle)->fg[GTK_STATE_SELECTED], &(*ppStyle)->fg[GTK_STATE_NORMAL], sizeof(GdkColor));
 
-    if (memcmp(&psNew->base[GTK_STATE_NORMAL], &psDefault->base[GTK_STATE_NORMAL], sizeof(GdkColor)))
+    if (!gdk_color_equal(&psNew->base[GTK_STATE_NORMAL], &psDefault->base[GTK_STATE_NORMAL]))
         memcpy(&(*ppStyle)->base[GTK_STATE_NORMAL], &psNew->base[GTK_STATE_NORMAL], sizeof(GdkColor));
     memcpy(&(*ppStyle)->bg[GTK_STATE_SELECTED], &(*ppStyle)->base[GTK_STATE_NORMAL], sizeof(GdkColor));
     /* Update the font if different */

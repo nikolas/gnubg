@@ -14,8 +14,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: gtkmovefilter.c,v 1.36 2021/06/20 18:02:23 plm Exp $
  */
 
 #include "config.h"
@@ -515,7 +513,7 @@ SetMovefilterCommands(const char *sz,
 
     for (i = 0; i < MAX_FILTER_PLIES; ++i)
         for (j = 0; j <= i; ++j) {
-            if (memcmp(&aamfNew[i][j], &aamfOld[i][j], sizeof(movefilter)) != 0) {
+            if (!equal_movefilter(j, aamfNew[i], aamfOld[i])) {
                 szCmd = g_strdup_printf("%s %d %d %d %d %s",
                                         sz, i + 1, j,
                                         aamfNew[i][j].Accept,

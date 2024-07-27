@@ -13,8 +13,6 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
- *
- * $Id: model.c,v 1.31 2021/10/30 13:53:31 plm Exp $
  */
 
 #include "config.h"
@@ -36,6 +34,18 @@ typedef struct {
     unsigned int e[2];          /* vertex index */
     int w[2];                   /* plane index */
 } winged_edge;
+
+static int
+position_equal(const position *position1, const position *position2)
+{
+    return (position1->x == position2->x) && (position1->y == position2->y) && (position1->z == position2->z);
+}
+
+static int
+plane_equal(const plane *plane1, const plane *plane2)
+{
+    return (plane1->a == plane2->a) && (plane1->b == plane2->b) && (plane1->c == plane2->c) && (plane1->d == plane2->d);
+}
 
 void
 initOccluder(Occluder * pOcc)
@@ -106,7 +116,7 @@ AddPos(GArray * points, float a, float b, float c)
     pos.z = c;
 
     for (index = 0; index < points->len; index++) {
-        if (!memcmp(&pos, &g_array_index(points, position, index), sizeof(position)))
+        if (position_equal(&pos, &g_array_index(points, position, index)))
             return index;
     }
 
@@ -155,7 +165,7 @@ AddPlane(GArray * planes, const position * a, const position * b, const position
     CreatePlane(&p, a, b, c);
 
     for (index = 0; index < planes->len; index++) {
-        if (!memcmp(&p, &g_array_index(planes, plane, index), sizeof(plane)))
+        if (plane_equal(&p, &g_array_index(planes, plane, index)))
             return index;
     }
 
