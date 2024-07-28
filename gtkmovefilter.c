@@ -420,7 +420,7 @@ static void
 ModifyClickButton(GtkWidget * pw, movefilterwidget * pmfw)
 {
 
-    int fOK;
+    int fOK = FALSE;
     GtkWidget *pwDialog;
     GtkWidget *pwMoveFilterSetup;
     movefilter aamf[MAX_FILTER_PLIES][MAX_FILTER_PLIES];
