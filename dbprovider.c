@@ -751,7 +751,7 @@ SQLiteSelect(const char *str)
             ret = SQLITE_OK;
     }
     if (ret != SQLITE_OK)
-        outputerrf("SQL error: %s\nfrom '%s'", sqlite3_errmsg(connection), str);
+        outputerrf("SQL error: %s in sqlite3_column_text()\nfrom '%s'", sqlite3_errmsg(connection), str);
 
     if (sqlite3_finalize(pStmt) != SQLITE_OK)
         outputerrf("SQL error: %s in sqlite3_finalize()", sqlite3_errmsg(connection));
@@ -764,7 +764,7 @@ SQLiteUpdateCommand(const char *str)
     char *zErrMsg;
     int ret = sqlite3_exec(connection, str, NULL, NULL, &zErrMsg);
     if (ret != SQLITE_OK) {
-        outputerrf("SQL error: %s\nfrom '%s'", zErrMsg, str);
+        outputerrf("SQL error: %s in sqlite3_exec()\nfrom '%s'", zErrMsg, str);
         sqlite3_free(zErrMsg);
     }
     return (ret == SQLITE_OK);
