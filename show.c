@@ -422,20 +422,22 @@ CommandShowAnalysis(char *UNUSED(sz))
 extern void
 CommandShowAutomatic(char *UNUSED(sz))
 {
-
     static const char *szOn = N_("On"), *szOff = N_("Off");
 
     outputf(_("bearoff \t(Play certain non-contact bearoff moves):      \t%s\n"
               "crawford\t(Enable the Crawford rule as appropriate):     \t%s\n"
+              "db      \t(Add analysis to database):                    \t%s\n"
               "doubles \t(Turn the cube when opening roll is a double): \t%u\n"
               "game    \t(Start a new game after each one is completed):\t%s\n"
               "move    \t(Play the forced move when there is no choice):\t%s\n"
               "roll    \t(Roll the dice if no double is possible):      \t%s\n"),
             fAutoBearoff ? gettext(szOn) : gettext(szOff),
             fAutoCrawford ? gettext(szOn) : gettext(szOff),
+            fAutoDB ? gettext(szOn) : gettext(szOff),
             cAutoDoubles,
             fAutoGame ? gettext(szOn) : gettext(szOff),
-            fAutoMove ? gettext(szOn) : gettext(szOff), fAutoRoll ? gettext(szOn) : gettext(szOff));
+            fAutoMove ? gettext(szOn) : gettext(szOff),
+            fAutoRoll ? gettext(szOn) : gettext(szOff));
 }
 
 extern void
