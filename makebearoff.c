@@ -660,7 +660,12 @@ generate_os(const int nOS, const int fHeader,
         size_t u;
         /* write contents of pfTmp to output */
 
+        errno = 0;
         rewind(pfTmp);
+        if (errno != 0) {
+            g_printerr(_("Error rewinding '%s'\n"), tmpfile);
+            exit(3);
+        }
 
         while (!feof(pfTmp) && (u = fread(ac, 1, sizeof(ac), pfTmp))) {
             if (fwrite(ac, 1, u, output) != u) {
