@@ -3385,10 +3385,13 @@ CommandImportJF(char *sz)
 
     if ((pf = g_fopen(sz, "rb"))) {
         int rc = ImportJF(pf, sz);
+
+        fclose(pf);
+
         if (rc)
             /* no file imported */
             return;
-        fclose(pf);
+
         setDefaultFileName(sz);
         if (fUseKeyNames)
             SmartSit();
