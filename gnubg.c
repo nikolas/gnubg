@@ -3437,7 +3437,8 @@ CommandSaveSettings(char *szParam)
     SaveMiscSettings(pf);
     SaveAutoSaveSettings(pf);
     if (pf != stdout)
-        fclose(pf);
+        if (fclose(pf) == 0)
+            errno = 0;
 
     if (errno)
         outputerr(szFile);

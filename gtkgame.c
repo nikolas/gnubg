@@ -6123,7 +6123,8 @@ gtk_save_rollout_settings(void)
         return;
     }
     SaveRolloutSettings(pf, "set rollout", &rcRollout);
-    fclose(pf);
+    if (fclose(pf) == 0)
+        errno = 0;
     if (errno)
         outputerr(filename);
     g_free(filename);
