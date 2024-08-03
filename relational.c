@@ -36,6 +36,22 @@
 #include <glib/gstdio.h>
 #include <glib.h>
 
+extern char*
+quote_escape(const char *src)
+{
+    static char escaped[MAX_NAME_LEN * 2];
+    char *dest;
+
+    dest = escaped;
+    while ((*dest++ = *src++) != '\0') {
+        if (*(src-1) == '\'') {
+            *dest++ = '\''; /* replace ' by '' */
+        }
+    }
+
+    return escaped;
+}
+
 static int
 RelationalMatchExists(DBProvider * pdb)
 {
@@ -98,7 +114,7 @@ GetNextId(DBProvider * pdb, const char *table)
 static int
 GetPlayerId(DBProvider * pdb, const char *player_name)
 {
-    char *buf = g_strdup_printf("player_id from player where name = '%s'", player_name);
+    char *buf = g_strdup_printf("player_id from player where name = '%s'", quote_escape(player_name));
     int id = RunQueryValue(pdb, buf);
     g_free(buf);
     return id;
@@ -111,7 +127,7 @@ AddPlayer(DBProvider * pdb, const char *name)
     if (id == -1) {             /* Add new player to database */
         id = GetNextId(pdb, "player");
         if (id != -1) {
-            char *buf = g_strdup_printf("INSERT INTO player(player_id,name,notes) VALUES (%d, '%s', '')", id, name);
+            char *buf = g_strdup_printf("INSERT INTO player(player_id,name,notes) VALUES (%d, '%s', '')", id, quote_escape(name));
             if (!pdb->UpdateCommand(buf))
                 id = -1;
             g_free(buf);
@@ -846,7 +862,7 @@ RelationalUpdatePlayerDetails(const char *oldName, const char *newName, const ch
         outputerrf(_("New player name already exists."));
     } else {
         char *buf = g_strdup_printf("UPDATE player SET name = '%s', notes = '%s' WHERE player_id = %d",
-                                    newName, newNotes, player_id);
+                                    quote_escape(newName), newNotes, player_id);
         if (pdb->UpdateCommand(buf)) {
             ret = 1;
             pdb->Commit();

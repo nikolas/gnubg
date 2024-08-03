@@ -617,7 +617,7 @@ extern void ComputeHistory(int usePlayerName)
     }
 
     /* get the player ID of playername for later*/
-    sprintf(szRequest, "player_id FROM player WHERE name='%s'", playerName);
+    sprintf(szRequest, "player_id FROM player WHERE name = '%s'", quote_escape(playerName));
         // g_message("request1=%s",szRequest);
     rs = RunQuery(szRequest);
     if (!rs || rs->rows < 2){
@@ -628,8 +628,6 @@ extern void ComputeHistory(int usePlayerName)
     // g_message("userID=%d",userID);
     FreeRowset(rs);
 
-    //  player_id, name FROM player WHERE player.player_id =2
-    // char szRequest[600]; 
     sprintf(szRequest, 
                     // "matchstat_id,"
                     "unforced_moves," /*moves[0]*/
@@ -638,33 +636,11 @@ extern void ComputeHistory(int usePlayerName)
                     "chequer_error_total_normalised," /* stats[1]*/
                     "player_id0, player_id1 " 
                     "FROM matchstat NATURAL JOIN player NATURAL JOIN session "
-                    "WHERE name='%s' "
+                    "WHERE name = '%s' "
                     "ORDER BY matchstat_id DESC "
                     "LIMIT %d",
-                    playerName,
+                    quote_escape(playerName),
                     NUM_PLOT);
-    // sprintf(szRequest, 
-    //                 "matchstat_id,"
-    //                 "total_moves,"
-    //                 "unforced_moves," /*moves[1]*/
-    //                 "close_cube_decisions," /*moves[2]*/
-    //                 "snowie_moves,"
-    //                 "error_missed_doubles_below_cp_normalised,"
-    //                 "error_missed_doubles_above_cp_normalised,"
-    //                 "error_wrong_doubles_below_dp_normalised,"
-    //                 "error_wrong_doubles_above_tg_normalised,"
-    //                 "error_wrong_takes_normalised,"
-    //                 "error_wrong_passes_normalised,"
-    //                 "cube_error_total_normalised," /* stats[6]*/
-    //                 "chequer_error_total_normalised," /* stats[7]*/
-    //                 "luck_total_normalised,"
-    //                 "player_id0, player_id1,matchstat_id " 
-    //                 "FROM matchstat NATURAL JOIN player NATURAL JOIN session "
-    //                 "WHERE name='isaac' "
-    //                 "ORDER BY matchstat_id DESC "
-    //                 "LIMIT %d",
-    //                 NUM_PLOT);
-    // g_message("request=%s",szRequest);
     rs2 = RunQuery(szRequest);
 
     if (!rs2){
@@ -957,7 +933,7 @@ ShowRelationalSelect(GtkWidget * UNUSED(pw), int UNUSED(y), int UNUSED(x),
     if (!pName)
         return;
 
-    query = g_strdup_printf("player_id, name, notes FROM player WHERE player.name = '%s'", pName);
+    query = g_strdup_printf("player_id, name, notes FROM player WHERE name = '%s'", quote_escape(pName));
     g_free(pName);
 
     rs = RunQuery(query);

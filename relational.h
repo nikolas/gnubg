@@ -26,6 +26,7 @@
 
 #define DB_VERSION 1
 
+extern char* quote_escape(const char *src);
 extern int RelationalUpdatePlayerDetails(const char *oldName, const char *newName, const char *newNotes);
 extern statcontext *relational_player_stats_get(const char *player0, const char *player1);
 
