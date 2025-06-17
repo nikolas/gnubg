@@ -636,7 +636,8 @@ GenerateImage(renderimages * pri, renderdata * prd,
                   LogCube(nCube) + (doubled != 0),
                   nOrient,
                   anResignPosition, fResign, nResignOrientation,
-                  anArrowPosition, ms.gs != GAME_NONE, fMove == 1, 0, 0, BOARD_WIDTH * nSize, BOARD_HEIGHT * nSize);
+                  anArrowPosition, ms.gs != GAME_NONE, fMove == 1, 0, 0, BOARD_WIDTH * nSize, BOARD_HEIGHT * nSize,
+                  NULL);
 
     /* crop */
 

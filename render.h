@@ -161,7 +161,8 @@ extern void CalculateArea(renderdata * prd, unsigned char *puch, int nStride,
                           int nLogCube, int nCubeOrientation,
                           const int anResignPosition[2],
                           int fResign, int fResignOrientation,
-                          int anArrowPosition[2], int fPlaying, int nPlayer, int x, int y, int cx, int cy);
+                          int anArrowPosition[2], int fPlaying, int nPlayer, int x, int y, int cx, int cy,
+                          void *board_data);
 
 #if defined(USE_BOARD3D)
 extern gboolean widget3dValid;

@@ -291,7 +291,8 @@ RenderArea(BoardData * bd, unsigned char *puch, int x, int y, int
                   anDice, anDicePosition, bd->colour == bd->turn,
                   anCubePosition, LogCube(bd->cube) + (bd->doubled != 0),
                   nOrient, anResignPosition,
-                  abs(bd->resigned), nResignOrientation, anArrowPosition, bd->playing, bd->turn == 1, x, y, cx, cy);
+                  abs(bd->resigned), nResignOrientation, anArrowPosition, bd->playing, bd->turn == 1, x, y, cx, cy,
+                  bd);
 }
 
 static void
@@ -314,6 +315,30 @@ board_draw_area(cairo_t * cr, gint x, gint y, gint cx, gint cy, BoardData * bd)
     RenderArea(bd, puch, x, y, cx, cy);
     draw_rgb_image(cr, puch, x, y, cx, cy);
     free(puch);
+
+#if defined(USE_BOARD3D)
+    if (bd && display_is_2d(bd->rd)) {
+#endif
+        if (bd && bd->DragTargetHelp) {
+            for (int i = 0; i <= 3; ++i) {
+                if (bd->iTargetHelpPoints[i] != -1) {
+                    int ptx, pty, ptcx, ptcy;
+                    point_area(bd, bd->iTargetHelpPoints[i], &ptx, &pty, &ptcx, &ptcy);
+                    cairo_save(cr);
+                    cairo_set_source_rgba(cr, 0, 1, 0, 1.0); // Opaque green
+                    cairo_set_line_width(cr, 2.0);
+                    cairo_rectangle(cr, ptx + 1, pty + 1, ptcx - 2, ptcy - 2);
+                    cairo_stroke(cr);
+                    cairo_restore(cr);
+                }
+            }
+#if !GTK_CHECK_VERSION(3,0,0)
+            gtk_widget_queue_draw(bd->drawing_area);
+#endif
+        }
+#if defined(USE_BOARD3D)
+    }
+#endif
 }
 
 #if GTK_CHECK_VERSION(3,0,0)
@@ -975,13 +1000,8 @@ static void
 board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
 #endif
 {
-    cairo_t *cr;
-    unsigned char *puch, *puchNew, *puchChequer;
-    int s = bd->rd->nSize;
-    GdkWindow *window = gtk_widget_get_window(bd->drawing_area);
-#if GTK_CHECK_VERSION(3,22,0)
-    GdkDrawingContext *context;
-#endif
+    g_assert(bd != NULL);
+    g_assert(bd->drawing_area != NULL);
 
 #if defined(USE_BOARD3D)
     if (display_is_3d(bd->rd)) {
@@ -991,64 +1011,21 @@ board_drag(GtkWidget * UNUSED(widget), BoardData * bd, int x, int y)
     }
 #endif
 
-    // gdk_window_process_updates is deprecated since GTK
-    // 3.22, but necessary on the 2D board for smooth
-    // animation.
-    gdk_window_process_updates(window, FALSE);
+    int chequer_w = CHEQUER_WIDTH * bd->rd->nSize;
+    int chequer_h = CHEQUER_HEIGHT * bd->rd->nSize;
+    int old_x = bd->x_drag;
+    int old_y = bd->y_drag;
 
-    if (s == 0)
-        return;
+    // Invalidate (redraw) the old chequer area if it's valid
+    if (old_x >= 0 && old_y >= 0)
+        gtk_widget_queue_draw_area(bd->drawing_area,
+            old_x - chequer_w/2, old_y - chequer_h/2, chequer_w, chequer_h);
 
-    puch = g_alloca(6 * s * 6 * s * 3);
-    puchNew = g_alloca(6 * s * 6 * s * 3);
-    puchChequer = g_alloca(6 * s * 6 * s * 3);
+    // Invalidate the new chequer area
+    gtk_widget_queue_draw_area(bd->drawing_area,
+        x - chequer_w/2, y - chequer_h/2, chequer_w, chequer_h);
 
-    RenderArea(bd, puch, bd->x_drag - 3 * s, bd->y_drag - 3 * s, 6 * s, 6 * s);
-    RenderArea(bd, puchNew, x - 3 * s, y - 3 * s, 6 * s, 6 * s);
-    RefractBlendClip(puchChequer, 6 * s * 3, 0, 0, 6 * s, 6 * s, puchNew,
-                     6 * s * 3, 0, 0,
-                     bd->ri.achChequer[bd->drag_colour > 0], 6 * s * 4, 0,
-                     0, bd->ri.asRefract[bd->drag_colour > 0], 6 * s, 6 * s, 6 * s);
-
-    {
-        gtk_locdef_region *pr;
-        gtk_locdef_rectangle r;
-
-        r.x = bd->x_drag - 3 * s;
-        r.y = bd->y_drag - 3 * s;
-        r.width = 6 * s;
-        r.height = 6 * s;
-        pr = gtk_locdef_create_rectangle(&r);
-
-        r.x = x - 3 * s;
-        r.y = y - 3 * s;
-        gtk_locdef_union_rectangle(pr, &r);
-
-#if GTK_CHECK_VERSION(3,22,0)
-        context = gdk_window_begin_draw_frame(window, pr);
-#else
-        gdk_window_begin_paint_region(window, pr);
-#endif
-
-        gtk_locdef_region_destroy(pr);
-    }
-
-#if GTK_CHECK_VERSION(3,22,0)
-    cr = gdk_drawing_context_get_cairo_context(context);
-#else
-    cr = gdk_cairo_create(window);
-#endif
-
-    draw_rgb_image(cr, puch, bd->x_drag - 3 * s, bd->y_drag - 3 * s, 6 * s, 6 * s);
-    draw_rgb_image(cr, puchChequer, x - 3 * s, y - 3 * s, 6 * s, 6 * s);
-
-#if GTK_CHECK_VERSION(3,22,0)
-    gdk_window_end_draw_frame(window, context);
-#else
-    cairo_destroy(cr);
-    gdk_window_end_paint(window);
-#endif
-
+    // Update drag position
     bd->x_drag = x;
     bd->y_drag = y;
 }
@@ -1090,6 +1067,11 @@ board_end_drag(GtkWidget * UNUSED(widget), BoardData * bd)
     cairo_region_destroy(cairoRegion);
 #else
     cairo_destroy(cr);
+#endif
+
+#if !GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_queue_draw(bd->drawing_area);
+    gdk_window_process_updates(window, FALSE);
 #endif
 }
 
@@ -2137,6 +2119,10 @@ board_button_release(GtkWidget * board, GdkEventButton * event, BoardData * bd)
     bd->DragTargetHelp = 0;
     bd->drag_point = -1;
 
+#if !GTK_CHECK_VERSION(3,0,0)
+    gtk_widget_queue_draw(bd->drawing_area);
+#endif
+
     return TRUE;
 }
 
@@ -2171,72 +2157,6 @@ board_motion_notify(GtkWidget * board, GdkEventMotion * event, BoardData * bd)
         if ((ap[bd->drag_colour == -1 ? 0 : 1].pt == PLAYER_HUMAN)      /* not for computer turn */
             &&gdk_event_get_time((GdkEvent *) event) - bd->click_time > HINT_TIME) {
             bd->DragTargetHelp = legal_dest_points(bd, bd->iTargetHelpPoints);
-        }
-    }
-#if defined(USE_BOARD3D)
-    if (display_is_2d(bd->rd))
-#endif
-    {
-        if (bd->DragTargetHelp) {       /* Display 2d drag target help */
-            gint i, ptx, pty, ptcx, ptcy;
-            cairo_t *cr;
-            GdkWindow *window = gtk_widget_get_window(board);
-#if GTK_CHECK_VERSION(3,22,0)
-            cairo_region_t * cairoRegion = cairo_region_create();
-            GdkDrawingContext *context;
-#endif
-
-#if GTK_CHECK_VERSION(3,0,0)
-            GdkRGBA TargetHelpRGBA;
-
-            TargetHelpRGBA.red = 0.0;
-            TargetHelpRGBA.green = 1.0;
-            TargetHelpRGBA.blue = 0.0;
-            TargetHelpRGBA.alpha = 1.0;
-#else
-            GdkColor TargetHelpColor;
-
-            /* values of RGB components within GdkColor are
-             * taken from 0 to 65535, not 0 to 255. */
-            TargetHelpColor.red = 0 * (65535 / 255);
-            TargetHelpColor.green = 255 * (65535 / 255);
-            TargetHelpColor.blue = 0 * (65535 / 255);
-            TargetHelpColor.pixel = (guint32) (TargetHelpColor.red * 65536 +
-                                                TargetHelpColor.green * 256 + TargetHelpColor.blue);
-            /* get the closest color available in the colormap if no 24-bit */
-            gdk_colormap_alloc_color(gtk_widget_get_colormap(board), &TargetHelpColor, TRUE, TRUE);
-#endif
-
-#if GTK_CHECK_VERSION(3,22,0)
-            context = gdk_window_begin_draw_frame(window, cairoRegion);
-            cr = gdk_drawing_context_get_cairo_context(context);
-#else
-            cr = gdk_cairo_create(window);
-#endif
-
-#if GTK_CHECK_VERSION(3,0,0)
-            gdk_cairo_set_source_rgba(cr, &TargetHelpRGBA);
-#else
-            gdk_cairo_set_source_color(cr, &TargetHelpColor);
-#endif
-
-            /* draw help rectangles around target points */
-            for (i = 0; i <= 3; ++i) {
-                if (bd->iTargetHelpPoints[i] != -1) {
-                    /* calculate region coordinates for point */
-                    point_area(bd, bd->iTargetHelpPoints[i], &ptx, &pty, &ptcx, &ptcy);
-                    cairo_rectangle(cr, ptx + 1, pty + 1, ptcx - 2, ptcy - 2);
-                    cairo_set_line_width(cr, 1);
-                    cairo_stroke(cr);
-                }
-            }
-
-#if GTK_CHECK_VERSION(3,22,0)
-            gdk_window_end_draw_frame(window, context);
-            cairo_region_destroy(cairoRegion);
-#else
-            cairo_destroy(cr);
-#endif
         }
     }
 
