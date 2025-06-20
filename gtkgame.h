@@ -165,7 +165,13 @@ extern void DoHideAllPanels(int updateEvents);
 #if defined(USE_GTKITEMFACTORY)
 extern void ToggleDockPanels(gpointer p, guint n, GtkWidget * pw);
 #else
+
+#if GTK_CHECK_VERSION(3,0,0)
+extern void ToggleEdit(GtkToggleButton *widget, gpointer user_data);
+#else
 extern void ToggleEdit(GtkToggleAction * action, gpointer user_data);
+#endif
+
 extern void ToggleClockwise(GtkToggleAction * action, gpointer user_data);
 extern void ToggleDockPanels(GtkToggleAction * action, gpointer user_data);
 #endif
